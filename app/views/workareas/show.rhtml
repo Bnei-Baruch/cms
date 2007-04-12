@@ -1,0 +1,8 @@
+<% for column in Workarea.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @workarea.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @workarea %> |
+<%= link_to 'Back', :action => 'list' %>

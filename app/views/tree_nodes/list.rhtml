@@ -1,0 +1,27 @@
+<h1>Listing tree_nodes</h1>
+
+<table>
+  <tr>
+  <% for column in TreeNode.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for tree_node in @tree_nodes %>
+  <tr>
+  <% for column in TreeNode.content_columns %>
+    <td><%=h tree_node.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => tree_node %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => tree_node %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => tree_node }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @tree_node_pages.current.previous } if @tree_node_pages.current.previous %>
+<%= link_to 'Next page', { :page => @tree_node_pages.current.next } if @tree_node_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New tree_node', :action => 'new' %>

@@ -1,0 +1,8 @@
+<% for column in LabelTypeDesc.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @label_type_desc.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @label_type_desc %> |
+<%= link_to 'Back', :action => 'list' %>

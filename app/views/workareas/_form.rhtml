@@ -1,0 +1,16 @@
+<%= error_messages_for 'workarea' %>
+
+<!--[form:workarea]-->
+<p><label for="workarea_hrid">Hrid</label><br/>
+<%= text_field 'workarea', 'hrid'  %></p>
+
+<p><label for="workarea_title">Title</label><br/>
+<%= text_field 'workarea', 'title'  %></p>
+
+<p><label for="workarea_mask">Mask</label><br/>
+<select id="workarea_mask" name="workarea[mask]"><option value="false">False</option><option value="true" selected>True</option></select></p>
+
+<p><label for="workarea_descr">Descr</label><br/>
+<%= text_field 'workarea', 'descr'  %></p>
+<!--[eoform:workarea]-->
+

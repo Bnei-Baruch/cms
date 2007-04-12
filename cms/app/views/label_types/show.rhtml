@@ -1,8 +1,0 @@
-<% for column in LabelType.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @label_type.send(column.name) %>
-</p>
-<% end %>
-
-<%= link_to 'Edit', :action => 'edit', :id => @label_type %> |
-<%= link_to 'Back', :action => 'list' %>

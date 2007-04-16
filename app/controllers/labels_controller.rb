@@ -18,10 +18,14 @@ class LabelsController < ApplicationController
 
   def new
     @label = Label.new
+   	@label_types = [["Select Label Type", "0"]] + LabelType.select_all_types
   end
 
   def create
-    @label = Label.new(params[:label])
+    label = params[:label]
+    lt_id = label[:label_type]
+    lt = LabelType.find(lt_id)
+    @label = Label.new(:hrid => label[:hrid], :label_type => lt, :user => getSessionUser)
     if @label.save
       flash[:notice] = 'Label was successfully created.'
       redirect_to :action => 'list'
@@ -32,6 +36,8 @@ class LabelsController < ApplicationController
 
   def edit
     @label = Label.find(params[:id])
+   	@label_types = [["Select Label Type", "0"]] + LabelType.select_all_types
+   	@label_descr = @label.label_descs
   end
 
   def update

@@ -1,0 +1,2 @@
+class TextLabelType < LabelType
+end

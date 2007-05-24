@@ -1,0 +1,2 @@
+class DateLabelType < LabelType
+end

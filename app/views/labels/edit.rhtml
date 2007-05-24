@@ -1,0 +1,12 @@
+<h1>Editing label</h1>
+
+<%= error_messages_for :label %>
+
+<% form_for(:label, :url => label_path(@label), :html => { :method => :put }) do |f| %>
+  <p>
+    <%= submit_tag "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', label_path(@label) %> |
+<%= link_to 'Back', labels_path %>

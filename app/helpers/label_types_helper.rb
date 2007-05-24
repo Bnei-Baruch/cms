@@ -1,0 +1,2 @@
+module LabelTypesHelper
+end

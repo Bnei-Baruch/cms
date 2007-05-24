@@ -1,0 +1,27 @@
+<h1>Listing label_types</h1>
+
+<p>
+<%= link_to 'New label_type', new_label_type_path %>
+</p>
+<table border="1">
+  <thead>
+    <th>ID</th>
+    <th>Type</th>
+    <th>HRID</th>
+    <th colspan="3">Actions</th>
+  </thead>
+
+<% for label_type in @label_types %>
+  <tr>
+  <td><%= label_type.id%></td>
+  <td><%= label_type[:type]%></td>
+  <td><%= label_type.hrid%></td>
+    <td><%= link_to 'Show', label_type_path(label_type) %></td>
+    <td><%= link_to 'Edit', edit_label_type_path(label_type) %></td>
+    <td><%= link_to 'Destroy', label_type_path(label_type), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+<%= link_to 'New label_type', new_label_type_path %>
+</p>

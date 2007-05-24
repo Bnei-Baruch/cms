@@ -19,6 +19,7 @@ class LabelsController < ApplicationController
   def new
     @label = Label.new
    	@label_types = [["Select Label Type", "0"]] + LabelType.select_all_types
+   	@label_descr = @label.label_descs
   end
 
   def create

@@ -4,11 +4,11 @@ class LabelType < ActiveRecord::Base
   has_many :labels
 
   def LabelType.select_all_types
-    find(:all).map { |lt| [lt.hrid, lt.id] }.sort
+    find_all().map { |lt| [lt.hrid, lt.id] }.sort
   end
 
   # Find labelType by ID (string)
   def LabelType.getById(id)
-    find(:first, :conditions => "id = " + id)
+    find_by_id(id)
   end
 end

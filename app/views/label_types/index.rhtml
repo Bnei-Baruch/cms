@@ -1,8 +1,9 @@
 <h1>Listing label_types</h1>
 
 <p>
-<%= link_to 'New label_type', new_label_type_path %>
+  <%= render :partial => 'new_label_type_form' %>
 </p>
+<br />
 <table border="1">
   <thead>
     <th>ID</th>
@@ -23,5 +24,5 @@
 <% end %>
 </table>
 <p>
-<%= link_to 'New label_type', new_label_type_path %>
+  <%= render :partial => 'new_label_type_form' %>
 </p>

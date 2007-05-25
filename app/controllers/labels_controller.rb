@@ -2,7 +2,8 @@ class LabelsController < ApplicationController
   # GET /labels
   # GET /labels.xml
   def index
-    @labels = Label.find(:all)
+    label_type = LabelType.find(params[:label_type_id])
+    @labels = label_type.labels.find(:all)
 
     respond_to do |format|
       format.html # index.rhtml

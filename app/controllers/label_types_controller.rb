@@ -23,7 +23,7 @@ class LabelTypesController < ApplicationController
 
   # GET /label_types/new
   def new
-    @label_type = LabelType.new
+    @label_type = LabelType.create(params[:label_type])
   end
 
   # GET /label_types/1;edit
@@ -42,7 +42,7 @@ class LabelTypesController < ApplicationController
     respond_to do |format|
       if @label_type.save
         flash[:notice] = 'LabelType was successfully created.'
-        format.html { redirect_to label_type_url(@label_type) }
+        format.html { redirect_to label_types_url }
         format.xml  { head :created, :location => label_type_url(@label_type) }
       else
         format.html { render :action => "new" }

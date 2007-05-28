@@ -1,11 +1,10 @@
 <h1>New <%= @label_type.class%></h1>
-<%= error_messages_for :label_type %>
-<% form_for(:label_type, :url => label_types_path) do |f| %>
-  <p>
-<%= f.hidden_field(:type_virtual) %>
-HRID: <%= f.text_field :hrid %><br />
-<%= submit_tag "Create" %>
-  </p>
-<% end %>
+
+<%= render :partial => 'form',
+  :locals => {
+    :path => label_types_path,
+    :method => :post,
+    :button_text => 'Create'
+  } %>
 
 <%= link_to 'Cancel', label_types_path %>

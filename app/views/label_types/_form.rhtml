@@ -1,3 +1,9 @@
-ID: <%= @label_type.id%><br />
-Type: <%= f.select(:type, %w{ TextLabelType NumberLabelType DateLabelType }) %>
-<%= error_messages_for 'label_type' %>
+<%= error_messages_for :label_type %>
+
+<% form_for(:label_type, :url => path, :html => {:method => method}) do |f| %>
+  <p>
+	<%= f.hidden_field(:type_virtual) %>
+	HRID: <%= f.text_field :hrid %><br />
+	<%= submit_tag button_text %>
+  </p>
+<% end %>

@@ -1,18 +1,24 @@
-<h1>Listing labels</h1>
+<h1>Listing labels of type - <%= @label_type.hrid %> [<%= @label_type.class%>]</h1>
+<table border="1">
+  <thead>
+    <th>ID</th>
+    <th>Type</th>
+    <th>HRID</th>
+    <th colspan="3">Actions</th>
+  </thead>
 
-<table>
-  <tr>
-  </tr>
-  
 <% for label in @labels %>
   <tr>
-    <td><%= link_to 'Show', label_path(label) %></td>
-    <td><%= link_to 'Edit', edit_label_path(label) %></td>
-    <td><%= link_to 'Destroy', label_path(label), :confirm => 'Are you sure?', :method => :delete %></td>
+	  <td><%= label.id%></td>
+	  <td><%= label[:type]%></td>
+	  <td><%= label.hrid%></td>
+    <td><%= link_to 'Show', label_path(label.label_type,label) %></td>
+    <td><%= link_to 'Edit', edit_label_path(label.label_type,label) %></td>
+    <td><%= link_to 'Destroy', label_path(label.label_type,label), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New label', new_label_path %>
+<%= link_to 'New label', new_label_path(@label_type) %>

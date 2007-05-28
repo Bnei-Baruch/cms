@@ -1,9 +1,9 @@
 class LabelsController < ApplicationController
-  # GET /labels
-  # GET /labels.xml
+  # GET label_types/1/labels
+  # GET label_types/1/labels.xml
   def index
-    label_type = LabelType.find(params[:label_type_id])
-    @labels = label_type.labels.find(:all)
+    @label_type = LabelType.find(params[:label_type_id])
+    @labels = @label_type.labels.find(:all)
 
     respond_to do |format|
       format.html # index.rhtml
@@ -11,8 +11,8 @@ class LabelsController < ApplicationController
     end
   end
 
-  # GET /labels/1
-  # GET /labels/1.xml
+  # GET label_types/1/labels/1
+  # GET label_types/1/labels/1.xml
   def show
     @label = Label.find(params[:id])
 
@@ -22,25 +22,28 @@ class LabelsController < ApplicationController
     end
   end
 
-  # GET /labels/new
+  # GET label_types/1/labels/new
   def new
-    @label = Label.new
+    @label_type = LabelType.find(params[:label_type_id])
+    @label = @label_type.labels.new
   end
 
-  # GET /labels/1;edit
+  # GET label_types/1/labels/1;edit
   def edit
     @label = Label.find(params[:id])
   end
 
-  # POST /labels
-  # POST /labels.xml
+  # POST label_types/1/labels
+  # POST label_types/1/labels.xml
   def create
-    @label = Label.new(params[:label])
+    @label_type = LabelType.find(params[:label_type_id])
+    @label = @label_type.labels.new(params[:label])
+    @label.label_type = @label_type
 
     respond_to do |format|
       if @label.save
         flash[:notice] = 'Label was successfully created.'
-        format.html { redirect_to label_url(@label) }
+        format.html { redirect_to labels_url(@label_type) }
         format.xml  { head :created, :location => label_url(@label) }
       else
         format.html { render :action => "new" }
@@ -49,8 +52,8 @@ class LabelsController < ApplicationController
     end
   end
 
-  # PUT /labels/1
-  # PUT /labels/1.xml
+  # PUT label_types/1/labels/1
+  # PUT label_types/1/labels/1.xml
   def update
     @label = Label.find(params[:id])
 
@@ -66,8 +69,8 @@ class LabelsController < ApplicationController
     end
   end
 
-  # DELETE /labels/1
-  # DELETE /labels/1.xml
+  # DELETE label_types/1/labels/1
+  # DELETE label_types/1/labels/1.xml
   def destroy
     @label = Label.find(params[:id])
     @label.destroy

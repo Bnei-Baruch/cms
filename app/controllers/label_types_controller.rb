@@ -59,7 +59,7 @@ class LabelTypesController < ApplicationController
     respond_to do |format|
       if @label_type.update_attributes(params[:label_type])
         flash[:notice] = 'LabelType was successfully updated.'
-        format.html { redirect_to label_type_url(@label_type) }
+        format.html { redirect_to label_types_url }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,7 +73,7 @@ class LabelTypesController < ApplicationController
   def destroy
     @label_type = LabelType.find(params[:id])
     @label_type.destroy
-
+    flash[:notice] = 'LabelType was successfully deleted.'
     respond_to do |format|
       format.html { redirect_to label_types_url }
       format.xml  { head :ok }

@@ -9,7 +9,7 @@
     <th>ID</th>
     <th>Type</th>
     <th>HRID</th>
-    <th colspan="3">Actions</th>
+    <th colspan="4">Actions</th>
   </thead>
 
 <% for label_type in @label_types %>
@@ -17,6 +17,7 @@
   <td><%= label_type.id%></td>
   <td><%= label_type[:type]%></td>
   <td><%= label_type.hrid%></td>
+    <td><%= link_to 'Show labels', labels_path(label_type) %></td>
     <td><%= link_to 'Show', label_type_path(label_type) %></td>
     <td><%= link_to 'Edit', edit_label_type_path(label_type) %></td>
     <td><%= link_to 'Destroy', label_type_path(label_type), :confirm => 'Are you sure?', :method => :delete %></td>

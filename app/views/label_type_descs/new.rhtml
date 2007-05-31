@@ -1,0 +1,10 @@
+<h1>New label_type_descs</h1>
+
+<%= render :partial => 'form',
+  :locals => {
+    :path => label_type_descs_path(@label_type),
+    :method => :post,
+    :button_text => 'Create'
+  } %>
+
+<%= link_to 'Cancel', label_type_descs_path(@label_type) %>

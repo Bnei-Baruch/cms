@@ -1,0 +1,28 @@
+<h1>Listing Descriptions of Label Type <%= @label_type.hrid %> [<%= @label_type.class%>]</h1>
+
+<%= link_to 'New Description', new_label_type_desc_path(@label_type) %>
+<br />
+<br />
+<table border="1">
+  <thead>
+    <th>ID</th>
+    <th>Value</th>
+    <th>Language</th>
+    <th colspan="3">Actions</th>
+  </thead>
+
+<% for label_type_desc in @label_type_descs %>
+  <tr>
+    <td><%= label_type_desc.id%></td>
+    <td><%= label_type_desc.value%></td>
+    <td><%= label_type_desc.language.label.hrid%></td>
+    <td><%= link_to 'Show', label_type_desc_path(label_type_desc.label_type, label_type_desc) %></td>
+    <td><%= link_to 'Edit', edit_label_type_desc_path(label_type_desc.label_type, label_type_desc) %></td>
+    <td><%= link_to 'Destroy', label_type_desc_path(label_type_desc.label_type, label_type_desc), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Description', new_label_type_desc_path(@label_type) %>

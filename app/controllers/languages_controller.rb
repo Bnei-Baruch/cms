@@ -2,7 +2,7 @@ class LanguagesController < ApplicationController
   # GET /languages
   # GET /languages.xml
   def index
-    @languages = Language.find(:all)
+    @languages = Language.find(:all, :order => "id ASC")
 
     respond_to do |format|
       format.html # index.rhtml
@@ -24,25 +24,34 @@ class LanguagesController < ApplicationController
   # GET /languages/new
   def new
     @language = Language.new
-    @label = @language.text_label.new
+    @label = TextLabel.new(:label_type_id => 33)
   end
 
   # GET /languages/1;edit
   def edit
     @language = Language.find(params[:id])
+    @label = @language.label
   end
 
   # POST /languages
   # POST /languages.xml
   def create
     @language = Language.new(params[:language])
-
     respond_to do |format|
-      if @language.save
+      begin
+	      Language.transaction do
+	        @label = @language.build_label(params[:label])
+	        @label.save!
+	        @language.save!
+	      end
+
         flash[:notice] = 'Language was successfully created.'
-        format.html { redirect_to language_url(@language) }
+        format.html { redirect_to languages_url }
         format.xml  { head :created, :location => language_url(@language) }
-      else
+
+      rescue ActiveRecord::RecordInvalid => e
+        @language.valid?
+        @label.valid? # force checking of errors even if  language failed
         format.html { render :action => "new" }
         format.xml  { render :xml => @language.errors.to_xml }
       end
@@ -53,11 +62,17 @@ class LanguagesController < ApplicationController
   # PUT /languages/1.xml
   def update
     @language = Language.find(params[:id])
+    @label = @language.label
+    @language.attributes = params[:language]
+    @label.attributes = params[:label]
 
     respond_to do |format|
-      if @language.update_attributes(params[:language])
+      if @language.valid? && @label.valid?
+
+        @language.save!
+        @label.save!
         flash[:notice] = 'Language was successfully updated.'
-        format.html { redirect_to language_url(@language) }
+        format.html { redirect_to languages_url }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

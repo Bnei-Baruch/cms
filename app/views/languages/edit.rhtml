@@ -1,12 +1,12 @@
 <h1>Editing language</h1>
 
-<%= error_messages_for :language %>
+<%= render :partial => 'form',
+  :locals => {
+    :path => language_path(@language),
+    :method => :put,
+    :button_text => 'Update'
+  } %>
 
-<% form_for(:language, :url => language_path(@language), :html => { :method => :put }) do |f| %>
-  <p>
-    <%= submit_tag "Update" %>
-  </p>
-<% end %>
 
 <%= link_to 'Show', language_path(@language) %> |
-<%= link_to 'Back', languages_path %>
+<%= link_to 'Cancel', languages_path %>

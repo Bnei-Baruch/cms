@@ -1,0 +1,10 @@
+<h1>Editing label_type_descs</h1>
+
+<%= render :partial => 'form',
+  :locals => {
+    :path => label_type_descs_path(@label_type),
+    :method => :put,
+    :button_text => 'Update'
+  } %>
+
+<%= link_to 'Cancel', label_type_descs_path(@label_type) %>

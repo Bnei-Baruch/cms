@@ -3,7 +3,7 @@
 <% form_for(:label_type_desc, :url => path, :html => {:method => method}) do |f| %>
 
   Value: <%= f.text_field :value %><br />
-  Language: <%= f.select(:language_id, [["Hebrew", "60"], ["Russian", "57"]]) %>
+  Language: <%= f.select(:language_id, @languages) %>
   <p>
     <%= submit_tag button_text %>
   </p>

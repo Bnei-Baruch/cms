@@ -2,7 +2,7 @@
 
 <%= render :partial => 'form',
   :locals => {
-    :path => label_type_descs_path(@label_type),
+    :path => label_type_desc_path(@label_type_desc.label_type,@label_type_desc),
     :method => :put,
     :button_text => 'Update'
   } %>

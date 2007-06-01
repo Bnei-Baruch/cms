@@ -7,7 +7,9 @@ class Label < ActiveRecord::Base
   protected
 
   def validate
-    if Label.find_by_hrid(hrid)
+    l = Label.find_by_hrid(self.hrid)
+    return unless l
+    if !self.id || self.id!=l.id
       errors.add(:hrid, " '#{hrid}' is already being used" )
     end
   end

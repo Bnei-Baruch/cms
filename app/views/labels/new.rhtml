@@ -1,14 +1,11 @@
 <h1>New label</h1>
 <%= error_messages_for :label %>
 
-<% form_for(:label, :url => labels_path(@label_type)) do |f| %>
-		<%= f.hidden_field(:type) %>
-	HRID: <%= f.text_field :hrid %><br />
-	DateValue: <%= f.date_select :datevalue %><br />
-	NumberValue: <%= f.text_field :numbervalue %><br />
-  <p>
-    <%= submit_tag "Create" %>
-  </p>
-<% end %>
+<%= render :partial => "#{@label.class.to_s.underscore}_form",
+  :locals => {
+    :path => labels_path(@label_type),
+    :method => :post,
+    :button_text => 'Create'
+  } %>
 
 <%= link_to 'Cancel', labels_path(@label_type) %>

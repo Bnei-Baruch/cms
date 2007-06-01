@@ -30,7 +30,8 @@ class LabelsController < ApplicationController
 
   # GET label_types/1/labels/1;edit
   def edit
-    @label = Label.find(params[:id])
+    @label_type = LabelType.find(params[:label_type_id])
+    @label = @label_type.labels.find(params[:id])
   end
 
   # POST label_types/1/labels
@@ -55,12 +56,13 @@ class LabelsController < ApplicationController
   # PUT label_types/1/labels/1
   # PUT label_types/1/labels/1.xml
   def update
-    @label = Label.find(params[:id])
+	  @label_type = LabelType.find(params[:label_type_id])
+	  @label = @label_type.labels.find(params[:id])
 
     respond_to do |format|
       if @label.update_attributes(params[:label])
         flash[:notice] = 'Label was successfully updated.'
-        format.html { redirect_to label_url(@label) }
+        format.html { redirect_to labels_url(@label_type) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

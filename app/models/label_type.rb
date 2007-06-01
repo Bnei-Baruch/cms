@@ -1,6 +1,6 @@
 class LabelType < ActiveRecord::Base
   has_many :labels
-  has_many :label_type_descs
+  has_many :label_type_descs, :dependent => :destroy
 
   attr_accessor :type_virtual
 

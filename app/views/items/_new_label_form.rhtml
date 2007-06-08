@@ -1,0 +1,4 @@
+	<% form_for(:item, :url => new_label_item_path(@item), :html => {:method => :get}) do |f| %>
+		Type: <%= f.select(:label_type_id, @label_types) %>
+		<%= submit_tag "Create new Label" %>
+	<% end %>

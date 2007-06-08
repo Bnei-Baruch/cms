@@ -1,0 +1,11 @@
+<% form_for(:label, :url => path, :html => {:method => method}) do |f| %>
+
+    <%= f.hidden_field :label_type_id%>
+		<%= f.hidden_field(:type) %>
+	HRID: <%= f.text_field :hrid %><br />
+
+  <p>
+    <%= submit_tag button_text %>
+  </p>
+
+<% end %>

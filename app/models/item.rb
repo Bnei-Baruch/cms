@@ -2,8 +2,20 @@ class Item < ActiveRecord::Base
 	belongs_to :object_type
 	has_and_belongs_to_many :labels
 
+  attr_accessor :label_type_id
+
+	def attrs
+    labels = self.labels.select {|l| l.label_type_id != 38}
+    labels ? labels : []
+	end
+
+	def name=
+    @name = name_object.hrid
+	end
+
 	def name
-    self.labels.detect {|l| l.label_type_id == 38}.hrid
+    l = name_object
+    l ? l.hrid : "Not valid"
 	end
 
 	def name_object

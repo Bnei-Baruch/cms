@@ -1,0 +1,11 @@
+<h1>New Label</h1>
+<%= error_messages_for :label %>
+
+<%= render :partial => "#{@label.class.to_s.underscore}_form",
+  :locals => {
+    :path => create_label_item_path(@item),
+    :method => :post,
+    :button_text => 'Create'
+  } %>
+
+<%= link_to 'Cancel', labels_item_path() %>

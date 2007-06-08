@@ -1,0 +1,10 @@
+<h1>Editing Object</h1>
+
+<%= render :partial => "form",
+  :locals => {
+    :path => item_path(@item),
+    :method => :put,
+    :button_text => 'Update'
+  } %>
+
+<%= link_to 'Cancel', items_path %>

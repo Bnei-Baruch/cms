@@ -1,0 +1,20 @@
+<%= error_messages_for :item %>
+
+<% form_for(:item, :url => path, :html => {:method => method}) do |f| %>
+
+	<%= f.hidden_field(:object_type_id) %>
+	<%= f.hidden_field(:type) %>
+
+	<% fields_for :label do |label_fields| %>
+
+    <%= label_fields.hidden_field :label_type_id%>
+    <%= label_fields.hidden_field :type%>
+    <label for="abbr_value">Name:</label>
+    <%= label_fields.text_field :hrid %><br />
+
+	<% end %>
+
+  <p>
+    <%= submit_tag button_text %>
+  </p>
+<% end %>

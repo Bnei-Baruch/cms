@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>LabelDescs: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold', 'cms' %>
+</head>
+<body>
+
+<p style="color: green"><%= flash[:notice] %></p>
+<div id="top">&nbsp;</div>
+<div id="menu">
+<%= link_to 'Manage Labels', label_types_path %>
+<%= link_to 'Manage Languages', languages_path %>
+<%= link_to 'Manage Object Types', object_types_path %>
+<%= link_to 'Manage Objects', items_path %>
+</div>
+<div id="content"><%= yield  %></div>
+
+</body>
+</html>

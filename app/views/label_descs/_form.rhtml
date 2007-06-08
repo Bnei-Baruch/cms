@@ -1,0 +1,10 @@
+<%= error_messages_for :label_desc %>
+
+<% form_for(:label_desc, :url => path, :html => {:method => method}) do |f| %>
+
+  Value: <%= f.text_field :value %><br />
+  Language: <%= f.select(:language_id, @languages) %>
+  <p>
+    <%= submit_tag button_text %>
+  </p>
+<% end %>

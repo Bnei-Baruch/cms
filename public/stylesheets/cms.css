@@ -1,0 +1,17 @@
+#top{
+width: 100%;
+height: 60px;
+}
+#menu{
+width: 200px;
+height: 100%;
+float: left;
+}
+#menu a{
+	display: block;
+	margin: 0 0 10px 0;
+}
+#content{
+float:left;
+
+}

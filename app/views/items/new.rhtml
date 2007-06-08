@@ -1,0 +1,9 @@
+<h1>New <%= @item.object_type.label.hrid%> [<%= @item[:type]%>]</h1>
+<%= render :partial => 'form',
+  :locals => {
+    :path => items_path,
+    :method => :post,
+    :button_text => 'Create'
+  } %>
+
+<%= link_to 'Cancel', items_path %>

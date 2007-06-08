@@ -1,5 +1,6 @@
 class Label < ActiveRecord::Base
   belongs_to :label_type
+	has_and_belongs_to_many :items
 
 	validates_presence_of :hrid
   #validates_uniqueness_of :hrid - moved to validate

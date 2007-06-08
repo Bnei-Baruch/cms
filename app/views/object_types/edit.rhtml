@@ -1,0 +1,11 @@
+<h1>Editing object_type</h1>
+
+<%= render :partial => 'form',
+  :locals => {
+    :path => object_type_path(@object_type),
+    :method => :put,
+    :button_text => 'Update'
+  } %>
+
+<%= link_to 'Show', object_type_path(@object_type) %> |
+<%= link_to 'Cancel', object_types_path %>

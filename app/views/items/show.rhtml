@@ -1,0 +1,8 @@
+<h1>Object</h1>
+ID: <%= @item.id%><br/>
+Name: <%= @item.labels[0].hrid%><br/>
+Type: <%= @item.object_type.label.hrid%> [<%= @item[:type]%>]<br/>
+State: <%= @item.state%><br/>
+<br/>
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

@@ -1,0 +1,31 @@
+<h1>Listing label_descs</h1>
+
+<%= link_to 'New label_desc', new_label_desc_path(@label) %>
+<br />
+<%= link_to 'Back to Labels', labels_path(@label.label_type) %>
+<br />
+<br />
+<table border="1">
+  <thead>
+    <th>ID</th>
+    <th>Value</th>
+    <th>Language</th>
+    <th colspan="2">Actions</th>
+  </thead>
+
+<% for label_desc in @label_descs %>
+  <tr>
+    <td><%= label_desc.id %></td>
+    <td><%= label_desc.value %></td>
+    <td><%= label_desc.language.label.hrid%></td>
+    <td><%= link_to 'Edit', edit_label_desc_path(label_desc.label,label_desc) %></td>
+    <td><%= link_to 'Destroy', label_desc_path(label_desc.label,label_desc), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New label_desc', new_label_desc_path(@label) %>
+<br />
+<%= link_to 'Back to Labels', labels_path(@label.label_type) %>

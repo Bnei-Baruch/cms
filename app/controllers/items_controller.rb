@@ -74,47 +74,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  ##########    LABELS     ##################
-
-  # GET /items/1;labels
-  # GET /items/1.xml;labels
-  def labels
-    @item = Item.find(params[:id])
-    @labels = @item.attrs
-    @label_types = LabelType.find(:all).collect{|lt| [lt.hrid, lt.id]}.sort
-  end
-
-  # GET /items/1;new_label
-  def new_label
-    @item = Item.find(params[:id])
-    @label_type = LabelType.find(params[:item][:label_type_id])
-    @label = @label_type.labels.new
-		@label.label_type = @label_type
-  end
-
-  # POST /items/1;create_label
-  # POST /items/1.xml;create_label
-  def create_label
-    @item = Item.find(params[:id])
-    @item.labels << help_update_label(
-                params[:label][:label_type_id],
-                params[:label][:hrid],
-								params[:label]
-								)
-    xml_ok_result = lambda  { head :created, :location => labels_item_url(@item) }
-		save_me('Label was successfully created.', "new_label", xml_ok_result, labels_item_url) { @item.save }
-  end
-
-  # GET /items/1;edit_label
-  def edit_label
-  xxxxxxx
-    @item = Item.find(params[:id])
-    @label_type = LabelType.find(params[:item][:label_type_id])
-    @label = @label_type.labels.new
-		@label.label_type = @label_type
- 
-  end
-
 ##########    private     ##################
 
 private

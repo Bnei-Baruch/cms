@@ -1,12 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :object_types, :languages
-  map.resources :items, :member => {
-      :labels => :get,
-			:new_label => :get,
-			:create_label => :post,
-			:edit_label => :get,
-			:update_label => :put,
-			:destroy_label => :delete}
+
+  map.resources :items do |label|
+		label.resources :item_labels
+  end
+
+
+#  map.resources :item_labels, :controller => "item_labels",
+#                         :path_prefix => "items/:item_id",
+#                         :name_prefix => "item_"
 
   #This route should be before the labels nested resource route
   #becouse all generated combinations for labels

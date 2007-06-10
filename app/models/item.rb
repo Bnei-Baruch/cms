@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
 	belongs_to :object_type
-	has_and_belongs_to_many :labels
+	has_and_belongs_to_many :labels, :before_add => :check_uniq_item_labels
 
   attr_accessor :label_type_id
 
@@ -29,6 +29,12 @@ protected
     class_name.constantize.new(params)
   end
 
+  def check_uniq_item_labels(label)
+      if self.labels.detect {|l| l.id == label.id}
+      	      errors.add_to_base("Label with this HRID (ID:#{label.id}) is already exist in this object")
+	      raise ActiveRecord::RecordInvalid, self
+	    end
+  end
 
   def validate
 	  if self.name == ""

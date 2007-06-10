@@ -19,7 +19,7 @@
     <td><%= object.object_type.label.hrid%> [<%= object[:type]%>]</td>
     <td><%= object.state%></td>
 
-    <td><%= link_to 'Show Labels', labels_item_path(object) %></td>
+    <td><%= link_to 'Show Labels', item_labels_path(object) %></td>
     <td><%= link_to 'Show', item_path(object) %></td>
     <td><%= link_to 'Edit', edit_item_path(object) %></td>
     <td><%= link_to 'Destroy', item_path(object), :confirm => 'Are you sure?', :method => :delete %></td>

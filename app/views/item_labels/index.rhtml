@@ -16,8 +16,8 @@
     <td><%= label.id%></td>
     <td><%= label.hrid %></td>
 
-    <td><%= link_to 'Edit', edit_label_item_path(@item,label) %></td>
-    <td><%= link_to 'Destroy', destroy_label_item_path(label), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Edit', edit_item_label_path(@item, label) %></td>
+    <td><%= link_to 'Destroy', item_label_path(@item, label), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

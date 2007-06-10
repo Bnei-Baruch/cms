@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
       :labels => :get,
 			:new_label => :get,
 			:create_label => :post,
-			{:edit_label => :get, :path_prefix => "/items/:item_id"},
+			:edit_label => :get,
 			:update_label => :put,
 			:destroy_label => :delete}
 

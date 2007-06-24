@@ -12,6 +12,18 @@ class ObjectType < ActiveRecord::Base
     class_name.constantize.new(params)
   end
 
+  def self.predefined_label_type
+    LabelType.predefined_label_type_id(self.to_s).id
+  end
+
+  def name(lang ="eng")
+    label.value(lang)
+  end
+
+  def type_short
+    type.to_s.sub("ObjectType",'')
+  end
+
   protected
 
   def validate

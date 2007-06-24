@@ -1,6 +1,7 @@
 class LabelTypesController < ApplicationController
   # GET /label_types
   # GET /label_types.xml
+  before_filter :get_language
   def index
     @label_types = LabelType.find(:all, :order => "id ASC")
 
@@ -29,22 +30,29 @@ class LabelTypesController < ApplicationController
   # GET /label_types/1;edit
   def edit
     @label_type = LabelType.find(params[:id])
+	  @label_type_desc = @label_type.label_type_descs.detect {|ltd| ltd.language.eql?@lang_obj}
   end
 
   # POST /label_types
   # POST /label_types.xml
   def create
-#    @label_type = LabelType.new(params[:label_type])
-    @label_type = LabelType.create(params[:label_type])
-#    @label_type[:type] = params[:label_type][:type_virtual]
-#    render :text => @label_type.inspect
-#    return
+	  @label_type = LabelType.create(params[:label_type])
     respond_to do |format|
-      if @label_type.save
+      begin
+        LabelType.transaction do
+          @label_type_desc = @label_type.label_type_descs.build(params[:label_type_desc])
+          @label_type_desc.language = @lang_obj
+          @label_type.save!
+          @label_type_desc.save!
+        end
+
         flash[:notice] = 'LabelType was successfully created.'
         format.html { redirect_to label_types_url }
         format.xml  { head :created, :location => label_type_url(@label_type) }
-      else
+
+      rescue ActiveRecord::RecordInvalid => e
+        @label_type.valid?
+        @label_type_desc.valid?
         format.html { render :action => "new" }
         format.xml  { render :xml => @label_type.errors.to_xml }
       end
@@ -54,18 +62,32 @@ class LabelTypesController < ApplicationController
   # PUT /label_types/1
   # PUT /label_types/1.xml
   def update
-    @label_type = LabelType.find(params[:id])
+	  respond_to do |format|
+	    begin
+		    LabelType.transaction do
+		      @label_type = LabelType.find(params[:id])
+			    @label_type.attributes = params[:label_type]
+		      @label_type_desc = @label_type.label_type_descs.detect {|ltd| ltd.language.eql?@lang_obj}
+		      if @label_type_desc
+		        @label_type_desc.attributes = params[:label_type_desc]
+		      else
+	          @label_type_desc = @label_type.label_type_descs.build(params[:label_type_desc])
+	          @label_type_desc.language = @lang_obj
+		      end
+		      @label_type.save!
+		      @label_type_desc.save!
+	      end
 
-    respond_to do |format|
-      if @label_type.update_attributes(params[:label_type])
-        flash[:notice] = 'LabelType was successfully updated.'
-        format.html { redirect_to label_types_url }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @label_type.errors.to_xml }
-      end
-    end
+	      flash[:notice] = 'LabelType was successfully updated.'
+	      format.html { redirect_to label_types_url }
+	      format.xml  { head :ok }
+	  	rescue ActiveRecord::RecordInvalid => e
+				@label_type.valid?
+				@label_type_desc.valid?
+				format.html { render :action => "edit" }
+				format.xml  { render :xml => @label_type.errors.to_xml }
+	  	end
+  	end
   end
 
   # DELETE /label_types/1
@@ -79,4 +101,12 @@ class LabelTypesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+protected
+
+  def get_language
+    lang = "eng"
+    @lang_obj = Language.find_by_abbr(lang)
+  end
+
 end

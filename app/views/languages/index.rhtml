@@ -4,7 +4,7 @@
   <thead>
     <th>ID</th>
     <th>Abbreviation</th>
-    <th>HRID</th>
+    <th>Name</th>
     <th colspan="3">Actions</th>
   </thead>
 
@@ -12,8 +12,8 @@
   <tr>
     <td><%= language.id %></td>
     <td><%= language.abbr %></td>
-    <td><%= language.label.hrid %></td>
-    <td><%= link_to 'Show', language_path(language) %></td>
+    <td><%= language.name%></td>
+    <td><%= link_to 'Translations', label_descs_path(language.label) %></td>
     <td><%= link_to 'Edit', edit_language_path(language) %></td>
     <td><%= link_to 'Destroy', language_path(language), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

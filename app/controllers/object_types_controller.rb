@@ -24,7 +24,8 @@ class ObjectTypesController < ApplicationController
   # GET /object_types/new
   def new
     @object_type = ObjectType.create(params[:object_type])
-    @label = TextLabel.new(:label_type_id => 37)
+#    @label = TextLabel.new(:label_type_id => LabelType.predefined_label_type_id(ObjectType))
+    @label = TextLabel.new(:label_type_id => ObjectType.predefined_label_type)
   end
 
   # GET /object_types/1;edit

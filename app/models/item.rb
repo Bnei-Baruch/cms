@@ -1,26 +1,27 @@
 class Item < ActiveRecord::Base
 	belongs_to :object_type
 	has_and_belongs_to_many :labels, :before_add => :check_uniq_item_labels
+  belongs_to :label, :foreign_key => :label_id, :class_name => "TextLabel"
+
 
   attr_accessor :label_type_id
 
 	def attrs
-    labels = self.labels.select {|l| l.label_type_id != 38}
+    labels = self.labels.select {|l| l.label_type_id != Item.predefined_label_type.id}
     labels ? labels : []
 	end
 
-	def name=
-    @name = name_object.hrid
-	end
-
 	def name
-    l = name_object
-    l ? l.hrid : "Not valid"
+	  self.label ? self.label.value : ""
 	end
 
-	def name_object
-    self.labels.detect {|l| l.label_type_id == 38}
-	end
+  def self.predefined_label_type
+    LabelType.predefined_label_type_id(self.to_s)
+  end
+
+  def type_short
+    type.to_s.sub("Object",'')
+  end
 
 protected
   def self.create(object_type_id, params = nil)
@@ -46,4 +47,8 @@ protected
 #      errors.add(:language_id, "#{self.language.label.hrid}is already being used")
 #    end
   end
+
+
 end
+
+

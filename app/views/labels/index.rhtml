@@ -21,7 +21,7 @@
 	  <td><%= label.hrid%></td>
 	  <td><%= label.value%></td>
 	  <% if label.class.to_s == "TextLabel" %>
-	    <td><%= link_to 'Show Descriptions', label_descs_path(label) %></td>
+	    <td><%= link_to 'Translations', label_descs_path(label) %></td>
     <% end %>
     <td><%= link_to 'Edit', edit_label_path(label.label_type,label) %></td>
     <td><%= link_to 'Destroy', label_path(label.label_type,label), :confirm => 'Are you sure?', :method => :delete %></td>

@@ -1,7 +1,9 @@
+<%= error_messages_for :label %>
 <% form_for(:label, :url => path, :html => {:method => method}) do |f| %>
 
-		<%= f.hidden_field(:type) %>
+	<%= f.hidden_field(:type) %>
 	HRID: <%= f.text_field :hrid %><br />
+	Value:<%= f.text_field :value %><br />
 
   <p>
     <%= submit_tag button_text %>

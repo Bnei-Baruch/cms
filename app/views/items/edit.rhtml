@@ -1,6 +1,6 @@
 <h1>Editing Object</h1>
 
-<%= render :partial => "form",
+<%= render :partial => "#{@item.class.to_s.underscore}_form",
   :locals => {
     :path => item_path(@item),
     :method => :put,

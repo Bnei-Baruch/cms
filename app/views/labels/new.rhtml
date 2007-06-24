@@ -1,6 +1,4 @@
 <h1>New label</h1>
-<%= error_messages_for :label %>
-
 <%= render :partial => "#{@label.class.to_s.underscore}_form",
   :locals => {
     :path => labels_path(@label_type),

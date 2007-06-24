@@ -5,11 +5,36 @@ class LabelType < ActiveRecord::Base
   attr_accessor :type_virtual
 
   validates_presence_of :hrid
-  #validates_uniqueness_of :hrid - moved to validate
+
+  def self.label_types
+    [["Text", "TextLabelType"], ["Number", "NumberLabelType"], ["Date", "DateLabelType"]]
+  end
 
   def self.create(params = nil)
     class_name = params[:type_virtual] || "TextLabelType"
     class_name.constantize.new(params)
+  end
+  #returns the name for the label type index (doesn't put HRID if name not found)
+  def name_local(lang = "eng")
+    ltd = self.label_type_descs.detect {|ltd| ltd.language.abbr == lang}
+    ltd ? ltd.value : ''
+  end
+
+  def name(lang = "eng")
+    ltd = self.label_type_descs.detect {|ltd| ltd.language.abbr == lang}
+    ltd ? ltd.value : ''
+  end
+
+  def type_short
+    type.to_s.sub("LabelType",'')
+  end
+
+  def self.regular_label_types
+    LabelType.find(:all, :conditions => "is_predefined = 0")
+  end
+
+  def self.predefined_label_type_id(entity)
+    find_by_hrid(entity, :conditions => "is_predefined = 1")
   end
 
   protected
@@ -22,3 +47,5 @@ class LabelType < ActiveRecord::Base
   end
 
 end
+
+

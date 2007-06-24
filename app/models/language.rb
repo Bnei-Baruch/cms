@@ -6,9 +6,19 @@ class Language < ActiveRecord::Base
   validates_uniqueness_of :abbr
   validates_length_of :abbr, :is => 3
 
+  def name(lang = "eng")
+    label.value(lang)
+  end
+
+  def self.predefined_label_type
+    LabelType.predefined_label_type_id(self.to_s).id
+  end
+
   protected
 
   def after_destroy
     self.label.destroy
   end
+
+
 end

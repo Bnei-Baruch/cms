@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    @object_types = ObjectType.find(:all).collect{|ot| [ot.label.hrid, ot.id]}.sort
+    @object_types = ObjectType.find(:all).collect{|ot| [ot.name, ot.id]}.sort
     @items = Item.find(:all)
 
     respond_to do |format|
@@ -25,41 +25,79 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.create(params[:item][:object_type_id], params[:item])
-    @label = TextLabel.new(:label_type_id => 38)
+    @label = TextLabel.new()
   end
 
   # GET /items/1;edit
   def edit
     @item = Item.find(params[:id])
-    @label = @item.name_object
+
+    @label = @item.label ? @item.label : TextLabel.new()
   end
 
   # POST /items
   # POST /items.xml
   def create
-    @item = Item.create(params[:item][:object_type_id], params[:item])
-    @item.labels << help_update_label(
-                params[:label][:label_type_id],
-                params[:label][:hrid],
-								params[:label]
-								)
-    xml_ok_result = lambda  { head :created, :location => item_url(@item) }
-		save_me('Item was successfully created.', "new", xml_ok_result, item_url) { @item.save }
+    respond_to do |format|
+		  begin
+			  Item.transaction do
+
+			    #Create Object
+			    @item = Item.create(params[:item][:object_type_id], params[:item])
+
+          #Object name (predefined label)
+          @label = create_name_label
+			    @item.label = @label
+			    @item.save!
+			  end
+
+      #successful redirects
+      flash[:notice] = 'Item was successfully created.'
+      format.html { redirect_to items_url }
+      format.xml  { head :created, :location => item_url(@item) }
+
+			rescue ActiveRecord::RecordInvalid => e
+			  @item.valid?
+			  @label.valid?
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @item.errors.to_xml }
+		  end
+	  end
   end
 
   # PUT /items/1
   # PUT /items/1.xml
   def update
-    @item = Item.find(params[:id])
-    @item.labels.delete(@item.name_object)
-    @item.labels << help_update_label(
-                params[:label][:label_type_id],
-                params[:label][:hrid],
-								params[:label]
-								)
-    xml_ok_result = lambda  { head :ok }
-		save_me('Item was successfully updated.', "edit", xml_ok_result, item_url) {
-																				@item.update_attributes(params[:item]) }
+    respond_to do |format|
+	    begin
+		    Item.transaction do
+		      #update Object
+			    @item = Item.find(params[:id])
+			    @item.update_attributes(params[:item])
+
+          #update Object name (predefined label)
+          if @item.label
+    		    @item.label.update_attributes(params[:label])
+    		  else
+    		    @label = create_name_label
+    		    @item.label = @label
+    		    @item.save!
+    		  end
+				end
+
+        #successful redirects
+        flash[:notice] = 'Item was successfully updated.'
+        format.html { redirect_to items_url }
+        format.xml  { head :ok }
+
+			rescue ActiveRecord::RecordInvalid => e
+			  @item.valid?
+			  @label.valid?
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @item.errors.to_xml }
+			end
+
+		end
   end
 
   # DELETE /items/1
@@ -74,30 +112,12 @@ class ItemsController < ApplicationController
     end
   end
 
-##########    private     ##################
+  private
 
-private
-
-	def help_update_label(label_type_id, hrid, label)
-		@label_type = LabelType.find(label_type_id)
-    @label = @label_type.labels.find_by_hrid(hrid)
-    if @label.nil?
-	    @label = @label_type.labels.new(label)
-	    @label.label_type = @label_type
-	  end
-	  @label
+  def create_name_label
+    label_params = params[:label]
+    label_params.merge!({"label_type_id" => Item.predefined_label_type.id})
+    TextLabel.new(label_params)
   end
 
-  def save_me(notice, action, xml_ok_result, url, &block)
-    respond_to do |format|
-      if yield
-        flash[:notice] = notice
-        format.html { redirect_to url }
-        format.xml  { xml_ok_result.call }
-      else
-        format.html { render :action => action }
-        format.xml  { render :xml => @item.errors.to_xml }
-      end
-    end
-  end
 end

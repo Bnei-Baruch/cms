@@ -42,14 +42,17 @@ class LabelsController < ApplicationController
     @label.label_type = @label_type
 
     respond_to do |format|
-      if @label.save
+      begin
+        @label.save!
         flash[:notice] = 'Label was successfully created.'
         format.html { redirect_to labels_url(@label_type) }
         format.xml  { head :created, :location => label_url(@label) }
-      else
+      rescue ActiveRecord::RecordInvalid => e
+        @label.valid?
         format.html { render :action => "new" }
         format.xml  { render :xml => @label.errors.to_xml }
-      end
+	  	end
+
     end
   end
 

@@ -1,4 +1,4 @@
 <% form_for(:label_type, :url => new_label_type_path, :html => {:method => :get}) do |f| %>
-Type: <%= f.select(:type_virtual, [["Text", "TextLabelType"], ["Number", "NumberLabelType"], ["Date", "DateLabelType"]]) %>
+Type: <%= f.select(:type_virtual, LabelType.label_types) %>
 <%= submit_tag "Create new label type" %>
 <% end %>

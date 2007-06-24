@@ -3,7 +3,7 @@
 # UTF-8 partial support
 $KCODE = 'u'
 require 'jcode'
-ENV['NLS_LANG'] ||= 'UTF8'
+ENV['NLS_LANG'] ||= 'AMERICAN_AMERICA.UTF8'
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way

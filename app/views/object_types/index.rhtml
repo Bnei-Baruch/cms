@@ -16,9 +16,9 @@
 <% for object_type in @object_types %>
   <tr>
     <td><%= object_type.id%></td>
-    <td><%= object_type[:type]%></td>
+    <td><%= object_type.type_short%></td>
     <td><%= object_type.hrid%></td>
-    <td><%= object_type.label.hrid%></td>
+    <td><%= object_type.name%></td>
     <td><%= object_type.content_pattern%></td>
 
     <td><%= link_to 'Show', object_type_path(object_type) %></td>

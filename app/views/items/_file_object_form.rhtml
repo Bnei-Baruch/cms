@@ -4,15 +4,9 @@
 
 	<%= f.hidden_field(:object_type_id) %>
 	<%= f.hidden_field(:type) %>
+	<%= f.text_area(:text) %>
 
-	<% fields_for :label do |label_fields| %>
-
-    <%= label_fields.hidden_field :label_type_id%>
-    <%= label_fields.hidden_field :type%>
-    <label for="abbr_value">Name:</label>
-    <%= label_fields.text_field :hrid %><br />
-
-	<% end %>
+	<%= render :partial => "name_field" %>
 
   <p>
     <%= submit_tag button_text %>

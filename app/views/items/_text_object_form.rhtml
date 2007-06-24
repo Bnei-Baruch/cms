@@ -1,0 +1,13 @@
+<%= error_messages_for :item %>
+
+<% form_for(:item, :url => path, :html => {:method => method}) do |f| %>
+
+	<%= f.hidden_field(:object_type_id) %>
+	<%= f.hidden_field(:type) %>
+	<%= f.text_area(:text) %>
+
+	<%= render :partial => "name_field" %>
+  <p>
+    <%= submit_tag button_text %>
+  </p>
+<% end %>

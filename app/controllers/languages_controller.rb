@@ -24,7 +24,7 @@ class LanguagesController < ApplicationController
   # GET /languages/new
   def new
     @language = Language.new
-    @label = TextLabel.new(:label_type_id => 33)
+    @label = TextLabel.new(:label_type_id => Language.predefined_label_type)
   end
 
   # GET /languages/1;edit

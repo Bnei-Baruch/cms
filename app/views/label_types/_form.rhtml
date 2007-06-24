@@ -1,10 +1,18 @@
-<%= error_messages_for :label_type %>
+<%= error_messages_for :label_type, :label_type_desc %>
 
 <% form_for(:label_type, :url => path, :html => {:method => method}) do |f| %>
   <p>
 	<%= f.hidden_field(:type_virtual) %>
 	HRID: <%= f.text_field :hrid %><br />
+
+	<% fields_for :label_type_desc do |ltd| %>
+	Name: <%= ltd.text_field :value %><br />
+
+	<% end %>
 	Value Pattern: <%= f.text_field :value_pattern %><br />
+	Restricted: <%= f.check_box :restricted %><br />
+	Predefined: <%= f.check_box :is_predefined %><br />
 	<%= submit_tag button_text %>
+
   </p>
 <% end %>

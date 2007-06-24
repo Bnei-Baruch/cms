@@ -16,7 +16,7 @@
   <tr>
     <td><%= object.id%></td>
     <td><%= object.name %></td>
-    <td><%= object.object_type.label.hrid%> [<%= object[:type]%>]</td>
+    <td><%= object.object_type.name%> [<%= object.type_short%>]</td>
     <td><%= object.state%></td>
 
     <td><%= link_to 'Show Labels', item_labels_path(object) %></td>

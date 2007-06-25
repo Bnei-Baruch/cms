@@ -25,9 +25,10 @@ class ItemLabelsController < ApplicationController
   # POST /items/1/labels.xml
   def create
 	  @label_type =  LabelType.find(params[:label][:label_type_id])
+    @label = @label_type.labels.new(params[:label])
     respond_to do |format|
 	    begin
-		    @item.labels << @label_type.labels.new(params[:label])
+		    @item.labels << @label
         flash[:notice] = 'Label was successfully created.'
         format.html { redirect_to item_labels_url(@item) }
         format.xml  { head :created, :location => item_label_url(@item) }

@@ -32,7 +32,11 @@ protected
 
   def check_uniq_item_labels(label)
       if self.labels.detect {|l| l.id == label.id}
-      	      errors.add_to_base("Label with this HRID (ID:#{label.id}) is already exist in this object")
+  	      errors.add_to_base("Label with this HRID (ID:#{label.id}) is already exist in this object")
+	      raise ActiveRecord::RecordInvalid, self
+	    end
+	    if self.labels.detect {|l| l.label_type_id == label.label_type_id && l.value == label.value}
+  	      errors.add_to_base("Label of the same type with this Value is already exist in this object")
 	      raise ActiveRecord::RecordInvalid, self
 	    end
   end

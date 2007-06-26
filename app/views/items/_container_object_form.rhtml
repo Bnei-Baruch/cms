@@ -2,11 +2,18 @@
 
 <% form_for(:item, :url => path, :html => {:method => method}) do |f| %>
 
-	<%= f.hidden_field(:object_type_id) %>
-	<%= f.hidden_field(:type) %>
+<%= f.hidden_field(:object_type_id) %>
+<%= f.hidden_field(:type) %>
 
-	<%= render :partial => "name_field" %>
-  <p>
+<%= render :partial => "name_field" %>
+<h2>Labels</h2>
+<div id="labels">
+    <% @labels.each_with_index do |label, index| %>
+        <%= render :partial => 'label_fields', :locals => { :label => label, :index => index } %>
+    <%end%>
+</div>
+<%= render :partial => 'add_label_link', :locals => { :index => @labels.size } %>
+<p>
     <%= submit_tag button_text %>
-  </p>
+</p>
 <% end %>

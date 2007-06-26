@@ -13,7 +13,7 @@ class ItemLabelsController < ApplicationController
   def new
     @label_type = LabelType.find(params[:item][:label_type_id])
     @label = @label_type.labels.new
-		@label.label_type = @label_type
+    @label.label_type = @label_type
   end
 
   # GET /items/1/item_labels/1;edit
@@ -24,22 +24,22 @@ class ItemLabelsController < ApplicationController
   # POST /items/1/labels
   # POST /items/1/labels.xml
   def create
-	  @label_type =  LabelType.find(params[:label][:label_type_id])
+    @label_type =  LabelType.find(params[:label][:label_type_id])
     @label = @label_type.labels.new(params[:label])
     respond_to do |format|
-	    begin
-		    @item.labels << @label
+      begin
+        @item.labels << @label
         flash[:notice] = 'Label was successfully created.'
         format.html { redirect_to item_labels_url(@item) }
         format.xml  { head :created, :location => item_label_url(@item) }
 
-  		rescue ActiveRecord::RecordInvalid => e
+      rescue ActiveRecord::RecordInvalid => e
         format.html { render :action => "new" }
         format.xml  { render :xml => @item.errors.to_xml }
-	   	end
-   	end
-#    xml_ok_result = lambda  { head :created, :location => item_label_url(@item) }
-#		save_me('Label was successfully created.', "new", xml_ok_result) { @item.save }
+      end
+    end
+    #    xml_ok_result = lambda  { head :created, :location => item_label_url(@item) }
+    #		save_me('Label was successfully created.', "new", xml_ok_result) { @item.save }
   end
 
   # PUT /items/1/labels/1
@@ -47,19 +47,17 @@ class ItemLabelsController < ApplicationController
   def update
     @label = Label.find(params[:id])
     respond_to do |format|
-	    begin
-		    @label.update_attributes(params[:label])
-		    flash[:notice] = 'Label was successfully created.'
+      begin
+        @label.update_attributes(params[:label])
+        flash[:notice] = 'Label was successfully created.'
         format.html { redirect_to item_labels_url(@item) }
         format.xml  { head :ok }
 
-  		rescue ActiveRecord::RecordInvalid => e
+      rescue ActiveRecord::RecordInvalid => e
         format.html { render :action => "edit" }
         format.xml  { render :xml => @item.errors.to_xml }
-	   	end
-   	end
-
-
+      end
+    end
   end
 
   # DELETE /items/1/labels/1
@@ -74,7 +72,7 @@ class ItemLabelsController < ApplicationController
     end
   end
 
-##########    private     ##################
+  ##########    private     ##################
 
   private
 

@@ -36,7 +36,7 @@ class LabelType < ActiveRecord::Base
   def self.predefined_label_type_id(entity)
     find_by_hrid(entity, :conditions => "is_predefined = 1")
   end
-
+  
   protected
 
   def validate

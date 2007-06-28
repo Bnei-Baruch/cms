@@ -1,2 +1,2 @@
-page.insert_html :bottom, :labels, :partial => 'label_fields', :locals => { :label => @label, :index => params[:index] }
-page.replace :add_label_link, :partial => 'add_label_link', :locals => { :index => (params[:index].to_i + 1) }
+page.insert_html :bottom,:labels, :partial => "#{@label.class.to_s.underscore}_fields", :locals => { :label => @label, :index => params[:index] }
+page[:add_label_link].replace :partial => 'add_label_link', :locals => { :index => (params[:index].to_i + 1) }

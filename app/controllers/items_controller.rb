@@ -27,6 +27,9 @@ class ItemsController < ApplicationController
     @item = Item.create(params[:item][:object_type_id], params[:item])
     @label = TextLabel.new()
     @labels = @item.labels
+    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    #    render :text => @label_types.inspect
+    #    return
   end
 
   # GET /items/1;edit
@@ -39,6 +42,8 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.xml
   def create
+    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+
     respond_to do |format|
       begin
         Item.transaction do
@@ -51,17 +56,13 @@ class ItemsController < ApplicationController
           @item.label = @label
           #Add new labels
           @labels = []
-          @a = 1
-          params[:labels].each_value do |label|
-            @a += 1
-            temp = TextLabel.new(label.merge({"label_type_id" => 39}))
-            @labels << temp
+          if params[:labels]
+            params[:labels].each_value do |label|
+              label_type = LabelType.find(label[:label_type_id])
+              @labels << label_type.labels.new(label)
+            end
+            @item.labels << @labels
           end
-#          render :text => @labels.size
-#          return
-          
-          @item.labels << @labels
-         
           @item.save!
         end
 
@@ -71,18 +72,20 @@ class ItemsController < ApplicationController
         format.xml  { head :created, :location => item_url(@item) }
 
       rescue ActiveRecord::RecordInvalid => e
-        @item.valid?
+        #        @item.valid?
         @label.valid?
+        #        render :text => e.inspect
+        #        return
         format.html { render :action => "new" }
         format.xml  { render :xml => @item.errors.to_xml }
       end
     end
   end
 
-  # GET /items/new;add_label
+  # GET /items;add_label
   def add_label
-    #@label = @label_type.labels.new
-    @label = TextLabel.new #THIS SHOULD BE RELACED
+    @label_type = LabelType.find(params[:select_label_type])
+    @label = @label_type.labels.new(:label_type_id => @label_type.id)
   end
 
   # PUT /items/1

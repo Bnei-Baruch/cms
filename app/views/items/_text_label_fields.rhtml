@@ -1,0 +1,9 @@
+<div id="label_<%= index %>">
+    <% fields_for "labels[#{index}]", label do |f| %>
+    <p>
+        <%= f.hidden_field :label_type_id%>
+        <%= label.label_type.name%>: <%= f.text_field :value %>
+        <%#= link_to_remote 'remove', :url => { :action => 'remove_label', :index => index } %>
+    </p>
+    <% end %>
+</div>

@@ -5,4 +5,8 @@ class DateLabel < Label
     self.datevalue
   end
 
+  def value=(new_value)
+    self.datevalue = new_value
+  end
+
 end

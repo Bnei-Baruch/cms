@@ -8,6 +8,8 @@ class NumberLabel < Label
     self.numbervalue
   end
 
-
+  def value=(new_value)
+    self.numbervalue = new_value
+  end
 
 end

@@ -9,7 +9,7 @@
 <h2>Labels</h2>
 <div id="labels">
     <% @labels.each_with_index do |label, index| %>
-        <%= render :partial => "#{@label.class.to_s.underscore}_fields", :locals => { :label => label, :index => index } %>
+        <%= render :partial => "#{label.class.to_s.underscore}_fields", :locals => { :label => label, :index => index } %>
     <%end%>
 </div>
 <span id="new_label">

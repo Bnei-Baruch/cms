@@ -4,8 +4,9 @@ class TextLabel < Label
   has_one :object_type, :foreign_key => :label_id, :dependent => :destroy
   has_one :object, :foreign_key =>:label_id, :class_name => "Item", :dependent => :destroy
   has_many :label_descs, :foreign_key => "label_id", :dependent => :destroy
+  has_one :object_rule_label, :foreign_key => :label_id, :dependent => :destroy
 
-  validates_associated :label_descs, :message => "value is invalid", :on => :save
+  validates_associated :label_descs, :message => "Label's value must not be empty", :on => :save
 
   def value(lang = "eng")
     ld = self.label_descs.detect {|ld| ld.language.abbr == lang}

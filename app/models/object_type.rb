@@ -1,5 +1,6 @@
 class ObjectType < ActiveRecord::Base
   has_many :objects, :class_name => "Item"
+   has_many :object_rule_labels
   belongs_to :label, :foreign_key => :label_id, :class_name => "TextLabel"
 
   attr_accessor :type_virtual

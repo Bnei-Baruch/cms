@@ -28,13 +28,13 @@ class ItemsController < ApplicationController
     @label = TextLabel.new()
     @labels = @item.labels
     @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
-    #    render :text => @label_types.inspect
-    #    return
   end
 
   # GET /items/1;edit
   def edit
     @item = Item.find(params[:id])
+    @labels = @item.labels
+    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
 
     @label = @item.label ? @item.label : TextLabel.new()
   end
@@ -55,14 +55,7 @@ class ItemsController < ApplicationController
           @label = create_name_label
           @item.label = @label
           #Add new labels
-          @labels = []
-          if params[:labels]
-            params[:labels].each_value do |label|
-              label_type = LabelType.find(label[:label_type_id])
-              @labels << label_type.labels.new(label)
-            end
-            @item.labels << @labels
-          end
+          update_metadata
           @item.save!
         end
 
@@ -74,8 +67,6 @@ class ItemsController < ApplicationController
       rescue ActiveRecord::RecordInvalid => e
         #        @item.valid?
         @label.valid?
-        #        render :text => e.inspect
-        #        return
         format.html { render :action => "new" }
         format.xml  { render :xml => @item.errors.to_xml }
       end
@@ -91,6 +82,7 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.xml
   def update
+    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
     respond_to do |format|
       begin
         Item.transaction do
@@ -101,12 +93,17 @@ class ItemsController < ApplicationController
           #update Object name (predefined label)
           if @item.label
             @item.label.update_attributes(params[:label])
+            @label = @item.label
           else
             @label = create_name_label
             @item.label = @label
-            @item.save!
           end
+
+          update_metadata  
+
+          @item.save!
         end
+
 
         #successful redirects
         flash[:notice] = 'Item was successfully updated.'
@@ -142,5 +139,28 @@ class ItemsController < ApplicationController
     label_params.merge!({"label_type_id" => Item.predefined_label_type.id})
     TextLabel.new(label_params)
   end
+  
+  def update_metadata
+    if params[:labels]
+      @labels = []
+      new_labels = []
+      params[:labels].each_value do |label|
+
+        label_type = LabelType.find(label[:label_type_id])
+        existing_label = label_type.labels.find_by_id(label[:id])
+        if (existing_label)
+          
+          existing_label.update_attributes(label)
+          @labels << existing_label
+        else
+
+          @labels << label_type.labels.new(label)
+          new_labels << label_type.labels.new(label)
+        end
+      end
+      @item.labels << new_labels
+    end
+  end
+  
 
 end

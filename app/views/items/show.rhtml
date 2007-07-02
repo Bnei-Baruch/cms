@@ -1,8 +1,13 @@
-<h1>Object</h1>
+<h1><%= @item.name%></h1>
 ID: <%= @item.id%><br/>
-Name: <%= @item.labels[0].hrid%><br/>
-Type: <%= @item.object_type.label.hrid%> [<%= @item[:type]%>]<br/>
+Name: <%= @item.name%><br/>
+Type: <%= @item.object_type.name%> [<%= @item.type_short%>]<br/>
 State: <%= @item.state%><br/>
+<h2>Labels:</h2>
+<% for label in @item.labels %>
+<%= label.label_type.name%>: <%= label.value%>
+<br/>
+<% end %>
 <br/>
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>

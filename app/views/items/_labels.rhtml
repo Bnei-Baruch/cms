@@ -1,0 +1,10 @@
+<h2>Labels</h2>
+<div id="labels">
+    <% @labels.each_with_index do |label, index| %>
+        <%= render :partial => "#{label.class.to_s.underscore}_fields", :locals => { :label => label, :index => index } %>
+    <%end%>
+</div>
+<span id="new_label">
+    Type: <%= select_tag(:select_label_type, options_for_select(@label_types)) %>
+</span>
+<%= render :partial => 'add_label_link', :locals => { :index => @labels.size } %>

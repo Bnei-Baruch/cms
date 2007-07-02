@@ -1,4 +1,4 @@
-<h1>Editing Object</h1>
+<h1>Editing <%= @item.name%> object</h1>
 
 <%= render :partial => "#{@item.class.to_s.underscore}_form",
   :locals => {

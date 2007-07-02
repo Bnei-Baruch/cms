@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   # GET /items.xml
   def index
     @object_types = ObjectType.find(:all).collect{|ot| [ot.name, ot.id]}.sort
-    @items = Item.find(:all)
+    @items = Item.find(:all, :order => "id DESC")
 
     respond_to do |format|
       format.html # index.rhtml

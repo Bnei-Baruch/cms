@@ -2,18 +2,12 @@
 
 <% form_for(:object_type, :url => path, :html => {:method => method}) do |f| %>
 
-	<%= f.hidden_field :type_virtual %>
-	<label for="hrid">HRID:</label><%= f.text_field :hrid %>
-	<% fields_for :label do |label_fields| %>
+<%= render :partial => "share/name_field" %>
 
-    <%= label_fields.hidden_field :label_type_id%>
-    <%= label_fields.hidden_field :type%>
-    <label for="label_value">Name:</label>
-    <%= label_fields.text_field :value %><br />
+<%= f.hidden_field :type_virtual %>
+<label for="hrid">HRID:</label><%= f.text_field :hrid %>
 
-	<% end %>
-
-  <p>
+<p>
     <%= submit_tag button_text %>
-  </p>
+</p>
 <% end %>

@@ -1,0 +1,10 @@
+<h2>Label rules</h2>
+<div id="label_rules">
+    <% @label_rules.each_with_index do |label_rule, index| %>
+        <%= render :partial => "label_rule_item", :locals => { :label => label_rule, :index => index } %>
+    <%end%>
+</div>
+<span id="new_label_rule">
+    Type: <%= select_tag(:select_label_type, options_for_select(@label_types)) %>
+</span>
+<%= render :partial => 'add_label_link', :locals => { :index => @labels.size } %>

@@ -1,6 +1,9 @@
 class Item < ActiveRecord::Base
   belongs_to :object_type
-  has_and_belongs_to_many :labels, :before_add => :check_uniq_item_labels
+  
+  has_many :descriptions, :dependent => :destroy
+  has_many :labels, :through => :descriptions # , :before_add => :check_uniq_item_labels
+  
   belongs_to :label, :foreign_key => :label_id, :class_name => "TextLabel", :dependent => :destroy
 
 
@@ -22,8 +25,13 @@ class Item < ActiveRecord::Base
   def type_short
     type.to_s.sub("Object",'')
   end
-
+  
+  def free_labels
+    self.labels.find(:all, :conditions => "free = 1", :order => "label_order ASC")
+  end
+  
   protected
+  
   def self.create(object_type_id, params = nil)
     ot = ObjectType.find(object_type_id).class.to_s.sub(/Type/, '')
     class_name = ot || "ContainerObject"
@@ -31,10 +39,10 @@ class Item < ActiveRecord::Base
   end
 
   def check_uniq_item_labels(label)
-#    if self.labels.detect {|l| l.id == label.id}
-#      errors.add_to_base("Label with this HRID (ID:#{label.id}) is already exist in this object")
-#      raise ActiveRecord::RecordInvalid, labels
-#    end
+    #    if self.labels.detect {|l| l.id == label.id}
+    #      errors.add_to_base("Label with this HRID (ID:#{label.id}) is already exist in this object")
+    #      raise ActiveRecord::RecordInvalid, labels
+    #    end
     if self.labels.detect {|l| l.label_type_id == label.label_type_id && l.value == label.value}
       errors.add_to_base("Label of the same type with this Value is already exist in this object")
       raise ActiveRecord::RecordInvalid, self

@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
   # GET /items/1;edit
   def edit
     @item = Item.find(params[:id])
-    @labels = @item.labels
+    @labels = @item.free_labels
     @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
 
     @label = @item.label ? @item.label : TextLabel.new()
@@ -142,24 +142,24 @@ class ItemsController < ApplicationController
   
   def update_metadata
     if params[:labels]
-      @labels = []
       new_labels = []
-      params[:labels].each_value do |label|
-
+      params[:labels].each do |index, label|
+        fixed_index = index.to_i + 1
         label_type = LabelType.find(label[:label_type_id])
-        existing_label = label_type.labels.find_by_id(label[:id])
-        if (existing_label)
-          
-          existing_label.update_attributes(label)
-          @labels << existing_label
+        existing_label = @item.labels.find_by_id(label[:id])
+        existing_description = @item.descriptions.find_by_label_id(label[:id])
+        if (existing_description)
+          existing_description.update_attributes!(:free =>true, :label_order => fixed_index)
+          existing_description.label.update_attributes!(label)
         else
-
-          @labels << label_type.labels.new(label)
-          new_labels << label_type.labels.new(label)
+          new_description = Description.new(:free =>true, :label_order => fixed_index)
+          new_description.item = @item
+          new_description.label = label_type.labels.new(label)
+          new_description.save!
         end
       end
-      @item.labels << new_labels
     end
+    @labels = @item.free_labels
   end
   
 

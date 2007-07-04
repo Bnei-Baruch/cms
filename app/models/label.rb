@@ -1,6 +1,9 @@
 class Label < ActiveRecord::Base
   belongs_to :label_type
-  has_and_belongs_to_many :items
+ 
+  has_many :descriptions, :dependent => :destroy
+  has_many :items, :through => :descriptions # , :before_add => :check_uniq_item_labels
+
 
   #	validates_presence_of :hrid
   #validates_uniqueness_of :hrid - moved to validate

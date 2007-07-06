@@ -7,4 +7,4 @@
 <span id="new_label_rule">
     Type: <%= select_tag(:select_label_type, options_for_select(@label_types)) %>
 </span>
-<%= render :partial => 'add_label_link', :locals => { :index => @labels.size } %>
+<%= render :partial => 'add_label_rule_link', :locals => { :index => @label_rules.size } %>

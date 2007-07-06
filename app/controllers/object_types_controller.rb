@@ -59,6 +59,11 @@ class ObjectTypesController < ApplicationController
       end
     end
   end
+  # GET /items;add_label
+  def add_label_rule
+    @label_type = LabelType.find(params[:select_label_type])
+    @label = @label_type.labels.new(:label_type_id => @label_type.id)
+  end
 
   # PUT /object_types/1
   # PUT /object_types/1.xml

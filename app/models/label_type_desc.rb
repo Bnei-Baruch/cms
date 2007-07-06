@@ -1,7 +1,8 @@
 class LabelTypeDesc < ActiveRecord::Base
   belongs_to :label_type
   belongs_to :language
-
+  belongs_to :object_rule_label
+ 
   validates_presence_of :value
 
   protected

@@ -1,0 +1,18 @@
+<div id="label_rule_<%= index %>">
+    <% fields_for "label_rules[#{index}]", label_rule do |f| %>
+    <%= f.hidden_field :id%>
+    <%= f.hidden_field :label_type_id%>
+    <%= label_rule.label_type.name%>
+    <table>
+        <thead>
+            <th></th>
+        </thead>
+        <tr>
+            <td><%= object.id%></td>
+        </tr>
+    </table>
+    
+    <label for="<%= "labels[#{index}]_numbervalue"%>"><%= label_rule.label_type.name%>:</label><%= f.text_field :numbervalue %>
+    <%#= link_to_remote 'remove', :url => { :action => 'remove_label', :index => index } %>
+    <% end %>
+</div>

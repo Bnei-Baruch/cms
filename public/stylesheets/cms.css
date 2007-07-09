@@ -15,3 +15,16 @@ float: left;
 float:left;
 
 }
+.label_rules{
+    border: 2px dotted #46a3ff;
+    padding: 10px;
+    margin:15px 0 20px;
+    }
+.label_rules th{
+    text-align: left;
+    font-weight:normal;
+}
+.label_rules span.title{
+    font-style:italic;
+    font-weight:bold;
+}

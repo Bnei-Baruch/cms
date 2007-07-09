@@ -1,13 +1,13 @@
 class ObjectType < ActiveRecord::Base
   has_many :objects, :class_name => "Item"
-  has_many :label_rules, :class_name => "ObjectRuleLabel"
+  has_many :label_rules
   belongs_to :label, :foreign_key => :label_id, :class_name => "TextLabel"
 
   attr_accessor :type_virtual
 
   validates_presence_of :hrid
   #validates_uniqueness_of :hrid - moved to validate
-
+  validates_associated :label_rules, :message => "are messed up"
   def self.create(params = nil)
     class_name = params[:type_virtual] || "ContainerObjectType"
     class_name.constantize.new(params)

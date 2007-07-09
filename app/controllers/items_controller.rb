@@ -142,11 +142,11 @@ class ItemsController < ApplicationController
   
   def update_metadata
     if params[:labels]
-      new_labels = []
+      #new_labels = []
       params[:labels].each do |index, label|
         fixed_index = index.to_i + 1
         label_type = LabelType.find(label[:label_type_id])
-        existing_label = @item.labels.find_by_id(label[:id])
+        #existing_label = @item.labels.find_by_id(label[:id])
         existing_description = @item.descriptions.find_by_label_id(label[:id])
         if (existing_description)
           existing_description.update_attributes!(:free =>true, :label_order => fixed_index)

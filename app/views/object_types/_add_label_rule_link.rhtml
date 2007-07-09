@@ -1,5 +1,10 @@
-<span id="add_label_link">
-<%= link_to_remote 'Add Another label', :url => add_label_items_url(:index => index), 
-                                                                                        :method => :get,
-                                                                                        :submit => "new_label_rule" %>
-</span>
+<div id="add_label_rule_link">
+    <span id="new_label_rule">
+        Type: <%= select_tag(:select_label_type, options_for_select(@label_types)) %>
+    </span>
+    <span>
+        <%= link_to_remote 'Add another label rule', :url => add_label_rule_object_types_url(:index => index), 
+        :method => :get,
+        :submit => "new_label_rule" %>
+    </span>
+</div>

@@ -24,8 +24,9 @@ class ObjectTypesController < ApplicationController
   # GET /object_types/new
   def new
     @object_type = ObjectType.create(params[:object_type])
-#    @label = TextLabel.new(:label_type_id => LabelType.predefined_label_type_id(ObjectType))
     @label = TextLabel.new(:label_type_id => ObjectType.predefined_label_type)
+    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    @label_rules = @object_type.label_rules
   end
 
   # GET /object_types/1;edit
@@ -38,19 +39,28 @@ class ObjectTypesController < ApplicationController
   # POST /object_types.xml
   def create
     @object_type = ObjectType.create(params[:object_type])
+    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    @label_rules = @object_type.label_rules
 
     respond_to do |format|
       begin
         ObjectType.transaction do
           @label = @object_type.build_label(params[:label])
-          @label.save!
+          @l
+Key Diagnostics:
+	id=83
+	wParem=83
+	lParem=2031617
+	ag=0
+	actions=0
+abel.save!
+          params[:label_rules].each_value { |label_rule| @object_type.label_rules.build(label_rule) }
+          #update_label_rules
           @object_type.save!
         end
-
         flash[:notice] = 'Object Type was successfully created.'
         format.html { redirect_to object_types_url }
         format.xml  { head :created, :location => object_type(@object_type) }
-
       rescue ActiveRecord::RecordInvalid => e
         @object_type.valid?
         @label.valid? # force checking of errors even if  Object Type failed
@@ -62,7 +72,8 @@ class ObjectTypesController < ApplicationController
   # GET /items;add_label
   def add_label_rule
     @label_type = LabelType.find(params[:select_label_type])
-    @label = @label_type.labels.new(:label_type_id => @label_type.id)
+    @label_rule = @label_type.label_rules.new(:label_type_id => @label_type.id)
+    @label_types = LabelType.regular_label_types.reject{|item| item.eql?@label_type}.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
   end
 
   # PUT /object_types/1
@@ -98,6 +109,30 @@ class ObjectTypesController < ApplicationController
       format.html { redirect_to object_types_url }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  
+  def update_label_rules
+    @label_rules = []
+    if params[:label_rules]
+      #new_label_rules = []
+      params[:label_rules].each do |index, label_rule|
+        #label_type = LabelType.find(label_rule[:label_type_id])
+        @label_rules << label_rule
+        existing_label_rule = @object_type.label_rules.find_by_id(label_rule[:id])
+        if (existing_label_rule)
+          existing_label_rule.update_attributes!(label_rule, :object_type_id => @object_type.id)
+          existing_label_rule.label.update_attributes!(label_rule)
+        else
+          @object_type.label_rules << LabelRule.new(label_rule)
+          #@temp = new_label_rule
+          #new_label_rule.save!
+        end
+      end
+    end
+    #params[:label_rules].each_value{|val| @label_rules << val}
+    #@
   end
   
 end

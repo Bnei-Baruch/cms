@@ -21,11 +21,9 @@ class TextLabel < Label
       ld.save
     else
       ld = label_descs.create(
-        :value => new_value,
-        :language_id => lang_obj.id)
+      :value => new_value,
+      :language_id => lang_obj.id)
     end
-	end
-
-	private
+  end
 
 end

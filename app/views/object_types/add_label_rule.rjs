@@ -1,0 +1,2 @@
+page.insert_html :bottom,:label_rules, :partial => "label_rule_item", :locals => { :label_rule => @label_rule, :index => params[:index] }
+page[:add_label_rule_link].replace :partial => 'add_label_rule_link', :locals => { :index => (params[:index].to_i + 1) }

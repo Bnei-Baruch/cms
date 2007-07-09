@@ -199,7 +199,7 @@ ActiveRecord::Schema.define() do
   add_index "object_links", ["object_id"], :name => "obl_obj_have_as_2nd_fk_i"
   add_index "object_links", ["object_link_type_id"], :name => "obl_olt_fk_i"
 
-  create_table "object_rule_labels", :force => true do |t|
+  create_table "label_rules", :force => true do |t|
     t.column "label_order",          :integer,  :limit => 5,    :precision => 5,  :scale => 0, :null => false
     t.column "occ_min",              :integer,  :limit => 5,    :precision => 5,  :scale => 0
     t.column "occ_max",              :integer,  :limit => 5,    :precision => 5,  :scale => 0
@@ -212,11 +212,11 @@ ActiveRecord::Schema.define() do
     t.column "label_type_action_id", :string,   :limit => 30
   end
 
-  add_index "object_rule_labels", ["label_id"], :name => "orl_lbl_fk_i"
-  add_index "object_rule_labels", ["label_type_id"], :name => "orl_lty_fk_i"
-  add_index "object_rule_labels", ["object_type_id"], :name => "orl_obt_fk_i"
-  add_index "object_rule_labels", ["label_order"], :name => "orl_orl_order_uk_uk", :unique => true
-  add_index "object_rule_labels", ["object_type_id", "label_type_id"], :name => "orl_uk", :unique => true
+  add_index "label_rules", ["label_id"], :name => "orl_lbl_fk_i"
+  add_index "label_rules", ["label_type_id"], :name => "orl_lty_fk_i"
+  add_index "label_rules", ["object_type_id"], :name => "orl_obt_fk_i"
+  add_index "label_rules", ["label_order"], :name => "orl_orl_order_uk_uk", :unique => true
+  add_index "label_rules", ["object_type_id", "label_type_id"], :name => "orl_uk", :unique => true
 
   create_table "object_types", :force => true do |t|
     t.column "type",               :string,   :limit => 30,                                                     :null => false

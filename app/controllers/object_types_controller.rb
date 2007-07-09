@@ -64,6 +64,8 @@ class ObjectTypesController < ApplicationController
   end
   # GET /items;add_label
   def add_label_rule
+    # re# nder :text => params.inspect
+#     return
     @label_type = LabelType.find(params[:select_label_type])
     @label_rule = @label_type.label_rules.new(:label_type_id => @label_type.id)
     @label_types = LabelType.regular_label_types.reject{|item| item.eql?@label_type}.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort

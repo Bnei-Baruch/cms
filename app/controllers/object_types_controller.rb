@@ -46,14 +46,7 @@ class ObjectTypesController < ApplicationController
       begin
         ObjectType.transaction do
           @label = @object_type.build_label(params[:label])
-          @l
-Key Diagnostics:
-	id=83
-	wParem=83
-	lParem=2031617
-	ag=0
-	actions=0
-abel.save!
+          @label.save!
           params[:label_rules].each_value { |label_rule| @object_type.label_rules.build(label_rule) }
           #update_label_rules
           @object_type.save!

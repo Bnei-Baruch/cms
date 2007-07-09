@@ -1,3 +1,13 @@
+<script type="text/javascript" charset="utf-8">
+	function runit () {
+		var f = $$('.label_type');
+		var s = '';
+		for(var i=0; i<f.length; i++){
+			s += f[i].value + '_';
+			};
+			return s
+	}
+</script>
 <div id="add_label_rule_link">
     <span id="new_label_rule">
         Type: <%= select_tag(:select_label_type, options_for_select(@label_types)) %>
@@ -5,6 +15,7 @@
     <span>
         <%= link_to_remote 'Add another label rule', :url => add_label_rule_object_types_url(:index => index), 
         :method => :get,
-        :submit => "new_label_rule" %>
+        :submit => "new_label_rule",
+        :before   => "alert(runit())" %>
     </span>
 </div>

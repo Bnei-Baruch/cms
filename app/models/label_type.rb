@@ -17,12 +17,12 @@ class LabelType < ActiveRecord::Base
   end
   #returns the name for the label type index (doesn't put HRID if name not found)
   def name_local(lang = "eng")
-    ltd = self.label_type_descs.detect {|ltd| ltd.language.abbr == lang}
+    ltd = self.label_type_descs.detect {|ltd| ltd.language.abbr == lang && ltd.label_rule_id == nil}
     ltd ? ltd.value : ''
   end
 
   def name(lang = "eng")
-    ltd = self.label_type_descs.detect {|ltd| ltd.language.abbr == lang}
+    ltd = self.label_type_descs.detect {|ltd| ltd.language.abbr == lang && ltd.label_rule_id == nil}
     ltd ? ltd.value : ''
   end
 

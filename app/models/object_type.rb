@@ -7,12 +7,17 @@ class ObjectType < ActiveRecord::Base
 
   validates_presence_of :hrid
   #validates_uniqueness_of :hrid - moved to validate
+  validates_associated :label, :message => "Name is invalid", :on => :save
+
   validates_associated :label_rules, :message => "are messed up"
   def self.create(params = nil)
     class_name = params[:type_virtual] || "ContainerObjectType"
     class_name.constantize.new(params)
   end
-
+	
+	def self.object_types
+		[["Container", "ContainerObjectType"],["Text", "TextObjectType"],["File", "FileObjectType"]]
+	end
   def self.predefined_label_type
     LabelType.predefined_label_type_id(self.to_s).id
   end

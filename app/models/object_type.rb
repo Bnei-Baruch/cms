@@ -1,6 +1,6 @@
 class ObjectType < ActiveRecord::Base
-  has_many :objects, :class_name => "Item"
-  has_many :label_rules
+  has_many :objects, :class_name => "Item", :dependent => :destroy
+  has_many :label_rules, :dependent => :destroy
   belongs_to :label, :foreign_key => :label_id, :class_name => "TextLabel"
 
   attr_accessor :type_virtual

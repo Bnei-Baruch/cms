@@ -1,11 +1,8 @@
 class Item < ActiveRecord::Base
   belongs_to :object_type
-  
   has_many :descriptions, :dependent => :destroy
-  has_many :labels, :through => :descriptions # , :before_add => :check_uniq_item_labels
-  
+  has_many :labels, :through => :descriptions
   belongs_to :label, :foreign_key => :label_id, :class_name => "TextLabel", :dependent => :destroy
-
 
   attr_accessor :label_type_id
 
@@ -30,7 +27,21 @@ class Item < ActiveRecord::Base
     self.labels.find(:all, :conditions => "free = 1", :order => "label_order ASC")
   end
   
-  protected
+  def rule_labels
+  	existing_labels = self.labels.find(:all, :conditions => "free = 0", :order => "label_order ASC")
+  	labels = []
+  	self.object_type.label_rules.each do |label_rule|
+  		specific_labels = existing_labels.find_all {|l| l.label_type == label_rule.label_type }
+  		unless specific_labels.empty?
+  			specific_labels.each{|i| labels << i}
+  			end
+  		i = label_rule.occ_min - specific_labels.size
+  		i.times {labels << label_rule.label_type.labels.new(:label_type_id => label_rule.label_type.id)}
+  		end
+  		labels
+  end
+  
+protected
   
   def self.create(object_type_id, params = nil)
     ot = ObjectType.find(object_type_id).class.to_s.sub(/Type/, '')
@@ -39,10 +50,6 @@ class Item < ActiveRecord::Base
   end
 
   def check_uniq_item_labels(label)
-    #    if self.labels.detect {|l| l.id == label.id}
-    #      errors.add_to_base("Label with this HRID (ID:#{label.id}) is already exist in this object")
-    #      raise ActiveRecord::RecordInvalid, labels
-    #    end
     if self.labels.detect {|l| l.label_type_id == label.label_type_id && l.value == label.value}
       errors.add_to_base("Label of the same type with this Value is already exist in this object")
       raise ActiveRecord::RecordInvalid, self
@@ -53,11 +60,6 @@ class Item < ActiveRecord::Base
     if self.name == ""
       errors.add(:name, "must be supplied")
     end
-    #    ld = LabelDesc.find_by_label_id_and_language_id(self.label_id, self.language_id)
-    #    return unless ld
-    #    if !self.id || self.id!=ld.id
-    #      errors.add(:language_id, "#{self.language.label.hrid}is already being used")
-    #    end
   end
 
 

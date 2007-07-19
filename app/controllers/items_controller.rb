@@ -25,15 +25,21 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.create(params[:item][:object_type_id], params[:item])
+    @object_type_id = @item.object_type_id
     @label = TextLabel.new()
-    @labels = @item.labels
+    @rule_labels = @item.rule_labels
+    # render :text => @rule_labels.inspect
+    # return
+    @free_labels = @item.free_labels
     @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
   end
 
   # GET /items/1;edit
   def edit
     @item = Item.find(params[:id])
-    @labels = @item.free_labels
+    @object_type_id = @item.object_type_id
+    @rule_labels = @item.rule_labels
+    @free_labels = @item.free_labels
     @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
 
     @label = @item.label ? @item.label : TextLabel.new()
@@ -55,7 +61,8 @@ class ItemsController < ApplicationController
           @label = create_name_label
           @item.label = @label
           #Add new labels
-          update_metadata
+          update_metadata(params[:rule_labels])
+          update_metadata(params[:free_labels], true)
           @item.save!
         end
 
@@ -74,7 +81,16 @@ class ItemsController < ApplicationController
   end
 
   # GET /items;add_label
-  def add_label
+  def add_free_label
+    @object_type_id = params[:object_type_id]
+  	@label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    @label_type = LabelType.find(params[:select_label_type])
+    @label = @label_type.labels.new(:label_type_id => @label_type.id)
+  end
+  
+  def add_rule_label
+    @object_type_id = params[:object_type_id]
+		@label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
     @label_type = LabelType.find(params[:select_label_type])
     @label = @label_type.labels.new(:label_type_id => @label_type.id)
   end
@@ -99,7 +115,8 @@ class ItemsController < ApplicationController
             @item.label = @label
           end
 
-          update_metadata  
+          update_metadata(params[:rule_labels])
+          update_metadata(params[:free_labels], true)
 
           @item.save!
         end
@@ -140,26 +157,41 @@ class ItemsController < ApplicationController
     TextLabel.new(label_params)
   end
   
-  def update_metadata
-    if params[:labels]
-      #new_labels = []
-      params[:labels].each do |index, label|
+  def update_metadata(labels, free = false)
+    if labels
+      @save_labels = []
+
+      labels.each do |index, label|
         fixed_index = index.to_i + 1
         label_type = LabelType.find(label[:label_type_id])
-        #existing_label = @item.labels.find_by_id(label[:id])
         existing_description = @item.descriptions.find_by_label_id(label[:id])
         if (existing_description)
-          existing_description.update_attributes!(:free =>true, :label_order => fixed_index)
+          if free 
+          	existing_description.update_attributes!(:free =>true, :label_order => fixed_index)
+        	else
+          	existing_description.update_attributes!(:free =>false, :label_order => fixed_index)
+        	end
           existing_description.label.update_attributes!(label)
         else
-          new_description = Description.new(:free =>true, :label_order => fixed_index)
+          if free 
+          	new_description = Description.new(:free =>true, :label_order => fixed_index)
+        	else
+          	new_description = Description.new(:free =>false, :label_order => fixed_index)
+        	end
           new_description.item = @item
+          @save_labels << label_type.labels.new(label) # Save to return entered data back to the user on validation error
           new_description.label = label_type.labels.new(label)
-          new_description.save!
+          unless label.values_at("value", "numbervalue", "datevalue").compact.to_s.eql?("")
+          @item.descriptions << new_description
+        	end
         end
       end
     end
-    @labels = @item.free_labels
+    if free
+	    @free_labels = @save_labels
+    else
+	    @rule_labels = @save_labels
+    end
   end
   
 

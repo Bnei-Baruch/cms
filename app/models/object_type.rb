@@ -30,6 +30,18 @@ class ObjectType < ActiveRecord::Base
     type.to_s.sub("ObjectType",'')
   end
 
+  def self.get_label_type_name (object_type_id, label, rule_or_free = "free")
+  	return_value = nil
+		object_type = find(object_type_id)
+		if rule_or_free == "rule" && object_type.label_rules
+	  	object_type.label_rules.each do |lr|
+				return_value = lr.name if label.label_type.eql?lr.label_type
+			end
+		end
+		return_value = label.label_type.name unless return_value
+		return_value
+  end
+
   protected
 
   def validate

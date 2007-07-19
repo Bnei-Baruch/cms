@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :object_types, :collection => { :add_label_rule => :get }
   map.resources :languages
-  map.resources :items, :collection => { :add_label => :get }
+  map.resources :items, :collection => { :add_free_label => :get, :add_rule_label => :get }
   map.resources :items do |label|
     label.resources :item_labels
   end

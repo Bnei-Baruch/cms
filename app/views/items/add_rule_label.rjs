@@ -1,0 +1,2 @@
+page.insert_html :bottom,:rule_labels, :partial => "#{@label.class.to_s.underscore}_fields", :locals => { :label => @label, :index => params[:index], :type => "rule" }
+page[:add_rule_label].replace :partial => 'add_rule_label_link', :locals => { :index => (params[:index].to_i + 1) }

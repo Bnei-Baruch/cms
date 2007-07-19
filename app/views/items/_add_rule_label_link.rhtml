@@ -1,0 +1,14 @@
+<div id="add_rule_label" class="add_new_item">
+	<span>
+	    Type: <%= select_tag(:select_label_type, options_for_select(@label_types), :id => "rule_label_types")  %>
+	</span>
+
+	<span>
+		<%= link_to_remote 'Add Another label', 
+				:url => add_rule_label_items_url(:index => index), 
+        :method => :get,
+        :with   => "'existing_label_types=' + runit() + '&select_label_type=' + $('rule_label_types').value +'&object_type_id=' + $('item_object_type_id').value"
+		                                        # :submit => "new_rule_label"
+		                                        %>
+	</span>
+</div>

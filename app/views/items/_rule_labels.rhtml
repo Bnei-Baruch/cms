@@ -1,0 +1,22 @@
+<%if @item.rule_labels%>
+<script type="text/javascript" charset="utf-8">
+	function runit () {
+		var f = $$('.sys_label_type');
+		var s = '';
+		for(var i=0; i<f.length; i++){
+			s += f[i].value + '_';
+			};
+			return s
+	}
+</script>	
+<div class="editbox labels">
+	<h2>Labels</h2>
+	<div id="rule_labels">
+	    <% @rule_labels.each_with_index do |label, index| %>
+	        <%= render :partial => "#{label.class.to_s.underscore}_fields", :locals => { :label => label, :index => index, :type => "rule" } %>
+	    <%end%>
+	</div>
+
+	<%= render :partial => 'add_rule_label_link', :locals => { :index => @rule_labels.size } %>
+</div>
+<%end%>

@@ -6,7 +6,8 @@
 	<%= f.hidden_field(:type) %>
 	<%= render :partial => "share/name_field" %>
 	<%= f.text_area(:text) %>
-  <%= render :partial => "labels" %>
+  <%= render :partial => "rule_labels" %>
+  <%= render :partial => "free_labels" %>
 
   <p>
     <%= submit_tag button_text %>

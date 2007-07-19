@@ -1,9 +1,9 @@
-<div id="label_<%= index %>">
-    <% fields_for "labels[#{index}]", label do |f| %>
+<div id="#{type}_label_<%= index %>">
+    <% fields_for "#{type}_labels[#{index}]", label do |f| %>
     <p>
         <%= f.hidden_field :id%>
-        <%= f.hidden_field :label_type_id%>
-        <label for="<%= "labels[#{index}]_numbervalue"%>"><%= label.label_type.name%>:</label><%= f.text_field :numbervalue %>
+        <%= f.hidden_field :label_type_id, :class => "sys_label_type"%>
+        <label for="<%= "#{type}_labels[#{index}]_numbervalue"%>"><%= ObjectType.get_label_type_name(@object_type_id, label, type)%>:</label><%= f.text_field :numbervalue %>
         <%#= link_to_remote 'remove', :url => { :action => 'remove_label', :index => index } %>
     </p>
     <% end %>

@@ -1,0 +1,19 @@
+<%if @item.object_type.is_all_lbl_allowed || !@item.free_labels.empty?%>
+<div class="editbox labels">
+	<h2>Free Labels <small><i>(here will be added any labels needed - not restricted)</i></small></h2>
+	<div id="free_labels">
+	    <% @free_labels.each_with_index do |label, index| %>
+	        <%= render :partial => "#{label.class.to_s.underscore}_fields", :locals => { :label => label, :index => index, :type => "free" } %>
+	    <%end%>
+	</div>
+
+	<%if @item.object_type.is_all_lbl_allowed%>
+		<div class="add_new_item">
+			<span id="new_free_label">
+			    Type: <%= select_tag(:select_label_type, options_for_select(@label_types), :id => "free_label_types") %>
+			</span>
+			<%= render :partial => 'add_free_label_link', :locals => { :index => @free_labels.size } %>
+		</div>
+	<%end%>
+</div>
+<%end%>

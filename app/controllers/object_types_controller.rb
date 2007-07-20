@@ -141,8 +141,6 @@ class ObjectTypesController < ApplicationController
   
   private
 	def update_label_types_select(existing_label_types = [])
-		# render :text => existing_label_types.inspect
-		# return
     @label_types = LabelType.regular_label_types.reject{|item| existing_label_types.include?(item.id.to_s)}.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
   end
   

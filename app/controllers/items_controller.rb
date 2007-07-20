@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
     # render :text => @rule_labels.inspect
     # return
     @free_labels = @item.free_labels
-    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    free_label_types
   end
 
   # GET /items/1;edit
@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
     @object_type_id = @item.object_type_id
     @rule_labels = @item.rule_labels
     @free_labels = @item.free_labels
-    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    free_label_types
 
     @label = @item.label ? @item.label : TextLabel.new()
   end
@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.xml
   def create
-    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    free_label_types
 
     respond_to do |format|
       begin
@@ -83,14 +83,21 @@ class ItemsController < ApplicationController
   # GET /items;add_label
   def add_free_label
     @object_type_id = params[:object_type_id]
-  	@label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+  	free_label_types
     @label_type = LabelType.find(params[:select_label_type])
     @label = @label_type.labels.new(:label_type_id => @label_type.id)
   end
   
   def add_rule_label
     @object_type_id = params[:object_type_id]
-		@label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+	
+    existing_label_types = Hash.new(0)
+    if params[:existing_label_types]
+	    params[:existing_label_types].split('_').each {|l| existing_label_types[l] += 1}
+	  end
+		existing_label_types[params[:select_label_type]] += 1
+    update_label_types_select(existing_label_types)
+
     @label_type = LabelType.find(params[:select_label_type])
     @label = @label_type.labels.new(:label_type_id => @label_type.id)
   end
@@ -98,7 +105,7 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.xml
   def update
-    @label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+    free_label_types
     respond_to do |format|
       begin
         Item.transaction do
@@ -151,11 +158,37 @@ class ItemsController < ApplicationController
 
   private
 
+	def free_rule_label_types
+		@free_label_types = LabelType.regular_label_types.map{|lt| ["#{lt.name}\t[#{lt.type_short}]", lt.id]}.sort
+		
+		existing_label_types = Hash.new(0)
+    if params[:existing_label_types]
+	    params[:existing_label_types].split('_').each {|l| existing_label_types[l] += 1}
+	  end
+		existing_label_types[params[:select_label_type]] += 1
+    update_label_types_select(existing_label_types)
+
+		@rule_label_types = 
+	end
+
   def create_name_label
     label_params = params[:label]
     label_params.merge!({"label_type_id" => Item.predefined_label_type.id})
     TextLabel.new(label_params)
   end
+  
+  def update_label_types_select(existing_label_types = {})
+    object_type = ObjectType.find(@object_type_id)
+    @rule_label_types = object_type.label_rules.map do |rule|
+    		compare = existing_label_types[rule.label_type_id.to_s] || rule.occ_min
+    	# render_text compare.inspect
+    	# return
+	    	if rule.occ_max > compare
+	    		["#{rule.name}\t[#{rule.label_type.type_short}]", rule.label_type_id]
+	  		end
+  	end
+  	@rule_label_types = @rule_label_types.compact
+	end
   
   def update_metadata(labels, free = false)
     if labels

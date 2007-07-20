@@ -2,7 +2,7 @@
     <% fields_for "#{type}_labels[#{index}]", label do |f| %>
     <p>
         <%= f.hidden_field :id%>
-        <%= f.hidden_field :label_type_id, :class => "sys_label_type"%>
+        <%= f.hidden_field :label_type_id, :class => "#{type}_label_type"%>
         <label for="<%= "#{type}_labels[#{index}]_value"%>"><%= ObjectType.get_label_type_name(@object_type_id, label, type)%>:</label><%= f.text_field :value %>
         <%#= link_to_remote 'remove', :url => { :action => 'remove_label', :index => index } %>
     </p>

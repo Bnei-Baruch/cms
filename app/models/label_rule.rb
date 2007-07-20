@@ -4,8 +4,8 @@ class LabelRule < ActiveRecord::Base
   belongs_to :label, :foreign_key => :label_id, :class_name => "TextLabel"
   has_many :label_type_descs, :dependent => :destroy
 
- 	def name
-  	self.local_name && self.local_name.empty? ? self.label_type.name : self.local_name
+ 	def name(lang = "eng")
+  	self.local_name && self.local_name.empty? ? self.label_type.name : self.local_name(lang)
   end 
   
 	def local_name(lang = "eng")

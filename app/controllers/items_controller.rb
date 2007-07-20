@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
     @object_type_id = @item.object_type_id
     @rule_labels = @item.rule_labels
     @free_labels = @item.free_labels
-    free_label_types
+    free_rule_label_types
 
     @label = @item.label ? @item.label : TextLabel.new()
   end
@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.xml
   def create
-    free_label_types
+    free_rule_label_types
 
     respond_to do |format|
       begin
@@ -83,7 +83,6 @@ class ItemsController < ApplicationController
   # GET /items;add_label
   def add_free_label
     @object_type_id = params[:object_type_id]
-  	free_label_types
     @label_type = LabelType.find(params[:select_label_type])
     @label = @label_type.labels.new(:label_type_id => @label_type.id)
   end

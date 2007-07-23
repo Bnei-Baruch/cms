@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
     # render :text => @rule_labels.inspect
     # return
     @free_labels = @item.free_labels
-    free_label_types
+    free_rule_label_types
   end
 
   # GET /items/1;edit
@@ -104,7 +104,8 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.xml
   def update
-    free_label_types
+    @object_type_id = params[:item][:object_type_id]
+    free_rule_label_types
     respond_to do |format|
       begin
         Item.transaction do
@@ -167,7 +168,7 @@ class ItemsController < ApplicationController
 		existing_label_types[params[:select_label_type]] += 1
     update_label_types_select(existing_label_types)
 
-		@rule_label_types = 
+		@rule_label_types = update_label_types_select
 	end
 
   def create_name_label

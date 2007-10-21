@@ -1,4 +1,0 @@
-<% form_for(:object_type, :url => new_object_type_path, :html => {:method => :get}) do |f| %>
-Type: <%= f.select(:type_virtual, ObjectType.object_types) %>
-<%= submit_tag "Create new Object Type" %>
-<% end %>

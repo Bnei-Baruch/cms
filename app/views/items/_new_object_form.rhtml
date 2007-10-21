@@ -1,6 +1,0 @@
-<%# Used in index.rhtml for creating a select to choose the type of an object to create%>
-
-<% form_for(:item, :url => new_item_path, :html => {:method => :get}) do |f| %>
-Type: <%= f.select(:object_type_id, @object_types) %>
-<%= submit_tag "Create new Object" %>
-<% end %>

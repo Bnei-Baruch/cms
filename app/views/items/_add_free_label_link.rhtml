@@ -1,8 +1,0 @@
-<span id="add_free_label">
-<%= link_to_remote 'Add Another label', 
-		:url => add_free_label_items_url(:index => index), 
-    :method => :get,
-    :with   => "'select_label_type=' + $('free_label_types').value +'&object_type_id=' + $('item_object_type_id').value"
-    # :submit => "new_free_label" 
-    %>
-</span>

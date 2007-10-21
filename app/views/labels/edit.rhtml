@@ -1,9 +1,0 @@
-<h1>Editing label</h1>
-<%= render :partial => "#{@label.class.to_s.underscore}_form",
-  :locals => {
-    :path => label_path(@label_type, @label),
-    :method => :put,
-    :button_text => 'Update'
-  } %>
-
-<%= link_to 'Cancel', labels_path(@label_type) %>

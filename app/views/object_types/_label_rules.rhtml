@@ -1,7 +1,0 @@
-<h2>Label rules</h2>
-<div id="label_rules">
-    <% @label_rules.each_with_index do |label_rule, index| %>
-    <%= render :partial => "label_rule_item", :locals => { :label_rule => label_rule, :index => index } %>
-    <%end%>
-</div>
-<%= render :partial => 'add_label_rule_link', :locals => { :index => @label_rules.size } %>

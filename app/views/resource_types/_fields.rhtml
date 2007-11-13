@@ -1,0 +1,23 @@
+<%= error_messages_for :resource_type %>
+
+<label for="resource_type_name">Name</label>
+<%= f.text_field :name %>
+<object>
+	<fieldset id="property_fieldset">
+		<legend>
+			Properties
+		</legend>
+		<div id="property_fileds">
+			<% @resource_type.resource_type_properties.each_with_index do |property, index| %>
+			
+				<%= render :partial => 'property_fileds', :locals => {:property => property, :index => index}  %>
+			<% end %>
+		</div>
+		<%= link_to_function "Add" do |page| 
+			page.insert_html :bottom, 
+				:property_fileds, 
+				:partial => 'property_fileds', 
+				:locals => {:property => ResourceTypeProperty.new, :index => 1}
+		end  %>
+	</fieldset>
+</object>

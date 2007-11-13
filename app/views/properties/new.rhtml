@@ -1,0 +1,10 @@
+<% @title = "New property" %>
+
+<%= render :partial => 'form',
+    :locals => {
+    :path => properties_path,
+    :method => :post,
+    :button_text => 'Create'
+  } %>
+
+<%= link_to 'Cancel', properties_path %>

@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @property.name %>
+</p>
+
+<p>
+  <b>Field type:</b>
+  <%=h @property.field_type %>
+</p>
+
+<p>
+  <b>Pattern (RegExp):</b>
+  <%=h @property.pattern %>
+</p>
+
+
+<%= link_to 'Edit', edit_property_path(@property) %> |
+<%= link_to 'Back', properties_path %>

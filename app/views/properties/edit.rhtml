@@ -1,0 +1,10 @@
+<% @title = "Edit property" %>
+
+<%= render :partial => 'form',
+    :locals => {
+    :path => property_path(@property),
+    :method => :put,
+    :button_text => 'Update'
+  } %>
+
+<%= link_to 'Back', properties_path %>

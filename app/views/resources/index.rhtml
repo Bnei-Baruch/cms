@@ -1,0 +1,28 @@
+<% @title = "Listing resources" %>
+<table border="1">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Resource type</th>
+			<th colspan="3">Actions</th>
+		</tr>
+	</thead>
+	<% for resource in @resources %>
+		<tr>
+			<td><%=h resource.name %></td>
+			<td><%=h resource.resource_type.name unless resource.resource_type_id.blank? %></td>
+			<td><%= link_to 'Show', resource_path(resource) %></td>
+			<td><%= link_to 'Edit', edit_resource_path(resource) %></td>
+			<td><%= link_to 'Destroy', resource_path(resource), :confirm => 'Are you sure?', :method => :delete %></td>
+		</tr>
+	<% end %>
+</table>
+
+<br />
+
+<% form_for(:resource, :url => new_resource_path, :html => {:method => :get}) do |f| %>
+	<p>
+		Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
+		<%= submit_tag "Create new Resource" %>
+	</p>
+<% end %>

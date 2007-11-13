@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%=h @resource.name %>
+</p>
+
+<p>
+  <b>Resource type:</b>
+  <%=h @resource.resource_type_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_resource_path(@resource) %> |
+<%= link_to 'Back', resources_path %>

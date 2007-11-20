@@ -1,0 +1,18 @@
+<% @title = "Editing resource type associations" %>
+<% form_for(:resource_type, :url => associations_update_resource_type_path(@resource_type), :html => {:method => 'put'}) do |f| %>
+	<p>
+		<div id="association_fields">
+			<% @resource_type.get_associations.each_with_index do |association, index| %>
+				<%= render :partial => 'association_fields', :locals => {:association => association, :index => index}  %>
+			<% end %>
+		</div>
+		<%= link_to_function "Add new association" do |page| 
+			page.insert_html :bottom, 
+				:association_fields, 
+				:partial => 'association_fields', 
+				:locals => {:association => Association.new, :index => 1}
+		end  %>
+		<span id="submit"><%= submit_tag "Update Associations" %></span>
+	</p>
+<% end %>
+<%= link_to 'Back', resource_types_path %>

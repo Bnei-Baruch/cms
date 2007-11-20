@@ -31,12 +31,14 @@ class ResourcesController < ApplicationController
   # GET /resources/1;edit
   def edit
     @resource = Resource.find(params[:id])
+		@resource_type = @resource.resource_type
   end
 
   # POST /resources
   # POST /resources.xml
   def create
     @resource = Resource.new(params[:resource])
+		@resource_type = @resource.resource_type
 
     respond_to do |format|
       if @resource.save
@@ -54,6 +56,7 @@ class ResourcesController < ApplicationController
   # PUT /resources/1.xml
   def update
     @resource = Resource.find(params[:id])
+		@resource_type = @resource.resource_type
 
     respond_to do |format|
       if @resource.update_attributes(params[:resource])

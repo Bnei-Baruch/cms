@@ -1,0 +1,14 @@
+<div class="property">
+	<% @property = property %>
+	<%= error_messages_for :property %>
+	
+	<% fields_for "resource[my_properties][]", property do |f| %>
+	
+		<label for="resource_name"><%= property.name %></label>
+		<%= f.text_field(:value, :index => nil) %>
+		<%= f.hidden_field(:property_type, :index => nil) %>
+		<%= f.hidden_field(:property_id, :index => nil) %>
+		<%= f.hidden_field :id, :index => nil%>
+	
+	<% end %>
+</div>

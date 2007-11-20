@@ -1,0 +1,18 @@
+<div class="property">
+	<% @property = property %>
+	<%= error_messages_for :property %>
+	
+	<% fields_for "resource[my_properties][]", property do |f| %>
+	
+		<label for="resource_name"><%= property.name %></label>
+		<%= calendar_date_select :property, :value, 
+			:time => true, 
+			:popup => :force,
+			:id => 'resource[my_properties]__value', 
+			:name => 'resource[my_properties][][value]' %>
+		<%= f.hidden_field(:property_type, :index => nil) %>
+		<%= f.hidden_field(:property_id, :index => nil) %>
+		<%= f.hidden_field :id, :index => nil%>
+	
+	<% end %>
+</div>

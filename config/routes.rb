@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 	
   map.resources :resources
   map.resources :properties
-  map.resources :resource_types
+  map.resources :resource_types, :member => {:associations_list => :get, :associations_update => :put}
 
   # The priority is based upon order of creation: first created -> highest priority.
   

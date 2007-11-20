@@ -3,6 +3,6 @@
 function mark_for_destroy(element) {
   if (confirm('This operation will delete this property from all the resources. Are you sure?')){
 		$(element).next('.should_destroy').value = 1;
-		$(element).up('.property').hide();
+		$(element).up('.dynamic_element').hide();
   }
 }

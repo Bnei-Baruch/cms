@@ -17,22 +17,16 @@ font-weight: bold;
 margin: 30px 0 10px;
 }
 
-.property table{
+.dynamic_element table.property_definition,.dynamic_element table.association_definition{
 border: 2px dashed lightblue;
 margin: 15px 0;  
 padding: 3px;
-/*width: 100%;*/
 }
-/*
-.property table td{
-text-align: left;
-width: 100%;    
-}
-*/
-.property img{
+
+.dynamic_element img{
 border: none;
 }
-.property th{
+.dynamic_element th{
 text-align: left;
 }
 
@@ -53,10 +47,11 @@ border: 1px solid lightblue;
 width: 69%;
 }
 #hd h1{
-font-size:186%;
-font-weight:bold;
+font-size:220%;
 margin: 0 0 0 30px;
 display: inline;
+font-family:arial;
+color: darkblue;
 }
 #hd img{
 margin: 10px 0 -4px;    
@@ -110,4 +105,15 @@ padding-left: 15px;
 }
 span#submit{
 display:block;    
+}
+.notice{
+position: absolute;
+top: 5px;
+right: 5px;
+text-align:center;
+padding: 5px;
+border: 1px solid green;
+background-color: rgb(198,251,208);
+color: green;
+font-weight: bold;   
 }

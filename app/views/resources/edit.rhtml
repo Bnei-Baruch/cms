@@ -1,5 +1,4 @@
 <% @title = "Editing resource" %>
-
 <% form_for(:resource, :url => resource_path(@resource), :html => {:method => 'put'}) do |f| %>
 	<p>
 		<%= render :partial => 'fields', :locals => {:f => f} %>

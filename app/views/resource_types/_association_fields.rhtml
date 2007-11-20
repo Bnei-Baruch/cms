@@ -1,0 +1,38 @@
+<div class="association dynamic_element">
+	<% fields_for "resource_type[my_associations][]", association do |f| %>
+		<table class="association_definition">
+			<thead>
+				<th class="label">Associate to</th>
+				<th class="label">Association type</th>
+			</thead>
+			<tr>
+				<% if association.new_record? %>
+					<td>
+						<%= f.select :resource_type_id, @resource_type.resource_types_for_association_select,{} , :index => nil %>
+					</td>
+					<td>
+						<%= f.select :association_type, Association.association_types_select,{} , :index => nil %>
+					</td>
+					<td>
+						<%= link_to_function image_tag("delete.gif"), 
+							"this.up('.dynamic_element').remove()" %>
+					</td>
+				<% else -%>
+					<td>
+						<%= association.child.name %>
+						<%= f.hidden_field :resource_type_id, :index => nil%>
+					</td>
+					<td>
+						<%= association.association_type %>
+						<%= f.hidden_field :association_type, :index => nil%>
+					</td>
+					<td>
+						<%= link_to_function image_tag("delete.gif"), "mark_for_destroy(this)" %>
+						<%= f.hidden_field :id, :index => nil%>
+						<%= f.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+					</td>
+				<% end %>
+			</tr>
+		</table>
+	<% end %>
+</div>

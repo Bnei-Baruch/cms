@@ -1,4 +1,5 @@
 class ResourceType < ActiveRecord::Base
+	has_and_belongs_to_many :websites
 	has_many :resource_type_properties, :order => :position, :dependent => :destroy
 	has_many :associations, :order => :position, :foreign_key => :parent_id, :dependent => :destroy
 	has_many :properties, :through => :resource_type_properties

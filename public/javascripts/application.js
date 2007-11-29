@@ -6,3 +6,20 @@ function mark_for_destroy(element) {
 		$(element).up('.dynamic_element').hide();
   }
 }
+
+// Make sure the behaviors still work even after navigating to another page using the ajax navigation.
+Event.addBehavior.reassignAfterAjax = true;
+
+// Behaviors
+Event.addBehavior({
+
+'#show_all_websites:change' : function() {
+	if($F(this) != null) {
+		$('website_id').hide();
+	}
+	else {
+		$('website_id').show();
+	}
+    ;
+}
+});

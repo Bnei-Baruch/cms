@@ -12,7 +12,16 @@ font-size: 12px;
 font-style: italic;
 font-weight: bold;
 }
-
+#website_control{
+height: 50px;    
+}
+#website_control label{
+display: inline;
+margin-left: 5px;    
+}
+#website_control select{
+margin: 5px 0 0 0;    
+}
 #submit{
 margin: 30px 0 10px;
 }
@@ -58,7 +67,7 @@ margin: 10px 0 -4px;
 }
 #hd{
 margin: 10px 0 0;
-border-bottom: 1px solid lightblue;
+border-bottom: 3px solid lightblue;
 padding-bottom: 20px;
 }
 #yui-main, .yui-b{
@@ -68,8 +77,7 @@ height: 400px;
 border-left: none;
 }
 #bd #yui-main .yui-b{
-border-left: 1px solid lightblue;
-padding-left: 20px;
+border-left: 3px solid lightblue;
 }
 .yui-b{
 padding-top:30px;    
@@ -101,7 +109,7 @@ list-style-type:square;
 margin-bottom: 4px;
 }
 ul{
-padding-left: 15px;
+padding-left: 20px;
 }
 span#submit{
 display:block;    
@@ -116,4 +124,30 @@ border: 1px solid green;
 background-color: rgb(198,251,208);
 color: green;
 font-weight: bold;   
+}
+#submenu{
+width: 160px;
+float:left;  
+border-right: 1px solid lightblue;
+margin:-30px 0 0 0;
+padding: 30px 0 0 20px;
+height: 400px
+}
+#content{
+float:left; 
+padding-left: 20px;   
+}
+h2.menu{
+font: normal normal 12px verdana;
+color: darkblue;
+padding: 5px 0;
+margin-top: -20px;
+text-align:center;
+background-color: #E6E6FF;
+}
+#submenu h2.menu{
+margin:-29px 1px 15px -19px;
+}
+#menu h2.menu{
+margin:-29px -12px 15px 0;
 }

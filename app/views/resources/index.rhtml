@@ -1,22 +1,18 @@
+<% content_for(:submenu) do -%>
+	<div id="submenu">
+		<h2 class="menu">Website Filter</h2>
+	<%= render :partial => 'share/admin/website_control' %>
+	</div>
+	<%= observe_form :website_control,
+		:url => resources_path, :method => :get%>
+<% end -%>
+
 <% @title = "Listing resources" %>
-<table border="1">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Resource type</th>
-			<th colspan="3">Actions</th>
-		</tr>
-	</thead>
-	<% for resource in @resources %>
-		<tr>
-			<td><%=h resource.name %></td>
-			<td><%=h resource.resource_type.name unless resource.resource_type_id.blank? %></td>
-			<td><%= link_to 'Show', resource_path(resource) %></td>
-			<td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-			<td><%= link_to 'Destroy', resource_path(resource), :confirm => 'Are you sure?', :method => :delete %></td>
-		</tr>
-	<% end %>
-</table>
+
+<div id="table">
+	<%= render :partial => 'table', :locals => { :resources => @resources } %>
+</div>
+
 
 <br />
 

@@ -1,18 +1,26 @@
 class ResourcesController < ApplicationController
 	layout 'admin'
-  # GET /resources
-  # GET /resources.xml
+  # GET /resources GET /resources.xml
   def index
-    @resources = Resource.find(:all)
+#     	update the website session information if the request is xhr
+		if request.xhr?
+			set_website_session(params[:show_all_websites])
+		end
+		website_id = session[:website]
+		if website_id && (website = Website.find_by_id(website_id))
+			@resources = website.resources.uniq
+		else
+			@resources = Resource.find(:all)
+    end
 
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @resources.to_xml }
+			format.js
     end
   end
 
-  # GET /resources/1
-  # GET /resources/1.xml
+  # GET /resources/1 GET /resources/1.xml
   def show
     @resource = Resource.find(params[:id])
 
@@ -34,11 +42,11 @@ class ResourcesController < ApplicationController
 		@resource_type = @resource.resource_type
   end
 
-  # POST /resources
-  # POST /resources.xml
+  # POST /resources POST /resources.xml
   def create
     @resource = Resource.new(params[:resource])
 		@resource_type = @resource.resource_type
+		Website.associate_website(@resource, session[:website])
 
     respond_to do |format|
       if @resource.save
@@ -52,11 +60,11 @@ class ResourcesController < ApplicationController
     end
   end
 
-  # PUT /resources/1
-  # PUT /resources/1.xml
+  # PUT /resources/1 PUT /resources/1.xml
   def update
     @resource = Resource.find(params[:id])
 		@resource_type = @resource.resource_type
+		Website.associate_website(@resource, session[:website])
 
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
@@ -70,8 +78,7 @@ class ResourcesController < ApplicationController
     end
   end
 
-  # DELETE /resources/1
-  # DELETE /resources/1.xml
+  # DELETE /resources/1 DELETE /resources/1.xml
   def destroy
     @resource = Resource.find(params[:id])
     @resource.destroy
@@ -81,4 +88,5 @@ class ResourcesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end

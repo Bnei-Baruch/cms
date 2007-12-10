@@ -1,1 +1,0 @@
-page[:table].replace_html :partial => "table", :locals => {:resources => @resources }

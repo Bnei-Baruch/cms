@@ -1,0 +1,26 @@
+<% @title = "Listing websites" %>
+<table border="1">
+	<thead>
+		<tr>
+    <th>Name</th>
+    <th>Domain</th>
+    <th>Prefix</th>
+			<th colspan="4">Actions</th>
+		</tr>
+	</thead>
+
+<% for website in @websites %>
+  <tr>
+    <td><%=h website.name %></td>
+    <td><%=h website.domain %></td>
+    <td><%=h website.prefix %></td>
+    <td><%= link_to 'Show', website_path(website) %></td>
+    <td><%= link_to 'Edit', edit_website_path(website) %></td>
+    <td><%= link_to 'Destroy', website_path(website), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New website', new_website_path %>

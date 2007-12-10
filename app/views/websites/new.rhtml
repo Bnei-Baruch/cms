@@ -1,0 +1,10 @@
+<% @title = "New website" %>
+
+<%= render :partial => 'form',
+	:locals => {
+	:path => websites_path,
+	:method => :post,
+	:button_text => 'Create'
+} %>
+
+<%= link_to 'Back', websites_path %>

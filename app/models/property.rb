@@ -4,10 +4,14 @@ class Property < ActiveRecord::Base
 	has_many :resource_properties, :dependent => :destroy
   
 	def self.types
-    ['String', 'Number', 'Text', 'Date', 'List', 'File']
+    ['String', 'Number', 'Boolean', 'Text', 'Timestamp', 'Date', 'List', 'File']
   end
 	
 	def self.properties_for_select
-		find(:all).collect{|property| ["#{property.name}[#{property.field_type}]", property.id]}
+		find(:all).collect{|property| ["#{property.name}(#{property.hrid})[#{property.field_type}]", property.id]}
+  end
+  
+  def self.get_property_by_hrid(identifier)
+		Property.find_by_hrid(identifier)
   end
 end

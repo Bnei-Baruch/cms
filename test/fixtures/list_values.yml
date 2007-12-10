@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  list_id: 1
+  string_value: MyString
+  number_value: 1
+  text_value: MyText
+  date_value: 2007-12-10
+two:
+  id: 2
+  list_id: 1
+  string_value: MyString
+  number_value: 1
+  text_value: MyText
+  date_value: 2007-12-10

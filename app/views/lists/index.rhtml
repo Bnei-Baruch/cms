@@ -1,0 +1,35 @@
+<% @title = "Listing lists" %>
+<table border="1">
+<thead>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>List Type</th>
+		<th>Property</th>
+		<th>Resource type</th>
+		<th colspan="3">Actions</th>
+	</tr>
+</thead>
+	
+<% for list in @lists %>
+		<tr>
+			<td><%=h list.id %></td>
+			<td><%=h list.name %></td>
+			<td><%=h list.list_type.humanize %></td>
+			<td><%=h list.property_id %></td>
+			<td><%=h list.resource_type_id %></td>
+			<td><%= link_to 'Show', list_path(list) %></td>
+			<td><%= link_to 'Edit', edit_list_path(list) %></td>
+			<td><%= link_to 'Destroy', list_path(list), :confirm => 'Are you sure?', :method => :delete %></td>
+		</tr>
+	<% end %>
+</table>
+
+<br />
+
+<% form_for(:list, :url => new_list_path, :html => {:method => :get}) do |f| %>
+	<p>
+		Type: <%= f.select(:list_type, List.types_for_select) %>
+		<%= submit_tag "Create new List" %>
+	</p>
+<% end %>

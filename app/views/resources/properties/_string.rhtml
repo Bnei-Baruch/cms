@@ -4,7 +4,7 @@
 	
 	<% fields_for "resource[my_properties][]", property do |f| %>
 	
-		<label for="resource_name"><%= property.name %></label>
+		<label for="value"><%= property.name %></label>
 		<%= f.text_field(:value, :index => nil) %>
 		<%= f.hidden_field(:property_type, :index => nil) %>
 		<%= f.hidden_field(:property_id, :index => nil) %>

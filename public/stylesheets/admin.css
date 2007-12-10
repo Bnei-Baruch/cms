@@ -39,11 +39,15 @@ border: none;
 text-align: left;
 }
 
-#property_fieldset{
+#property_fieldset, #list_fieldset{
 border: 1px solid lightgreen; 
 width: 700px; 
 margin: 25px 0 10px;
 padding:10px;
+}
+#list_fieldset{
+width:auto;
+padding:30px;
 }
 #left{
 float: left;

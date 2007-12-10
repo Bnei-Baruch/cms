@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :lists
+
 	
   # Root access
 	map.connect '', :controller => 'resources'

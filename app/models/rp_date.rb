@@ -9,8 +9,8 @@ class RpDate < RpTimestamp
     end
 	end
 	
-	#	def value=(input)
-	#		write_attribute('timestamp_value', input)
-	#  end
+	def value=(input)
+		write_attribute('timestamp_value', input)
+	end
 
 end

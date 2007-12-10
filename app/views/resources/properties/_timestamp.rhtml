@@ -6,7 +6,7 @@
 	
 		<label for="resource_name"><%= property.name %></label>
 		<%= calendar_date_select :property, :value, 
-			:time => false, 
+			:time => true, 
 			:popup => :force,
 			:id => 'resource[my_properties]__value', 
 			:name => 'resource[my_properties][][value]' %>

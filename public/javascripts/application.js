@@ -21,5 +21,16 @@ Event.addBehavior({
 		$('website_id').show();
 	}
     ;
+},
+/*This will update the hidden input field which holds the actual value 
+	to be passed to the model as the checkbox value*/
+'input.property_checkbox:change' : function() {
+	if($F(this) != null) {
+		this.next().value = true;
+	}
+	else {
+		this.next().value = false;
+	}
+    ;
 }
 });

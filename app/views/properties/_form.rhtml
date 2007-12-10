@@ -9,6 +9,8 @@
 			options_for_select(Property.types, @property.field_type), 
 			:name => 'property[field_type]', 
 			:id => 'property_field_type'%>
+		<label for="property_hrid">Identifier (used by the application)</label><%= f.text_field :hrid %>
+		<label for="property_default_code">Default Code (in ruby code)</label><%= f.text_field :default_code %>
 		<label for="property_pattern">Pattern (RegExp)</label><%= f.text_field :pattern %>
 		<span id="submit">
 			<%= submit_tag button_text %>

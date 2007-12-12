@@ -22,7 +22,7 @@ Event.addBehavior({
 	}
     ;
 },
-/*This will update the hidden input field which holds the actual value 
+/*This will update the hidden input field (in resource editing) which holds the actual value 
 	to be passed to the model as the checkbox value*/
 'input.property_checkbox:change' : function() {
 	if($F(this) != null) {
@@ -30,6 +30,19 @@ Event.addBehavior({
 	}
 	else {
 		this.next().value = false;
+	}
+    ;
+},
+'#property_field_type:change' : function() {
+	if($F(this) == 'List') {
+		$('property_list_id').enable();
+		new Effect.Appear('list_container');
+		 
+
+	}
+	else {
+		new Effect.Fade('list_container');
+		$('property_list_id').disable();
 	}
     ;
 }

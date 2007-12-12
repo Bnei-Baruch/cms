@@ -11,9 +11,6 @@ class PropertiesController < ApplicationController
       format.xml  { render :xml => @properties.to_xml }
     end
   end
-#TODO dfdfdf f slkfjsl kfs
-#XXX sdsdsd
-#FIXME sdfsdffds
   # GET /properties/1
   # GET /properties/1.xml
   def show

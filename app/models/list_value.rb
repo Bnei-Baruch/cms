@@ -15,5 +15,9 @@ class ListValue < ActiveRecord::Base
 	def fixed_date_value=(input)
 		write_attribute('date_value', input)
 	end
+	
+	def value
+		eval "#{list.list_type.downcase}_value"
+	end
 
 end

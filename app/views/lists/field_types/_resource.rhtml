@@ -1,0 +1,9 @@
+<div class="list_value dynamic_element">
+	<% @list_value = list_value %>
+	<%= error_messages_for :list_value %>
+	
+	<% fields_for "list[my_list_values][]", list_value do |f| %>
+		<%= f.text_area(:text_value, :index => nil) %>
+		<%= render :partial => 'lists/field_types/destroy', :locals => {:list_value => list_value, :f => f}  %>
+	<% end %>
+</div>

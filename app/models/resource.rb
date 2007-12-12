@@ -8,6 +8,7 @@ class Resource < ActiveRecord::Base
 	has_many :rp_timestamp_properties, :class_name => 'RpTimestamp', :dependent => :destroy
 	has_many :rp_date_properties, :class_name => 'RpDate', :dependent => :destroy
 	has_many :rp_boolean_properties, :class_name => 'RpBoolean', :dependent => :destroy
+	has_many :rp_list_properties, :class_name => 'RpList', :dependent => :destroy
 
 	after_update :save_resource_properties
 

@@ -5,7 +5,11 @@
 	<% fields_for "resource[my_properties][]", property do |f| %>
 	
 		<label for="resource_name"> <%= property.name %></label>
-		<%= f.text_area(:value, :index => nil) %>
+ 		<% if plaintext %>	
+			<%= f.text_area(:value, :index => nil, :class => 'mceNoEditor') %>
+		<% else %>
+			<%= f.text_area(:value, :index => nil) %>
+		<% end %>
 		<%= f.hidden_field(:property_type, :index => nil) %>
 		<%= f.hidden_field(:property_id, :index => nil) %>
 		<%= f.hidden_field :id, :index => nil%>

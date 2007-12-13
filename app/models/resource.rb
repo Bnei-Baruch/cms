@@ -5,6 +5,7 @@ class Resource < ActiveRecord::Base
 	has_many :rp_number_properties, :class_name => 'RpNumber', :dependent => :destroy
 	has_many :rp_string_properties, :class_name => 'RpString', :dependent => :destroy
 	has_many :rp_text_properties, :class_name => 'RpText', :dependent => :destroy
+	has_many :rp_plaintext_properties, :class_name => 'RpPlaintext', :dependent => :destroy
 	has_many :rp_timestamp_properties, :class_name => 'RpTimestamp', :dependent => :destroy
 	has_many :rp_date_properties, :class_name => 'RpDate', :dependent => :destroy
 	has_many :rp_boolean_properties, :class_name => 'RpBoolean', :dependent => :destroy

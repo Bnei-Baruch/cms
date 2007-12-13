@@ -10,9 +10,9 @@ class RpList < ResourceProperty
 		when 's' #Simple list type
 			read_attribute('list_value_id')
 		when 'r' #Resource list type
-			read_attribute('resource_id')
+			read_attribute('resource_as_property_id')
 		when 'rp' #Resource property list type
-			read_attribute('resource_id')
+			read_attribute('resource_property_id')
 		end
 		#		end
 	end
@@ -22,9 +22,9 @@ class RpList < ResourceProperty
 		when 's' #Simple list type
 			write_attribute('list_value_id', input)
 		when 'r' #Resource list type
-			write_attribute('resource_id', input)
+			write_attribute('resource_as_property_id', input)
 		when 'rp' #Resource property list type
-			write_attribute('resource_id', input)
+			write_attribute('resource_property_id', input)
 		end
 	end
 

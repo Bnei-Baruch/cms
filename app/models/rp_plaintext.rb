@@ -1,0 +1,2 @@
+class RpPlaintext < RpText
+end

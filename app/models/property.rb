@@ -5,7 +5,7 @@ class Property < ActiveRecord::Base
   belongs_to :list
 	
 	def self.types
-    ['String', 'Number', 'Boolean', 'Text', 'Timestamp', 'Date', 'List', 'File']
+    ['String', 'Number', 'Boolean', 'Text', 'Plaintext', 'Timestamp', 'Date', 'List', 'File']
   end
 	
 	def self.properties_for_select

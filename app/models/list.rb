@@ -1,7 +1,10 @@
 class List < ActiveRecord::Base
-	has_many :list_values, :dependent => :destroy
-	after_update :save_list_values
-	has_many :properties
+	has_many			:list_values, :dependent => :destroy
+	has_many			:properties, :dependent => :destroy
+	belongs_to		:resource_type
+	after_update	:save_list_values
+	belongs_to		:property
+	
 
 	def my_list_values=(my_list_values)
 		my_list_values.each do |p|
@@ -15,7 +18,7 @@ class List < ActiveRecord::Base
 	end
 
 	def self.types
-		['String', 'Number', 'Text', 'Date', 'Resource', 'RescourceProperty']
+		['String', 'Number', 'Text', 'Date', 'Resource', 'ResourceProperty']
 	end
 
 	def self.types_for_select
@@ -43,7 +46,15 @@ class List < ActiveRecord::Base
 	end
 	
 	def values_for_select
-		list_values.collect{|e| [e.value, e.id]}
+		if self.resource_type_id
+			if self.property_id
+				list_values.collect{|e| [e.value, e.id]}
+			else
+				resource_type.resources.collect{|e| [e.name, e.id]}
+      end
+		else
+			list_values.collect{|e| [e.value, e.id]}
+    end
 	end
 	
 	private

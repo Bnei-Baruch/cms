@@ -11,7 +11,7 @@
 					<% if property.new_record? %>
 						<%= f.select :property_id, Property.properties_for_select,{} , :index => nil %>
 					<% else -%>
-						<%= "#{property.property.name} (#{property.property.hrid}) [#{property.property.field_type}]" if property.property %>
+						<%= "#{property.property.name} &lt;#{property.property.hrid}&gt; [#{property.property.field_type}]" if property.property %>
 						<%= f.hidden_field :property_id, :index => nil%>
 					<% end %>
 				</td>

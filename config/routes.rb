@@ -1,10 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :lists
 
 	
   # Root access
 	map.connect '', :controller => 'resources'
 	
+  map.resources :lists, :collection => { :update_resource_type_properties => :get }
   map.resources :websites, :collection => { :set_website => :get }
   map.resources :resources
   map.resources :properties

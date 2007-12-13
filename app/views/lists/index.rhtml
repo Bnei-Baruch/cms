@@ -17,7 +17,7 @@
 			<td><%=h list.name %></td>
 			<td><%=h list.list_type.humanize %></td>
 			<td><%=h list.property_id %></td>
-			<td><%=h list.resource_type_id %></td>
+			<td><%=h list.resource_type.name if list.resource_type %></td>
 			<td><%= link_to 'Show', list_path(list) %></td>
 			<td><%= link_to 'Edit', edit_list_path(list) %></td>
 			<td><%= link_to 'Destroy', list_path(list), :confirm => 'Are you sure?', :method => :delete %></td>

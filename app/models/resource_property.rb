@@ -14,4 +14,22 @@ class ResourceProperty < ActiveRecord::Base
 	def name
 		resource.resource_type.resource_type_properties.find_by_property_id(property.id).name
 	end
+
+	protected	
+	
+	def get_value(klass)
+		v = @attributes[klass]
+		if self.new_record? && 
+				(v.nil? || 
+					v.empty?)
+			eval default_code
+		else
+			v
+		end
+
+	end
+	
+	def default_code
+		self.property.default_code
+	end
 end

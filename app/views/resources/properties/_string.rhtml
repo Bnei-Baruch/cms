@@ -1,6 +1,8 @@
 <div class="property">
 	<% @property = property %>
-	<%= error_messages_for :property %>
+     <% @property.errors.each do |e,d| %>
+       <li><%= e.capitalize + " " + d %></li>
+   <% end %>
 	
 	<% fields_for "resource[my_properties][]", property do |f| %>
 	

@@ -1,7 +1,7 @@
 <div class="property">
 	<% @property = property %>
    <ul>
-     <% property.errors.each do |e,d| %>
+     <% @property.errors.each do |e,d| %>
        <li><%= e.capitalize + " " + d %></li>
    <% end %>
    </ul> 

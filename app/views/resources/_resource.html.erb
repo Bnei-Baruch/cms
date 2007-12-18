@@ -3,5 +3,5 @@
   <td><%=h resource.resource_type.name unless resource.resource_type_id.blank? %></td>
   <td><%= link_to 'Show', resource_path(resource) %></td>
   <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-  <td><%= link_to 'Destroy', resource_path(resource), :confirm => 'Are you sure?', :method => :delete %></td>
+  <%#= link_to 'Destroy', resource_path(resource), :confirm => 'Are you sure?', :method => :delete %>
 </tr>

@@ -13,6 +13,7 @@ class Resource < ActiveRecord::Base
 
 	after_update :save_resource_properties
 
+	validates_associated :resource_properties, :message => nil
 	def name
 		eval calculate_name_code(resource_type.name_code)
 	end
@@ -47,16 +48,40 @@ class Resource < ActiveRecord::Base
 	end
 
 	def get_resource_property_by_property(property) #rtp = resource_type_property
-		if new_record? || 
-				resource_properties.empty? || 
-				!(obj = eval "Rp#{property.field_type.camelize}.find_by_resource_id_and_property_id(id,property.id)")
-			rp = eval "rp_#{property.field_type.downcase}_properties.new"
-			rp.resource = self
-			rp.property = property
-		else
-			rp = obj
+		resource_property_array = eval "rp_#{property.field_type.downcase}_properties" || []
+
+		if new_record? #new or not validated new
+			if resource_property_array.empty? #new before validation
+				rp = eval "rp_#{property.field_type.downcase}_properties.new"
+				rp.resource = self
+				rp.property = property
+			else #not valid new
+				rp = resource_property_array.detect { |e| e.property_id == property.id }
+				rp.resource = self
+				rp.property = property
+      end
+		else #edit or not validated edit
+			rp = resource_properties.detect { |e| e.property_id == property.id }
+			if rp.nil?
+				rp = resource_property_array.detect { |e| e.property_id == property.id } || (eval "Rp#{property.field_type.camelize}.new")
+				rp.resource = self
+				rp.property = property
+#				resource_properties << rp
+      end
 		end
 		return rp
+
+		
+#		if (new_record? && resource_property_array.empty?) || 
+#				!(obj = resource_properties.detect { |e| e.property_id == property.id })
+#			#if eval "rp_#{property.field_type.downcase}_properties.detect {}"
+#			rp = eval "rp_#{property.field_type.downcase}_properties.new"
+#			rp.resource = self
+#			rp.property = property
+#		else
+#			rp = obj
+#		end
+#		return rp
 	end
 
 	def save_resource_properties

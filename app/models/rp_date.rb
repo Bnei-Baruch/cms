@@ -2,11 +2,7 @@ class RpDate < RpTimestamp
 	
 	def value
 		#puts on new records the default code if exists
-		if self.new_record? && (default_code = self.property.default_code)
-			eval default_code
-		else
-			read_attribute('timestamp_value').to_date if timestamp_value
-    end
+		super('timestamp_value')
 	end
 	
 	def value=(input)

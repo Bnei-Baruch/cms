@@ -7,8 +7,14 @@ class ResourceProperty < ActiveRecord::Base
 		'property_type'
 	end
 
-	def value
-
+	def value(klass = 'number_value')
+		v = @attributes[klass]
+		if self.new_record? && 
+				(v.nil? || v.empty?)
+			eval default_code
+		else
+			v
+		end
 	end
 
 	def name
@@ -17,19 +23,8 @@ class ResourceProperty < ActiveRecord::Base
 
 	protected	
 	
-	def get_value(klass)
-		v = @attributes[klass]
-		if self.new_record? && 
-				(v.nil? || 
-					v.empty?)
-			eval default_code
-		else
-			v
-		end
-
-	end
-	
 	def default_code
-		self.property.default_code
+        code = self.property.default_code
+		code.nil? ? "" : code
 	end
 end

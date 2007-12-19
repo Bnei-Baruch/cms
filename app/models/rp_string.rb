@@ -4,11 +4,7 @@ class RpString < ResourceProperty
 
 	def value
 		#puts on new records the default code if exists
-		if self.new_record? && (default_code = self.property.default_code)
-			eval default_code
-		else
-			read_attribute('string_value')
-		end
+		super('string_value')
 	end
 	
 	def value=(input)

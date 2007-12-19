@@ -2,7 +2,7 @@ class RpNumber < ResourceProperty
 	
 	def value
 		#puts on new records the default code if exists
-		get_value('number_value')
+		super('number_value')
 	end
 	
 	def value=(input)

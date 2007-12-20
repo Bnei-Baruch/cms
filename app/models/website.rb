@@ -11,4 +11,9 @@ class Website < ActiveRecord::Base
 		end
 	end
 	
+	def get_website_resources
+		resource_type = ResourceType.find_by_hrid('website')
+		resource_type.resources
+	end
+	
 end

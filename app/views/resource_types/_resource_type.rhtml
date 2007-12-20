@@ -1,8 +1,7 @@
 <tr>
 	<td><%=h resource_type.id %></td>
 	<td><%=h resource_type.name %></td>
-	<td><%=h resource_type.created_at.to_date %></td>
-	<td><%=h resource_type.updated_at.to_date %></td>
+	<td><%=h resource_type.hrid %></td>
 	<td><%= link_to 'Show', resource_type_path(resource_type) %></td>
 	<td><%= link_to 'Edit', edit_resource_type_path(resource_type) %></td>
 	<td><%= link_to 'Associations', associations_list_resource_type_path(resource_type) %></td>

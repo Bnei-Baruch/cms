@@ -160,13 +160,14 @@ margin:-29px -12px 15px 0;
   background-color: red;
   display: table;
 }
-
+label.fieldWithErrors {
+   display:none;
+}
 #errorExplanation {
-  width: 400px;
+  width: 404px;
   border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  padding: 7px 7px 0;
+  margin-top: 25px;
   background-color: #f0f0f0;
 }
 
@@ -175,7 +176,7 @@ margin:-29px -12px 15px 0;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
   font-size: 12px;
-  margin: -7px;
+  margin: -7px -7px 0 -7px;
   background-color: #c00;
   color: #fff;
 }
@@ -189,4 +190,7 @@ margin:-29px -12px 15px 0;
 #errorExplanation ul li {
   font-size: 12px;
   list-style: square;
+}
+#errorExplanation ul {
+  padding:5px 0 0 20px;
 }

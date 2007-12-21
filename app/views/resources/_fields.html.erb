@@ -1,10 +1,14 @@
-<%= error_messages_for :resource %>
+<%= rp_error_messages_for :resource, :header_only => true %>
 
 <%= f.hidden_field(:resource_type_id) %>
 
 <div id="properties">
 	<% @resource_type.resource_type_properties.each_with_index do |rt_property, index| %>
 		<% property = @resource.get_resource_property_by_resource_type_property(rt_property) %>
-		<%= render :partial => "resources/properties/#{rt_property.data_type}", :locals => {:property => property, :index => index}  %>
+        <%= render :partial => "property",
+                  :locals => {:property => property,
+                              :data_type => rt_property.data_type,
+                              :index => index}
+        %>
 	<% end %>
 </div>

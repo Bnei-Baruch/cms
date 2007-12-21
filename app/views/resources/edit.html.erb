@@ -1,8 +1,10 @@
-<% @title = "Editing resource" %>
+<% name = @resource.resource_type.name %>
+<% @title = "Editing #{name}" %>
+
 <% form_for(:resource, :url => resource_path(@resource), :html => {:method => 'put'}) do |f| %>
 	<p>
 		<%= render :partial => 'fields', :locals => {:f => f} %>
-		<span id="submit"><%= submit_tag "Update Resource" %></span>
+		<span id="submit"><%= submit_tag "Update #{name}" %></span>
 	</p>
 <% end %>
 

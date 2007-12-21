@@ -2,7 +2,7 @@ class RpDate < RpTimestamp
 	
 	def value
 		#puts on new records the default code if exists
-		super('timestamp_value')
+		super('timestamp_value').to_date
 	end
 	
 	def value=(input)

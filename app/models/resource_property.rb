@@ -24,7 +24,7 @@ class ResourceProperty < ActiveRecord::Base
 	protected	
 	
 	def default_code
-        code = self.property.default_code
+		code = self.property.default_code
 		code.nil? ? "" : code
 	end
 end

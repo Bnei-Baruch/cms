@@ -48,7 +48,7 @@ class Resource < ActiveRecord::Base
 	end
 
 	def get_resource_property_by_property(property) #rtp = resource_type_property
-		resource_property_array = eval "rp_#{property.field_type.downcase}_properties" || []
+		resource_property_array = eval("rp_#{property.field_type.downcase}_properties") || []
 
 		if new_record? #new or not validated new
 			if resource_property_array.empty? #new before validation

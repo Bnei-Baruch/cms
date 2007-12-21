@@ -30,7 +30,11 @@ module ApplicationHelper
         options[:object_name] ||= ''
       end
       unless options.include?(:header_message)
-        options[:header_message] = "#{options[:header_only] ? 'Errors' : pluralize(count, 'error')} prohibited #{options[:object_name].to_s.gsub('_', ' ')} from being saved"
+				if options[:header_only]
+					options[:header_message] = "Errors prohibited #{options[:object_name].to_s.gsub('_', ' ')} from being saved"
+				else
+					options[:header_message] = "#{options[:object_name].to_s.gsub('_', ' ')}"
+				end
       end
       options[:message] ||= ''#There were problems with the following fields:' unless options.include?(:message)
       error_messages = objects.map {|object| object.errors.full_messages.map {|msg| content_tag(:li, msg) } }

@@ -2,7 +2,8 @@ class RpTimestamp < ResourceProperty
 	
   def value(klass = 'timestamp_value')
     #puts on new records the default code if exists
-    super('timestamp_value')
+    now = super('timestamp_value')
+    now.blank? ? Time.now : now
   end
 	
   def value=(input)

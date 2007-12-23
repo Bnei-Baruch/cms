@@ -13,7 +13,7 @@
 							<%= f.text_field(:value, :index => nil, :size => 57) %>
 				<% when 'boolean':%>
 							<%= check_box_tag '', true, property.value, { :class => 'property_checkbox'} %>	
-					 <%= hidden_field_tag 'resource[my_properties][][value]',{} ,{:id => 'resource[my_properties]__value'} %>
+					 <%= hidden_field_tag 'resource[my_properties][][value]',{} ,{:id => 'resource_my_properties__value'} %>
 				<% when 'date':%>
 					 <%= calendar_date_select :property, :value, 
 						 :time => false, 

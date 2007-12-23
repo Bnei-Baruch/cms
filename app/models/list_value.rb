@@ -3,6 +3,8 @@ class ListValue < ActiveRecord::Base
 	belongs_to :list
 	attr_accessor :should_destroy
 
+  # TODO: Validations must be added
+  
 	def should_destroy?
 		should_destroy.to_i == 1
 	end

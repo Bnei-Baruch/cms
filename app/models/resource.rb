@@ -13,7 +13,9 @@ class Resource < ActiveRecord::Base
 
 	after_update :save_resource_properties
 
-	validates_associated :resource_properties, :message => nil
+  # Let each property of the Resource to validate itself
+	validates_associated :resource_properties
+	
 	def name
 		eval calculate_name_code(resource_type.name_code)
 	end
@@ -47,6 +49,12 @@ class Resource < ActiveRecord::Base
 		end
 	end
 
+	def calculate_name_code(name_code)
+		name_code.gsub(/<([^>]*?)>/) do |match|
+			"'#{get_resource_property_by_property_hrid($1)}'"
+		end
+	end
+	
 	def get_resource_property_by_property(property) #rtp = resource_type_property
 		resource_property_array = eval("rp_#{property.field_type.downcase}_properties") || []
 
@@ -66,22 +74,9 @@ class Resource < ActiveRecord::Base
 				rp = resource_property_array.detect { |e| e.property_id == property.id } || (eval "Rp#{property.field_type.camelize}.new")
 				rp.resource = self
 				rp.property = property
-#				resource_properties << rp
       end
 		end
 		return rp
-
-		
-#		if (new_record? && resource_property_array.empty?) || 
-#				!(obj = resource_properties.detect { |e| e.property_id == property.id })
-#			#if eval "rp_#{property.field_type.downcase}_properties.detect {}"
-#			rp = eval "rp_#{property.field_type.downcase}_properties.new"
-#			rp.resource = self
-#			rp.property = property
-#		else
-#			rp = obj
-#		end
-#		return rp
 	end
 
 	def save_resource_properties
@@ -90,10 +85,4 @@ class Resource < ActiveRecord::Base
 		end
 	end
 		
-	def calculate_name_code(name_code)
-		name_code.gsub(/<([^>]*?)>/) do |match|
-			"'#{get_resource_property_by_property_hrid($1)}'"
-		end
-	end
-	
 end

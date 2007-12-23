@@ -7,6 +7,10 @@ class ResourceProperty < ActiveRecord::Base
 		'property_type'
 	end
 
+	def to_param
+		self.id.to_s
+  end
+
 	def value(klass = 'number_value')
 		v = @attributes[klass]
 		if self.new_record? && 

@@ -4,7 +4,11 @@ class List < ActiveRecord::Base
 	belongs_to		:resource_type
 	after_update	:save_list_values
 	belongs_to		:property
-	
+
+  # Validate name here, but pass values to validate themselves
+	validates_presence_of :name
+	validates_uniqueness_of :name
+  validates_associated :list_values
 
 	def my_list_values=(my_list_values)
 		my_list_values.each do |p|
@@ -56,7 +60,7 @@ class List < ActiveRecord::Base
 			list_values.collect{|e| [e.value, e.id]}
     end
 	end
-	
+
 	private
 	
 	def save_list_values

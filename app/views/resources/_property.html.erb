@@ -1,5 +1,5 @@
 <div class="property">
-	<% @property = property
+	<% @property = property # for use with error_messages_for only
 		 errors = rp_error_messages_for :property
 		 label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
 	%>

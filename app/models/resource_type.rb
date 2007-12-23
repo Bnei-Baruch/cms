@@ -5,8 +5,17 @@ class ResourceType < ActiveRecord::Base
 	has_many :properties, :through => :resource_type_properties
 	has_many :resources, :dependent => :destroy
 	has_many :lists, :dependent => :destroy
+	
 	after_update :save_resource_type_properties, :save_associations
+
+  # We'd like to report problems with HRID as if it's name was IDENTIFIER
+	alias_attribute :identifier, :hrid
   
+	validates_presence_of :name, :identifier
+	validates_uniqueness_of :name
+	validates_uniqueness_of :hrid, :as => :identifier
+	validate :correctness_of_name_code  # TODO: not implemented, see below
+
 	def my_properties=(my_properties)
 		my_properties.each_with_index do |p, i|
 			more_properties = {:position => i +1}
@@ -49,6 +58,16 @@ class ResourceType < ActiveRecord::Base
 		resource_type_properties.collect{|e| [e.name, e.property.id]}
 	end
 	
+	protected
+	
+	def correctness_of_name_code
+    # calculate_name_code should be accessible from here, but it is not public :(
+#		begin
+#			eval(Resource.calculate_name_code(name_code), binding, "property", 1)
+#		rescue Exception => e
+#			errors.add(:name_code, "-- an error occurred:<br/> #{$!}")
+#		end
+	end
 	
 	private
 	

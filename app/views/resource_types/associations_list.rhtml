@@ -1,4 +1,5 @@
-<% @title = "Editing resource type associations" %>
+<% name = @resource_type.name %>
+<% @title = "Editing associations of resource type #{name}" %>
 <% form_for(:resource_type, :url => associations_update_resource_type_path(@resource_type), :html => {:method => 'put'}) do |f| %>
 	<p>
 		<div id="association_fields">

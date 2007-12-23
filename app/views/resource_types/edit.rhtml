@@ -1,8 +1,9 @@
-<% @title = "Editing resource type" %>
+<% name = @resource_type.name %>
+<% @title = "Editing resource type: #{name}" %>
 <% form_for(:resource_type, :url => resource_type_path(@resource_type), :html => {:method => 'put'}) do |f| %>
 	<p>
 	<%= render :partial => 'fields', :locals => {:f => f} %>
-	<span id="submit"><%= submit_tag "Update Resource Type" %></span>
+	<span id="submit"><%= submit_tag "Update #{name}" %></span>
  </p>
 <% end %>
 <%= link_to 'Show', resource_type_path(@resource_type) %> |

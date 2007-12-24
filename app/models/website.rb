@@ -54,4 +54,8 @@ class Website < ActiveRecord::Base
 			errors.add(:domain_and_prefix, ActiveRecord::Errors.default_error_messages[:taken])
 		end
   end
+	def get_website_resources_for_select
+		get_website_resources.map { |e| [e.name, e.id] }
+	end
+	
 end

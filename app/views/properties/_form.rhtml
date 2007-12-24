@@ -1,33 +1,34 @@
 <%= error_messages_for :property %>
 
 <% form_for(:property, :url => path, :html => {:method => method}) do |f| %>
-	<p>
-		<label for="property_name">Name</label><%= f.text_field :name %>
-	
-				<% if @property.new_record? %>
-			<label for="property_field_type">Type</label>
-			<%= select_tag :field_type, 
-						options_for_select(Property.types, @property.field_type), 
-						:name => 'property[field_type]', 
-						:id => 'property_field_type'%>
-			<div id="list_container" style="display:none;">
-				<label for="property_list_id">List Name</label>
-				<%= f.select(:list_id, List.names_for_select, {}, :disabled => true) %>
-			</div>
-		<% else %>
-			<br />
-			<br />
-			<p><b><i>Type:</i></b> <%= @property.field_type %></p>
-			<% if @property.list %>
-				<br />
-				<p><b><i>List Name:</i></b> <%= @property.list.name %></p>
-			<% end %>
-	<% end %>
-		<label for="property_identifier">Identifier (used by the CMS engine)</label><%= f.text_field :identifier %>
-		<label for="property_default_code">Default Code (in ruby code)</label><%= f.text_field :default_code %>
-		<label for="property_pattern">Pattern (RegExp)</label><%= f.text_field :pattern %>
-		<span id="submit">
-			<%= submit_tag button_text %>
-		</span>
-	</p>
+  <p>
+    <label for="property_name">Name</label><%= f.text_field :name %>
+  
+    <% if @property.new_record? %>
+      <label for="property_field_type">Type</label>
+      <%= select_tag :field_type, 
+	options_for_select(Property.types, @property.field_type), 
+	:name => 'property[field_type]', 
+	:id => 'property_field_type'%>
+      <div id="list_container" style="display:none;">
+	<label for="property_list_id">List Name</label>
+	<%= f.select(:list_id, List.names_for_select, {}, :disabled => true) %>
+      </div>
+    <% else %>
+      <br />
+      <br />
+      <p><b><i>Type:</i></b> <%= @property.field_type %></p>
+      <% if @property.list %>
+	<br />
+	<p><b><i>List Name:</i></b> <%= @property.list.name %></p>
+      <% end %>
+    <% end %>
+    <label for="property_identifier">Identifier (used by the CMS engine)</label><%= f.text_field :identifier %>
+    <label for="property_default_code">Default Code (in ruby code)</label><%= f.text_field :default_code %>
+    <label for="property_pattern">Pattern (RegExp)</label><%= f.text_field :pattern %>
+    <label for="property_pattern_text">Pattern Validation Text</label><%= f.text_field :pattern_text %>
+    <span id="submit">
+      <%= submit_tag button_text %>
+    </span>
+  </p>
 <% end %>

@@ -1,44 +1,44 @@
 <div class="property">
 	<% @property = property # for use with error_messages_for only
-		 errors = rp_error_messages_for :property
-		 label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+	errors = rp_error_messages_for :property
+	label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
 	%>
-
+	
 	<% fields_for "resource[my_properties][]", property do |f| %>
 	
-			<%= f.label("resource[my_properties][]", property.name, label_class)%>
-				<%= errors %>
-				<% case data_type
-					 when 'number', 'string':%>
-							<%= f.text_field(:value, :index => nil, :size => 57) %>
-				<% when 'boolean':%>
-							<%= check_box_tag '', true, property.value, { :class => 'property_checkbox'} %>	
-					 <%= hidden_field_tag 'resource[my_properties][][value]',{} ,{:id => 'resource_my_properties__value'} %>
-				<% when 'date':%>
-					 <%= calendar_date_select :property, :value, 
-						 :time => false, 
-						 :popup => :force,
-						 :size => 57,
-						 :id => 'resource_my_properties__value', 
-						 :name => 'resource[my_properties][][value]' %>
-				<% when 'timestamp':%>
-					 <%= calendar_date_select :property, :value, 
-						 :time => true, 
-						 :popup => :force,
-						 :size => 57,
-						 :id => 'resource_my_properties__value', 
-						 :name => 'resource[my_properties][][value]' %>
-				<% when 'list':%>
-							<%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil) %>
-				<% when 'plaintext':%>
-							<%= f.text_area(:value, :index => nil, :class => 'mceNoEditor') %>
-				<% when 'text':%>
-							<%= f.text_area(:value, :index => nil) %>
-				<% end %>
-
-				<%= f.hidden_field(:property_type, :index => nil) %>
-				<%= f.hidden_field(:property_id, :index => nil) %>
-				<%= f.hidden_field :id, :index => nil%>
-
+		<%= f.label("resource[my_properties][]", property.name, label_class)%>
+			<%= errors %>
+			<% case data_type
+			when 'number', 'string':%>
+				<%= f.text_field(:value, :index => nil, :size => 57) %>
+			<% when 'boolean':%>
+				<%= check_box_tag '',property.value, property.value.eql?('t'), { :class => 'property_checkbox'} %>
+				<%= hidden_field_tag 'resource[my_properties][][value]',{} ,{:value => property.value, :id => 'resource_my_properties__value'} %>
+			<% when 'date':%>
+				<%= calendar_date_select :property, :value, 
+				:time => false, 
+				:popup => :force,
+				:size => 57,
+				:id => 'resource_my_properties__value', 
+				:name => 'resource[my_properties][][value]' %>
+			<% when 'timestamp':%>
+				<%= calendar_date_select :property, :value, 
+				:time => true, 
+				:popup => :force,
+				:size => 57,
+				:id => 'resource_my_properties__value', 
+				:name => 'resource[my_properties][][value]' %>
+			<% when 'list':%>
+				<%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil) %>
+			<% when 'plaintext':%>
+				<%= f.text_area(:value, :index => nil, :class => 'mceNoEditor') %>
+			<% when 'text':%>
+				<%= f.text_area(:value, :index => nil) %>
+			<% end %>
+	
+			<%= f.hidden_field(:property_type, :index => nil) %>
+			<%= f.hidden_field(:property_id, :index => nil) %>
+			<%= f.hidden_field :id, :index => nil%>
+	
 		<% end %>
 	</div>

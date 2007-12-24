@@ -1,7 +1,6 @@
-<% name = @resource.resource_type.name %>
-<% @title = "New #{name}" %>
+<% @title = "New resource" %>
 <% form_for(:resource, :url => resources_path) do |f| %>
 	<%= render :partial => 'fields', :locals => {:f => f} %>
-	<div id="submit"><%= submit_tag "Create #{name}" %></div>
+	<div id="submit"><%= submit_tag "Create resource" %></div>
 <% end %>
 <%= link_to 'Cancel', resources_path %>

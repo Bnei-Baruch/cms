@@ -11,7 +11,7 @@ class ResourceType < ActiveRecord::Base
   # We'd like to report problems with HRID as if it's name was IDENTIFIER
 	alias_attribute :identifier, :hrid
   
-	validates_presence_of :name, :identifier
+	validates_presence_of :name, :identifier, :name_code
 	validates_uniqueness_of :name
 	validates_uniqueness_of :hrid, :as => :identifier
 	validate :correctness_of_name_code  # TODO: not implemented, see below

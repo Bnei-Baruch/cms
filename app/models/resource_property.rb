@@ -3,6 +3,8 @@ class ResourceProperty < ActiveRecord::Base
 	belongs_to :property
 	belongs_to :list_value
 
+	validate :match_pattern
+
 	def self.inheritance_column
 		'property_type'
 	end
@@ -30,5 +32,13 @@ class ResourceProperty < ActiveRecord::Base
 	def default_code
 		code = self.property.default_code
 		code.nil? ? "" : code
+	end
+
+	def match_pattern
+		return if property.pattern.blank?
+		
+    unless value.to_s =~ Regexp.new(property.pattern, Regexp::IGNORECASE, 'u')
+      errors.add(:value, "does not match pattern (#{property.pattern})")
+    end
 	end
 end

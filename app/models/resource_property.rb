@@ -38,7 +38,7 @@ class ResourceProperty < ActiveRecord::Base
 		return if property.pattern.blank?
 		
     unless value.to_s =~ Regexp.new(property.pattern, Regexp::IGNORECASE, 'u')
-      errors.add(:value, "does not match pattern (#{property.pattern})")
+      errors.add(:value, "does not match pattern /#{property.pattern}/")
     end
 	end
 end

@@ -9,10 +9,10 @@
 
 <% @title = "Listing resource types" %>
 
+<%= link_to 'New resource_type', new_resource_type_path %><br/><br/>
+
 <div id="table">
 	<%= render :partial => 'table', :locals => { :resource_types => @resource_types } %>
 </div>
 
-<br />
-
-<%= link_to 'New resource_type', new_resource_type_path %>
+<br/><br/><%= link_to 'New resource_type', new_resource_type_path %>

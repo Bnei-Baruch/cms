@@ -15,6 +15,8 @@ class Resource < ActiveRecord::Base
 
   # Let each property of the Resource to validate itself
 	validates_associated :resource_properties
+  
+  validate :required_properties_present
 	
 	def name
 		eval calculate_name_code(resource_type.name_code)
@@ -37,6 +39,15 @@ class Resource < ActiveRecord::Base
 	def get_resource_property_by_resource_type_property(rtp) #rtp = resource_type_property
 		get_resource_property_by_property(rtp.property)
 	end
+
+  protected
+
+  # We cannot call this directly in property, because we don't know there resource_type
+  def required_properties_present
+		resource_properties.each do |rp|
+      rp.is_required(resource_type)
+    end
+  end
 
 	private
 

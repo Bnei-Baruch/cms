@@ -9,10 +9,18 @@
 
 <% @title = "Listing resources" %>
 
+<% form_for(:resource, :url => new_resource_path, :html => {:method => :get}) do |f| %>
+	<p>
+		Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
+		<%= submit_tag "Create new Resource" %>
+	</p>
+<% end %>
+
+<br />
+
 <div id="table">
 	<%= render :partial => 'table', :locals => { :resources => @resources } %>
 </div>
-
 
 <br />
 

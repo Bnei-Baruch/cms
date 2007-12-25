@@ -25,35 +25,48 @@ class Website < ActiveRecord::Base
   protected
   
   def correctness_of_domain_and_prefix
+    # no slashes on the end of domain and the start and end of prefix
+		errors.add(:domain, 'must has no slashes on the end of domain') if domain =~ /\A.+\/\Z/
+		errors.add(:prefix, 'must has no slashes at the start and/or end of prefix') if prefix =~ /\A(\/.+)|(.+\/)\Z/
+    domain.gsub!(/[^:]\/\//, '/')
+    prefix.gsub!(/\/\//, '/')
+
     url = domain + "/" + prefix
+    url.gsub!(/[^:]\/\//, '/')
     if url.blank?
 			errors.add(:domain_and_prefix, ActiveRecord::Errors.default_error_messages[:empty])
 			return
     end
 
-    # no slashes on the end of domain and the start and end of prefix
-		errors.add(:domain, 'no slashes on the end of domain') if domain =~ /\A.+\/\Z/
-		errors.add(:prefix, 'no slashes at the start and/or end of prefix') if prefix =~ /\A(\/.+)|(.+\/)\Z/
-
     # validates_format_of domain
     begin
-			URI.parse(domain)
+			uri = URI(domain)
 		rescue Exception => ex
-			errors.add(:domain, ActiveRecord::Errors.default_error_messages[:invalid])
+			errors.add(:domain, "#{ActiveRecord::Errors.default_error_messages[:invalid]}: #{$!}")
+      return
 		end
+    unless (['HTTP','HTTPS'].include?(uri.scheme.upcase))
+      errors.add(:domain, "bad scheme component: #{uri.scheme}")
+      return
+    end
 
     # validates_format_of url
 		begin
-			URI.parse(url)
+			uri = URI("#{url}/")
 		rescue Exception => ex
-			errors.add(:domain_and_prefix, ActiveRecord::Errors.default_error_messages[:invalid])
+			errors.add(:domain_and_prefix, "#{ActiveRecord::Errors.default_error_messages[:invalid]}: #{$!}")
 		end
+    unless (['HTTP','HTTPS'].include?(uri.scheme.upcase))
+      errors.add(:domain_and_prefix, "bad scheme component: #{uri.scheme}")
+      return
+    end
 
     # validates_uniqueness_of url
-    unless Website.find(:all, :conditions => ['domain = ? AND prefix = ?', domain, prefix]).empty?
-			errors.add(:domain_and_prefix, ActiveRecord::Errors.default_error_messages[:taken])
-		end
+    sites = Website.find(:all, :conditions => ['domain = ? AND prefix = ?', domain, prefix])
+    sites.reject! { |site| site.id == id } unless sites.empty?
+    errors.add(:domain_and_prefix, ActiveRecord::Errors.default_error_messages[:taken]) unless sites.empty?
   end
+
 	def get_website_resources_for_select
 		get_website_resources.map { |e| [e.name, e.id] }
 	end

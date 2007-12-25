@@ -27,6 +27,14 @@ class ResourceProperty < ActiveRecord::Base
 		resource.resource_type.resource_type_properties.find_by_property_id(property.id).name
 	end
 
+  # Validate this property to be non-empty
+  def is_required(resource_type)
+    is_required = ResourceTypeProperty.is_required?(property, resource_type)
+    if is_required and value.blank?
+      errors.add(:value, "of the field cannot be blank")
+    end
+  end
+    
 	protected	
 	
 	def default_code
@@ -38,7 +46,10 @@ class ResourceProperty < ActiveRecord::Base
 		return if property.pattern.blank?
 		
     unless value.to_s =~ Regexp.new(property.pattern, Regexp::IGNORECASE, 'u')
-      errors.add(:value, "does not match pattern /#{property.pattern}/")
+      errors.add(:value,
+        property.pattern_text.blank? ?
+        "does not match pattern /#{property.pattern}/" :
+        property.pattern_text )
     end
 	end
 end

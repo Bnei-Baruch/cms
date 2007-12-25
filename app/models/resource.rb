@@ -44,8 +44,14 @@ class Resource < ActiveRecord::Base
 
   # We cannot call this directly in property, because we don't know there resource_type
   def required_properties_present
+    result = false
 		resource_properties.each do |rp|
-      rp.is_required(resource_type)
+      result ||= rp.is_required(resource_type)
+    end
+    if result
+      # There was error on one of fields, so we need to invalidate all resource
+      # Otherwise it will pass validation :(
+      errors.add(:base, "There are required fields without values")
     end
   end
 

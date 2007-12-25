@@ -28,11 +28,15 @@ class ResourceProperty < ActiveRecord::Base
 	end
 
   # Validate this property to be non-empty
+  # Returns 'true' on error
   def is_required(resource_type)
+    result = false
     is_required = ResourceTypeProperty.is_required?(property, resource_type)
     if is_required and value.blank?
+      result = true
       errors.add(:value, "of the field cannot be blank")
     end
+    result
   end
     
 	protected	

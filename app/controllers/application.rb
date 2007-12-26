@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
 			:plugins => %w{contextmenu paste fullscreen inlinepopups directionality searchreplace media advimage table}},
 		:advimage_styles => 'left_aligned=tinyleft',
 		:debug => true,
-		:only => [:new, :edit, :show, :index])
+		:only => [:new, :edit, :show, :index, :update])
 
 
 end

@@ -1,4 +1,5 @@
-<form id="website_control">
+<form id="website_control" action="">
+<p>
 	<% if session[:website] %>
 		<%= check_box_tag :show_all_websites, true, false %><label for="show_all_websites">Show all websites</label>
 		<%= select_tag :website_id, options_from_collection_for_select(Website.find(:all, :select => 'id, name'), :id, :name, session[:website].to_i) %>
@@ -6,4 +7,5 @@
 		<%= check_box_tag :show_all_websites, {true, false}, checked=true %><label for="show_all_websites">Show all websites</label>
 		<%= select_tag :website_id, options_from_collection_for_select(Website.find(:all, :select => 'id, name'), :id, :name, session[:website].to_i), :style => 'display:none' %>
 	<% end %>
+</p>
 </form>

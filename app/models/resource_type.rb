@@ -11,14 +11,51 @@ class ResourceType < ActiveRecord::Base
   # We'd like to report problems with HRID as if it's name was IDENTIFIER
 	alias_attribute :identifier, :hrid
   
-	validates_presence_of :name, :identifier, :name_code
+	validates_presence_of :name, :name_code
+	validate	:presence_of_hrid # This permits us to report :identifier instead of
+  # :hrid without rewriting functions
 	validates_uniqueness_of :name
 	validates_uniqueness_of :hrid, :as => :identifier
 	validate :correctness_of_name_code  # TODO: not implemented, see below
 
 	def my_properties=(my_properties)
-		my_properties.each_with_index do |p, i|
-			more_properties = {:position => i +1}
+    # This code overcomes the following problem:
+    # When checkbox is 'True' then it is send _TOGETHER_ with the next
+    # invisible field. This causes parser to split one entry into two.
+    # For example:
+    #
+    #   resource_type[my_properties][][local_name]=Page Title
+    #   resource_type[my_properties][][is_required]=t
+    #   resource_type[my_properties][][is_required]=f
+    #   resource_type[my_properties][][property_id]=3
+    #   resource_type[my_properties][][id]=72
+    # 
+    # will become two records:
+    # 
+    #   resource_type.my_properties[0]['local_name'] = 'Page Title'
+    #   resource_type.my_properties[0]['is_required'] = t
+    # and
+    #   resource_type.my_properties[0]['is_required'] = f
+    #   resource_type.my_properties[0]['property_id'] = 3
+    #   resource_type.my_properties[0]['id'] = 72
+    #
+    # In the following code we rejoin every record without :id field with the
+    # next one.
+
+    new_properties = my_properties.collect { |p|
+      if p.has_key?(:id)
+        p.merge!(@incomplete_property)
+        @incomplete_property = {}
+        p
+      else
+        @incomplete_property = p
+        {}
+      end
+    }.reject! { |p|
+      p.empty?
+    }
+		new_properties.each_with_index do |p, i|
+			more_properties = {:position => i + 1}
 			h = p.merge!(more_properties)
 			if h[:id].blank?
 				resource_type_properties.build(h)
@@ -62,14 +99,19 @@ class ResourceType < ActiveRecord::Base
 	
 	def correctness_of_name_code
     # calculate_name_code should be accessible from here, but it is not public :(
-#		begin
-#			eval(Resource.calculate_name_code(name_code), binding, "property", 1)
-#		rescue Exception => e
-#			errors.add(:name_code, "-- an error occurred:<br/> #{$!}")
-#		end
+    #		begin
+    #			eval(Resource.calculate_name_code(name_code), binding, "property", 1)
+    #		rescue Exception => e
+    #			errors.add(:name_code, "-- an error occurred:<br/> #{$!}")
+    #		end
 	end
 	
-	private
+  # HRID must present
+	def presence_of_hrid
+		errors.add(:identifier, ActiveRecord::Errors.default_error_messages[:blank]) if hrid.blank?
+	end
+
+  private
 	
 	def save_resource_type_properties
 		resource_type_properties.each do |rtp|

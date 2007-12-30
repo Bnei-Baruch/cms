@@ -6,7 +6,7 @@ class RpBoolean < ResourceProperty
   end
 	
   def value=(input)
-    write_attribute('boolean_value', input)
+    write_attribute('boolean_value', input == 't')
   end
 
 end

@@ -45,8 +45,8 @@ class Website < ActiveRecord::Base
 			errors.add(:domain, "#{ActiveRecord::Errors.default_error_messages[:invalid]}: #{$!}")
       return
 		end
-    unless (['HTTP','HTTPS'].include?(uri.scheme.upcase))
-      errors.add(:domain, "bad scheme component: #{uri.scheme}")
+    unless !uri.scheme.blank? && (['HTTP','HTTPS'].include?(uri.scheme.upcase))
+      errors.add(:domain, "bad scheme component: #{uri.scheme ? uri.scheme : '-- empty --'}")
       return
     end
 

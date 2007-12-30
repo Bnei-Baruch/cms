@@ -24,7 +24,7 @@ Event.addBehavior({
 },
 /*This will update the hidden input field (in resource editing) which holds the actual value 
 	to be passed to the model as the checkbox value*/
-'input.property_checkbox:change' : function() {
+/*'input.property_checkbox:change' : function() {
 	if($F(this) != null) {
 		this.next().value = true;
 	}
@@ -32,7 +32,7 @@ Event.addBehavior({
 		this.next().value = false;
 	}
     ;
-},
+},*/
 '#property_field_type:change' : function() {
 	if($F(this) == 'List') {
 		$('property_list_id').enable();

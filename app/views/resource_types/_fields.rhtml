@@ -1,11 +1,25 @@
-<%= error_messages_for :resource_type %>
+<%= rp_error_messages_for :resource_type, :header_only => true %>
+<%
+		errors = rp_error_messages_for :name, :object => @resource_type, :header_message => false
+		label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+%>
+<%= f.label(:name, "Name", label_class) %>
+<%= errors %><%= f.text_field :name %>
 
-<label for="resource_type_name">Name</label>
-<%= f.text_field :name %>
-<label for="resource_type_hrid">Identifier (used by the CMS engine)</label>
-<%= f.text_field :hrid %>
-<label for="resource_type_name_code">Name Code (the pattern of the name in ruby code)</label>
-<%= f.text_field :name_code %>
+<%
+		errors = rp_error_messages_for :identifier, :object => @resource_type, :header_message => false
+		label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+%>
+<%= f.label(:identifier, "Identifier (used by the CMS engine)", label_class) %>
+<%= errors %><%= f.text_field :identifier %>
+
+<%
+		errors = rp_error_messages_for :name_code, :object => @resource_type, :header_message => false
+		label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+%>
+<%= f.label(:name_code, "Name Code (the pattern of the name in ruby code)", label_class) %>
+<%= errors %><%= f.text_field :name_code %>
+
 <object>
   <fieldset id="property_fieldset">
     <legend>

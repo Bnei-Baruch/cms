@@ -24,10 +24,23 @@ class Resource < ActiveRecord::Base
 
 	def my_properties=(my_properties)
 		my_properties.each_with_index do |p, i|
-			more_properties = {:position => i +1}
+			more_properties = {:position => i + 1}
+      if @was_true
+        p[:value] = 't'
+        @was_true = false
+      end
 			h = p.merge!(more_properties)
 			if h[:id].blank?
-				eval "#{h[:property_type].underscore}_properties.build(h)"
+        if h[:property_type].blank?
+          # This is a special case of checkbox.
+          # If it was transmitted, then its value is TRUE.
+          # But checkbox transmits only {"value"=>"t"}, so we
+          # need to mark that we've seen this and to use it with next
+          # RpBoolean field.
+          @was_true = true
+        else
+          eval "#{h[:property_type].underscore}_properties.build(h)"
+        end
 			else
 				resource_property = resource_properties.detect{|rp|
 					rp.id == h[:id].to_i}

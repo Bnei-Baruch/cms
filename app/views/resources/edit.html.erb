@@ -1,11 +1,9 @@
 <% name = @resource.resource_type.name %>
 <% @title = "Editing #{name}" %>
 
-<% form_for(:resource, :url => resource_path(@resource), :html => {:method => 'put'}) do |f| %>
-	<p>
+<% cms_form_for(:resource, :url => resource_path(@resource), :html => {:method => 'put'}) do |f| %>
 		<%= render :partial => 'fields', :locals => {:f => f} %>
-		<span id="submit"><%= submit_tag "Update #{name}" %></span>
-	</p>
+		<p id="submit"><%= submit_tag "Update #{name}" %></p>
 <% end %>
 
 <%= link_to 'Show', resource_path(@resource) %> |

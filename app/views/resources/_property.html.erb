@@ -4,29 +4,26 @@
 	label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
 	%>
 	
-	<% fields_for "resource[my_properties][]", property do |f| %>
+	<% cms_fields_for "resource[my_properties][]", property do |f| %>
 	
-		<%= f.label("resource[my_properties][]", property.name, label_class)%>
+		<%= f.label("value", property.name, label_class)%>
 			<%= errors %>
 			<% case data_type
 			when 'number', 'string':%>
 				<%= f.text_field(:value, :index => nil, :size => 57) %>
 			<% when 'boolean':%>
-				<%= check_box_tag '',property.value, property.value.eql?('t'), { :class => 'property_checkbox'} %>
-				<%= hidden_field_tag 'resource[my_properties][][value]',{} ,{:value => property.value, :id => 'resource_my_properties__value'} %>
+				<%= f.check_box :value, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
 			<% when 'date':%>
-				<%= calendar_date_select :property, :value, 
+				<%= f.calendar_date_select :value, 
 				:time => false, 
 				:popup => :force,
 				:size => 57,
-				:id => 'resource_my_properties__value', 
 				:name => 'resource[my_properties][][value]' %>
 			<% when 'timestamp':%>
-				<%= calendar_date_select :property, :value, 
+				<%= f.calendar_date_select :value, 
 				:time => true, 
 				:popup => :force,
 				:size => 57,
-				:id => 'resource_my_properties__value', 
 				:name => 'resource[my_properties][][value]' %>
 			<% when 'list':%>
 				<%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil) %>
@@ -36,9 +33,10 @@
 				<%= f.text_area(:value, :index => nil) %>
 			<% end %>
 	
+			<%# , :id => "resource_my_properties_#{object.to_param}_property_type"%>
 			<%= f.hidden_field(:property_type, :index => nil) %>
 			<%= f.hidden_field(:property_id, :index => nil) %>
-			<%= f.hidden_field :id, :index => nil%>
+			<%= f.hidden_field(:id, :index => nil) %>
 	
 		<% end %>
 	</div>

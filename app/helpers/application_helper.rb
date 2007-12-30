@@ -6,10 +6,18 @@ module ApplicationHelper
     options = params.extract_options!.symbolize_keys
     if object = options.delete(:object)
       objects = [object].flatten
+      count = objects.inject(0) { |sum, obj|
+        sum += params.inject(0) {|s, p|
+          obj.errors.detect { |e|
+            e.include?(p.to_s)
+          }.blank? ? s : s + 1
+        }
+      }
+      #      count   = objects.inject(0) {|sum, object| sum + object.errors.count }
     else
       objects = params.collect {|object_name| instance_variable_get("@#{object_name}") }.compact
+      count   = objects.inject(0) {|sum, object| sum + object.errors.count }
     end
-    count   = objects.inject(0) {|sum, object| sum + object.errors.count }
     unless count.zero?
       html = {}
       [:id, :class].each do |key|
@@ -23,9 +31,11 @@ module ApplicationHelper
       options[:header_only] ||= false
       name = objects.first
       if name.respond_to?('property')
-        options[:object_name] ||= objects.first.property.name
+        options[:object_name] ||= name.property.name
       elsif name.respond_to?('resource_type')
-        options[:object_name] ||= objects.first.resource_type.name
+        options[:object_name] ||= name.resource_type.name
+      elsif name.respond_to?('name')
+        options[:object_name] ||= name.name
       else
         options[:object_name] ||= ''
       end
@@ -48,5 +58,51 @@ module ApplicationHelper
     else
       ''
     end
+  end
+
+  # tell all of these methods to use my custom FormBuilder
+  [:form_for, :fields_for, :form_remote_for, :remote_form_for].each do |meth|
+    src = <<-end_src
+      def cms_#{meth}(object_name, *args, &proc)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        options.update(:builder => CMSFormBuilder)
+        #{meth}(object_name, *(args << options), &proc)
+      end
+    end_src
+    module_eval src, __FILE__, __LINE__
+  end
+
+  # the custom FormBuilder
+  class CMSFormBuilder < ActionView::Helpers::FormBuilder
+    [:password_field, :file_field, :text_area, :radio_button,
+      :hidden_field, :text_field, :calendar_date_select].each do |meth|
+      src = <<-end_src
+      def #{meth}(method, options = {})
+        if options.has_key?(:id)
+          return super(method, options)
+        end
+        if object && @object_name.sub(/\\[\\]$/,"") and object.respond_to?(:to_param)
+          options["id"] ||= "\#{sanitized_object_name}_\#{object.to_param}_\#{method}"
+        end
+        super(method, options)
+      end
+      end_src
+      class_eval src, __FILE__, __LINE__
+    end
+
+    def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+      if options.has_key?(:id)
+        return super(method, options, options, checked_value, unchecked_value)
+      end
+      if object && @object_name.sub(/\\[\\]$/,"") and object.respond_to?(:to_param)
+        options["id"] ||= "#{sanitized_object_name}_#{object.to_param}_#{method}"
+      end
+      super(method, options, checked_value, unchecked_value)
+    end
+
+    def sanitized_object_name
+      @object_name.sub(/\[\]$/,"").gsub(/[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
+    end
+
   end
 end

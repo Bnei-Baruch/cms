@@ -1,6 +1,6 @@
 <%= rp_error_messages_for :resource, :header_only => true %>
 
-<%= f.hidden_field(:resource_type_id) %>
+	<p><%= f.hidden_field(:resource_type_id) %></p>
 
 <div id="properties">
 	<% @resource_type.resource_type_properties.each_with_index do |rt_property, index| %>

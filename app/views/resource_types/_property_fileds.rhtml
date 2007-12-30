@@ -1,16 +1,16 @@
 <div class="property dynamic_element">
-  <% fields_for "resource_type[my_properties][]", property do |f| %>
+  <% cms_fields_for "resource_type[my_properties][]", property do |f| %>
   <table class="property_definition">
     <thead>
-      <th class="label">Local Name</th>
-      <th class="label">Is Required?</th>
-      <th class="label">Property</th>
+		<tr>
+			<th class="label">Local Name</th>
+			<th class="label">Is Required?</th>
+			<th class="label">Property</th>
+		</tr>
     </thead>
     <tr>
       <td><%= f.text_field :local_name, :index => nil%></td>
-      <td><%= check_box_tag '', true, property.is_required, { :class => 'property_checkbox'} %>	
-	  <%= hidden_field_tag 'resource_type[my_properties][][is_required]',{}, {:value => property.is_required, :id => 'resource_type_my_properties__is_required'} %>
-      </td>
+      <td><%= f.check_box :is_required, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %></td>
       <td>
 <% if property.new_record? %>
 <%= f.select :property_id, Property.properties_for_select,{} , :index => nil %>

@@ -42,19 +42,7 @@ class ResourceType < ActiveRecord::Base
     # In the following code we rejoin every record without :id field with the
     # next one.
 
-    new_properties = my_properties.collect { |p|
-      if p.has_key?(:id)
-        p.merge!(@incomplete_property)
-        @incomplete_property = {}
-        p
-      else
-        @incomplete_property = p
-        {}
-      end
-    }.reject! { |p|
-      p.empty?
-    }
-		new_properties.each_with_index do |p, i|
+    my_properties.each_with_index do |p, i|
 			more_properties = {:position => i + 1}
 			h = p.merge!(more_properties)
 			if h[:id].blank?
@@ -68,7 +56,7 @@ class ResourceType < ActiveRecord::Base
 
 	def my_associations=(my_associations)
 		my_associations.each_with_index do |p, i|
-			more_properties = {:position => i +1}
+			more_properties = {:position => i + 1}
 			h = p.merge!(more_properties)
 			if h[:id].blank?
 				associations.build(h)

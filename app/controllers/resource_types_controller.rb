@@ -7,10 +7,10 @@ class ResourceTypesController < ApplicationController
 			set_website_session(params[:show_all_websites])
 		end
 		website_id = session[:website] 
-		if website_id && (website =	Website.find_by_id(website_id)) 
+		if website_id && (website =	Website.find_by_id(website_id, :order => 'name'))
 			@resource_types = website.resource_types.uniq
 		else
-			@resource_types = ResourceType.find(:all)
+			@resource_types = ResourceType.find(:all, :order => 'name')
 		end
 		respond_to do |format|
 			format.html # index.rhtml
@@ -96,4 +96,15 @@ class ResourceTypesController < ApplicationController
 			format.xml  { head :ok }
 		end
 	end
+  
+  def sort_properties
+    list = params[:property_fields].each_with_index {|rt_property_id, index|
+      elem = ResourceTypeProperty.find(rt_property_id)
+      index += 1
+      if elem.position != index
+        elem.update_attributes(:position => index)
+      end
+    }
+		render :nothing => true
+  end
 end

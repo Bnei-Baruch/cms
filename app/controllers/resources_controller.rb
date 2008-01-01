@@ -12,7 +12,8 @@ class ResourcesController < ApplicationController
 		else
 			@resources = Resource.find(:all)
     end
-
+    @resources.sort! { |a, b| a.name <=> b.name }
+    
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @resources.to_xml }

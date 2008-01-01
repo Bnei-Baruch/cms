@@ -4,7 +4,7 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.xml
   def index
-    @properties = Property.find(:all)
+    @properties = Property.find(:all, :order => 'name')
 
     respond_to do |format|
       format.html # index.rhtml

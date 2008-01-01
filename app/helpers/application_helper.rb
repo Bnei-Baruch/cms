@@ -99,10 +99,34 @@ module ApplicationHelper
       end
       super(method, options, checked_value, unchecked_value)
     end
-
+    
     def sanitized_object_name
       @object_name.sub(/\[\]$/,"").gsub(/[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")
     end
+  end
+  
+  class ActionView::Helpers::InstanceTag
+    def to_check_box_tag(options = {}, checked_value = "1", unchecked_value = "0")
+      options = options.stringify_keys
+      options["type"]     = "checkbox"
+      options["value"]    = checked_value
+      if options.has_key?("checked")
+        cv = options.delete "checked"
+        checked = cv == true || cv == "checked"
+      else
+        checked = self.class.check_box_checked?(value(object), checked_value)
+      end
+      options["checked"] = "checked" if checked
+      add_default_name_and_id(options)
+      name = options.delete "name" # !!! That's the point + some JS
+      tag("input", options) << tag("input", "name" => name, "type" => "hidden", "value" => options['disabled'] && checked ? checked_value : unchecked_value)
+    end
+  end
 
+  # Handle to designage/move sortable elements
+  def sort_handler(force = false)
+    #    return unless logged_in?
+    #    return if @is_homepage and (not force)
+    '<img class="sort_handler" src="/images/arrow.gif" alt="" />'
   end
 end

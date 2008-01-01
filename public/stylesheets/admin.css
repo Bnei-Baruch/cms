@@ -26,10 +26,12 @@ margin: 5px 0 0 0;
 margin: 30px 0 10px;
 }
 
-.dynamic_element table.property_definition,.dynamic_element table.association_definition{
+.dynamic_element{
 border: 2px dashed lightblue;
 margin: 15px 0;  
-padding: 3px;
+}
+.dynamic_element table.property_definition,.dynamic_element table.association_definition{
+	width:100%;
 }
 
 .dynamic_element img{

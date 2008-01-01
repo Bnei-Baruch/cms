@@ -3,7 +3,7 @@ class WebsitesController < ApplicationController
 
   # GET /websites GET /websites.xml
   def index
-    @websites = Website.find(:all)
+    @websites = Website.find(:all, :order => 'name')
 
     respond_to do |format|
       format.html # index.rhtml

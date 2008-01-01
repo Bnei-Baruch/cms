@@ -25,17 +25,28 @@
     <legend>
       Properties
     </legend>
-    <div id="property_fileds">
+    <div id="property_fields">
       <% @resource_type.resource_type_properties.each_with_index do |property, index| %>
-      
-	<%= render :partial => 'property_fileds', :locals => {:property => property, :index => index}  %>
+				<%= render :partial => 'property_fields', :locals => {:property => property, :index => index}  %>
       <% end %>
     </div>
+		<%= sortable_element 'property_fields',
+													:url => {:action => 'sort_properties', :id => @resource_type.to_param},
+													:constraint => :vertical,
+													:tag => 'div',
+													:only => 'dynamic_element',
+													:handle => 'sort_handler',
+													:complete => visual_effect(:highlight,
+																										 'property_fields',
+																										 :startcolor=>'#ffff99',
+																										 :endcolor=>'#ffffff')
+		%>
     <%= link_to_function "Add" do |page| 
       page.insert_html :bottom, 
-	:property_fileds, 
-	:partial => 'property_fileds', 
-	:locals => {:property => ResourceTypeProperty.new, :index => 1}
+				:property_fields, 
+				:partial => 'property_fields', 
+				:locals => {:property => ResourceTypeProperty.new, :index => 1}
     end  %>
   </fieldset>
 </object>
+

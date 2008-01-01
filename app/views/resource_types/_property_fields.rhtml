@@ -1,0 +1,36 @@
+<% domid = "elem_#{property.to_param}" %>
+<div class="property dynamic_element" id="<%= domid %>">
+  <% cms_fields_for "resource_type[my_properties][]", property do |f| %>
+  <table class="property_definition">
+    <thead>
+		<tr>
+			<th class="label" width="35%"><%= sort_handler %> Local Name (<%= domid %>)</th>
+			<th class="label" width="5%">Is Required?</th>
+			<th class="label" width="55%">Property</th>
+			<th class="label" width="5%"></th>
+		</tr>
+    </thead>
+    <tr>
+      <td><%= f.text_field :local_name, :index => nil%></td>
+      <td><%= f.check_box :is_required, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %></td>
+      <td>
+				<% if property.new_record? %>
+					<%= f.select :property_id, Property.properties_for_select,{} , :index => nil %>
+				<% else -%>
+					<%= "#{property.property.name} &lt;#{property.property.hrid}&gt; [#{property.property.field_type}]" if property.property %>
+					<%= f.hidden_field :property_id, :index => nil%>
+				<% end %>
+			</td>
+			<td>
+				<% if property.new_record? %>
+					<%= link_to_function image_tag("delete.gif"), "this.up('.property').remove()" %>
+				<% else %>	
+					<%= link_to_function image_tag("delete.gif"), "mark_for_destroy(this)" %>
+					<%= f.hidden_field :id, :index => nil%>
+					<%= f.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+	<% end %>
+</div>

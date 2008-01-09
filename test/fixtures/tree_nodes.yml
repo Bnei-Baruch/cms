@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  parent_id: 1
+  resource_id: 1
+  position: 1
+  node_type: MyString
+  permalink: MyString
+
+two:
+  parent_id: 1
+  resource_id: 1
+  position: 1
+  node_type: MyString
+  permalink: MyString

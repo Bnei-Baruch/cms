@@ -10,8 +10,16 @@ class Resource < ActiveRecord::Base
 	has_many :rp_date_properties, :class_name => 'RpDate', :dependent => :destroy
 	has_many :rp_boolean_properties, :class_name => 'RpBoolean', :dependent => :destroy
 	has_many :rp_list_properties, :class_name => 'RpList', :dependent => :destroy
+	has_many :tree_nodes, :dependent => :destroy
+	
+	attr_accessor :tree_node 
+	
+	#only associate resources of the type 'website'
+	has_one :website, :foreign_key => 'entry_point_id', :dependent => :nullify, 
+		:conditions => "resource_type_id = #{Website.get_website_resource_type.id}" 
 
 	after_update :save_resource_properties
+	after_create :create_tree_node
 
   # Let each property of the Resource to validate itself
 	validates_associated :resource_properties
@@ -112,6 +120,15 @@ class Resource < ActiveRecord::Base
 	def save_resource_properties
 		resource_properties.each do |rp|
 			rp.save(false)
+		end
+	end
+	
+	# Creates tree node if the resource was created with hierarchy
+	def create_tree_node
+		if self.tree_node
+			new_node = TreeNode.new(self.tree_node)
+			new_node.resource = self
+			new_node.save!
 		end
 	end
 		

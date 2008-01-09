@@ -1,0 +1,36 @@
+<h1>New tree_node</h1>
+
+<%= error_messages_for :tree_node %>
+
+<% form_for(@tree_node) do |f| %>
+  <p>
+    <b>Parent</b><br />
+    <%= f.text_field :parent_id %>
+  </p>
+
+  <p>
+    <b>Resource</b><br />
+    <%= f.text_field :resource_id %>
+  </p>
+
+  <p>
+    <b>Position</b><br />
+    <%= f.text_field :position %>
+  </p>
+
+  <p>
+    <b>Node type</b><br />
+    <%= f.text_field :node_type %>
+  </p>
+
+  <p>
+    <b>Permalink</b><br />
+    <%= f.text_field :permalink %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', tree_nodes_path %>

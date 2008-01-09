@@ -1,0 +1,54 @@
+<% @title = "Listing tree nodes" %>
+
+<% if @parent_node %>
+  <p>
+    <span>You are here:</span>
+    <% if @parent_node.ancestors %>
+      <% @parent_node.ancestors.reverse.each do | tree_node | %>
+        <%= link_to tree_node.resource.name, tree_nodes_path(:parent_id => tree_node.parent_id) %>
+        &raquo;
+      <% end %>
+    <% end %>
+    <b><%= link_to @parent_node.resource.name, tree_nodes_path(:parent_id => @parent_node.parent_id) %></b>
+  </p>
+<% end %>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Parent</th>
+      <th>Position</th>
+      <th>Type</th>
+      <th>Resource</th>
+      <th>Node type</th>
+      <th>Permalink</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>  
+  <% for tree_node in @tree_nodes %>
+    <tr>
+      <td><%=h tree_node.parent_id %></td>
+      <td><%=h tree_node.position %></td>
+      <td><%=h tree_node.resource.resource_type.name if tree_node.resource %></td>
+      <td><%=link_to tree_node.resource.name, tree_nodes_path(:parent_id => tree_node.id) if tree_node.resource %></td>
+      <td><%=h tree_node.node_type %></td>
+      <td><%=h tree_node.permalink %></td>
+      <td><%= link_to 'Show', tree_node.resource %></td>
+      <td><%= link_to 'Edit', edit_resource_path(tree_node.resource) %></td>
+      <td><%= link_to 'Destroy', tree_node.resource, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+  <% form_for(:resource, :url => new_resource_path, :html => {:method => :get}) do |f| %>
+  <p>
+    Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
+    <% fields_for "resource[tree_node]", TreeNode.new do |tree_fields| %>
+                    <%= tree_fields.hidden_field(:parent_id, :value => @parent_id) %>
+      <% end %>
+
+
+        <%= submit_tag "Create new Resource" %>
+  </p>
+<% end %>

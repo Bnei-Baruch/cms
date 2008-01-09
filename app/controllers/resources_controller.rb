@@ -35,6 +35,7 @@ class ResourcesController < ApplicationController
   def new
 		@resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
+		@tree_node = TreeNode.new(params[:resource][:tree_node])
   end
 
   # GET /resources/1;edit

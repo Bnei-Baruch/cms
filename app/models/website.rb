@@ -3,6 +3,7 @@ require 'uri'
 class Website < ActiveRecord::Base
 	has_and_belongs_to_many :resources	
 	has_and_belongs_to_many :resource_types
+	belongs_to :website_resource, :class_name => 'Resource', :foreign_key => 'entry_point_id'
 
   validates_presence_of :name
 	validates_uniqueness_of :name 
@@ -17,11 +18,18 @@ class Website < ActiveRecord::Base
 		end
 	end
 	
-	def get_website_resources
-		resource_type = ResourceType.find_by_hrid('website')
-		resource_type.resources
+	def self.get_website_resource_type
+		ResourceType.find_by_hrid('website')
+	end
+	
+	def self.get_website_resources
+		get_website_resource_type.resources
 	end
 
+	def self.get_website_resources_for_select
+		get_website_resources.map{|e| [e.name, e.id]}
+	end
+	
   protected
   
   def correctness_of_domain_and_prefix

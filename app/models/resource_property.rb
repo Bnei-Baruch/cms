@@ -2,6 +2,7 @@ class ResourceProperty < ActiveRecord::Base
 	belongs_to :resource
 	belongs_to :property
 	belongs_to :list_value
+  has_one    :attachment, :dependent => :destroy
 
 	validate :match_pattern
 

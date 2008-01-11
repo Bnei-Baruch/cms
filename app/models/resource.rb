@@ -9,6 +9,7 @@ class Resource < ActiveRecord::Base
 	has_many :rp_timestamp_properties, :class_name => 'RpTimestamp', :dependent => :destroy
 	has_many :rp_date_properties, :class_name => 'RpDate', :dependent => :destroy
 	has_many :rp_boolean_properties, :class_name => 'RpBoolean', :dependent => :destroy
+	has_many :rp_file_properties, :class_name => 'RpFile', :dependent => :destroy
 	has_many :rp_list_properties, :class_name => 'RpList', :dependent => :destroy
 	has_many :tree_nodes, :dependent => :destroy
 	
@@ -33,26 +34,16 @@ class Resource < ActiveRecord::Base
 	def my_properties=(my_properties)
 		my_properties.each_with_index do |p, i|
 			more_properties = {:position => i + 1}
-      if @was_true
-        p[:value] = 't'
-        @was_true = false
-      end
-			h = p.merge!(more_properties)
-			if h[:id].blank?
-        if h[:property_type].blank?
-          # This is a special case of checkbox.
-          # If it was transmitted, then its value is TRUE.
-          # But checkbox transmits only {"value"=>"t"}, so we
-          # need to mark that we've seen this and to use it with next
-          # RpBoolean field.
-          @was_true = true
-        else
-          eval "#{h[:property_type].underscore}_properties.build(h)"
-        end
+			p.merge!(more_properties)
+			if p[:id].blank?
+        p = Attachment.store_rp_file(nil, p) if p[:property_type] == "RpFile"
+        resource_property = self.send("#{p[:property_type].underscore}_properties").send(:build, p)
 			else
-				resource_property = resource_properties.detect{|rp|
-					rp.id == h[:id].to_i}
-				resource_property.attributes = h
+        resource_property = resource_properties.detect{|rp|
+          rp.id == p[:id].to_i
+        }
+        p = Attachment.store_rp_file(resource_property, p) if p[:property_type] == "RpFile"
+        resource_property.attributes = p
 			end
 		end
 	end
@@ -75,8 +66,6 @@ class Resource < ActiveRecord::Base
       errors.add(:base, "There are required fields without values")
     end
   end
-
-	private
 
 	def get_resource_property_by_property_hrid(hrid)
 		begin

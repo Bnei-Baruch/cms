@@ -7,6 +7,7 @@ class Association < ActiveRecord::Base
 	def self.association_types_select
 		%W{linked embedded}.collect{|obj| [obj.camelize, obj]}	
 	end
+  
 	def should_destroy?
 		should_destroy.to_i == 1
 	end

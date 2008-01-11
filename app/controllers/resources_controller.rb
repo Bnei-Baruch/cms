@@ -27,7 +27,7 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @resource.to_xml }
+      format.xml { render :xml => @resource.to_xml }
     end
   end
 

@@ -1,5 +1,5 @@
 <% @title = "New resource" %>
-<% form_for(:resource, :url => resources_path) do |f| %>
+<% cms_form_for(:resource, :url => resources_path, :html => {:multipart => true}) do |f| %>
 	<%= render :partial => 'fields', :locals => {:f => f} %>
 	<div id="submit"><%= submit_tag "Create resource" %></div>
 <% end %>

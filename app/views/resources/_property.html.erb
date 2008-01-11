@@ -7,9 +7,9 @@
 	<% cms_fields_for "resource[my_properties][]", property do |f| %>
 	
 		<%= f.label("value", property.name, label_class)%>
-			<%= errors %>
-			<% case data_type
-			when 'number', 'string':%>
+		<%= errors %>
+		<% case data_type 
+			 when 'number', 'string':%>
 				<%= f.text_field(:value, :index => nil, :size => 57) %>
 			<% when 'boolean':%>
 				<%= f.check_box :value, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
@@ -31,12 +31,22 @@
 				<%= f.text_area(:value, :index => nil, :class => 'mceNoEditor') %>
 			<% when 'text':%>
 				<%= f.text_area(:value, :index => nil) %>
-			<% end %>
-	
-			<%# , :id => "resource_my_properties_#{object.to_param}_property_type"%>
-			<%= f.hidden_field(:property_type, :index => nil) %>
-			<%= f.hidden_field(:property_id, :index => nil) %>
-			<%= f.hidden_field(:id, :index => nil) %>
-	
+			<% when 'file':%>
+				<% attachment = @property.attachment %>
+				<% if attachment %>
+					<%= image_tag	attachment_url(attachment) %><br/>
+					<%= "#{attachment.filename}: #{attachment.mime_type.split('/').last} of #{attachment.size} bytes" %><br/>
+				<% end %>
+				<%= f.file_field(:attachment, :index => nil) %>
+				<% if attachment %>
+					<br/>Remove:<br/>
+					<%= f.check_box :remove, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
+				<% end%>
 		<% end %>
-	</div>
+	
+		<%= f.hidden_field(:property_type, :index => nil) %>
+		<%= f.hidden_field(:property_id, :index => nil) %>
+		<%= f.hidden_field(:id, :index => nil) %>
+
+	<% end %>
+</div>

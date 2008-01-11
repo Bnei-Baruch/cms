@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :resources
   map.resources :properties
   map.resources :resource_types, :member => {:associations_list => :get, :associations_update => :put}
+  map.resources :attachments
 
   # The priority is based upon order of creation: first created -> highest priority.
   

@@ -4,7 +4,7 @@
   <table class="property_definition">
     <thead>
 		<tr>
-			<th class="label" width="35%"><%= sort_handler %> Local Name (<%= domid %>)</th>
+			<th class="label" width="35%"><%= sort_handler unless property.new_record? %> Local Name (<%= domid %>)</th>
 			<th class="label" width="5%">Is Required?</th>
 			<th class="label" width="55%">Property</th>
 			<th class="label" width="5%"></th>
@@ -15,7 +15,7 @@
       <td><%= f.check_box :is_required, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %></td>
       <td>
 				<% if property.new_record? %>
-					<%= f.select :property_id, Property.properties_for_select,{} , :index => nil %>
+					<%= f.select :property_id, Property.properties_for_select, {} , :index => nil %>
 				<% else -%>
 					<%= "#{property.property.name} &lt;#{property.property.hrid}&gt; [#{property.property.field_type}]" if property.property %>
 					<%= f.hidden_field :property_id, :index => nil%>

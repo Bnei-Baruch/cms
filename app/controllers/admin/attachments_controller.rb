@@ -1,4 +1,4 @@
-class AttachmentsController < ApplicationController
+class Admin::AttachmentsController < ApplicationController
   # GET /attachment/1
   # GET /attachment/1.xml
   def show

@@ -1,4 +1,4 @@
-class PropertiesController < ApplicationController
+class Admin::PropertiesController < ApplicationController
 	layout 'admin'
 
   # GET /properties

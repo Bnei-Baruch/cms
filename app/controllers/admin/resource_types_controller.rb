@@ -1,4 +1,4 @@
-class ResourceTypesController < ApplicationController
+class Admin::ResourceTypesController < ApplicationController
 	layout 'admin'
 
   # GET /resource_types GET /resource_types.xml

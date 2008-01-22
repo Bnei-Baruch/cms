@@ -1,4 +1,4 @@
-class ListsController < ApplicationController
+class Admin::ListsController < ApplicationController
 	layout 'admin'
   # GET /lists
   # GET /lists.xml

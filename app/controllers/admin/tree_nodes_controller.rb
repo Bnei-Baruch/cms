@@ -1,4 +1,4 @@
-class TreeNodesController < ApplicationController
+class Admin::TreeNodesController < ApplicationController
 	layout 'admin'
   # GET /tree_nodes
   # GET /tree_nodes.xml

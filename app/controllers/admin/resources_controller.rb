@@ -1,4 +1,4 @@
-class ResourcesController < ApplicationController
+class Admin::ResourcesController < ApplicationController
 	layout 'admin'
   # GET /resources GET /resources.xml
   def index

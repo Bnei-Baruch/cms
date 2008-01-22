@@ -1,4 +1,4 @@
-class WebsitesController < ApplicationController
+class Admin::WebsitesController < ApplicationController
 	layout 'admin'
 
   # GET /websites GET /websites.xml

@@ -1,10 +1,10 @@
 <% name = @resource_type.name %>
 <% @title = "Editing resource type: #{name}" %>
-<% cms_form_for(:resource_type, :url => resource_type_path(@resource_type), :html => {:method => 'put'}) do |f| %>
+<% cms_form_for(:resource_type, :url => admin_resource_type_path(@resource_type), :html => {:method => 'put'}) do |f| %>
 	<p>
 	<%= render :partial => 'fields', :locals => {:f => f} %>
 	<span id="submit"><%= submit_tag "Update #{name}" %></span>
  </p>
 <% end %>
-<%= link_to 'Show', resource_type_path(@resource_type) %> |
-<%= link_to 'Cancel', resource_types_path %>
+<%= link_to 'Show', admin_resource_type_path(@resource_type) %> |
+<%= link_to 'Cancel', admin_resource_types_path %>

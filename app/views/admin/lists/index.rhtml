@@ -18,16 +18,16 @@
 			<td><%=h list.list_type.humanize %></td>
 			<td><%=h list.property_id %></td>
 			<td><%=h list.resource_type.name if list.resource_type %></td>
-			<td><%= link_to 'Show', list_path(list) %></td>
-			<td><%= link_to 'Edit', edit_list_path(list) %></td>
-			<td><%= link_to 'Destroy', list_path(list), :confirm => 'Are you sure?', :method => :delete %></td>
+			<td><%= link_to 'Show', admin_list_path(list) %></td>
+			<td><%= link_to 'Edit', edit_admin_list_path(list) %></td>
+			<td><%= link_to 'Destroy', admin_list_path(list), :confirm => 'Are you sure?', :method => :delete %></td>
 		</tr>
 	<% end %>
 </table>
 
 <br />
 
-<% form_for(:list, :url => new_list_path, :html => {:method => :get}) do |f| %>
+<% form_for(:list, :url => new_admin_list_path, :html => {:method => :get}) do |f| %>
 	<p>
 		Type: <%= f.select(:list_type, List.types_for_select) %>
 		<%= submit_tag "Create new List" %>

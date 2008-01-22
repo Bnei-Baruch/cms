@@ -29,7 +29,7 @@ class WebsitesControllerTest < Test::Unit::TestCase
     post :create, :website => { }
     assert_equal old_count+1, Website.count
     
-    assert_redirected_to website_path(assigns(:website))
+    assert_redirected_to admin_website_path(assigns(:website))
   end
 
   def test_should_show_website
@@ -44,7 +44,7 @@ class WebsitesControllerTest < Test::Unit::TestCase
   
   def test_should_update_website
     put :update, :id => 1, :website => { }
-    assert_redirected_to website_path(assigns(:website))
+    assert_redirected_to admin_website_path(assigns(:website))
   end
   
   def test_should_destroy_website
@@ -52,6 +52,6 @@ class WebsitesControllerTest < Test::Unit::TestCase
     delete :destroy, :id => 1
     assert_equal old_count-1, Website.count
     
-    assert_redirected_to websites_path
+    assert_redirected_to admin_websites_path
   end
 end

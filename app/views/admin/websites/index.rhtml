@@ -1,5 +1,5 @@
 <% @title = "Listing websites" %>
-<%= link_to 'New website', new_website_path %><br /><br />
+<%= link_to 'New website', new_admin_website_path %><br /><br />
 
 <table border="1">
 	<thead>
@@ -16,11 +16,11 @@
     <td><%=h website.name %></td>
     <td><%=h website.domain %></td>
     <td><%=h website.prefix %></td>
-    <td><%= link_to 'Show', website_path(website) %></td>
-    <td><%= link_to 'Edit', edit_website_path(website) %></td>
-    <td><%= link_to 'Destroy', website_path(website), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', admin_website_path(website) %></td>
+    <td><%= link_to 'Edit', edit_admin_website_path(website) %></td>
+    <td><%= link_to 'Destroy', admin_website_path(website), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
-<br /><br /><%= link_to 'New website', new_website_path %>
+<br /><br /><%= link_to 'New website', new_admin_website_path %>

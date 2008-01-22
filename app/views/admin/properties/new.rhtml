@@ -2,9 +2,9 @@
 
 <%= render :partial => 'form',
     :locals => {
-    :path => properties_path,
+    :path => admin_properties_path,
     :method => :post,
     :button_text => 'Create'
   } %>
 
-<%= link_to 'Cancel', properties_path %>
+<%= link_to 'Cancel', admin_properties_path %>

@@ -40,8 +40,8 @@ class Admin::ListsController < ApplicationController
     respond_to do |format|
       if @list.save
         flash[:notice] = 'List was successfully created.'
-        format.html { redirect_to list_url(@list) }
-        format.xml  { head :created, :location => list_url(@list) }
+        format.html { redirect_to admin_list_url(@list) }
+        format.xml  { head :created, :location => admin_list_url(@list) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @list.errors.to_xml }
@@ -57,7 +57,7 @@ class Admin::ListsController < ApplicationController
     respond_to do |format|
       if @list.update_attributes(params[:list])
         flash[:notice] = 'List was successfully updated.'
-        format.html { redirect_to list_url(@list) }
+        format.html { redirect_to admin_list_url(@list) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,7 +73,7 @@ class Admin::ListsController < ApplicationController
     @list.destroy
 
     respond_to do |format|
-      format.html { redirect_to lists_url }
+      format.html { redirect_to admin_lists_url }
       format.xml  { head :ok }
     end
   end

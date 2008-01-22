@@ -47,8 +47,8 @@ class Admin::ResourceTypesController < ApplicationController
 		respond_to do |format|
 			if @resource_type.save
 				flash[:notice] = 'ResourceType was successfully created.'
-				format.html { redirect_to resource_types_url }
-				format.xml  { head :created, :location => resource_types_url }
+				format.html { redirect_to admin_resource_types_url }
+				format.xml  { head :created, :location => admin_resource_types_url }
 			else
 				format.html { render :action => "new" }
 				format.xml  { render :xml => @resource_type.errors.to_xml }
@@ -64,7 +64,7 @@ class Admin::ResourceTypesController < ApplicationController
 		respond_to do |format|
 			if @resource_type.update_attributes(params[:resource_type])
 				flash[:notice] = 'ResourceType was successfully updated.'
-				format.html { redirect_to resource_types_url }
+				format.html { redirect_to admin_resource_types_url }
 				format.xml  { head :ok }
 			else
 				format.html { redirect_to :back }
@@ -92,7 +92,7 @@ class Admin::ResourceTypesController < ApplicationController
 		@resource_type.destroy
 
 		respond_to do |format|
-			format.html { redirect_to resource_types_url }
+			format.html { redirect_to admin_resource_types_url }
 			format.xml  { head :ok }
 		end
 	end

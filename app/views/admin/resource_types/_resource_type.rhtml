@@ -2,8 +2,8 @@
 	<td><%=h resource_type.id %></td>
 	<td><%=h resource_type.name %></td>
 	<td><%=h resource_type.hrid %></td>
-	<td><%= link_to 'Show', resource_type_path(resource_type) %></td>
-	<td><%= link_to 'Edit', edit_resource_type_path(resource_type) %></td>
-	<td><%= link_to 'Associations', associations_list_resource_type_path(resource_type) %></td>
-	<td><%= link_to 'Destroy', resource_type_path(resource_type), :confirm => 'Are you sure?', :method => :delete %></td>
+	<td><%= link_to 'Show', admin_resource_type_path(resource_type) %></td>
+	<td><%= link_to 'Edit', edit_admin_resource_type_path(resource_type) %></td>
+	<td><%= link_to 'Associations', associations_list_admin_resource_type_path(resource_type) %></td>
+	<td><%= link_to 'Destroy', admin_resource_type_path(resource_type), :confirm => 'Are you sure?', :method => :delete %></td>
 </tr>

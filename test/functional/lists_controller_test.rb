@@ -29,7 +29,7 @@ class ListsControllerTest < Test::Unit::TestCase
     post :create, :list => { }
     assert_equal old_count+1, List.count
     
-    assert_redirected_to list_path(assigns(:list))
+    assert_redirected_to admin_list_path(assigns(:list))
   end
 
   def test_should_show_list
@@ -44,7 +44,7 @@ class ListsControllerTest < Test::Unit::TestCase
   
   def test_should_update_list
     put :update, :id => 1, :list => { }
-    assert_redirected_to list_path(assigns(:list))
+    assert_redirected_to admin_list_path(assigns(:list))
   end
   
   def test_should_destroy_list
@@ -52,6 +52,6 @@ class ListsControllerTest < Test::Unit::TestCase
     delete :destroy, :id => 1
     assert_equal old_count-1, List.count
     
-    assert_redirected_to lists_path
+    assert_redirected_to admin_lists_path
   end
 end

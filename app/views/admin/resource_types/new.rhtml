@@ -1,8 +1,8 @@
 <% @title = "New resource type" %>
-<% form_for(:resource_type, :url => resource_types_path) do |f| %>
+<% form_for(:resource_type, :url => admin_resource_types_path) do |f| %>
 	<p>
 		<%= render :partial => 'fields', :locals => {:f => f} %>
 		<span id="submit"><%= submit_tag "Create Resource Type" %></span>
 	</p>
 <% end %>
-<%= link_to 'Cancel', resource_types_path %>
+<%= link_to 'Cancel', admin_resource_types_path %>

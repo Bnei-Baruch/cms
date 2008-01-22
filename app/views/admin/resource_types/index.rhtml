@@ -1,18 +1,18 @@
 <% content_for(:submenu) do -%>
 	<div id="submenu">
 		<h2 class="menu">Website Filter</h2>
-		<%= render :partial => 'share/admin/website_control' %>
+		<%= render :partial => 'admin/share/website_control' %>
 	</div>
 	<%= observe_form :website_control,
-		:url => resource_types_path, :method => :get%>
+		:url => admin_resource_types_path, :method => :get%>
 <% end -%>
 
 <% @title = "Listing resource types" %>
 
-<%= link_to 'New resource_type', new_resource_type_path %><br/><br/>
+<%= link_to 'New resource_type', new_admin_resource_type_path %><br/><br/>
 
 <div id="table">
 	<%= render :partial => 'table', :locals => { :resource_types => @resource_types } %>
 </div>
 
-<br/><br/><%= link_to 'New resource_type', new_resource_type_path %>
+<br/><br/><%= link_to 'New resource_type', new_admin_resource_type_path %>

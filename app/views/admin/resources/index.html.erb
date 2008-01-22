@@ -1,15 +1,15 @@
 <% content_for(:submenu) do -%>
 	<div id="submenu">
 		<h2 class="menu">Website Filter</h2>
-	<%= render :partial => 'share/admin/website_control' %>
+	<%= render :partial => 'admin/share/website_control' %>
 	</div>
 	<%= observe_form :website_control,
-		:url => resources_path, :method => :get%>
+		:url => admin_resources_path, :method => :get%>
 <% end -%>
 
 <% @title = "Listing resources" %>
 
-<% form_for(:resource, :url => new_resource_path, :html => {:method => :get}) do |f| %>
+<% form_for(:resource, :url => new_admin_resource_path, :html => {:method => :get}) do |f| %>
 	<p>
 		Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
 		<%= submit_tag "Create new Resource" %>
@@ -24,7 +24,7 @@
 
 <br />
 
-<% form_for(:resource, :url => new_resource_path, :html => {:method => :get}) do |f| %>
+<% form_for(:resource, :url => new_admin_resource_path, :html => {:method => :get}) do |f| %>
 	<p>
 		Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
 		<%= submit_tag "Create new Resource" %>

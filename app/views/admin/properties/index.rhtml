@@ -1,5 +1,5 @@
 <% @title = "Listing properties" %>
-<%= link_to 'New property', new_property_path %><br /><br />
+<%= link_to 'New property', new_admin_property_path %><br /><br />
 
 <table border="1">
 	<thead>
@@ -18,11 +18,11 @@
 			<td><%=h property.name %></td>
 			<td><%=h property.hrid %></td>
 			<td><%=h property.field_type %></td>
-			<td><%= link_to 'Show', property_path(property) %></td>
-			<td><%= link_to 'Edit', edit_property_path(property) %></td>
-			<td><%= link_to 'Destroy', property_path(property), :confirm => 'Are you sure?', :method => :delete %></td>
+			<td><%= link_to 'Show', admin_property_path(property) %></td>
+			<td><%= link_to 'Edit', edit_admin_property_path(property) %></td>
+			<td><%= link_to 'Destroy', admin_property_path(property), :confirm => 'Are you sure?', :method => :delete %></td>
 		</tr>
 	<% end %>
 </table>
 
-<br /><br /><%= link_to 'New property', new_property_path %>
+<br /><br /><%= link_to 'New property', new_admin_property_path %>

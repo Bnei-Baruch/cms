@@ -1,6 +1,6 @@
 <% @title = "New list" %>
-<% form_for(:list, :url => lists_path) do |f| %>
+<% form_for(:list, :url => admin_lists_path) do |f| %>
 	<%= render :partial => 'fields', :locals => {:f => f} %>
 	<div id="submit"><%= submit_tag "Create List" %></div>
 <% end %>
-<%= link_to 'Cancel', lists_path %>
+<%= link_to 'Cancel', admin_lists_path %>

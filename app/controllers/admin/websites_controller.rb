@@ -38,8 +38,8 @@ class Admin::WebsitesController < ApplicationController
     respond_to do |format|
       if @website.save
         flash[:notice] = 'Website was successfully created.'
-        format.html { redirect_to website_url(@website) }
-        format.xml  { head :created, :location => websites_url }
+        format.html { redirect_to admin_website_url(@website) }
+        format.xml  { head :created, :location => admin_websites_url }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @website.errors.to_xml }
@@ -54,7 +54,7 @@ class Admin::WebsitesController < ApplicationController
     respond_to do |format|
       if @website.update_attributes(params[:website])
         flash[:notice] = 'Website was successfully updated.'
-        format.html { redirect_to websites_url }
+        format.html { redirect_to admin_websites_url }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -69,7 +69,7 @@ class Admin::WebsitesController < ApplicationController
     @website.destroy
 
     respond_to do |format|
-      format.html { redirect_to websites_url }
+      format.html { redirect_to admin_websites_url }
       format.xml  { head :ok }
     end
   end

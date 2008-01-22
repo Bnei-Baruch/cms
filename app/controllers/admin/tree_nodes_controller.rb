@@ -88,7 +88,7 @@ class Admin::TreeNodesController < ApplicationController
     @tree_node.destroy
 
     respond_to do |format|
-      format.html { redirect_to(tree_nodes_url) }
+      format.html { redirect_to(admin_tree_nodes_url) }
       format.xml  { head :ok }
     end
   end

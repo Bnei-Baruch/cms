@@ -12,7 +12,7 @@ class Admin::ResourcesController < ApplicationController
 		else
 			@resources = Resource.find(:all)
     end
-    @resources.sort! { |a, b| a.name <=> b.name }
+    @resources.sort! { |a, b| b.id <=> a.id }
     
     respond_to do |format|
       format.html # index.rhtml
@@ -53,8 +53,8 @@ class Admin::ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.save
         flash[:notice] = 'Resource was successfully created.'
-        format.html { redirect_to resource_url(@resource) }
-        format.xml  { head :created, :location => resource_url(@resource) }
+        format.html { redirect_to admin_resource_url(@resource) }
+        format.xml  { head :created, :location => admin_resource_url(@resource) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @resource.errors.to_xml }
@@ -71,7 +71,7 @@ class Admin::ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
         flash[:notice] = 'Resource was successfully updated.'
-        format.html { redirect_to resource_url(@resource) }
+        format.html { redirect_to admin_resource_url(@resource) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -86,7 +86,7 @@ class Admin::ResourcesController < ApplicationController
     @resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to resources_url }
+      format.html { redirect_to admin_resources_url }
       format.xml  { head :ok }
     end
   end

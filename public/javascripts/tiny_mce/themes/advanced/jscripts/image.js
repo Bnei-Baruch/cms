@@ -1,4 +1,4 @@
-var url = tinyMCE.getParam("external_image_list_url");
+var url = tinyMCE.getParam("external_image_admin_list_url");
 if (url != null) {
 	// Fix relative
 	if (url.charAt(0) != '/' && url.indexOf('://') == -1)

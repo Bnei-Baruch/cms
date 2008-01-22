@@ -17,7 +17,7 @@ class TreeNodesControllerTest < ActionController::TestCase
       post :create, :tree_node => { }
     end
 
-    assert_redirected_to tree_node_path(assigns(:tree_node))
+    assert_redirected_to admin_tree_node_path(assigns(:tree_node))
   end
 
   def test_should_show_tree_node
@@ -32,7 +32,7 @@ class TreeNodesControllerTest < ActionController::TestCase
 
   def test_should_update_tree_node
     put :update, :id => 1, :tree_node => { }
-    assert_redirected_to tree_node_path(assigns(:tree_node))
+    assert_redirected_to admin_tree_node_path(assigns(:tree_node))
   end
 
   def test_should_destroy_tree_node
@@ -40,6 +40,6 @@ class TreeNodesControllerTest < ActionController::TestCase
       delete :destroy, :id => 1
     end
 
-    assert_redirected_to tree_nodes_path
+    assert_redirected_to admin_tree_nodes_path
   end
 end

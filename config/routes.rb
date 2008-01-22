@@ -1,20 +1,21 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :tree_nodes
 
 
-	
+
   # Root access
-	map.connect '', :controller => 'resources'
-	
-  map.resources :lists, :collection => { :update_resource_type_properties => :get }
-  map.resources :websites, :collection => { :set_website => :get }
-  map.resources :resources
-  map.resources :properties
-  map.resources :resource_types, :member => {:associations_list => :get, :associations_update => :put}
-  map.resources :attachments
+  map.namespace(:admin) do |admin|
+    admin.connect '', :controller => 'resources'
+    admin.resources :resources
+    admin.resources :tree_nodes
+    admin.resources :lists, :collection => { :update_resource_type_properties => :get }
+    admin.resources :websites, :collection => { :set_website => :get }
+    admin.resources :properties
+    admin.resources :resource_types, :member => {:associations_list => :get, :associations_update => :put}
+    admin.resources :attachments
+  end	
 
   # The priority is based upon order of creation: first created -> highest priority.
-  
+
   # Sample of regular route: map.connect 'products/:id', :controller => 'catalog', :action
   # => 'view' Keep in mind you can assign values other than :controller and :action
 

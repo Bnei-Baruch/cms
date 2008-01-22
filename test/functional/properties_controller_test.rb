@@ -29,7 +29,7 @@ class PropertiesControllerTest < Test::Unit::TestCase
     post :create, :property => { }
     assert_equal old_count+1, Property.count
     
-    assert_redirected_to property_path(assigns(:property))
+    assert_redirected_to admin_property_path(assigns(:property))
   end
 
   def test_should_show_property
@@ -44,7 +44,7 @@ class PropertiesControllerTest < Test::Unit::TestCase
   
   def test_should_update_property
     put :update, :id => 1, :property => { }
-    assert_redirected_to property_path(assigns(:property))
+    assert_redirected_to admin_property_path(assigns(:property))
   end
   
   def test_should_destroy_property
@@ -52,6 +52,6 @@ class PropertiesControllerTest < Test::Unit::TestCase
     delete :destroy, :id => 1
     assert_equal old_count-1, Property.count
     
-    assert_redirected_to properties_path
+    assert_redirected_to admin_properties_path
   end
 end

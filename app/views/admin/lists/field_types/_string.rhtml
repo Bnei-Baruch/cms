@@ -4,6 +4,6 @@
 	
 	<% fields_for "list[my_list_values][]", list_value do |f| %>
 		<%= f.text_field(:string_value, :index => nil) %>
-		<%= render :partial => 'lists/field_types/destroy', :locals => {:list_value => list_value, :f => f}  %>	
+		<%= render :partial => 'admin/lists/field_types/destroy', :locals => {:list_value => list_value, :f => f}  %>	
 	<% end %>
 </div>

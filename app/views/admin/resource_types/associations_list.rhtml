@@ -1,6 +1,6 @@
 <% name = @resource_type.name %>
 <% @title = "Editing associations of resource type #{name}" %>
-<% form_for(:resource_type, :url => associations_update_resource_type_path(@resource_type), :html => {:method => 'put'}) do |f| %>
+<% form_for(:resource_type, :url => associations_update_admin_resource_type_path(@resource_type), :html => {:method => 'put'}) do |f| %>
 	<p>
 		<div id="association_fields">
 			<% @resource_type.get_associations.each_with_index do |association, index| %>
@@ -16,4 +16,4 @@
 		<span id="submit"><%= submit_tag "Update Associations" %></span>
 	</p>
 <% end %>
-<%= link_to 'Back', resource_types_path %>
+<%= link_to 'Back', admin_resource_types_path %>

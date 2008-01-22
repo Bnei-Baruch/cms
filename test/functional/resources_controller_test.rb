@@ -29,7 +29,7 @@ class ResourcesControllerTest < Test::Unit::TestCase
     post :create, :resource => { }
     assert_equal old_count+1, Resource.count
     
-    assert_redirected_to resource_path(assigns(:resource))
+    assert_redirected_to admin_resource_path(assigns(:resource))
   end
 
   def test_should_show_resource
@@ -44,7 +44,7 @@ class ResourcesControllerTest < Test::Unit::TestCase
   
   def test_should_update_resource
     put :update, :id => 1, :resource => { }
-    assert_redirected_to resource_path(assigns(:resource))
+    assert_redirected_to admin_resource_path(assigns(:resource))
   end
   
   def test_should_destroy_resource
@@ -52,6 +52,6 @@ class ResourcesControllerTest < Test::Unit::TestCase
     delete :destroy, :id => 1
     assert_equal old_count-1, Resource.count
     
-    assert_redirected_to resources_path
+    assert_redirected_to admin_resources_path
   end
 end

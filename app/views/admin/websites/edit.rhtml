@@ -2,9 +2,9 @@
 
 <%= render :partial => 'form',
 	:locals => {
-	:path => website_path(@website),
+	:path => admin_website_path(@website),
 	:method => :put,
 	:button_text => 'Update'
 } %>
 
-<%= link_to 'Cancel', websites_path %>
+<%= link_to 'Cancel', admin_websites_path %>

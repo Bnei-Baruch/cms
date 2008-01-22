@@ -20,14 +20,14 @@
 			<div id="list_values">
 				<% @list.list_values.each_with_index do |list_value, index| %>
 			
-					<%= render :partial => "lists/field_types/#{@list.list_type}", :locals => {:list_value => list_value, :index => index}  %>
+					<%= render :partial => "admin/lists/field_types/#{@list.list_type}", :locals => {:list_value => list_value, :index => index}  %>
 				<% end %>
 			</div>
 		
 			<%= link_to_function "Add" do |page| 
 				page.insert_html :bottom, 
 					:list_values, 
-					:partial => "lists/field_types/#{@list.list_type}", 
+					:partial => "admin/lists/field_types/#{@list.list_type}", 
 					:locals => {:list_value => ListValue.new, :index => 1}
 			end  %>
 		

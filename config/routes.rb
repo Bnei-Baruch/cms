@@ -1,7 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
 
-
   # Root access
   map.namespace(:admin) do |admin|
     admin.connect '', :controller => 'resources'
@@ -12,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :properties
     admin.resources :resource_types, :member => {:associations_list => :get, :associations_update => :put}
     admin.resources :attachments
+    admin.resources :users
   end	
 
   # The priority is based upon order of creation: first created -> highest priority.

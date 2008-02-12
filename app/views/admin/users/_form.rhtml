@@ -1,0 +1,27 @@
+<%= error_messages_for :user %>
+
+<% form_for(:user, :url => path, :html => {:method => method}) do |f| %>
+  <p>
+    <b>Username</b><br />
+    <%= f.text_field :username %>
+  </p>
+
+  <p>
+    <b>Password</b><br />
+    <%= f.password_field :user_password %>
+  </p>
+
+   <p>
+     <b>Confirm:</b><br/>
+     <%= f.password_field :user_password_confirmation %>
+  </p>
+
+  <p>
+    <b>Banned reson</b><br />
+    <%= f.text_field :banned_reson %>
+  </p>
+
+  <p>
+    <%= f.submit button_text %>
+  </p>
+<% end %>

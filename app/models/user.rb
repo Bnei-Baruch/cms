@@ -27,9 +27,10 @@ class User < ActiveRecord::Base
       expected_password = encrypted_password(user_password, user.salt)
       if user.password != expected_password
         user = nil
-      end
-      if user.banned_reson != nil && usr.banned_reson !=''
-        user = nil
+      else
+        if user.banned_reson != nil && user.banned_reson !=''
+          user = nil
+        end
       end
     end
     user

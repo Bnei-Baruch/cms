@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  
+
  # map.resources :login, :member => {:login => :get, :logout => :get}
 
   # Root access
@@ -12,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :resource_types, :member => {:associations_list => :get, :associations_update => :put}
     admin.resources :attachments
     admin.resources :users
+    admin.resources :groups
     admin.resources :login, :collection => {:login => :get, :logout => :get}
   end	
 

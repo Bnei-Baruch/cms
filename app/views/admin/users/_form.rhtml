@@ -18,9 +18,21 @@
 
   <p>
     <b>Banned reson</b><br />
-    <%= f.text_field :banned_reson %>
+    <%= f.text_area :banned_reson, :cols => 40, :rows => 6 %>
   </p>
 
+  <p>
+  <b>User groups:</b><br />
+	<table>
+		<% for group in Group.find(:all) %>
+		<tr>
+			<td><%= check_box_tag "user[group_ids][]", group.id,@user.groups.include?(group) %></td>
+			<td><%= h group.groupname %></td>
+		</tr>
+		<% end %>
+	</table>
+  </p>
+  
   <p>
     <%= f.submit button_text %>
   </p>

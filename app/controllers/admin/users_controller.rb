@@ -41,6 +41,7 @@ class Admin::UsersController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
+    params[:user][:group_ids] ||= []
     @user = User.new(params[:user])
 
     respond_to do |format|
@@ -58,6 +59,7 @@ class Admin::UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
+    params[:user][:group_ids] ||= []
     @user = User.find(params[:id])
 
     respond_to do |format|

@@ -1,0 +1,11 @@
+<% @title = "Editing group" %>
+
+<%= render :partial => 'form',
+    :locals => {
+    :path => admin_group_path(@group),
+    :method => :put,
+    :button_text => 'Update'
+  } %>
+
+<%= link_to 'Show', admin_group_path(@group) %> |
+<%= link_to 'Back', admin_groups_path %>

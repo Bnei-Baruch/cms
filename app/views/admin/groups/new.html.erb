@@ -1,0 +1,10 @@
+<% @title = "New group" %>
+
+<%= render :partial => 'form',
+    :locals => {
+    :path => admin_groups_path,
+    :method => :post,
+    :button_text => 'Create'
+  } %>
+  
+<%= link_to 'Back', admin_groups_path %>

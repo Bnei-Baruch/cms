@@ -1,0 +1,14 @@
+<% @title = "Group" %>
+<p>
+  <b>Group name:</b>
+  <%=h @group.groupname %>
+</p>
+
+<p>
+  <b>Banned reason:</b>
+  <%=h @group.banned_reason %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_group_path(@group) %> |
+<%= link_to 'Back', admin_groups_path %>

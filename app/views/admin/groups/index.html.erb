@@ -1,0 +1,23 @@
+<% @title = "Listing groups" %>
+
+<table border="1">
+  <tr>
+    <th>Groupname</th>
+    <th>Banned reason</th>
+    <th colspan="3">Actions</th>
+  </tr>
+
+<% for group in @groups %>
+  <tr>
+    <td><%=h group.groupname %></td>
+    <td><%=h group.banned_reason %></td>
+    <td><%= link_to 'Show', admin_group_path(group) %></td>
+    <td><%= link_to 'Edit', edit_admin_group_path(group) %></td>
+    <td><%= link_to 'Destroy', admin_group_path(group), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New group', new_admin_group_path %>

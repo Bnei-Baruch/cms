@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   attr_accessor :user_password_confirmation
   validates_confirmation_of :user_password
 
+  has_and_belongs_to_many :groups
+  
   def validate
     errors.add_to_base("Missing password") if password.blank?
   end

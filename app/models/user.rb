@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :groups
   
   def validate
+    errors.add_to_base("Missing password") if password.blank?
     if (user_password.length<4 || user_password.length>20) && !user_password.blank?
         errors.add_to_base("Password should has 6 - 20 characters")
     end

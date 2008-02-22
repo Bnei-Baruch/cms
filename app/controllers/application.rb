@@ -56,14 +56,14 @@ class ApplicationController < ActionController::Base
     m_user = User.find_by_id(session[:user_id])
     unless m_user
       session[:original_uri]=request.request_uri
-      flash[:notice] = "Access denied. Please log in"
+      flash[:notice] = "Access denied."
       redirect_to(:controller => "login", :action => "login")
     else
       groups<<'Administrators'
       user_groups = m_user.groups.find(:all, :conditions => [ "groupname IN (?) and Length(banned_reason)=0", groups])
       if (user_groups.length == 0)
          session[:original_uri]=request.request_uri
-         flash[:notice] = "Access denied. Please log in"
+         flash[:notice] = "Access denied."
          redirect_to(:controller => "login", :action => "login")
       end
     end

@@ -43,11 +43,16 @@
               <li><%= link_to 'Lists', admin_lists_path %></li>	 
               <li><%= link_to 'Trees', admin_tree_nodes_path %></li>
             </ul>
+            <br />
             <ul>
               <li><%= link_to 'Users', admin_users_path %></li>
               <li><%= link_to 'Groups', admin_groups_path %></li>
+                   </ul>
+            <br />
+            <ul>
               <li><%= link_to "Logout", :controller => 'login', :action => 'logout' %></li>
             </ul>
+
           </div>
           
         </div>

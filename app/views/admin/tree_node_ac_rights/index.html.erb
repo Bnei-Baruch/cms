@@ -1,0 +1,25 @@
+<% @title = "Listing tree nodes access rights" %>
+
+<table border="1">
+  <tr>
+    <th>Resource</th>
+    <th>Ac type</th>
+    <th>Group</th>
+    <th colspan="3">Actions</th>
+  </tr>
+
+<% for tree_node_ac_rights in @tree_node_ac_rights %>
+  <tr>
+    <td><%=h tree_node_ac_rights.tree_node.resource.name %></td>
+    <td><%=h tree_node_ac_rights.ac_type %></td>
+    <td><%=h tree_node_ac_rights.group.groupname %></td>
+    <td><%= link_to 'Show', admin_tree_node_ac_right_path(tree_node_ac_rights) %></td>
+    <td><%= link_to 'Edit', edit_admin_tree_node_ac_right_path(tree_node_ac_rights) %></td>
+    <td><%= link_to 'Destroy', admin_tree_node_ac_right_path(tree_node_ac_rights), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tree node access', new_admin_tree_node_ac_right_path %>

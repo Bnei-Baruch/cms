@@ -1,0 +1,11 @@
+<% @title = "Editing tree node access rights" %>
+
+<%= render :partial => 'form',
+    :locals => {
+    :path => admin_tree_node_ac_right_path(@tree_node_ac_rights),
+    :method => :post,
+    :button_text => 'Update'
+  } %>
+
+<%= link_to 'Show', admin_tree_node_ac_right_path(@tree_node_ac_rights) %> |
+<%= link_to 'Back', admin_tree_node_ac_rights_path %>

@@ -1,0 +1,20 @@
+<% @title = "Tree node access rights" %>
+
+<p>
+  <b>Tree node:</b>
+  <%=h @tree_node_ac_rights.tree_node.resource.name %>
+</p>
+
+<p>
+  <b>Access type type:</b>
+  <%=h @tree_node_ac_rights.ac_type %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%=h @tree_node_ac_rights.group.groupname %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_tree_node_ac_right_path(@tree_node_ac_rights) %> |
+<%= link_to 'Back', admin_tree_node_ac_rights_path %>

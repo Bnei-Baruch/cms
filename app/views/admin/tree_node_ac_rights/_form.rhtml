@@ -1,0 +1,24 @@
+<%= error_messages_for :tree_node_ac_rights %>
+
+<% form_for(:tree_node_ac_rights, :url => path, :html => {:method => method}) do |f| %>
+  <p>
+    <b>Resource</b><br />
+    <%= f.text_field :tree_node_id %>
+  </p>
+
+  <p>
+    <b>Access type</b><br />
+    <%= f.text_field :ac_type %>
+  </p>
+
+  <p>
+    <b>Group</b><br />
+        <%=
+          f.select( :group_id , Group.find(:all).map {|u| [u.groupname, u.id]} ) 
+        %>
+  </p>
+
+  <p>
+    <%= f.submit button_text %>
+  </p>
+<% end %>

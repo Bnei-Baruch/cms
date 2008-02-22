@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  
 
  # map.resources :login, :member => {:login => :get, :logout => :get}
 
@@ -15,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :attachments
     admin.resources :users
     admin.resources :groups
+    admin.resources :tree_node_ac_rights
     admin.resources :login, :collection => {:login => :get, :logout => :get}
   end	
 

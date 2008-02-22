@@ -1,15 +1,21 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
   validates_presence_of     :username
-  validates_uniqueness_of   :username
+  validates_uniqueness_of   :username#, :case_sansitive =>true
+  validates_length_of :username, :maximum => 20
+  
   
   attr_accessor :user_password_confirmation
   validates_confirmation_of :user_password
 
+  #validates_length_of :user_password, in => 6..20 
+  #validates_length_of :password, :within => 6..20
   has_and_belongs_to_many :groups
   
   def validate
-    errors.add_to_base("Missing password") if password.blank?
+    if (user_password.length<4 || user_password.length>20) && !user_password.blank?
+        errors.add_to_base("Password should has 6 - 20 characters")
+    end
   end
   
   def user_password

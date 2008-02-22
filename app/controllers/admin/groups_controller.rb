@@ -1,6 +1,8 @@
 class Admin::GroupsController < ApplicationController
   layout 'admin'
-   
+  
+  before_filter {|c| c.admin_authorize(['User manager'])}
+  
   # GET /groups
   # GET /groups.xml
   def index

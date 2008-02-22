@@ -50,4 +50,25 @@ class ApplicationController < ActionController::Base
 		:only => [:new, :edit, :show, :index, :update])
 
 
+#  private
+
+  def admin_authorize(groups=[])
+    m_user = User.find_by_id(session[:user_id])
+    unless m_user
+      session[:original_uri]=request.request_uri
+      flash[:notice] = "Access denied. Please log in"
+      redirect_to(:controller => "login", :action => "login")
+    else
+      groups<<'Administrators'
+      user_groups = m_user.groups.find(:all, :conditions => [ "groupname IN (?) and Length(banned_reason)=0", groups])
+      if (user_groups.length == 0)
+         session[:original_uri]=request.request_uri
+         flash[:notice] = "Access denied. Please log in"
+         redirect_to(:controller => "login", :action => "login")
+      end
+    end
+    
+    
+  end
+        
 end

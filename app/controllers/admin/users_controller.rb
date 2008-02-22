@@ -1,5 +1,8 @@
 class Admin::UsersController < ApplicationController
   layout 'admin'
+  
+  before_filter {|c| c.admin_authorize(['User manager'])}
+
   # GET /users
   # GET /users.xml
   def index

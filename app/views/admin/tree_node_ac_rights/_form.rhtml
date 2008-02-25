@@ -8,7 +8,7 @@
 
   <p>
     <b>Access type</b><br />
-    <%= f.text_field :ac_type %>
+    <%= f.select( :ac_type, TreeNodeAcRights::NODE_AC_TYPES, :prompt => "Select a access type") %>
   </p>
 
   <p>

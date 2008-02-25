@@ -49,7 +49,7 @@ class Admin::TreeNodeAcRightsController < ApplicationController
     respond_to do |format|
       if @tree_node_ac_rights.save
         flash[:notice] = 'TreeNodeAcRights was successfully created.'
-        format.html { redirect_to admin_tree_node_ac_right_paht(@tree_node_ac_rights) }
+        format.html { redirect_to(admin_tree_node_ac_right_path(@tree_node_ac_rights)) }
         format.xml  { render :xml => @tree_node_ac_rights, :status => :created, :location => @tree_node_ac_rights }
       else
         format.html { render :action => "new" }
@@ -66,7 +66,7 @@ class Admin::TreeNodeAcRightsController < ApplicationController
     respond_to do |format|
       if @tree_node_ac_rights.update_attributes(params[:tree_node_ac_rights])
         flash[:notice] = 'TreeNodeAcRights was successfully updated.'
-        format.html { redirect_to admin_tree_node_ac_right_paht(@tree_node_ac_rights) }
+        format.html { redirect_to(admin_tree_node_ac_right_path(@tree_node_ac_rights)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

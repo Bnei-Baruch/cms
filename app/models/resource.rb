@@ -16,11 +16,11 @@ class Resource < ActiveRecord::Base
 	attr_accessor :tree_node 
 	
 	#only associate resources of the type 'website'
-	has_one :website, :foreign_key => 'entry_point_id', :dependent => :nullify, 
-		:conditions => "resource_type_id = #{Website.get_website_resource_type.id}" 
-
-	after_update :save_resource_properties
+	has_one :website, :foreign_key => 'entry_point_id'
+  
+  after_update :save_resource_properties
 	after_create :create_tree_node
+  before_destroy :nullify_website_if_exists
 
   # Let each property of the Resource to validate itself
 	validates_associated :resource_properties
@@ -54,6 +54,12 @@ class Resource < ActiveRecord::Base
 
   protected
 
+  def nullify_website_if_exists
+    if website && resource_type_id == Website.get_website_resource_type.id
+      website.nullify_website_resource
+    end
+  end
+  
   # We cannot call this directly in property, because we don't know there resource_type
   def required_properties_present
     result = false

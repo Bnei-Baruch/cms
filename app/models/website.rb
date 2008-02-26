@@ -8,7 +8,11 @@ class Website < ActiveRecord::Base
   validates_presence_of :name
 	validates_uniqueness_of :name 
   validate :correctness_of_domain_and_prefix
-  
+
+  def nullify_website_resource
+    update_attribute(:entry_point_id, "")
+  end
+
 	def self.associate_website(object, website_id)
     # put website from session to resource
 		if website_id && (website = Website.find(website_id))

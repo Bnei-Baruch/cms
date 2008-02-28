@@ -11,7 +11,7 @@
 <% for tree_node_ac_rights in @tree_node_ac_rights %>
   <tr>
     <td><%=h tree_node_ac_rights.tree_node.resource.name %></td>
-    <td><%=h tree_node_ac_rights.ac_type %></td>
+    <td><%=h tree_node_ac_rights.ac_type_str %></td>
     <td><%=h tree_node_ac_rights.group.groupname %></td>
     <td><%= link_to 'Show', admin_tree_node_ac_right_path(tree_node_ac_rights) %></td>
     <td><%= link_to 'Edit', edit_admin_tree_node_ac_right_path(tree_node_ac_rights) %></td>

@@ -45,6 +45,11 @@ Event.addBehavior({
 		$('property_list_id').disable();
 		new Effect.Fade('list_container');
 		break;
+	default:
+		$('property_geometry').disable();
+        $('property_list_id').disable();
+		new Effect.Fade('file_container');
+		new Effect.Fade('list_container');
 	}
 }
 });

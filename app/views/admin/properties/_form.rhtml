@@ -10,12 +10,12 @@
 						options_for_select(Property.types, @property.field_type), 
 						:name => 'property[field_type]', 
 						:id => 'property_field_type'%>
-      <div id="list_container" style="display:none;">
+      <div id="list_container" <% unless @property.field_type == 'List' %>style="display:none;"<% end %>>
 				<label for="property_list_id">List Name</label>
-					<%= f.select(:list_id, List.names_for_select, {}, :disabled => true) %>
+					<%= f.select(:list_id, List.names_for_select, {}, :disabled => @property.field_type != 'List') %>
       </div>
-			<div id="file_container" style="display:none;">
-				<label for="property_geometry">Geometry String</label><%= f.text_field :geometry, :disabled => true %>
+			<div id="file_container" <% unless @property.field_type == 'File' %>style="display:none;"<% end %>>
+				<label for="property_geometry">Geometry String</label><%= f.text_field :geometry, :disabled => @property.field_type != 'File' %>
 			</div>
     <% else %>
       <span style="display:block;margin-top:20px;"><b><i>Type:</i></b> <%= @property.field_type %></span>

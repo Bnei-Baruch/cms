@@ -12,25 +12,22 @@
 						:id => 'property_field_type'%>
       <div id="list_container" style="display:none;">
 				<label for="property_list_id">List Name</label>
-					<%= f.select(:list_id, List.names_for_select, {}, :disabled => true) %>
+				<%= f.select(:list_id, List.names_for_select, {}, :disabled => true) %>
       </div>
-			<div id="file_container" style="display:none;">
-				<label for="property_geometry">Geometry String</label><%= f.text_field :geometry, :disabled => true %>
-			</div>
     <% else %>
-      <span style="display:block;margin-top:20px;"><b><i>Type:</i></b> <%= @property.field_type %></span>
+      <br />
+      <br />
+      <p><b><i>Type:</i></b> <%= @property.field_type %></p>
       <% if @property.list %>
 				<br />
-				<div><b><i>List Name:</i></b> <%= @property.list.name %></div>
+				<p><b><i>List Name:</i></b> <%= @property.list.name %></p>
       <% end %>
-			<% if @property.field_type == 'File' %>
-				<label for="property_geometry">Geometry String</label><%= f.text_field :geometry %>
-			<% end %>
     <% end %>
     <label for="property_identifier">Identifier (used by the CMS engine)</label><%= f.text_field :identifier %>
     <label for="property_default_code">Default Code (in ruby code)</label><%= f.text_field :default_code %>
     <label for="property_pattern">Pattern (RegExp)</label><%= f.text_field :pattern %>
     <label for="property_pattern_text">Pattern Validation Text</label><%= f.text_field :pattern_text %>
+    <label for="property_geometry">Geometry</label><%= f.text_field :geometry %>
     <span id="submit">
       <%= submit_tag button_text %>
     </span>

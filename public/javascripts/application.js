@@ -20,7 +20,6 @@ Event.addBehavior({
 	else {
 		$('website_id').show();
 	}
-    ;
 },
 /*This will update the hidden input field (in resource editing) which holds the actual value 
 	to be passed to the model as the checkbox value*/
@@ -31,19 +30,21 @@ Event.addBehavior({
 	else {
 		this.next().value = 'f';
 	}
-    ;
 },
 '#property_field_type:change' : function() {
-	if($F(this) == 'List') {
+	switch($F(this)) {
+	case 'List':
 		$('property_list_id').enable();
 		new Effect.Appear('list_container');
-		 
-
-	}
-	else {
-		new Effect.Fade('list_container');
+		$('property_geometry').disable();
+		new Effect.Fade('file_container');
+		break;
+	case 'File':
+		$('property_geometry').enable();
+		new Effect.Appear('file_container');
 		$('property_list_id').disable();
+		new Effect.Fade('list_container');
+		break;
 	}
-    ;
 }
 });

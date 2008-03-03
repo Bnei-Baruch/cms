@@ -5,7 +5,11 @@
 	%>
 	
 	<% cms_fields_for "resource[my_properties][]", property do |f| %>
-	
+
+		<%= f.hidden_field(:property_type, :index => nil) %>
+		<%= f.hidden_field(:property_id, :index => nil) %>
+		<%= f.hidden_field(:id, :index => nil) %>
+
 		<%= f.label("value", property.name, label_class)%>
 		<%= errors %>
 		<% case data_type 
@@ -32,21 +36,32 @@
 			<% when 'text':%>
 				<%= f.text_area(:value, :index => nil) %>
 			<% when 'file':%>
-				<% attachment = @property.attachment %>
-				<% if attachment %>
-					<%= image_tag	attachment_url(attachment) %><br/>
-					<%= "#{attachment.filename}: #{attachment.mime_type.split('/').last} of #{attachment.size} bytes" %><br/>
+				<% original = @property.original %>
+				<% if original %>
+					Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/>
+					<% if original.is_image? %>
+            <%= image_tag	admin_attachment_url(original) %>
+            <hr/>
+            <% if myself = @property.myself %>
+              Self: <%= "#{myself.filename}: #{myself.mime_type.split('/').last} of #{myself.size} bytes" %><br/>
+              <%= image_tag	admin_attachment_url(myself) %>
+              <hr/>
+            <% end %>
+            <% @property.thumbnails.each {|img|%>
+              Attachment: <%= "#{img.filename}: #{img.mime_type.split('/').last} of #{img.size} bytes" %><br/>
+              <%= image_tag	admin_attachment_url(img) %>
+              <hr/>
+            <% } %>
+          <% end %>
 				<% end %>
-				<%= f.file_field(:attachment, :index => nil) %>
-				<% if attachment %>
-					<br/>Remove:<br/>
-					<%= f.check_box :remove, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
-				<% end%>
+				<%= f.file_field(:value, :index => nil) %>
 		<% end %>
+		<% if data_type = 'file' && original %>
+			<br/>Remove:<br/>
+			<%= f.check_box :remove, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
+		<% else %>
+			<%= f.hidden_field(:remove, :index => nil) %>
+		<% end%>
 	
-		<%= f.hidden_field(:property_type, :index => nil) %>
-		<%= f.hidden_field(:property_id, :index => nil) %>
-		<%= f.hidden_field(:id, :index => nil) %>
-
 	<% end %>
 </div>

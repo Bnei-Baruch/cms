@@ -1,13 +1,19 @@
 class RpFile < ResourceProperty	
 
-  validates_format_of :mime_type, :as => :attachment,
-    :with => /^image/,
-    :message => '-- you can only upload pictures'
+  validates_length_of :file, :as => :attachment, :maximum => 1.megabyte
 
-  validates_length_of :file, :as => :attachment, :in => 1.byte..1.megabyte
+  def original
+    attachment
+  end
 
-  attr_accessor :remove
-  
+  def myself
+    attachment.myself
+  end
+
+  def thumbnails
+    attachment.thumbnails
+  end
+
   def mime_type
     (attachment && attachment.mime_type) || ''
   end

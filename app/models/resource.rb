@@ -35,10 +35,10 @@ class Resource < ActiveRecord::Base
 		my_properties.each_with_index do |p, i|
 			more_properties = {:position => i + 1}
 			p.merge!(more_properties)
-			if p[:id].blank?
+			if p[:id].blank?  # new property
         p = Attachment.store_rp_file(nil, p) if p[:property_type] == "RpFile"
         resource_property = self.send("#{p[:property_type].underscore}_properties").send(:build, p)
-			else
+			else #existing property
         resource_property = resource_properties.detect{|rp|
           rp.id == p[:id].to_i
         }

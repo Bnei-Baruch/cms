@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
       if user.password != expected_password
         user = nil
       else
-        if user.banned_reson != nil && user.banned_reson !=''
+        if user.reason_of_ban != nil && user.reason_of_ban !=''
           user = nil
         end
       end

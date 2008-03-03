@@ -8,7 +8,7 @@
 
   <p>
     <b>Access type</b><br />
-    <%= f.select( :ac_type, TreeNodeAcRights::NODE_AC_TYPES.map{|k,v| [v, k]}, :prompt => "Select a access type") %>
+    <%= f.select( :ac_type, AuthenticationModel::NODE_AC_TYPES.map{|k,v| [v, k]}, :prompt => "Select a access type") %>
   </p>
 
   <p>

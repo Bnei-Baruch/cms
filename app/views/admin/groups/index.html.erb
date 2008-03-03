@@ -10,7 +10,7 @@
 <% for group in @groups %>
   <tr>
     <td><%=h group.groupname %></td>
-    <td><%=h group.banned_reason %></td>
+    <td><%=h group.reason_of_ban %></td>
     <td><%= link_to 'Show', admin_group_path(group) %></td>
     <td><%= link_to 'Edit', edit_admin_group_path(group) %></td>
     <td><%= link_to 'Destroy', admin_group_path(group), :confirm => 'Are you sure?', :method => :delete %></td>

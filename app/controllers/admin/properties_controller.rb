@@ -30,6 +30,7 @@ class Admin::PropertiesController < ApplicationController
   # GET /properties/1;edit
   def edit
     @property = Property.find(params[:id])
+    @property.old_geometry = @property.geometry
   end
 
   # POST /properties

@@ -15,7 +15,11 @@ class Property < ActiveRecord::Base
 	validates_uniqueness_of :hrid, :as => :identifier # The function was rewritten 
   # (new flag :as was added)
 	validate :correctness_of_default_code
-	
+
+  # We need to save old geomtry and to update thumbnails accordingly
+  attr_accessor :old_geometry
+  after_update  :update_thumbnails
+  
 	def self.types
 		['String', 'Number', 'Boolean', 'Text', 'Plaintext', 'Timestamp', 'Date', 'List', 'File']
 	end
@@ -46,7 +50,10 @@ class Property < ActiveRecord::Base
 			errors.add(:default_code, "-- an error occurred:<br/> #{error_text}")
 		end
 	end
-	
+
+  def update_thumbnails
+    Attachment.update_thumbnails(self, old_geometry, geometry)
+  end
 end
 
 # validates_uniqueness_of -- a new flag added

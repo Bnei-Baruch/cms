@@ -2,37 +2,61 @@
 
 <% form_for(:property, :url => path, :html => {:method => method}) do |f| %>
   <p>
-    <label for="property_name">Name</label><%= f.text_field :name %>
-  
+  <label for="property_name">Name</label><%= f.text_field :name %>
+
     <% if @property.new_record? %>
-      <label for="property_field_type">Type</label>
-      <%= select_tag :field_type, 
-						options_for_select(Property.types, @property.field_type), 
-						:name => 'property[field_type]', 
-						:id => 'property_field_type'%>
-      <div id="list_container" <% unless @property.field_type == 'List' %>style="display:none;"<% end %>>
-				<label for="property_list_id">List Name</label>
-					<%= f.select(:list_id, List.names_for_select, {}, :disabled => @property.field_type != 'List') %>
+    <label for="property_field_type">Type</label>
+    <%= select_tag :field_type, 
+             options_for_select(Property.types, @property.field_type), 
+             :name => 'property[field_type]', 
+             :id => 'property_field_type'%>
+    <div id="list_container" <% unless @property.field_type == 'List' %>style="display:none;"<% end %>>
+         <label for="property_list_id">List Name</label>
+      <%= f.select(:list_id, List.names_for_select, {}, :disabled => @property.field_type != 'List') %>
+    </div>
+    <div id="file_container" <% unless @property.field_type == 'File' %>style="display:none;"<% end %>>
+      <label for="property_geometry">Geometry String<br/>
+      <div style="font-size:12px">
+        <p><b>Format of the field: self:geometry;name1:geometry;...</b></p>
+        <p><b>Geometry: widthxheight{%} {@} {!} {&lt;} {&gt;} {^}</b></p>
+        <p>By default, the width and height are maximum values. That is, the image is expanded or contracted to fit the width and height value while maintaining the aspect ratio of the image. Append an exclamation point to the geometry to force the image size to exactly the size you specify. For example, if you specify 640x480! the image width is set to 640 pixels and height to 480.</p>
+        <p>If only the width is specified, the width assumes the value and the height is chosen to maintain the aspect ratio of the image. Similarly, if only the height is specified (e.g.,  x256, the width is chosen to maintain the aspect ratio.</p>
+        <p>To specify a percentage width or height instead, append %. The image size is multiplied by the width and height percentages to obtain the final image dimensions. To increase the size of an image, use a value greater than 100 (e.g. 125%). To decrease an image's size, use a percentage less than 100.</p>
+        <p>Use @ to specify the maximum area in pixels of an image.</p>
+        <p>Use &gt; to change the dimensions of the image only if its width or height exceeds the geometry specification. &lt; resizes the image only if both of its dimensions are less than the geometry specification. For example, if you specify 640x480&gt; and the image size is 256x256, the image size does not change. However, if the image is 512x512 or 1024x1024, it is resized to 480x480.</p>
+        <p>Use ^ to set a minimum image size limit. The geometry 640x480^, for example, means the image width will not be less than 640 and the image height will not be less than 480 pixels after the resize. One of those dimensions will match the requested size, but the image will likely overflow the space requested to preserve its aspect ratio. </p>
       </div>
-			<div id="file_container" <% unless @property.field_type == 'File' %>style="display:none;"<% end %>>
-				<label for="property_geometry">Geometry String</label><%= f.text_field :geometry, :disabled => @property.field_type != 'File' %>
-			</div>
-    <% else %>
-      <span style="display:block;margin-top:20px;"><b><i>Type:</i></b> <%= @property.field_type %></span>
-      <% if @property.list %>
-				<br />
-				<div><b><i>List Name:</i></b> <%= @property.list.name %></div>
-      <% end %>
-			<% if @property.field_type == 'File' %>
-				<label for="property_geometry">Geometry String</label><%= f.text_field :geometry %>
-			<% end %>
+      </label><%= f.text_field :geometry, :disabled => @property.field_type != 'File' %>
+      <%= f.hidden_field :old_geometry, :disabled => @property.field_type != 'File' %>
+    </div>
+  <% else %>
+    <span style="display:block;margin-top:20px;"><b><i>Type:</i></b> <%= @property.field_type %></span>
+    <% if @property.list %>
+      <br />
+      <div><b><i>List Name:</i></b> <%= @property.list.name %></div>
     <% end %>
-    <label for="property_identifier">Identifier (used by the CMS engine)</label><%= f.text_field :identifier %>
-    <label for="property_default_code">Default Code (in ruby code)</label><%= f.text_field :default_code %>
-    <label for="property_pattern">Pattern (RegExp)</label><%= f.text_field :pattern %>
-    <label for="property_pattern_text">Pattern Validation Text</label><%= f.text_field :pattern_text %>
-    <span id="submit">
-      <%= submit_tag button_text %>
-    </span>
+     <% if @property.field_type == 'File' %>
+      <label for="property_geometry">Geometry String<br/>
+        <div style="font-size:12px">
+          <p><b>Format of the field: self:geometry;name1:geometry;...</b></p>
+          <p><b>Geometry: widthxheight{%} {@} {!} {&lt;} {&gt;} {^}</b></p>
+          <p>By default, the width and height are maximum values. That is, the image is expanded or contracted to fit the width and height value while maintaining the aspect ratio of the image. Append an exclamation point to the geometry to force the image size to exactly the size you specify. For example, if you specify 640x480! the image width is set to 640 pixels and height to 480.</p>
+          <p>If only the width is specified, the width assumes the value and the height is chosen to maintain the aspect ratio of the image. Similarly, if only the height is specified (e.g.,  x256, the width is chosen to maintain the aspect ratio.</p>
+          <p>To specify a percentage width or height instead, append %. The image size is multiplied by the width and height percentages to obtain the final image dimensions. To increase the size of an image, use a value greater than 100 (e.g. 125%). To decrease an image's size, use a percentage less than 100.</p>
+          <p>Use @ to specify the maximum area in pixels of an image.</p>
+          <p>Use &gt; to change the dimensions of the image only if its width or height exceeds the geometry specification. &lt; resizes the image only if both of its dimensions are less than the geometry specification. For example, if you specify 640x480&gt; and the image size is 256x256, the image size does not change. However, if the image is 512x512 or 1024x1024, it is resized to 480x480.</p>
+          <p>Use ^ to set a minimum image size limit. The geometry 640x480^, for example, means the image width will not be less than 640 and the image height will not be less than 480 pixels after the resize. One of those dimensions will match the requested size, but the image will likely overflow the space requested to preserve its aspect ratio. </p>
+        </div>
+      </label><%= f.text_field :geometry %>
+      <%= f.hidden_field :old_geometry, :disabled => @property.field_type != 'File' %>
+    <% end %>
+  <% end %>
+  <label for="property_identifier">Identifier (used by the CMS engine)</label><%= f.text_field :identifier %>
+  <label for="property_default_code">Default Code (in ruby code)</label><%= f.text_field :default_code %>
+  <label for="property_pattern">Pattern (RegExp)</label><%= f.text_field :pattern %>
+  <label for="property_pattern_text">Pattern Validation Text</label><%= f.text_field :pattern_text %>
+  <span id="submit">
+    <%= submit_tag button_text %>
+  </span>
   </p>
 <% end %>

@@ -77,8 +77,15 @@ class Attachment < ActiveRecord::Base
     mime_type =~ /^image/
   end
 
-  protected
-
+  # Replace images upon geometry change
+  def Attachment.update_thumbnails(property, old_geometry_string, geometry_string)
+    return if old_geometry_string.eql?(geometry_string)
+    ResourceProperty.find(:all, :conditions => ["property_id = ?", property]).each{ |rp|
+      remove_thumbnails(rp, false)
+      rp.attachment.save
+    }
+  end
+  
   def resize(geometry, name)
     image = MiniMagick::Image.from_blob(self.file, self.mime_type.split('/').last)
     image.resize geometry
@@ -99,14 +106,16 @@ class Attachment < ActiveRecord::Base
 
   private
 
-  def Attachment.remove_thumbnails(resource_property)
+  def Attachment.remove_thumbnails(resource_property, destroy_original = true)
     return if ! (resource_property && resource_property.attachment) or ! resource_property.attachment.is_image?
     resource_property.attachment.thumbnails.each {|thumb|
       thumb.destroy
     }
     resource_property.attachment.myself.destroy
-    resource_property.attachment.destroy
-    resource_property.attachment = nil
+    if destroy_original
+      resource_property.attachment.destroy
+      resource_property.attachment = nil
+    end
   end
 
   def Attachment.file_provided?(file)

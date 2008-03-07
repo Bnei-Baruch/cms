@@ -9,32 +9,55 @@ class Attachment < ActiveRecord::Base
 
   with_options :class_name => "Attachment", :foreign_key => "thumbnail_id" do |opt|
     opt.has_many   :thumbnails,
-                   :dependent => :delete_all,
-                   :conditions => "filename <> 'self'"
+      :dependent => :delete_all,
+      :conditions => "filename <> 'myself'"
     opt.belongs_to :parent
     opt.has_one    :myself,
-                   :conditions => "filename = 'self'"
+      :dependent => :delete,
+      :conditions => "filename = 'myself'"
   end
 
-  before_save :create_thumbnails_and_apply_geometry
+  def Attachment.get_image(image_id, image_name, format)
+    attachment = find(:first, :conditions => ["id = ?", image_id])
+    case image_name
+    when 'original'
+      attachment = attachment.resource_property.original
+    when 'myself'
+      attachment = attachment.myself
+    else
+      if thumbnail = attachment.thumbnails.detect{|th| th.filename.eql?(image_name)}
+        attachment = thumbnail
+      end
+    end
+    # We're here because of normal caching didn't work
+    Attachment.save_as_file(attachment, image_id, "#{image_name}/#{format}")
+    attachment
+  end
   
-  attr_accessor :dont_process
+  def Attachment.save_as_file(attachment, original_image_id, name)
+    path = File.join(File.dirname(__FILE__), '/../../public/images/', original_image_id.to_s)
+    FileUtils.mkdir_p path 
+    File.open("#{path}/#{name}", "w") {|file|
+      file.binmode
+      file.write attachment.file
+    }
+  end
 
   def Attachment.store_rp_file(resource_property, options)
     # Should we first remove an old one?
     if (options.delete(:remove) != 'f')
-      remove_thumbnails(resource_property)
+      remove_thumbnails_and_cache(resource_property)
     end
 
     # Is file supplied?
     att = options[:value]
     if not file_provided?(att)
-      options[:value] = nil
+      options[:value] = options[:attachment] = nil
       return options
     end
 
     # Prepare new or replace an existing attachment
-    remove_thumbnails(resource_property) # remove old thumbnails if exist
+    remove_thumbnails_and_cache(resource_property) # remove old thumbnails if exist
     attachment = (resource_property && resource_property.attachment) || Attachment.new
     attachment.size = att.length
     attachment.filename = sanitize_filename(att.original_filename)
@@ -53,39 +76,55 @@ class Attachment < ActiveRecord::Base
     return options
   end
 
-  def create_thumbnails_and_apply_geometry
-    return if dont_process or !is_image?
-    
+  def Attachment.create_thumbnails_and_apply_geometry_and_cache(resource_property)
     # Format of geometry string:
-    # self:geom;thumb1:geom;...
+    # myself:geom;thumb1:geom;...
     geometry = {}
-    geometry_string = self.resource_property.property.geometry rescue ""
+    geometry_string = resource_property.property.geometry rescue ""
     geometry_string.scan(/(\w+):([\w%!><]+)/) { |key, value|
       geometry[key] = value
     }
-    if geometry.empty? || ! geometry.has_key?('self')
+    if geometry.empty? || ! geometry.has_key?('myself')
       # Save 'self' as an exact copy of an original image
-      geometry['self'] = '100%x100%'
+      geometry['myself'] = '100%x100%'
     end
     
+    attachment = resource_property.attachment
+    Attachment.save_as_file(attachment, attachment.id, attachment.filename)
+    ext = File.extname(attachment.filename)
     geometry.each { |name, geom|
-      self.thumbnails << self.resize(geom, name)
+      th = attachment.resize(geom, name)
+      attachment.thumbnails << th
+      Attachment.save_as_file(th, attachment.id, th.filename + ext)
     }
+    attachment.save!
   end
 
+  # Replace images upon geometry change
+  def Attachment.update_thumbnails(property)
+    ResourceProperty.find(:all, :conditions => ["property_id = ?", property.id]).each{ |rp|
+      remove_thumbnails_and_cache(rp)
+      if rp.attachment
+        rp.resource.save
+      end
+    }
+  end
+  
+  def Attachment.delete_file(original_image_id, name, delete_all = false)
+    begin
+      path = File.join(File.dirname(__FILE__), '/../../public/images/', original_image_id.to_s)
+      Dir.glob(path + "/#{delete_all ? '*' : name}.*") { |filename|
+        File.delete(filename)
+      }
+      Dir.delete(path) if name == 'original'
+    rescue
+    end
+  end
+  
   def is_image?
     mime_type =~ /^image/
   end
 
-  # Replace images upon geometry change
-  def Attachment.update_thumbnails(property, old_geometry_string, geometry_string)
-    return if old_geometry_string.eql?(geometry_string)
-    ResourceProperty.find(:all, :conditions => ["property_id = ?", property]).each{ |rp|
-      remove_thumbnails(rp, false)
-      rp.attachment.save
-    }
-  end
-  
   def resize(geometry, name)
     image = MiniMagick::Image.from_blob(self.file, self.mime_type.split('/').last)
     image.resize geometry
@@ -96,7 +135,6 @@ class Attachment < ActiveRecord::Base
     thumb.size = new_image.size
     thumb.md5 = Digest::MD5.hexdigest(thumb.file)
     thumb.mime_type = self.mime_type
-    thumb.dont_process = true
     thumb
   end
 
@@ -106,15 +144,16 @@ class Attachment < ActiveRecord::Base
 
   private
 
-  def Attachment.remove_thumbnails(resource_property, destroy_original = true)
+  def Attachment.remove_thumbnails_and_cache(resource_property)
     return if ! (resource_property && resource_property.attachment) or ! resource_property.attachment.is_image?
+    
+    Attachment.delete_file(resource_property.attachment.id, 'original', true)
+    
     resource_property.attachment.thumbnails.each {|thumb|
       thumb.destroy
     }
-    resource_property.attachment.myself.destroy
-    if destroy_original
-      resource_property.attachment.destroy
-      resource_property.attachment = nil
+    if resource_property.attachment.myself
+      resource_property.attachment.myself.destroy
     end
   end
 

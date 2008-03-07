@@ -17,7 +17,7 @@
     <div id="file_container" <% unless @property.field_type == 'File' %>style="display:none;"<% end %>>
       <label for="property_geometry">Geometry String<br/>
       <div style="font-size:12px">
-        <p><b>Format of the field: self:geometry;name1:geometry;...</b></p>
+        <p><b>Format of the field: myself:geometry;name1:geometry;...</b></p>
         <p><b>Geometry: widthxheight{%} {@} {!} {&lt;} {&gt;} {^}</b></p>
         <p>By default, the width and height are maximum values. That is, the image is expanded or contracted to fit the width and height value while maintaining the aspect ratio of the image. Append an exclamation point to the geometry to force the image size to exactly the size you specify. For example, if you specify 640x480! the image width is set to 640 pixels and height to 480.</p>
         <p>If only the width is specified, the width assumes the value and the height is chosen to maintain the aspect ratio of the image. Similarly, if only the height is specified (e.g.,  x256, the width is chosen to maintain the aspect ratio.</p>
@@ -38,7 +38,7 @@
      <% if @property.field_type == 'File' %>
       <label for="property_geometry">Geometry String<br/>
         <div style="font-size:12px">
-          <p><b>Format of the field: self:geometry;name1:geometry;...</b></p>
+          <p><b>Format of the field: myself:geometry;name1:geometry;...</b></p>
           <p><b>Geometry: widthxheight{%} {@} {!} {&lt;} {&gt;} {^}</b></p>
           <p>By default, the width and height are maximum values. That is, the image is expanded or contracted to fit the width and height value while maintaining the aspect ratio of the image. Append an exclamation point to the geometry to force the image size to exactly the size you specify. For example, if you specify 640x480! the image width is set to 640 pixels and height to 480.</p>
           <p>If only the width is specified, the width assumes the value and the height is chosen to maintain the aspect ratio of the image. Similarly, if only the height is specified (e.g.,  x256, the width is chosen to maintain the aspect ratio.</p>

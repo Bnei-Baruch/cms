@@ -18,6 +18,11 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :login, :collection => {:login => :get, :logout => :get}
   end	
 
+  map.connect 'images/:image_id/:image_name.:format',
+              :controller => 'Attachments',
+              :action => 'get_image'
+                
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route: map.connect 'products/:id', :controller => 'catalog', :action

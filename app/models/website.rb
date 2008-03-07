@@ -21,7 +21,7 @@ class Website < ActiveRecord::Base
 			end
 		end
 	end
-	
+# get the resource_type of the type - website	
 	def self.get_website_resource_type
 		ResourceType.find_by_hrid('website')
 	end

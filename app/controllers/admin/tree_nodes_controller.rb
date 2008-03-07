@@ -2,7 +2,7 @@ class Admin::TreeNodesController < ApplicationController
 	layout 'admin'
   # GET /tree_nodes
   # GET /tree_nodes.xml
-  def index
+  def index  
   	if params[:parent_id] && params[:parent_id] != '0'
   		@parent_id = params[:parent_id]
   		@parent_node = TreeNode.find(@parent_id)

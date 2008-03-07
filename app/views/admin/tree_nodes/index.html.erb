@@ -15,25 +15,27 @@
 <table border="1">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Parent</th>
       <th>Position</th>
       <th>Type</th>
       <th>Resource</th>
-      <th>Node type</th>
+      <th>Is main?</th>
       <th>Permalink</th>
       <th colspan="3">Actions</th>
     </tr>
   </thead>  
   <% for tree_node in @tree_nodes %>
     <tr>
+      <td><%=h tree_node.id %></td>
       <td><%=h tree_node.parent_id %></td>
       <td><%=h tree_node.position %></td>
       <td><%=h tree_node.resource.resource_type.name if tree_node.resource %></td>
       <td><%=link_to tree_node.resource.name, admin_tree_nodes_path(:parent_id => tree_node.id) if tree_node.resource %></td>
-      <td><%=h tree_node.node_type %></td>
+      <td><%=h tree_node.is_main %></td>
       <td><%=h tree_node.permalink %></td>
       <td><%= link_to 'Show', admin_resource_path(tree_node.resource) %></td>
-      <td><%= link_to 'Edit', edit_admin_resource_path(tree_node.resource) %></td>
+      <td><%= link_to 'Edit', edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id) %></td>
       <td><%= link_to 'Destroy', admin_resource_path(tree_node.resource), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
@@ -46,6 +48,9 @@
     Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
     <% fields_for "resource[tree_node]", TreeNode.new do |tree_fields| %>
                     <%= tree_fields.hidden_field(:parent_id, :value => @parent_id) %>
+                    <%= tree_fields.hidden_field(:is_main, :value => true) %>
+                    <%= tree_fields.hidden_field(:has_url, :value => true) %>
+    				<!-- Type: <%#= f.select(:resource_type_id, ResourceType.resource_types_for_select) %> -->
       <% end %>
 
 

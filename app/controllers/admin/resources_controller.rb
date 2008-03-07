@@ -1,24 +1,24 @@
 class Admin::ResourcesController < ApplicationController
-	layout 'admin'
+  layout 'admin'
   
   # GET /resources GET /resources.xml
   def index
-#     	update the website session information if the request is xhr
-		if request.xhr?
-			set_website_session(params[:show_all_websites])
-		end
-		website_id = session[:website]
-		if website_id && (website = Website.find_by_id(website_id))
-			@resources = website.resources.uniq
-		else
-			@resources = Resource.find(:all)
+    #     	update the website session information if the request is xhr
+    if request.xhr?
+      set_website_session(params[:show_all_websites])
+    end
+    website_id = session[:website]
+    if website_id && (website = Website.find_by_id(website_id))
+      @resources = website.resources.uniq
+    else
+      @resources = Resource.find(:all)
     end
     @resources.sort! { |a, b| b.id <=> a.id }
-    
+
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @resources.to_xml }
-			format.js
+      format.js
     end
   end
 
@@ -34,22 +34,26 @@ class Admin::ResourcesController < ApplicationController
 
   # GET /resources/new
   def new
-		@resource_type = ResourceType.find(params[:resource][:resource_type_id])
+    @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
-		@tree_node = TreeNode.new(params[:resource][:tree_node])
+    @tree_node = TreeNode.new(params[:resource][:tree_node])
   end
 
   # GET /resources/1;edit
   def edit
     @resource = Resource.find(params[:id])
-		@resource_type = @resource.resource_type
+    @resource_type = @resource.resource_type
+    if params[:tree_id]
+      @tree_node = Resource.tree_nodes.find(params[:tree_id])
+    end
   end
 
   # POST /resources POST /resources.xml
   def create
     @resource = Resource.new(params[:resource])
-		@resource_type = @resource.resource_type
-		Website.associate_website(@resource, session[:website])
+    @resource_type = @resource.resource_type
+    @tree_node = TreeNode.new(params[:resource][:tree_node])
+    Website.associate_website(@resource, session[:website])
 
     respond_to do |format|
       if @resource.save
@@ -66,8 +70,8 @@ class Admin::ResourcesController < ApplicationController
   # PUT /resources/1 PUT /resources/1.xml
   def update
     @resource = Resource.find(params[:id])
-		@resource_type = @resource.resource_type
-		Website.associate_website(@resource, session[:website])
+    @resource_type = @resource.resource_type
+    Website.associate_website(@resource, session[:website])
 
     respond_to do |format|
       if @resource.update_attributes(params[:resource])

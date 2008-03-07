@@ -1,6 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
 
- # map.resources :login, :member => {:login => :get, :logout => :get}
+  # map.resources :login, :member => {:login => :get, :logout => :get}
+
+  # Tests
+  map.resources :tests
 
   # Root access
   map.namespace(:admin) do |admin|
@@ -18,6 +21,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :login, :collection => {:login => :get, :logout => :get}
   end	
 
+  # Path to the site
+  map.js ':prefix/js/:id' , :controller => 'sites/javascripts' , :action => 'show'
+  map.css ':prefix/css/:id' , :controller => 'sites/stylesheets' , :action => 'show'
+  map.tpl ':prefix/:id' , :controller => 'sites/templates' , :action => 'show'                                         
   map.connect 'images/:image_id/:image_name.:format',
               :controller => 'Attachments',
               :action => 'get_image'
@@ -41,4 +48,5 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
+
 end

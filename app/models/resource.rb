@@ -26,6 +26,7 @@ class Resource < ActiveRecord::Base
 	validates_associated :resource_properties
   
   validate :required_properties_present
+  validate :uniqueness_of_permalink
 	
 	def name
 		eval calculate_name_code(resource_type.name_code)
@@ -71,6 +72,28 @@ class Resource < ActiveRecord::Base
       # Otherwise it will pass validation :(
       errors.add(:base, "There are required fields without values")
     end
+  end
+
+  def has_permalink?
+    tree_node && tree_node.has_key?(:permalink)
+  end
+
+  def uniqueness_of_permalink
+    return unless :has_permalink?
+    
+    permalink = tree_node[:permalink]
+    parent_id = tree_node[:parent_id]
+    
+    errors.add(:permalink, " -- must be supplied") if permalink.empty?
+    
+    parent = TreeNode.find_first_parent_of_type_website(parent_id)
+    return unless parent
+    
+    parent.children.reject { |tmp| tmp.eql?(self) } .select { |child|
+      if child.permalink.eql?(permalink)
+        errors.add(:permalink, " -- must be unique (#{permalink})")
+      end
+    }
   end
 
 	def get_resource_property_by_property_hrid(hrid)
@@ -126,5 +149,4 @@ class Resource < ActiveRecord::Base
 			new_node.save!
 		end
 	end
-		
 end

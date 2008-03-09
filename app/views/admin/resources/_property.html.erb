@@ -4,7 +4,7 @@
 	label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
 	%>
 	
-	<% cms_fields_for "resource[my_properties][]", property do |f| %>
+   <% cms_fields_for "resource[my_properties][]", property do |f| %>
 
 		<%= f.hidden_field(:property_type, :index => nil) %>
 		<%= f.hidden_field(:property_id, :index => nil) %>

@@ -1,17 +1,17 @@
-<%= rp_error_messages_for :resource, :header_only => true %>
+<%= rp_error_messages_for :resource %>
 
-	<p><%= f.hidden_field(:resource_type_id) %></p>
+<p><%= f.hidden_field(:resource_type_id) %></p>
 <% if @tree_node %>
-  <% fields_for "resource[tree_node]", @tree_node do |tree_fields| %>
-	<% if @tree_node.has_url == true %>
-	  <%= tree_fields.label("permalink", "Permalink")%>
-	  <%= tree_fields.text_field(:permalink) %>
-	<% end %>
+  <% cms_fields_for "resource[tree_node]", @tree_node do |tree_fields| %>
+    <% if @tree_node.has_url == true %>
+      <%= tree_fields.label("permalink", "Permalink")%>
+      <%= tree_fields.text_field(:permalink) %>
+    <% end %>
     <%= tree_fields.hidden_field(:parent_id) %>
     <%= tree_fields.hidden_field(:is_main) %>
+    <%= tree_fields.hidden_field(:has_url) %>
   <% end %>
 <% end %>
-
 
 <div id="properties">
   <% @resource_type.resource_type_properties.each_with_index do |rt_property, index| %>

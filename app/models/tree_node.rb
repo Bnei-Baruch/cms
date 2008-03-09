@@ -2,16 +2,21 @@ class TreeNode < ActiveRecord::Base
   belongs_to :resource
   acts_as_tree :order => "position"
   acts_as_list
-
+  
   attr_accessor :has_url
   attr_accessor :ac_type
 
   # The has_url virtual variable is passed to when requesting for resource edit/create
   # if true than on the resource edit/create of this tree_node will show permalink text field
   # Embedded resources won't have permalink
-  def has_url                         
-    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(@has_url) || (not permalink.blank?)
+  def has_url
+    if self.new_record?
+      ActiveRecord::ConnectionAdapters::Column.value_to_boolean(@has_url)
+    else
+      not permalink.blank?
+    end
   end
+  
   def after_find
     self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
     self.ac_type
@@ -34,4 +39,13 @@ class TreeNode < ActiveRecord::Base
     output
   end
 
+  protected
+  
+  def TreeNode.find_first_parent_of_type_website(parent_id)
+    node = TreeNode.find(:first, :conditions => ["parent_id = ?", parent_id])
+    while node && !node.resource.resource_type.hrid.eql?('website')
+      node = node.parent 
+    end
+    node
+  end
 end

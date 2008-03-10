@@ -20,7 +20,7 @@ class AuthenticationModel
     return 3
     sql = ActiveRecord::Base.connection()
     if current_user.nil?
-      return 0
+      return 0 #"Forbidden"
     end
     res = sql.execute("select get_max_user_permission(#{current_user},#{tree_node_id}) as value")
     return res.getvalue( 0, 0 )

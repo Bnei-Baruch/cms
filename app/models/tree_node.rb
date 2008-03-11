@@ -33,9 +33,7 @@ class TreeNode < ActiveRecord::Base
   end
   def self.find_by_sql(arg)
     output=self.old_find_by_sql(arg)
-    #if output.respond_to?:entry and !(output.entry.kind_of? Array)
-    #    output.entry=[output.entry]
-    #end
+    output.delete_if {|x| x.ac_type == 0 }
     output
   end
 

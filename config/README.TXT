@@ -1,0 +1,2 @@
+user: Admin
+pass: kavana

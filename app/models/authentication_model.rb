@@ -17,16 +17,24 @@ class AuthenticationModel
   end
   
   def self.get_ac_type_to_tree_node(tree_node_id)
-    return 3
     sql = ActiveRecord::Base.connection()
     if current_user.nil?
       return 0 #"Forbidden"
     end
+    if current_user_is_admin?
+      return 3 #"Administrating"
+    end
     res = sql.execute("select get_max_user_permission(#{current_user},#{tree_node_id}) as value")
-    return res.getvalue( 0, 0 )
+    answ = res.getvalue( 0, 0 )
+    answ ||= 0
+    return answ
   end
   
   def self.current_user
     $session[:user_id]
+  end
+  
+  def self.current_user_is_admin?
+    $session[:user_is_admin]==1
   end
 end

@@ -1,3 +1,5 @@
+require "authentication_model"
+
 class TreeNode < ActiveRecord::Base
   belongs_to :resource
   acts_as_tree :order => "position"
@@ -5,6 +7,16 @@ class TreeNode < ActiveRecord::Base
   
   attr_accessor :has_url
   attr_accessor :ac_type
+  
+  # The access_type property has methods: 
+  # can_edit?, can_read?, can_delete?, can_administrate?
+  # that return value by current loged in user
+  composed_of :lng_name,
+              :class_name => "access_type",
+              :mapping => 
+                 [ 
+                  [ :ac_type,  :ac_type ]
+                 ]
 
   # The has_url virtual variable is passed to when requesting for resource edit/create
   # if true than on the resource edit/create of this tree_node will show permalink text field
@@ -19,7 +31,6 @@ class TreeNode < ActiveRecord::Base
   
   def after_find
     self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
-    self.ac_type
   end 
 
   def self.get_subtree(parent = 0, depth = 0)
@@ -35,6 +46,14 @@ class TreeNode < ActiveRecord::Base
     output=self.old_find_by_sql(arg)
     output.delete_if {|x| x.ac_type == 0 }
     output
+  end
+  
+  def self.find_as_admin(tree_node_id)
+    res = old_find_by_sql "select * from tree_nodes where id=#{tree_node_id}"
+    if res.length == 1
+      return res[0]
+    end
+    nil
   end
 
   protected

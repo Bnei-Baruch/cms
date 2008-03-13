@@ -7,7 +7,11 @@ class TreeNodeAcRights < ActiveRecord::Base
   validates_uniqueness_of   :group_id , :scope =>[:tree_node_id]
   
   validates_inclusion_of :ac_type, :in => AuthenticationModel::NODE_AC_TYPES.map {|key, value| key}
-   
+  
+  def get_tree_node
+   TreeNode.find_as_admin(tree_node_id)
+  end
+  
   def ac_type_str
   # NODE_AC_TYPES.detect {|disp, value| value.to_s == :ac_type.to_s }
   # return res.first 

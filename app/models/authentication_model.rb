@@ -12,6 +12,22 @@ class AuthenticationModel
     3 => "Administrating"
   }
   
+  def can_edit?
+    @ac_type == 2 || @ac_type == 3
+  end
+  
+  def can_read?
+    @ac_type == 1 || @ac_type == 2 || @ac_type == 3
+  end
+  
+  def can_delete?
+    @ac_type == 3
+  end
+  
+  def can_administrate?
+    @ac_type == 3
+  end
+  
   def to_s
     NODE_AC_TYPES[ac_type]
   end

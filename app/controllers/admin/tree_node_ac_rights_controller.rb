@@ -7,6 +7,9 @@ class Admin::TreeNodeAcRightsController < ApplicationController
   # GET /tree_node_ac_rights.xml
   def index
     @tree_node_ac_rights = TreeNodeAcRights.find(:all)
+     
+  # @tree_node_ac_rights = TreeNodeAcRights.find_by_sql("select tat.* from tree_node_ac_rights tat
+  #   where tat.group_id in (select group_id from groups_users gu where gu.group_id=tat.group_id and user_id =#{AuthenticationModel.current_user})")
 
     respond_to do |format|
       format.html # index.html.erb

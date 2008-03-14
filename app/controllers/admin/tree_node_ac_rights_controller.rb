@@ -6,9 +6,9 @@ class Admin::TreeNodeAcRightsController < ApplicationController
   # GET /tree_node_ac_rights
   # GET /tree_node_ac_rights.xml
   def index
-    @tree_node_ac_rights = TreeNodeAcRights.find(:all)
+    @tree_node_ac_rights = TreeNodeAcRight.find(:all)
      
-  # @tree_node_ac_rights = TreeNodeAcRights.find_by_sql("select tat.* from tree_node_ac_rights tat
+  # @tree_node_ac_rights = TreeNodeAcRight.find_by_sql("select tat.* from tree_node_ac_rights tat
   #   where tat.group_id in (select group_id from groups_users gu where gu.group_id=tat.group_id and user_id =#{AuthenticationModel.current_user})")
 
     respond_to do |format|
@@ -20,7 +20,7 @@ class Admin::TreeNodeAcRightsController < ApplicationController
   # GET /tree_node_ac_rights/1
   # GET /tree_node_ac_rights/1.xml
   def show
-    @tree_node_ac_rights = TreeNodeAcRights.find(params[:id])
+    @tree_node_ac_rights = TreeNodeAcRight.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -31,7 +31,7 @@ class Admin::TreeNodeAcRightsController < ApplicationController
   # GET /tree_node_ac_rights/new
   # GET /tree_node_ac_rights/new.xml
   def new
-    @tree_node_ac_rights = TreeNodeAcRights.new
+    @tree_node_ac_rights = TreeNodeAcRight.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,13 +41,13 @@ class Admin::TreeNodeAcRightsController < ApplicationController
 
   # GET /tree_node_ac_rights/1/edit
   def edit
-    @tree_node_ac_rights = TreeNodeAcRights.find(params[:id])
+    @tree_node_ac_rights = TreeNodeAcRight.find(params[:id])
   end
 
   # POST /tree_node_ac_rights
   # POST /tree_node_ac_rights.xml
   def create
-    @tree_node_ac_rights = TreeNodeAcRights.new(params[:tree_node_ac_rights])
+    @tree_node_ac_rights = TreeNodeAcRight.new(params[:tree_node_ac_rights])
 
     respond_to do |format|
       if @tree_node_ac_rights.save
@@ -64,7 +64,7 @@ class Admin::TreeNodeAcRightsController < ApplicationController
   # PUT /tree_node_ac_rights/1
   # PUT /tree_node_ac_rights/1.xml
   def update
-    @tree_node_ac_rights = TreeNodeAcRights.find(params[:id])
+    @tree_node_ac_rights = TreeNodeAcRight.find(params[:id])
 
     respond_to do |format|
       if @tree_node_ac_rights.update_attributes(params[:tree_node_ac_rights])
@@ -81,7 +81,7 @@ class Admin::TreeNodeAcRightsController < ApplicationController
   # DELETE /tree_node_ac_rights/1
   # DELETE /tree_node_ac_rights/1.xml
   def destroy
-    @tree_node_ac_rights = TreeNodeAcRights.find(params[:id])
+    @tree_node_ac_rights = TreeNodeAcRight.find(params[:id])
     @tree_node_ac_rights.destroy
 
     respond_to do |format|

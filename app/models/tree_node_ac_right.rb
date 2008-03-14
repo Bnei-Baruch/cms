@@ -1,6 +1,6 @@
 require "authentication_model"
 
-class TreeNodeAcRights < ActiveRecord::Base
+class TreeNodeAcRight < ActiveRecord::Base
   belongs_to :tree_node
   belongs_to :group
   

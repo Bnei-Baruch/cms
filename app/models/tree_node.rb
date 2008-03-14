@@ -2,6 +2,7 @@ require "authentication_model"
 
 class TreeNode < ActiveRecord::Base
   belongs_to :resource
+  has_many :tree_node_ac_rights, :dependent => :destroy
   acts_as_tree :order => "position"
   acts_as_list
   

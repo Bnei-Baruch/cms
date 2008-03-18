@@ -13,29 +13,30 @@
 		<%= f.label("value", property.name, label_class)%>
 		<%= errors %>
 		<% case data_type 
-			 when 'number', 'string':%>
+			 when 'number', 'string': %>
 				<%= f.text_field(:value, :index => nil, :size => 57) %>
-			<% when 'boolean':%>
-				<%= f.check_box :value, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
-			<% when 'date':%>
+			<% when 'boolean': %>                                          
+				<%chacked = %w{ t true 1}.include?property.value%>
+				<%= check_box_tag :value_dummy, property.value, chacked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
+			<% when 'date': %>
 				<%= f.calendar_date_select :value, 
 				:time => false, 
 				:popup => :force,
 				:size => 57,
 				:name => 'resource[my_properties][][value]' %>
-			<% when 'timestamp':%>
+			<% when 'timestamp': %>
 				<%= f.calendar_date_select :value, 
 				:time => true, 
 				:popup => :force,
 				:size => 57,
 				:name => 'resource[my_properties][][value]' %>
-			<% when 'list':%>
+			<% when 'list': %>
 				<%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil) %>
-			<% when 'plaintext':%>
+			<% when 'plaintext': %>
 				<%= f.text_area(:value, :index => nil, :class => 'mceNoEditor') %>
-			<% when 'text':%>
+			<% when 'text': %>
 				<%= f.text_area(:value, :index => nil) %>
-			<% when 'file':%>
+			<% when 'file': %>
 				<% original = @property.original %>
 				<% if original %>
 					Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/>

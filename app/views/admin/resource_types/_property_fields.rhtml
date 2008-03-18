@@ -12,7 +12,8 @@
     </thead>
     <tr>
       <td><%= f.text_field :local_name, :index => nil%></td>
-      <td><%= f.check_box :is_required, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %></td>
+      <td><%= check_box_tag :is_required_dummy, property.is_required, property.is_required, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :is_required, :index => nil%>
+	  </td>
       <td>
 				<% if property.new_record? %>
 					<%= f.select :property_id, Property.properties_for_select, {} , :index => nil %>

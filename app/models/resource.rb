@@ -79,7 +79,7 @@ class Resource < ActiveRecord::Base
   end
 
   def uniqueness_of_permalink
-    return unless :has_permalink?
+    return unless has_permalink?
     
     permalink = tree_node[:permalink]
     parent_id = tree_node[:parent_id]

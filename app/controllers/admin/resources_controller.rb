@@ -1,5 +1,6 @@
 class Admin::ResourcesController < ApplicationController
   layout 'admin'
+	after_filter :save_refferer_to_session, :only => [ :new, :edit ]
   
   # GET /resources GET /resources.xml
   def index
@@ -44,7 +45,7 @@ class Admin::ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
     @resource_type = @resource.resource_type
     if params[:tree_id]
-      @tree_node = Resource.tree_nodes.find(params[:tree_id])
+      @tree_node = TreeNode.find_by_id_and_resource_id(params[:tree_id],params[:id])
     end
   end
 
@@ -58,7 +59,7 @@ class Admin::ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.save
         flash[:notice] = 'Resource was successfully created.'
-        format.html { redirect_to admin_resource_url(@resource) }
+        format.html { redirect_to session[:referer]}
         format.xml  { head :created, :location => admin_resource_url(@resource) }
       else
         format.html { render :action => "new" }
@@ -76,7 +77,7 @@ class Admin::ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
         flash[:notice] = 'Resource was successfully updated.'
-        format.html { redirect_to admin_resource_url(@resource) }
+        format.html { redirect_to session[:referer] }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -91,9 +92,15 @@ class Admin::ResourcesController < ApplicationController
     @resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_resources_url }
+      format.html { redirect_to :back }
       format.xml  { head :ok }
     end
   end
+
+  private
+
+	def save_refferer_to_session
+      session[:referer] = request.env["HTTP_REFERER"]
+	end
 
 end

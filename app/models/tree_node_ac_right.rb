@@ -12,6 +12,16 @@ class TreeNodeAcRight < ActiveRecord::Base
    TreeNode.find_as_admin(tree_node_id)
   end
   
+  def after_save
+    #copy parent permission to the new tree_node
+    AuthenticationModel.copy_tree_node_permission_to_child(self)
+  end
+  
+  def before_destroy
+    #delete tree_node_rights to child
+    AuthenticationModel.delete_tree_node_permission_to_child(self)
+  end
+  
   def ac_type_str
   # NODE_AC_TYPES.detect {|disp, value| value.to_s == :ac_type.to_s }
   # return res.first 

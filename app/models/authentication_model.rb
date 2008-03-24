@@ -32,6 +32,87 @@ class AuthenticationModel
     NODE_AC_TYPES[ac_type]
   end
   
+  def self.copy_parent_tree_node_permission(tree_node)
+    parent_rights = TreeNodeAcRight.find(:all, 
+      :conditions => ["tree_node_id = ?", tree_node.parent_id])
+    action_flg = false
+    #delete automatic node by parent
+    tnrs = TreeNodeAcRight.find(:all, 
+          :conditions => ["tree_node_id = ? and group_id not in 
+          (select group_id from tree_node_ac_rights where tree_node_id = ?) 
+          and is_automatic = true", 
+            tree_node.id, tree_node.parent_id])
+    tnrs.each{|d_tnr| 
+      d_tnr.destroy
+      action_flg = true
+    }
+    
+    #add or update permission by parent node
+    parent_rights.each{ |p_tnr|
+      tnr = TreeNodeAcRight.find(:first, 
+          :conditions => ["tree_node_id = ? and group_id = ?", 
+            tree_node.id, p_tnr.group_id])
+        
+      if tnr.nil?
+        TreeNodeAcRight.create(:tree_node_id => tree_node.id, 
+          :group_id => p_tnr.group_id,
+          :is_automatic => true, 
+          :ac_type => p_tnr.ac_type)
+        action_flg = true
+      else
+        if tnr.ac_type != p_tnr.ac_type && tnr.is_automatic == true
+          #tnr.ac_type = p_tnr.ac_type
+          TreeNodeAcRight.update(tnr.id, :ac_type => p_tnr.ac_type)
+          action_flg = true
+        end
+      end
+    }
+    return action_flg
+  end
+  
+  def self.copy_tree_node_permission_to_child(tree_node_right)
+    chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
+        where parent_id =#{tree_node_right.tree_node_id}")
+    chields.each{ |tn|
+     tnr = TreeNodeAcRight.find(:first, 
+          :conditions => ["tree_node_id = ? and group_id = ?",
+            tn.id, tree_node_right.group_id])
+     if tnr.nil?
+         tnr = TreeNodeAcRight.create(:tree_node_id => tn.id, 
+              :group_id => tree_node_right.group_id,
+              :is_automatic => true, 
+              :ac_type => tree_node_right.ac_type)
+         
+     else
+       #change access type by parant tree_node only if it automatic (not manual)
+       if tnr.is_automatic == true &&  tnr.ac_type != tree_node_right.ac_type
+         tnr.ac_type = tree_node_right.ac_type
+         tnr.save
+       end
+     end
+    }
+   
+  end
+  
+  def self.delete_tree_node_permission_to_child(tree_node_right)
+    chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
+        where parent_id =#{tree_node_right.tree_node_id}")
+    chields.each{ |tn|
+     tnr = TreeNodeAcRight.find(:first, 
+          :conditions => ["tree_node_id = ? and group_id = ?",
+            tn.id, tree_node_right.group_id])
+     if not tnr.nil?
+      
+       #delete tree_node_rights only if it automatic (not manual)
+       if tnr.is_automatic == true 
+         tnr.destroy
+       end
+     end
+    }
+   
+  end
+  
+  
   def self.get_ac_type_to_tree_node(tree_node_id)
     sql = ActiveRecord::Base.connection()
     if current_user.nil?

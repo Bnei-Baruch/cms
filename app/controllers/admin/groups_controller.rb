@@ -79,7 +79,9 @@ class Admin::GroupsController < ApplicationController
   # DELETE /groups/1.xml
   def destroy
     @group = Group.find(params[:id])
-    @group.destroy
+    if @group.destroy == false
+      flash[:notice]="The group cann't be deleted. It is system group."
+    end
 
     respond_to do |format|
       format.html { redirect_to admin_groups_path }

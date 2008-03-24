@@ -9,6 +9,8 @@ class TreeNode < ActiveRecord::Base
   attr_accessor :has_url
   attr_accessor :ac_type
   
+  #attribute_method_suffix '_changed?'
+  
   # The access_type property has methods: 
   # can_edit?, can_read?, can_delete?, can_administrate?
   # that return value by current loged in user
@@ -31,8 +33,14 @@ class TreeNode < ActiveRecord::Base
   end
   
   def after_find
+    #set max access type by current user
     self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
   end 
+  
+  def after_save
+    #copy parent permission to the new tree_node
+    AuthenticationModel.copy_parent_tree_node_permission(self)
+  end
 
   def self.get_subtree(parent = 0, depth = 0)
     find_by_sql "SELECT  a.* FROM  connectby('tree_nodes', 'id', 'parent_id', 'position',  '#{parent}', #{depth}) 
@@ -66,4 +74,9 @@ class TreeNode < ActiveRecord::Base
     end
     node
   end
+  
+     
+  #def attribute_changed?(attr)
+  #      
+  #end
 end

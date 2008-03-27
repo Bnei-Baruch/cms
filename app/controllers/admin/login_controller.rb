@@ -3,8 +3,8 @@ class Admin::LoginController < ApplicationController
 
   def login
     
-    session[:user_id] = nil
     if request.post?
+      session[:user_id] = nil
       user = User.authenticate(params[:login], params[:password])
       if user
         session[:user_id] = user.id

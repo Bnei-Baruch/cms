@@ -1,35 +1,45 @@
 class AuthenticationModel
-  attr_reader :ac_type
-  def initialize(access_type = 0)
-      @ac_type = access_type
-  end
+  #attr_reader :ac_type
+  #attr_reader :tree_node
+  #def initialize(access_type = 0)#, tree_node = nil)
+  #    @ac_type = access_type
+      #@tree_node = tree_node
+  #end
   
    NODE_AC_TYPES = {
     #  Displayed        stored in db
     0 => "Forbidden",
     1 => "Reading",
     2 => "Editing",
-    3 => "Administrating"
+    3 => "Managing",
+    4 => "Administrating"
   }
   
-  def can_edit?
-    @ac_type == 2 || @ac_type == 3
-  end
+ # def to_s
+ #   NODE_AC_TYPES[ac_type]
+ # end
   
-  def can_read?
-    @ac_type == 1 || @ac_type == 2 || @ac_type == 3
-  end
-  
-  def can_delete?
-    @ac_type == 3
-  end
-  
-  def can_administrate?
-    @ac_type == 3
-  end
-  
-  def to_s
-    NODE_AC_TYPES[ac_type]
+  #return min permission to child nodes by current user (recursive)
+  def self.get_min_permission_to_child_tree_nodes_by_user(tree_node_id)
+    if AuthenticationModel.current_user_is_admin?
+      return 4 #"Administrating"
+    end
+    result =999
+    chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
+        where parent_id =#{tree_node_id}")
+    chields.each{ |tn|
+        #get current node permission
+        tmp_res = AuthenticationModel.get_ac_type_to_tree_node(tn.id)
+        if tmp_res != 999 && tmp_res < result
+          result = tmp_res
+        end
+        #get child permission
+        tmp_res = AuthenticationModel.get_min_permission_to_child_tree_nodes_by_user(tn.id)
+        if tmp_res != 999 && tmp_res < result
+          result = tmp_res
+        end
+    }
+    result
   end
   
   def self.copy_parent_tree_node_permission(tree_node)
@@ -70,6 +80,7 @@ class AuthenticationModel
     return action_flg
   end
   
+  #recursive copy permission to child
   def self.copy_tree_node_permission_to_child(tree_node_right)
     chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
         where parent_id =#{tree_node_right.tree_node_id}")
@@ -94,6 +105,7 @@ class AuthenticationModel
    
   end
   
+  #recursive delete permission to child
   def self.delete_tree_node_permission_to_child(tree_node_right)
     chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
         where parent_id =#{tree_node_right.tree_node_id}")
@@ -112,19 +124,19 @@ class AuthenticationModel
    
   end
   
-  
+  #return max permission for current user to tree_node
   def self.get_ac_type_to_tree_node(tree_node_id)
     sql = ActiveRecord::Base.connection()
     if current_user.nil?
       return 0 #"Forbidden"
     end
     if current_user_is_admin?
-      return 3 #"Administrating"
+      return 4 #"Administrating"
     end
     res = sql.execute("select get_max_user_permission(#{current_user},#{tree_node_id}) as value")
     answ = res.getvalue( 0, 0 )
     answ ||= 0
-    return answ
+    return answ.to_i
   end
   
   def self.current_user

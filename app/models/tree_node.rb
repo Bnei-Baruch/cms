@@ -11,15 +11,46 @@ class TreeNode < ActiveRecord::Base
   
   #attribute_method_suffix '_changed?'
   
+   def can_edit?
+    @ac_type >= 2
+  end
+  
+  def can_criate?
+    @ac_type >= 2
+  end
+  
+  def can_read?
+    @ac_type != 0
+  end
+  
+  def can_delete?
+    if (@ac_type >= 3 && 3 <=
+      AuthenticationModel.get_min_permission_to_child_tree_nodes_by_user(id))
+      return true
+    else
+      return false
+    end
+  end
+  
+  def can_administrate?
+    if (@ac_type == 4 && 4 <=
+      AuthenticationModel.get_min_permission_to_child_tree_nodes_by_user(id))
+        return true
+    end 
+    return false
+  end
+  
   # The access_type property has methods: 
   # can_edit?, can_read?, can_delete?, can_administrate?
   # that return value by current loged in user
-  composed_of :lng_name,
-              :class_name => "access_type",
-              :mapping => 
-                 [ 
-                  [ :ac_type,  :ac_type ]
-                 ]
+  #composed_of :security,
+  #            :class_name => "AuthenticationModel",
+  #            :mapping => 
+  #               [
+  #                #%w(ac_type access_type)                 
+  #                [ @ac_type, :access_type ]#,
+  #                #[ :tree_node, :self ]
+  #               ]
 
   # The has_url virtual variable is passed to when requesting for resource edit/create
   # if true than on the resource edit/create of this tree_node will show permalink text field
@@ -79,4 +110,4 @@ class TreeNode < ActiveRecord::Base
   #def attribute_changed?(attr)
   #      
   #end
-end
+  end

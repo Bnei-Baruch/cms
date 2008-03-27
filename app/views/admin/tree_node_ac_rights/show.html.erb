@@ -1,6 +1,11 @@
 <% @title = "Tree node access rights" %>
 
 <p>
+  <b>Tree node ID:</b>
+  <%=h @tree_node_ac_rights.tree_node_id %>
+</p>
+
+<p>
   <b>Tree node:</b>
   <%=h @tree_node_ac_rights.get_tree_node.resource.name %>
 </p>
@@ -13,6 +18,31 @@
 <p>
   <b>Group:</b>
   <%=h @tree_node_ac_rights.group.groupname %>
+</p>
+
+<p>
+  <b>Is automatic:</b>
+  <%=h @tree_node_ac_rights.is_automatic %>
+</p>
+
+<p>
+  <b>Can edit:</b>
+  <%=h @tree_node_ac_rights.get_tree_node.can_edit? %>
+</p>
+
+<p>
+  <b>Can read:</b>
+  <%=h @tree_node_ac_rights.get_tree_node.can_read? %>
+</p>
+
+<p>
+  <b>Can delete:</b>
+  <%=h @tree_node_ac_rights.get_tree_node.can_delete? %>
+</p>
+
+<p>
+  <b>Can administrate:</b>
+  <%=h @tree_node_ac_rights.get_tree_node.can_administrate? %>
 </p>
 
 

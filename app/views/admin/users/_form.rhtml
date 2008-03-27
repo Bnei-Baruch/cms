@@ -26,8 +26,17 @@
 	<table>
 		<% for group in Group.find(:all) %>
 		<tr>
-			<td><%= check_box_tag "user[group_ids][]", group.id,@user.groups.include?(group) %></td>
-			<td><%= h group.groupname %></td>
+                        <% if (not AuthenticationModel.current_user_is_admin?) && group.groupname =='Administrators' %>
+                            <td><%=  if @user.groups.include?(group) 
+                                    'V' 
+                                    else 
+                                     '-' 
+                                    end %></td>
+                            <td><%= h group.groupname %></td>
+                        <% else %>
+                            <td><%= check_box_tag "user[group_ids][]", group.id,@user.groups.include?(group) %></td>
+                            <td><%= h group.groupname %></td>
+                        <% end %>
 		</tr>
 		<% end %>
 	</table>

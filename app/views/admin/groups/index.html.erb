@@ -4,6 +4,7 @@
   <tr>
     <th>Groupname</th>
     <th>Banned reason</th>
+    <th>Is system group</th>
     <th colspan="3">Actions</th>
   </tr>
 
@@ -11,6 +12,7 @@
   <tr>
     <td><%=h group.groupname %></td>
     <td><%=h group.reason_of_ban %></td>
+    <td><%=h group.is_system_group %></td>
     <td><%= link_to 'Show', admin_group_path(group) %></td>
     <td><%= link_to 'Edit', edit_admin_group_path(group) %></td>
     <td><%= link_to 'Destroy', admin_group_path(group), :confirm => 'Are you sure?', :method => :delete %></td>

@@ -9,6 +9,10 @@
   <%=h @group.reason_of_ban %>
 </p>
 
+<p>
+  <b>Is system group:</b>
+  <%=h @group.is_system_group %>
+</p>
 
 <%= link_to 'Edit', edit_admin_group_path(@group) %> |
 <%= link_to 'Back', admin_groups_path %>

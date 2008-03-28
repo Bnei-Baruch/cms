@@ -14,32 +14,42 @@ class AuthenticationModel
     3 => "Managing",
     4 => "Administrating"
   }
+  def self.GET_NODE_AC_TYPES_FOR_EDIT
+    list = NODE_AC_TYPES 
+    #list = Array.new(NODE_AC_TYPES)
+    #list.delete(4)
+    list
+  end
   
  # def to_s
  #   NODE_AC_TYPES[ac_type]
  # end
   
-  #return min permission to child nodes by current user (recursive)
+  #return min permission to child nodes by current user (recursive) 999 = no child
   def self.get_min_permission_to_child_tree_nodes_by_user(tree_node_id)
     if AuthenticationModel.current_user_is_admin?
       return 4 #"Administrating"
     end
-    result =999
+    result =999 #no child
     chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
         where parent_id =#{tree_node_id}")
     chields.each{ |tn|
         #get current node permission
-        tmp_res = AuthenticationModel.get_ac_type_to_tree_node(tn.id)
-        if tmp_res != 999 && tmp_res < result
-          result = tmp_res
+        if tn.ac_type < result
+          result = tn.ac_type
+        end
+        
+        #optimization (if it already minimal value)
+        if result == 0 #"Forbidden"
+          return result 
         end
         #get child permission
-        tmp_res = AuthenticationModel.get_min_permission_to_child_tree_nodes_by_user(tn.id)
-        if tmp_res != 999 && tmp_res < result
+        tmp_res = tn.get_min_permission_to_child_tree_nodes_by_user()
+        if tmp_res < result
           result = tmp_res
         end
     }
-    result
+    result #999 no child
   end
   
   def self.copy_parent_tree_node_permission(tree_node)

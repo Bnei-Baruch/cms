@@ -21,7 +21,8 @@ class Admin::TreeNodeAcRightsController < ApplicationController
   # GET /tree_node_ac_rights/1.xml
   def show
     @tree_node_ac_rights = TreeNodeAcRight.find(params[:id])
-
+    @tree_node = @tree_node_ac_rights.get_tree_node
+      
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tree_node_ac_rights }

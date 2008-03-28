@@ -15,7 +15,7 @@ class TreeNode < ActiveRecord::Base
     @ac_type >= 2
   end
   
-  def can_criate?
+  def can_criate_child?
     @ac_type >= 2
   end
   
@@ -23,18 +23,18 @@ class TreeNode < ActiveRecord::Base
     @ac_type != 0
   end
   
+  #can logical delete
   def can_delete?
-    if (@ac_type >= 3 && 3 <=
-      AuthenticationModel.get_min_permission_to_child_tree_nodes_by_user(id))
+    if (3 <= get_min_permission_to_child_tree_nodes_by_user())
       return true
     else
       return false
     end
   end
   
-  def can_administrate?
-    if (@ac_type == 4 && 4 <=
-      AuthenticationModel.get_min_permission_to_child_tree_nodes_by_user(id))
+  #can delete in DB
+  def can_administrate? 
+    if (4 <= get_min_permission_to_child_tree_nodes_by_user())
         return true
     end 
     return false
@@ -96,6 +96,39 @@ class TreeNode < ActiveRecord::Base
     nil
   end
 
+   #return min permission to child nodes by current user (recursive)
+  def get_min_permission_to_child_tree_nodes_by_user()
+    if AuthenticationModel.current_user_is_admin?
+      return 4 #"Administrating"
+    end
+    result = ac_type
+    
+    #optimization (if it already minimal value)
+    if result == 0 #"Forbidden"
+      return result 
+    end
+    
+    chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
+        where parent_id =#{id}")
+    chields.each{ |tn|
+        #get current node permission
+        if tn.ac_type < result
+          result = tn.ac_type
+        end
+        
+        #optimization (if it already minimal value)
+        if result == 0 #"Forbidden"
+          return result 
+        end
+        #get child permission
+        tmp_res = tn.get_min_permission_to_child_tree_nodes_by_user()
+        if tmp_res < result
+          result = tmp_res
+        end
+    }
+    result
+  end
+  
   protected
   
   def TreeNode.find_first_parent_of_type_website(parent_id)

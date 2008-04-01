@@ -77,4 +77,8 @@ class ApplicationController < ActionController::Base
   def activate_global_parms
     $session=session
   end
+  
+  def save_refferer_to_session
+      session[:referer] = request.env["HTTP_REFERER"]
+  end
 end

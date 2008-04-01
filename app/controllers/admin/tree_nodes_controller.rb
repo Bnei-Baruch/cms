@@ -1,5 +1,8 @@
 class Admin::TreeNodesController < ApplicationController
 	layout 'admin'
+        
+    before_filter :save_refferer_to_session, :only => [ :new, :edit, :tree_node_ac_rights ]
+  
   # GET /tree_nodes
   # GET /tree_nodes.xml
   def index  

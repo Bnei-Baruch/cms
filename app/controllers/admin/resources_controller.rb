@@ -97,10 +97,4 @@ class Admin::ResourcesController < ApplicationController
     end
   end
 
-  private
-
-	def save_refferer_to_session
-      session[:referer] = request.env["HTTP_REFERER"]
-	end
-
 end

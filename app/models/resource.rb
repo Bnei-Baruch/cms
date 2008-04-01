@@ -11,8 +11,13 @@ class Resource < ActiveRecord::Base
 	has_many :rp_boolean_properties, :class_name => 'RpBoolean', :dependent => :destroy
 	has_many :rp_file_properties, :class_name => 'RpFile', :dependent => :destroy
 	has_many :rp_list_properties, :class_name => 'RpList', :dependent => :destroy
-	has_many :tree_nodes, :dependent => :destroy
-	
+	has_many :tree_nodes, :dependent => :destroy do
+         def main
+           find :first, :conditions => "is_main = true"
+         end
+        end
+        #has_one :main_tree_node, 
+  
 	attr_accessor :tree_node 
 	
 	#only associate resources of the type 'website'

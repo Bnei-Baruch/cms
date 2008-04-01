@@ -15,10 +15,7 @@ class AuthenticationModel
     4 => "Administrating"
   }
   def self.GET_NODE_AC_TYPES_FOR_EDIT
-    list = NODE_AC_TYPES 
-    #list = Array.new(NODE_AC_TYPES)
-    #list.delete(4)
-    list
+    NODE_AC_TYPES.reject {| key, value | key == 4 }
   end
   
  # def to_s

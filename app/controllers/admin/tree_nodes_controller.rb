@@ -46,6 +46,14 @@ class Admin::TreeNodesController < ApplicationController
   def edit
     @tree_node = TreeNode.find(params[:id])
   end
+  
+  #GET 
+  def tree_node_ac_rights
+    #check if current user has access to see permission list
+    admin_authorize(['Nodes Access Rights'])
+    #load  permission rights list
+    @tree_node_ac_rights = TreeNodeAcRight.find(:all, :conditions => ["tree_node_id = ?", params[:id]])
+  end
 
   # POST /tree_nodes
   # POST /tree_nodes.xml

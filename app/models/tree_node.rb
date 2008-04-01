@@ -23,7 +23,7 @@ class TreeNode < ActiveRecord::Base
     @ac_type != 0
   end
   
-  #can logical delete
+  #can logical delete (change status to deleted)
   def can_delete?
     if (3 <= get_min_permission_to_child_tree_nodes_by_user())
       return true
@@ -32,26 +32,14 @@ class TreeNode < ActiveRecord::Base
     end
   end
   
-  #can delete in DB
+  #can delete in DB (destroy)
   def can_administrate? 
     if (4 <= get_min_permission_to_child_tree_nodes_by_user())
         return true
     end 
     return false
   end
-  
-  # The access_type property has methods: 
-  # can_edit?, can_read?, can_delete?, can_administrate?
-  # that return value by current loged in user
-  #composed_of :security,
-  #            :class_name => "AuthenticationModel",
-  #            :mapping => 
-  #               [
-  #                #%w(ac_type access_type)                 
-  #                [ @ac_type, :access_type ]#,
-  #                #[ :tree_node, :self ]
-  #               ]
-
+ 
   # The has_url virtual variable is passed to when requesting for resource edit/create
   # if true than on the resource edit/create of this tree_node will show permalink text field
   # Embedded resources won't have permalink
@@ -79,6 +67,22 @@ class TreeNode < ActiveRecord::Base
     join tree_nodes a on (a.id = t.id) ORDER BY  t.position"
   end
 
+  def before_destroy
+    #check if has permission for destroy action
+    if not can_administrate?
+      logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+          "for destroy tree_node: #{id} resource: #{resource_id}")
+      raise "User #{AuthenticationModel.current_user} has not permission " + 
+          "for destroy tree_node: #{id} resource: #{resource_id}"
+    end
+  end
+  
+  def after_destroy
+    #delete resource if exist
+    #used for recurcive delete of tree_nodes
+    resource.destroy if resource
+  end
+  
   class << self
     alias :old_find_by_sql :find_by_sql
   end

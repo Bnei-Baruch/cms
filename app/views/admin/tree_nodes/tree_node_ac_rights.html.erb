@@ -1,0 +1,25 @@
+<% @title = "Listing tree nodes access rights" %>
+
+<table border="1">
+  <tr>
+    <th>Tree node ID</th>
+    <th>Resource</th>
+    <th>Ac type</th>
+    <th>Group</th>
+    <th>Is automatic</th>
+  </tr>
+
+<% for tree_node_ac_rights in @tree_node_ac_rights %>
+  <tr>
+    <td><%=h tree_node_ac_rights.tree_node_id %></td>
+    <td><%=h tree_node_ac_rights.get_tree_node.resource.name %></td>
+    <td><%=h tree_node_ac_rights.ac_type_str %></td>
+    <td><%=h tree_node_ac_rights.group.groupname %></td>
+    <td><%=h tree_node_ac_rights.is_automatic %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Back', admin_tree_nodes_path %>

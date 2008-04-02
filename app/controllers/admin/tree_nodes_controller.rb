@@ -103,4 +103,37 @@ class Admin::TreeNodesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def ext_old  (id = params[:node])
+    @tree_nodes = TreeNode.find_children(id)
+    @new_tree_nodes = Array.new
+    
+    @tree_nodes.each do |element|
+      @new_tree_nodes << Hash["id" => element.id, "text" => element.resource.name, "leaf" => element.leaf]
+    end
+    
+    respond_to do |format|
+      format.html  # render { static index.html.erb }
+      format.json { render :json => @new_tree_nodes.to_json }
+    end
+  end
+  
+  def ext  (id = params[:node])
+    @tree_nodes = TreeNode.find_children(id)
+    @new_tree_nodes = Array.new
+    
+    @tree_nodes.each do |element|
+      @new_tree_nodes << Hash["id" => element.id,
+        "text" => element.resource.name,
+        "type" => element.resource.resource_type.name,
+        "permalink" => element.permalink,
+        "ismain" => element.is_main,
+        "leaf" => element.leaf]
+    end
+    
+    respond_to do |format|
+      format.html  # render { static index.html.erb }
+      format.json { render :json => @new_tree_nodes.to_json }
+    end
+  end
 end

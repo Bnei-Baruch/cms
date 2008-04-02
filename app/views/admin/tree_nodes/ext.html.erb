@@ -1,0 +1,73 @@
+  <% content_for :header do %>
+    
+  <%= stylesheet_link_tag "../ext/resources/css/ext-all.css" %>
+  <%= stylesheet_link_tag "../ext/resources/css/ColumnTree.css" %>
+  <%= javascript_include_tag "../ext/adapter/prototype/ext-prototype-adapter.js" %>
+  <%= javascript_include_tag "../ext/ext-all.js" %>
+  <%= javascript_include_tag "../ext/source/widgets/tree/ColumnTree.js" %> 
+    <% javascript_tag do -%>
+
+
+    Ext.onReady(function(){
+      // create initial root node
+      var root = new Ext.tree.AsyncTreeNode({
+        text: 'Invisible Root',
+        id:'0'
+      });
+
+      // create the tree
+      tree = new Ext.tree.ColumnTree({
+        loader: new Ext.tree.TreeLoader({
+          dataUrl: '<%= ext_admin_tree_nodes_path %>',
+          uiProviders:{
+            'col': Ext.tree.ColumnNodeUI
+          },
+          requestMethod:'GET',
+          baseParams:{format:'json'},
+          baseAttrs:{uiProvider:'col'}
+        }),
+        width:602,
+        renderTo:'category-tree',
+        root: root,
+        autoHeight:true,
+        autoScroll:true,
+        rootVisible:false,
+        title: "Tree Nodes ver. 2",
+        columns:[{
+            header:'Resource',
+            width:200,
+            dataIndex:'text'
+        },{
+            header:'Parent',
+            width:50,
+            //dataIndex:''
+        },{
+            header:'Position',
+            width:50,
+            //dataIndex:''
+        },{
+            header:'Type',
+            width:100,
+            dataIndex:'type'
+        },{
+            header:'ID',
+            width:50,
+            dataIndex:'id'
+        },{
+            header:'Is Main?',
+            width:50,
+            dataIndex:'ismain'
+        },{
+            header:'Permalink',
+            width:100,
+            dataIndex:'permalink'
+        }]
+      });
+
+      tree.render();
+      //tree.expand();
+    });
+  <% end -%>
+  
+  <% end %>
+  <div id="category-tree" style="padding:20px;"></div>

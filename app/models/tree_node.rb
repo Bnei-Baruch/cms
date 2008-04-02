@@ -133,6 +133,28 @@ class TreeNode < ActiveRecord::Base
     result
   end
   
+  #ExtJS tree service methods
+  def self.root_nodes
+    find(:all, :conditions => ["parent_id = ?", 0], :order => "position ASC")
+  end
+
+  def self.find_children(start_id = nil)
+    start_id.to_i == 0 ? root_nodes : find(start_id).children
+  end
+
+  def leaf
+    if children.length == 0
+      true
+    else
+      false
+    end
+  end
+
+  def to_json_with_leaf(options = {})
+    self.to_json_without_leaf(options.merge(:methods => :leaf))
+  end
+  alias_method_chain :to_json, :leaf
+  
   protected
   
   def TreeNode.find_first_parent_of_type_website(parent_id)

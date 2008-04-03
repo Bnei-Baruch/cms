@@ -20,7 +20,7 @@ class TreeNode < ActiveRecord::Base
   end
   
   def can_read?
-    @ac_type != 0
+    @ac_type != 0 #"Forbidden"
   end
   
   #can logical delete (change status to deleted)
@@ -67,13 +67,23 @@ class TreeNode < ActiveRecord::Base
     join tree_nodes a on (a.id = t.id) ORDER BY  t.position"
   end
 
-  def before_destroy
+   def before_destroy
     #check if has permission for destroy action
-    if not can_administrate?
+    if not can_edit?
       logger.error("User #{AuthenticationModel.current_user} has not permission " + 
-          "for destroy tree_node: #{id} resource: #{resource_id}")
+          "for edit tree_node: #{id} resource: #{resource_id}")
       raise "User #{AuthenticationModel.current_user} has not permission " + 
           "for destroy tree_node: #{id} resource: #{resource_id}"
+    end
+  end
+  
+  def before_save
+    #check if has permission for edit action
+    if not can_administrate?
+      logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+          "for edit tree_node: #{id} resource: #{resource_id}")
+      raise "User #{AuthenticationModel.current_user} has not permission " + 
+          "for edit tree_node: #{id} resource: #{resource_id}"
     end
   end
   
@@ -85,21 +95,21 @@ class TreeNode < ActiveRecord::Base
   
   class << self
     alias :old_find_by_sql :find_by_sql
-  end
-  def self.find_by_sql(arg)
+  
+  def find_by_sql(arg)
     output=self.old_find_by_sql(arg)
     output.delete_if {|x| x.ac_type == 0 }
     output
   end
   
-  def self.find_as_admin(tree_node_id)
+  def find_as_admin(tree_node_id)
     res = old_find_by_sql "select * from tree_nodes where id=#{tree_node_id}"
     if res.length == 1
       return res[0]
     end
     nil
   end
-
+end
    #return min permission to child nodes by current user (recursive)
   def get_min_permission_to_child_tree_nodes_by_user()
     if AuthenticationModel.current_user_is_admin?

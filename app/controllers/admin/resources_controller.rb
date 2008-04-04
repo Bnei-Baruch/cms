@@ -1,6 +1,6 @@
 class Admin::ResourcesController < ApplicationController
   layout 'admin'
-	after_filter :save_refferer_to_session, :only => [ :new, :edit ]
+	before_filter :save_refferer_to_session, :only => [ :new, :edit ]
   
   # GET /resources GET /resources.xml
   def index
@@ -51,8 +51,8 @@ class Admin::ResourcesController < ApplicationController
 
   # POST /resources POST /resources.xml
   def create
+    @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
-    @resource_type = @resource.resource_type
     @tree_node = TreeNode.new(params[:resource][:tree_node])
     Website.associate_website(@resource, session[:website])
 
@@ -73,6 +73,11 @@ class Admin::ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
     @resource_type = @resource.resource_type
     Website.associate_website(@resource, session[:website])
+                    # debugger
+    tree_node = params[:resource][:tree_node]
+    if tree_node
+      @tree_node = TreeNode.find_by_id_and_resource_id(tree_node[:id],params[:id])
+    end
 
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
@@ -80,7 +85,7 @@ class Admin::ResourcesController < ApplicationController
         format.html { redirect_to session[:referer] }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit" } #:text => params.inspect } #  }
         format.xml  { render :xml => @resource.errors.to_xml }
       end
     end

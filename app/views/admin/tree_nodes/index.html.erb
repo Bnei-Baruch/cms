@@ -31,7 +31,7 @@
       <td><%=h tree_node.parent_id %></td>
       <td><%=h tree_node.position %></td>
       <td><%=h tree_node.resource.resource_type.name if tree_node.resource %></td>
-      <td><%=link_to tree_node.resource.name, admin_tree_nodes_path(:parent_id => tree_node.id) if tree_node.resource %></td>
+      <td><%=link_to "#{tree_node.resource.name} (#{tree_node.tree_nodes_count} - Children)", admin_tree_nodes_path(:parent_id => tree_node.id) if tree_node.resource %></td>
       <td><%=h tree_node.is_main %></td>
       <td><%=h tree_node.permalink %></td>
       <td><%= link_to 'Show', admin_resource_path(tree_node.resource) %></td>

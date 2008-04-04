@@ -5,9 +5,12 @@ class ResourceProperty < ActiveRecord::Base
   has_one    :attachment, :dependent => :destroy
 
 	validate :match_pattern
+	validate :required_properties_present
 
   # Generally it is for File, but I have no idea how to pass it to file field only
   attr_accessor :remove
+  attr_accessor :resource_type_id   
+  
 
 	def self.inheritance_column
 		'property_type'
@@ -30,6 +33,16 @@ class ResourceProperty < ActiveRecord::Base
 	def name
 		resource.resource_type.resource_type_properties.find_by_property_id(property.id).name
 	end
+
+  def required_properties_present
+    # debugger
+    is_required(get_resource_type)
+    # debugger
+      # There was error on one of fields, so we need to invalidate all resource
+      # Otherwise it will pass validation :(
+      # errors.add(:base, "There are required fields without values")
+    # end
+  end
 
   # Validate this property to be non-empty
   # Returns 'true' on error
@@ -60,4 +73,9 @@ class ResourceProperty < ActiveRecord::Base
         property.pattern_text )
     end
 	end
+	
+	def get_resource_type
+	  (resource && resource.resource_type) || (resource_type_id ? (ResourceType.find(resource_type_id) rescue nil) : nil)
+	end
+
 end

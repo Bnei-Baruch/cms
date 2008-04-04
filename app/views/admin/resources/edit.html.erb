@@ -6,5 +6,4 @@
 		<p id="submit"><%= submit_tag "Update #{name}" %></p>
 <% end %>
 
-<%= link_to 'Show', admin_resource_path(@resource) %> |
-<%= link_to 'Cancel', admin_resources_path %>
+<%= link_to 'Cancel', session[:referer] %>

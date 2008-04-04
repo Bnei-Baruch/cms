@@ -1,0 +1,7 @@
+<h1><%= @presenter.node_type %></h1>
+<% @presenter.node_resource_properties.each do |property|%>
+
+<%= property.name %>: <%=h property.value %>
+<br />
+
+<% end %>

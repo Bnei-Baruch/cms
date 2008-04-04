@@ -5,8 +5,8 @@ class Website < ActiveRecord::Base
 	has_and_belongs_to_many :resource_types
 	belongs_to :website_resource, :class_name => 'Resource', :foreign_key => 'entry_point_id'
 
-  validates_presence_of :name
-	validates_uniqueness_of :name 
+  validates_presence_of :name, :hrid
+	validates_uniqueness_of :name, :hrid 
   validate :correctness_of_domain_and_prefix
 
   def nullify_website_resource

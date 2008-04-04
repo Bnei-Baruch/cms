@@ -1,9 +1,11 @@
 <%= rp_error_messages_for :resource %>
+<%= error_messages_for :tree_node %>
 
 <p><%= f.hidden_field(:resource_type_id) %></p>
 <% if @tree_node %>
   <% cms_fields_for "resource[tree_node]", @tree_node do |tree_fields| %>
-    <% if @tree_node.has_url == true %>
+    <%= tree_fields.hidden_field(:id) %>
+    <% if @tree_node.has_url %>
       <%= tree_fields.label("permalink", "Permalink")%>
       <%= tree_fields.text_field(:permalink) %>
     <% end %>

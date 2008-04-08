@@ -88,17 +88,17 @@ class TreeNode < ActiveRecord::Base
 
   def before_destroy
     #check if has permission for destroy action
-    if not can_edit?
+    if not can_administrate?
       logger.error("User #{AuthenticationModel.current_user} has not permission " + 
-      "for edit tree_node: #{id} resource: #{resource_id}")
+      "for destroy tree_node: #{id} resource: #{resource_id}")
       raise "User #{AuthenticationModel.current_user} has not permission " + 
       "for destroy tree_node: #{id} resource: #{resource_id}"
     end
   end
 
-  def before_save
+  def before_update
     #check if has permission for edit action
-    if not can_administrate?
+    if not can_edit?
       logger.error("User #{AuthenticationModel.current_user} has not permission " + 
       "for edit tree_node: #{id} resource: #{resource_id}")
       raise "User #{AuthenticationModel.current_user} has not permission " + 
@@ -106,10 +106,23 @@ class TreeNode < ActiveRecord::Base
     end
   end
 
+  def before_create
+    #check if has permission for criating action
+    #the parant tree_node can_criate_child?
+    if parent_id
+       if not TreeNode.find_as_admin(parent_id).can_criate_child?
+          logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+          "for creation child to tree_node: #{parent_id}")
+          raise "User #{AuthenticationModel.current_user} has not permission " + 
+          "for creation child to tree_node: #{parent_id}"
+        end
+    end
+  end
+  
   def after_destroy
     #delete resource if exist
     #used for recurcive delete of tree_nodes
-    resource.destroy if resource
+    resource.destroy if resource && is_main == true
   end
 
   #return min permission to child nodes by current user (recursive)

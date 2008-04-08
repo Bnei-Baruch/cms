@@ -9,6 +9,21 @@ class ResourceObserver < ActiveRecord::Observer
   end
 
   def before_destroy(resource)
+    #check if can destroy by permission system 
+    main_tree_node = resource.tree_nodes.main
+    if main_tree_node 
+      #If destroy command come as result destroy main tree_node
+      #we should destroy without check permission (on that step).
+      #Permissions was checked in main_tree_node destroy step.
+      #We know that it come from main_tree_node destroy if it is nil
+      if not resource.tree_nodes.main.can_administrate? #check permission
+        logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+        "for destroy tree_node: #{resource.main.id} resource: #{id}")
+        raise "User #{AuthenticationModel.current_user} has not permission " + 
+        "for destroy tree_node: #{resource.main.id} resource: #{id}"
+        return
+      end
+    end
     # Clear cache and thumbnails upon deletion of RpFile
     resource.resource_properties.select {|fld| fld.instance_of?(RpFile)}.each {|rp|
       Attachment.remove_thumbnails_and_cache(rp)

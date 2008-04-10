@@ -56,6 +56,19 @@ class ResourceProperty < ActiveRecord::Base
     result
   end
     
+  def before_save
+    #check permission for edit
+    #should be call for all child classes
+    main_tree_node = resource.tree_nodes.main
+    if not main_tree_node.can_edit?
+       logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+          "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}")
+       raise "User #{AuthenticationModel.current_user} has not permission " + 
+          "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}"
+      return
+    end
+  end
+  
 	protected	
 	
 	def default_code

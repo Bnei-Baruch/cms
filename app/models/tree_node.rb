@@ -2,11 +2,12 @@ require "authentication_model"
 
 class TreeNode < ActiveRecord::Base
   belongs_to :resource
-  has_many :tree_node_ac_rights, :dependent => :destroy
+  has_many :tree_node_ac_rights#, :dependent => :destroy
   acts_as_list :scope => :parent #  :scope => 'parent_id = assets.parent_id AND section_id = assets.section_id AND placeholder_id = assets.placeholder_id'
   acts_as_tree  :order => 'position', :counter_cache => true
 
   attr_accessor :ac_type
+  attr_accessor :min_permission_to_child_tree_nodes_cache
 
   #attribute_method_suffix '_changed?'
 
@@ -14,7 +15,7 @@ class TreeNode < ActiveRecord::Base
     @ac_type >= 2
   end
 
-  def can_criate_child?
+  def can_create_child?
     @ac_type >= 2
   end
 
@@ -24,7 +25,8 @@ class TreeNode < ActiveRecord::Base
 
   #can logical delete (change status to deleted)
   def can_delete?
-    if (3 <= get_min_permission_to_child_tree_nodes_by_user())
+    min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+    if (3 <= min_permission_to_child_tree_nodes_cache)
       return true
     else
       return false
@@ -33,7 +35,8 @@ class TreeNode < ActiveRecord::Base
 
   #can delete in DB (destroy)
   def can_administrate? 
-    if (4 <= get_min_permission_to_child_tree_nodes_by_user())
+    min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+    if (4 <= min_permission_to_child_tree_nodes_cache)
       return true
     end 
     return false
@@ -94,6 +97,7 @@ class TreeNode < ActiveRecord::Base
       raise "User #{AuthenticationModel.current_user} has not permission " + 
       "for destroy tree_node: #{id} resource: #{resource_id}"
     end
+    tree_node_ac_rights.destroy_all
   end
 
   def before_update
@@ -108,13 +112,22 @@ class TreeNode < ActiveRecord::Base
 
   def before_create
     #check if has permission for criating action
-    #the parant tree_node can_criate_child?
-    if parent_id
-       if not TreeNode.find_as_admin(parent_id).can_criate_child?
+    #the parant tree_node can_create_child?
+    if parent_id && parent_id > 0
+       if not TreeNode.find_as_admin(parent_id).can_create_child?
           logger.error("User #{AuthenticationModel.current_user} has not permission " + 
           "for creation child to tree_node: #{parent_id}")
           raise "User #{AuthenticationModel.current_user} has not permission " + 
           "for creation child to tree_node: #{parent_id}"
+        end
+    else
+        #if parent_id is nil or 0 (it is root tree_node)
+        #only Adinistrator group can create it
+        if not AuthenticationModel.current_user_is_admin?
+           logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+            "for creation root tree_node, only Adminitrator can create child tree_node.")
+          raise "User #{AuthenticationModel.current_user} has not permission " + 
+            "for creation root tree_node, only Adminitrator can create child tree_node."
         end
     end
   end

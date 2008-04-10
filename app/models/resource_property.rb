@@ -56,7 +56,7 @@ class ResourceProperty < ActiveRecord::Base
     result
   end
     
-  def before_save
+  def before_update
     #check permission for edit
     #should be call for all child classes
     main_tree_node = resource.tree_nodes.main
@@ -66,6 +66,24 @@ class ResourceProperty < ActiveRecord::Base
        raise "User #{AuthenticationModel.current_user} has not permission " + 
           "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}"
       return
+    end
+  end
+  
+  def before_destroy
+    #check if can destroy by permission system 
+    main_tree_node = resource.tree_nodes.main
+    if main_tree_node 
+      #If destroy command come as result destroy main tree_node
+      #we should destroy without check permission (on that step).
+      #Permissions was checked in main_tree_node destroy step.
+      #We know that it come from main_tree_node destroy if it is nil
+      if not resource.tree_nodes.main.can_administrate? #check permission
+        logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+        "for destroy tree_node: #{main_tree_node.id} resource: #{resource_id} resource_property: #{id}")
+        raise "User #{AuthenticationModel.current_user} has not permission " + 
+        "for destroy tree_node: #{main_tree_node.id} resource: #{resource_id} resource_property: #{id}"
+        return
+      end
     end
   end
   

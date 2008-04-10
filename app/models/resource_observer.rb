@@ -15,12 +15,12 @@ class ResourceObserver < ActiveRecord::Observer
       #If destroy command come as result destroy main tree_node
       #we should destroy without check permission (on that step).
       #Permissions was checked in main_tree_node destroy step.
-      #We know that it come from main_tree_node destroy if it is nil
-      if not resource.tree_nodes.main.can_administrate? #check permission
+      #We know tha.tree_nodes.main.t it come from main_tree_node destroy if it is nil
+      if not main_tree_node.can_administrate? #check permission
         logger.error("User #{AuthenticationModel.current_user} has not permission " + 
-        "for destroy tree_node: #{resource.main.id} resource: #{id}")
+        "for destroy tree_node: #{main_tree_node.id} resource: #{resource.id}")
         raise "User #{AuthenticationModel.current_user} has not permission " + 
-        "for destroy tree_node: #{resource.main.id} resource: #{id}"
+        "for destroy tree_node: #{main_tree_node.id} resource: #{resource.id}"
         return
       end
     end

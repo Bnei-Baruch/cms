@@ -98,8 +98,8 @@ class Admin::ResourceTypesController < ApplicationController
 	end
   
   def sort_properties
-    list = params[:property_fields].each_with_index {|rt_property_id, index|
-      elem = ResourceTypeProperty.find(rt_property_id)
+    list = params[:property_fields].each_with_index {|property_id, index|
+      elem = Property.find(property_id)
       index += 1
       if elem.position != index
         elem.update_attributes(:position => index)

@@ -1,35 +1,78 @@
 <% domid = "elem_#{property.to_param}" %>
 <div class="property dynamic_element" id="<%= domid %>">
-  <% cms_fields_for "resource_type[my_properties][]", property do |f| %>
-  <table class="property_definition">
-    <thead>
+	<% cms_fields_for "resource_type[my_properties][]", property do |f| %>
+	<table class="property_definition">
 		<tr>
-			<th class="label" width="35%"><%= sort_handler unless property.new_record? %> Local Name</th>
-			<th class="label" width="5%">Is Required?</th>
-			<th class="label" width="55%">Property</th>
-			<th class="label" width="5%"></th>
-		</tr>
-    </thead>
-    <tr>
-      <td><%= f.text_field :local_name, :index => nil%></td>
-      <td><%= check_box_tag :is_required_dummy, property.is_required, property.is_required, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :is_required, :index => nil%>
-	  </td>
-      <td>
-				<% if property.new_record? %>
-					<%= f.select :property_id, Property.properties_for_select, {} , :index => nil %>
-				<% else -%>
-					<%= "#{property.property.name} &lt;#{property.property.hrid}&gt; [#{property.property.field_type}]" if property.property %>
-					<%= f.hidden_field :property_id, :index => nil%>
-				<% end %>
+			<td rowspan="2" style="width:20px; text-align:center">
+				<%= sort_handler unless property.new_record? %>
 			</td>
 			<td>
+				<%= f.label :name, "Name"%>
+				<%= f.text_field :name, :index => nil, :class => 'string'%>
+			</td>
+			<td>
+				<%= f.label :identifier, "Identifier"%>
+				<%= f.text_field :identifier, :index => nil, :class => 'string'%>
+			</td>
+			<td>
+				<%= f.label :field_type, "Type"%>
 				<% if property.new_record? %>
-					<%= link_to_function image_tag("delete.gif"), "this.up('.property').remove()" %>
-				<% else %>	
-					<%= link_to_function image_tag("delete.gif"), "mark_for_destroy(this)" %>
-					<%= f.hidden_field :id, :index => nil%>
-					<%= f.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+				<%= f.select :field_type, Property.types_for_select, {} , :index => nil, :class => 'select_field_type' %>
+				<% else -%>
+				<%= property.field_type %>
 				<% end %>
+			</td>
+			<td style="width:100px">
+				<% if property.new_record? %>
+				<div class="list_container" <% unless property.field_type == 'List' %>style="display:none;"<% end %>>
+					<%= f.label :list_id, "List Name"%>
+					<%= f.select(:list_id, List.names_for_select, {:include_blank => true}, :index => nil, :class => 'list_select') %>
+				</div>
+				<div class="geometry_container" <% unless property.field_type == 'File' %>style="display:none;"<% end %>>
+					<%= f.label :geometry, "Geometry String"%>
+					<%= f.text_field :geometry, :class => 'geometry_text', :index => nil, :style => 'width:100px' %>
+					<%= f.hidden_field :old_geometry, :index => nil %>
+				</div>
+				<% else %>
+				    <% if property.list %>
+				      <div style="margin-top:25px"><b><i>List Name:</i></b><br /><%= property.list.name %></div>
+				    <% end %>
+					<% if property.field_type == 'File' %>
+						<%= f.label :geometry, "Geometry String"%>
+						<%= f.text_field :geometry, :class => 'geometry_text', :index => nil, :style => 'width:100px' %>
+					<% else %>
+						<%= f.hidden_field :geometry, :index => nil %>
+				    <% end %>
+					<%= f.hidden_field :old_geometry, :index => nil, :value => property.geometry %>
+					<%= f.hidden_field :list_id, :index => nil %>
+				<% end %>
+			</td>
+			<td rowspan="2">
+				<% if property.new_record? %>
+				<%= link_to_function image_tag("delete.gif"), "this.up('.property').remove()", :class => 'delete' %>
+				<% else %>	
+				<%= link_to_function image_tag("delete.gif"), "mark_for_destroy(this)", :class => 'delete' %>
+				<%= f.hidden_field :id, :index => nil%>
+				<%= f.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :default_code, "Default Code"%>
+				<%= f.text_field :default_code, :index => nil, :class => 'string'%>				
+			</td>
+			<td>
+				<%= f.label :pattern, "Pattern (RegExp)"%>
+				<%= f.text_field :pattern, :index => nil, :class => 'string'%>				
+			</td>
+			<td>
+				<%= f.label :pattern_text, "Pattern Validation Text"%>
+				<%= f.text_field :pattern_text, :index => nil, :class => 'string'%>				
+			</td>
+			<td>
+				<%= f.label :is_required_dummy, "Required?"%>
+				<%= check_box_tag :is_required_dummy, property.is_required, property.is_required, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :is_required, :index => nil%>
 			</td>
 		</tr>
 	</table>

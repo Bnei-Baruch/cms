@@ -58,20 +58,28 @@ class TreeNode < ActiveRecord::Base
   end
 
   class << self
-    def get_subtree(parent = 0, depth = 0, resource_type = nil)
-      if resource_type == nil
-        find_by_sql "SELECT  a.* FROM  connectby('tree_nodes', 'id', 'parent_id', 'position',  '#{parent}', #{depth}) 
-        AS t(id int, parent_id int, level integer, position int) 
-        join tree_nodes a on (a.id = t.id) ORDER BY  t.position"
+    # call the DB function 'cms_resource_subtree' to retrieve all the website subtree as tree_node records
+    def get_subtree(website_resource_id)
+      if website_resource_id
+        find_by_sql("select * from cms_resource_subtree(#{website_resource_id})") rescue nil
       else
-        find_by_sql "SELECT  a.* FROM  connectby('tree_nodes', 'id', 'parent_id', 'position',  '#{parent}', #{depth}) 
-        AS t(id int, parent_id int, level integer, position int) 
-        join tree_nodes a on (a.id = t.id)
-        join resources r on (a.resource_id = r.id)
-        WHERE r.resource_type_id = #{resource_type} 
-        ORDER BY  t.position"
+        nil
       end
-    end 
+    end
+    # def get_subtree(parent = 0, depth = 0, resource_type = nil)
+    #   if resource_type == nil
+    #     find_by_sql "SELECT  a.* FROM  connectby('tree_nodes', 'id', 'parent_id', 'position',  '#{parent}', #{depth}) 
+    #     AS t(id int, parent_id int, level integer, position int) 
+    #     join tree_nodes a on (a.id = t.id) ORDER BY  t.position"
+    #   else
+    #     find_by_sql "SELECT  a.* FROM  connectby('tree_nodes', 'id', 'parent_id', 'position',  '#{parent}', #{depth}) 
+    #     AS t(id int, parent_id int, level integer, position int) 
+    #     join tree_nodes a on (a.id = t.id)
+    #     join resources r on (a.resource_id = r.id)
+    #     WHERE r.resource_type_id = #{resource_type} 
+    #     ORDER BY  t.position"
+    #   end
+    # end 
 
     alias :old_find_by_sql :find_by_sql
     def find_by_sql(arg)

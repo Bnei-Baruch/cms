@@ -1,12 +1,11 @@
 class ResourceType < ActiveRecord::Base
 	has_and_belongs_to_many :websites
-	has_many :resource_type_properties, :order => :position, :dependent => :destroy
+	has_many :properties, :order => :position, :dependent => :destroy
 	has_many :associations, :order => :position, :foreign_key => :parent_id, :dependent => :destroy
-	has_many :properties, :through => :resource_type_properties
 	has_many :resources, :dependent => :destroy
 	has_many :lists, :dependent => :destroy
 	
-	after_update :save_resource_type_properties, :save_associations
+	after_update :save_properties, :save_associations
 
   # We'd like to report problems with HRID as if it's name was IDENTIFIER
 	alias_attribute :identifier, :hrid
@@ -46,10 +45,10 @@ class ResourceType < ActiveRecord::Base
 			more_properties = {:position => i + 1}
 			h = p.merge!(more_properties)
 			if h[:id].blank?
-				resource_type_properties.build(h)
+				properties.build(h)
 			else
-				resource_type_property = resource_type_properties.detect{|rtp| rtp.id == h[:id].to_i}
-				resource_type_property.attributes = h
+				property = properties.detect{|rtp| rtp.id == h[:id].to_i}
+				property.attributes = h
 			end
     end
   end
@@ -101,8 +100,8 @@ class ResourceType < ActiveRecord::Base
 
   private
 	
-	def save_resource_type_properties
-		resource_type_properties.each do |rtp|
+	def save_properties
+		properties.each do |rtp|
 			if rtp.should_destroy?
 				rtp.destroy
 			else

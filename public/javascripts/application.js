@@ -11,45 +11,63 @@ function mark_for_destroy(element) {
 Event.addBehavior.reassignAfterAjax = true;
 
 // Behaviors
+
+var SpecialPropertyBehavior = Behavior.create({
+	onchange : 	function() {
+		my_list = this.element.up().next().down('.list_container');
+		my_geometry = this.element.up().next().down('.geometry_container');
+		switch(this.element.value) {
+			case 'List':
+				my_geometry.down('.geometry_text').value = "";
+				my_list.down('.list_select').selectedIndex = 0;
+				new Effect.Fade(my_geometry);
+				new Effect.Appear(my_list);
+				break;
+			case 'File':
+				my_list.down('.list_select').value = "";
+				my_list.down('.list_select').selectedIndex = 0;
+				new Effect.Fade(my_list);
+				new Effect.Appear(my_geometry);
+				break;
+			default:
+				my_geometry.down('.geometry_text').value = "";
+				my_list.down('.list_select').selectedIndex = 0;
+				new Effect.Fade(my_geometry);
+				new Effect.Fade(my_list);
+		}
+	} 
+});
+
+/*This will update the hidden input field (in resource editing) which holds the actual value 
+to be passed to the model as the checkbox value*/
+var CheckboxBehavior = Behavior.create({
+	onchange : 	function() {
+		if(this.element.checked == true) {
+			this.element.next().value = 't';
+		}
+		else {
+			this.element.next().value = 'f';
+		}
+	} 
+});
+Event.addBehavior({ 'input.property_checkbox' : CheckboxBehavior });
+// Event.addBehavior({ '.select_field_type' : MyBehavior });
+// If you need to pass additional values to initialize use:
+// Event.addBehavior({ '.select_field_type' : MyBehavior(10, { thing : 15 }) })
+// You can also use the attach() method.  If you specify extra arguments to attach they get passed to initialize.
+// MyBehavior.attach(el, values, to, init);
+// Finally, the rawest method is using the new constructor normally:
+// var draggable = new Draggable(element, init, vals);
+// Each behaviour has a collection of all its instances in Behavior.instances
+
 Event.addBehavior({
 
-'#show_all_websites:change' : function() {
-	if($F(this) != null) {
-		$('website_id').hide();
-	}
-	else {
-		$('website_id').show();
-	}
-},
-/*This will update the hidden input field (in resource editing) which holds the actual value 
-	to be passed to the model as the checkbox value*/
-'input.property_checkbox:change' : function() {
-	if($F(this) != null) {
-		this.next().value = 't';
-	}
-	else {
-		this.next().value = 'f';
-	}
-},
-'#property_field_type:change' : function() {
-	switch($F(this)) {
-	case 'List':
-		$('property_list_id').enable();
-		new Effect.Appear('list_container');
-		$('property_geometry').disable();
-		new Effect.Fade('file_container');
-		break;
-	case 'File':
-		$('property_geometry').enable();
-		new Effect.Appear('file_container');
-		$('property_list_id').disable();
-		new Effect.Fade('list_container');
-		break;
-	default:
-		$('property_geometry').disable();
-        $('property_list_id').disable();
-		new Effect.Fade('file_container');
-		new Effect.Fade('list_container');
-	}
-}
+	'#show_all_websites:change' : function() {
+		if($F(this) != null) {
+			$('website_id').hide();
+		}
+		else {
+			$('website_id').show();
+		}
+	},
 });

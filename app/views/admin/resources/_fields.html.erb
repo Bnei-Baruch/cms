@@ -16,11 +16,11 @@
 <% end %>
 
 <div id="properties">
-  <% @resource_type.resource_type_properties.each_with_index do |rt_property, index| %>
-    <% property = @resource.get_resource_property_by_resource_type_property(rt_property) %>
+  <% @resource_type.properties.each_with_index do |property, index| %>
+    <% resource_property = @resource.get_resource_property_by_property(property) %>
     <%= render :partial => "property",
-      :locals => {:property => property,
-      :data_type => rt_property.data_type,
+      :locals => {:property => resource_property,
+      :data_type => property.field_type.downcase,
       :index => index}
     %>
   <% end %>

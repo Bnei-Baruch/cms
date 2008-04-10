@@ -55,8 +55,33 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  # DEPRICATED !!!!
   def get_resource_property_by_resource_type_property(rtp) #rtp = resource_type_property
     get_resource_property_by_property(rtp.property)
+  end
+
+  def get_resource_property_by_property(property) #rtp = resource_type_property
+    resource_property_array = eval("rp_#{property.field_type.downcase}_properties") || []
+
+    if new_record? #new or not validated new
+      if resource_property_array.empty? #new before validation
+        rp = eval "rp_#{property.field_type.downcase}_properties.new"
+        rp.resource = self
+        rp.property = property
+      else #not valid new
+        rp = resource_property_array.detect { |e| e.property_id == property.id }
+        rp.resource = self
+        rp.property = property
+      end
+    else #edit or not validated edit
+      rp = resource_properties.detect { |e| e.property_id == property.id }
+      if rp.nil?
+        rp = resource_property_array.detect { |e| e.property_id == property.id } || (eval "Rp#{property.field_type.camelize}.new")
+        rp.resource = self
+        rp.property = property
+      end
+    end
+    return rp
   end
   
   # convinient access to the properties of the resource
@@ -128,30 +153,6 @@ class Resource < ActiveRecord::Base
     name_code.gsub(/<([^>]*?)>/) do |match|
       "'#{get_resource_property_by_property_hrid($1)}'"
     end
-  end
-
-  def get_resource_property_by_property(property) #rtp = resource_type_property
-    resource_property_array = eval("rp_#{property.field_type.downcase}_properties") || []
-
-    if new_record? #new or not validated new
-      if resource_property_array.empty? #new before validation
-        rp = eval "rp_#{property.field_type.downcase}_properties.new"
-        rp.resource = self
-        rp.property = property
-      else #not valid new
-        rp = resource_property_array.detect { |e| e.property_id == property.id }
-        rp.resource = self
-        rp.property = property
-      end
-    else #edit or not validated edit
-      rp = resource_properties.detect { |e| e.property_id == property.id }
-      if rp.nil?
-        rp = resource_property_array.detect { |e| e.property_id == property.id } || (eval "Rp#{property.field_type.camelize}.new")
-        rp.resource = self
-        rp.property = property
-      end
-    end
-    return rp
   end
 
   def save_resource_properties

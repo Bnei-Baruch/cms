@@ -1,52 +1,58 @@
 <%= rp_error_messages_for :resource_type, :header_only => true %>
 <%
-		errors = rp_error_messages_for :name, :object => @resource_type, :header_message => false
-		label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+	errors = rp_error_messages_for :name, :object => @resource_type, :header_message => false
+	label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
 %>
 <%= f.label(:name, "Name", label_class) %>
 <%= errors %><%= f.text_field :name %>
 
 <%
-		errors = rp_error_messages_for :identifier, :object => @resource_type, :header_message => false
-		label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+	errors = rp_error_messages_for :identifier, :object => @resource_type, :header_message => false
+	label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
 %>
 <%= f.label(:identifier, "Identifier (used by the CMS engine)", label_class) %>
 <%= errors %><%= f.text_field :identifier %>
 
 <%
-		errors = rp_error_messages_for :name_code, :object => @resource_type, :header_message => false
-		label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+	errors = rp_error_messages_for :name_code, :object => @resource_type, :header_message => false
+	label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
 %>
 <%= f.label(:name_code, "Name Code (the pattern of the name in ruby code)", label_class) %>
 <%= errors %><%= f.text_field :name_code %>
-
 <object>
   <fieldset id="property_fieldset">
     <legend>
       Properties
     </legend>
     <div id="property_fields">
-      <% @resource_type.resource_type_properties.each_with_index do |property, index| %>
-				<%= render :partial => 'property_fields', :locals => {:property => property, :index => index}  %>
+      <% @resource_type.properties.each_with_index do |property, index| %>
+		<%= render :partial => 'property_fields', :locals => {:property => property, :index => index}  %>
       <% end %>
     </div>
 		<%= sortable_element 'property_fields',
-													:url => {:action => 'sort_properties', :id => @resource_type.to_param},
-													:constraint => :vertical,
-													:tag => 'div',
-													:only => 'dynamic_element',
-													:handle => 'sort_handler',
-													:complete => visual_effect(:highlight,
-																										 'property_fields',
-																										 :startcolor=>'#ffff99',
-																										 :endcolor=>'#ffffff')
+			:url => {:action => 'sort_properties', :id => @resource_type.to_param},
+			:constraint => :vertical,
+			:tag => 'div',
+			:only => 'dynamic_element',
+			:handle => 'sort_handler',
+			:complete => visual_effect(:highlight,
+				'property_fields',
+				:startcolor=>'#ffff99',
+				:endcolor=>'#ffffff')
 		%>
-    <%= link_to_function "Add" do |page| 
-      page.insert_html :bottom, 
+    <%= link_to_function "Add" do |page|
+	 		
+			page.insert_html :bottom, 
 				:property_fields, 
-				:partial => 'property_fields', 
-				:locals => {:property => ResourceTypeProperty.new, :index => 1}
-    end  %>
+				:partial => 'property_fields',
+				:locals => {:property => Property.new, :index =>  1}
+			page.visual_effect(:highlight,
+					'property_fields',
+					:startcolor=>'#ffff99',
+					:endcolor=>'#ffffff')
+		    page << "Event.addBehavior({ '.select_field_type' : SpecialPropertyBehavior });"
+		    page << "Event.addBehavior({ 'input.property_checkbox' : CheckboxBehavior });"
+	    end  %>
   </fieldset>
 </object>
 

@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.connect '', :controller => 'resources'
     admin.resources :resources
     admin.resources :tree_nodes, :member => {:tree_node_ac_rights => :get}, :collection => { :ext => :get, :ext_old => :get }
-    admin.resources :lists, :collection => { :update_resource_type_properties => :get }
+    admin.resources :lists #, :collection => { :update_resource_type_properties => :get }
     admin.resources :websites, :collection => { :set_website => :get }
     admin.resources :properties
     admin.resources :resource_types, :member => {:associations_list => :get, :associations_update => :put}

@@ -78,10 +78,11 @@ class Admin::ListsController < ApplicationController
     end
   end
 	
-	def update_resource_type_properties
-		if params[:resource_type_id]
-			resource_type_properties_for_select
-		end
-	end
+  # DEPRICATED
+  # def update_resource_type_properties
+  #   if params[:resource_type_id]
+  #     resource_type_properties_for_select
+  #   end
+  # end
 	
 end

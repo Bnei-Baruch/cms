@@ -1,6 +1,5 @@
-class Property < ActiveRecord::Base
-	has_many :resource_type_properties, :dependent => :destroy
-	has_many :resource_types, :through => :resource_type_properties
+class Property < ActiveRecord::Base 
+  belongs_to :resource_type
 	has_many :resource_properties, :dependent => :destroy
 	belongs_to :list
 
@@ -18,17 +17,35 @@ class Property < ActiveRecord::Base
 
   # We need to save old geometry and to update thumbnails accordingly
   attr_accessor :old_geometry
+	attr_accessor :should_destroy
+	
+	TYPES = ['String', 'Number', 'Boolean', 'Text', 'Plaintext', 'Timestamp', 'Date', 'List', 'File']
   
 	def self.types
-		['String', 'Number', 'Boolean', 'Text', 'Plaintext', 'Timestamp', 'Date', 'List', 'File']
+		TYPES
 	end
 	
+	def self.types_for_select
+		types.map{|type| [type, type]}
+	end
+	
+	
+  # DEPRICATED
 	def self.properties_for_select
 		find(:all).map{|property| ["#{property.name}(#{property.hrid})[#{property.field_type}]", property.id]}
 	end
   
 	def self.get_property_by_hrid(identifier)
 		Property.find_by_hrid(identifier)
+	end
+  
+  # DEPRICATED
+	def data_type
+		property.field_type.downcase
+	end
+
+	def should_destroy?
+		should_destroy.to_i == 1
 	end
 	
 	protected

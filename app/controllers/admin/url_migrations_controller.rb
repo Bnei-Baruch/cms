@@ -1,5 +1,5 @@
 class Admin::UrlMigrationsController < ApplicationController
-	layout 'admin'
+  layout 'admin'
   # GET /url_migrations
   # GET /url_migrations.xml
   def index

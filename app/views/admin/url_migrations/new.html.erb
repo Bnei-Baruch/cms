@@ -1,0 +1,8 @@
+<% @title = "New URL Migration" %>
+
+<% cms_form_for(:url_migration, :url => admin_url_migrations_path)  do |f| %>
+        <%= render :partial => 'fields', :locals => {:f => f} %>
+        <div id="submit"><%= submit_tag "Create URL Migration" %></div>
+<% end %>
+
+<%= link_to 'Back', admin_url_migrations_path %>

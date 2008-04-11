@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
+
   # map.resources :login, :member => {:login => :get, :logout => :get}
 
   # Tests
@@ -7,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Root access
   map.namespace(:admin) do |admin|
-    admin.connect '', :controller => 'resources'
+    #admin.connect '', :controller => 'resources'
     admin.resources :resources
     admin.resources :tree_nodes, :member => {:tree_node_ac_rights => :get}, :collection => { :ext => :get, :ext_old => :get }
     admin.resources :lists #, :collection => { :update_resource_type_properties => :get }
@@ -19,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :groups
     admin.resources :tree_node_ac_rights
     admin.resources :login, :collection => {:login => :get, :logout => :get}
+    admin.resources :url_migrations
   end	
 
   # Path to the site

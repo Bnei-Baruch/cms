@@ -1,0 +1,2 @@
+module UrlMigrationsHelper
+end

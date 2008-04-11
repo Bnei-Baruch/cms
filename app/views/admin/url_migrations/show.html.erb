@@ -1,0 +1,23 @@
+<p>
+  <b>Source:</b>
+  <%=h @url_migration.source %>
+</p>
+
+<p>
+  <b>Target:</b>
+  <%=h @url_migration.target %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%=h @url_migration.action %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @url_migration.state %>
+</p>
+
+
+<%= link_to 'Edit', edit_url_migration_path(@url_migration) %> |
+<%= link_to 'Back', url_migrations_path %>

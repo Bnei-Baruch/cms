@@ -83,4 +83,17 @@ class Admin::UrlMigrationsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def import
+  end
+
+  def export
+  end
+
+  def merge
+  end
+
+  def cleanup
+  end
+  
 end

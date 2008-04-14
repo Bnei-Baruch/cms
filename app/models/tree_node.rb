@@ -27,6 +27,12 @@ class TreeNode < ActiveRecord::Base
   def can_delete?
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (3 <= min_permission_to_child_tree_nodes_cache)
+      #can not delete if resource has link from other tree
+      output = TreeNode.get_subtree(resource_id)
+      if output
+        output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
+        return false if output.length > 0
+      end
       return true
     else
       return false
@@ -37,6 +43,12 @@ class TreeNode < ActiveRecord::Base
   def can_administrate? 
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (4 <= min_permission_to_child_tree_nodes_cache)
+      #can not delete if resource has link from other tree
+      output = TreeNode.get_subtree(resource_id)
+      if output
+        output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
+        return false if output.length > 0
+      end
       return true
     end 
     return false

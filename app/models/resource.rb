@@ -34,6 +34,8 @@ class Resource < ActiveRecord::Base
   # validate :required_properties_present
   validate :uniqueness_of_permalink
 
+  
+  
   def name
     eval calculate_name_code(resource_type.name_code)
   end
@@ -93,6 +95,12 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  #if the resource has link tree_nodes
+  def has_links?
+      link_count = TreeNode.count_by_sql("Select count(*) from tree_nodes where is_main <> true and resource_id = #{id}")
+      return (link_count > 0)
+  end
+  
   protected
 
   def nullify_website_if_exists

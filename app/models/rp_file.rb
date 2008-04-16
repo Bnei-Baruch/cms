@@ -1,6 +1,6 @@
 class RpFile < ResourceProperty	
 
-  validates_length_of :file, :as => :attachment, :maximum => 1.megabyte
+  validates_length_of :file, :as => :attachment, :maximum => 5.megabytes
 
   def original
     attachment

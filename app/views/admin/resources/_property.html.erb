@@ -1,7 +1,8 @@
 <div class="property">
 	<% @property = property # for use with error_messages_for only
 	errors = rp_error_messages_for :property
-	label_class = errors.empty? ? {} : {:class => 'fieldWithErrors'}
+	obj_id = 'obj_' + property.object_id.to_s
+	label_options = errors.empty? ? {:for => obj_id} : {:class => 'fieldWithErrors', :for => obj_id}
 	%>
 	
    <% cms_fields_for "resource[my_properties][]", property do |f| %>
@@ -10,11 +11,11 @@
 		<%= f.hidden_field(:property_id, :index => nil) %>
 		<%= f.hidden_field(:id, :index => nil) %>
 
-		<%= f.label("value", property.name, label_class)%>
+		<%= content_tag(:label, property.name, label_options) %>
 		<%= errors %>
 		<% case data_type 
 			 when 'number', 'string': %>
-				<%= f.text_field(:value, :index => nil, :size => 57) %>
+				<%= f.text_field(:value, :index => nil, :size => 57, :id => obj_id) %>
 			<% when 'boolean': %>                                          
 				<%chacked = %w{ t true 1}.include?property.value%>
 				<%= check_box_tag :value_dummy, property.value, chacked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
@@ -23,19 +24,27 @@
 				:time => false, 
 				:popup => :force,
 				:size => 57,
-				:name => 'resource[my_properties][][value]' %>
+				:name => 'resource[my_properties][][value]',
+				:id => obj_id %>
+				<%= link_to_function "Reset Date" do |page|
+						page[obj_id].value = "" 
+				    end  %>
 			<% when 'timestamp': %>
 				<%= f.calendar_date_select :value, 
 				:time => true, 
 				:popup => :force,
 				:size => 57,
-				:name => 'resource[my_properties][][value]' %>
+				:name => 'resource[my_properties][][value]',
+				:id => obj_id %>
+				<%= link_to_function "Reset Date" do |page|
+						apage[obj_id].value = ""
+				    end  %>
 			<% when 'list': %>
-				<%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil) %>
+				<%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil, :id => obj_id) %>
 			<% when 'plaintext': %>
-				<%= f.text_area(:value, :index => nil, :class => 'mceNoEditor') %>
+				<%= f.text_area(:value, :index => nil, :id => obj_id) %>
 			<% when 'text': %>
-				<%= f.text_area(:value, :index => nil) %>
+				<%= f.text_area(:value, :index => nil, :class => 'mce', :id => obj_id) %>
 			<% when 'file': %>
 				<% original = @property.original %>
 				<% if original %>

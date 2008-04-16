@@ -1,4 +1,5 @@
 <% @title = "New resource" %>
+<%= render :partial => "admin/share/tiny_mce_full" %>
 <% cms_form_for(:resource, :url => admin_resources_path, :html => {:multipart => true}) do |f| %>
 	<%= render :partial => 'fields', :locals => {:f => f} %>
 	<div id="submit"><%= submit_tag "Create resource" %></div>

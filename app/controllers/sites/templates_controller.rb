@@ -1,5 +1,5 @@
 class Sites::TemplatesController < ApplicationController
-  def show
+  def template
     # render :text => request.host.to_s + "<br /> Prefix: " + params[:prefix] + "<br /> Prefix: " + params[:id]
     host = 'http://' + request.host
     prefix = params[:prefix]
@@ -19,7 +19,6 @@ class Sites::TemplatesController < ApplicationController
       format.html { render :template => @presenter.node_template_path, :layout => @presenter.node_layout_path }
       # format.xml  { render :xml => @page.to_xml }
     end
-
 
   end
   

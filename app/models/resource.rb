@@ -56,24 +56,44 @@ class Resource < ActiveRecord::Base
       end
     end
   end
-
-  # DEPRICATED !!!!
-  def get_resource_property_by_resource_type_property(rtp) #rtp = resource_type_property
-    get_resource_property_by_property(rtp.property)
+  
+  # Used in the new/edit of a resource, when creating the form
+  def get_resource_properties
+    result = []
+    resource_type.properties.each do |property|
+      
+      elements = eval("rp_#{property.field_type.downcase}_properties") || []
+      # debugger
+      elements = elements.select{ |rp| rp.property_id == property.id } unless elements.empty?
+      if elements.empty?
+        new_element = eval "Rp#{property.field_type.camelize}.new"
+        new_element.resource = self
+        new_element.property = property
+        elements << new_element
+      end
+      elements.each do |rp|
+        rp.resource = self
+        rp.property = property
+      end
+      result += elements
+    end
+    result
   end
-
-  def get_resource_property_by_property(property) #rtp = resource_type_property
+  
+  # Old Version - now using: get_resource_properties function instead (Saved for anycase) 
+  def get_resource_property_by_property(property) 
     resource_property_array = eval("rp_#{property.field_type.downcase}_properties") || []
-
+              # debugger
+              
     if new_record? #new or not validated new
       if resource_property_array.empty? #new before validation
-        rp = eval "rp_#{property.field_type.downcase}_properties.new"
-        rp.resource = self
+        rp = eval "Rp#{property.field_type.camelize}.new"
         rp.property = property
       else #not valid new
         rp = resource_property_array.detect { |e| e.property_id == property.id }
         rp.resource = self
         rp.property = property
+      # debugger
       end
     else #edit or not validated edit
       rp = resource_properties.detect { |e| e.property_id == property.id }
@@ -90,6 +110,7 @@ class Resource < ActiveRecord::Base
   def properties(property = nil)
     if property
       resource_properties.select{|rp| rp.property.hrid == property} rescue nil
+      debugger
     else
       resource_properties
     end

@@ -1,6 +1,6 @@
 class Admin::ResourcesController < ApplicationController
   layout 'admin'
-	before_filter :save_refferer_to_session, :only => [ :new, :edit ]
+	before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy ]
   
   # GET /resources GET /resources.xml
   def index
@@ -97,7 +97,7 @@ class Admin::ResourcesController < ApplicationController
     @resource.destroy
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to session[:referer] }
       format.xml  { head :ok }
     end
   end

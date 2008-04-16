@@ -18,8 +18,9 @@
       <th>ID</th>
       <th>Parent</th>
       <th>Position</th>
+      <th>Children</th>
       <th>Type</th>
-      <th>Resource</th>
+      <th>Name</th>
       <th>Is main?</th>
       <th>Permalink</th>
       <th colspan="4">Actions</th>
@@ -30,8 +31,12 @@
       <td><%=h tree_node.id %></td>
       <td><%=h tree_node.parent_id %></td>
       <td><%=h tree_node.position %></td>
+      <td>
+<%color = tree_node.tree_nodes_count > 0 ? {:style => "color:green"} : {:style => "color:red"} %>
+<%=link_to "#{tree_node.tree_nodes_count}", admin_tree_nodes_path(:parent_id => tree_node.id), color %>
+	  </td>
       <td><%=h tree_node.resource.resource_type.name if tree_node.resource %></td>
-      <td><%=link_to "#{tree_node.resource.name} (#{tree_node.tree_nodes_count} - Children)", admin_tree_nodes_path(:parent_id => tree_node.id) if tree_node.resource %></td>
+      <td><%=h tree_node.resource.name %></td>
       <td><%=h tree_node.is_main %></td>
       <td><%=h tree_node.permalink %></td>
       <td><%= link_to 'Show', admin_resource_path(tree_node.resource) %></td>

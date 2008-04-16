@@ -3,7 +3,7 @@ require 'mini_magick'
 
 class Attachment < ActiveRecord::Base
 
-  validates_length_of :file, :as => :attachment, :maximum => 1.megabyte
+  validates_length_of :file, :as => :attachment, :maximum => 5.megabytes
 
   belongs_to  :resource_property
 

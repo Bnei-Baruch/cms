@@ -87,13 +87,6 @@ class ResourceProperty < ActiveRecord::Base
     end
   end
   
-	protected	
-	
-	def default_code
-		code = self.property.default_code
-		code.nil? ? "" : code
-	end
-
   protected	
 
   def default_code

@@ -1,5 +1,6 @@
 <% name = @resource.resource_type.name %>
 <% @title = "Editing #{name}" %>
+<%= render :partial => "admin/share/tiny_mce_full" %>
 
 <% cms_form_for(:resource, :url => admin_resource_path(@resource), :html => {:method => 'put', :multipart => true}) do |f| %>
 		<%= render :partial => 'fields', :locals => {:f => f} %>

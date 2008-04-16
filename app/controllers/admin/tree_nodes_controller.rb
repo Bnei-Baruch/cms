@@ -1,7 +1,7 @@
 class Admin::TreeNodesController < ApplicationController
 	layout 'admin'
         
-    before_filter :save_refferer_to_session, :only => [ :new, :edit, :tree_node_ac_rights ]
+    before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights ]
   
   # GET /tree_nodes
   # GET /tree_nodes.xml
@@ -99,7 +99,7 @@ class Admin::TreeNodesController < ApplicationController
     @tree_node.destroy
 
     respond_to do |format|
-      format.html { redirect_to(admin_tree_nodes_url) }
+      format.html { redirect_to session[:referer] }
       format.xml  { head :ok }
     end
   end

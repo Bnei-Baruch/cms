@@ -6,6 +6,10 @@ class Sites::Global < Sites::Presenter
 
   def website_node
     website_resource.tree_nodes.main
+  end                      
+  
+  def website_subtree
+    TreeNode.get_subtree(website_resource.id)
   end
 
   def node
@@ -38,6 +42,17 @@ class Sites::Global < Sites::Presenter
   def home
     @website.domain + ':3000' + '/' + @website.prefix
   end
+  
+  # Used to show the main sections (environments) of the site
+  # def main_sections
+  #   result = website_node.children || nil
+  #   
+  #   if result
+  #     result.select do |tree_node|
+  #       tree_node.resource.resource_type ==
+  #     end
+  #   end
+  # end
 
   def node_template_path
     template_path(node_resource_type.hrid, 'full')

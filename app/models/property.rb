@@ -1,6 +1,16 @@
 class Property < ActiveRecord::Base 
   belongs_to :resource_type
 	has_many :resource_properties, :dependent => :destroy
+  has_many :rp_number_properties, :class_name => 'RpNumber', :dependent => :destroy
+  has_many :rp_string_properties, :class_name => 'RpString', :dependent => :destroy
+  has_many :rp_text_properties, :class_name => 'RpText', :dependent => :destroy
+  has_many :rp_plaintext_properties, :class_name => 'RpPlaintext', :dependent => :destroy
+  has_many :rp_timestamp_properties, :class_name => 'RpTimestamp', :dependent => :destroy
+  has_many :rp_date_properties, :class_name => 'RpDate', :dependent => :destroy
+  has_many :rp_boolean_properties, :class_name => 'RpBoolean', :dependent => :destroy
+  has_many :rp_file_properties, :class_name => 'RpFile', :dependent => :destroy
+  has_many :rp_list_properties, :class_name => 'RpList', :dependent => :destroy
+
 	belongs_to :list
 
   # We'd like to report problems of HRID as if it was called IDENTIFIER
@@ -34,7 +44,7 @@ class Property < ActiveRecord::Base
 	def self.properties_for_select
 		find(:all).map{|property| ["#{property.name}(#{property.hrid})[#{property.field_type}]", property.id]}
 	end
-  
+    
 	def self.get_property_by_hrid(identifier)
 		Property.find_by_hrid(identifier)
 	end

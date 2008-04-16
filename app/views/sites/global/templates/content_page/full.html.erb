@@ -1,7 +1,10 @@
 <h1><%= @presenter.node_type %></h1>
-<% @presenter.node_resource_properties.each do |property|%>
-
-<%= property.name %>: <%=h property.value %>
-<br />
-
+<% content_for :title do %>
+  <%=h @presenter.node.resource.properties('large_title').class %>
+<% end %>
+<%#= @presenter.website_subtree.inspect%> 
+<%#= TreeNode.get_subtree(68).inspect%>
+<% @presenter.node.resource.properties.each do |property|%>
+	<%= property.name %>: <%=h property.value %>
+	<br />
 <% end %>

@@ -27,6 +27,9 @@ class Admin::TreeNodesController < ApplicationController
   # GET /tree_nodes/1.xml
   def show
     @tree_node = TreeNode.find(params[:id])
+    #if (@tree_node = TreeNode.find(params[:id]))==undefined
+    #  @tree_node = TreeNode.find(0)
+    #end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -127,7 +130,15 @@ class Admin::TreeNodesController < ApplicationController
         "text" => element.resource.name,
         "type" => element.resource.resource_type.name,
         "permalink" => element.permalink,
+        "parentId" => id,
         "ismain" => element.is_main,
+        "canEdit" => !element.can_edit?,
+        "canDelete" => !element.can_delete?,
+        "canAdd" => !element.can_create_child?,
+        #"addTarget" => new_admin_resource_path,
+        "delTarget" => admin_resource_path(element.resource),
+        "editTarget" => url_for(edit_admin_resource_path(:id => element.resource, :tree_id => element.id)),
+        "permissionsTarget" => url_for(tree_node_ac_rights_admin_tree_node_path(element.id)),
         "leaf" => element.leaf]
     end
     

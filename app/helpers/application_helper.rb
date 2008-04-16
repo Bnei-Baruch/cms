@@ -129,4 +129,8 @@ module ApplicationHelper
     #    return if @is_homepage and (not force)
     '<img class="sort_handler" src="/images/arrow.gif" alt="" />'
   end
+  
+  def render_ext_tree(direction = 'ltr')
+    render( :partial => "admin/share/ext_tree", :locals => { :direction => direction } )
+  end
 end

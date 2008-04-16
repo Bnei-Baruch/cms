@@ -1,0 +1,197 @@
+<% content_for :header do %>
+    
+  <%= stylesheet_link_tag "../ext/resources/css/ext-all.css" %>
+  <%= stylesheet_link_tag "../ext/resources/css/ColumnTree.css" %>
+  <%= javascript_include_tag "../ext/adapter/prototype/ext-prototype-adapter.js" %>
+  <%= javascript_include_tag "../ext/ext-all.js" %>
+  <%= javascript_include_tag "../ext/source/widgets/tree/ColumnTree.js" %> 
+  <% javascript_tag do -%>
+    Ext.onReady(function(){
+      // create initial root node
+      var root = new Ext.tree.AsyncTreeNode({
+        text: 'CMS Root',
+        id:'0'
+      });
+      
+      // create the tree
+      tree = new Ext.tree.ColumnTree({
+        loader: new Ext.tree.TreeLoader({
+          dataUrl: '<%= ext_admin_tree_nodes_path %>',
+          uiProviders:{
+            'col': Ext.tree.ColumnNodeUI
+          },
+          requestMethod:'GET',
+          baseParams:{format:'json'},
+          baseAttrs:{uiProvider:'col'}
+        }),
+        width:602,
+        renderTo:'category-tree',
+        root: root,
+        autoHeight:true,
+        autoScroll:true,
+        rootVisible:true,
+        title: "Tree Nodes ver. 2",
+        columns:[{
+            header:'Resource',
+            width:200,
+            dataIndex:'text'
+        },{
+            header:'Parent',
+            width:50,
+            //dataIndex:''
+        },{
+            header:'Position',
+            width:50,
+            //dataIndex:''
+        },{
+            header:'Type',
+            width:100,
+            dataIndex:'type'
+        },{
+            header:'ID',
+            width:50,
+            dataIndex:'id'
+        },{
+            header:'Is Main?',
+            width:50,
+            dataIndex:'ismain'
+        },{
+            header:'Permalink',
+            width:100,
+            dataIndex:'permalink'
+        }]
+      });
+
+      tree.on('contextmenu', function(node, e){
+        // add stuff here to show menu.
+        var menu = new Ext.menu.Menu({
+          items: [
+            new Ext.menu.Item({
+              text: 'Edit',
+              disabled: node.attributes.canEdit,
+              href: node.attributes.editTarget
+            }),
+            new Ext.menu.Item({
+              text: 'Permissions',
+              href: node.attributes.permissionsTarget
+            }),
+            new Ext.menu.Item({
+              text: 'Add',
+              disabled: node.attributes.canAdd,
+              handler: function(e){
+                var types = [
+                <%@types = ResourceType.resource_types_for_select%>
+                <%@types.each do |element|%>
+                  ["<%=element[1]%>", "<%=element[0]%>"],
+                <%end%>
+                ];
+
+                addForm = new Ext.form.FormPanel({
+                  name:'addform',
+                  labelWidth: 75, // label settings here cascade unless overridden
+                  frame:true,
+                  title: 'Add a tree node',
+                  //bodyStyle:'padding:5px 5px 0',
+                  width: 350,
+                  method: 'get',
+                  standardSubmit: true,
+                  waitMsgTarget: true,
+
+                  items: [
+                    new Ext.form.ComboBox({
+                      id: "resource_resource_type_id",
+                      //name: "resource[resource_type_id]",
+                      hiddenName: 'resource[resource_type_id]',
+                      fieldLabel: "Resource type",
+                      //hiddenName:'resource_resource_type_id',
+                      store: new Ext.data.SimpleStore({
+                        fields: ['id', 'type'],
+                        data : types
+                      }),
+                      valueField:'id',
+                      displayField:'type',
+                      mode: 'local',
+                      triggerAction: 'all',
+                      //value: 'id',
+                      //emptyText:'Choose resource type...',
+                      selectOnFocus:true,
+                      forceSelection: true,
+                      editable: false,
+                      width:190
+                    }),
+                    new Ext.form.Checkbox({
+                      id: "resource_tree_node_has_url",
+                      name: "resource[tree_node][has_url]",
+                      fieldLabel: "Has url?",
+                      //checked: 'true',
+                      //value: "true",
+                      boxLabel: "Has url"
+                    }),
+                    new Ext.form.Hidden({
+                      id: "resource_tree_node_parent_id",
+                      name: "resource[tree_node][parent_id]",
+                      value: node.attributes.id
+                    }),
+                    new Ext.form.Hidden({
+                      id: "resource_tree_node_is_main",
+                      name: "resource[tree_node][is_main]",
+                      value: node.attributes.ismain
+                    }),
+                  ]
+                });
+    
+                var win = new Ext.Window({
+                  //el:'hello-win',
+                  layout:'fit',
+                  width:500,
+                  height:300,
+                  closeAction:'hide',
+                  plain: true,
+
+                  items: addForm,
+
+                  buttons: [{
+                    text: 'Add',
+                    handler: function(){
+                      addForm.form.getEl().dom.action = "/admin/resources/new";
+                      addForm.form.submit();
+                      win.close();
+                    }
+                    },{
+                    text: 'Cancel',
+                    handler: function(){
+                      win.close();
+                    }
+                  }]
+                });
+                win.show(this);
+              }
+
+            }),
+            new Ext.menu.Item({
+              text: 'Delete',
+              disabled: node.attributes.canDelete,
+              handler: 
+                function(item){
+                  Ext.Msg.confirm('Delete tree item', "Are you sure you want to delete " + node.text + "?", function(e){
+                    if(e == 'yes') {
+                      Ext.Ajax.request({
+                        url: node.attributes.delTarget,
+                        method: 'post',
+                        success: node.remove(),
+                        params: { '_method': 'delete' }
+                      });
+                    }
+                  });
+                }
+          })],
+        });
+        menu.showAt(e.getXY());
+      });
+
+      tree.render();
+    });
+  <% end -%>
+<% end %>
+
+<div id="category-tree" style="padding:20px;"></div>

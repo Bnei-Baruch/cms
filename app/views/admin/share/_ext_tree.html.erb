@@ -125,7 +125,8 @@
                       fieldLabel: "Has url?",
                       //checked: 'true',
                       //value: "true",
-                      boxLabel: "Has url"
+                      boxLabel: "Has url",
+                      inputValue: "true"
                     }),
                     new Ext.form.Hidden({
                       id: "resource_tree_node_parent_id",
@@ -135,7 +136,7 @@
                     new Ext.form.Hidden({
                       id: "resource_tree_node_is_main",
                       name: "resource[tree_node][is_main]",
-                      value: node.attributes.ismain
+                      value: "true"
                     }),
                   ]
                 });

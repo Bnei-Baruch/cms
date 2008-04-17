@@ -81,7 +81,14 @@ class Admin::UsersController < ApplicationController
   # DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    if @user.destroy == false
+      error_msg = ""
+      @user.errors.each_full{|msg| error_msg = error_msg + msg }
+      if error_msg == ""
+        error_msg = "Can't delete the user." 
+      end
+      flash[:notice]= error_msg
+    end
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }

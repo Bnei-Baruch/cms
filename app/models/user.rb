@@ -45,6 +45,17 @@ class User < ActiveRecord::Base
     user
   end
   
+  def before_destroy
+    admin_group = groups.find(:first, :conditions => "groupname = 'Administrators'")
+    if admin_group
+      admin_users = admin_group.users #.find(:all, :conditions =>"users.id <> #{id} and (users.reason_of_ban is null or users.reason_of_ban =''")
+      if admin_users.length <= 1
+        errors.add_to_base("Can't delete last user for Administrators group") 
+        false
+      end
+    end
+  end
+  
   private
   
   def self.encrypted_password(password, salt)

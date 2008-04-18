@@ -1,7 +1,8 @@
 class Admin::TreeNodesController < ApplicationController
 	layout 'admin'
         
-    before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights ]
+  before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights ]
+  before_filter {|c| c.admin_authorize(['System manager'])}
   
   # GET /tree_nodes
   # GET /tree_nodes.xml

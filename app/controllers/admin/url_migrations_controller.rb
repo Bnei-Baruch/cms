@@ -1,5 +1,8 @@
 class Admin::UrlMigrationsController < ApplicationController
   layout 'admin'
+  #check security access
+  before_filter {|c| c.admin_authorize(['System manager'])}
+  
   # GET /url_migrations
   # GET /url_migrations.xml
   def index

@@ -1,6 +1,8 @@
 class Admin::ResourceTypesController < ApplicationController
 	layout 'admin'
 
+  before_filter {|c| c.admin_authorize(['System manager'])}
+  
   # GET /resource_types GET /resource_types.xml
   def index
 		if request.xhr?

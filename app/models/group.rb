@@ -5,7 +5,7 @@ class Group < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :tree_node_ac_rights, :dependent => :destroy
   
-  def validate
+  def validate_on_update
     errors.add_to_base("The group cann't be edit. It is system group.") if is_system_group==true
   end
   

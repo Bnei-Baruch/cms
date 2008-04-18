@@ -1,6 +1,9 @@
 class Admin::WebsitesController < ApplicationController
 	layout 'admin'
 
+  #check security access
+  before_filter {|c| c.admin_authorize(['System manager'])}
+  
   # GET /websites GET /websites.xml
   def index
     @websites = Website.find(:all, :order => 'name')

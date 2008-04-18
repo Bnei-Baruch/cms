@@ -1,6 +1,8 @@
 class Admin::PropertiesController < ApplicationController
 	layout 'admin'
 
+  before_filter {|c| c.admin_authorize(['System manager'])}
+  
   # GET /properties
   # GET /properties.xml
   def index

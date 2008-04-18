@@ -1,6 +1,7 @@
 class Admin::ResourcesController < ApplicationController
   layout 'admin'
 	before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy ]
+  before_filter {|c| c.admin_authorize(['System manager'])}
   
   # GET /resources GET /resources.xml
   def index

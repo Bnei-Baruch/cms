@@ -1,5 +1,8 @@
 class Admin::ListsController < ApplicationController
 	layout 'admin'
+        
+  before_filter {|c| c.admin_authorize(['System manager'])}
+  
   # GET /lists
   # GET /lists.xml
   def index

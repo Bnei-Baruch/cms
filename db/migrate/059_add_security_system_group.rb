@@ -6,7 +6,7 @@ class AddSecuritySystemGroup < ActiveRecord::Migration
     #create "public group" for anonymous users 
     public_group = Group.find_or_create_by_groupname(:groupname => "Public group", :is_system_group => false )
     #create "anonymous" user for anonymous access
-    public_group.users.find_or_create_by_username(:username => "Anonymous", :user_password =>"bli_kavana")
+    public_group.users.create(:username => "Anonymous", :user_password =>"bli_kavana")
    
   end
 

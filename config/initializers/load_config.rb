@@ -1,0 +1,1 @@
+@config_manager = Configuration::ConfigurationManager.new

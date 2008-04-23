@@ -102,8 +102,7 @@ class Admin::UrlMigrationsController < ApplicationController
     UrlMigration.delete_all() 
   end
 
-
-  def export_complete
+ def export_complete
     @url_migrations = UrlMigration.find(:all)
     @file_name = params[:url_migration][:file_name] + '.csv'
     CSV.open('tmp/' + @file_name, 'w') do |writer|
@@ -112,8 +111,9 @@ class Admin::UrlMigrationsController < ApplicationController
         writer << [@url_migration.source, @url_migration.target, @url_migration.action, @url_migration.state]
       end 
       writer << [nil, nil]
-    end
-
+    end  
+ end
+  
   def import_complete
 	
 	file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)

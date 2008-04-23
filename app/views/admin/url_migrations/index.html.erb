@@ -4,7 +4,7 @@
 <%= link_to 'URL Migration Import', admin_url_migration_path("import") %>&nbsp;|&nbsp;
 <%= link_to 'URL Migration Export', admin_url_migration_path("export") %>&nbsp;|&nbsp;
 <%= link_to 'URL Migration Merge', admin_url_migration_path("merge") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Cleanup', admin_url_migration_path("cleanup") %>
+<%= link_to 'URL Migration Cleanup', admin_url_migration_path("cleanup"), :confirm => 'Are you sure do you want to delete all the data in the table?' %>
 <br /><br />
 <table border="1">
 <thead>
@@ -25,7 +25,7 @@
     <td><%=h url_migration.action %></td>
     <td><%=h url_migration.state %></td>
     <td><%= link_to 'Edit', edit_admin_url_migration_path(url_migration) %></td>
-    <td><%= link_to 'Destroy', admin_url_migration_path(url_migration), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', admin_url_migration_path(url_migration), :confirm => 'Are you sure?' %></td>
   </tr>
 <% end %>
 </table>
@@ -35,5 +35,5 @@
 <%= link_to 'URL Migration Import', admin_url_migration_path("import") %>&nbsp;|&nbsp;
 <%= link_to 'URL Migration Export', admin_url_migration_path("export") %>&nbsp;|&nbsp;
 <%= link_to 'URL Migration Merge', admin_url_migration_path("merge") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Cleanup', admin_url_migration_path("cleanup") %>
+<%= link_to 'URL Migration Cleanup', admin_url_migration_path("cleanup"), :confirm => 'Are you sure do you want to delete all the data in the table?', :method => :delete %>
 

@@ -1,3 +1,13 @@
 <% @title = "URL Migration Export" %>
 
+<% cms_form_for(:url_migration, :url => admin_url_migration_path("export_complete"))  do |f| %>
+        
+        <%= error_messages_for :url_migration %>
+
+        <%= f.label :file_name, "File Name" %>
+        <%= f.text_field :file_name %>
+  
+        <div id="submit"><%= submit_tag "URL Migration Export" %></div>
+<% end %>
+
 <%= link_to 'Back', admin_url_migrations_path %>

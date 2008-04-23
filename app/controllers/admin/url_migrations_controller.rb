@@ -110,7 +110,6 @@ class Admin::UrlMigrationsController < ApplicationController
       for @url_migration in @url_migrations
         writer << [@url_migration.source, @url_migration.target, @url_migration.action, @url_migration.state]
       end 
-      writer << [nil, nil]
     end  
  end
   

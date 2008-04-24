@@ -1,1 +1,1 @@
-@config_manager = Configuration::ConfigurationManager.new
+$config_manager = Configuration::ConfigurationManager.new

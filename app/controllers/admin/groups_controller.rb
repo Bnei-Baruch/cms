@@ -80,7 +80,12 @@ class Admin::GroupsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     if @group.destroy == false
-      flash[:notice]="The group cann't be deleted. It is system group."
+      error_msg = ""
+      @user.errors.each_full{|msg| error_msg = error_msg + msg }
+      if error_msg == ""
+        error_msg = "Can't delete the group." 
+      end
+      flash[:notice]= error_msg
     end
 
     respond_to do |format|

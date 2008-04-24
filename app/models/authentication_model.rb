@@ -147,6 +147,18 @@ class AuthenticationModel
   end
   
   def self.current_user
+    if $session[:user_id].nil?
+      username = $config_manager.appl_settings[:anonymous_login_user][:username]
+      password = $config_manager.appl_settings[:anonymous_login_user][:password]
+      user = User.authenticate(username, password)
+      if user
+        $session[:user_id] = user.id
+        $session[:user_is_admin]=0
+      else
+         logger.error("Anonymos user does not define or banned. Access denied.")
+         raise "Access denied for anonymous user."
+      end
+    end
     $session[:user_id]
   end
   

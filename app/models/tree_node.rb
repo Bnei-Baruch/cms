@@ -70,14 +70,33 @@ class TreeNode < ActiveRecord::Base
   end
 
   class << self
-    # call the DB function 'cms_resource_subtree' to retrieve all the website subtree as tree_node records
-    def get_subtree(website_resource_id)
-      if website_resource_id
-        find_by_sql("select * from cms_resource_subtree(#{website_resource_id})") rescue nil
+
+    # Get tree nodes according to the parameters
+    def get_subtree(args)
+      req_parent = args[:parent].to_s || nil
+      req_resource_type_id = args[:resource_type_id] || 'null'
+      req_is_main = args.has_key?(:is_main) ? args[:is_main] : 'null'                  
+      req_has_url = args.has_key?(:has_url) ? args[:has_url] : 'null'
+      req_depth = args[:depth] || 'null'
+      req_properties = args[:properties] || 'null'
+      if req_parent
+        request = [req_parent, req_resource_type_id, req_is_main, req_has_url, req_depth, req_properties].join(',')
+        find_by_sql("select * from cms_treenode_subtree(#{request})") rescue nil
+        # "select * from cms_treenode_subtree(#{request})"
       else
         nil
       end
     end
+    
+    # call the DB function 'cms_resource_subtree' to retrieve all the website subtree as tree_node records
+    def get_website_subtree(website_resource_id)
+      if website_resource_id
+        get_subtree(website_resource_id)
+      else
+        nil
+      end
+    end
+    
     # def get_subtree(parent = 0, depth = 0, resource_type = nil)
     #   if resource_type == nil
     #     find_by_sql "SELECT  a.* FROM  connectby('tree_nodes', 'id', 'parent_id', 'position',  '#{parent}', #{depth}) 

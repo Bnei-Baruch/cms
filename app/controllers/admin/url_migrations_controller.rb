@@ -93,6 +93,26 @@ class Admin::UrlMigrationsController < ApplicationController
   end
 
   def export
+   	@file_name = 'public/migrations.csv'
+	if File.exist?(@file_name)
+	  File.delete(@file_name) 
+	end
+
+    @url_migrations = UrlMigration.find(:all)
+    CSV.open(@file_name, 'w') do |writer|
+      writer << ['Source', 'Target', 'Action', 'State']
+      for @url_migration in @url_migrations
+        writer << [@url_migration.source, @url_migration.target, @url_migration.action, @url_migration.state]
+      end 
+    end 
+
+	@file_url = 'http://' + request.env["HTTP_HOST"] + '/migrations.csv'
+
+    respond_to do |format|
+      format.html # export.html.erb
+      format.xml  { head :ok }
+    end
+
   end
 
   def merge
@@ -102,17 +122,7 @@ class Admin::UrlMigrationsController < ApplicationController
     UrlMigration.delete_all() 
   end
 
- def export_complete
-    @url_migrations = UrlMigration.find(:all)
-    @file_name = params[:url_migration][:file_name] + '.csv'
-    CSV.open('tmp/' + @file_name, 'w') do |writer|
-      writer << ['Source', 'Target', 'Action', 'State']
-      for @url_migration in @url_migrations
-        writer << [@url_migration.source, @url_migration.target, @url_migration.action, @url_migration.state]
-      end 
-    end  
- end
-  
+ 
   def import_complete
 	
 	file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)

@@ -1,13 +1,13 @@
 <% @title = "URL Migration Export" %>
 
-<% cms_form_for(:url_migration, :url => admin_url_migration_path("export_complete"))  do |f| %>
-        
-        <%= error_messages_for :url_migration %>
+<script type="text/javascript">
 
-        <%= f.label :file_name, "File Name" %>
-        <%= f.text_field :file_name %>
-  
-        <div id="submit"><%= submit_tag "URL Migration Export" %></div>
-<% end %>
+var downloadLocation = <%= @file_url.inspect %>;
+window.onload = function () 
+{
+	t = setTimeout('document.location = downloadLocation', 1000);
+}
+
+</script>
 
 <%= link_to 'Back', admin_url_migrations_path %>

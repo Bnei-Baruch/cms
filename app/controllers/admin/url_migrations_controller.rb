@@ -90,6 +90,7 @@ class Admin::UrlMigrationsController < ApplicationController
   end
   
   def import
+
   end
 
   def export
@@ -119,33 +120,45 @@ class Admin::UrlMigrationsController < ApplicationController
   end
 
   def cleanup
-    UrlMigration.delete_all() 
+    UrlMigration.delete_all "upper(state) = 'DELETED'"
   end
-
+  
  
-  def import_complete
-	
-	file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)
-	update_from_file(file_name, true)
+  def import_complete	
+    file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)
 
     respond_to do |format|
-      format.html # import_complete.html.erb
-      format.xml  { head :ok }
+      if update_from_file(file_name, true)
+        flash[:notice] = 'The file was successfully imported!'
+        format.html # import_complete.html.erb
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "error" }
+        format.xml  { render :xml => @url_migration.errors, :status => :expectation_failed }
+      end
     end
+
   end 
   
 
   def merge_complete
-	
-	file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)
-	update_from_file(file_name, false)
+   file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)
 
     respond_to do |format|
-      format.html # merge_complete.html.erb
-      format.xml  { head :ok }
+      if update_from_file(file_name, false)
+        flash[:notice] = 'The file was successfully merged!'
+        format.html # merge_complete.html.erb
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "error" }
+        format.xml  { render :xml => @url_migration.errors, :status => :expectation_failed }
+      end
     end
   end   
    
+  def error
+  end 
+  
 private ######### PRIVATE FUNCTIONS #########
 
   def sanitize_filename(file_name)
@@ -157,7 +170,6 @@ private ######### PRIVATE FUNCTIONS #########
 
 
   def update_from_file(file_name, delete_existing_migrations)
-
   	if File.exist?(file_name)
 	  File.delete(file_name) 
 	end
@@ -170,9 +182,9 @@ private ######### PRIVATE FUNCTIONS #########
 	    url_migration.update_attributes(:state => "Deleted")
 	  end
 	end
-
+        
 	CSV.open(file_name, 'r') do |row|
-      if (row[0] != "Source")
+        if (row[0] != "Source")
 	    url_migration = UrlMigration.find_by_source(row[0])
 	    if (url_migration)
 	      url_migration.update_attributes(:target => row[1],
@@ -188,10 +200,12 @@ private ######### PRIVATE FUNCTIONS #########
       end
 	  break if !row[0]
 	end
-
+    
 	if File.exist?(file_name)
 	  File.delete(file_name) 
 	end
+        
+       return true
   end
 
 end

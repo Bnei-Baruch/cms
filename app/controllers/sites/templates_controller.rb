@@ -4,15 +4,15 @@ class Sites::TemplatesController < ApplicationController
     host = 'http://' + request.host
     prefix = params[:prefix]
     permalink = params[:id]
-    website = Website.find(:first, :conditions => "domain = '#{host}' and prefix = '#{prefix}'")
+    website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
 
     args = {:permalink => permalink, :website=> website, :controller => self}
-    @presenter = get_presenter(website.hrid, args)
 
-    unless @presenter.node
-      status_404
+    begin
+      @presenter = get_presenter(website.hrid, args)
+    rescue Exception => e
+      render :text => '', :status => 404
       return
-      # debugger
     end
 
     respond_to do |format|
@@ -21,21 +21,21 @@ class Sites::TemplatesController < ApplicationController
     end
 
   end
-  
+
   def redirect_301(url)
-		headers["Status"] = '301 Moved Permanently'
-		redirect_to url
+    headers["Status"] = '301 Moved Permanently'
+    redirect_to url
   end
 
   def redirect_302(url)
-		headers["Status"] = '302 Moved Temporarily'
-		redirect_to url
+    headers["Status"] = '302 Moved Temporarily'
+    redirect_to url
   end
 
   def status_404
-		render :template => @presenter.error_path('status_404'), :status => 404, :layout => false
+    render :template => Sites::Global.error_path('status_404'), :status => 404, :layout => false
   end
-  
+
 
   private     
 

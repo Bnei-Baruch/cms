@@ -28,7 +28,8 @@ class	Configuration::ConfigurationManager
     else
       nil
     end
-  end                                                             
+  end
+                                                               
   # Returns a specific setting for the site
   def get_site_setting(site, setting = nil)
     if setting && site_settings(site) && site_settings(site)[setting.to_sym]

@@ -1,4 +1,4 @@
-class Sites::Global < Sites::Presenter
+class Sites::Global < Presenter::Base
 
   def website_resource
     @website.website_resource

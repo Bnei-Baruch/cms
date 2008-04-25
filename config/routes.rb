@@ -24,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
   end	
 
   # Path to the site
-  map.tpl ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'                                         
+  map.tm ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'                                         
   map.js ':prefix/js/:id' , :controller => 'sites/javascripts' , :action => 'javascript'
   map.css ':prefix/css/:id' , :controller => 'sites/stylesheets' , :action => 'stylesheet'
   map.connect 'images/:image_id/:image_name.:format',

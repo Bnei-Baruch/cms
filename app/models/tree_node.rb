@@ -28,7 +28,7 @@ class TreeNode < ActiveRecord::Base
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (3 <= min_permission_to_child_tree_nodes_cache)
       #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree(resource_id)
+      output = TreeNode.get_subtree({:parent => resource_id})
       if output
         output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
         return false if output.length > 0
@@ -44,7 +44,7 @@ class TreeNode < ActiveRecord::Base
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (4 <= min_permission_to_child_tree_nodes_cache)
       #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree(resource_id)
+      output = TreeNode.get_subtree({:parent => resource_id})
       if output
         output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
         return false if output.length > 0
@@ -91,7 +91,7 @@ class TreeNode < ActiveRecord::Base
     # call the DB function 'cms_resource_subtree' to retrieve all the website subtree as tree_node records
     def get_website_subtree(website_resource_id)
       if website_resource_id
-        get_subtree(website_resource_id)
+        get_subtree({:parent => website_resource_id})
       else
         nil
       end

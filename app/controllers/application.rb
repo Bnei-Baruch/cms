@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
 
 #  private
+#
 
   def admin_authorize(groups=[])
     m_user = User.find_by_id(session[:user_id])
@@ -36,12 +37,26 @@ class ApplicationController < ActionController::Base
          redirect_to(:controller => "login", :action => "login")
       end
     end
-    
-    
   end
-      
+    
+protected
+
   def activate_global_parms
-    $session=session
+     if session[:user_id].nil?
+      username = $config_manager.appl_settings[:anonymous_login_user][:username]
+      password = $config_manager.appl_settings[:anonymous_login_user][:password]
+      user = User.authenticate(username, password)
+        if user
+          session[:user_id] = user.id
+          session[:user_is_admin]=0
+        else
+          logger.error("Anonymos user does not define or banned. Access denied.")
+          raise "Access denied for anonymous user."
+        end
+      end
+      $session=session
+      #UserInfo.current_user=session[:user_id]
+      #UserInfo.user_is_admin=session[:user_is_admin]
   end
   
   def save_refferer_to_session

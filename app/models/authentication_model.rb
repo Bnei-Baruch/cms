@@ -5,6 +5,7 @@ class AuthenticationModel
   #    @ac_type = access_type
       #@tree_node = tree_node
   #end
+  #include UserInfo
   
    NODE_AC_TYPES = {
     #  Displayed        stored in db
@@ -147,22 +148,15 @@ class AuthenticationModel
   end
   
   def self.current_user
-    if $session[:user_id].nil?
-      username = $config_manager.appl_settings[:anonymous_login_user][:username]
-      password = $config_manager.appl_settings[:anonymous_login_user][:password]
-      user = User.authenticate(username, password)
-      if user
-        $session[:user_id] = user.id
-        $session[:user_is_admin]=0
-      else
-         logger.error("Anonymos user does not define or banned. Access denied.")
-         raise "Access denied for anonymous user."
-      end
-    end
+    # UserInfo.current_user
+   # current_user
     $session[:user_id]
   end
   
   def self.current_user_is_admin?
+    #UserInfo.user_is_admin==1
     $session[:user_is_admin]==1
+    #user_is_admin==1
   end
+
 end

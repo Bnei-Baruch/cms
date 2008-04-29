@@ -28,7 +28,7 @@ class TreeNode < ActiveRecord::Base
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (3 <= min_permission_to_child_tree_nodes_cache)
       #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree({:parent => resource_id})
+      output = TreeNode.get_subtree({:parent => id})
       if output
         output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
         return false if output.length > 0
@@ -44,7 +44,7 @@ class TreeNode < ActiveRecord::Base
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (4 <= min_permission_to_child_tree_nodes_cache)
       #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree({:parent => resource_id})
+      output = TreeNode.get_subtree({:parent => id})
       if output
         output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
         return false if output.length > 0
@@ -60,7 +60,14 @@ class TreeNode < ActiveRecord::Base
   # Embedded resources won't have permalink
 
   def after_find
+    #if user is admin set max permission
+    if AuthenticationModel.current_user_is_admin?
+      self.ac_type ||= 4 #"Administrating"
+    end
     #set max access type by current user
+    if attribute_present?(:max_user_permission)
+      self.ac_type ||= self.max_user_permission.to_i
+    end
     self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
   end 
 
@@ -81,7 +88,7 @@ class TreeNode < ActiveRecord::Base
       req_properties = args[:properties] || 'null'
       if req_parent
         request = [req_parent, req_resource_type_id, req_is_main, req_has_url, req_depth, req_properties].join(',')
-        find_by_sql("select * from cms_treenode_subtree(#{request})") rescue nil
+        find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from cms_treenode_subtree(#{request})") rescue nil
         # "select * from cms_treenode_subtree(#{request})"
       else
         nil
@@ -118,9 +125,15 @@ class TreeNode < ActiveRecord::Base
       output.delete_if {|x| x.ac_type == 0 }
       output
     end
+    
+    alias :old_find :find
+    def find(*args)
+      output=self.old_find(*args)
+      output
+    end
 
     def find_as_admin(tree_node_id)
-      res = old_find_by_sql "select * from tree_nodes where id=#{tree_node_id}"
+      res = old_find_by_sql "select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from tree_nodes where id=#{tree_node_id}"
       if res.length == 1
         return res[0]
       end
@@ -189,8 +202,8 @@ class TreeNode < ActiveRecord::Base
       return result 
     end
 
-    chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
-    where parent_id =#{id}")
+    chields =  TreeNode.old_find_by_sql("Select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * 
+      from tree_nodes where parent_id =#{id}")
     chields.each{ |tn|
       #get current node permission
       if tn.ac_type < result

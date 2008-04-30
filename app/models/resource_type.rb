@@ -70,6 +70,10 @@ class ResourceType < ActiveRecord::Base
 		find(:all).collect{|rt| [rt.name, rt.id]}.sort
 	end
 	
+	def self.get_resource_type_by_hrid(my_hrid)
+	 find_by_hrid(my_hrid)
+	end
+	
 	def get_associations
 		Association.find_all_by_parent_id(self.id)
 	end

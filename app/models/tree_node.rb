@@ -28,7 +28,7 @@ class TreeNode < ActiveRecord::Base
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (3 <= min_permission_to_child_tree_nodes_cache)
       #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree({:parent => id})
+      output = TreeNode.get_subtree(:parent => id)
       if output
         output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
         return false if output.length > 0
@@ -44,7 +44,7 @@ class TreeNode < ActiveRecord::Base
     min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
     if (4 <= min_permission_to_child_tree_nodes_cache)
       #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree({:parent => id})
+      output = TreeNode.get_subtree(:parent => id)
       if output
         output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
         return false if output.length > 0
@@ -79,26 +79,69 @@ class TreeNode < ActiveRecord::Base
   class << self
 
     # Get tree nodes according to the parameters
+    # Hash of params:
+    # :parent => 10 - integer - required
+    # :resource_type_hrids => [10,5,3] - array of strings - optional - default: show all
+    # :is_main => true - boolean - optional - default: show all
+    # :has_url => false - boolean - optional - default: show all
+    # :depth => 3 - integer - optional - default: get all the subtree
+    # :properties => {:description => 'a very good article', :is_hidden => true} - 
+    #   hash of resource properties, when the key is the hrid of the property 
+    #   and the value is the value of the resource property. - optional - default: show all
+    # :current_page => 3 - integer - optional - default: paging is disabled
+    # :items_per_page => 10 - integer - optional - default: 25 items per page
+    # :return_parent => true - boolean - optional - default: false
+    # 
+    # Examples: 
+    # get_subtree(:parent => 17, :resource_type_hrids => ['website', 'content_page'], :depth => 3, :properties => {:description => 'yes sair', :title => 'good title'}, )
+    # get_subtree(:parent => 17)
+    # get_subtree(:parent => 17, :depth => 1)
+    # get_subtree(:parent => 17, :depth => 1, :is_main => true, :has_url => true)
     def get_subtree(args)
-      req_parent = args[:parent].to_s || nil
-      req_resource_type_id = args[:resource_type_id] || 'null'
+      req_parent = args[:parent] || nil
+      unless args.is_a?(Hash) && req_parent
+        return []
+      end
+      if args.has_key?(:resource_type_hrids)
+        req_resource_type_hrids = 'ARRAY[' + args[:resource_type_hrids].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
+      else
+        req_resource_type_hrids = 'null'
+      end
       req_is_main = args.has_key?(:is_main) ? args[:is_main] : 'null'                  
       req_has_url = args.has_key?(:has_url) ? args[:has_url] : 'null'
       req_depth = args[:depth] || 'null'
-      req_properties = args[:properties] || 'null'
-      if req_parent
-        request = [req_parent, req_resource_type_id, req_is_main, req_has_url, req_depth, req_properties].join(',')
-        find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from cms_treenode_subtree(#{request})") rescue nil
-        # "select * from cms_treenode_subtree(#{request})"
+      if args.has_key?(:properties)
+        req_properties = 'ARRAY[' + args[:properties].to_a.flatten.map{|e| "'" + e.to_s + "'"}.join(',') + ']'
       else
-        nil
+        req_properties = 'null'
       end
-    end
+      req_current_page = args[:current_page] || 'null'
+      req_items_per_page = args[:items_per_page] || 'null'
+      req_return_parent = args.has_key?(:return_parent) ? args[:return_parent] : 'null'
+      if req_parent
+        request = [
+          req_parent, 
+          req_resource_type_hrids, 
+          req_is_main, 
+          req_has_url, 
+          req_depth, 
+          req_properties,
+          req_current_page,
+          req_items_per_page,
+          req_return_parent].join(',')
+          if args[:test]
+            return "select * from cms_treenode_subtree(#{request})"
+          end
+          find_by_sql("select * from cms_treenode_subtree(#{request})") rescue []
+        else
+          []
+        end
+      end
     
     # call the DB function 'cms_resource_subtree' to retrieve all the website subtree as tree_node records
-    def get_website_subtree(website_resource_id)
-      if website_resource_id
-        get_subtree({:parent => website_resource_id})
+    def get_website_subtree(website_tree_node_id)
+      if website_tree_node_id
+        get_subtree(:parent => website_tree_node_id)
       else
         nil
       end
@@ -144,7 +187,7 @@ class TreeNode < ActiveRecord::Base
   def before_destroy
     #check if has permission for destroy action
     if not can_administrate?
-      logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+      logger.error("User #{AuthenticationModel.current_user} has no permission " + 
       "for destroy tree_node: #{id} resource: #{resource_id}")
       raise "User #{AuthenticationModel.current_user} has not permission " + 
       "for destroy tree_node: #{id} resource: #{resource_id}"
@@ -155,7 +198,7 @@ class TreeNode < ActiveRecord::Base
   def before_update
     #check if has permission for edit action
     if not can_edit?
-      logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+      logger.error("User #{AuthenticationModel.current_user} has no permission " + 
       "for edit tree_node: #{id} resource: #{resource_id}")
       raise "User #{AuthenticationModel.current_user} has not permission " + 
       "for edit tree_node: #{id} resource: #{resource_id}"
@@ -167,7 +210,7 @@ class TreeNode < ActiveRecord::Base
     #the parant tree_node can_create_child?
     if parent_id && parent_id > 0
        if not TreeNode.find_as_admin(parent_id).can_create_child?
-          logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+          logger.error("User #{AuthenticationModel.current_user} has no permission " + 
           "for creation child to tree_node: #{parent_id}")
           raise "User #{AuthenticationModel.current_user} has not permission " + 
           "for creation child to tree_node: #{parent_id}"
@@ -176,7 +219,7 @@ class TreeNode < ActiveRecord::Base
         #if parent_id is nil or 0 (it is root tree_node)
         #only Adinistrator group can create it
         if not AuthenticationModel.current_user_is_admin?
-           logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+           logger.error("User #{AuthenticationModel.current_user} has no permission " + 
             "for creation root tree_node, only Adminitrator can create child tree_node.")
           raise "User #{AuthenticationModel.current_user} has not permission " + 
             "for creation root tree_node, only Adminitrator can create child tree_node."

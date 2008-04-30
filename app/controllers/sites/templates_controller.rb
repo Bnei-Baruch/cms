@@ -116,9 +116,9 @@ class Sites::TemplatesController < ApplicationController
   end
 
   def get_template_path(sitename, groupname, resource, view_mode)
-    if File.exists?("#{RAILS_ROOT}/app/views/sites/#{sitename}/templates/#{resource}/#{view_mode}.html.erb")
+    if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/templates/#{resource}/#{view_mode}.html.erb")
       "sites/#{sitename}/templates/#{resource}/#{view_mode}"
-    elsif File.exists?("#{RAILS_ROOT}/app/views/sites/#{groupname}/templates/#{resource}/#{view_mode}.html.erb")
+    elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/templates/#{resource}/#{view_mode}.html.erb")
       "sites/#{groupname}/templates/#{resource}/#{view_mode}"
     else
       "sites/global/templates/#{resource}/#{view_mode}"
@@ -126,9 +126,9 @@ class Sites::TemplatesController < ApplicationController
   end
 
   def get_layout_path(sitename, groupname, resource)
-    if File.exists?("#{RAILS_ROOT}/app/views/sites/#{sitename}/layouts/#{resource}.html.erb")
+    if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/layouts/#{resource}.html.erb")
       "#{sitename}/layouts/#{resource}"
-    elsif File.exists?("#{RAILS_ROOT}/app/views/sites/#{groupname}/layouts/#{resource}.html.erb")
+    elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/layouts/#{resource}.html.erb")
         "#{groupname}/layouts/#{resource}"
     else 
       "global/layouts/#{resource}"

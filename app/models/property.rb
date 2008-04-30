@@ -20,8 +20,8 @@ class Property < ActiveRecord::Base
 	validates_presence_of :name
 	validate	:presence_of_hrid # This permits us to report :identifier instead of
   # :hrid without rewriting functions
-	validates_uniqueness_of :name
-	validates_uniqueness_of :hrid, :as => :identifier # The function was rewritten 
+	validates_uniqueness_of :name, :scope => :resource_type_id
+	validates_uniqueness_of :hrid, :as => :identifier, :scope => :resource_type_id # The function was rewritten 
   # (new flag :as was added)
 	validate :correctness_of_default_code
 

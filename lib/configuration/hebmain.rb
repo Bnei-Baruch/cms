@@ -2,10 +2,10 @@
 module	Configuration::Hebmain
   SETTINGS = {
 # define the site view directory under app/views/sites/
-    :site_dir => 'hebmain', 
+    :site_name => 'hebmain', 
  # define the group view directory under app/views/sites/ - 
  # this is an override after the content is not found in 'site_dir'
-    :group_dir => 'mainsites',
+    :group_name => 'mainsites',
  # define the interface language (for the frontend). This is powered by a multilingual plugin
     :language => 'hebrew'
   }

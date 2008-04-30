@@ -1,12 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  # This method renders a widget
-  def render_widget(args = {})
-    widget_name = args[:widget].camelize
-    eval "#{widget_name}.new(args, self).render"
-  end
-  
   # This code was taken from active_record_helper.rb
   def rp_error_messages_for(*params)
     options = params.extract_options!.symbolize_keys

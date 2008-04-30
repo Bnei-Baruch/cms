@@ -5,7 +5,7 @@ class Sites::Global < Presenter::Base
   end
 
   def website_node
-    website_resource.tree_nodes.main
+    website_resource.tree_nodes.main rescue nil
   end                      
   
   def website_subtree
@@ -23,6 +23,7 @@ class Sites::Global < Presenter::Base
   def node_name
     node.resource.name
   end
+  
   def node_type
     node_resource_type.name
   end
@@ -35,24 +36,18 @@ class Sites::Global < Presenter::Base
     node.resource.properties(property)
   end
 
-  def sitename
-    @website.hrid
+  def site_name
+    @controller.site_name
+  end
+
+  def group_name
+    @controller.group_name
   end
 
   def home
     @website.domain + ':3000' + '/' + @website.prefix
   end
   
-  # Used to show the main sections (environments) of the site
-  # def main_sections
-  #   result = website_node.children || nil
-  #   
-  #   if result
-  #     result.select do |tree_node|
-  #       tree_node.resource.resource_type ==
-  #     end
-  #   end
-  # end
 
   def node_template_path
     template_path(node_resource_type.hrid, 'full')
@@ -66,20 +61,21 @@ class Sites::Global < Presenter::Base
     template_path('error', view_mode)
   end
 
-  def template_path(object, view_mode)
-    if File.exists?("#{RAILS_ROOT}/app/views/sites/#{sitename}/templates/#{object}")
-      "sites/#{sitename}/templates/#{object}/#{view_mode}"
-    else
-      "sites/global/templates/#{object}/#{view_mode}"
-    end  
+  def template_path(resource, view_mode)
+    @controller.template_path(resource, view_mode)
   end
 
-  def layout_path(object)
-    if File.exists?("#{RAILS_ROOT}/app/views/sites/#{sitename}/layouts/#{object}")
-      "sites/#{sitename}/templates/#{object}"
-    else
-      "sites/global/layouts/#{object}"
-    end  
+  def layout_path(resource)
+    @controller.layout_path(resource)
   end
+
+  def widget_path(resource)
+    @controller.widget_path(resource)
+  end
+
+  def widget_class(resource)
+    @controller.widget_class(resource)
+  end
+    
 
 end

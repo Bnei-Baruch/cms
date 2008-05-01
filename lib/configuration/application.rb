@@ -9,7 +9,10 @@ module	Configuration::Application
     :language => 'english',
 # List of all modules that will be registered on application init. 
 # if you want your site config to be used you should load it
-    :registered_config_modules => ['hebmain', 'mainsites'] 
+    :registered_config_modules => ['hebmain', 'mainsites'],
+
+# Url Migration definitions 
+	:url_migration_action => {:action_404 => '404', :action_301 => '301'}
   }
 
 end

@@ -125,10 +125,9 @@ class Admin::UrlMigrationsController < ApplicationController
   
  
   def import_complete	
-    file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)
-
+	buf = params['upload']['datafile'].read
     respond_to do |format|
-      if update_from_file(file_name, true)
+      if UrlMigration.update_from_file(buf, true)
         flash[:notice] = 'The file was successfully imported!'
         format.html # import_complete.html.erb
         format.xml  { head :ok }
@@ -142,10 +141,10 @@ class Admin::UrlMigrationsController < ApplicationController
   
 
   def merge_complete
-   file_name = "tmp/files/" + sanitize_filename(params["upload"]['datafile'].original_filename)
+	buf = params['upload']['datafile'].read
 
     respond_to do |format|
-      if update_from_file(file_name, false)
+      if UrlMigration.update_from_file(buf, false)
         flash[:notice] = 'The file was successfully merged!'
         format.html # merge_complete.html.erb
         format.xml  { head :ok }
@@ -159,53 +158,4 @@ class Admin::UrlMigrationsController < ApplicationController
   def error
   end 
   
-private ######### PRIVATE FUNCTIONS #########
-
-  def sanitize_filename(file_name)
-    # get only the filename, not the whole path (from IE)
-	just_filename = File.basename(file_name) 
-	# replace all none alphanumeric, underscore or perioids with underscore
-	just_filename.sub(/[^\w\.\-]/,'_') 
-  end
-
-
-  def update_from_file(file_name, delete_existing_migrations)
-  	if File.exist?(file_name)
-	  File.delete(file_name) 
-	end
-
-	DataFile.save(params["upload"])
-
-	if (delete_existing_migrations)
-  	  url_migrations = UrlMigration.find(:all)
-	  url_migrations.each do |url_migration|
-	    url_migration.update_attributes(:state => "Deleted")
-	  end
-	end
-        
-	CSV.open(file_name, 'r') do |row|
-        if (row[0] != "Source")
-	    url_migration = UrlMigration.find_by_source(row[0])
-	    if (url_migration)
-	      url_migration.update_attributes(:target => row[1],
-		                                  :action => row[2],
-										  :state  => row[3])
-	    else
-		  url_migration = UrlMigration.new(:source => row[0],
-										   :target => row[1],
-										   :action => row[2],
-										   :state  => row[3])		
-	    end
-	    err = url_migration.save
-      end
-	  break if !row[0]
-	end
-    
-	if File.exist?(file_name)
-	  File.delete(file_name) 
-	end
-        
-       return true
-  end
-
 end

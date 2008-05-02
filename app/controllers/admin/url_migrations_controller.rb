@@ -5,10 +5,18 @@ class Admin::UrlMigrationsController < ApplicationController
   #check security access
   before_filter {|c| c.admin_authorize(['System manager'])}
   
+
   # GET /url_migrations
   # GET /url_migrations.xml
   def index
     @url_migrations = UrlMigration.find(:all)
+
+	@run_export_window = false
+	if $export_file
+	  $export_file = false	
+	  @run_export_window = true
+	  @file_url = 'http://' + request.env["HTTP_HOST"] + '/migrations.csv'
+	end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -107,10 +115,10 @@ class Admin::UrlMigrationsController < ApplicationController
       end 
     end 
 
-	@file_url = 'http://' + request.env["HTTP_HOST"] + '/migrations.csv'
+	$export_file = true
 
     respond_to do |format|
-      format.html # export.html.erb
+      format.html { redirect_to(admin_url_migrations_url) }
       format.xml  { head :ok }
     end
 
@@ -123,7 +131,7 @@ class Admin::UrlMigrationsController < ApplicationController
     UrlMigration.delete_all "upper(state) = 'DELETED'"
 
     respond_to do |format|
-	  flash[:notice] = 'All the URL Migrations were deleted!'
+	  flash[:notice] = 'All the deleted URL Migrations were cleaned up!'
       format.html { redirect_to(admin_url_migrations_url) }
       format.xml  { head :ok }
     end

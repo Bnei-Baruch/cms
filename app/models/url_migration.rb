@@ -6,6 +6,8 @@ require 'csv'
 
 class UrlMigration < ActiveRecord::Base
   
+  validates_presence_of :source, :action, :state
+  
   def self.get_action_and_target(source)
 	migration = find :first, :conditions => [ "source = ? AND upper(state) = ?", source, "ACTIVE" ]
 	if (migration)
@@ -44,6 +46,30 @@ class UrlMigration < ActiveRecord::Base
     
 	return true
   end
-
+  
+protected
+def valid_arr(arr, error_string)
+  found = false
+  not_first = false
+  error_details = ""
+  for action_name in arr
+    if not_first
+      error_details += " or "
+    else
+      not_first = true
+    end
+    error_details += action_name[1]
+          
+    if action == action_name[1]
+      found = true
+      break
+    end
+  end
+  errors.add(:action, error_string + error_details) if found == false
+end
+  
+def validate
+  valid_arr($config_manager.appl_settings[:url_migration_action], "Action must be: ")
 end
 
+end

@@ -14,6 +14,7 @@ class Sites::TemplatesController < ApplicationController
     prefix = params[:prefix]
     permalink = params[:id]
     @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
+    @site_name = site_name
 
     args = {:permalink => permalink, :website=> @website, :controller => self}
     begin
@@ -34,6 +35,17 @@ class Sites::TemplatesController < ApplicationController
     end
 
   end
+  
+  def stylesheet
+    website_id = params[:website_id]
+    style_id = params[:css_id]
+    @website = Website.find(website_id)
+    @site_name = site_name
+    respond_to do |format|
+      format.css { render :template => stylesheets_path(style_id)}
+    end
+    
+  end
 
   def redirect_301(url)
     headers["Status"] = '301 Moved Permanently'
@@ -50,7 +62,7 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def head_status_404
-    head :status => 404
+    render :file => 'public/404.html', :status => 404
   end
   
   def site_settings
@@ -67,6 +79,10 @@ class Sites::TemplatesController < ApplicationController
   
   def template_path(resource, view_mode)
     get_template_path(site_name, group_name, resource, view_mode)
+  end
+
+  def stylesheets_path(style_name)
+    get_stylesheets_path(site_name, group_name, style_name)
   end
 
   def layout_path(resource)
@@ -100,28 +116,43 @@ class Sites::TemplatesController < ApplicationController
     w_class = widget_class(args[:widget])
     widget = w_class.new(args, @presenter)
     render_options = widget.render_me.merge({:locals => {:widget => widget}})
-    render render_options
+    if render_options.has_key?(:partial)
+      render_to_string render_options
+    else
+      render render_options
+    end
   end
   
   private     
 
   def get_presenter(sitename, groupname, args)
     if File.exists?("#{RAILS_ROOT}/app/models/sites/#{sitename}.rb")
-      eval "#{sitename.camelize}.new(args)"
+      klass = 'sites/' + sitename
     elsif File.exists?("#{RAILS_ROOT}/app/models/sites/#{groupname}.rb")
-      eval "#{groupname.camelize}.new(args)"
+      klass = 'sites/' + groupname
     else
-      Global.new(args)
+      klass = 'sites/global'
     end  
+    klass.camelize.constantize.new(args)
   end
 
   def get_template_path(sitename, groupname, resource, view_mode)
     if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/templates/#{resource}/#{view_mode}.html.erb")
-      "sites/#{sitename}/templates/#{resource}/#{view_mode}"
+      "#{sitename}/templates/#{resource}/#{view_mode}"
     elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/templates/#{resource}/#{view_mode}.html.erb")
-      "sites/#{groupname}/templates/#{resource}/#{view_mode}"
+      "#{groupname}/templates/#{resource}/#{view_mode}"
     else
-      "sites/global/templates/#{resource}/#{view_mode}"
+      "global/templates/#{resource}/#{view_mode}"
+    end  
+  end
+
+  def get_stylesheets_path(sitename, groupname, stylename)
+    if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/stylesheets/#{stylename}.css.erb")
+      "#{sitename}/stylesheets/#{stylename}"
+    elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/stylesheets/#{stylename}.css.erb")
+      "#{groupname}/stylesheets/#{stylename}"
+    else
+      "global/stylesheets/#{stylename}"
     end  
   end
 

@@ -36,6 +36,11 @@ class Sites::Global < Presenter::Base
     node.resource.properties(property)
   end
 
+  # Alias for node_resource_properties method for shorter name
+  def nrp(property = nil)
+    node_resource_properties(property)
+  end
+  
   def site_name
     @controller.site_name
   end

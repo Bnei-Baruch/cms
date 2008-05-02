@@ -1,2 +1,18 @@
-test1234
-<%= render_widget :type => 'partial', :widget => 'website' %>
+<% content_for :title do %>
+	<%=@presenter.nrp('title').value %>
+<% end %>
+<p>כותרת ראשית:</p>
+<p><%=@presenter.nrp('title').value %></p>
+<br />
+<p>כותרת משנה:</p>
+<p><%=@presenter.nrp('small_title').value %></p>
+<br />
+<p>תת כותרת:</p>
+<p><%=@presenter.nrp('sub_title').value %></p>
+<br />
+<p>מאת:</p>
+<p><%=@presenter.nrp('writer').value %></p>
+<br />
+<p>תמונה:</p>
+<%= get_file_html_url(@presenter.nrp('main_image').attachment) %>
+<%= request.server_port %>

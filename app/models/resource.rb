@@ -106,7 +106,8 @@ class Resource < ActiveRecord::Base
   # convinient access to the properties of the resource
   def properties(property = nil)
     if property
-      resource_properties.select{|rp| rp.property.hrid == property} rescue nil
+      result = resource_properties.select{|rp| rp.property.hrid == property} rescue nil
+      result.size == 1 ? result[0] : result
     else
       resource_properties
     end

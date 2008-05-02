@@ -1,30 +1,190 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+	<head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta http-equiv="Content-language" content="utf8" /> 
-	<title><%= yield :title %></title>
-	<%= javascript_include_tag :defaults, 'lowpro' %>
-	<%= stylesheet_link_tag 'reset-fonts-grids' %>
-	<%= stylesheet_link_tag 'base-min' %>
+	<meta http-equiv="Content-language" content="utf8"/>
+	<title>hebkab</title>
+	<%= stylesheet_link_tag 'reset-fonts-grids', 'base-min', get_css_url('inner_page'), :media => 'screen', :rel => 'stylesheet', :title => "no title", :charset => "utf-8"  %>
 </head>
 <body>
 
 	<div id="doc2" class="yui-t4">
-		<div id="hd"><h1><%= yield :title %> title</h1></div>
+		<div id="hd">
+			<!--Header-->
+			<%= render_widget :type => 'partial', :widget => 'content_header' %>
+		</div>
 		<div id="bd">
 			<div id="yui-main">
 				<div class="yui-b">
 					<div class="yui-ge">
-						<div class="yui-u first"><%= yield %></div>
-						<div class="yui-u">Related material</div>
+						<div class="menu">
+							<%= render_widget :type => 'partial', :widget => 'sections', :view_mode => 'list' %>
+						</div>
+						<div class="h1">
+							<img src="<%= domain %>/images/<%= @site_name %>/top-right.gif" class="right" alt="" /><img class="left" src="<%= domain %>/images/<%= @site_name %>/top-left.gif" alt="" />
+							חגים בקבלה  |  ט”ו בשבט
+						</div>
+						<div class="breadcrumbs">
+							<a href="#" title="">קבלה לפי נושאים</a><span class="gt"> &gt; </span><a href="#" title="">חגים בקבלה</a><span class="gt"> &gt; </span>ט”ו בשבט
+						</div>
+						<div class="yui-u first">
+							<div class="content">
+								<h1>ט"ו בשבט - חג המקובלים</h1>
+								<h2>חג הצמיחה הרוחנית</h2>
+								<div class="descr">
+									ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. עתה, לאחר שרוב הגשמים ירדו על האדמה וכל התנאים בשלים להתפתחות חדשה, מתחיל תהליך מופלא שבסופו עתיד האילן להניב פירות.
+								</div>
+								<div class="author">
+									<span class="left">תאריך: 12.03.08</span>
+									<span class="right">מאת: <a href="mailto:XX@yy.com"><img src="<%= domain %>/images/<%= @site_name %>/email.gif" alt="email" /> אביהו סופר</a></span>
+								</div>
+								<div class="item">
+									<h3>תולדות החג</h3>
+									<p>לאורך דורות, נעזרו המקובלים בדרך התפתחות האילן, כדי לתאר עבורנו את התהליך שעובר האדם - מתחילת דרכו ועד שהוא מגיע אל השלמות. המקובלים תיארו בצורה חיה וברורה, מתוך ניסיונם האישי את תהליך הצמיחה שלנו, שסופו להצמיח פירות רוחניים מתוקים ועסיסיים. בכתביהם הם תיארו את ט"ו בשבט כחג המסמל את נקודת השיא שאליה צריכה ויכולה להגיע הבריאה כולה, והמשילו את הנקודה הזו לפרי בשל.</p>
+									<div class="image"><img src="<%= domain %>/images/<%= @site_name %>/trees.jpg" alt="שטילת עצים" /><br/><a href="#" title="Magnify"><img alt="magnify" src="<%= domain %>/images/<%= @site_name %>/m-glass.gif"/></a> שטילת עצים</div>
+									<p>המועד שבו הפך ט"ו בשבט לחג אינו ברור: יש האומרים שזה החל כבר מתקופת המשנה ויש שמייחסים זאת למאה ה-16, שבה קיבל ט"ו בשבט משמעות מיוחדת על ידי מקובלי צפת, שאף קבעו את "סדר ליל שמחת האילנות". הם נהגו ללבוש ביום זה בגדי חג, לקשט את השולחנות בפרחים ובענפי הדסים ולערוך אותם עם שפע פירות ארץ ישראל ויין. אז נהגו המקובלים לשבת וללמוד מתוך ספר הזוהר.</p>
+									<p>המקובלים שייחסו חשיבות גדולה מאוד לחג זה, קבעו אותו כסמל להזדמנות שיש לכל אחד מאיתנו, לקטוף את הפרי הטוב ביותר שמחכה לנו - חיים רוחניים.</p>
+								</div>
+								<div class="item">
+									<h3>העולם שמחוץ לצנון</h3>
+									<p>"אותה התולעת שנולדה בתוך הצנון, והיא יושבת שם וחושבת, שכל העולם הוא כל כך מר, חשוך וקטן, כמדת הצנון שהיא נולדה בו. אבל ברגע שבקעה את קליפת הצנון, וחוטפת מבט מבחוץ לצנון, היא תמהה, ואומרת, אני חשבתי שכל העולם הוא כמדת הצנון שנולדתי בו, ועתה אני רואה לפני עולם גדול נאור אדיר ויפה להפליא" (בעל הסולם, הקדמה לספר הזוהר, אות מ').</p>
+									<p>במהלך חיינו אנו מציבים לעצמנו מטרה כלשהי ומקווים שעם השגתה נהיה מאושרים. הפרי, השכר, שעומד לנגד עינינו באותו רגע נראה לנו כה מושך, עד שאנו משקיעים מאמצים מרובים לשם השגתו. אנו מקדישים מספר שנים לרכישת מקצוע, מקימים משפחה, ומוצאים את עצמנו עמלים במשך רוב החיים כדי לפרנס את ילדינו ולהבטיח את עתידם.</p>
+									<p>לפעמים, כשרצינו לרענן מעט את חיינו, חסכנו כסף כדי לצאת לטיול ברחבי העולם. אז, זה היה "הפרי" שבו חפצנו, אך ההנאה ממנו חלפה מהר מדי ושוב חזרנו לשגרת החיים.</p>
+									<div class="full-image"><img src="<%= domain %>/images/<%= @site_name %>/apple-tree.jpg" alt="עץ תפוחים" /><br/><a href="#" title="Magnify"><img alt="magnify" src="<%= domain %>/images/<%= @site_name %>/m-glass.gif"/></a> עץ תפוחים</div>
+									<p>אם נסתכל על חיינו, נראה שהשאיפות שלנו משתנות ללא הרף: מה שהיה הפרי של אתמול מתחלף היום במטרה אחרת וכבר אינו נראה מושך כבעבר. דומה שגם הדברים שהשגנו, טובים ככל שיהיו, אינם מספקים אותנו, ויש דבר מה בתוכנו שאינו נותן לנו מנוח, אלא דוחף אותנו לחפש בכל רגע פרי גדול ונעלה יותר.</p>
+									<p>החיים שלנו הם למעשה מרדף אין-סופי אחר האושר, מרדף שפעמים רבות מעורר בנו תסכול ואכזבה. לכן, בנקודה מסוימת, אנו מתחילים לחוש שהעולם הופך ללא מספק ולקטן מדי.</p>
+								</div>
+								<div class="item">
+									<h3>צמיחה: הוראות הפעלה</h3>
+									<p>"הנה כתוב 'כי האדם עץ השדה'. היינו כל העבודות שנוהגים באילנות שיהיו מוכשרים להוציא פירות נוהגים גם באדם... ועניין פירות הוא תכליתו של האדם" (הרב ברוך שלום אשלג, אגרת י"ח).</p>
+									<p>במהלך ההיסטוריה עמלו המקובלים כדי להתאים את חכמת הקבלה לזמן מיוחד, שבו יהיה הדור בשל והיא תהיה חייבת להתגלות ברבים, לזמננו.</p>
+								</div>
+								<div class="item">
+									<h3 class="video">כי האדם עץ השדה</h3>
+									<div class="full-video">
+										<p>“כי האדם עץ השדה” (תהילים ב’).“כי האדם עץ השדה” (תהילים ב’).“כי האדם עץ השדה” (תהילים ב’).“כי האדם עץ השדה” (תהילים ב’).</p>
+										<img src="<%= domain %>/images/<%= @site_name %>/player/player.jpg" alt="player" />
+									</div>
+									<div class="embed">
+										<span class="text">&nbsp;&nbsp;Embed</span>
+										<input id="addr" value='&lt;object width="425" height=...' readonly="readonly" onclick="javascript:document.getElementById('addr').focus();document.getElementById('addr').select();"/>
+										<span class="services"><img src="<%= domain %>/images/<%= @site_name %>/player/pipe.gif" alt="" /><a href="#" title="arrow"><img src="<%= domain %>/images/<%= @site_name %>/player/arrow.gif" alt="arrow"/></a><img src="<%= domain %>/images/<%= @site_name %>/player/pipe.gif" alt="" /><a href="#" title="email"><img src="<%= domain %>/images/<%= @site_name %>/email.gif" alt="email" /></a></span>
+									</div>
+									<div class="clear"> </div>
+								</div>
+								<div class="item">
+									<div class="video"><img src="<%= domain %>/images/<%= @site_name %>/play.jpg" alt="play" /><a href="#" title="">ט“ו בשבט - חג הצמיחה הרוחנית</a>  |  אורך הסרט: 02:55</div>
+								</div>
+								<div class="item">
+									<h3>להכין את הקרקע</h3>
+									<p>"עד שהאדם יהיה מוכשר להוציא פירות מוכרחים לעבור עליו כל העבודות שנוהגים באילנות" (הרב ברוך שלום אשלג, אגרת י"ח).</p>
+								</div>
+								<div class="more">
+									<h3>עוד<br/>במדור...</h3>
+									<img src="<%= domain %>/images/<%= @site_name %>/more.jpg" alt="" />
+									<div class="article">
+										<h4>זכר ליציאת מצריים</h4>
+										<p>מה היא המשמעות הקבלית של חג הפסח? הרב לייטמן מסביר מה הוא פסח לפי הקבלה.<br/><a href="#" title="more...">לכתבה...</a></p>
+									</div>
+									<div class="clear"> </div>
+								</div>
+								<div class="services">
+									<a href="#" title="email"><img src="<%= domain %>/images/<%= @site_name %>/email.gif" alt="email" /> שלח לחבר...</a>
+									<a href="#" title="print"><img src="<%= domain %>/images/<%= @site_name %>/print.gif" alt="print" /> הדפס...</a>
+									<a href="#" title="comment"><img src="<%= domain %>/images/<%= @site_name %>/comment.gif" alt="comment" /> הוסף תגובה</a>
+								</div>
+								<div class="comments">
+									<h3>תגובות</h3>
+									<div class="comment">
+									</div>
+									<div class="comment">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="yui-u">
+							<div class="related">
+								<div class="image"><img src="<%= domain %>/images/<%= @site_name %>/flovers.jpg" alt="Flovers" />פריחת השקדיה</div>
+								<div class="box">
+									<div class="box-top">&nbsp;</div>
+									<div class="box-mid">
+										<h4>מאמרים נוספים בנושא:</h4>
+										<ul>
+											<li><a href="#" title="">חג לאילנות</a></li>
+											<li><a href="#" title="">מה נאה אילן זה</a></li>
+											<li><a href="#" title="">תהליך צמיחה רוחני</a></li>
+											<li><a href="#" title="">ט”ו בשבט ברוחניות</a></li>
+										</ul>
+									</div>
+									<div class="box-bot">&nbsp;</div>
+								</div>
+								<div class="box">
+									<div class="box-top">&nbsp;</div>
+									<div class="box-mid">
+									<h4>קישורים למקורות:</h4>
+										<ul>
+											<li><a href="#" title="">חג לאילנות <span class="gray">(הרב”ש)</span></a></li>
+											<li><a href="#" title="">מה נאה אילן זה <span class="gray">(בעל הסולם)</span></a></li>
+											<li><a href="#" title="">תהליך צמיחה רוחני <span class="gray">(בעל הסולם)</span></a></li>
+											<li><a href="#" title="">ט”ו בשבט ברוחניות <span class="gray">(בעל הסולם)</span></a></li>
+										</ul>
+									</div>
+									<div class="box-bot">&nbsp;</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="yui-b">Navigation<%= yield :content_menu %></div>
-
-			<div id="ft">Footer is here.</div>
+			<div class="yui-b">
+				<div class="nav">
+					<h4><img src="<%= domain %>/images/<%= @site_name %>/top-right.gif" class="right" alt="" /><img class="left" src="<%= domain %>/images/<%= @site_name %>/top-left.gif" alt="" />קבלה לפי נושאים</h4>
+					<ul>
+						<li>קבלה ואקטואליה</li>
+						<li>קמפוס קבלה</li>
+						<li class="submenu">חגים בקבלה
+							<ul>
+								<li class="final">ראש השנה</li>
+								<li>יום כיפור</li>
+								<li>סוכות</li>
+								<li>חנוכה</li>
+								<li class="selected">ט”ו בשבט</li>
+								<li>פורים</li>
+								<li>פסח</li>
+								<li>ל”ג בעומר</li>
+								<li>שבועות</li>
+								<li>ט’ באב</li>
+							</ul>
+						</li>
+						<li>מסע בין כוכבים</li>
+						<li>פותחים את הזוהר</li>
+						<li>בעקבות לבי</li>
+						<li>מושגים בקבלה</li>
+						<li>טורים וסיפורים</li>
+					</ul>
+				</div>
+				<div class="news">
+					<div class="item">
+						<h4>בוקר אור</h4>
+						לפתוח את היום בדרך רוחנית תוכנית בוקר יומית, כל בוקר        מ 6:00-7:00 בערוץ 98 בYES   וב HOT<br />
+						<a href="#" title="link">לצפיה בתוכנית מה 15.04</a>
+						<div class="border">&nbsp;</div>
+					</div>
+					<div class="item">
+						<h4>הבלוג האישי של הרב לייטמן</h4>
+						היכנסו וקראו מה מרגיש וחושב מקובל ומדען על אירועי היום, על קבלה ועל משמעות החיים.<br />
+						<a href="#" title="link">אל הבלוג</a>
+						<div class="border">&nbsp;</div>
+					</div>
+					<div class="item">
+						<h4>קורס יסודות בחכמת הקבלה</h4>
+						בואו ללמוד קבלה דרך האינטרנט! ימי א' 21:00. הקורס מיועד למתחילים מכל העולם.<br />
+						<a href="#" title="link">צפו בשיעור האחרון</a>
+					</div>
+				</div>
+			</div>
 		</div>
+		<div id="ft">Footer</div>
 	</div>
 </body>
 </html>

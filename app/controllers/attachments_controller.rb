@@ -9,7 +9,7 @@ class AttachmentsController < ApplicationController
     begin
       attachment = Attachment.get_image(image_id, image_name, format)
     rescue Exception => e
-      render :text => "404 -- File #{image_name + "." + format} not found + #{e}", :status => 404, :layout => false
+      head :status => 404
       return
     end
 

@@ -13,8 +13,8 @@ module	Configuration::Application
     :registered_config_modules => ['hebmain', 'mainsites'],
 
 # Url Migration definitions 
-        :url_migration_states => [:state_active => 'Active', :state_inactive => 'Inactive', :state_delete => 'Deleted'],
-        :url_migration_fields => [:source_field => 'Source', :target_field => 'Target', :action_field => 'Action', :state_field => 'State'],
+        :url_migration_states => {:state_active => 'active', :state_inactive => 'inactive', :state_delete => 'deleted'},
+        :url_migration_fields => {:source_field => 'Source', :target_field => 'Target', :action_field => 'Action', :state_field => 'State'},
 	:url_migration_action => {:action_404 => '404', :action_301 => '301'}
   }
 

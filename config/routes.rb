@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :groups
     admin.resources :tree_node_ac_rights
     admin.resources :login, :collection => {:login => :get, :logout => :get}
-    admin.resources :url_migrations, :collection => {:import => :get, :export => :get, :merge => :get, :cleanup => :get,  :error => :get}
+    admin.resources :url_migrations, :collection => {:import => :get, :export => :get, :merge => :get, :cleanup => :get}
   end	
 
   # Path to the site

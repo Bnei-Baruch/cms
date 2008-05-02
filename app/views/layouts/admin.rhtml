@@ -47,6 +47,10 @@
             <br />
             <ul>
               <li><%= link_to "Url Migrations", admin_url_migrations_path %></li>
+			  <li><%= link_to 'Url Migrations Import', admin_url_migration_path("import") %></li>
+			  <li><%= link_to 'Url Migrations Export', admin_url_migration_path("export") %></li>
+			  <li><%= link_to 'Url Migrations Merge', admin_url_migration_path("merge") %></li>
+			  <li><%= link_to 'Url Migrations Cleanup', admin_url_migration_path("cleanup"), :confirm => 'Are you sure do you want to delete all URL Migrations?' %></li>
             </ul>
             <br />
             <ul>

@@ -121,6 +121,13 @@ class Admin::UrlMigrationsController < ApplicationController
 
   def cleanup
     UrlMigration.delete_all "upper(state) = 'DELETED'"
+
+    respond_to do |format|
+	  flash[:notice] = 'All the URL Migrations were deleted!'
+      format.html { redirect_to(admin_url_migrations_url) }
+      format.xml  { head :ok }
+    end
+
   end
   
  
@@ -129,10 +136,11 @@ class Admin::UrlMigrationsController < ApplicationController
     respond_to do |format|
       if UrlMigration.update_from_file(buf, true)
         flash[:notice] = 'The file was successfully imported!'
-        format.html # import_complete.html.erb
+        format.html { redirect_to(admin_url_migrations_url) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "error" }
+        flash[:notice] = 'Error in import!'
+        format.html { redirect_to(admin_url_migrations_url) }
         format.xml  { render :xml => @url_migration.errors, :status => :expectation_failed }
       end
     end
@@ -146,10 +154,11 @@ class Admin::UrlMigrationsController < ApplicationController
     respond_to do |format|
       if UrlMigration.update_from_file(buf, false)
         flash[:notice] = 'The file was successfully merged!'
-        format.html # merge_complete.html.erb
+        format.html { redirect_to(admin_url_migrations_url) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "error" }
+        flash[:notice] = 'Error in merge!'
+        format.html { redirect_to(admin_url_migrations_url) }
         format.xml  { render :xml => @url_migration.errors, :status => :expectation_failed }
       end
     end

@@ -1,10 +1,6 @@
 <% @title = "Listing URL Migrations" %>
 
-<%= link_to 'New URL Migration', new_admin_url_migration_path %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Import', admin_url_migration_path("import") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Export', admin_url_migration_path("export") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Merge', admin_url_migration_path("merge") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Cleanup', admin_url_migration_path("cleanup"), :confirm => 'Are you sure do you want to delete all URL Migrations?' %>
+<%= link_to 'New URL Migration', new_admin_url_migration_path %>
 <br /><br />
 <table border="1">
 <thead>
@@ -31,9 +27,5 @@
 </table>
 
 <br /><br />
-<%= link_to 'New URL Migration', new_admin_url_migration_path %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Import', admin_url_migration_path("import") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Export', admin_url_migration_path("export") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Merge', admin_url_migration_path("merge") %>&nbsp;|&nbsp;
-<%= link_to 'URL Migration Cleanup', admin_url_migration_path("cleanup"), :confirm => 'Are you sure do you want to delete all the data in the table?', :method => :delete %>
+<%= link_to 'New URL Migration', new_admin_url_migration_path %>
 

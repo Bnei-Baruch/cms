@@ -96,10 +96,6 @@ class Admin::UrlMigrationsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  def import
-
-  end
 
   def export
    	@file_name = 'public/migrations.csv'
@@ -125,6 +121,11 @@ class Admin::UrlMigrationsController < ApplicationController
   end
 
   def merge
+	render :partial => 'upload_file', :layout => 'admin'
+  end
+
+  def import
+	render :partial => 'upload_file', :layout => 'admin'
   end
 
   def cleanup
@@ -171,8 +172,5 @@ class Admin::UrlMigrationsController < ApplicationController
       end
     end
   end   
-   
-  def error
-  end 
   
 end

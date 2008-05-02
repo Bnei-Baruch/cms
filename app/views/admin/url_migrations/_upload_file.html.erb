@@ -1,6 +1,6 @@
-<% @title = "URL Migration Merge" %>
+<% @title = "URL Migration " + request.parameters[:action] %>
 
-<%= form_tag ({:action => 'merge_complete'}, :multipart => true) %>
+<%= form_tag ({:action => request.parameters[:action] + '_complete'}, :multipart => true) %>
 	<p><label for="upload_file">Select File:</label></p>
 	<%= file_field( "upload", "datafile" ) -%>
     <div id="submit"><input name="commit" type="submit" value="Upload file" /></div>

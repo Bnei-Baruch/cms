@@ -7,6 +7,7 @@ module	Configuration::Application
     :global_dir => 'global', 
  # define the interface language
     :language => 'english',
+    # :default_site => {:domain => 'http://www.kab.co.il', :prefix => 'epaper_heb'},
 # List of all modules that will be registered on application init. 
 # if you want your site config to be used you should load it
     :registered_config_modules => ['hebmain', 'mainsites'],

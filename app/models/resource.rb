@@ -107,7 +107,14 @@ class Resource < ActiveRecord::Base
   def properties(property = nil)
     if property
       result = resource_properties.select{|rp| rp.property.hrid == property} rescue nil
-      result.size == 1 ? result[0] : result
+      case result.size
+      when 0
+        nil
+      when 1
+        result[0]
+      else
+        result
+      end
     else
       resource_properties
     end

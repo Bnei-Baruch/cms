@@ -1,64 +1,60 @@
-# args:
-# :type - required - options: 'template', 'partial'
-# :widget - required - the name of the widget
-# :view_mode - optional - default: 'full' - the name of the view mode. 
-#              the same widget could have different views
-# :layout - optional - default: When template - the name of the widget in layouts folder
-#                               When partial - false
-# :locals - optional - the hash of args to pass to the widget. accessed through @widget.externals
-
-# render widget as partial with layout (layout of partial will be put in the same folder where the partial is):
-# render_widget :type => partial, :widget => 'content_page', :layout => 'large'
-# render widget as template with layout
-# render_widget :type => template, :widget => 'content_page', :vew_mode => 'small', :layout => 'large'
 module Widget
 
-  class Base
-    attr_reader :externals # This is a hash with all external params
-    attr_accessor :widget # to be able to access the widget from the view
-
-    def initialize(args, presenter)
-      @presenter = presenter
-      @widget = self
-
-      @widget_type = args[:type]
-      @widget_name = args[:widget]
-      @view_mode = args[:view_mode] || 'full'
-      @widget_path =  @presenter.widget_path(args[:widget]) + '/' + @view_mode
-      @externals = args[:locals]
-      
-      if args.has_key?(:layout) && args[:layout] == false
-        @widget_layout = false
-      elsif @widget_type == 'template'
-        if args.has_key?(:layout)
-          @widget_layout = @presenter.layout_path(args[:layout])
-        else
-          @widget_layout = @presenter.layout_path(args[:widget])
-        end
-      elsif @widget_type == 'partial'
-        if args.has_key?(:layout)
-          @widget_layout = @widget_path + '/' + args[:layout]
-        else
-          @widget_layout = false
-        end
-      else
-        @widget_layout = false
-      end
-      
+  class Base < Erector::Widget
+        
+    attr_accessor :presenter
+    def initialize(*args, &block)
+      super(*args, &block)
+      @presenter = Thread.current[:presenter]
     end
 
-    # Handles the rendering of the partial which is the widget's template code
-    def render_me
-      # @widget_path += '/' + @view_mode
-      case @widget_type
-      when 'template'
-        {:template => @widget_path, :locals => {:widget => self}, :layout => @widget_layout}
-      when 'partial'
-        {:partial => @widget_path, :locals => {:widget => self}, :layout => @widget_layout}
-      else
-        nil
-      end
+    def img_path(image_name)
+      "#{domain}/images/#{presenter.site_name}/#{image_name}"
+    end                  
+    
+    def w_class(name)
+      presenter.w_class(name) rescue nil
     end
+    
+    # can pass optional :image_name => 'my_custom_name' to get a specific filtered image
+    def get_file_html_url(args_hash)
+      attachment = args_hash[:attachment]
+      image_name = args_hash.has_key?(:image_name) ? args_hash[:image_name] : 'myself'
+      get_file_url(attachment, image_name) if attachment
+    end
+
+    def get_page_url(tree_node)
+      domain + tm_path(:prefix => presenter.controller.website.prefix, :id => tree_node.permalink)
+    end
+
+    def get_css_url(style_name)
+      domain + css_path(:website_id => presenter.controller.website.id, :css_id => style_name)  
+    end
+
+    def get_css_external_url(style_name)
+      domain + '/stylesheets/' + style_name + '.css'
+    end
+
+    # this is used to generate URL in development mode
+    def port
+          my_port = presenter.controller.request.server_port.to_s
+          my_port == '80' ? '' : ':' + my_port
+    end
+
+    def domain
+       @full_domain ||= presenter.controller.website.domain + port
+    end
+
+    def get_file_url(attachment, image_name = 'myself')
+      my_domain = domain.sub('http://','')
+      format = File.extname(attachment.filename).delete('.')
+      image_url(:image_id => attachment.id, :image_name => image_name,:format => format, :host => my_domain)
+    end
+    
+    
+  end
+
+  class Layout < Base
 
   end       
 

@@ -81,15 +81,15 @@ class TreeNode < ActiveRecord::Base
     # Get tree nodes according to the parameters
     # Hash of params:
     # :parent => 10 - integer - required
-    # :resource_type_hrids => [10,5,3] - array of strings - optional - default: show all
+    # :resource_type_hrids => ['website', 'content_page'] - array of strings - optional - default: show all
     # :is_main => true - boolean - optional - default: show all
     # :has_url => false - boolean - optional - default: show all
     # :depth => 3 - integer - optional - default: get all the subtree
-    # :properties => {:description => 'a very good article', :is_hidden => true} - 
+    # :properties => {:description => 'a very good article', :is_hidden => 't'} - 
     #   hash of resource properties, when the key is the hrid of the property 
     #   and the value is the value of the resource property. - optional - default: show all
     # :current_page => 3 - integer - optional - default: paging is disabled
-    # :items_per_page => 10 - integer - optional - default: 25 items per page
+    # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
     # :return_parent => true - boolean - optional - default: false
     # 
     # Examples: 

@@ -1,5 +1,9 @@
 class Sites::Global < Presenter::Base
-
+  
+  def port
+    request.port
+  end      
+  
   def website_resource
     @website.website_resource
   end
@@ -22,6 +26,10 @@ class Sites::Global < Presenter::Base
   
   def node_name
     node.resource.name
+  end
+  
+  def node_resource
+    node.resource
   end
   
   def node_type
@@ -78,8 +86,8 @@ class Sites::Global < Presenter::Base
     @controller.widget_path(resource)
   end
 
-  def widget_class(resource)
-    @controller.widget_class(resource)
+  def w_class(resource)
+    @controller.w_class(resource)
   end
     
 

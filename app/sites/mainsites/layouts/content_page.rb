@@ -4,8 +4,8 @@ class Mainsites::Layouts::ContentPage < Widget::Base
 
   def initialize(*args, &block)
     super
-    @header = w_class('header').new(self)
-    @tree = w_class('tree').new(self)
+    @header = w_class('header').new()
+    @tree = w_class('tree').new()
 
   end
 

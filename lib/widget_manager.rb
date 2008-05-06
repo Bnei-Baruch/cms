@@ -11,13 +11,17 @@ module WidgetManager
       args_hash = args.detect{|arg|arg.is_a?(Hash) && arg.has_key?(:tree_node)} || {}
       @tree_node = args_hash[:tree_node] rescue nil
       @view_mode = args_hash[:view_mode] || 'full'
+      @block = block
       
     end
     
     def render
-      render_method = 'render_' + view_mode
-      # debugger
-      self.send(render_method) if self.respond_to?(render_method)
+      if @block # this will make the - WidgetManager::Base.new{text get_name} work. 
+        instance_eval(&@block)
+      else
+        render_method = 'render_' + view_mode
+        self.send(render_method, &block) if self.respond_to?(render_method)
+      end
     end
 
     
@@ -34,7 +38,6 @@ module WidgetManager
     
     def initialize(*args, &block)
       super(*args, &block)
-      # debugger
       args_hash = args.detect{|arg|
         arg.is_a?(Hash) && (arg.has_key?(:tree_node) || arg.has_key?(:layout_class))
         } || {}

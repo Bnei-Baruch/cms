@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Header < Widget::Base
+class Hebmain::Widgets::Header < WidgetManager::Base
   
   def render
     div(:class => 'logo') do
@@ -17,8 +17,6 @@ class Hebmain::Widgets::Header < Widget::Base
         end
       end
     end
-    
-    
   end
   
   

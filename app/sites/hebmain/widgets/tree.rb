@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Tree < Widget::Base
+class Hebmain::Widgets::Tree < WidgetManager::Base
   
   def initialize(args_hash = {})
     super

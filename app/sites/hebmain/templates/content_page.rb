@@ -1,32 +1,42 @@
-class Hebmain::Templates::ContentPage < Widget::Base
-  attr_accessor :layout, :resource, :tree_node
-  def initialize(args_hash = {})
-    super
-    @tree_node = (args_hash.has_key?(:tree_node) ? args_hash[:tree_node] : presenter.node) rescue nil
-    layout_class = args_hash[:layout_class] || nil
-    @layout = layout_class.new(self)
+class Hebmain::Templates::ContentPage < WidgetManager::Template
+
+  def set_layout
     layout.ext_content = ext_content
     layout.ext_title = ext_title
     layout.ext_main_image = ext_main_image
   end
-
-  def render
-    layout.render_to(doc)
-  end
   
   def ext_content
-    Widget::Base.new do
-      img(:src => get_main_image, :alt => get_main_image_alt, :title => '')
+    WidgetManager::Base.new do
+      h1 get_title
+      h2 get_small_title
+      div(:class => 'descr') { text get_sub_title }
+      div(:class => 'author') {
+        span'תאריך: ' + get_date, :class => 'left' if get_date
+        span(:class => 'right') {
+          text 'מאת:'
+          a(:href => 'mailto:XX@yy.com'){
+            img(:src => img_path('email.gif'), :alt => 'email')
+            text get_writer
+          }
+        }
+      }
+      content_resources.each{|e|
+        div(:class => 'item') {
+          render_content_resource(e)
+        } 
+      }
     end
   end
-  
+
   def ext_title
-    Widget::Base.new do
+    WidgetManager::Base.new do
       text get_name
     end
   end
+  
   def ext_main_image
-    Widget::Base.new do
+    WidgetManager::Base.new do
       div(:class => 'image'){
         img(:src => get_main_image, :alt => get_main_image_alt, :title => get_main_image_alt)
         text get_main_image_alt
@@ -35,6 +45,20 @@ class Hebmain::Templates::ContentPage < Widget::Base
   end
   
   private
+
+  def render_content_resource(tree_node)
+    class_name = tree_node.resource.resource_type.hrid
+    w_class(class_name).new(:tree_node => tree_node).render_to(self)
+  end
+  
+  def content_resources
+    TreeNode.get_subtree(
+    :parent => tree_node.id, 
+    :resource_type_hrids => ['article'], 
+    :depth => 1,
+    :has_url => false
+    )               
+  end
   
   def resource
     @resource ||= tree_node.resource rescue nil
@@ -42,6 +66,22 @@ class Hebmain::Templates::ContentPage < Widget::Base
   
   def get_name
     resource.name
+  end
+  
+  def get_title
+    resource.properties('title').value rescue ''
+  end
+  
+  def get_small_title
+    resource.properties('small_title').value rescue ''
+  end
+  
+  def get_sub_title
+    resource.properties('sub_title').value rescue ''
+  end
+  
+  def get_writer
+    resource.properties('writer').value rescue ''
   end
   
   def get_main_image_alt
@@ -52,5 +92,10 @@ class Hebmain::Templates::ContentPage < Widget::Base
     rp = resource.properties('main_image')
     get_file_html_url(:attachment => rp.attachment) if rp
   end
+  
+  def get_date
+    resource.properties('date').value.strftime('%d.%m.%Y') rescue nil
+  end
+  
   
 end

@@ -1,4 +1,4 @@
-class Mainsites::Layouts::ContentPage < Widget::Base
+class Mainsites::Layouts::ContentPage < WidgetManager::Base
 
   attr_accessor :ext_content, :ext_title, :ext_main_image
 
@@ -6,6 +6,7 @@ class Mainsites::Layouts::ContentPage < Widget::Base
     super
     @header = w_class('header').new()
     @tree = w_class('tree').new()
+    @breadcrumbs = w_class('breadcrumbs').new()
 
   end
 
@@ -35,15 +36,9 @@ class Mainsites::Layouts::ContentPage < Widget::Base
                     img(:src => img_path('top-left.gif'),:class =>'left', :alt => '')
                     text 'חגים בקבלה  |  ט”ו בשבט'
                   }
-                  div(:class => 'breadcrumbs') {
-                    a(:href => '#', :title =>'') { text 'קבלה לפי נושאים' }
-                    span(:class => 'gt') {text ' > '}
-                    a(:href => '#', :title =>'') { text 'חגים בקבלה' }
-                    span(:class => 'gt') {text ' > '}
-                    text 'ט”ו בשבט'
-                  }
+                    @breadcrumbs.render_to(self) 
                   div(:class => 'yui-u first') {
-                    div(:class => 'content') { self.ext_content }
+                    div(:class => 'content') { self.ext_content.render_to(doc) }
                   }
                   div(:class => 'yui-u') {
                     div(:class => 'related') {
@@ -104,7 +99,7 @@ class Mainsites::Layouts::ContentPage < Widget::Base
                 h4 {
                   img(:src => img_path('top-right.gif'), :class => 'right', :alt => '')
                   img(:src => img_path('top-left.gif'), :class => 'left', :alt => '')
-                  text 'קבלה לפי נושאים'
+                  text presenter.main_section.resource.name
                 }
                 @tree.render_to(doc)
               }
@@ -139,15 +134,4 @@ class Mainsites::Layouts::ContentPage < Widget::Base
       }
     }
   end           
-  
-  # class Widget::Base
-  #   def img_path(image_name)
-  #     "#{domain}/images/#{presenter.site_name}/#{image_name}"
-  #   end                  
-  # end
-  
-  
-    
-  
-  
 end 

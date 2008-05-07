@@ -103,7 +103,7 @@ class Resource < ActiveRecord::Base
     return rp
   end
   
-  # convinient access to the properties of the resource
+  # convenient access to the properties of the resource
   def properties(property = nil)
     if property
       result = resource_properties.select{|rp| rp.property.hrid == property} rescue nil

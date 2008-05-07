@@ -1,13 +1,13 @@
-class Mainsites::Layouts::ContentPage < WidgetManager::Base
+class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
-  attr_accessor :ext_content, :ext_title, :ext_main_image
+  attr_accessor :ext_content, :ext_title, :ext_main_image, :ext_related_items
 
   def initialize(*args, &block)
     super
     @header = w_class('header').new()
     @tree = w_class('tree').new()
     @breadcrumbs = w_class('breadcrumbs').new()
-
+    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
   end
 
   def render
@@ -34,7 +34,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Base
                   div(:class => 'h1') {
                     img(:src => img_path('top-right.gif'),:class =>'right', :alt => '')
                     img(:src => img_path('top-left.gif'),:class =>'left', :alt => '')
-                    text 'חגים בקבלה  |  ט”ו בשבט'
+                    @titles.render_to(doc)
                   }
                     @breadcrumbs.render_to(self) 
                   div(:class => 'yui-u first') {
@@ -43,52 +43,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Base
                   div(:class => 'yui-u') {
                     div(:class => 'related') {
                       self.ext_main_image.render_to(doc)
-                      div(:class => 'box') {
-                        div(:class => 'box-top'){rawtext('&nbsp;')}
-                        div(:class => 'box-mid'){
-                          h4 'מאמרים נוספים בנושא:'
-                          ul{
-                            li{a 'חג לאילנות', :href => '#', :title => ''}
-                            li{a 'מה נאה אילן זה', :href => '#', :title => ''}
-                            li{a 'תהליך צמיחה רוחני', :href => '#', :title => ''}
-                            li{a 'ט”ו בשבט ברוחניות', :href => '#', :title => ''}
-                          }
-                        }
-                        div(:class => 'box-bot'){rawtext('&nbsp;')}
-                      }
-                      div(:class => 'box') {
-                        div(:class => 'box-top'){rawtext('&nbsp;')}
-                        div(:class => 'box-mid'){
-                          h4 'קישורים למקורות:'
-                          ul{
-                            li{
-                              a(:href => '#', :title => ''){
-                                text 'חג לאילנות'
-                                span(:class => 'gray'){text '(הרב”ש)'}
-                              }
-                            }
-                            li{
-                              a(:href => '#', :title => ''){
-                                text 'מה נאה אילן זה'
-                                span(:class => 'gray'){text '(בעל הסולם)'}
-                              }
-                            }
-                             li{
-                              a(:href => '#', :title => ''){
-                                text 'תהליך צמיחה רוחני'
-                                span(:class => 'gray'){text '(בעל הסולם)'}
-                              }
-                            }
-                             li{
-                              a(:href => '#', :title => ''){
-                                text 'ט”ו בשבט ברוחניות'
-                                span(:class => 'gray'){text '(בעל הסולם)'}
-                              }
-                            }
-                          }
-                        }
-                        div(:class => 'box-bot'){rawtext('&nbsp;')}
-                      }
+                      self.ext_related_items.render_to(doc)
                     }
                   }
                 }

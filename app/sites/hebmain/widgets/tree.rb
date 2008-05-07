@@ -2,7 +2,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   
   def initialize(args_hash = {})
     super
-    @website_parent_node = presenter.website_node.id
+    @website_parent_node = presenter.main_section.id
     @ancestors = presenter.node.ancestors.collect{|a|a.id} + [presenter.node.id]
     @ancestors.reject! { |id| id == @website_parent_node }
     @display_hidden = args_hash[:display_hidden] ? 't' : 'f'
@@ -44,19 +44,19 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
         }
       else #No subtree, just node itself
         li() {
-          a item[:item].resource.name, :alt => item[:item].resource.name, :title => item[:item].resource.name, :href => get_page_url(item[:item])
+          a item[:item].resource.name, :title => item[:item].resource.name, :href => get_page_url(item[:item])
         }
       end
     else # 'final' element
       li(:class => "final#{item[:selected] ? ' selected' : ''}"){
-        a item[:item].resource.name, :alt => item[:item].resource.name, :title => item[:item].resource.name, :href => get_page_url(item[:item])      }
+        a item[:item].resource.name, :title => item[:item].resource.name, :href => get_page_url(item[:item])      }
     end
     
   end
 
   def draw_link tree_node
     name = tree_node.resource.name
-    a name, :alt => name, :title => name, :href => get_page_url(tree_node)
+    a name, :title => name, :href => get_page_url(tree_node)
   end
   
   # 

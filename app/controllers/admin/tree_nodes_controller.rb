@@ -17,7 +17,7 @@ class Admin::TreeNodesController < ApplicationController
 
 		@tree_nodes = TreeNode.find(:all,
       :conditions => ["parent_id = ?", @parent_id], :order => "position ASC")
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tree_nodes }

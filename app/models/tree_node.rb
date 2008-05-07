@@ -130,9 +130,9 @@ class TreeNode < ActiveRecord::Base
           req_items_per_page,
           req_return_parent].join(',')
           if args[:test]
-            return "select * from cms_treenode_subtree(#{request})"
+            return "select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from cms_treenode_subtree(#{request})"
           end
-          find_by_sql("select * from cms_treenode_subtree(#{request})") rescue []
+          find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from cms_treenode_subtree(#{request})") rescue []
         else
           []
         end
@@ -171,7 +171,17 @@ class TreeNode < ActiveRecord::Base
     
     alias :old_find :find
     def find(*args)
+      if args.last.is_a?(::Hash) 
+        if args.last[:select]
+          args.last[:select] = "get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission," + args.last[:select]
+        else
+          args.last[:select] = "get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission, *"
+        end
+      else
+          args[args.length] = Hash[:select => "get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission, *"]
+      end
       output=self.old_find(*args)
+      
       output
     end
 

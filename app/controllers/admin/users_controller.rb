@@ -18,7 +18,7 @@ class Admin::UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-
+    @groups = @user.groups.find(:all, :order=>["groupname"])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -44,11 +44,13 @@ class Admin::UsersController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
-    params[:user][:group_ids] ||= []
+    group_ids = params[:user][:group_ids] ||= []
+    params[:user][:group_ids] = nil
     @user = User.new(params[:user])
-
     respond_to do |format|
-      if @user.save
+      if @user.save 
+        @user.group_ids=group_ids
+        @user.save
         flash[:notice] = 'User was successfully created.'
         format.html { redirect_to admin_user_path(@user) }
         format.xml  { render :xml => @user, :status => :created, :location => @user }

@@ -37,25 +37,25 @@ class UrlMigration < ActiveRecord::Base
         url_migration.update_attributes(:state => $config_manager.appl_settings[:url_migration_states][:state_delete])
       end
     end      
-    index = 1
-    CSV::Reader.parse(buf) do |row|
-      if (index > 1)  
-        url_migration = find_by_source(row[0])
-        if (url_migration)
-          url_migration.update_attributes(:target => row[1], :action => row[2], :state  => row[3])
+    
+    CSV::Reader.parse(buf).each_with_index do |row, index|
+      if (!is_empty(row)) 
+        if (index > 0)  
+          url_migration = find_by_source(row[0])
+          if (url_migration)
+            url_migration.update_attributes(:target => row[1], :action => row[2], :state  => row[3])
+          else
+            url_migration = new(:source => row[0], :target => row[1], :action => row[2],:state  => row[3])		
+          end
+          if (url_migration.save != true)
+            error_str = error_str + "Error in line " + index.to_s+1 + "<br />"
+          end
         else
-          url_migration = new(:source => row[0], :target => row[1], :action => row[2],:state  => row[3])		
-        end
-        if (url_migration.save != true)
-          error_str = error_str + "Error in line " + index.to_s + "<br />"
-        end
-      else
-        if (validate_header(row) != true)
-          error_str = error_str + "Header structure is not valid!<br />"
+          if (validate_header(row) != true)
+            error_str = error_str + "Header structure is not valid!<br />"
+          end
         end
       end
-      break if !row[0]
-      index = index + 1
     end
 
     return error_str
@@ -70,6 +70,16 @@ class UrlMigration < ActiveRecord::Base
     end
   end
 
+  def self.is_empty(row)
+    row.each do |col|
+      if (col != nil and col.strip != "") 
+        return false
+      end
+    end
+    
+    return true
+  end
+  
   def self.validate_header(row)
     if (row.length != 4)
       return false

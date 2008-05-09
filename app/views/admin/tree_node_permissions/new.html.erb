@@ -1,0 +1,10 @@
+<% @title = "New permissions" %>
+
+<%= render :partial => 'form',
+    :locals => {
+    :path => admin_tree_node_tree_node_permissions_path(@tree_node_id),
+    :method => :post,
+    :button_text => 'Create'
+  } %>
+
+<%= link_to 'Back', admin_tree_node_tree_node_permissions_path(@tree_node_id) %>

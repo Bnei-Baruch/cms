@@ -1,0 +1,11 @@
+<% @title = "Editing permissions" %>
+
+<%= render :partial => 'form',
+    :locals => {
+    :path => admin_tree_node_tree_node_permission_path(@tree_node_id, @tree_node_ac_rights),
+    :method => :put,
+    :button_text => 'Update'
+  } %>
+
+<%= link_to 'Show', admin_tree_node_tree_node_permission_path(@tree_node_id, @tree_node_ac_rights) %> |
+<%= link_to 'Back', admin_tree_node_tree_node_permissions_path(@tree_node_id) %>

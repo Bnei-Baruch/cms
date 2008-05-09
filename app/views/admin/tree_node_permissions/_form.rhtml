@@ -1,0 +1,24 @@
+<%= error_messages_for :tree_node_ac_rights %>
+
+<% form_for(:tree_node_ac_rights, :url => path, :html => {:method => method}) do |f| %>
+  <p>
+    <b>Resource:</b><br />
+    <%= h @tree_node.id.to_s %> : <%= h @tree_node.resource.name %>
+  </p>
+
+  <p>
+    <b>Access type</b><br />
+    <%= f.select( :ac_type, AuthenticationModel.GET_NODE_AC_TYPES_FOR_EDIT.map{|k,v| [v, k]} , :prompt => "Select a access type") %>
+  </p>
+
+  <p>
+    <b>Group</b><br />
+        <%=
+          f.select( :group_id , Group.find(:all).map {|u| [u.groupname, u.id]} ) 
+        %>
+  </p>
+
+  <p>
+    <%= f.submit button_text %>
+  </p>
+<% end %>

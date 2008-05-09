@@ -40,7 +40,7 @@
       <td><%=h tree_node.is_main %></td>
       <td><%=h tree_node.permalink %></td>
       <td><%= link_to 'Show', admin_resource_path(tree_node.resource) %></td>
-      <td><%= link_to 'Permissions', tree_node_ac_rights_admin_tree_node_path(tree_node) %></td>
+      <td><%= link_to 'Permissions', admin_tree_node_tree_node_permissions_path(tree_node) %></td>
       <td><%= link_to 'Edit', edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id) %></td>
       <td><%= link_to 'Destroy', admin_tree_node_path(tree_node), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>

@@ -1,0 +1,30 @@
+<% @title = "Tree node access rights" %>
+
+<p>
+  <b>Tree node ID:</b>
+  <%=h @tree_node_ac_rights.tree_node_id %>
+</p>
+
+<p>
+  <b>Tree node:</b>
+  <%=h @tree_node.resource.name %>
+</p>
+
+<p>
+  <b>Access type type:</b>
+  <%=h @tree_node_ac_rights.ac_type_str %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%=h @tree_node_ac_rights.group.groupname %>
+</p>
+
+<p>
+  <b>Is automatic:</b>
+  <%=h @tree_node_ac_rights.is_automatic %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_tree_node_tree_node_permission_path(@tree_node_id, @tree_node_ac_rights) %> |
+<%= link_to 'Back', admin_tree_node_tree_node_permissions_path(@tree_node_id) %>

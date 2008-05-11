@@ -6,6 +6,12 @@ class Sites::TemplatesController < ApplicationController
   custom_view_path = "#{RAILS_ROOT}/app/sites"
   self.prepend_view_path(custom_view_path)
   
+  def json(id = params[:node])
+    respond_to do |format|
+    end
+    
+  end
+  
   # This is the action that renders the view and responds to client
   def template
     host = 'http://' + request.host
@@ -30,11 +36,22 @@ class Sites::TemplatesController < ApplicationController
     end
 
     respond_to do |format|
-      resource = @presenter.node_resource_type.hrid
-      format.html { render :text => t_class(resource).new(
-                      :layout_class => l_class(resource)
-                    ).to_s
-                  }
+      format.html { 
+        resource = @presenter.node_resource_type.hrid
+        render :text => t_class(resource).new(
+          :layout_class => l_class(resource)
+        ).to_s
+      }
+      format.json {
+        unless params.has_key?(:widget)
+          status_404
+          return
+        end
+        widget = params[:widget]
+        options = params.reject { |key, value|
+          ['view_mode', 'widget', 'prefix', 'format', 'action', 'id', 'controller'].include?(key) }
+        render :json => w_class(widget).new(:view_mode => params[:view_mode], :options => options).render_to(self)
+      }
     end
 
   end
@@ -152,7 +169,7 @@ class Sites::TemplatesController < ApplicationController
     if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/#{type}/#{filename}.#{extention}")
       "#{sitename}/#{type}/#{filename}"
     elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/#{type}/#{filename}.#{extention}")
-        "#{groupname}/#{type}/#{filename}"
+      "#{groupname}/#{type}/#{filename}"
     else 
       "global/#{type}/#{filename}"
     end  

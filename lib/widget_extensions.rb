@@ -15,8 +15,8 @@ module WidgetExtensions
     get_file_url(attachment, image_name) if attachment
   end
 
-  def get_page_url(tree_node)
-    domain + tm_path(:prefix => presenter.controller.website.prefix, :id => tree_node.permalink)
+  def get_page_url(tree_node, options = {})
+    domain + tm_path(:prefix => presenter.controller.website.prefix, :id => tree_node.permalink, :options => options)
   end
 
   def get_css_url(style_name)
@@ -26,6 +26,10 @@ module WidgetExtensions
   def get_css_external_url(style_name)
     domain + '/stylesheets/' + style_name + '.css'
   end
+
+#  def get_json_url
+#    domain + json_path  
+#  end
 
   # this is used to generate URL in development mode
   def port

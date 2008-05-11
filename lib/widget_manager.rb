@@ -11,6 +11,7 @@ module WidgetManager
       @args_hash = args.detect{|arg|arg.is_a?(Hash)} || {}
       @tree_node = @args_hash[:tree_node] ? @args_hash[:tree_node] : presenter.node
       @view_mode = @args_hash[:view_mode] || 'full'
+      @options = @args_hash[:options]
       @block = block
     end
     
@@ -84,6 +85,15 @@ module WidgetManager
             )
             return get_file_html_url(:attachment => rp.attachment)
           end
+        else
+            metaclass.class_eval(
+            "def #{method_name.to_s}(*args, &block)\n" <<
+            "  ''\n" <<
+            "end",
+            __FILE__,
+            __LINE__ - 4
+            )
+            ''
         end
       else
         super(method_name, *args, &block) # to initiate the framework's (Eractor) method missing

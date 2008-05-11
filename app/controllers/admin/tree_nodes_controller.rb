@@ -105,6 +105,7 @@ class Admin::TreeNodesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to session[:referer] }
       format.xml  { head :ok }
+      format.json { head(:ok).to_json}
     end
   end
   

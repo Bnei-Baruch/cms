@@ -5,7 +5,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   def initialize(*args, &block)
     super
     @header = w_class('header').new()
-    @tree = w_class('tree').new()
+    @static_tree = w_class('tree').new(:view_mode => 'static')
+    @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
   end
@@ -19,7 +20,18 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         title ext_title
         css(get_css_external_url('reset-fonts-grids'))
         css(get_css_external_url('base-min'))
+        css(get_css_external_url('../ext/resources/css/ext-all'))
         css(get_css_url('inner_page'))
+        rawtext <<-ExtJS
+          <script src="/javascripts/prototype.js" type="text/javascript"></script>
+          <script src="/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+          <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
+          <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
+        ExtJS
+        #javascript(:src => "../javascripts/prototype.js")
+        #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
+        #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")
+        #javascript(:src => "../ext/ext-all-debug.js")
       }
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
@@ -32,11 +44,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                     w_class('sections').new.render_to(self)
                   }    
                   div(:class => 'h1') {
-                    img(:src => img_path('top-right.gif'),:class =>'right', :alt => '')
-                    img(:src => img_path('top-left.gif'),:class =>'left', :alt => '')
                     @titles.render_to(doc)
+                    img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
+                    img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
                   }
-                    @breadcrumbs.render_to(self) 
+                  @breadcrumbs.render_to(self) 
                   div(:class => 'yui-u first') {
                     div(:class => 'content') { self.ext_content.render_to(doc) }
                   }
@@ -56,7 +68,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   img(:src => img_path('top-left.gif'), :class => 'left', :alt => '')
                   text presenter.main_section.resource.name
                 }
-                @tree.render_to(doc)
+                @static_tree.render_to(doc)
+                @dynamic_tree.render_to(doc)
               }
               div(:class => 'news') {
                 div(:class => 'item') {

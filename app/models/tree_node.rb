@@ -110,7 +110,7 @@ class TreeNode < ActiveRecord::Base
       req_is_main = args.has_key?(:is_main) ? args[:is_main] : 'null'                  
       req_has_url = args.has_key?(:has_url) ? args[:has_url] : 'null'
       req_depth = args[:depth] || 'null'
-      if args.has_key?(:properties)
+      if args.has_key?(:properties) && args[:properties].is_a?(Hash) && !args[:properties].empty?
         req_properties = 'ARRAY[' + args[:properties].to_a.flatten.map{|e| "'" + e.to_s + "'"}.join(',') + ']'
       else
         req_properties = 'null'

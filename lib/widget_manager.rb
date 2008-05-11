@@ -41,27 +41,27 @@ module WidgetManager
           when 'RpString', 'RpText', 'RpPlaintext'
             metaclass.class_eval(
             "def #{method_name.to_s}(*args, &block)\n" <<
-            "  resource.properties('#{name}').value rescue ''\n" <<
+            "  resource.properties('#{name}').get_value rescue ''\n" <<
             "end",
             __FILE__,
             __LINE__ - 4
             )
-            return rp.value
+            return rp.get_value
           when 'RpNumber'
             metaclass.class_eval(
             "def #{method_name.to_s}(*args, &block)\n" <<
-            "  resource.properties('#{name}').value.to_s rescue ''\n" <<
+            "  resource.properties('#{name}').get_value.to_s rescue ''\n" <<
             "end",
             __FILE__,
             __LINE__ - 4
             )
-            return rp.value.to_s
+            return rp.get_value.to_s
           when 'RpDate'
             metaclass.class_eval(
             "def #{method_name.to_s}(*args, &block)\n" <<
             "  rp = resource.properties('#{name}')\n" <<
-            "  if (rp && rp.value.is_a?(Date))\n" <<
-            "    rp.value.strftime('%d.%m.%Y')\n" <<
+            "  if (rp && rp.get_value.is_a?(Date))\n" <<
+            "    rp.get_value.strftime('%d.%m.%Y')\n" <<
             "  else\n" <<
             "    ''\n" <<
             "  end\n" <<
@@ -69,8 +69,8 @@ module WidgetManager
             __FILE__,
             __LINE__ - 4
             )
-            if (rp && rp.value.is_a?(Date))
-              return rp.value.strftime('%d.%m.%Y')
+            if (rp && rp.get_value.is_a?(Date))
+              return rp.get_value.strftime('%d.%m.%Y')
             else
               return ''
             end
@@ -84,6 +84,17 @@ module WidgetManager
             __LINE__ - 4
             )
             return get_file_html_url(:attachment => rp.attachment)
+          when 'RpBoolean'
+            metaclass.class_eval(
+            "def #{method_name.to_s}(*args, &block)\n" <<
+            "  rp = resource.properties('#{name}')\n" <<
+            "  resource.properties('#{name}').get_value if rp ''\n" <<
+            "end",
+            __FILE__,
+            __LINE__ - 4
+            )
+            # debugger
+            return rp.get_value if rp
           end
         else
             metaclass.class_eval(

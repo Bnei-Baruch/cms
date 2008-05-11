@@ -1,7 +1,7 @@
 class Sites::TemplatesController < ApplicationController
 
   attr_reader :website
-
+  
   # Add the 'app/sites' path of sites which is used by the application instead of regular 'app/views' folder
   custom_view_path = "#{RAILS_ROOT}/app/sites"
   self.prepend_view_path(custom_view_path)

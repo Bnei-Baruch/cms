@@ -91,6 +91,7 @@ class TreeNode < ActiveRecord::Base
     # :current_page => 3 - integer - optional - default: paging is disabled
     # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
     # :return_parent => true - boolean - optional - default: false
+    # :placeholders => ['related_items', 'main_content'] - array of strings - optional - default: show all
     # 
     # Examples: 
     # get_subtree(:parent => 17, :resource_type_hrids => ['website', 'content_page'], :depth => 3, :properties => {:description => 'yes sair', :title => 'good title'}, )
@@ -118,6 +119,12 @@ class TreeNode < ActiveRecord::Base
       req_current_page = args[:current_page] || 'null'
       req_items_per_page = args[:items_per_page] || 'null'
       req_return_parent = args.has_key?(:return_parent) ? args[:return_parent] : 'null'
+      if args.has_key?(:placeholders)
+        req_placeholders = 'ARRAY[' + args[:placeholders].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
+      else
+        req_placeholders = 'null'
+      end
+      
       if req_parent
         request = [
           req_parent, 
@@ -128,7 +135,8 @@ class TreeNode < ActiveRecord::Base
           req_properties,
           req_current_page,
           req_items_per_page,
-          req_return_parent].join(',')
+          req_return_parent,
+          req_placeholders].join(',')
           if args[:test]
             return "select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from cms_treenode_subtree(#{request})"
           end

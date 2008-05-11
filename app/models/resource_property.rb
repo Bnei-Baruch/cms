@@ -19,9 +19,9 @@ class ResourceProperty < ActiveRecord::Base
   def to_param
     self.id.to_s
   end
-
+  # This method is used for editing. For reading only use 'get_value' method.
   def value(klass = 'number_value')
-    v = @attributes[klass]
+    v = @attributes[klass]      
     if self.new_record? && 
       (!v || v.empty?)
       eval default_code
@@ -55,20 +55,20 @@ class ResourceProperty < ActiveRecord::Base
     end
     result
   end
-    
+
   def before_update
     #check permission for edit
     #should be call for all child classes
     main_tree_node = resource.tree_nodes.main
     if not main_tree_node.can_edit?
-       logger.error("User #{AuthenticationModel.current_user} has not permission " + 
-          "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}")
-       raise "User #{AuthenticationModel.current_user} has not permission " + 
-          "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}"
+      logger.error("User #{AuthenticationModel.current_user} has not permission " + 
+      "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}")
+      raise "User #{AuthenticationModel.current_user} has not permission " + 
+      "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}"
       return
     end
   end
-  
+
   def before_destroy
     #check if can destroy by permission system 
     main_tree_node = resource.tree_nodes.main
@@ -86,7 +86,7 @@ class ResourceProperty < ActiveRecord::Base
       end
     end
   end
-  
+
   protected	
 
   def default_code

@@ -6,6 +6,8 @@ class Hebmain::Widgets::Box < WidgetManager::Base
       div(:class => 'box-mid'){
         h4 get_title unless get_title.empty?
         rawtext get_body
+        br
+        w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(doc)
       }
       div(:class => 'box-bot'){rawtext('&nbsp;')}
     }

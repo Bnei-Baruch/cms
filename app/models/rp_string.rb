@@ -10,5 +10,10 @@ class RpString < ResourceProperty
 	def value=(input)
 		write_attribute('string_value', input)
   end
+    
+  # This method is for reading values. DO NOT use for editing
+  def get_value
+    read_attribute('string_value')
+  end
 
 end

@@ -27,5 +27,11 @@ class RpList < ResourceProperty
 			write_attribute('resource_property_id', input)
 		end
 	end
+	
+	# This method is for reading values. DO NOT use for editing
+  def get_value
+    value
+  end
+	
 
 end

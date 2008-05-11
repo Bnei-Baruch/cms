@@ -31,4 +31,9 @@ class RpFile < ResourceProperty
     write_attribute('file_value', input)
   end
 
+	# This method is for reading values. DO NOT use for editing
+  def get_value
+    read_attribute('file_value')
+  end
+
 end

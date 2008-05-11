@@ -12,7 +12,7 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
     }
 
   end
-  
+
   def render_titles
     unless calculated_titles.empty?
       calculated_titles.reverse.each_with_index{ |e, i|
@@ -23,12 +23,13 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
   end
 
   private
-  
+
   def calculated_titles
+    return @calculated_titles if @calculated_titles
+    rp = @tree_node.resource.properties('acts_as_section')
     # debugger
-    rp = @tree_node.resource.properties('hide_title')
-    last_item = rp && rp.value ?  [] : [@tree_node]
-    last_item + parents.reject{|e| e.eql?(presenter.main_section)}
+    last_item = rp && rp.get_value ?  [@tree_node] : []
+    @calculated_titles ||= last_item + parents.reject{|e| e.eql?(presenter.main_section)}
   end
 
   def parents

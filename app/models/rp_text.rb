@@ -8,4 +8,10 @@ class RpText < ResourceProperty
 	def value=(input)
 		write_attribute('text_value', input)
   end
+  
+  # This method is for reading values. DO NOT use for editing
+  def get_value
+    read_attribute('text_value')
+  end
+  
 end

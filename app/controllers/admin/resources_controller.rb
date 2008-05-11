@@ -1,6 +1,5 @@
 class Admin::ResourcesController < ApplicationController
 	before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy ]
-  before_filter {|c| c.admin_authorize(['System manager'])}
   
   if AuthenticationModel.current_user_is_admin?
     layout 'admin'

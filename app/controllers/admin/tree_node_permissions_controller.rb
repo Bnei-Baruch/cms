@@ -54,7 +54,7 @@ class Admin::TreeNodePermissionsController < ApplicationController
   # POST /tree_node_ac_rights.xml
   def create
     @tree_node_ac_rights = TreeNodeAcRight.new(params[:tree_node_ac_rights])
-
+    @tree_node_ac_rights.tree_node_id = @tree_node_id
     respond_to do |format|
       if @tree_node_ac_rights.save
         flash[:notice] = 'TreeNodeAcRights was successfully created.'

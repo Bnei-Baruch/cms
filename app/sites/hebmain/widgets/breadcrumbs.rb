@@ -27,7 +27,6 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
   def calculated_titles
     return @calculated_titles if @calculated_titles
     rp = @tree_node.resource.properties('acts_as_section')
-    # debugger
     last_item = rp && rp.get_value ?  [@tree_node] : []
     @calculated_titles ||= last_item + parents.reject{|e| e.eql?(presenter.main_section)}
   end

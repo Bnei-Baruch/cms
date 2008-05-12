@@ -93,7 +93,6 @@ module WidgetManager
             __FILE__,
             __LINE__ - 4
             )
-            # debugger
             return rp.get_value if rp
           end
         else

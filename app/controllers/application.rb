@@ -50,11 +50,12 @@ protected
           session[:user_id] = user.id
           session[:user_is_admin]=0
         else
-          logger.error("Anonymos user does not define or banned. Access denied.")
+          logger.error("Anonymous user is not defined or banned. Access denied.")
           raise "Access denied for anonymous user."
         end
       end
-      $session=session
+      Thread.current[:session] = session
+      # $session=session
       #UserInfo.current_user=session[:user_id]
       #UserInfo.user_is_admin=session[:user_is_admin]
   end

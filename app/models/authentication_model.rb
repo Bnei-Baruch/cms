@@ -150,12 +150,14 @@ class AuthenticationModel
   def self.current_user
     # UserInfo.current_user
    # current_user
-    $session[:user_id]
+    # $session[:user_id]
+    Thread.current[:session][:user_id]
   end
   
   def self.current_user_is_admin?
     #UserInfo.user_is_admin==1
-    $session[:user_is_admin]==1
+    # $session[:user_is_admin]==1 
+    Thread.current[:session][:user_is_admin] == 1
     #user_is_admin==1
   end
 

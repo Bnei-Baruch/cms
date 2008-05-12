@@ -2,7 +2,11 @@ class Admin::TreeNodesController < ApplicationController
 	layout 'admin'
         
   before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights ]
-  before_filter {|c| c.admin_authorize(['System manager'])}
+  before_filter {|controller| 
+    unless ['destroy'].include?(controller.action_name)
+      controller.admin_authorize(['System manager'])
+    end
+  }
   
   # GET /tree_nodes
   # GET /tree_nodes.xml
@@ -100,6 +104,14 @@ class Admin::TreeNodesController < ApplicationController
   # DELETE /tree_nodes/1.xml
   def destroy
     @tree_node = TreeNode.find(params[:id])
+    #   ******************
+    #   Check permissions!
+    if not (@tree_node && @tree_node.can_delete?)
+      flash[:notice] = "Access denied. User can't delete tree node"
+      redirect_to session[:referer]
+    end
+    #   ******************
+
     @tree_node.destroy
 
     respond_to do |format|

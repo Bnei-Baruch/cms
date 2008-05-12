@@ -22,7 +22,6 @@ module ApplicationHelper
 
   # this is used to generate URL in development mode
   def port
-        # debugger
         my_port = @presenter.controller.request.server_port.to_s
         my_port == '80' ? '' : ':' + my_port
   end

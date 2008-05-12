@@ -35,9 +35,7 @@ class ResourceProperty < ActiveRecord::Base
   end
 
   def required_properties_present
-    # debugger
     is_required(get_resource_type)
-    # debugger
     # There was error on one of fields, so we need to invalidate all resource
     # Otherwise it will pass validation :(
     # errors.add(:base, "There are required fields without values")

@@ -51,8 +51,12 @@ class Resource < ActiveRecord::Base
         resource_property = resource_properties.detect{|rp|
           rp.id == p[:id].to_i
         }
-        p = Attachment.store_rp_file(resource_property, p) if p[:property_type] == "RpFile"
-        resource_property.attributes = p
+        if p[:property_type] == "RpFile" and p[:remove] == "f" and p[:value] == ""
+          Attachment.remove_thumbnails_and_cache(resource_property)
+        else          
+          p = Attachment.store_rp_file(resource_property, p) if p[:property_type] == "RpFile"
+          resource_property.attributes = p  
+        end          
       end
     end
   end

@@ -142,20 +142,20 @@ class Attachment < ActiveRecord::Base
     self.thumbnails.size > 0
   end
 
-  private
+ def Attachment.remove_thumbnails_and_cache(resource_property)
+  return if ! (resource_property && resource_property.attachment) or ! resource_property.attachment.is_image?
 
-  def Attachment.remove_thumbnails_and_cache(resource_property)
-    return if ! (resource_property && resource_property.attachment) or ! resource_property.attachment.is_image?
-    
-    Attachment.delete_file(resource_property.attachment.id, 'original', true)
-    
-    resource_property.attachment.thumbnails.each {|thumb|
-      thumb.destroy
-    }
-    if resource_property.attachment.myself
-      resource_property.attachment.myself.destroy
-    end
+  Attachment.delete_file(resource_property.attachment.id, 'original', true)
+
+  resource_property.attachment.thumbnails.each {|thumb|
+    thumb.destroy
+  }
+  if resource_property.attachment.myself
+    resource_property.attachment.myself.destroy
   end
+end
+  
+  private
 
   def Attachment.file_provided?(file)
     file.respond_to?(:read) and file.size.nonzero?

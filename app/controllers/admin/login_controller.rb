@@ -4,18 +4,7 @@ class Admin::LoginController < ApplicationController
   def login
 
     if request.post?
-      session[:user_id] = nil
-      user = User.authenticate(params[:login], params[:password])
-      if user
-        session[:user_id] = user.id
-        session[:user_is_admin] = user.groups.find(:all, :conditions => {:groupname=>'Administrators'}).length
-
-        uri= session[:original_uri]
-        session[:original_uri]=nil
-        redirect_to(uri || admin_resources_path)
-      else
-        flash.now[:notice] = "Invalid user/password combination"
-      end
+      autonticate
     end
 
   end
@@ -27,24 +16,33 @@ class Admin::LoginController < ApplicationController
 
   # POST /login
   def create
-    user = User.authenticate(params[:login], params[:password])
-    if user
-      session[:user_id] = user.id
-      uri= session[:original_uri]
-      session[:original_uri]=nil
-      redirect_to(uri || admin_resources_path)
-    else
-      flash.now[:notice] = "Invalid user/password combination"
-      render :action => "login" 
-      #redirect_to(:action => "login")
-    end
+    autonticate
   end
 
   def logout
     session[:user_id] = nil
+    session[:current_user_is_admin] = nil
     flash[:notice] = "Logged out"
     redirect_to(:action => "login")
   end
 
 
+  private
+  
+  def autonticate
+     session[:user_id] = nil
+      user = User.authenticate(params[:login], params[:password])
+      if user
+        session[:user_id] = user.id
+        session[:current_user_is_admin] = user.groups.find(:all, :conditions => {:groupname=>'Administrators'}).length
+
+        uri= session[:original_uri]
+        session[:original_uri]=nil
+        redirect_to(uri || admin_resources_path)
+      else
+        flash.now[:notice] = "Invalid user/password combination"
+        render :action => "login" 
+      end
+  end
+  
 end

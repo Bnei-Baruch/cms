@@ -200,7 +200,7 @@ label.fieldWithErrors {
 }
 #properties{
 	margin:20px 0;
-	width:650px;
+	width:750px;
 }
 .rtl #content {
 	direction: rtl;
@@ -214,7 +214,7 @@ label.fieldWithErrors {
 	font-size: 14px;
 } 
 .rtl #content #properties input{
-	width: 98%;
+	width: 85%;
 }
 .rtl #content #properties input.property_checkbox{
 	width: auto;
@@ -222,7 +222,7 @@ label.fieldWithErrors {
 .rtl #content textarea{
 	border: 1px solid lightblue;
 	padding:5px;
-	width: 98%;
+	width: 85%;
 	height:90px;
 }	
 .rtl #content #submit input{

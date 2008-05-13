@@ -17,6 +17,7 @@ Localization.define('hebrew') do |l|
   l.store 'Cancel', 'בטל'
   l.store 'Title', 'כותרת'
   l.store 'Body', 'תוכן'
+  l.store 'Description', 'תאור הדף'
   l.store 'Update Box', 'עדכן קופסא'
   l.store 'Regular text', 'טקסט רץ'
   l.store 'Sub title', 'תת כותרת'

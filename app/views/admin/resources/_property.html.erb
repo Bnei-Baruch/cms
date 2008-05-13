@@ -2,7 +2,7 @@
 	<% @property = property # for use with error_messages_for only
 	errors = rp_error_messages_for :property
 	obj_id = 'obj_' + property.object_id.to_s
-	label_options = errors.empty? ? {:for => obj_id} : {:class => 'fieldWithErrors', :for => obj_id}
+	label_options = errors.empty? ? {:for => obj_id, :title => @property.name} : {:title => @property.name, :class => 'fieldWithErrors', :for => obj_id}
 	%>
 	
    <% cms_fields_for "resource[my_properties][]", property do |f| %>
@@ -10,8 +10,8 @@
 		<%= f.hidden_field(:property_type, :index => nil) %>
 		<%= f.hidden_field(:property_id, :index => nil) %>
 		<%= f.hidden_field(:id, :index => nil) %>
-
-		<%= content_tag(:label, property.name, label_options) %>
+		
+		<%= content_tag(:label,_(property.name), label_options) %>
 		<%= errors %>
 		<% case data_type 
 			 when 'number', 'string': %>
@@ -26,7 +26,7 @@
 				:size => 57,
 				:name => 'resource[my_properties][][value]',
 				:id => obj_id %>
-				<%= link_to_function "Reset Date" do |page|
+				<%= link_to_function _('Reset Date') do |page|
 						page[obj_id].value = "" 
 				    end  %>
 			<% when 'timestamp': %>
@@ -36,7 +36,7 @@
 				:size => 57,
 				:name => 'resource[my_properties][][value]',
 				:id => obj_id %>
-				<%= link_to_function "Reset Date" do |page|
+				<%= link_to_function _('Reset Date') do |page|
 						apage[obj_id].value = ""
 				    end  %>
 			<% when 'list': %>

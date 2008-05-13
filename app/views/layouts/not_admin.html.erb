@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag 'admin' %>
     <%= yield :header %>
   </head>
-  <body dir="rtl">
+  <body>
     <div id="doc2" class="yui-t7">
       <div id="hd">
         <%= link_to(image_tag("/images/cms_logo_small.gif"), '/') %>
@@ -24,8 +24,11 @@
       </div>
 	<div id="bd">
 		<div class="yui-g">
-			<div id="content">
-				<%= yield %>
+			<%site_directoin = session[:site_direction] rescue 'rtl'%>
+			<div class="<%= site_directoin %>">
+				<div id="content">
+					<%= yield %>
+				</div>
 			</div>
 		</div>
 	</div>

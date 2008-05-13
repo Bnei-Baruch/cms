@@ -1,9 +1,11 @@
 <% content_for :header do %>
 <%= javascript_include_tag 'tiny_mce/tiny_mce' %>
+<%site_directoin = session[:site_direction] rescue 'rtl'%>
 <script type="text/javascript">
 //<![CDATA[
 tinyMCE.init({
 mode : 'textareas',
+directionality : "<%= site_directoin %>",
 theme : 'advanced',
 apply_source_formatting : true,
 browsers : "msie,gecko,opera,safari",

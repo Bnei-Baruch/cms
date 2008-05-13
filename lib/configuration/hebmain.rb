@@ -7,7 +7,8 @@ module	Configuration::Hebmain
  # this is an override after the content is not found in 'site_dir'
     :group_name => 'mainsites',
  # define the interface language (for the frontend). This is powered by a multilingual plugin
-    :language => 'hebrew'
+    :language => 'hebrew',
+    :site_direction => 'rtl'
   }
 
 end

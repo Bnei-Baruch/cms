@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   
-  before_filter :activate_global_parms
+  before_filter :activate_global_parms, :set_translations
   
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_cms_session_id'
@@ -17,7 +17,13 @@ class ApplicationController < ActionController::Base
     end
 	end
 
-
+  def site_settings
+    $config_manager.site_settings(@website.hrid)
+  end
+  
+  def set_translations
+    Localization.lang = session[:language] rescue 'default'
+  end
 
 #  private
 #

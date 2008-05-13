@@ -5,16 +5,24 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
   # tree_node - is the node object to which the operations will be performed. Editing will be for this object, New is a new child for this object, Delete is deleting this tree_node
   def render_full
     # operations permitted only on tree nodes other than the page you are on now.
+    buttons = []
     if @options
       if tree_node.can_create_child? && @options[:buttons].include?('new_button')
-        new_button
+        buttons << 'new_button'
       end
       if tree_node.can_edit? && @options[:buttons].include?('edit_button')
-        edit_button
+        buttons << 'edit_button'
       end
       if tree_node.can_delete? && @options[:buttons].include?('delete_button')
-        delete_button
+        buttons << 'delete_button'
       end
+    end
+    unless buttons.empty?
+      div(:class => 'action_buttons'){
+        buttons.each{ |e| 
+          self.send(e)
+        }
+      }
     end         
   end
 
@@ -29,28 +37,22 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     placeholder = @options[:placeholder] || ''
     new_text = @options[:new_text] || 'חדש'
     if parent_id && !resource_types.empty?
-      span(:class => 'action_buttons'){
-        if resource_types.size > 1
-          new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text)
-        else
-          new_button_link(resource_types, parent_id, is_main, has_url, placeholder, new_text)
-        end
-      }
+      if resource_types.size > 1
+        new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text)
+      else
+        new_button_link(resource_types, parent_id, is_main, has_url, placeholder, new_text)
+      end
     end
   end
 
   def edit_button
-    span(:class => 'action_buttons'){
-      a 'ערוך', :href => edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id), :title => 'ערוך אובייקט', :class => 'edit_button'
-    }
+    a 'ערוך', :href => edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id), :title => 'ערוך אובייקט', :class => 'edit_button'
   end
 
   def delete_button
-    span(:class => 'action_buttons'){
-      rawtext <<-code
-      <a onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'delete'); f.appendChild(m);f.submit(); };return false;" href="#{admin_tree_node_path(tree_node)}" class="delete_button">מחק</a>
-      code
-    }
+    rawtext <<-CODE_BLOCK
+    <a onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'delete'); f.appendChild(m);f.submit(); };return false;" href="#{admin_tree_node_path(tree_node)}" class="delete_button">מחק</a>
+    CODE_BLOCK
   end
 
   private

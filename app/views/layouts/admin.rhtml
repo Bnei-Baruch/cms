@@ -26,8 +26,11 @@
         <div id="yui-main">
           <div class="yui-b"><div class="yui-g">
               <%= yield :submenu %>
-              <div id="content">
-                <%= yield %>
+			  <%site_directoin = session[:site_direction] rescue 'rtl'%>
+		      <div class="<%= site_directoin %>">
+			      <div id="content">
+	                <%= yield %>
+	              </div>    
               </div>
               
             </div>

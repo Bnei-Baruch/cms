@@ -4,7 +4,7 @@
 
 <% cms_form_for(:resource, :url => admin_resource_path(@resource), :html => {:method => 'put', :multipart => true}) do |f| %>
 		<%= render :partial => 'fields', :locals => {:f => f} %>
-		<p id="submit"><%= submit_tag "Update #{name}" %></p>
+		<p id="submit"><%= submit_tag _"Update #{name}" %></p>
 <% end %>
 
-<%= link_to 'Cancel', session[:referer] %>
+<%= link_to _('Cancel'), session[:referer] %>

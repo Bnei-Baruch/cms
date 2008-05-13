@@ -198,3 +198,28 @@ label.fieldWithErrors {
 .errorExplanation ul {
   padding:5px 0 0 20px;
 }
+.rtl #content {
+	direction: rtl;
+	text-align: right;
+	margin: 0 20px;
+	float:right;
+}
+.rtl #content input{
+	border: 1px solid lightblue;
+	padding: 5px;
+	font-size: 14px;
+}	
+.rtl #content textarea{
+	border: 1px solid lightblue;
+	padding:5px;
+}	
+.rtl #content #submit input{
+		cursor:pointer;
+		font-size: 22px;
+		padding: 5px;
+		border-width:2px;
+		margin: 20px 10px 30px;
+		color: darkblue;
+		font-weight:bold;
+		
+	}

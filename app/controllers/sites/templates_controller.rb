@@ -34,7 +34,11 @@ class Sites::TemplatesController < ApplicationController
       status_404 
       return
     end
-
+    
+    session[:site_direction] = site_settings[:site_direction] rescue 'rtl'
+    session[:language] = site_settings[:language] rescue 'default'
+    set_translations
+    
     respond_to do |format|
       format.html { 
         resource = @presenter.node_resource_type.hrid
@@ -70,6 +74,9 @@ class Sites::TemplatesController < ApplicationController
       return
     end
 
+    session[:language] = site_settings[:language] rescue 'english'
+    set_translations
+
     respond_to do |format|
       format.css { render :template => my_stylesheets_path(style_id)}
     end
@@ -95,10 +102,6 @@ class Sites::TemplatesController < ApplicationController
     render :file => 'public/404.html', :status => 404
   end
   
-  def site_settings
-    $config_manager.site_settings(@website.hrid)
-  end
-  
   def site_name
     site_settings[:site_name]
   end
@@ -121,7 +124,7 @@ class Sites::TemplatesController < ApplicationController
 
   
   private     
-
+  
   def my_layout_path(resource)
     get_layout_path(site_name, group_name, resource)
   end

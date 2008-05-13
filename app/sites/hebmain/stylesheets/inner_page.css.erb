@@ -146,6 +146,7 @@ a:hover{
 	margin:0 20px 0 70px;
 	padding:0;
 	text-align:right;
+	position: relative;
 }
 .content h1{
 	font-size:22px;
@@ -176,6 +177,7 @@ a:hover{
 	font-size:12px;
 	border-top:1px dashed #e8e8e8;
 	margin:0 0 25px 0;
+	position: relative;
 }
 .content .image{
 	background-color:#E8E8E9;
@@ -458,6 +460,7 @@ a:hover{
 	margin:0;
 	padding:0;
 	text-align:right;
+	position: relative;
 }
 .related .image{
 	margin:0 0 20px;
@@ -471,6 +474,7 @@ a:hover{
 	color:#186be5;
 	width:145px;
 	padding:0;
+	position:relative;
 }
 .related .box ul{
 	margin:5px 13px 0;
@@ -594,18 +598,35 @@ background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no
 }
 
 /*----------  Action Buttons  ---------------*/
-span.action_buttons a{
-	padding: 0 2px;
+.action_buttons{
+	float: right;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index:100;
 }
-span.action_buttons a.new_button{
-	color: green;
-	border: 1px solid green;
+.action_buttons a{
+	display:block;
+	float:right;
+	margin:0 0 0 3px;
+	padding: 0 3px;
+	opacity:.4;-moz-opacity:.4;filter:alpha(opacity=40);
+	font-weight:bold;
+	color:black;
 }
-span.action_buttons a.edit_button{
-	color: blue;
-	border: 1px solid blue;
+.action_buttons a:hover{
+	opacity:1;-moz-opacity:1;filter:alpha(opacity=100);
+	text-decoration:none;
 }
-span.action_buttons a.delete_button{
-	color: red;
-	border: 1px solid red;
+.action_buttons a.new_button{
+	background-color: lightgreen;
+	border: 2px solid green;
+}
+.action_buttons a.edit_button{
+	background-color: lightblue;
+	border: 2px solid blue;
+}
+.action_buttons a.delete_button{
+	background-color: #EF9595;
+	border: 2px solid red;
 }

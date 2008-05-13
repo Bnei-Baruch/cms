@@ -169,6 +169,7 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def get_my_path(type, sitename, groupname, filename, extention)
+    # $files_location = [{:type => 'widgets', :sitename => 'hebmain'},{:type => 'widgets', :sitename => 'hebmain'}]
     if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/#{type}/#{filename}.#{extention}")
       "#{sitename}/#{type}/#{filename}"
     elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/#{type}/#{filename}.#{extention}")

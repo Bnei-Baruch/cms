@@ -30,15 +30,12 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     @counter += 1
     div(:id => "TREE_#{@counter}") {
       javascript {
-        rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/vista/s.gif";'
+        rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
         rawtext 'Ext.onReady(function(){'  # Start onReady
         
         rawtext <<-TREE_CODE
+            var children = #{build_json_tree(@website_parent_node, all_nodes).collect {|element| draw_json_tree(element)}.flatten.to_json};
             // create initial root node
-            var root = new Ext.tree.AsyncTreeNode({
-                text: 'Invisible Root',
-                id:'0'
-              });
             // create the tree
             tree = new Ext.tree.TreePanel({
                 loader: new Ext.tree.TreeLoader({
@@ -50,57 +47,58 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
                                 display_hidden:'t'
                                }
                   }),
+                root:new Ext.tree.AsyncTreeNode({
+                  text: 'Invisible Root',
+                  id:'0',
+                  loaded:true,
+                  leaf:false,
+                  children:children
+                }),
                 renderTo:'TREE_#{@counter}',
                 title: "קבלה לפי נושאים",
                 collapseFirst: true,
                 root: root,
                 autoHeight:true,
-                //autoScroll:true,
                 lines:false,
                 useArrows :true,
                 width:180,
                 enableDD:true,
-                //containerScroll :true,
+                animate:true,
                 rootVisible:false
               });
             // First time all branch on path was sent, so let's expand it
             tree.expandPath("#{expand_path}");
+            tree.on('contextmenu', function(node, e){
+              var menu = new Ext.menu.Menu({
+                items: [
+                  new Ext.menu.Item({
+                    text: 'New',
+                    disabled: node.attributes.cannot_create_child,
+                    href: node.attributes.addTarget + '?' +
+                        encodeURI(
+                          'resource[resource_type_id]=#{ResourceType.get_resource_type_by_hrid('content_page').id}'+
+                          '&resource[tree_node][has_url]=true' +
+                          '&resource[tree_node][is_main]=true' +
+                          '&resource[tree_node][parent_id]=' + node.id
+                        )
+                  }),
+                  new Ext.menu.Item({
+                    text: 'Edit',
+                    disabled: node.attributes.cannot_edit,
+                    href: node.attributes.editTarget
+                  }),
+                  new Ext.menu.Item({
+                    text: 'Delete',
+                    disabled: node.attributes.cannot_delete,
+                    handler: #{delete_node}
+                  }),
+                ]
+              });
+              menu.showAt(e.getXY());
+            });
         TREE_CODE
         
-        rawtext <<-MENU_CODE
-          tree.on('contextmenu', function(node, e){
-            var menu = new Ext.menu.Menu({
-              items: [
-                new Ext.menu.Item({
-                  text: 'New',
-                  disabled: node.attributes.cannot_create_child,
-                  href: node.attributes.addTarget + '?' +
-                      encodeURI(
-                        'resource[resource_type_id]=#{ResourceType.get_resource_type_by_hrid('content_page').id}'+
-                        '&resource[tree_node][has_url]=true' +
-                        '&resource[tree_node][is_main]=true' +
-                        '&resource[tree_node][parent_id]=' + node.id
-                      )
-                }),
-                new Ext.menu.Item({
-                  text: 'Edit',
-                  disabled: node.attributes.cannot_edit,
-                  href: node.attributes.editTarget
-                }),
-                new Ext.menu.Item({
-                  text: 'Delete',
-                  disabled: node.attributes.cannot_delete,
-                  handler: #{delete_node}
-                }),
-              ]
-            });
-            menu.showAt(e.getXY());
-          });
-        MENU_CODE
-        
         rawtext '});' # End onReady
-        rawtext <<-FUNCTIONS_CODE
-        FUNCTIONS_CODE
       }
     }
   end

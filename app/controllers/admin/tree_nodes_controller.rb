@@ -152,7 +152,7 @@ class Admin::TreeNodesController < ApplicationController
         #"addTarget" => new_admin_resource_path,
         "delTarget" => admin_resource_path(element.resource),
         "editTarget" => url_for(edit_admin_resource_path(:id => element.resource, :tree_id => element.id)),
-        "permissionsTarget" => url_for(tree_node_ac_rights_admin_tree_node_path(element.id)),
+        "permissionsTarget" => url_for(admin_tree_node_tree_node_permissions_path(element.id)),
         "leaf" => element.leaf]
     end
     

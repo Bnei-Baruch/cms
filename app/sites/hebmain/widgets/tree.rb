@@ -57,7 +57,6 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
                 renderTo:'TREE_#{@counter}',
                 title: "קבלה לפי נושאים",
                 collapseFirst: true,
-                root: root,
                 autoHeight:true,
                 lines:false,
                 useArrows :true,

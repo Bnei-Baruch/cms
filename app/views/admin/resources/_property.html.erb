@@ -15,7 +15,7 @@
 		<%= errors %>
 		<% case data_type 
 			 when 'number', 'string': %>
-				<%= f.text_field(:value, :index => nil, :size => 57, :id => obj_id) %>
+				<%= f.text_field(:value, :index => nil, :id => obj_id) %>
 			<% when 'boolean': %>                                          
 				<% checked = %w{ t true 1}.include?(property.value) %>
 				<%= check_box_tag :value_dummy, property.value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>

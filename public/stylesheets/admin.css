@@ -200,21 +200,30 @@ label.fieldWithErrors {
 }
 #properties{
 	margin:20px 0;
+	width:650px;
 }
 .rtl #content {
 	direction: rtl;
 	text-align: right;
-	margin: 0 30px;
+	margin: 0 20px;
 	float:right;
 }
 .rtl #content input{
 	border: 1px solid lightblue;
 	padding: 5px;
 	font-size: 14px;
-}	
+} 
+.rtl #content #properties input{
+	width: 98%;
+}
+.rtl #content #properties input.property_checkbox{
+	width: auto;
+}
 .rtl #content textarea{
 	border: 1px solid lightblue;
 	padding:5px;
+	width: 98%;
+	height:90px;
 }	
 .rtl #content #submit input{
 		cursor:pointer;

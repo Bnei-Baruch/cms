@@ -9,7 +9,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_content
     WidgetManager::Base.new do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button edit_button delete_button }, :resource_types => %W{ article },:new_text => 'צור יחידת תוכן חדשה', :has_url => false, :placeholder => 'main_content'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button edit_button delete_button }, :resource_types => %W{ article box },:new_text => 'צור יחידת תוכן חדשה', :has_url => false, :placeholder => 'main_content'}).render_to(self)
       unless get_acts_as_section
         h1 get_title
         h2 get_small_title
@@ -36,115 +36,112 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           render_content_resource(e)
         } 
       }
-
-      div(:class => 'item') {
-        div(:class => 'main_preview1') {
-#          javascript {
-#            rawtext ''
-#          }
-          div(:class => 'element last') {
-            h1 'ט"ו בשבט - חג המקובלים'
-            h2 'חג הצמיחה הרוחנית'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
-          }
-        }
-      }
-
-      div(:class => 'item') {
-        div(:class => 'section_preview') {
-          div(:class => 'h1') {
-            text 'פסח'
-            img(:src => img_path('sec-right.gif'),:class =>'h1-right', :alt => '')
-            img(:src => img_path('sec-left.gif'),:class =>'h1-left', :alt => '')
-          }
-          div(:class => 'element preview-odd'){
-            h1 'ט"ו בשבט - חג המקובלים'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-          }
-          div(:class => 'element preview-even'){
-            h1 'ט"ו בשבט - חג המקובלים'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-          }
-          div(:class => 'footer') {
-            a(:class => 'left') {
-              text 'לארכיון הכתבות בנושא'
-              img(:src => img_path('arrow-left.gif'), :alt => '')
-            }
-          }
-        }
-      }
-      div(:class => 'item') {
-        div(:class => 'main_preview2') {
-          div(:class => 'element') {
-            h1 'ט"ו בשבט - חג המקובלים'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:style => 'width:204px', :src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
-          }
-          div(:class => 'element last') {
-            h1 'ט"ו בשבט - חג המקובלים'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:style => 'width:204px', :src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
-          }
-          div(:class => 'clear')
-        }
-      }
-
-      div(:class => 'item') {
-        div(:class => 'main_preview3') {
-          div(:class => 'element') {
-            h1 'ט"ו בשבט - חג המקובלים'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:src => img_path('pesah-p1.jpg'), :alt => 'preview')
-          }
-          div(:class => 'element') {
-            h1 'ט"ו בשבט - חג המקובלים'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:src => img_path('pesah-p1.jpg'), :alt => 'preview')
-          }
-          div(:class => 'element last') {
-            h1 'ט"ו בשבט - חג המקובלים'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:src => img_path('pesah-p1.jpg'), :alt => 'preview')
-          }
-          div(:class => 'clear')
-        }
-      }
-
+      # 
+      # div(:class => 'item') {
+      #   div(:class => 'main_preview1') {
+      #     div(:class => 'element last') {
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       h2 'חג הצמיחה הרוחנית'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
+      #     }
+      #   }
+      # }
+      # 
+      # div(:class => 'item') {
+      #   div(:class => 'section_preview') {
+      #     div(:class => 'h1') {
+      #       text 'פסח'
+      #       img(:src => img_path('sec-right.gif'),:class =>'h1-right', :alt => '')
+      #       img(:src => img_path('sec-left.gif'),:class =>'h1-left', :alt => '')
+      #     }
+      #     div(:class => 'element preview-odd'){
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
+      #     }
+      #     div(:class => 'element preview-even'){
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
+      #     }
+      #     div(:class => 'footer') {
+      #       a(:class => 'left') {
+      #         text 'לארכיון הכתבות בנושא'
+      #         img(:src => img_path('arrow-left.gif'), :alt => '')
+      #       }
+      #     }
+      #   }
+      # }
+      # div(:class => 'item') {
+      #   div(:class => 'main_preview2') {
+      #     div(:class => 'element') {
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:style => 'width:204px', :src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
+      #     }
+      #     div(:class => 'element last') {
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:style => 'width:204px', :src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
+      #     }
+      #     div(:class => 'clear')
+      #   }
+      # }
+      # 
+      # div(:class => 'item') {
+      #   div(:class => 'main_preview3') {
+      #     div(:class => 'element') {
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:src => img_path('pesah-p1.jpg'), :alt => 'preview')
+      #     }
+      #     div(:class => 'element') {
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:src => img_path('pesah-p1.jpg'), :alt => 'preview')
+      #     }
+      #     div(:class => 'element last') {
+      #       h1 'ט"ו בשבט - חג המקובלים'
+      #       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+      #       div(:class => 'author') {
+      #         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+      #         a(:class => 'left') { text "...לכתבה" }
+      #       }
+      #       img(:src => img_path('pesah-p1.jpg'), :alt => 'preview')
+      #     }
+      #     div(:class => 'clear')
+      #   }
+      # }
+      # 
     end
   end
 
@@ -171,7 +168,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_related_items
     WidgetManager::Base.new do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box },:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box },:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
       related_items.each{|e|
         render_related_item(e)
       }  
@@ -190,7 +187,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     :parent => tree_node.id, 
     :resource_type_hrids => ['article'], 
     :depth => 1,
-    :has_url => false
+    :has_url => false,
+    :placeholders => ['main_content']
     )               
   end
 

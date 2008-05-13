@@ -18,7 +18,9 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
       end
     end
     unless buttons.empty?
-      div(:class => 'action_buttons'){
+      # debugger
+      position = @options[:position] || 'top'
+      div(:class => 'action_buttons' + ' ' + position ){
         buttons.each{ |e| 
           self.send(e)
         }
@@ -68,18 +70,21 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
   end
 
   def new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text)
-    form(:method => 'get', :action => new_admin_resource_path) {
-      select(:name => 'resource[resource_type_id]', :id => 'resource[resource_type_id]') {
-        resource_types.each{ |e|
-          option e.name, :value => e.id
-        }
+    form(:method => 'get', :action => new_admin_resource_path, :id => "form-#{parent_id}") {
+      p{
+        select(:name => 'resource[resource_type_id]', :id => 'resource[resource_type_id]') {
+          resource_types.each{ |e|
+            option e.name, :value => e.id
+          }
+        } 
+        input(:type => 'hidden', :name => 'resource[tree_node][parent_id]', :value => parent_id)
+        input(:type => 'hidden', :name => 'resource[tree_node][is_main]', :value => is_main)
+        input(:type => 'hidden', :name => 'resource[tree_node][has_url]', :value => has_url)
+        input(:type => 'hidden', :name => 'resource[tree_node][placeholder]', :value => placeholder)
+        a new_text, :onclick => "$('form-#{parent_id}').submit();return false;"
+        }# input(:type => 'submit', :name => 'commit', :value => new_text)
+        # p ' ', :class => 'clear'
       }
-      input(:type => 'hidden', :name => 'resource[tree_node][parent_id]', :value => parent_id)
-      input(:type => 'hidden', :name => 'resource[tree_node][is_main]', :value => is_main)
-      input(:type => 'hidden', :name => 'resource[tree_node][has_url]', :value => has_url)
-      input(:type => 'hidden', :name => 'resource[tree_node][placeholder]', :value => placeholder)
-      input(:type => 'submit', :name => 'commit', :value => new_text)
-    }
-  end
+    end
 
-end
+  end

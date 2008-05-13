@@ -96,7 +96,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             }
           }
           div(:id => 'ft') {
-            text 'Footer'
+            # text 'Footer'
           }
         }
       }

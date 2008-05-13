@@ -458,7 +458,7 @@ a:hover{
 /*----------  Related  ---------------*/
 .related {
 	margin:0;
-	padding:0;
+	padding:0 0 30px;
 	text-align:right;
 	position: relative;
 }
@@ -475,6 +475,7 @@ a:hover{
 	width:145px;
 	padding:0;
 	position:relative;
+/*	top: 22px;*/
 }
 .related .box ul{
 	margin:5px 13px 0;
@@ -601,16 +602,21 @@ background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no
 .action_buttons{
 	float: right;
 	position: absolute;
-	top: 0;
 	right: 0;
 	z-index:100;
+}
+.top{
+	top:0;
+}
+.bottom{
+	bottom:0;
 }
 .action_buttons a{
 	display:block;
 	float:right;
 	margin:0 0 0 3px;
 	padding: 0 3px;
-	opacity:.4;-moz-opacity:.4;filter:alpha(opacity=40);
+	opacity:.3;-moz-opacity:.3;filter:alpha(opacity=30);
 	font-weight:bold;
 	color:black;
 }
@@ -629,4 +635,18 @@ background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no
 .action_buttons a.delete_button{
 	background-color: #EF9595;
 	border: 2px solid red;
+}
+.action_buttons form{
+	opacity:.4;-moz-opacity:.4;filter:alpha(opacity=40);
+	background-color: lightgreen;
+	
+}
+.action_buttons form select{
+	float:right;
+}
+.action_buttons form a{
+	opacity:.4;-moz-opacity:.4;filter:alpha(opacity=40);
+}
+.action_buttons form a:hover{
+	opacity:1;-moz-opacity:1;filter:alpha(opacity=100);
 }

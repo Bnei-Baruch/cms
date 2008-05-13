@@ -3,7 +3,7 @@ require "authentication_model"
 class TreeNode < ActiveRecord::Base
   belongs_to :resource
   has_many :tree_node_ac_rights#, :dependent => :destroy
-  acts_as_list :scope => :parent #  :scope => 'parent_id = assets.parent_id AND section_id = assets.section_id AND placeholder_id = assets.placeholder_id'
+  acts_as_list :scope => 'parent_id = #{parent_id} AND placeholder = \'#{placeholder}\''#}\" #:parent #  :scope => 'parent_id = assets.parent_id AND section_id = assets.section_id AND placeholder_id = assets.placeholder_id'
   acts_as_tree  :order => 'position', :counter_cache => true
 
   attr_accessor :ac_type

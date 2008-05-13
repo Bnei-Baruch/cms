@@ -31,6 +31,11 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           end
         }
       end
+      unless get_body.empty?
+        div(:class => 'item') {
+          rawtext get_body
+        }
+      end
       content_resources.each{|e|
         div(:class => 'item') {
           render_content_resource(e)

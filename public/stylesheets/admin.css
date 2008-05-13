@@ -198,10 +198,13 @@ label.fieldWithErrors {
 .errorExplanation ul {
   padding:5px 0 0 20px;
 }
+#properties{
+	margin:20px 0;
+}
 .rtl #content {
 	direction: rtl;
 	text-align: right;
-	margin: 0 20px;
+	margin: 0 30px;
 	float:right;
 }
 .rtl #content input{
@@ -218,7 +221,7 @@ label.fieldWithErrors {
 		font-size: 22px;
 		padding: 5px;
 		border-width:2px;
-		margin: 20px 10px 30px;
+		margin: 0 10px 20px;;
 		color: darkblue;
 		font-weight:bold;
 		

@@ -51,11 +51,12 @@
 					Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/>
 					<% if original.is_image? %>
             <%= image_tag	admin_attachment_url(original) %>
-            <hr/>
+            <br/>
+            <br/>
             <% if myself = @property.myself %>
               Self: <%= "#{myself.filename}: #{myself.mime_type.split('/').last} of #{myself.size} bytes" %><br/>
               <%= image_tag	admin_attachment_url(myself) %>
-              <hr/>
+              <br/>
             <% end %>
             <% @property.thumbnails.each {|img|%>
               Attachment: <%= "#{img.filename}: #{img.mime_type.split('/').last} of #{img.size} bytes" %><br/>

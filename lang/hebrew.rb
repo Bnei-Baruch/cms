@@ -18,4 +18,6 @@ Localization.define('hebrew') do |l|
   l.store 'Title', 'כותרת'
   l.store 'Body', 'תוכן'
   l.store 'Update Box', 'עדכן קופסא'
+  l.store 'Regular text', 'טקסט רץ'
+  l.store 'Sub title', 'תת כותרת'
 end

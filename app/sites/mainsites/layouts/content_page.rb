@@ -27,11 +27,21 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           <script src="/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>
           <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
           <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
+          <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
         ExtJS
         #javascript(:src => "../javascripts/prototype.js")
         #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
         #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")
         #javascript(:src => "../ext/ext-all-debug.js")
+        javascript() {
+          # Start onReady
+          rawtext <<-EXT_ONREADY
+            Ext.onReady(function(){
+              tree();
+              tree_drop_zone("dz-1", "widget_id", "http://hebrew.localhost:3000/kab/");
+            });
+          EXT_ONREADY
+        }
       }
       body {
         div(:id => 'doc2', :class => 'yui-t4') {

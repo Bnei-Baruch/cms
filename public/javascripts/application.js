@@ -69,5 +69,6 @@ Event.addBehavior({
 		else {
 			$('website_id').show();
 		}
-	},
+	}
 });
+

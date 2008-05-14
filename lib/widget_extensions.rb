@@ -44,7 +44,10 @@ module WidgetExtensions
   def get_file_url(attachment, image_name = 'myself')
     my_domain = domain.sub('http://','')
     format = File.extname(attachment.filename).delete('.')
-    image_url(:image_id => attachment.id, :image_name => image_name,:format => format, :host => my_domain)
+    image_url(:image_id => ((attachment.id % 100).to_s) , 
+              :image_name => attachment.id.to_s + "_" + image_name,
+              :format => format, 
+              :host => my_domain)
   end
   
 end

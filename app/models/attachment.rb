@@ -18,26 +18,32 @@ class Attachment < ActiveRecord::Base
   end
 
   def Attachment.get_image(image_id, image_name, format)
-    attachment = find(:first, :conditions => ["id = ?", image_id])
-    case image_name
+    split = image_name.split("_", 2)
+    _image_id   = split[0]
+    _image_name = split[1]
+    attachment = find(:first, :conditions => ["id = ?", _image_id])
+    if !attachment 
+      return nil
+    end
+    case _image_name
     when 'original'
       attachment = attachment.resource_property.original
     when 'myself'
       attachment = attachment.myself
     else
-      if thumbnail = attachment.thumbnails.detect{|th| th.filename.eql?(image_name)}
+      if thumbnail = attachment.thumbnails.detect{|th| th.filename.eql?(_image_name)}
         attachment = thumbnail
       end
     end
     # We're here because of normal caching didn't work
-    Attachment.save_as_file(attachment, image_id, "#{image_name}/#{format}")
+    Attachment.save_as_file(attachment, _image_id, "#{_image_name}.#{format}")
     attachment
   end
   
   def Attachment.save_as_file(attachment, original_image_id, name)
-    path = File.join(File.dirname(__FILE__), '/../../public/images/', original_image_id.to_s)
+    path = File.join(File.dirname(__FILE__), '/../../public/images/', (original_image_id.to_i % 100).to_s)
     FileUtils.mkdir_p path 
-    File.open("#{path}/#{name}", "w") {|file|
+    File.open("#{path}/#{original_image_id}_#{name}", "w") {|file|
       file.binmode
       file.write attachment.file
     }
@@ -112,10 +118,14 @@ class Attachment < ActiveRecord::Base
   
   def Attachment.delete_file(original_image_id, name, delete_all = false)
     begin
-      path = File.join(File.dirname(__FILE__), '/../../public/images/', original_image_id.to_s)
-      Dir.glob(path + "/#{delete_all ? '*' : name}.*") { |filename|
-        File.delete(filename)
-      }
+      path = File.join(File.dirname(__FILE__), '/../../public/images/', (original_image_id.to_i % 100).to_s)
+      if delete_all
+        Dir.glob(path + "/*.*") { |filename|
+          File.delete(filename)
+        }
+      else
+        File.delete(path + "/" + original_image_id.to_s + "_" + name)
+      end
       Dir.delete(path) if name == 'original'
     rescue
     end
@@ -142,18 +152,33 @@ class Attachment < ActiveRecord::Base
     self.thumbnails.size > 0
   end
 
- def Attachment.remove_thumbnails_and_cache(resource_property)
-  return if ! (resource_property && resource_property.attachment) or ! resource_property.attachment.is_image?
-
-  Attachment.delete_file(resource_property.attachment.id, 'original', true)
-
-  resource_property.attachment.thumbnails.each {|thumb|
-    thumb.destroy
-  }
-  if resource_property.attachment.myself
-    resource_property.attachment.myself.destroy
+    def Attachment.remove_thumbnails_and_cache(resource_property)
+    return if ! (resource_property && resource_property.attachment) or ! resource_property.attachment.is_image?
+    
+    attachment = resource_property.attachment
+    ext = File.extname(attachment.filename)
+    
+    Attachment.delete_file(attachment.id, attachment.filename)
+    
+    # Format of geometry string:
+    # myself:geom;thumb1:geom;...
+    geometry = {}
+    geometry_string = resource_property.property.geometry rescue ""
+    geometry_string.scan(/(\w+):([\w%!><]+)/) { |key, value|
+      geometry[key] = value
+    }
+    
+    geometry.each { |name, geom|
+      Attachment.delete_file(attachment.id, name + ext)
+    }
+    
+    resource_property.attachment.thumbnails.each {|thumb|
+      thumb.destroy
+    }
+    if resource_property.attachment.myself
+      resource_property.attachment.myself.destroy
+    end
   end
-end
   
   private
 

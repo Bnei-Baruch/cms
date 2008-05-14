@@ -38,7 +38,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           rawtext <<-EXT_ONREADY
             Ext.onReady(function(){
               tree();
-              tree_drop_zone("dz-1", "widget_id", "http://hebrew.localhost:3000/kab/");
+              tree_drop_zone("dz-1", "widget_id", "#{get_page_url(tree_node)}");
             });
           EXT_ONREADY
         }

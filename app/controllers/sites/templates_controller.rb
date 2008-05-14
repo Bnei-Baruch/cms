@@ -40,13 +40,16 @@ class Sites::TemplatesController < ApplicationController
     set_translations
     
     respond_to do |format|
-      format.html { 
+      # debugger
+      format.html {
+        # debugger 
         resource = @presenter.node_resource_type.hrid
         render :text => t_class(resource).new(
           :layout_class => l_class(resource)
         ).to_s
       }
       format.json {
+        # debugger
         unless params.has_key?(:widget)
           status_404
           return

@@ -168,15 +168,35 @@ class Sites::TemplatesController < ApplicationController
     get_my_path('widgets', sitename, groupname, filename, 'rb')
   end
   
+  $files_location = Array.new
+  
   def get_my_path(type, sitename, groupname, filename, extention)
-    # $files_location = [{:type => 'widgets', :sitename => 'hebmain'},{:type => 'widgets', :sitename => 'hebmain'}]
+    search_res = search_path(type, sitename, groupname, filename, extention)
+      
+    return search_res if search_res
+    
     if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/#{type}/#{filename}.#{extention}")
+      insert_path(type, sitename, filename, extention)
       "#{sitename}/#{type}/#{filename}"
     elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/#{type}/#{filename}.#{extention}")
+      insert_path(type, groupname, filename, extention)
       "#{groupname}/#{type}/#{filename}"
     else 
+      insert_path(type, 'global', filename, extention)
       "global/#{type}/#{filename}"
-    end  
+    end
   end
   
+  def insert_path(type, name, filename, extention)
+    $files_location << {:type => type, :name => name, :filename => filename, :extention => extention}
+  end
+  
+  def search_path(type, sitename, groupname, filename, extention)
+    search_res = $files_location.index({:type => type, :name => (sitename || groupname || 'global'), :filename => filename, :extention => extention})
+    if search_res
+      "#{$files_location[search_res][:name]}/#{type}/#{filename}"
+    else
+      nil
+    end
+  end
 end

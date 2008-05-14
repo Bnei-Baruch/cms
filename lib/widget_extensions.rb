@@ -16,7 +16,11 @@ module WidgetExtensions
   end
 
   def get_page_url(tree_node, options = {})
-    domain + tm_path(:prefix => presenter.controller.website.prefix, :id => tree_node.permalink, :options => options)
+    args = {:prefix => presenter.controller.website.prefix, :id => tree_node.permalink}
+    unless options.empty?
+      ags.merge!({:options => options})
+    end
+    domain + tm_path(args)
   end
 
   def get_css_url(style_name)

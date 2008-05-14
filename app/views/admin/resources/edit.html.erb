@@ -1,12 +1,14 @@
 <% name = @resource.resource_type.name %>
-<% @title = "Editing #{name}" %>
+<% @title = _('Editing') + ' ' + _(name) %>
 <%= render :partial => "admin/share/tiny_mce_full" %>
 
 <% cms_form_for(:resource, :url => admin_resource_path(@resource), :html => {:method => 'put', :multipart => true}) do |f| %>
 		<br />
-		<%= link_to _('Cancel'), session[:referer] %>                                             
-		<p id="submit"><%= submit_tag _"Update #{name}" %></p>
+		<%= link_to _('Cancel'), session[:referer], {:class => 'button'} %>
+		<br />                                             
+		<br />                                             
+		<p id="submit"><%= submit_tag _('Update') + ' ' + _(name) %></p>
 		<%= render :partial => 'fields', :locals => {:f => f} %>
-		<p id="submit"><%= submit_tag _"Update #{name}" %></p>
+		<p id="submit"><%= submit_tag _('Update') + ' ' + _(name) %></p>
 <% end %>
-<%= link_to _('Cancel'), session[:referer] %>
+<%= link_to _('Cancel'), session[:referer], {:class => 'button'} %>

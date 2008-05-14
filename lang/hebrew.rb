@@ -13,12 +13,21 @@ Localization.define('hebrew') do |l|
   l.store 'Hide on navigation', 'הסתר בעץ הנביגציה'
   l.store 'Acts as section', 'התנהג כסביבה/מדור'
   l.store 'Reset Date', 'אפס תאריך'
-  l.store 'Update Content Page', 'עדכן דף תוכן'
-  l.store 'Cancel', 'בטל'
   l.store 'Title', 'כותרת'
   l.store 'Body', 'תוכן'
   l.store 'Description', 'תאור הדף'
-  l.store 'Update Box', 'עדכן קופסא'
+
+
+  l.store 'Content Page', 'דף תוכן'
+  l.store 'Article', 'מאמר'
+  l.store 'Box', 'קופסא'
+
+  l.store 'Publish on site', 'פרסם באתר'
+  l.store 'Update', 'עדכן'
+  l.store 'Creating', 'יצירת'
+  l.store 'Editing', 'עריכת'
+  l.store 'Cancel', 'בטל'
+
   l.store 'Regular text', 'טקסט רץ'
   l.store 'Sub title', 'תת כותרת'
 end

@@ -486,11 +486,16 @@ strong{
 /*	top: 22px;*/
 }
 .related .box ul{
-	margin:5px 13px 0;
+	margin:5px 13px 0 0;
 	padding:0;
+	color:black;
 }
 .related .box h4{
 	color:black;
+}
+.related .box p{
+	color:black;
+	margin:5px 0 0 0;	
 }
 .related .box span.gray{
 	color:#7b7b7b;
@@ -498,7 +503,7 @@ strong{
 .related .box .box-mid{
 	padding:0 10px;
 	background: white url(<%= domain %>/images/<%= @site_name %>/box-mid.gif) repeat-y top right;
-	width:165px;
+	width:140px;
 }
 .related .box .box-top{
 	background: white url(<%= domain %>/images/<%= @site_name %>/box-top.gif) no-repeat top right;
@@ -658,6 +663,7 @@ background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no
 .action_buttons form a:hover{
 	opacity:1;-moz-opacity:1;filter:alpha(opacity=100);
 }
+
 /*----------  Drop Zone  ---------------*/
 .drop-zone{
   position:absolute;

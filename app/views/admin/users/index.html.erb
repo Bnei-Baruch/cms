@@ -5,6 +5,7 @@
     <th>ID</th>
     <th>User name</th>
     <th>Banned reson</th>
+    <th>Default website</th>
     <th colspan="3">Actions</th>
   </tr>
 
@@ -13,6 +14,7 @@
     <td><%=h user.id %></td>
     <td><%=h user.username %></td>
     <td><%=h user.reason_of_ban %></td>
+    <td><%=h user.website.name if user.website %></td>
     <td><%= link_to 'Show', admin_user_path(user) %></td>
     <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
     <td><%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete %></td>

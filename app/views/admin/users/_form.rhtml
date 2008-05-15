@@ -22,6 +22,11 @@
   </p>
 
   <p>
+    <b>Default website</b><br />
+    <%= f.select( :website_id, Website.find(:all).map{|site| [site.name, site.id]} , :prompt => "Select a default website") %>
+  </p>
+
+  <p>
   <b>User groups:</b><br />
 	<table>
 		<% for group in Group.find(:all) %>

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   #validates_length_of :user_password, in => 6..20 
   #validates_length_of :password, :within => 6..20
   has_and_belongs_to_many :groups
+  belongs_to :website
   
   def validate
     errors.add_to_base("Missing password") if password.blank?

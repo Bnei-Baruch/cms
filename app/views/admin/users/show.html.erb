@@ -16,6 +16,11 @@
 </p>
 
 <p>
+  <b>Default website:</b>
+  <%=h @user.website.name if @user.website %>
+</p>
+
+<p>
   <b>Groups:</b>
   <table>
   <% for group in @groups %>

@@ -8,8 +8,12 @@ class TreeNode < ActiveRecord::Base
 
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache
-
-  #attribute_method_suffix '_changed?'
+  
+  #attribute_method_suffix '_changed?'     
+  
+  def permalink=(value)
+    write_attribute('permalink', TreeNode.permalink_escape(value))
+  end
 
   def can_edit?
     @ac_type >= 2
@@ -77,6 +81,11 @@ class TreeNode < ActiveRecord::Base
   end
 
   class << self
+    
+    # This function is for cleaing URLs. It removes and replaces some charecters
+    def self.permalink_escape(s)
+      s.to_s.gsub(/\'/, '').gsub(/\&/, '').gsub(/\"/, '').gsub(/\./, '').gsub(/\,/, '').squeeze(" ").strip.gsub(/ /, "-")
+    end  
 
     # Get tree nodes according to the parameters
     # Hash of params:

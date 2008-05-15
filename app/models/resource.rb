@@ -37,7 +37,7 @@ class Resource < ActiveRecord::Base
   
   
   def name
-    eval calculate_name_code(resource_type.name_code)
+    un_escape_string_for_code(eval calculate_name_code(resource_type.name_code))
   end
 
   def my_properties=(my_properties)
@@ -157,8 +157,7 @@ class Resource < ActiveRecord::Base
 
   def uniqueness_of_permalink
     return unless has_permalink?
-
-    permalink = tree_node[:permalink]
+    permalink = tree_node[:permalink] = TreeNode.permalink_escape(tree_node[:permalink])
     parent_id = tree_node[:parent_id]
     tree_node_id = tree_node[:id]
 
@@ -167,7 +166,7 @@ class Resource < ActiveRecord::Base
     my_website = TreeNode.find_first_parent_of_type_website(parent_id)
     return unless my_website
     has_error = false         
-    TreeNode.get_subtree(my_website.id).reject { |tmp| tmp.id == tree_node_id.to_i } .select { |child|
+    TreeNode.get_subtree(:parent => my_website.id).reject { |tmp| tmp.id == tree_node_id.to_i } .select { |child|
       if child.permalink.eql?(permalink)
         has_error = true
       end 
@@ -180,7 +179,7 @@ class Resource < ActiveRecord::Base
   def get_resource_property_by_property_hrid(hrid)
     begin
       property = resource_type.properties.find_by_hrid(hrid)
-      return get_resource_property_by_property(property).value
+      return escape_string_for_code(get_resource_property_by_property(property).get_value)
     rescue
       ''
     end
@@ -191,6 +190,14 @@ class Resource < ActiveRecord::Base
       "'#{get_resource_property_by_property_hrid($1)}'"
     end
   end
+  # These two functions will prevent errors when using \" or \' chars in property which is set as the 'name' attribute
+  def escape_string_for_code(s)
+    s.to_s.gsub(/\"/, "\&quot;").gsub(/\'/, "\&apos;")
+  end  
+
+  def un_escape_string_for_code(s)
+    s.to_s.gsub(/\&quot;/, "\"").gsub(/\&apos;/, "\'")
+  end  
 
   def save_resource_properties
     resource_properties.each do |rp|

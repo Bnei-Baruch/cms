@@ -21,7 +21,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         css(get_css_external_url('reset-fonts-grids'))
         css(get_css_external_url('base-min'))
         css(get_css_external_url('../ext/resources/css/ext-all'))
+        css(get_css_url('header'))
         css(get_css_url('inner_page'))
+        css(get_css_url('page_admin'))
         rawtext <<-ExtJS
           <script src="/javascripts/prototype.js" type="text/javascript"></script>
           <script src="/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>

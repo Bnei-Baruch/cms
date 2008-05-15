@@ -5,8 +5,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   def initialize(*args, &block)
     super
     @header = w_class('header').new()
-    @static_tree = w_class('tree').new(:view_mode => 'static')
-    @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
   end
@@ -20,72 +18,160 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         title ext_title
         css(get_css_external_url('reset-fonts-grids'))
         css(get_css_external_url('base-min'))
-        css(get_css_external_url('../ext/resources/css/ext-all'))
-        css(get_css_url('inner_page'))
-        rawtext <<-ExtJS
-          <script src="/javascripts/prototype.js" type="text/javascript"></script>
-          <script src="/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>
-          <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
-          <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
-          <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
-        ExtJS
-        #javascript(:src => "../javascripts/prototype.js")
-        #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
-        #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")
-        #javascript(:src => "../ext/ext-all-debug.js")
-        javascript() {
-          # Start onReady
-          rawtext <<-EXT_ONREADY
-            Ext.onReady(function(){
-              tree();
-              tree_drop_zone("dz-1", "widget_id", "#{get_page_url(tree_node)}");
-            });
-          EXT_ONREADY
-        }
-      rawtext <<-css
-        <style>
-          .green{border: 1px solid green; margin:0 -2px; height:500px;}
-          .red{border: 1px solid red; margin:0 -2px;height:250px;}
-          .blue{border: 1px solid blue; margin:0 -2px;height:750px;}
-          .purple{border: 1px solid purple; margin:0 -2px;height:120px;}
-          .blue, .red, .green, .purple{text-align:center;}
-        </style>
-      css
+        css(get_css_url('header'))
+        css(get_css_url('home_page'))
+        css(get_css_url('page_admin'))
       }
       body {
-        # div(:id => 'doc2', :class => yui-t5){
-        #   div(:id => 'hd', :class => 'purple'){
-        #     text 'לוגו חיפוש וניווט סביבות'
-        #   }
-        #   div(:id='bd') {
-        #     
-        #   }
-        # }
-        rawtext <<-body
-          <div id="doc2" class="yui-t5">
-        		<div id="hd" class="purple"><%= yield :title %> לוגו חיפוש וניווט סביבות</div>
-        		<div id="bd">
-        			<div id="yui-main">
-        				<div class="yui-b">
-        					<div class="yui-gd"> 
-        						<div class="yui-u first blue">קבלה אונליין</div>
-        						<div class="yui-u">
-        							<div class="red">אלמנט ראשי <%= yield %></div>
-        							<div class="yui-gd">
-        								<div class="yui-u green first">מקום לפרסום</div>
-        								<div class="yui-u green">מקום לתכנים מומלצים</div>
-        							</div>
-        						</div>
-        					</div> 
-        				</div>
-        			</div>
-        			<div class="yui-b blue">מקום לתוכן למתחיל ותאור סביבות<%= yield :content_menu %></div>
+        div(:id => 'doc2', :class => 'yui-t5') {
+          div(:id => 'hd') { @header.render_to(self) } #Header goes here
+          div(:id => 'bd') {
+            div(:id => 'yui-main') {
+              div(:class => 'yui-b') {
+                div(:class => 'yui-gd') {
+                  div(:class => 'menu') {
+                    w_class('sections').new.render_to(self)
+                  }    
+                  div(:class => 'yui-u first') {
+                    div(:class => 'h1') {
+                      text 'קבלה online'
+                      img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
+                      img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                    }
+                    div(:class => 'left-part') { text 'left-part' }
+                  }
+                  div(:class => 'yui-u') {
+                    div(:class => 'h1') {
+                      text 'קבלה ללומד'
+                      img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
+                      img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                    }
+                    div(:class => 'content') {
+                      div(:class => 'item') {
+                        div(:class => 'main_preview1') {
+                          div(:class => 'element last') {
+                            h1 'ט"ו בשבט - חג המקובלים'
+                            h2 'חג הצמיחה הרוחנית'
+                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+                            div(:class => 'author') {
+                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+                              a(:class => 'left') { text "...לכתבה" }
+                            }
+                            img(:src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
+                          }
+                        }
+                      }
+                      
+                      div(:class => 'item') {
+                        div(:class => 'section_preview') {
+                          div(:class => 'element'){
+                            h1 'ט"ו בשבט - חג המקובלים'
+                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+                            div(:class => 'author') {
+                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+                              a(:class => 'left') { text "...לכתבה" }
+                            }
+                            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
+                          }
+                          div(:class => 'element'){
+                            h1 'ט"ו בשבט - חג המקובלים'
+                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+                            div(:class => 'author') {
+                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+                              a(:class => 'left') { text "...לכתבה" }
+                            }
+                            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
+                          }
+                        }
+                      }
 
-        			<div id="ft" class="purple">פוטר של האתר</div>
-        		</div>
-        	</div>
-        	
-        body
+                      div(:class => 'item') {
+                        div(:class => 'main_preview3') {
+                          div(:class => 'element') {
+                            h3 'מגזין'
+                            img(:src => img_path('magazin.jpg'), :alt => 'preview')
+                            h4 'גיליון 2 של המגזין קבלה לעם'
+                            ul(:class => 'links'){
+                              li{a 'להורדת גרסת PDF'}
+                              li{a 'להורדת גרסת Word'}
+                              li{a 'למגזין האלקטרוני'}
+                            }
+                          }
+                          div(:class => 'element') {
+                            h3 'עיתון'
+                            img(:src => img_path('magazin.jpg'), :alt => 'preview')
+                            h4 'גיליון 28 של העיתון קבלה לעם'
+                            ul(:class => 'links'){
+                              li{a 'להורדת גרסת PDF'}
+                              li{a 'להורדת גרסת Word'}
+                              li{a 'למגזין האלקטרוני'}
+                            }
+                          }
+                          div(:class => 'element last') {
+                            h3 'ספר'
+                            img(:src => img_path('magazin.jpg'), :alt => 'preview')
+                            h4 'אישי ציבור ואומנים משוחחים על משמעות החיים'
+                            ul(:class => 'links'){
+                              li{a 'להורדת גרסת PDF'}
+                              li{a 'להורדת גרסת Word'}
+                              li{a 'למגזין האלקטרוני'}
+                            }
+                          }
+                          div(:class => 'clear')
+                        }
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+            div(:class => 'yui-b') {
+              div(:class => 'right-part') {
+                div(:class => 'h1') {
+                  text 'מאיפה להתחיל?'
+                  img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
+                  img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                }
+                div(:class => 'player') {
+                  img(:src => img_path('player/player.jpg'), :alt => '')
+                  ul{
+                    li {a 'מה היא קבלה?'}
+                    li {a 'האם הקבלה קשורה לדת?'}
+                    li {a 'למי מותר ללמוד קבלה?'}
+                    li(:class => 'more') {a 'לשאלות נוספות...', :href => '#', :title => 'link'}
+                  }
+                }
+                div(:class => 'updates'){
+                  h3 'עידכונים'
+                  div(:class => 'update'){
+                    h4 'שיבת החברים העולמית! '
+                    rawtext 'בכל יום א&amp; בשעה 19:00 תשודר בשידור חי ישיבת החברים העולמית.'
+                    div(:class => 'link'){
+                      a(:href => '#', :title => 'link') {
+                        rawtext 'צפו בישיבה האחרונה'
+                        img(:src => img_path('arrow-left.gif'), :alt => '')
+                      }
+                    }
+                  }
+                  div(:class => 'update last'){
+                    h4 'שיבת החברים העולמית! '
+                    rawtext 'בכל יום א&amp; בשעה 19:00 תשודר בשידור חי ישיבת החברים העולמית.'
+                    div(:class => 'link'){
+                      a(:href => '#', :title => 'link') {
+                        rawtext 'צפו בישיבה האחרונה'
+                        img(:src => img_path('arrow-left.gif'), :alt => '')
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          div(:id => 'ft') {
+            text 'Footer'
+          }
+        }
       }
     }
   end           

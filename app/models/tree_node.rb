@@ -83,7 +83,7 @@ class TreeNode < ActiveRecord::Base
   class << self
     
     # This function is for cleaing URLs. It removes and replaces some charecters
-    def self.permalink_escape(s)
+    def permalink_escape(s)
       s.to_s.gsub(/\'/, '').gsub(/\&/, '').gsub(/\"/, '').gsub(/\./, '').gsub(/\,/, '').squeeze(" ").strip.gsub(/ /, "-")
     end  
 

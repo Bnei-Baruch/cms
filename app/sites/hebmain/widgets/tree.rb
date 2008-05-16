@@ -28,113 +28,26 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   end
   def render_dynamic
     @counter += 1
-    div(:id => "TREE_#{@counter}") {
+    label = "TREE_#{@counter}"
+    div(:id => label) {
       javascript {
-        rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
-        
         rawtext <<-TREE_CODE
+          Ext.onReady(function(){
+            tree();
+          });
           function tree() {
-            var children = #{build_json_tree(@website_parent_node, all_nodes).collect {|element| draw_json_tree(element)}.flatten.to_json};
-            // create the tree
-            tree = new Ext.tree.TreePanel({
-                loader: new Ext.tree.TreeLoader({
-                    url:'#{get_page_url(tree_node)}',
-                    requestMethod:'GET',
-                    baseParams:{format:'json',
-                                widget:'tree',
-                                view_mode:'json_node',
-                                display_hidden:'t'
-                               }
-                  }),
-                // create initial root node
-                root:new Ext.tree.AsyncTreeNode({
-                  text: 'Invisible Root',
-                  id:'0',
-                  loaded:true,
-                  leaf:false,
-                  children:children
-                }),
-                renderTo:'TREE_#{@counter}',
-                title: "קבלה לפי נושאים",
-                collapseFirst:true,
-                autoHeight:true,
-                lines:false,
-                useArrows:true,
-                width:180,
-                enableDD:true,
-                animate:true,
-                rootVisible:false
-              });
-            // First time all branch on path was sent, so let's expand it
-            tree.expandPath("#{expand_path}");
-            tree.on('contextmenu', function(node, e){
-              var menu = new Ext.menu.Menu({
-                items: [
-                  new Ext.menu.Item({
-                    text: 'New',
-                    disabled: node.attributes.cannot_create_child,
-                    href: node.attributes.addTarget + '?' +
-                        encodeURI(
-                          'resource[resource_type_id]=#{ResourceType.get_resource_type_by_hrid('content_page').id}'+
-                          '&resource[tree_node][has_url]=true' +
-                          '&resource[tree_node][is_main]=true' +
-                          '&resource[tree_node][parent_id]=' + node.id
-                        )
-                  }),
-                  new Ext.menu.Item({
-                    text: 'Edit',
-                    disabled: node.attributes.cannot_edit,
-                    href: node.attributes.editTarget
-                  }),
-                  new Ext.menu.Item({
-                    text: 'Delete',
-                    disabled: node.attributes.cannot_delete,
-                    handler: #{delete_node}
-                  }),
-                ]
-              });
-              menu.showAt(e.getXY());
-            });
+            children = #{build_json_tree(@website_parent_node, all_nodes).collect {|element| draw_json_tree(element)}.flatten.to_json};
+            create_tree('#{get_page_url(tree_node)}', children, '#{label}',
+                        'קבלה לפי נושאים',
+                        '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
           }
         TREE_CODE
-        
       }
     }
   end
 
   private
 
-  def delete_node
-    "
-    function delete_node(item){
-      Ext.Msg.confirm('Tree item Deletion', 'Are you sure you want to delete ' + node.text + '?',
-        function(e){
-          if(e == 'yes') {
-            Ext.Ajax.request({
-              url: node.attributes.delTarget,
-              method: 'post',
-              callback: #{delete_callback},
-              params: { '_method': 'delete' }
-            });
-          } // yes
-        } // func(e)
-      ); // confirm
-    } // func(item)
-    "
-  end
-  
-  def delete_callback
-    "
-       function (options, success, responce){
-            if (success) {
-              Ext.Msg.alert('Tree item Deletion', 'The tree item <' + node.text + '> was successfully deleted');
-              node.remove();
-            } else {
-              Ext.Msg.alert('Tree item Deletion', 'FAILURE!!!');
-            }
-          }
-    "
-  end
   def expand_path
     #    path = @ancestors.reject {|e| e.eql?(@ancestors.last)}
     '/0/' + @ancestors.join('/')

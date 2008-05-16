@@ -18,9 +18,22 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         title ext_title
         css(get_css_external_url('reset-fonts-grids'))
         css(get_css_external_url('base-min'))
+        css(get_css_external_url('../ext/resources/css/ext-all'))
         css(get_css_url('header'))
         css(get_css_url('home_page'))
         css(get_css_url('page_admin'))
+        rawtext <<-ExtJS
+          <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
+          <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
+          <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
+        ExtJS
+        #javascript(:src => "../javascripts/prototype.js")
+        #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
+        #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")
+        #javascript(:src => "../ext/ext-all-debug.js")
+        javascript {
+          rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
+        }
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
@@ -38,7 +51,66 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                       img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
                       img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
                     }
-                    div(:class => 'left-part') { text 'left-part' }
+                    div(:class => 'left-part') {
+                      div(:id => 'tabs1', :class => 'radio-TV') {
+                        rawtext ' '
+                      }
+                      div(:id => 'tv', :class => 'x-hide-display body'){
+                        rawtext 'TV'
+                      }
+                      div(:id => 'radio', :class => 'x-hide-display body'){
+                        rawtext 'RADIO'
+                      }
+                      javascript() {
+                        # Start onReady
+                        rawtext <<-EXT_ONREADY
+                          Ext.onReady(function(){
+                            tabs();
+                          });
+                        EXT_ONREADY
+
+                        rawtext <<-EXT_TABS
+                          tabs = function(){
+                            var mytab = new Ext.TabPanel({
+                              renderTo: 'tabs1',
+                              width:222,
+                              activeTab:1,
+                              frame:true,
+                              border:false,
+                              resizeTabs:true,
+                              plain:true,
+                              defaults:{
+                                autoHeight: true
+                              },
+                              items:[
+                                  {contentEl:'tv', title: 'טלויזיה' },
+                                  {contentEl:'radio', title: 'רדיו'}
+                              ]
+                            });
+                          }
+                        EXT_TABS
+                      }
+                      div(:class => 'blog-rav'){
+                        h3 {
+                          text 'בלוג של הרב לייטמן'
+                          img(:src => img_path('rav.jpg'),:class =>'Rav Michael Laitman', :alt => '')
+                        }
+                        
+                        div(:class => 'entry'){
+                          a 'גם בעלי תפקידים, גם תלמידים, גם בני משפחה', :href => '#'
+                          div(:class => 'date'){
+                            text '28/04  08:05'
+                          }
+                        }
+                        div(:class => 'entry'){
+                          a 'אנו זקוקים לחומרים חדשים ונגישים', :href => '#'
+                          div(:class => 'date'){
+                            text '28/04  18:54'
+                          }
+                        }
+                        a 'לקריאת פוסטים נוספים...', :href => '#', :class => 'more'
+                      }
+                    }
                   }
                   div(:class => 'yui-u') {
                     div(:class => 'h1') {

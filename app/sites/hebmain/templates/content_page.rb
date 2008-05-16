@@ -44,6 +44,14 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       div(:class => 'item') {
         div(:class => 'main_preview1') {
           div(:id => 'dz-1', :class => 'drop-zone')
+          javascript() {
+            rawtext <<-EXT_ONREADY
+              Ext.onReady(function(){
+                tree_drop_zone("dz-1", "widget_id", "#{get_page_url(tree_node)}", "widget_kuku");
+              });
+            EXT_ONREADY
+          }
+
           div(:class => 'element last') {
             h1 'ט"ו בשבט - חג המקובלים'
             h2 'חג הצמיחה הרוחנית'

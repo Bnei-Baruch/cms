@@ -25,8 +25,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         css(get_css_url('inner_page'))
         css(get_css_url('page_admin'))
         rawtext <<-ExtJS
-          <script src="/javascripts/prototype.js" type="text/javascript"></script>
-          <script src="/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>
           <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
           <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
           <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
@@ -35,14 +33,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
         #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")
         #javascript(:src => "../ext/ext-all-debug.js")
-        javascript() {
-          # Start onReady
-          rawtext <<-EXT_ONREADY
-            Ext.onReady(function(){
-              tree();
-              tree_drop_zone("dz-1", "widget_id", "#{get_page_url(tree_node)}");
-            });
-          EXT_ONREADY
+        javascript {
+          rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
         }
       }
       body {
@@ -80,8 +72,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   img(:src => img_path('top-left.gif'), :class => 'left', :alt => '')
                   text presenter.main_section.resource.name
                 }
-                @static_tree.render_to(doc)
                 @dynamic_tree.render_to(doc)
+                @static_tree.render_to(doc)
               }
               div(:class => 'news') {
                 div(:class => 'item') {

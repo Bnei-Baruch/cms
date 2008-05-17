@@ -73,6 +73,13 @@ class TreeNode < ActiveRecord::Base
       self.ac_type ||= self.max_user_permission.to_i
     end
     self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
+      # debugger
+    case self.resource.status
+    when 'DRAFT'
+      self.ac_type = 0 if self.ac_type <= 1 
+    when 'DELETED'
+      self.ac_type = 0 if self.ac_type <= 2 
+    end 
   end 
 
   def after_save
@@ -133,10 +140,17 @@ class TreeNode < ActiveRecord::Base
       else
         req_placeholders = 'null'
       end
+      if args.has_key?(:status)
+        req_status = 'ARRAY[' + args[:status].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
+      else
+        req_status = 'null'
+      end
+      
       
       if req_parent
         request = [
           req_parent, 
+          AuthenticationModel.current_user, 
           req_resource_type_hrids, 
           req_is_main, 
           req_has_url, 
@@ -145,11 +159,14 @@ class TreeNode < ActiveRecord::Base
           req_current_page,
           req_items_per_page,
           req_return_parent,
-          req_placeholders].join(',')
+          req_placeholders,
+          req_status
+          ].join(',') 
           if args[:test]
-            return "select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from cms_treenode_subtree(#{request})"
+            return "select * from cms_treenode_subtree(#{request})"
           end
-          find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from cms_treenode_subtree(#{request})") rescue []
+          # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
+          find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue []
         else
           []
         end

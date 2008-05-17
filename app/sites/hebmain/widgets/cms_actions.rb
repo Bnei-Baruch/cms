@@ -81,7 +81,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
         input(:type => 'hidden', :name => 'resource[tree_node][is_main]', :value => is_main)
         input(:type => 'hidden', :name => 'resource[tree_node][has_url]', :value => has_url)
         input(:type => 'hidden', :name => 'resource[tree_node][placeholder]', :value => placeholder)
-        a new_text, :onclick => "$('form-#{parent_id}').submit();return false;"
+        a new_text, :onclick => "Ext.get('form-#{parent_id}').dom.submit();return false;"
         }# input(:type => 'submit', :name => 'commit', :value => new_text)
         # p ' ', :class => 'clear'
       }

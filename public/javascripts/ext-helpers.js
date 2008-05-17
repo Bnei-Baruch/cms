@@ -39,16 +39,24 @@ function tree_drop_zone(dz_id, widget_node_id, url, widget) {
       url: url,
       method: 'post',
       success: function ( result, request ) { 
-        Ext.MessageBox.alert('Success', 'good');},
+        // Ext.MessageBox.alert('Success', result);
+		// return;
+		// Ext.get(dz_id).dom
+		Ext.get(dz_id).next().update(result.responseText,true);
+		// Ext.get(dz_id).parent().replaceClass('');
+		
+	  },
       failure: function ( result, request) { 
         Ext.MessageBox.alert('Failed', 'not good'); },
       // headers: {
       // 	'Content-Type': 'application/json; charset=utf-8'
       // },
       params: {
-        'node_id': node_id,
-        'widget_node_id': widget_node_id,
-        'dz_id': dz_id
+		'view_mode': 'preview_update',
+        'options[node_id]': node_id,
+        'options[widget_node_id]': widget_node_id,
+        'options[dz_id]': dz_id,
+        'options[widget]': widget
       }
     });
   });

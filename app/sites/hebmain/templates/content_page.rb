@@ -9,7 +9,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_content
     WidgetManager::Base.new do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button edit_button delete_button }, :resource_types => %W{ article box },:new_text => 'צור יחידת תוכן חדשה', :has_url => false, :placeholder => 'main_content'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button edit_button delete_button }, :resource_types => %W{ article content_preview },:new_text => 'צור יחידת תוכן חדשה', :has_url => false, :placeholder => 'main_content'}).render_to(self)
       unless get_acts_as_section
         h1 get_title
         h2 get_small_title
@@ -36,35 +36,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           rawtext get_body
         }
       end
+      # debugger
       content_resources.each{|e|
         div(:class => 'item') {
           render_content_resource(e)
         } 
       }
-      div(:class => 'item') {
-        div(:class => 'main_preview1') {
-          div(:id => 'dz-1', :class => 'drop-zone')
-          javascript() {
-            rawtext <<-EXT_ONREADY
-              Ext.onReady(function(){
-                tree_drop_zone("dz-1", "widget_id", "#{get_page_url(tree_node)}", "widget_kuku");
-              });
-            EXT_ONREADY
-          }
-
-          div(:class => 'element last') {
-            h1 'ט"ו בשבט - חג המקובלים'
-            h2 'חג הצמיחה הרוחנית'
-            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-            div(:class => 'author') {
-              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-              a(:class => 'left') { text "...לכתבה" }
-            }
-            img(:src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
-          }
-        }
-      }
-
       div(:class => 'item') {
         div(:class => 'section_preview') {
           div(:class => 'h1') {
@@ -199,10 +176,11 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_resources
     TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['article'], 
+      :resource_type_hrids => ['article', 'content_preview'], 
       :depth => 1,
       :has_url => false,
-      :placeholders => ['main_content']
+      :placeholders => ['main_content'],
+      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'DELETED']
     )               
   end
 
@@ -217,7 +195,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       :resource_type_hrids => ['box'], 
       :depth => 1,
       :has_url => false,
-      :placeholders => ['related_items']
+      :placeholders => ['related_items'],
+      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'DELETED']
     )               
   end
 

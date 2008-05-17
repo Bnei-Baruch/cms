@@ -40,27 +40,33 @@ class Sites::TemplatesController < ApplicationController
     set_translations
     
     respond_to do |format|
-      # debugger
       format.html {
-        # debugger 
+        if request.xhr?
+        render_json_widget
+          return
+        end 
         resource = @presenter.node_resource_type.hrid
         render :text => t_class(resource).new(
           :layout_class => l_class(resource)
         ).to_s
       }
       format.json {
-        # debugger
-        unless params.has_key?(:widget)
-          status_404
-          return
-        end
-        widget = params[:widget]
-        options = params.reject { |key, value|
-          ['view_mode', 'widget', 'prefix', 'format', 'action', 'id', 'controller'].include?(key) }
-        render :json => w_class(widget).new(:view_mode => params[:view_mode], :options => options).render_to(self)
+        render_json_widget
+        return
       }
     end
 
+  end
+  
+  def render_json_widget
+    unless params.has_key?(:options) && params[:options].has_key?(:widget)
+      status_404
+      return
+    end
+    options = params[:options]
+    widget = options[:widget]
+    tree_node = TreeNode.find(options[:widget_node_id])
+    render :text => w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
   end
   
   def stylesheet

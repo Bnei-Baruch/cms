@@ -3,6 +3,7 @@ module	Configuration::Application
   SETTINGS = {
  #define default anonymous login user for anonymous access
     :anonymous_login_user => {:username => 'Anonymous', :password => 'bli_kavana'},
+    :cron_manager_login_user => {:username => 'CronManager', :password => 'cronimkavana'},
 # define the global settings module
     :global_dir => 'global', 
  # define the interface language

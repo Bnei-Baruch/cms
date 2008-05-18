@@ -5,15 +5,15 @@
 //                node_id   - ID of a dropped node
 //                widget_node_id - ID of a target element (see above)
 //                dz_id     - ID of an element (div) to use as a drop zone
-function tree_drop_zone(dz_id, widget_node_id, url, widget) {
+function tree_drop_zone(widget_node_id, url, widget, updatable) {
   dz = new Ext.tree.TreePanel({
-    renderTo:dz_id,
+    renderTo:'dz-' + widget_node_id,
     animate:true,
     autoScroll:true,
     root: new Ext.tree.AsyncTreeNode({
       text: 'Drop here',
       draggable:false,
-      id:'target_'+dz_id
+      id:'target_' + widget_node_id
     }),
     rootVisible: true,
     autoHeight:true,
@@ -24,13 +24,12 @@ function tree_drop_zone(dz_id, widget_node_id, url, widget) {
     }),
     containerScroll:false,
     enableDD:true,
-    dragData:{url:url,widget_node_id:widget_node_id,dz_id:dz_id,widget:widget}
+    dragData:{url:url,widget_node_id:widget_node_id,widget:widget}
   });
   dz.on('beforenodedrop', function(dropEvent){
     url = dropEvent.tree.dragData.url;
     node_id = dropEvent.data.node.id;
     widget_node_id = dropEvent.tree.dragData.widget_node_id;
-    dz_id = dropEvent.tree.dragData.dz_id;
     // Ext.Ajax.defaultPostHeader = ‘application/json’;
     // Ext.Ajax.defaultHeaders = {
     // 'Content-Type': 'application/xml; charset=utf-8'
@@ -42,7 +41,7 @@ function tree_drop_zone(dz_id, widget_node_id, url, widget) {
         // Ext.MessageBox.alert('Success', result);
 		// return;
 		// Ext.get(dz_id).dom
-		Ext.get(dz_id).next().update(result.responseText,true);
+		Ext.get(updatable).update(result.responseText,true);
 		// Ext.get(dz_id).parent().replaceClass('');
 		
 	  },
@@ -53,9 +52,8 @@ function tree_drop_zone(dz_id, widget_node_id, url, widget) {
       // },
       params: {
 		'view_mode': 'preview_update',
-        'options[node_id]': node_id,
+        'options[target_node_id]': node_id,
         'options[widget_node_id]': widget_node_id,
-        'options[dz_id]': dz_id,
         'options[widget]': widget
       }
     });
@@ -97,7 +95,33 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
     collapsible:true
   });
   // First time all branch on path was sent, so let's expand it
-  tree.expandPath(expand_path);
+  tree.expandPath(expand_path);  
+  tree.on('beforenodedrop', function(dropEvent){ 
+	node = dropEvent.dropNode;
+	var parentNode = node.parentNode;
+	var nodeNextSibling = node.nextSibling;
+	var src = node.attributes.id;
+	var trg = dropEvent.target.attributes.id;
+	var point = dropEvent.point;  
+	Ext.Ajax.request({
+      url: url,
+      method: 'post',
+      success: function ( result, request ) {
+		// tree.highlight();
+	  },
+      failure: function ( result, request) { 
+        Ext.MessageBox.alert('Failed', 'not good');
+		parentNode.insertBefore(node, nodeNextSibling);
+	  },
+      params: {
+		'view_mode': 'tree_nodes_exchange',
+        'options[target_node_id]': trg,
+        'options[source_node_id]': src,
+        'options[point]': point,
+        'options[widget]': 'tree'
+      }
+    });
+  });
   tree.on('contextmenu', function(node, e){
     var menu = new Ext.menu.Menu({
       items: [

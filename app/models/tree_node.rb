@@ -232,9 +232,9 @@ class TreeNode < ActiveRecord::Base
     #check if has permission for destroy action
     if not can_administrate?
       logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-      "for destroy tree_node: #{id} resource: #{resource_id}")
-      raise "User #{AuthenticationModel.current_user} has not permission " + 
-      "for destroy tree_node: #{id} resource: #{resource_id}"
+      "to destroy tree_node: #{id} resource: #{resource_id}")
+      raise "User #{AuthenticationModel.current_user} has no permission " + 
+      "to destroy tree_node: #{id} resource: #{resource_id}"
     end
     tree_node_ac_rights.destroy_all
   end
@@ -243,9 +243,9 @@ class TreeNode < ActiveRecord::Base
     #check if has permission for edit action
     if not can_edit?
       logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-      "for edit tree_node: #{id} resource: #{resource_id}")
-      raise "User #{AuthenticationModel.current_user} has not permission " + 
-      "for edit tree_node: #{id} resource: #{resource_id}"
+      "to edit tree_node: #{id} resource: #{resource_id}")
+      raise "User #{AuthenticationModel.current_user} has no permission " + 
+      "to edit tree_node: #{id} resource: #{resource_id}"
     end
   end
 
@@ -255,9 +255,9 @@ class TreeNode < ActiveRecord::Base
     if parent_id && parent_id > 0
        if not TreeNode.find_as_admin(parent_id).can_create_child?
           logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-          "for creation child to tree_node: #{parent_id}")
-          raise "User #{AuthenticationModel.current_user} has not permission " + 
-          "for creation child to tree_node: #{parent_id}"
+          "to create a child of tree_node: #{parent_id}")
+          raise "User #{AuthenticationModel.current_user} has no permission " + 
+          "to create a child of tree_node: #{parent_id}"
         end
     else
         #if parent_id is nil or 0 (it is root tree_node)

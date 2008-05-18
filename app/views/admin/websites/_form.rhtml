@@ -6,6 +6,8 @@
 		<label for="website_name">HRID</label><%= f.text_field :hrid %>
 		<label for="website_domain">Domain</label><%= f.text_field :domain %>
 		<label for="website_prefix">Prefix</label><%= f.text_field :prefix %>
+		<label for="website_prefix">Use Homepage Without Prefix</label>
+		<%= check_box_tag :value_dummy, {}, @website.use_homepage_without_prefix, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :use_homepage_without_prefix%>
 		<label for="website_entry_point_id">Entry Point Resource</label>
 		<%= f.select(:entry_point_id, Website.get_website_resources_for_select,{:include_blank => true}) %>
 

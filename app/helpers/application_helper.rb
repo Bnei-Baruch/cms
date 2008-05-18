@@ -22,12 +22,11 @@ module ApplicationHelper
 
   # this is used to generate URL in development mode
   def port
-        my_port = @presenter.controller.request.server_port.to_s
-        my_port == '80' ? '' : ':' + my_port
+    @presenter.port
   end
   
   def domain
-     @full_domain ||= @presenter.controller.website.domain + port
+     @presenter.domain
   end
 
   def get_file_url(attachment, image_name = 'myself')

@@ -1,8 +1,13 @@
 class Sites::Global < Presenter::Base
   
   def port
-    request.port
-  end      
+    my_port = @controller.request.server_port.to_s
+    my_port == '80' ? '' : ':' + my_port
+  end
+  
+  def domain
+    @full_domain ||= @controller.website.domain + port
+  end
   
   def website_resource
     @website.website_resource
@@ -13,11 +18,12 @@ class Sites::Global < Presenter::Base
   end                      
   
   def website_subtree
-    TreeNode.get_subtree(website_resource.id)
+    TreeNode.get_subtree(:parent => website_resource.id)
   end
 
   def node
     if @permalink 
+      # debugger
       TreeNode.find_by_permalink_and_has_url(@permalink, true) rescue nil
     else
       website_node
@@ -58,7 +64,9 @@ class Sites::Global < Presenter::Base
   end
 
   def home
-    @website.domain + ':3000' + '/' + @website.prefix
+    prefix = ''
+    prefix = '/' + @website.prefix unless @website.use_homepage_without_prefix
+    domain + prefix
   end
   
 

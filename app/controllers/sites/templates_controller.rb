@@ -14,11 +14,16 @@ class Sites::TemplatesController < ApplicationController
   
   # This is the action that renders the view and responds to client
   def template
+    # debugger
     host = 'http://' + request.host
     prefix = params[:prefix]
     permalink = params[:id]
-    @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
-    @site_name = site_name
+    if prefix || permalink
+      @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
+      @website = nil if @website.use_homepage_without_prefix && !(prefix && permalink)
+    else
+      @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', host, true])
+    end
 
     args = {:permalink => permalink, :website=> @website, :controller => self}
     begin
@@ -27,6 +32,7 @@ class Sites::TemplatesController < ApplicationController
       head_status_404
       return
     end
+    @site_name = site_name
     Thread.current[:presenter] = @presenter
 
     # in case the page is not found in the DB
@@ -65,7 +71,7 @@ class Sites::TemplatesController < ApplicationController
     end
     options = params[:options]
     widget = options[:widget]
-    tree_node = TreeNode.find(options[:widget_node_id])
+    tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
     render :text => w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
   end
   

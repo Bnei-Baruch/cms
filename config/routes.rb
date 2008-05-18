@@ -27,7 +27,9 @@ ActionController::Routing::Routes.draw do |map|
 #  map.json 'json',
 #              :controller => 'sites/templates', 
 #              :action => 'json'
-  map.tm ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'                                         
+  map.tm ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'
+  map.connect '/', :controller => 'sites/templates', :action => 'template'
+                                           
   map.js ':prefix/js/:id' , :controller => 'sites/javascripts' , :action => 'javascript'
   map.css 'stylesheets/:website_id/:css_id.css',
               :controller => 'sites/templates', 

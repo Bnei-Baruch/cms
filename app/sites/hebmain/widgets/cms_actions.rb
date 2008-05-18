@@ -1,7 +1,5 @@
 class Hebmain::Widgets::CmsActions < WidgetManager::Base
-
-
-
+  
   # tree_node - is the node object to which the operations will be performed. Editing will be for this object, New is a new child for this object, Delete is deleting this tree_node
   def render_full
     # operations permitted only on tree nodes other than the page you are on now.
@@ -57,6 +55,25 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     CODE_BLOCK
   end
 
+  
+  def render_tree_drop_zone
+    widget_id = tree_node.id
+    widget_name = tree_node.resource.resource_type.hrid
+    if tree_node.can_edit? && @options[:page_url] && @options[:updatable]
+      page_url = @options[:page_url]
+      updatable = @options[:updatable]
+      javascript() {
+        rawtext <<-EXT_ONREADY
+        Ext.onReady(function(){
+          tree_drop_zone("#{widget_id}", "#{page_url}", "#{widget_name}", "#{updatable}");
+          });
+          EXT_ONREADY
+      }
+      div(:id => "dz-#{widget_id}", :class => 'drop-zone')
+    end
+  end
+
+
   private
 
   def new_button_link(resource_types, parent_id, is_main, has_url, placeholder, new_text)
@@ -82,9 +99,9 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
         input(:type => 'hidden', :name => 'resource[tree_node][has_url]', :value => has_url)
         input(:type => 'hidden', :name => 'resource[tree_node][placeholder]', :value => placeholder)
         a new_text, :onclick => "Ext.get('form-#{parent_id}').dom.submit();return false;"
-        }# input(:type => 'submit', :name => 'commit', :value => new_text)
+      }# input(:type => 'submit', :name => 'commit', :value => new_text)
         # p ' ', :class => 'clear'
-      }
-    end
-
+    }
   end
+
+end

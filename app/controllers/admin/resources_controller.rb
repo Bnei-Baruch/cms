@@ -81,6 +81,10 @@ class Admin::ResourcesController < ApplicationController
 
   # POST /resources POST /resources.xml
   def create
+    # Draft or Publish buttons support
+    params[:resource][:status] = 'PUBLISHED' if params[:publish_button]
+    params[:resource][:status] = 'DRAFT' if params[:draft_button]
+
     @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
 
@@ -110,6 +114,10 @@ class Admin::ResourcesController < ApplicationController
 
   # PUT /resources/1 PUT /resources/1.xml
   def update
+    # Draft or Publish buttons support
+    params[:resource][:status] = 'PUBLISHED' if params[:publish_button]
+    params[:resource][:status] = 'DRAFT' if params[:draft_button]
+
     @resource = Resource.find(params[:id])
     @resource_type = @resource.resource_type
     Website.associate_website(@resource, session[:website])

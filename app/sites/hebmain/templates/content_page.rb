@@ -40,6 +40,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       content_resources.each{|e|
         div(:class => 'item') {
           render_content_resource(e)
+          div(:class => 'clear')
         } 
       }
       div(:class => 'item') {

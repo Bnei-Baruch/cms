@@ -37,12 +37,11 @@ module WidgetExtensions
 
   # this is used to generate URL in development mode
   def port
-        my_port = presenter.controller.request.server_port.to_s
-        my_port == '80' ? '' : ':' + my_port
+    @port ||= presenter.port
   end
 
   def domain
-     @full_domain ||= presenter.controller.website.domain + port
+     @full_domain ||= presenter.domain
   end
 
   def get_file_url(attachment, image_name = 'myself')
@@ -52,6 +51,17 @@ module WidgetExtensions
               :image_name => attachment.id.to_s + "_" + image_name,
               :format => format, 
               :host => my_domain)
+  end
+  
+  def add_node_link_to_resource(parent_node, resource)
+    new_tree_node = 
+    TreeNode.new(
+      :parent_id => parent_node.id,
+      :has_url => false,
+      :is_main => false
+    )
+    new_tree_node.resource = resource
+    new_tree_node.save!
   end
   
 end

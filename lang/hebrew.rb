@@ -23,6 +23,7 @@ Localization.define('hebrew') do |l|
   l.store 'Box', 'קופסא'
 
   l.store 'Publish on site', 'פרסם באתר'
+  l.store 'Save draft', 'שמור כטיוטה'
   l.store 'Update', 'עדכן'
   l.store 'Creating', 'יצירת'
   l.store 'Editing', 'עריכת'

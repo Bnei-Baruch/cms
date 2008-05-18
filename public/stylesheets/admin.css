@@ -47,7 +47,7 @@ margin-left: 5px;
 #website_control select{
 margin: 5px 0 0 0;    
 }
-#submit{
+.submit{
 margin: 30px 0 10px;
 }
 .dynamic_element{
@@ -118,7 +118,7 @@ padding-top:30px;
 margin:10px; 
 text-align:center;   
 }
-span#submit{
+span.submit{
 display:block;    
 }
 .notice{
@@ -224,7 +224,7 @@ label.fieldWithErrors {
 	width: 85%;
 	height:90px;
 }	
-.rtl #content #submit input{
+.rtl #content .submit input{
 	cursor:pointer;
 	font-size: 22px;
 	padding: 5px;

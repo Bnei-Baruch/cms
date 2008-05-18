@@ -10,7 +10,34 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     @display_hidden = (@args_hash[:display_hidden] || (@args_hash[:options]&&@args_hash[:options][:display_hidden]))
     @counter = -1
   end
+  
+             
+  # Respond to tree node movements (Drag-drop)
+  def render_tree_nodes_exchange
+    target_node_id = @options[:target_node_id]
+    source_node_id = @options[:source_node_id]
+    target_node = TreeNode.find(target_node_id)
+    source_node = TreeNode.find(source_node_id)
+# debugger    
+    case @options[:point]
+    when 'above'
+      source_node.remove_from_list
+      source_node.parent = target_node.parent
+      source_node.insert_at(target_node.position)
+      
+    when 'below'
+      source_node.remove_from_list
+      source_node.parent = target_node.parent
+      source_node.insert_at(target_node.position + 1)
 
+    when 'append' # Source node was added to the target tree branch
+      source_node.remove_from_list
+      source_node.parent = target_node
+      source_node.insert_at
+      source_node.move_to_bottom
+    end
+  end
+  
   def render_json_node
     id = @options[:node].to_i
     if id == 0
@@ -95,7 +122,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     end
     [
       {
-        :id => id, :text => name, :href => href, :leaf => !item[:submenu],
+        :id => id, :text => name, :href => href, :leaf => false,#!item[:submenu],
         :parent_id => leaf.parent_id,
         :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,
         :cannot_delete => !leaf.can_delete?,

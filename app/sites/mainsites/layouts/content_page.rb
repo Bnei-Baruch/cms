@@ -70,7 +70,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                 h4 {
                   img(:src => img_path('top-right.gif'), :class => 'right', :alt => '')
                   img(:src => img_path('top-left.gif'), :class => 'left', :alt => '')
-                  text presenter.main_section.resource.name
+                  text presenter.main_section.resource.name if presenter.main_section
                 }
                 @dynamic_tree.render_to(doc)
                 @static_tree.render_to(doc)

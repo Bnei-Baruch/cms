@@ -54,7 +54,7 @@ protected
       user = User.authenticate(username, password)
         if user
           session[:user_id] = user.id
-          session[:user_is_admin]=0
+          session[:current_user_is_admin]=0
         else
           logger.error("Anonymous user is not defined or banned. Access denied.")
           raise "Access denied for anonymous user."

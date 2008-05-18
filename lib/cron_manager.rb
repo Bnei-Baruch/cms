@@ -32,9 +32,9 @@ class CronManager
   def self.read_and_save_node_rss(tree_node)
     content = ''
     
-    retries = 42
+    retries = 2
     begin
-      Timeout::timeout(s){
+      Timeout::timeout(5){
         open((tree_node.resource.properties('url')).get_value) { |f|
           content = f.read
         }

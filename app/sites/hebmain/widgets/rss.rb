@@ -39,7 +39,8 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     return '' if content.empty?
     items = get_rss_items(content)
    
-    div(:class => 'blog-rav'){
+    div(:class => 'rss'){
+      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
       h3 {
         text get_title
         picture = get_picture
@@ -54,7 +55,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
           }
           if (show_description)
             div(:class => 'description'){
-              text item[:description]
+              rawtext item[:description]
             }
           end
         }

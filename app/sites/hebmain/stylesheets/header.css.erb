@@ -68,16 +68,19 @@ strong{
 #hd ul.links {
 	position: absolute;
 	top:15px;
-	left:300px;
+	right:0;
 	height:15px;
 	margin: 0;
 	padding: 0;
 }
 #hd ul.links li {
 	float: left;
-	margin-right: 14px;
-	list-style-image: url(<%= domain %>/images/<%= @site_name %>/link.gif);
+	margin-left: 14px;
+	list-style:none;
 	list-style-position: inside;
+}
+#hd ul.links li a {
+  background: white url(<%= domain %>/images/<%= @site_name %>/link.gif) no-repeat right center;
 }
 /*----------  Menu  ---------------*/
 #bd .menu {

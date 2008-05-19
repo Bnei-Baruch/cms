@@ -4,7 +4,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 
   def initialize(*args, &block)
     super
-    @header = w_class('header').new()
+    @header_left = w_class('header').new(:view_mode => 'left')
+    @header_right = w_class('header').new(:view_mode => 'right')
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
   end
@@ -18,7 +19,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         title ext_title
         css(get_css_external_url('reset-fonts-grids'))
         css(get_css_external_url('base-min'))
-#        css(get_css_external_url('../ext/resources/css/ext-all'))
+        #        css(get_css_external_url('../ext/resources/css/ext-all'))
         css(get_css_external_url('../ext/resources/css/reset'))
         css(get_css_external_url('../ext/resources/css/core'))
         css(get_css_external_url('../ext/resources/css/layout'))
@@ -44,11 +45,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
-          div(:id => 'hd') { @header.render_to(self) } #Header goes here
           div(:id => 'bd') {
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-gd') {
+                  div(:id => 'hd') { @header_left.render_to(self) } #Header goes here
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
                   }    
@@ -232,13 +233,13 @@ var player = document.getElementById("player");
                           div(:class => 'clear')
                         }
                       }
-
                     }
                   }
                 }
               }
             }
             div(:class => 'yui-b') {
+              div(:id => 'hd') { @header_right.render_to(self) } #Logo goes here
               div(:class => 'right-part') {
                 div(:class => 'h1') {
                   text 'מאיפה להתחיל?'

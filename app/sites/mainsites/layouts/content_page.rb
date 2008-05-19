@@ -4,7 +4,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
   def initialize(*args, &block)
     super
-    @header = w_class('header').new()
+    @header_left = w_class('header').new(:view_mode => 'left')
+    @header_right = w_class('header').new(:view_mode => 'right')
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @breadcrumbs = w_class('breadcrumbs').new()
@@ -39,11 +40,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       }
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
-          div(:id => 'hd') { @header.render_to(self) } #Header goes here
           div(:id => 'bd') {
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
+                  div(:id => 'hd') { @header_left.render_to(self) } #Header goes here
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
                   }    
@@ -66,6 +67,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
+              div(:id => 'hd') { @header_right.render_to(self) } #Logo goes here
               div(:class => 'nav') {
                 h4 {
                   img(:src => img_path('top-right.gif'), :class => 'right', :alt => '')

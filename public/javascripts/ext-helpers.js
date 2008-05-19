@@ -107,7 +107,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
       url: url,
       method: 'post',
       success: function ( result, request ) {
-		// tree.highlight();
+		tree.body.highlight();
 	  },
       failure: function ( result, request) { 
         Ext.MessageBox.alert('Failed', 'not good');

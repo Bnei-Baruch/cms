@@ -57,19 +57,21 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
 
   
   def render_tree_drop_zone
-    widget_id = tree_node.id
-    widget_name = tree_node.resource.resource_type.hrid
-    if tree_node.can_edit? && @options[:page_url] && @options[:updatable]
-      page_url = @options[:page_url]
-      updatable = @options[:updatable]
-      javascript() {
-        rawtext <<-EXT_ONREADY
-        Ext.onReady(function(){
-          tree_drop_zone("#{widget_id}", "#{page_url}", "#{widget_name}", "#{updatable}");
-          });
-          EXT_ONREADY
-      }
-      div(:id => "dz-#{widget_id}", :class => 'drop-zone')
+    if tree_node.can_create_child?
+      widget_id = tree_node.id
+      widget_name = tree_node.resource.resource_type.hrid
+      if tree_node.can_edit? && @options[:page_url] && @options[:updatable]
+        page_url = @options[:page_url]
+        updatable = @options[:updatable]
+        javascript() {
+          rawtext <<-EXT_ONREADY
+          Ext.onReady(function(){
+            tree_drop_zone("#{widget_id}", "#{page_url}", "#{widget_name}", "#{updatable}");
+            });
+            EXT_ONREADY
+          }
+          div(:id => "dz-#{widget_id}", :class => 'drop-zone')
+      end
     end
   end
 

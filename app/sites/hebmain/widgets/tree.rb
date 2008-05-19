@@ -7,7 +7,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     @website_parent_node = presenter.website_node.id
     @ancestors = presenter.parents.collect{|a|a.id} + [presenter.node.id]
     @ancestors.reject! { |id| id == @website_parent_node }
-    @display_hidden = (@args_hash[:display_hidden] || (@args_hash[:options]&&@args_hash[:options][:display_hidden]))
+    # @display_hidden = (@args_hash[:display_hidden] || (@args_hash[:options]&&@args_hash[:options][:display_hidden]))
     @counter = -1
   end
   
@@ -41,7 +41,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   def render_json_node
     id = @options[:node].to_i
     if id == 0
-      build_json_tree(@website_parent_node, all_nodes).collect {|element| draw_json_tree(element)}.flatten
+      build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten
     else
       level_nodes(id).flatten
     end
@@ -50,27 +50,29 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   def render_static
     ul(:class => 'static') {
       # We're going to draw only those nodes that are on path
-      build_tree(@website_parent_node, all_nodes).each {|element| draw_tree element}
+      build_tree(presenter.main_section.id, all_nodes).each {|element| draw_tree element}
     }
   end
   def render_dynamic
-    @counter += 1
-    label = "TREE_#{@counter}"
-    div(:id => label) {
-      javascript {
-        rawtext <<-TREE_CODE
-          Ext.onReady(function(){
-            tree();
-          });
-          function tree() {
-            children = #{build_json_tree(@website_parent_node, all_nodes).collect {|element| draw_json_tree(element)}.flatten.to_json};
-            create_tree('#{get_page_url(tree_node)}', children, '#{label}',
-                        'קבלה לפי נושאים',
-                        '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
-          }
-        TREE_CODE
-      }
-    }
+    if tree_node.can_edit?
+      @counter += 1
+      label = "TREE_#{@counter}"
+      div(:id => label) {
+        javascript {
+          rawtext <<-TREE_CODE
+            Ext.onReady(function(){
+              tree();
+            });
+            function tree() {
+              children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
+              create_tree('#{get_page_url(tree_node)}', children, '#{label}',
+                          'קבלה לפי נושאים',
+                          '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
+            }
+          TREE_CODE
+        }
+      }                     
+    end
   end
 
   private
@@ -88,6 +90,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
       :properties => {
         :hide_on_navigation => @display_hidden
       },
+      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED'],
       :depth => 2
     )
     nodes.select { |element| element.parent_id == node_id }.collect { |node|
@@ -99,14 +102,16 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     }
   end
 
-  # Fetch all sub-nodes of website
-  def all_nodes
-    properties = @display_hidden ? {} : {:hide_on_navigation => 'f'}
+  # Fetch all sub-nodes of website 
+  def all_nodes(regular_user = true)
+    properties =  regular_user ? {:hide_on_navigation => 'f'} : {}
     TreeNode.get_subtree(
       :parent => @website_parent_node,
       :resource_type_hrids => ['content_page'],
-      :properties => properties
+      :properties => properties,
+      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED']
     )
+    
   end
 
   def draw_json_tree(node)
@@ -173,15 +178,15 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     nodes.select { |node|
       node.parent_id == parent_node
     }.collect { |item|
-      s = build_tree(item.id, nodes)
-      if s.length == 0
+      subtree = build_tree(item.id, nodes)
+      if subtree.length == 0
         # No children -- final element
         [{:item => item, :selected => @ancestors.include?(item.id)}]
       else
         # Has children -- submenu
         if @ancestors.include?(item.id)
           # On path -- to show children
-          [{:item => item, :submenu => true, :selected => true}] + s
+          [{:item => item, :submenu => true, :selected => true}] + subtree
         else
           # Not on path -- to show only the element itself
           [{:item => item, :submenu => true}]

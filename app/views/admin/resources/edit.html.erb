@@ -3,7 +3,7 @@
 <%= render :partial => "admin/share/tiny_mce_full" %>
 
 <% cms_form_for(:resource, :url => admin_resource_path(@resource), :html => {:method => 'put', :multipart => true}) do |f| %>
-		<%= update_name =  _('Update') + ' ' + _(name) %>
+		<% update_name =  _('Update') + ' ' + _(name) %>
 		<br />
 		<%= link_to _('Cancel'), session[:referer], {:class => 'button'} %>
 		<br />                                             

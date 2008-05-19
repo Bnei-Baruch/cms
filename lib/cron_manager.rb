@@ -34,7 +34,7 @@ class CronManager
     
     retries = 2
     begin
-      Timeout::timeout(5){
+      Timeout::timeout(25){
         open((tree_node.resource.properties('url')).get_value) { |f|
           content = f.read
         }
@@ -48,8 +48,7 @@ class CronManager
         raise
       end
     end
-
-    range = Range.new(0, (tree_node.resource.properties('number_of_items')).get_value, true)
+    range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
     data = YAML.dump(RSS::Parser.parse(content, false).items[range])
     property = tree_node.resource.properties('items')
     property.update_attributes(:text_value => data)

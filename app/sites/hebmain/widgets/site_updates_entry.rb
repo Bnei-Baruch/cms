@@ -37,7 +37,7 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
  
       h4 get_title
       
-      text get_description
+      rawtext get_description
       br
       div(:class => 'link'){
         url = get_url

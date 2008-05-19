@@ -19,25 +19,21 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         title ext_title
         css(get_css_external_url('reset-fonts-grids'))
         css(get_css_external_url('base-min'))
-        css(get_css_external_url('../ext/resources/css/ext-all'))
-#        css(get_css_external_url('../ext/resources/css/reset'))
-#        css(get_css_external_url('../ext/resources/css/core'))
-#        css(get_css_external_url('../ext/resources/css/layout'))
-#        css(get_css_external_url('../ext/resources/css/panel'))
-#        css(get_css_external_url('../ext/resources/css/borders'))
-#        css(get_css_external_url('../ext/resources/css/tabs'))
+#        css(get_css_external_url('../ext/resources/css/ext-all'))
+        css(get_css_external_url('../ext/resources/css/reset'))
+        css(get_css_external_url('../ext/resources/css/core'))
+        css(get_css_external_url('../ext/resources/css/layout'))
+        css(get_css_external_url('../ext/resources/css/panel'))
+        css(get_css_external_url('../ext/resources/css/borders'))
+        css(get_css_external_url('../ext/resources/css/tabs'))
         css(get_css_url('header'))
         css(get_css_url('home_page'))
         css(get_css_url('page_admin'))
         rawtext <<-ExtJS
           <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
-          <script src="/javascripts/../ext/ext-all.js" type="text/javascript"></script>
+          <script src="/javascripts/../ext/ext-tabs-tree.js" type="text/javascript"></script>
           <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
         ExtJS
-        #javascript(:src => "../javascripts/prototype.js")
-        #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
-        #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")
-        #javascript(:src => "../ext/ext-all-debug.js")
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
@@ -151,34 +147,6 @@ var player = document.getElementById("player");
                         }
                         a 'לקריאת פוסטים נוספים...', :href => '#', :class => 'more'
                       }
-                      div(:class => 'downloads'){
-                        h3 {
-                          text 'הורדות חינם'
-                        }
-#                        label = "download"
-#                        children = {
-#                            :id => 1, :text => 'name', :href => 'href', :leaf => true,
-#                            :parent_id => 10,
-#                            #                              :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,
-#                            #                              :cannot_delete => !leaf.can_delete?,
-#                            :addTarget => 'new_admin_resource_path',
-#                            :delTarget => 'admin_tree_node_path(leaf)',
-#                            :editTarget => 'edit_admin_resource_path(:id => leaf.resource, :tree_id => leaf.id)'
-#                          }.to_json
-#                        div(:id => label) {
-#                          javascript {
-#                            rawtext <<-TREE_CODE
-#                              Ext.onReady(function(){
-#                                tree();
-#                              });
-#                              function tree() {
-#                                children = #{children};
-#                                create_tree('url', children, '#{label}', '', 'expand_path', '');
-#                              }
-#                            TREE_CODE
-#                          }
-#                        }                     
-                      }
                     }
                   }
                   div(:class => 'yui-u') {
@@ -267,7 +235,7 @@ var player = document.getElementById("player");
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd') { @header_right.render_to(self) } #Logo goes here
+              div(:id => 'hd-r') { @header_right.render_to(self) } #Logo goes here
               div(:class => 'right-part') {
                 div(:class => 'h1') {
                   text 'מאיפה להתחיל?'

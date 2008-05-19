@@ -67,7 +67,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd') { @header_right.render_to(self) } #Logo goes here
+              div(:id => 'hd1') { @header_right.render_to(self) } #Logo goes here
               div(:class => 'nav') {
                 h4 {
                   img(:src => img_path('top-right.gif'), :class => 'right', :alt => '')

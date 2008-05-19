@@ -7,7 +7,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @header_left = w_class('header').new(:view_mode => 'left')
     @header_right = w_class('header').new(:view_mode => 'right')
     @breadcrumbs = w_class('breadcrumbs').new()
-    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
+    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
   end
 
   def render
@@ -283,29 +283,17 @@ var player = document.getElementById("player");
                     li(:class => 'more') {a 'לשאלות נוספות...', :href => '#', :title => 'link'}
                   }
                 }
-                div(:class => 'updates'){
-                  h3 'עידכונים'
-                  div(:class => 'update'){
-                    h4 'שיבת החברים העולמית! '
-                    rawtext 'בכל יום א&amp; בשעה 19:00 תשודר בשידור חי ישיבת החברים העולמית.'
-                    div(:class => 'link'){
-                      a(:href => '#', :title => 'link') {
-                        rawtext 'צפו בישיבה האחרונה'
-                        img(:src => img_path('arrow-left.gif'), :alt => '')
-                      }
-                    }
-                  }
-                  div(:class => 'update last'){
-                    h4 'שיבת החברים העולמית! '
-                    rawtext 'בכל יום א&amp; בשעה 19:00 תשודר בשידור חי ישיבת החברים העולמית.'
-                    div(:class => 'link'){
-                      a(:href => '#', :title => 'link') {
-                        rawtext 'צפו בישיבה האחרונה'
-                        img(:src => img_path('arrow-left.gif'), :alt => '')
-                      }
-                    }
-                  }
-                }
+                
+                w_class('cms_actions').new(:tree_node => tree_node, 
+                  :options => {:buttons => %W{ new_button }, 
+                    :resource_types => %W{ site_updates },
+                    :new_text => 'צור יחידת תוכן חדשה', 
+                    :has_url => false, 
+                    :placeholder => 'right'}).render_to(self)
+                
+                right_column_resources.each { |right_column_resource|
+                  render_content_resource(right_column_resource)
+                }                
               }
             }
           }
@@ -315,5 +303,17 @@ var player = document.getElementById("player");
         }
       }
     }
-  end           
+  end     
+  
+  private 
+  
+  def right_column_resources
+    @tree_nodes ||= TreeNode.get_subtree(
+      :parent => tree_node.id, 
+      :resource_type_hrids => ['site_updates'], 
+      :depth => 1,
+      :placeholders => ['right']
+    ) 
+  end
+  
 end 

@@ -169,11 +169,6 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   private
 
-  def render_content_resource(tree_node)
-    class_name = tree_node.resource.resource_type.hrid
-    w_class(class_name).new(:tree_node => tree_node).render_to(self)
-  end
-
   def content_resources
     TreeNode.get_subtree(
       :parent => tree_node.id, 

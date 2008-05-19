@@ -77,28 +77,18 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                 @dynamic_tree.render_to(doc)
                 @static_tree.render_to(doc)
               }
-              div(:class => 'news') {
-                div(:class => 'item') {
-                  h4 'בוקר אור'
-                  text 'היכנסו וקראו מה מרגיש וחושב מקובל ומדען על אירועי היום, על קבלה ועל משמעות החיים.'
-                  br
-                  a 'לצפיה בתוכנית מה 15.04', :href => '#', :title => 'link'
-                  div(:class => 'border'){rawtext('&nbsp;')}
-                }
-                div(:class => 'item') {
-                  h4 'בוקר אור'
-                  text 'היכנסו וקראו מה מרגיש וחושב מקובל ומדען על אירועי היום, על קבלה ועל משמעות החיים.'
-                  br
-                  a 'לצפיה בתוכנית מה 15.04', :href => '#', :title => 'link'
-                  div(:class => 'border'){rawtext('&nbsp;')}
-                }
-                div(:class => 'item') {
-                  h4 'בוקר אור'
-                  text 'היכנסו וקראו מה מרגיש וחושב מקובל ומדען על אירועי היום, על קבלה ועל משמעות החיים.'
-                  br
-                  a 'לצפיה בתוכנית מה 15.04', :href => '#', :title => 'link'
-                }
-              }
+              
+              w_class('cms_actions').new(:tree_node => tree_node, 
+                :options => {:buttons => %W{ new_button }, 
+                  :resource_types => %W{ site_updates },
+                  :new_text => 'צור יחידת תוכן חדשה', 
+                  :has_url => false, 
+                  :placeholder => 'right'}).render_to(self)
+                
+              right_column_resources.each { |right_column_resource|                
+                render_content_resource(right_column_resource,
+                    right_column_resource.resource.resource_type.hrid == 'site_updates' ? 'news' : 'full')
+              }                
             }
           }
           div(:id => 'ft') {
@@ -107,5 +97,17 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         }
       }
     }
-  end           
+  end  
+  
+  private 
+  
+  def right_column_resources
+    @tree_nodes ||= TreeNode.get_subtree(
+      :parent => tree_node.id, 
+      :resource_type_hrids => ['site_updates'], 
+      :depth => 1,
+      :placeholders => ['right']
+    ) 
+  end
+  
 end 

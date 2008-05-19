@@ -31,9 +31,9 @@ module WidgetExtensions
     domain + '/stylesheets/' + style_name + '.css'
   end
 
-#  def get_json_url
-#    domain + json_path  
-#  end
+  #  def get_json_url
+  #    domain + json_path  
+  #  end
 
   # this is used to generate URL in development mode
   def port
@@ -41,27 +41,32 @@ module WidgetExtensions
   end
 
   def domain
-     @full_domain ||= presenter.domain
+    @full_domain ||= presenter.domain
   end
 
   def get_file_url(attachment, image_name = 'myself')
     my_domain = domain.sub('http://','')
     format = File.extname(attachment.filename).delete('.')
     image_url(:image_id => ((attachment.id % 100).to_s) , 
-              :image_name => attachment.id.to_s + "_" + image_name,
-              :format => format, 
-              :host => my_domain)
+      :image_name => attachment.id.to_s + "_" + image_name,
+      :format => format, 
+      :host => my_domain)
   end
   
   def add_node_link_to_resource(parent_node, resource)
     new_tree_node = 
-    TreeNode.new(
+      TreeNode.new(
       :parent_id => parent_node.id,
       :has_url => false,
       :is_main => false
     )
     new_tree_node.resource = resource
     new_tree_node.save!
+  end
+  
+  def render_content_resource(tree_node, view_mode = 'full')
+    class_name = tree_node.resource.resource_type.hrid
+    w_class(class_name).new(:tree_node => tree_node, :view_mode => view_mode).render_to(self)
   end
   
 end

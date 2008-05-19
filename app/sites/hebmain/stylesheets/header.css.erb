@@ -79,3 +79,62 @@ strong{
 	list-style-image: url(<%= domain %>/images/<%= @site_name %>/link.gif);
 	list-style-position: inside;
 }
+/*----------  Menu  ---------------*/
+#bd .menu {
+	font-size:116%;
+	font-weight: bold;
+	background: white url(<%= domain %>/images/<%= @site_name %>/menu-bg.gif) repeat-x left -62px;
+  position:relative;
+  height:31px;
+  width:100%;
+	margin: 0 0 25px;
+}
+#bd .menu ul {
+  position:absolute;
+  top:0;
+  right:0;
+  width:100%;
+	height:31px;
+	line-height:21px;
+	padding: 3px 0 0; 
+	margin: 0;
+}
+#bd .menu .first {
+  position:absolute;
+  top:0;
+  right:0;
+  height:31px;
+  width:4px;
+	background: white url(<%= domain %>/images/<%= @site_name %>/menu-bg.gif) no-repeat right 0;
+}
+#bd .menu .last {
+  position:absolute;
+  top:0;
+  left:0;
+  height:31px;
+  width:4px;
+	background: white url(<%= domain %>/images/<%= @site_name %>/menu-bg.gif) no-repeat right -31px;
+}
+#bd .menu ul li {
+	float: right;
+	list-style-type: none;
+	list-style-position: inside;
+	padding: 2px 15px;
+	margin:0;
+}
+#bd .menu ul li.divider{
+	color:#838383;
+	margin: 0;
+	padding: 0;
+}
+#bd .menu ul li.selected{
+	background-color:#EAF0FC;
+}
+#bd .menu img{
+  *vertical-align:middle;
+}
+
+
+
+
+

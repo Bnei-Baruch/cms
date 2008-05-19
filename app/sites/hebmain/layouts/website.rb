@@ -53,12 +53,12 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                     w_class('sections').new.render_to(self)
                   }    
                   div(:class => 'yui-u first') {
-                    div(:class => 'h1') {
-                      text 'קבלה online'
-                      img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
-                      img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
-                    }
                     div(:class => 'left-part') {
+                      div(:class => 'h1') {
+                        text 'קבלה online'
+                        img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
+                        img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                      }
                       div(:id => 'tabs1', :class => 'radio-TV') {
                       }
                       div(:id => 'tv', :class => 'x-hide-display body'){
@@ -153,12 +153,12 @@ var player = document.getElementById("player");
                     }
                   }
                   div(:class => 'yui-u') {
-                    div(:class => 'h1') {
-                      text 'קבלה ללומד'
-                      img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
-                      img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
-                    }
                     div(:class => 'content') {
+                      div(:class => 'h1') {
+                        text 'קבלה ללומד'
+                        img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
+                        img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                      }
                       div(:class => 'item') {
                         div(:class => 'main_preview1') {
                           div(:class => 'element last') {

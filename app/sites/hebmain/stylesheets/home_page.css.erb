@@ -2,33 +2,6 @@
 #bd .yui-ge{
 	margin:0 15px 0 6px;
 }
-/*----------  Menu  ---------------*/
-#bd .menu {
-	font-size:116%;
-	font-weight: bold;
-}
-#bd .menu ul {
-	height:30px;
-	line-height:21px;
-	padding: 4px 0 0; 
-	margin: 0 0 25px;
-	background: white url(<%= domain %>/images/<%= @site_name %>/menu.gif) no-repeat right top;
-}
-#bd .menu ul li {
-	float: right;
-	list-style-type: none;
-	list-style-position: inside;
-	padding: 2px 15px;
-	margin:0;
-}
-#bd .menu ul li.divider{
-	color:#838383;
-	margin: 0;
-	padding: 0;
-}
-#bd .menu ul li.selected{
-	background-color:#EAF0FC;
-}
 /*----------  h1  ---------------*/
 .h1{
 	background-color:#0D47B2;
@@ -72,6 +45,7 @@
 	padding:0;
 	text-align:right;
 	position: relative;
+  width:99%;
 }
 .content h1{
 	font-size:22px;
@@ -211,7 +185,7 @@
 }
 /*----------  Main Preview  ---------------*/
 .main_preview1{
-  padding:0 0 0 250px;
+  margin:0 0 0 250px;
   position:relative;
 }
 .main_preview1 .descr{
@@ -234,8 +208,9 @@
 }
 .main_preview1 img{
   position:absolute;
-  left:0px;
   top:15px;
+  right:223px;
+  *right:208px;
 }
 /*----------  Main Preview 2 ---------------*/
 .main_preview2{
@@ -333,7 +308,7 @@
 /*----------  right-part  ---------------*/
 .right-part {
 	text-align: center;
-	margin:59px 0 0;
+	margin:56px 0 0;
 	padding:0;
 }
 .right-part .player {

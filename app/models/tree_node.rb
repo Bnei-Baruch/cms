@@ -66,7 +66,7 @@ class TreeNode < ActiveRecord::Base
   def after_find
     #if user is admin set max permission
     if AuthenticationModel.current_user_is_admin?
-      self.ac_type ||= 4 #"Administrating"
+      self.ac_type = 4 #"Administrating"
     end
     #set max access type by current user
     if attribute_present?(:max_user_permission)

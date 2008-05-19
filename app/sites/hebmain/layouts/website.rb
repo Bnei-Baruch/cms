@@ -130,7 +130,7 @@ var player = document.getElementById("player");
                           }
                         EXT_ONREADY
                       }
-                      div(:class => 'blog-rav'){
+                      div(:class => 'rss'){
                         h3 {
                           text 'בלוג של הרב לייטמן'
                           img(:src => img_path('rav.jpg'),:class =>'Rav Michael Laitman', :alt => '')

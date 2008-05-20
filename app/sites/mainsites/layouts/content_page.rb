@@ -19,17 +19,25 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
-        css(get_css_external_url('reset-fonts-grids'))
-        css(get_css_external_url('base-min'))
-        css(get_css_external_url('../ext/resources/css/ext-all'))
-        css(get_css_url('header'))
-        css(get_css_url('inner_page'))
-        css(get_css_url('page_admin'))
-        rawtext <<-ExtJS
-          <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
-          <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
-          <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
-        ExtJS
+        # css(get_css_external_url('reset-fonts-grids'))
+        # css(get_css_external_url('base-min'))
+        # css(get_css_external_url('../ext/resources/css/ext-all'))
+        # css(get_css_url('header'))
+        # css(get_css_url('inner_page'))
+        # css(get_css_url('page_admin'))
+        stylesheet_link_tag 'reset-fonts-grids', 
+                            'base-min',
+                            '../ext/resources/css/ext-all', 
+                            get_css_url('header'), 
+                            get_css_url('inner_page'),
+                            get_css_url('page_admin'),
+                            :cache => false
+        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all-debug', 'ext-helpers', :cache => true
+        # rawtext <<-ExtJS
+          # <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
+          # <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
+          # <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
+        # ExtJS
         #javascript(:src => "../javascripts/prototype.js")
         #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
         #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")

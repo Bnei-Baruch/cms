@@ -3,7 +3,7 @@ Localization.define('hebrew') do |l|
   l.store 'Permalink', 'לינק של הדף'
   l.store 'Small Title', 'תת כותרת'
   l.store 'Sub Title', 'כותרת משנה'
-  l.store 'Main Image', 'תמונה ראשית'
+  l.store 'Side Image', 'תמונה צידית'
   l.store 'Main Image Alt', 'כותרת לתמונה ראשית'
   l.store 'Preview Image', 'תמונה לתצוגה מקדימה'
   l.store 'Preview Image Alt', 'כותרת התמונה לתצוגה מקדימה'

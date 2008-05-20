@@ -62,6 +62,10 @@ class TreeNode < ActiveRecord::Base
   # The has_url virtual variable is passed to when requesting for resource edit/create
   # if true than on the resource edit/create of this tree_node will show permalink text field
   # Embedded resources won't have permalink
+  def ancestors
+    TreeNode.find(:all, :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes", :include => [:resource]) rescue []
+    # select * from cms_treenode_ancestors(35, 1)
+  end
 
   def after_find
     #if user is admin set max permission
@@ -101,9 +105,11 @@ class TreeNode < ActiveRecord::Base
     # :is_main => true - boolean - optional - default: show all
     # :has_url => false - boolean - optional - default: show all
     # :depth => 3 - integer - optional - default: get all the subtree
-    # :properties => {:description => 'a very good article', :is_hidden => 't'} - 
-    #   hash of resource properties, when the key is the hrid of the property 
-    #   and the value is the value of the resource property. - optional - default: show all
+    # :properties => where clause for properties on hrids:
+                # field type: each hrid must contain a prefix of its field type. t_ b_ d_ n_ when  t_ is for string, text, plaintext, file(the file name); b_ is for boolean; d_ is for dates and timestamps; n_ is for numbers. For eaxmple - my hrid is num_of_items and its a number so I will use: n_num_of_items = 4; Or can_edit is boolean so I'll write: b_can_write = true OR n_num_of_items = 4
+                # prefix_hrid = value [and or] hrid ~ value, i.e. '(t_name ~ ''arvut'' or in_group) and (d_date > now() or d_date < now() + 15)'
+                # NOTE: keep in mind that you are writing a normal query according field type and all other rules!
+                # the difference is that fieldnames are properties.hrids and values are resource_properties. - optional - default: show all
     # :current_page => 3 - integer - optional - default: paging is disabled
     # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
     # :return_parent => true - boolean - optional - default: false
@@ -127,8 +133,8 @@ class TreeNode < ActiveRecord::Base
       req_is_main = args.has_key?(:is_main) ? args[:is_main] : 'null'                  
       req_has_url = args.has_key?(:has_url) ? args[:has_url] : 'null'
       req_depth = args[:depth] || 'null'
-      if args.has_key?(:properties) && args[:properties].is_a?(Hash) && !args[:properties].empty?
-        req_properties = 'ARRAY[' + args[:properties].to_a.flatten.map{|e| "'" + e.to_s + "'"}.join(',') + ']'
+      if args.has_key?(:properties) && args[:properties].is_a?(String) && !args[:properties].empty?
+        req_properties = "'" + args[:properties] + "'"
       else
         req_properties = 'null'
       end
@@ -162,16 +168,17 @@ class TreeNode < ActiveRecord::Base
           req_placeholders,
           req_status
           ].join(',') 
-          if args[:test]
-            return "select * from cms_treenode_subtree(#{request})"
-          end
-          # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
-          find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue []
-        else
-          []
+        if args[:test]
+          return "select * from cms_treenode_subtree(#{request})"
         end
+        # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
+        find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue []
+      else
+        []
       end
+    end
     
+
     # call the DB function 'cms_resource_subtree' to retrieve all the website subtree as tree_node records
     def get_website_subtree(website_tree_node_id)
       if website_tree_node_id

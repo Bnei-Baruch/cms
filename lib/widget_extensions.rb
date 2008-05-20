@@ -28,7 +28,7 @@ module WidgetExtensions
   end
 
   def get_css_external_url(style_name)
-    domain + '/stylesheets/' + style_name + '.css'
+    style_name + '.css'
   end
 
   #  def get_json_url

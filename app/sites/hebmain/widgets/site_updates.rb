@@ -6,7 +6,7 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
       w_class('cms_actions').new( :tree_node => tree_node, 
                                   :options => {:buttons => %W{ new_button edit_button delete_button }, 
                                   :resource_types => %W{ site_updates_entry },
-                                  :new_text => 'צור יחידת תוכן חדשה', 
+                                  :new_text => 'הוספת עדכונים', 
                                   :has_url => false}).render_to(self)
     
       h3 get_title
@@ -23,8 +23,9 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
       w_class('cms_actions').new( :tree_node => tree_node, 
                                   :options => {:buttons => %W{ new_button edit_button delete_button }, 
                                   :resource_types => %W{ site_updates_entry },
-                                  :new_text => 'צור יחידת תוכן חדשה', 
-                                  :has_url => false}).render_to(self)
+                                  :new_text => 'הוספת עדכונים', 
+                                  :has_url => false,
+                                  :position => 'bottom'}).render_to(self)
     
       h3 get_title
     

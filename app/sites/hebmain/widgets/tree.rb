@@ -83,13 +83,12 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   end
   
   # Fetch all specific node of website
-  def level_nodes(node_id)
+  def level_nodes(node_id, regular_user = true)
+    properties = regular_user ? 'b_hide_on_navigation = false' : nil
     nodes = TreeNode.get_subtree(
       :parent => node_id,
       :resource_type_hrids => ['content_page'],
-      :properties => {
-        :hide_on_navigation => @display_hidden
-      },
+      :properties => properties,
       :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED'],
       :depth => 2
     )
@@ -104,7 +103,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
 
   # Fetch all sub-nodes of website 
   def all_nodes(regular_user = true)
-    properties =  regular_user ? {:hide_on_navigation => 'f'} : {}
+    properties =  regular_user ? 'b_hide_on_navigation = false' : nil
     TreeNode.get_subtree(
       :parent => @website_parent_node,
       :resource_type_hrids => ['content_page'],

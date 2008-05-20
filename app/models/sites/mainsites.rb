@@ -7,12 +7,12 @@ class Sites::Mainsites < Sites::Global
     :resource_type_hrids => ['content_page'], 
     :depth => 1,
     :has_url => true,
-    :properties => {:hide_on_navigation => 'f'}
+    :properties => 'b_hide_on_navigation = false'
     )               
   end
 
   def main_section
-    main_sections.include?(node) ? node : node.ancestors.detect{ |e| main_sections.include?(e) }
+    @main_sections ||= main_sections.include?(node) ? node : node.ancestors.detect{ |e| main_sections.include?(e) }
   end
   
   def parents(tree_node = node) # by default it will use the current node

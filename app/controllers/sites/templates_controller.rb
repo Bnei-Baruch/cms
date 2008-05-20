@@ -52,9 +52,8 @@ class Sites::TemplatesController < ApplicationController
           return
         end 
         resource = @presenter.node_resource_type.hrid
-        render :text => t_class(resource).new(
-          :layout_class => l_class(resource)
-        ).to_s
+        klass = t_class(resource)
+        render :widget => klass, :layout_class => l_class(resource)
       }
       format.json {
         render_json_widget

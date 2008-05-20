@@ -15,7 +15,8 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   # This function is initiated also in Ajax request
   def render_preview_update
     get_content_items
-    if @items_size < 3
+    max_num = get_maximum_number_of_items.to_i > 0 ? get_maximum_number_of_items.to_i : 3
+    if @items_size < max_num
       add_new_item
       get_content_items
     end
@@ -59,8 +60,8 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     :parent => tree_node.id, 
     :resource_type_hrids => ['content_page'], 
     :depth => 1,
-    # :has_url => false,
-    # :is_main => false,
+    :has_url => false,
+    :is_main => false,
     :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'DELETED']
     )               
   end

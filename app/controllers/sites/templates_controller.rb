@@ -24,7 +24,13 @@ class Sites::TemplatesController < ApplicationController
     else
       @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', host, true])
     end
-
+    
+    unless @website
+      # External link
+      check_url_migration
+      return
+    end
+    
     args = {:permalink => permalink, :website=> @website, :controller => self}
     begin
       @presenter = get_presenter(site_name, group_name, args)
@@ -36,9 +42,10 @@ class Sites::TemplatesController < ApplicationController
     Thread.current[:presenter] = @presenter
 
     # in case the page is not found in the DB
-    unless @presenter.node 
-      status_404 
-      return
+    unless @presenter.node
+      # External link
+     check_url_migration
+     return
     end
     
     session[:site_direction] = site_settings[:site_direction] rescue 'rtl'
@@ -48,7 +55,7 @@ class Sites::TemplatesController < ApplicationController
     respond_to do |format|
       format.html {
         if request.xhr?
-        render_json_widget
+          render_json_widget
           return
         end 
         resource = @presenter.node_resource_type.hrid
@@ -114,6 +121,10 @@ class Sites::TemplatesController < ApplicationController
   
   def head_status_404
     render :file => 'public/404.html', :status => 404
+  end
+  
+  def status_410
+    render :text => "Redirected back to the reverse proxy to show old site page.\r\n", :status => 410
   end
   
   def site_name
@@ -211,6 +222,20 @@ class Sites::TemplatesController < ApplicationController
       "#{$files_location[search_res][:name]}/#{type}/#{filename}"
     else
       nil
+    end
+  end
+  
+  def check_url_migration
+    migration = UrlMigration.get_action_and_target('http://' + request.env["HTTP_HOST"] + request.request_uri)
+    if migration
+      case migration[:status]
+      when $config_manager.appl_settings[:url_migration_action][:action_404]:
+          head_status_404         
+      when $config_manager.appl_settings[:url_migration_action][:action_301]:
+          redirect_301(migration[:target])
+      end
+    else
+      status_410
     end
   end
 end

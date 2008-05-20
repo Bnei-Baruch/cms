@@ -58,4 +58,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
 
+  map.connect '/*path', :controller => 'sites/templates', :action => 'template'
+  
 end

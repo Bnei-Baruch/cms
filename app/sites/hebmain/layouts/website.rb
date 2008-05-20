@@ -127,26 +127,18 @@ var player = document.getElementById("player");
                           }
                         EXT_ONREADY
                       }
-                      div(:class => 'rss'){
-                        h3 {
-                          text 'בלוג של הרב לייטמן'
-                          img(:src => img_path('rav.jpg'),:class =>'Rav Michael Laitman', :alt => '')
-                        }
-                        
-                        div(:class => 'entry'){
-                          a 'גם בעלי תפקידים, גם תלמידים, גם בני משפחה', :href => '#'
-                          div(:class => 'date'){
-                            text '28/04  08:05'
-                          }
-                        }
-                        div(:class => 'entry'){
-                          a 'אנו זקוקים לחומרים חדשים ונגישים', :href => '#'
-                          div(:class => 'date'){
-                            text '28/04  18:54'
-                          }
-                        }
-                        a 'לקריאת פוסטים נוספים...', :href => '#', :class => 'more'
-                      }
+                     
+                      w_class('cms_actions').new(:tree_node => tree_node, 
+                          :options => {:buttons => %W{ new_button }, 
+                          :resource_types => %W{ rss },
+                          :new_text => 'צור יחידת תוכן חדשה', 
+                          :has_url => false, 
+                          :placeholder => 'left'}).render_to(self)
+              
+                      left_column_resources.each { |left_column_resource|                
+                        render_content_resource(left_column_resource,
+                          left_column_resource.resource.resource_type.hrid == 'rss' ? 'preview' : 'full')
+                      } 
                     }
                   }
                   div(:class => 'yui-u') {
@@ -275,12 +267,21 @@ var player = document.getElementById("player");
   
   private 
   
-  def right_column_resources
-    @tree_nodes ||= TreeNode.get_subtree(
+   def right_column_resources
+    @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
       :resource_type_hrids => ['site_updates'], 
       :depth => 1,
       :placeholders => ['right']
+    ) 
+  end
+  
+  def left_column_resources
+    @tree_nodes_left ||= TreeNode.get_subtree(
+      :parent => tree_node.id, 
+      :resource_type_hrids => ['rss'], 
+      :depth => 1,
+      :placeholders => ['left']
     ) 
   end
   

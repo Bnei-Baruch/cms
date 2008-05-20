@@ -78,17 +78,19 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                 @static_tree.render_to(doc)
               }
               
-              w_class('cms_actions').new(:tree_node => tree_node, 
-                :options => {:buttons => %W{ new_button }, 
-                  :resource_types => %W{ site_updates },
-                  :new_text => 'צור יחידת תוכן חדשה', 
-                  :has_url => false, 
-                  :placeholder => 'right'}).render_to(self)
-                
-              right_column_resources.each { |right_column_resource|                
-                render_content_resource(right_column_resource,
-                    right_column_resource.resource.resource_type.hrid == 'site_updates' ? 'news' : 'full')
-              }                
+              global_site_updates_node = global_site_updates
+              render_content_resource(global_site_updates_node, 'news') if global_site_updates_node
+#              w_class('cms_actions').new(:tree_node => tree_node, 
+#                :options => {:buttons => %W{ new_button }, 
+#                  :resource_types => %W{ site_updates },
+#                  :new_text => 'צור יחידת תוכן חדשה', 
+#                  :has_url => false, 
+#                  :placeholder => 'right'}).render_to(self)
+#                
+#              right_column_resources.each { |right_column_resource|                
+#                render_content_resource(right_column_resource,
+#                    right_column_resource.resource.resource_type.hrid == 'site_updates' ? 'news' : 'full')
+#              }                
             }
           }
           div(:id => 'ft') {
@@ -108,6 +110,16 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       :depth => 1,
       :placeholders => ['right']
     ) 
+  end
+  
+    def global_site_updates
+    @site_updates ||= TreeNode.get_subtree(
+      :parent => presenter.website_node.id, 
+      :resource_type_hrids => ['site_updates'], 
+      :depth => 1,
+      :placeholders => ['right']
+    )
+    return @site_updates ? @site_updates[0] : nil
   end
   
 end 

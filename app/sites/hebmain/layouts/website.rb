@@ -30,9 +30,10 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         css(get_css_url('home_page'))
         css(get_css_url('page_admin'))
         rawtext <<-ExtJS
-          <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
-          <script src="/javascripts/../ext/ext-tabs-tree.js" type="text/javascript"></script>
-          <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
+          <script src="javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
+          <script src="javascripts/../ext/ext-tabs-tree.js" type="text/javascript"></script>
+          <script src="javascripts/ext-helpers.js" type="text/javascript"></script>
+          <script src="flowplayer/flashembed.min.js" type="text/javascript"></script>
         ExtJS
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
@@ -59,22 +60,23 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                       div(:id => 'tabs1', :class => 'radio-TV') {
                       }
                       div(:id => 'tv', :class => 'x-hide-display body'){
+#javascript {rawtext 'if (Ext.isIE) {'}
                         rawtext <<-TV
-                        <object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
-style="display:inline;background-color:#000000;" id="player" name="player" type="video/x-ms-wmv"
-  width="200" height="150" standby="Loading Windows Media Player components...">
+<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
+style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject"
+width="200" height="150" standby="Loading Windows Media Player components...">
 <param name="URL" value="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv" />
-<param name="AutoStart" value="1" /><param name="AutoPlay" value="1" />
-<param name="volume" value="50" /><param name="uiMode" value="none" />
-<param name="animationAtStart" value="1" /><param name="showDisplay" value="1" />
-<param name="transparentAtStart" value="0" />
-<param name="bgcolor" value="#000000" />
-<param name="balance" value="0" />
-  <embed id="player" name="player" style="display:inline;background-color:#000000;"
+<param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" />
+<param name="uiMode" value="full" /><param name="animationAtStart" value="1" />
+<param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" />
+<param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" />
+<param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" />
+<param name="windowlessVideo" value="1" /><param name="balance" value="0" />
+<embed id="tv-player"
 src="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv"
- type="video/x-ms-wmv"
+type="application/x-mplayer2"
 pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112"
- autostart="true" uimode="none" width="200" height="150" />
+autostart="true" uimode="full" width="200" height="150" />
 </object>
                         TV
                         div(:class => 'clear'){
@@ -82,7 +84,24 @@ pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.c
                         }
                       }
                       div(:id => 'radio', :class => 'x-hide-display body'){
-                        rawtext 'RADIO'
+                        rawtext <<-RADIO
+<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
+style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject"
+width="200" height="150" standby="Loading Windows Media Player components...">
+<param name="URL" value="mms://vod.kab.tv/radioheb" />
+<param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" />
+<param name="uiMode" value="full" /><param name="animationAtStart" value="1" />
+<param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" />
+<param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" />
+<param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" />
+<param name="windowlessVideo" value="1" /><param name="balance" value="0" />
+<embed id="tv-player"
+src="mms://vod.kab.tv/radioheb"
+type="application/x-mplayer2"
+pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112"
+autostart="true" uimode="full" width="200" height="45" />
+</object>
+                        RADIO
                       }
                       javascript {
                         # Start onReady
@@ -104,27 +123,26 @@ pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.c
                             });
                             mytab.on('tabchange', function(panel, tab){
                               if (tab.contentEl == "tv"){
-                                startPlayer();
+                                pausePlayer("r-player");
+                                startPlayer("tv-player");
                               } else {
-                                pausePlayer();
+                                pausePlayer("tv-player");
+                                startPlayer("r-player");
                               }
                             });
-function startPlayer()
-{
-var player = document.getElementById("player");
- if (player && player.controls && player.controls.isAvailable('Play')){
- player.controls.play();
-}
-}
-
-function pausePlayer()
-{
-var player = document.getElementById("player");
- if (player && player.controls && player.controls.isAvailable('Pause')) {
- player.controls.pause();
-}
-}
-                          }
+                            function startPlayer(id){
+                              var player = document.getElementById(id);
+                              if (player && player.controls && player.controls.isAvailable('Play')){
+                                player.controls.play();
+                              }
+                            };
+                            function pausePlayer(id){
+                              var player = document.getElementById(id);
+                              if (player && player.controls && player.controls.isAvailable('Pause')) {
+                                player.controls.pause();
+                              }
+                            }
+                          };
                         EXT_ONREADY
                       }
                      

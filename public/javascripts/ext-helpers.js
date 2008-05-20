@@ -60,6 +60,43 @@ function tree_drop_zone(widget_node_id, url, widget, updatable) {
   });
 }
 
+function create_simple_tree(url, children, tree_label, title)
+{
+  // create the tree
+  tree = new Ext.tree.TreePanel({
+    loader: new Ext.tree.TreeLoader({
+      url: url,
+      requestMethod:'GET',
+      baseParams:{format:'json',
+        widget:'tree',
+        view_mode:'json_node',
+        display_hidden:'t'
+      }
+    }),
+    // create initial root node
+    root:new Ext.tree.AsyncTreeNode({
+      text: 'Invisible Root',
+      id:'0',
+      loaded:true,
+      leaf:false,
+      children:children
+    }),
+    renderTo:tree_label,
+    title: title,
+    header:true,
+    collapseFirst:true,
+    autoHeight:true,
+    lines:false,
+    useArrows:true,
+    width:220,
+    enableDD:true,
+    animate:true,
+    rootVisible:false,
+    collapsed:true,
+    collapsible:true
+  });
+}
+
 function create_tree(url, children, tree_label, title, expand_path, resource_type_id)
 {
   // create the tree

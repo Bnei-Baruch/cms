@@ -17,24 +17,20 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
-        css(get_css_external_url('reset-fonts-grids'))
-        css(get_css_external_url('base-min'))
-#        css(get_css_external_url('../ext/resources/css/ext-all'))
-        css(get_css_external_url('../ext/resources/css/reset'))
-        css(get_css_external_url('../ext/resources/css/core'))
-        css(get_css_external_url('../ext/resources/css/layout'))
-        css(get_css_external_url('../ext/resources/css/panel'))
-        css(get_css_external_url('../ext/resources/css/borders'))
-        css(get_css_external_url('../ext/resources/css/tabs'))
-        css(get_css_url('header'))
-        css(get_css_url('home_page'))
-        css(get_css_url('page_admin'))
-        rawtext <<-ExtJS
-          <script src="javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
-          <script src="javascripts/../ext/ext-tabs-tree.js" type="text/javascript"></script>
-          <script src="javascripts/ext-helpers.js" type="text/javascript"></script>
-          <script src="flowplayer/flashembed.min.js" type="text/javascript"></script>
-        ExtJS
+        stylesheet_link_tag 'reset-fonts-grids', 
+                            'base-min',
+#                            '../ext/resources/css/ext-all', 
+                            '../ext/resources/css/reset',
+                            '../ext/resources/css/core',
+                            '../ext/resources/css/layout',
+                            '../ext/resources/css/panel',
+                            '../ext/resources/css/borders',
+                            '../ext/resources/css/tabs',
+                            get_css_url('header'), 
+                            get_css_url('home_page'),
+                            get_css_url('page_admin'),
+                            :cache => false
+        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-tabs-tree', 'ext-helpers', :cache => true
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
@@ -90,7 +86,7 @@ style="display:inline;background-color:#000000;" id="tv-player" type="applicatio
 width="200" height="150" standby="Loading Windows Media Player components...">
 <param name="URL" value="mms://vod.kab.tv/radioheb" />
 <param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" />
-<param name="uiMode" value="full" /><param name="animationAtStart" value="1" />
+<param name="uiMode" value="mini" /><param name="animationAtStart" value="1" />
 <param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" />
 <param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" />
 <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" />
@@ -99,7 +95,7 @@ width="200" height="150" standby="Loading Windows Media Player components...">
 src="mms://vod.kab.tv/radioheb"
 type="application/x-mplayer2"
 pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112"
-autostart="true" uimode="full" width="200" height="45" />
+autostart="true" uimode="mini" width="200" height="45" />
 </object>
                         RADIO
                       }
@@ -145,7 +141,10 @@ autostart="true" uimode="full" width="200" height="45" />
                           };
                         EXT_ONREADY
                       }
-                     
+                      div(:class => 'downloads'){
+                        h3 'הורדות חינם'
+                        w_class('tree').new(:view_mode => 'downloads').render_to(doc)
+                      }
                       w_class('cms_actions').new(:tree_node => tree_node, 
                           :options => {:buttons => %W{ new_button }, 
                           :resource_types => %W{ rss },

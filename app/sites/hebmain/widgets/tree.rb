@@ -18,7 +18,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     source_node_id = @options[:source_node_id]
     target_node = TreeNode.find(target_node_id)
     source_node = TreeNode.find(source_node_id)
-# debugger    
+    # debugger    
     case @options[:point]
     when 'above'
       source_node.remove_from_list
@@ -73,6 +73,35 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
         }
       }                     
     end
+  end
+  def render_downloads
+    label = "TREE_downloads"
+    div(:id => label) {
+      javascript {
+        rawtext <<-TREE_CODE
+        Ext.onReady(function(){
+            children = 
+  [{
+          id: 1,
+          text: 'A leaf Node',
+          leaf: true
+      },{
+          id: 2,
+          text: 'A folder Node',
+          children: [{
+              id: 3,
+              text: 'A child Node',
+              leaf: true
+          }]
+     }];
+
+            create_simple_tree('get_page_url', children, 'TREE_downloads',
+                        'קבלה לפי נושאים'
+            )
+        });
+        TREE_CODE
+      }
+    }
   end
 
   private

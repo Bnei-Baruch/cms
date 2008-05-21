@@ -254,6 +254,32 @@ class TreeNode < ActiveRecord::Base
       raise "User #{AuthenticationModel.current_user} has no permission " + 
       "to edit tree_node: #{id} resource: #{resource_id}"
     end
+    
+    #check if parent changed
+    #if Yes check if user has permission create child to parant tree_node
+    if not AuthenticationModel.current_user_is_admin?
+      orig_tree_node = TreeNode.find_as_admin(self.id)
+      if orig_tree_node
+        #check if parent changed
+        if orig_tree_node.parent_id != self.parent_id
+          if parent_id && parent_id > 0
+            if not TreeNode.find_as_admin(parent_id).can_create_child?
+              logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+              "to create a child of tree_node: #{parent_id}. Moving tree_node denied.")
+              raise "User #{AuthenticationModel.current_user} has no permission " + 
+              "to create a child of tree_node: #{parent_id}. Moving tree_node denied."
+            end
+          else
+              #if parent_id is nil or 0 (it is root tree_node)
+              #only Adinistrator group can create it
+              logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+              "to create root tree_node: #{parent_id}. Moving tree_node denied. Only Administrator can do it.")
+              raise "User #{AuthenticationModel.current_user} has no permission " + 
+              "to create root tree_node: #{parent_id}. Moving tree_node denied. Only Administrator can do it."
+          end
+        end
+      end
+    end
   end
 
   def before_create

@@ -42,6 +42,14 @@ class TreeNode < ActiveRecord::Base
       return false
     end
   end
+  
+  def can_move_child?
+    @ac_type >= 3
+  end
+  
+  def can_sort?
+    @ac_type >=3
+  end
 
   #can delete in DB (destroy)
   def can_administrate? 

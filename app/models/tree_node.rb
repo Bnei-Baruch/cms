@@ -79,12 +79,16 @@ class TreeNode < ActiveRecord::Base
     #if user is admin set max permission
     if AuthenticationModel.current_user_is_admin?
       self.ac_type = 4 #"Administrating"
+    else
+      #set max access type by current user
+      if attribute_present?(:max_user_permission)
+        self.ac_type ||= self.max_user_permission.to_i
+      end
+      if attribute_present?(:max_user_permission_2)
+        self.ac_type ||= self.max_user_permission_2.to_i
+      end
+      self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
     end
-    #set max access type by current user
-    if attribute_present?(:max_user_permission)
-      self.ac_type ||= self.max_user_permission.to_i
-    end
-    self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
       # debugger
     case self.resource.status
     when 'DRAFT'
@@ -213,6 +217,7 @@ class TreeNode < ActiveRecord::Base
 
     alias :old_find_by_sql :find_by_sql
     def find_by_sql(arg)
+      arg = arg.gsub("SELECT * FROM tree_nodes   WHERE", "SELECT *, get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2 FROM tree_nodes   WHERE")
       output=self.old_find_by_sql(arg)
       output.delete_if {|x| x.ac_type == 0 }
       output
@@ -222,12 +227,12 @@ class TreeNode < ActiveRecord::Base
     def find(*args)
       if args.last.is_a?(::Hash) 
         if args.last[:select]
-          args.last[:select] = "get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission," + args.last[:select]
+          args.last[:select] =  args.last[:select] + ", get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2 " 
         else
-          args.last[:select] = "get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission, *"
+          args.last[:select] = "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"
         end
       else
-          args[args.length] = Hash[:select => "get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission, *"]
+          args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
       end
       output=self.old_find(*args)
       
@@ -235,7 +240,7 @@ class TreeNode < ActiveRecord::Base
     end
 
     def find_as_admin(tree_node_id)
-      res = old_find_by_sql "select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission, * from tree_nodes where id=#{tree_node_id}"
+      res = old_find_by_sql "select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission_2, * from tree_nodes where id=#{tree_node_id}"
       if res.length == 1
         return res[0]
       end
@@ -271,19 +276,19 @@ class TreeNode < ActiveRecord::Base
         #check if parent changed
         if orig_tree_node.parent_id != self.parent_id
           if parent_id && parent_id > 0
-            if not TreeNode.find_as_admin(parent_id).can_create_child?
+            if not TreeNode.find_as_admin(parent_id).can_move_child?
               logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-              "to create a child of tree_node: #{parent_id}. Moving tree_node denied.")
+              "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied.")
               raise "User #{AuthenticationModel.current_user} has no permission " + 
-              "to create a child of tree_node: #{parent_id}. Moving tree_node denied."
+              "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied."
             end
           else
               #if parent_id is nil or 0 (it is root tree_node)
               #only Adinistrator group can create it
               logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-              "to create root tree_node: #{parent_id}. Moving tree_node denied. Only Administrator can do it.")
+              "to create root tree_node: #{id}. Moving tree_node denied. Only Administrator can do it.")
               raise "User #{AuthenticationModel.current_user} has no permission " + 
-              "to create root tree_node: #{parent_id}. Moving tree_node denied. Only Administrator can do it."
+              "to create root tree_node: #{id}. Moving tree_node denied. Only Administrator can do it."
           end
         end
       end
@@ -330,7 +335,7 @@ class TreeNode < ActiveRecord::Base
       return result 
     end
 
-    chields =  TreeNode.old_find_by_sql("Select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * 
+    chields =  TreeNode.old_find_by_sql("Select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2, * 
       from tree_nodes where parent_id =#{id}")
     chields.each{ |tn|
       #get current node permission

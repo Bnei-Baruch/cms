@@ -8,6 +8,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @header_right = w_class('header').new(:view_mode => 'right')
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
+    @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
   end
 
   def render
@@ -18,19 +19,13 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
         stylesheet_link_tag 'reset-fonts-grids', 
-                            'base-min',
-#                            '../ext/resources/css/ext-all', 
-                            '../ext/resources/css/reset',
-                            '../ext/resources/css/core',
-                            '../ext/resources/css/layout',
-                            '../ext/resources/css/panel',
-                            '../ext/resources/css/borders',
-                            '../ext/resources/css/tabs',
-                            get_css_url('header'), 
-                            get_css_url('home_page'),
-                            get_css_url('page_admin'),
-                            :cache => false
-        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-tabs-tree', 'ext-helpers', :cache => true
+        'base-min',
+        '../ext/resources/css/ext-all', 
+        get_css_url('header'), 
+        get_css_url('home_page'),
+        get_css_url('page_admin'),
+        :cache => false
+        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'#, :cache => true
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
@@ -42,6 +37,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-gd') {
+                  @dynamic_tree.render_to(doc)
                   div(:id => 'hd') { @header_left.render_to(self) } #Header goes here
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
@@ -56,7 +52,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                       div(:id => 'tabs1', :class => 'radio-TV') {
                       }
                       div(:id => 'tv', :class => 'x-hide-display body'){
-#javascript {rawtext 'if (Ext.isIE) {'}
+                        #javascript {rawtext 'if (Ext.isIE) {'}
                         rawtext <<-TV
 <object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
 style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject"
@@ -141,12 +137,92 @@ autostart="true" uimode="mini" width="200" height="45" />
                           };
                         EXT_ONREADY
                       }
+                      javascript{
+                        rawtext <<-toggleUL
+                          function toggleUL(div){
+                            var el = Ext.get(div);
+                            var child = el.prev().first();
+                            if (el.isDisplayed()) {
+                              el.fadeOut({afterStyle:"display:none"});
+                              child.replaceClass("x-tree-elbow-minus","x-tree-elbow-plus");
+                            } else {
+                              el.fadeIn({});
+                              child.replaceClass("x-tree-elbow-plus","x-tree-elbow-minus");
+                            }
+                          }
+                         function mouseUL(div, direction){
+                          var el = Ext.get(div).prev();
+                          if (direction) {
+                            el.addClass("x-tree-ec-over");
+                          } else {
+                            el.removeClass("x-tree-ec-over");
+                          }
+                        }
+                      toggleUL
+                      }
                       div(:class => 'downloads'){
                         h3 'הורדות חינם'
-                        w_class('tree').new(:view_mode => 'downloads').render_to(doc)
+                        div(:class => 'x-tree-arrows') {
+                          div(:class => 'toggle',
+                              :onclick => 'toggleUL("download-122")',
+                              :onmouseover => 'mouseUL("download-122", true)',
+                              :onmouseout => 'mouseUL("download-122", false)'){
+                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                            text 'שיעור הבוקר היומי' + ' 26.04.08'
+                          }
+                          ul(:id => 'download-122', :style => 'display:none;'){
+                            li(:class => 'item'){
+                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                              span {text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'}
+                              div(:class => 'services'){
+                                a(:class => 'video'){span {text 'וידאו'} }
+                                a(:class => 'audio'){span {text 'אודיו'} }
+                                a(:class => 'sketch'){span {text 'שרטוט'} }
+                              }
+                            }
+                            li(:class => 'item'){
+                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
+                              div(:class => 'services'){
+                                a(:class => 'video'){text 'וידאו' }
+                                a(:class => 'audio'){text 'אודיו' }
+                                a(:class => 'sketch'){text 'שרטוט' }
+                              }
+                            }
+                          }
+                        }
+                        div(:class => 'x-tree-arrows') {
+                          div(:class => 'toggle',
+                              :onclick => 'toggleUL("download-123")',
+                              :onmouseover => 'mouseUL("download-123", true)',
+                              :onmouseout => 'mouseUL("download-123", false)'){
+                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                            text 'שיעור הבוקר היומי' + ' 26.04.08'
+                          }
+                          ul(:id => 'download-123', :style => 'display:none;'){
+                            li(:class => 'item'){
+                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                              text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'
+                              div(:class => 'services'){
+                                a(:class => 'video'){text 'וידאו' }
+                                a(:class => 'audio'){text 'אודיו' }
+                                a(:class => 'sketch'){text 'שרטוט' }
+                              }
+                            }
+                            li(:class => 'item'){
+                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
+                              div(:class => 'services'){
+                                a(:class => 'video'){text 'וידאו' }
+                                a(:class => 'audio'){text 'אודיו' }
+                                a(:class => 'sketch'){text 'שרטוט' }
+                              }
+                            }
+                          }
+                        }
                       }
                       w_class('cms_actions').new(:tree_node => tree_node, 
-                          :options => {:buttons => %W{ new_button }, 
+                        :options => {:buttons => %W{ new_button }, 
                           :resource_types => %W{ rss },
                           :new_text => 'צור יחידת תוכן חדשה', 
                           :has_url => false, 
@@ -284,7 +360,7 @@ autostart="true" uimode="mini" width="200" height="45" />
   
   private 
   
-   def right_column_resources
+  def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
       :resource_type_hrids => ['site_updates'], 

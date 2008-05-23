@@ -57,7 +57,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     if tree_node.can_edit?
       @counter += 1
       label = "TREE_#{@counter}"
-      div(:id => label) {
+      div(:id => label, :class => 'dynamic_tree') {
         javascript {
           rawtext <<-TREE_CODE
             Ext.onReady(function(){
@@ -73,35 +73,6 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
         }
       }                     
     end
-  end
-  def render_downloads
-    label = "TREE_downloads"
-    div(:id => label) {
-      javascript {
-        rawtext <<-TREE_CODE
-        Ext.onReady(function(){
-            children = 
-  [{
-          id: 1,
-          text: 'A leaf Node',
-          leaf: true
-      },{
-          id: 2,
-          text: 'A folder Node',
-          children: [{
-              id: 3,
-              text: 'A child Node',
-              leaf: true
-          }]
-     }];
-
-            create_simple_tree('get_page_url', children, 'TREE_downloads',
-                        'קבלה לפי נושאים'
-            )
-        });
-        TREE_CODE
-      }
-    }
   end
 
   private

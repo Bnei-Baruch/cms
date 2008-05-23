@@ -52,6 +52,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
+                  @dynamic_tree.render_to(doc)
                   div(:id => 'hd') { @header_left.render_to(self) } #Header goes here
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
@@ -82,7 +83,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   img(:src => img_path('top-left.gif'), :class => 'left', :alt => '')
                   text presenter.main_section.resource.name if presenter.main_section
                 }
-                @dynamic_tree.render_to(doc)
                 @static_tree.render_to(doc)
               }
               

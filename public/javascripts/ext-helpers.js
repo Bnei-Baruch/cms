@@ -39,19 +39,19 @@ function tree_drop_zone(widget_node_id, url, widget, updatable) {
       method: 'post',
       success: function ( result, request ) { 
         // Ext.MessageBox.alert('Success', result);
-		// return;
-		// Ext.get(dz_id).dom
-		Ext.get(updatable).update(result.responseText,true);
-		// Ext.get(dz_id).parent().replaceClass('');
+        // return;
+        // Ext.get(dz_id).dom
+        Ext.get(updatable).update(result.responseText,true);
+        // Ext.get(dz_id).parent().replaceClass('');
 		
-	  },
+      },
       failure: function ( result, request) { 
         Ext.MessageBox.alert('Failed', 'not good'); },
       // headers: {
       // 	'Content-Type': 'application/json; charset=utf-8'
       // },
       params: {
-		'view_mode': 'preview_update',
+        'view_mode': 'preview_update',
         'options[target_node_id]': node_id,
         'options[widget_node_id]': widget_node_id,
         'options[widget]': widget
@@ -62,11 +62,50 @@ function tree_drop_zone(widget_node_id, url, widget, updatable) {
 
 function create_simple_tree(url, children, tree_label, title)
 {
+  Ext.tree.WrapNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
+    //focus: Ext.emptyFn, // prevent odd scrolling behavior
+
+    renderElements : function(n, a, targetNode, bulkRender){
+      // add some indent caching, this helps performance when rendering a large tree
+      this.indentMarkup = n.parentNode ? n.parentNode.ui.getChildIndent() : '';
+
+      var href = a.href ? a.href : Ext.isGecko ? "" : "#";
+      var buf = ['<li class="x-tree-node"><div ext:tree-node-id="',n.id,'" class="x-tree-node-el x-tree-node-leaf x-unselectable ', a.cls,'" unselectable="on">',
+        '<span class="x-tree-node-indent">',this.indentMarkup,"</span>",
+        '<img src="', this.emptyIcon, '" class="x-tree-ec-icon x-tree-elbow" />',
+        '<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),(a.iconCls ? " "+a.iconCls : ""),'" unselectable="on" />',
+        '<a hidefocus="on" class="x-tree-node-anchor" href="',href,'" tabIndex="1" ',
+        a.hrefTarget ? ' target="'+a.hrefTarget+'"' : "", '><span unselectable="on">',n.text,"</span></a>",
+        '</div>',
+        '<ul class="x-tree-node-ct" style="display:none;"></ul>',
+        "</li>"].join('');
+
+      var nel;
+      if(bulkRender !== true && n.nextSibling && (nel = n.nextSibling.ui.getEl())){
+        this.wrap = Ext.DomHelper.insertHtml("beforeBegin", nel, buf);
+      }else{
+        this.wrap = Ext.DomHelper.insertHtml("beforeEnd", targetNode, buf);
+      }
+        
+      this.elNode = this.wrap.childNodes[0];
+      this.ctNode = this.wrap.childNodes[1];
+      var cs = this.elNode.childNodes;
+      this.indentNode = cs[0];
+      this.ecNode = cs[1];
+      this.iconNode = cs[2];
+      this.anchor = cs[3];
+      this.textNode = cs[3].firstChild;
+    }
+  });
+  
   // create the tree
   tree = new Ext.tree.TreePanel({
     loader: new Ext.tree.TreeLoader({
       url: url,
       requestMethod:'GET',
+      uiProviders:{
+        'wrap': Ext.tree.WrapNodeUI
+      },
       baseParams:{format:'json',
         widget:'tree',
         view_mode:'json_node',
@@ -82,18 +121,13 @@ function create_simple_tree(url, children, tree_label, title)
       children:children
     }),
     renderTo:tree_label,
-    title: title,
-    header:true,
-    collapseFirst:true,
+    header:false,
     autoHeight:true,
     lines:false,
     useArrows:true,
-    width:220,
-    enableDD:true,
+    width:210,
     animate:true,
-    rootVisible:false,
-    collapsed:true,
-    collapsible:true
+    rootVisible:false
   });
 }
 
@@ -134,24 +168,24 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
   // First time all branch on path was sent, so let's expand it
   tree.expandPath(expand_path);  
   tree.on('beforenodedrop', function(dropEvent){ 
-	node = dropEvent.dropNode;
-	var parentNode = node.parentNode;
-	var nodeNextSibling = node.nextSibling;
-	var src = node.attributes.id;
-	var trg = dropEvent.target.attributes.id;
-	var point = dropEvent.point;  
-	Ext.Ajax.request({
+    node = dropEvent.dropNode;
+    var parentNode = node.parentNode;
+    var nodeNextSibling = node.nextSibling;
+    var src = node.attributes.id;
+    var trg = dropEvent.target.attributes.id;
+    var point = dropEvent.point;  
+    Ext.Ajax.request({
       url: url,
       method: 'post',
       success: function ( result, request ) {
-		tree.body.highlight();
-	  },
+        tree.body.highlight();
+      },
       failure: function ( result, request) { 
         Ext.MessageBox.alert('Failed', 'not good');
-		parentNode.insertBefore(node, nodeNextSibling);
-	  },
+        parentNode.insertBefore(node, nodeNextSibling);
+      },
       params: {
-		'view_mode': 'tree_nodes_exchange',
+        'view_mode': 'tree_nodes_exchange',
         'options[target_node_id]': trg,
         'options[source_node_id]': src,
         'options[point]': point,

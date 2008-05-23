@@ -9,7 +9,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_content
     WidgetManager::Base.new do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button edit_button delete_button }, :resource_types => %W{ article content_preview rss },:new_text => 'צור יחידת תוכן חדשה', :has_url => false, :placeholder => 'main_content'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button edit_button delete_button }, :resource_types => %W{ article content_preview rss video},:new_text => 'צור יחידת תוכן חדשה', :has_url => false, :placeholder => 'main_content'}).render_to(self)
       unless get_acts_as_section
         h1 get_title
         h2 get_small_title
@@ -172,7 +172,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_resources
     TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['article', 'content_preview', 'rss'], 
+      :resource_type_hrids => ['article', 'content_preview', 'rss', 'video'], 
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content'],

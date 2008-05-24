@@ -41,6 +41,33 @@ z-index:1000;
 	font-size: 108%;
 	margin:0;
 }
+/*----------  h1  ---------------*/
+.h1{
+	background-color:#0D47B2;
+	color:white;
+	text-align:right;
+	font-size:153.9%;
+	font-weight:bold;
+	margin:0;
+	height:39px;
+	line-height:39px;
+  position:relative;
+  padding: 0 10px 0 0;
+}
+.h1 .h1-right,.h1 .h1-left{
+	position:absolute;
+  top:0;
+  width:6px;
+  height:39px;
+}
+.h1 .h1-right{
+  right:0;
+background: transparent url(<%= domain %>/images/<%= @site_name %>/h1-ears.gif) no-repeat 0 -39px;
+}
+.h1 .h1-left{
+left:0;
+background: transparent url(<%= domain %>/images/<%= @site_name %>/h1-ears.gif) no-repeat 0 0;  
+}
 /*----------  Logo  ---------------*/
 #hd-r .logo {
 	position: absolute;

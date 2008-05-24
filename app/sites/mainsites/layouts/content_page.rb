@@ -26,11 +26,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         # css(get_css_url('inner_page'))
         # css(get_css_url('page_admin'))
         stylesheet_link_tag 'reset-fonts-grids', 
-                            'base-min',
-                            '../ext/resources/css/ext-all', 
-                            get_css_url('header'), 
-                            get_css_url('inner_page'),
-                            get_css_url('page_admin')
+        'base-min',
+        '../ext/resources/css/ext-all', 
+        get_css_url('header'), 
+        get_css_url('inner_page'),
+        get_css_url('page_admin')
         javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all-debug', 'ext-helpers'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
@@ -50,8 +50,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   }    
                   div(:class => 'h1') {
                     @titles.render_to(doc)
-                    img(:src => img_path('top-right.gif'),:class =>'h1-right-blue', :alt => '')
-                    img(:src => img_path('top-left.gif'),:class =>'h1-left-blue', :alt => '')
+                    div(:class =>'h1-right')
+                    div(:class =>'h1-left')
                   }
                   @breadcrumbs.render_to(self) 
                   div(:class => 'yui-u first') {
@@ -69,27 +69,27 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             div(:class => 'yui-b') {
               div(:id => 'hd-r') { @header_right.render_to(self) } #Logo goes here
               div(:class => 'nav') {
-                h4 {
-                  img(:src => img_path('top-right.gif'), :class => 'right', :alt => '')
-                  img(:src => img_path('top-left.gif'), :class => 'left', :alt => '')
+                div(:class => 'h1') {
                   text presenter.main_section.resource.name if presenter.main_section
+                  div(:class =>'h1-right')
+                  div(:class =>'h1-left')
                 }
                 @static_tree.render_to(doc)
               }
               
               global_site_updates_node = global_site_updates
               render_content_resource(global_site_updates_node, 'news') if global_site_updates_node
-#              w_class('cms_actions').new(:tree_node => tree_node, 
-#                :options => {:buttons => %W{ new_button }, 
-#                  :resource_types => %W{ site_updates },
-#                  :new_text => 'צור יחידת תוכן חדשה', 
-#                  :has_url => false, 
-#                  :placeholder => 'right'}).render_to(self)
-#                
-#              right_column_resources.each { |right_column_resource|                
-#                render_content_resource(right_column_resource,
-#                    right_column_resource.resource.resource_type.hrid == 'site_updates' ? 'news' : 'full')
-#              }                
+              #              w_class('cms_actions').new(:tree_node => tree_node, 
+              #                :options => {:buttons => %W{ new_button }, 
+              #                  :resource_types => %W{ site_updates },
+              #                  :new_text => 'צור יחידת תוכן חדשה', 
+              #                  :has_url => false, 
+              #                  :placeholder => 'right'}).render_to(self)
+              #                
+              #              right_column_resources.each { |right_column_resource|                
+              #                render_content_resource(right_column_resource,
+              #                    right_column_resource.resource.resource_type.hrid == 'site_updates' ? 'news' : 'full')
+              #              }                
             }
           }
           div(:id => 'ft') {
@@ -111,7 +111,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     ) 
   end
   
-    def global_site_updates
+  def global_site_updates
     @site_updates ||= TreeNode.get_subtree(
       :parent => presenter.website_node.id, 
       :resource_type_hrids => ['site_updates'], 

@@ -50,8 +50,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   }    
                   div(:class => 'h1') {
                     @titles.render_to(doc)
-                    img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
-                    img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                    img(:src => img_path('top-right.gif'),:class =>'h1-right-blue', :alt => '')
+                    img(:src => img_path('top-left.gif'),:class =>'h1-left-blue', :alt => '')
                   }
                   @breadcrumbs.render_to(self) 
                   div(:class => 'yui-u first') {
@@ -67,7 +67,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd1') { @header_right.render_to(self) } #Logo goes here
+              div(:id => 'hd-r') { @header_right.render_to(self) } #Logo goes here
               div(:class => 'nav') {
                 h4 {
                   img(:src => img_path('top-right.gif'), :class => 'right', :alt => '')

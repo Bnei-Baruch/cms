@@ -143,8 +143,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                     div(:class => 'left-part') {
                       div(:class => 'h1') {
                         text 'קבלה online'
-                        img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
-                        img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                        div(:class =>'h1-right')
+                        div(:class =>'h1-left')
                       }
                       div(:id => 'tabs1', :class => 'radio-TV') {
                         div(:id => 'tv', :class => 'x-hide-display body'){
@@ -257,8 +257,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     div(:class => 'content') {
                       div(:class => 'h1') {
                         text 'קבלה ללומד'
-                        img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
-                        img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                        img(:src => img_path('top-right-orange.gif'),:class =>'h1-right', :alt => '')
+                        img(:src => img_path('top-left-orange.gif'),:class =>'h1-left', :alt => '')
                       }
                       div(:class => 'item') {
                         div(:class => 'main_preview1') {
@@ -343,8 +343,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
               div(:class => 'right-part') {
                 div(:class => 'h1') {
                   text 'מאיפה להתחיל?'
-                  img(:src => img_path('top-right.gif'),:class =>'h1-right', :alt => '')
-                  img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
+                  img(:src => img_path('top-right-blue.gif'),:class =>'h1-right', :alt => '')
+                  img(:src => img_path('top-left-blue.gif'),:class =>'h1-left', :alt => '')
                 }
                 div(:class => 'player') {
                   img(:src => img_path('player/player.jpg'), :alt => '')

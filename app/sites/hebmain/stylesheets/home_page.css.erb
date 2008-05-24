@@ -19,21 +19,24 @@ position:relative;
 	font-size:153.9%;
 	font-weight:bold;
 	margin:0;
-	background: #0D47B2 url(<%= domain %>/images/<%= @site_name %>/top-mid.gif) repeat-x bottom right;
-	height:41px;
-	line-height:41px;
+	height:39px;
+	line-height:39px;
   position:relative;
   padding: 0 10px 0 0;
 }
-.h1 .h1-right{
+.h1 .h1-right,.h1 .h1-left{
 	position:absolute;
   top:0;
+  width:6px;
+  height:39px;
+}
+.h1 .h1-right{
   right:0;
+background: transparent url(<%= domain %>/images/<%= @site_name %>/h1-ears.gif) no-repeat 0 -39px;
 }
 .h1 .h1-left{
-	position:absolute;
-  top:0;
-  left:0;
+left:0;
+background: transparent url(<%= domain %>/images/<%= @site_name %>/h1-ears.gif) no-repeat 0 0;  
 }
 /*----------  breadcrumbs  ---------------*/
 #bd .breadcrumbs{
@@ -55,6 +58,15 @@ position:relative;
 	text-align:right;
 	position: relative;
   width:99%;
+}
+.content .h1{
+  background-color: #ffb400;
+}
+.content .h1-right{
+  background-position:0 -117px;
+}
+.content .h1-left{
+  background-position:0 -78px;
 }
 .content h1{
 	font-size:22px;
@@ -361,8 +373,14 @@ position:relative;
   padding:0 5px 0 0;
 }
 /*----------  left-part  ---------------*/
-.left-part.left-part {
-    /*position:relative;*/
+.left-part .h1 {
+background-color:#cd0000;
+}
+.left-part .h1-right{
+  background-position:0 -195px;
+}
+.left-part .h1-left{
+  background-position:0 -156px;
 }
 .left-part .radio-TV{
   direction: ltr;

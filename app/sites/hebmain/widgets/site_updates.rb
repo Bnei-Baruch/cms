@@ -9,7 +9,7 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
                                   :new_text => 'הוספת עדכונים', 
                                   :has_url => false}).render_to(self)
     
-      h3 get_title
+      h3 get_title, :class => 'box_header'
     
       site_update_entries.each do |site_update_entry|
         render_content_resource(site_update_entry)
@@ -27,7 +27,7 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
                                   :has_url => false,
                                   :position => 'bottom'}).render_to(self)
     
-      h3 get_title
+      h3 get_title, :class => 'box_header'
     
       site_update_entries.each do |site_update_entry|
         render_content_resource(site_update_entry, 'news')

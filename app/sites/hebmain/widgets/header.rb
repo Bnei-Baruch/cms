@@ -4,7 +4,6 @@ class Hebmain::Widgets::Header < WidgetManager::Base
     div(:class => 'search') do
       img(:src => img_path('search.gif'), :alt => 'Search')
       input(:name => 'search')
-      span 'חיפוש:'
     end
     ul(:class => 'links') do      
       external_sections.each do |e|

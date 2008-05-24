@@ -14,10 +14,6 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
   private
   
   def get_rss_items (data)
-    rss_items = YAML.load(data)  
-  end
-  
-  def get_rss_items (data)
     rss_items = YAML.load(data)
     rss_items.map do |rss_item|
       {:title => rss_item.title, 
@@ -41,10 +37,10 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
    
     div(:class => 'rss'){
       w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
-      h3 {
-        text get_title
+      h3(:class => 'box_header') {
         picture = get_picture
         img(:src => picture, :class =>'Rav Michael Laitman', :alt => 'image') if picture
+        text get_title
       }
 
       items.each do |item|

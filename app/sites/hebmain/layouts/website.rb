@@ -19,18 +19,114 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
         stylesheet_link_tag 'reset-fonts-grids', 
-                            'base-min',
-                            '../ext/resources/css/ext-all'
-#        stylesheet_link_merged :homepage
+        'base-min',
+        '../ext/resources/css/ext-all'
+        #        stylesheet_link_merged :homepage
         css get_css_url('header')
         css get_css_url('home_page')
         css get_css_url('page_admin')
-        javascript_include_merged :homepage
         javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
         }
+        javascript{
+          rawtext <<-TV
+            function startPlayer(id){
+              var player = document.getElementById(id);
+              if (player && player.controls && player.controls.isAvailable('Play')){
+                player.controls.play();
+              }
+            };
+            function pausePlayer(id){
+              var player = document.getElementById(id);
+              if (player && player.controls && player.controls.isAvailable('Pause')) {
+                player.controls.pause();
+              }
+            }
+            function stopPlayer(id){
+              var player = document.getElementById(id);
+              if (player && player.controls && player.controls.isAvailable('Stop')) {
+                player.controls.stop();
+              }
+            }
+            Ext.onReady(function() {
+              var play = Ext.select('.radio .play');
+              var playState = false;
+              play.on('click', function(){
+                if (!playState) {
+                  startPlayer('radioplayer');
+                  playState = true;
+                }
+              });
+              play.on('mouseover', function(e){
+                if (!playState)
+                  Ext.get(this).replaceClass('play-out', 'play-in');
+              });
+              play.on('mouseout', function(){
+                if (!playState)
+                  Ext.get(this).replaceClass('play-in', 'play-out');
+              });
+              var stop = Ext.select('.radio .stop');
+              stop.on('click', function(){
+                if (playState) {
+                  stopPlayer('radioplayer');
+                  playState = false;
+                  Ext.get(play).replaceClass('play-in', 'play-out');
+                }
+              });
+              stop.on('mouseover', function(){
+                Ext.get(this).replaceClass('stop-out', 'stop-in');
+              });
+              stop.on('mouseout', function(){
+                Ext.get(this).replaceClass('stop-in', 'stop-out');
+              });
+            });
+            Ext.onReady(function(){
+              var mytab = new Ext.TabPanel({
+                resizeTabs:true,
+                renderTo: 'tabs1',
+                width:222,
+                activeTab:0,
+                deferredRender:false,
+                frame:true,
+                items:[
+                    {contentEl:'radio', title: 'רדיו' },
+                    {contentEl:'tv', title: 'טלויזיה' }
+                ]
+              });
+              mytab.on('tabchange', function(panel, tab){
+                if (tab.contentEl == "tv"){
+                  stopPlayer("radioplayer");
+                  startPlayer("tv-player");
+                } else {
+                  pausePlayer("tv-player");
+                  startPlayer("radioplayer");
+                }
+              });
+            });
+            function toggleUL(div){
+              var el = Ext.get(div);
+              var child = el.prev().first();
+              if (el.isDisplayed()) {
+                el.fadeOut({afterStyle:"display:none"});
+                child.replaceClass("x-tree-elbow-minus","x-tree-elbow-plus");
+              } else {
+                el.fadeIn({});
+                child.replaceClass("x-tree-elbow-plus","x-tree-elbow-minus");
+              }
+            }
+           function mouseUL(div, direction){
+            var el = Ext.get(div).prev();
+            if (direction) {
+              el.addClass("x-tree-ec-over");
+            } else {
+              el.removeClass("x-tree-ec-over");
+            }
+          }
+          TV
+        }
+
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
@@ -51,118 +147,40 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                         img(:src => img_path('top-left.gif'),:class =>'h1-left', :alt => '')
                       }
                       div(:id => 'tabs1', :class => 'radio-TV') {
-                      }
-                      div(:id => 'tv', :class => 'x-hide-display body'){
-                        #javascript {rawtext 'if (Ext.isIE) {'}
-                        rawtext <<-TV
-<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
-style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject"
-width="200" height="150" standby="Loading Windows Media Player components...">
-<param name="URL" value="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv" />
-<param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" />
-<param name="uiMode" value="full" /><param name="animationAtStart" value="1" />
-<param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" />
-<param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" />
-<param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" />
-<param name="windowlessVideo" value="1" /><param name="balance" value="0" />
-<embed id="tv-player"
-src="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv"
-type="application/x-mplayer2"
-pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112"
-autostart="true" uimode="full" width="200" height="150" />
-</object>
-                        TV
-                        div(:class => 'clear'){
-                          a _('Watch in full window'), :href => ''
-                        }
-                      }
-                      div(:id => 'radio', :class => 'x-hide-display body'){
-                        rawtext <<-RADIO
-<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
-style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject"
-width="200" height="150" standby="Loading Windows Media Player components...">
-<param name="URL" value="mms://vod.kab.tv/radioheb" />
-<param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" />
-<param name="uiMode" value="mini" /><param name="animationAtStart" value="1" />
-<param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" />
-<param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" />
-<param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" />
-<param name="windowlessVideo" value="1" /><param name="balance" value="0" />
-<embed id="tv-player"
-src="mms://vod.kab.tv/radioheb"
-type="application/x-mplayer2"
-pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112"
-autostart="true" uimode="mini" width="200" height="45" />
-</object>
-                        RADIO
-                      }
-                      javascript {
-                        # Start onReady
-                        rawtext <<-EXT_ONREADY
-                          Ext.onReady(function(){
-                            tabs();
-                          });
-                          tabs = function(){
-                            var mytab = new Ext.TabPanel({
-                              renderTo: 'tabs1',
-                              width:222,
-                              activeTab:0,
-                              frame:true,
-                              resizeTabs:true,
-                              items:[
-                                  {contentEl:'radio', title: 'רדיו' },
-                                  {contentEl:'tv', title: 'טלויזיה' }
-                              ]
-                            });
-                            mytab.on('tabchange', function(panel, tab){
-                              if (tab.contentEl == "tv"){
-                                pausePlayer("r-player");
-                                startPlayer("tv-player");
-                              } else {
-                                pausePlayer("tv-player");
-                                startPlayer("r-player");
-                              }
-                            });
-                            function startPlayer(id){
-                              var player = document.getElementById(id);
-                              if (player && player.controls && player.controls.isAvailable('Play')){
-                                player.controls.play();
-                              }
-                            };
-                            function pausePlayer(id){
-                              var player = document.getElementById(id);
-                              if (player && player.controls && player.controls.isAvailable('Pause')) {
-                                player.controls.pause();
-                              }
-                            }
-                          };
-                        EXT_ONREADY
-                      }
-                      javascript{
-                        rawtext <<-toggleUL
-                          function toggleUL(div){
-                            var el = Ext.get(div);
-                            var child = el.prev().first();
-                            if (el.isDisplayed()) {
-                              el.fadeOut({afterStyle:"display:none"});
-                              child.replaceClass("x-tree-elbow-minus","x-tree-elbow-plus");
+                        div(:id => 'tv', :class => 'x-hide-display body'){
+                          javascript {
+                            rawtext <<-TV
+                            if (Ext.isIE) {
+document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject" width="200" height="150" standby="Loading Windows Media Player components..."><param name="URL" value="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
                             } else {
-                              el.fadeIn({});
-                              child.replaceClass("x-tree-elbow-plus","x-tree-elbow-minus");
+document.write('<embed id="tv-player" src="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" uimode="full" width="200" height="150" />');
                             }
+                            TV
                           }
-                         function mouseUL(div, direction){
-                          var el = Ext.get(div).prev();
-                          if (direction) {
-                            el.addClass("x-tree-ec-over");
-                          } else {
-                            el.removeClass("x-tree-ec-over");
+                          div(:class => 'clear'){
+                            a _('Watch in full window'), :href => ''
                           }
                         }
-                        toggleUL
+                        div(:id => 'radio', :class => 'x-hide-display body'){
+                          javascript {
+                            rawtext <<-RADIO
+                              if (Ext.isIE) {
+document.write('<object id="radioplayer" style="display:none" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject" width="222" height="40" standby="Loading Windows Media Player components..."> <param name="URL" value="mms://vod.kab.tv/radioheb" /> <param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /> <param name="uiMode" value="invisible" /><param name="animationAtStart" value="0" /> <param name="showDisplay" value="0" /><param name="transparentAtStart" value="0" /> <param name="ShowControls" value="0" /><param name="ShowStatusBar" value="0" /> <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /> <param name="windowlessVideo" value="0" /><param name="balance" value="0" /> </object>');
+                              } else {
+document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="222" height="40" />');
+                              }
+                            RADIO
+                          }
+                          div(:class => 'radio') {
+                            img(:src => img_path('radio/bg.jpg'), :alt => '')
+                            div(:class => 'text') {text 'רדיו קבלה FM' }
+                            div(:class => 'play play-out')
+                            div(:class => 'stop stop-out')
+                          }
+                        }
                       }
                       div(:class => 'downloads'){
-                        h3 'הורדות חינם'
+                        h3 'הורדות חינם', :class => 'box_header'
                         div(:class => 'x-tree-arrows') {
                           div(:class => 'toggle',
                             :onclick => 'toggleUL("download-122")',
@@ -283,7 +301,7 @@ autostart="true" uimode="mini" width="200" height="45" />
                       div(:class => 'item') {
                         div(:class => 'main_preview3') {
                           div(:class => 'element') {
-                            h3 'מגזין'
+                            h3 'מגזין', :class => 'box_header'
                             img(:src => img_path('magazin.jpg'), :alt => 'preview')
                             h4 'גיליון 2 של המגזין קבלה לעם'
                             ul(:class => 'links'){
@@ -293,7 +311,7 @@ autostart="true" uimode="mini" width="200" height="45" />
                             }
                           }
                           div(:class => 'element') {
-                            h3 'עיתון'
+                            h3 'עיתון', :class => 'box_header'
                             img(:src => img_path('magazin.jpg'), :alt => 'preview')
                             h4 'גיליון 28 של העיתון קבלה לעם'
                             ul(:class => 'links'){
@@ -303,7 +321,7 @@ autostart="true" uimode="mini" width="200" height="45" />
                             }
                           }
                           div(:class => 'element last') {
-                            h3 'ספר'
+                            h3 'ספר', :class => 'box_header'
                             img(:src => img_path('magazin.jpg'), :alt => 'preview')
                             h4 'אישי ציבור ואומנים משוחחים על משמעות החיים'
                             ul(:class => 'links'){

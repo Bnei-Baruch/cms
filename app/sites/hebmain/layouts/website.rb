@@ -19,13 +19,14 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
         stylesheet_link_tag 'reset-fonts-grids', 
-        'base-min',
-        '../ext/resources/css/ext-all', 
-        get_css_url('header'), 
-        get_css_url('home_page'),
-        get_css_url('page_admin'),
-        :cache => false
-        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'#, :cache => true
+                            'base-min',
+                            '../ext/resources/css/ext-all'
+#        stylesheet_link_merged :homepage
+        css get_css_url('header')
+        css get_css_url('home_page')
+        css get_css_url('page_admin')
+        javascript_include_merged :homepage
+        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
@@ -158,15 +159,15 @@ autostart="true" uimode="mini" width="200" height="45" />
                             el.removeClass("x-tree-ec-over");
                           }
                         }
-                      toggleUL
+                        toggleUL
                       }
                       div(:class => 'downloads'){
                         h3 'הורדות חינם'
                         div(:class => 'x-tree-arrows') {
                           div(:class => 'toggle',
-                              :onclick => 'toggleUL("download-122")',
-                              :onmouseover => 'mouseUL("download-122", true)',
-                              :onmouseout => 'mouseUL("download-122", false)'){
+                            :onclick => 'toggleUL("download-122")',
+                            :onmouseover => 'mouseUL("download-122", true)',
+                            :onmouseout => 'mouseUL("download-122", false)'){
                             img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
                             text 'שיעור הבוקר היומי' + ' 26.04.08'
                           }
@@ -193,9 +194,9 @@ autostart="true" uimode="mini" width="200" height="45" />
                         }
                         div(:class => 'x-tree-arrows') {
                           div(:class => 'toggle',
-                              :onclick => 'toggleUL("download-123")',
-                              :onmouseover => 'mouseUL("download-123", true)',
-                              :onmouseout => 'mouseUL("download-123", false)'){
+                            :onclick => 'toggleUL("download-123")',
+                            :onmouseover => 'mouseUL("download-123", true)',
+                            :onmouseout => 'mouseUL("download-123", false)'){
                             img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
                             text 'שיעור הבוקר היומי' + ' 26.04.08'
                           }

@@ -197,7 +197,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
     var menu = new Ext.menu.Menu({
       items: [
         new Ext.menu.Item({
-          text: 'New',
+          text: 'חדש',
           disabled: node.attributes.cannot_create_child,
           href: node.attributes.addTarget + '?' +
             encodeURI(
@@ -208,12 +208,12 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
         )
         }),
         new Ext.menu.Item({
-          text: 'Edit',
+          text: 'ערוך',
           disabled: node.attributes.cannot_edit,
           href: node.attributes.editTarget
         }),
         new Ext.menu.Item({
-          text: 'Delete',
+          text: 'מחק',
           disabled: node.attributes.cannot_delete,
           handler: function (item) {
             Ext.Msg.confirm('Tree item Deletion', 'Are you sure you want to delete ' + node.text + '?',

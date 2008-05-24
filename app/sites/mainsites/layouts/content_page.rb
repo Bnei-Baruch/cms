@@ -30,19 +30,10 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                             '../ext/resources/css/ext-all', 
                             get_css_url('header'), 
                             get_css_url('inner_page'),
-                            get_css_url('page_admin'),
-                            :cache => false
-        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all-debug', 'ext-helpers', :cache => true
-        # rawtext <<-ExtJS
-          # <script src="/javascripts/../ext/adapter/ext/ext-base.js" type="text/javascript"></script>
-          # <script src="/javascripts/../ext/ext-all-debug.js" type="text/javascript"></script>
-          # <script src="/javascripts/ext-helpers.js" type="text/javascript"></script>
-        # ExtJS
-        #javascript(:src => "../javascripts/prototype.js")
-        #javascript(:src => "../javascripts/scriptaculous.js?load=effects")
-        #javascript(:src => "../ext/adapter/prototype/ext-prototype-adapter.js")
-        #javascript(:src => "../ext/ext-all-debug.js")
+                            get_css_url('page_admin')
+        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all-debug', 'ext-helpers'
         javascript {
+          rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
         }
       }

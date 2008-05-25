@@ -19,11 +19,15 @@ class CronManager
       if (website_tree_node)
         tree_nodes = TreeNode.get_subtree(
           :parent => website_tree_node.id, 
-          :resource_type_hrids => ['rss']
+          :resource_type_hrids => ['rss', 'media_rss']
         )
 
         tree_nodes.each do |tree_node|
-          read_and_save_node_rss(tree_node)
+          if tree_node.resource.resource_type.hrid == 'rss'
+            read_and_save_node_rss(tree_node)
+          else
+            read_and_save_node_media_rss(tree_node, get_language(website))
+          end
         end
       end
     end
@@ -54,6 +58,48 @@ class CronManager
     property.update_attributes(:text_value => data)
   end
   
+  def self.read_and_save_node_media_rss(tree_node, lang)
+    
+    content = ''
+    
+    # http://gumnika.kbb1.com/kabbalahmedia/rss_cat.php?CID=3606&DAYS=30&DLANG=ENG
+    # http://kabbalahmedia.info/wsxml.php?CID=3629&DLANG=HEB
+    # http://www.kabbalahmedia.info/rss.php?UILANG=HEB&DLANG=HEB&CID=246
+    
+    days_num = (tree_node.resource.properties('days_num')).get_value
+    days_num = 3 if !days_num # default is 3 days
+    tdate = (Date.today - days_num)
+    
+    cid = (tree_node.resource.properties('cid')).get_value
+    cid = 25 if !cid 
+    
+    url =  'http://kabbalahmedia.info/wsxml.php?CID=' + cid.to_s + 
+           '&DLANG=' + lang +
+           '&DF=' + (Date.today).to_s + 
+           '&DT=' + tdate.to_s
+    
+    retries = 2
+    begin
+      Timeout::timeout(25){
+        open(url) { |f|
+          content = f.read
+        }
+      }
+    
+    rescue Timeout::Error
+      retries -= 1
+      if retries > 0
+        sleep 0.42 and retries
+      else
+        raise
+      end
+    end
+
+    data = YAML.dump(Hash.from_xml(content))
+    property = tree_node.resource.properties('items')
+    property.update_attributes(:text_value => data) unless (data.nil? | data.empty?)
+  end
+  
   private
   
   def self.cron_manager_user_login
@@ -71,6 +117,12 @@ class CronManager
     end
 
     Thread.current[:session] = msession
+  end
+  
+  def get_language(website)
+    site_settings = $config_manager.site_settings(website.hrid)
+    lang = site_settings[:language] rescue 'english'
+    return (lang[0..2]).upcase
   end
   
 end 

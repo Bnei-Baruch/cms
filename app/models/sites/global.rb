@@ -59,6 +59,10 @@ class Sites::Global < Presenter::Base
     @controller.site_name
   end
 
+  def site_settings
+    @controller.site_settings
+  end  
+
   def group_name
     @controller.group_name
   end

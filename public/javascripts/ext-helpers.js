@@ -46,7 +46,7 @@ function tree_drop_zone(widget_node_id, url, widget, updatable) {
 		
       },
       failure: function ( result, request) { 
-        Ext.MessageBox.alert('Failed', 'not good'); },
+        Ext.MessageBox.alert('Failed', 'You have no permission for this operation!'); },
       // headers: {
       // 	'Content-Type': 'application/json; charset=utf-8'
       // },
@@ -181,7 +181,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
         tree.body.highlight();
       },
       failure: function ( result, request) { 
-        Ext.MessageBox.alert('Failed', 'not good');
+        Ext.MessageBox.alert('Failed', 'You have no permission for this operation!');
         parentNode.insertBefore(node, nodeNextSibling);
       },
       params: {
@@ -204,7 +204,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
           'resource[resource_type_id]='+ resource_type_id +
             '&resource[tree_node][has_url]=true' +
             '&resource[tree_node][is_main]=true' +
-            '&resource[tree_node][parent_id]=' + node.id
+            '&resource[tree_node][parent_id]='
         )
         }),
         new Ext.menu.Item({
@@ -214,7 +214,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
         }),
         new Ext.menu.Item({
           text: 'מחק',
-          disabled: node.attributes.cannot_delete,
+          disabled: node.attributes.cannot_edit_delete,
           handler: function (item) {
             Ext.Msg.confirm('Tree item Deletion', 'Are you sure you want to delete ' + node.text + '?',
             function(e){

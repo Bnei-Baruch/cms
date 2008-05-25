@@ -14,7 +14,6 @@ class Sites::TemplatesController < ApplicationController
   
   # This is the action that renders the view and responds to client
   def template
-    # debugger
     host = 'http://' + request.host
     prefix = params[:prefix]
     permalink = params[:id]
@@ -78,7 +77,13 @@ class Sites::TemplatesController < ApplicationController
     options = params[:options]
     widget = options[:widget]
     tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
-    render :text => w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
+    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
+    # debugger
+    if respond == 'false'
+      render :text => respond, status => 500
+    else
+      render :text => respond
+    end
   end
   
   def stylesheet

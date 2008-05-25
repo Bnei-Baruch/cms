@@ -6,7 +6,7 @@ module WidgetManager
     attr_accessor :presenter, :tree_node, :resource, :view_mode
 
     def initialize(*args, &block)
-      super
+      super(*args, &block)
       @presenter = Thread.current[:presenter]
       @args_hash = args.detect{|arg|arg.is_a?(Hash)} || {}
       @tree_node = @args_hash[:tree_node] ? @args_hash[:tree_node] : presenter.node

@@ -71,7 +71,9 @@ class TreeNode < ActiveRecord::Base
   # if true than on the resource edit/create of this tree_node will show permalink text field
   # Embedded resources won't have permalink
   def ancestors
-    TreeNode.find(:all, :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes", :include => [:resource]) rescue []
+    TreeNode.find(:all, 
+                  :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes", 
+                    :include => [:resource]) rescue []
     # select * from cms_treenode_ancestors(35, 1)
   end
 

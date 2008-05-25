@@ -18,13 +18,22 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     source_node_id = @options[:source_node_id]
     target_node = TreeNode.find(target_node_id)
     source_node = TreeNode.find(source_node_id)
-    # debugger    
+
+    target_node_parent = target_node.parent
+    source_node_parent = source_node.parent
+    # debugger
+    unless source_node_parent.eql?(target_node_parent)
+      return rawtext false unless source_node_parent.can_move_child? && target_node_parent.can_move_child? # Check for moving permission
+    else
+      return rawtext false unless source_node_parent.can_sort? # Check for sorting permission
+    end
+
     case @options[:point]
     when 'above'
       source_node.remove_from_list
       source_node.parent = target_node.parent
       source_node.insert_at(target_node.position)
-      
+
     when 'below'
       source_node.remove_from_list
       source_node.parent = target_node.parent
@@ -35,6 +44,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
       source_node.parent = target_node
       source_node.insert_at
       source_node.move_to_bottom
+
     end
   end
   

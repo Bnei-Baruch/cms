@@ -31,7 +31,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         get_css_url('header'), 
         get_css_url('inner_page'),
         get_css_url('page_admin')
-        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all-debug', 'ext-helpers'
+        javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all-debug', 'ext-helpers'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'

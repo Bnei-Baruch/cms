@@ -34,53 +34,6 @@ LANGUAGE 'plpgsql' VOLATILE;
 */
 
 -- ################################################################################
--- Casts
--- ################################################################################
-
-
-CREATE OR REPLACE FUNCTION cms_bool_to_varchar(p_b boolean) RETURNS varchar AS $BODY$
-BEGIN
-  if p_b is null then
-    return null;
-  end if;
-  if p_b then
-    return 't';
-  end if;
-  return 'f';
-END
-$BODY$
-  LANGUAGE 'plpgsql' VOLATILE;
-
-CREATE OR REPLACE FUNCTION cms_varchar_to_bool(p_v varchar) RETURNS boolean AS $BODY$
-BEGIN
-  if p_v is null then
-    return null;
-  end if;
-  if p_v ~ '^t.*' then
-    return true;
-  end if;
-  return false;
-END
-$BODY$
-  LANGUAGE 'plpgsql' VOLATILE;
-
-CREATE CAST (boolean AS varchar) WITH FUNCTION cms_bool_to_varchar(boolean);
-CREATE CAST (varchar AS boolean) WITH FUNCTION cms_varchar_to_bool(varchar);
-
-CREATE OR REPLACE FUNCTION cms_bool_to_text(p_b boolean) RETURNS text AS $BODY$
-  select CAST(CAST($1 AS varchar) AS text);
-$BODY$
-  LANGUAGE 'sql' VOLATILE;
-
-CREATE OR REPLACE FUNCTION cms_text_to_bool(p_v text) RETURNS boolean AS $BODY$
-  select CAST(CAST($1 AS varchar) AS boolean);
-$BODY$
-  LANGUAGE 'sql' VOLATILE;
-
-CREATE CAST (boolean AS text) WITH FUNCTION cms_bool_to_text(boolean);
-CREATE CAST (text AS boolean) WITH FUNCTION cms_text_to_bool(text);
-
--- ################################################################################
 -- Views
 -- ################################################################################
 
@@ -371,7 +324,7 @@ tree_nodes.id and user_id permissions. Parameters:
 
  Valid examples:
  
-   select * from cms_treenode_ancestors(35, 1)
+   select * from cms_treenode_ancestors(84, 1)
  
 */
 
@@ -405,10 +358,13 @@ BEGIN
     -- if the resource of that node is DELETED and the group has ac_type >= 3 it is returned
     EXIT when rec.max_ac_type <= 0 or (rec.status = 'DRAFT' and rec.max_ac_type < 2) or (rec.status = 'DELETED' and rec.max_ac_type < 3);
 
-    -- At last! Return next record!
-    select * into tn_rec from tree_nodes where id = rec.id;
-    tn_rec.max_user_permission := rec.max_ac_type;
-    RETURN NEXT tn_rec;
+    -- Do not return myself!
+    if rec.id <> p_tn_id then
+      -- At last! Return next record!
+      select * into tn_rec from tree_nodes where id = rec.id;
+      tn_rec.max_user_permission := rec.max_ac_type;
+      RETURN NEXT tn_rec;
+    end if;
 
     -- If we are on top; exit
     EXIT WHEN COALESCE(rec.parent_id, 0) = 0;
@@ -598,4 +554,3 @@ END
 $BODY$
 LANGUAGE 'plpgsql' ;
 
-	

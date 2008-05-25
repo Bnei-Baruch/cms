@@ -5,6 +5,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   def initialize(*args, &block)
     super
     @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
@@ -93,7 +94,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             }
           }
           div(:id => 'ft') {
-            # text 'Footer'
+            @header_bottom_links.render_to(self)
           }
         }
       }

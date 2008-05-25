@@ -5,6 +5,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   def initialize(*args, &block)
     super
     @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
@@ -375,7 +376,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
             }
           }
           div(:id => 'ft') {
-            text 'Footer'
+            @header_bottom_links.render_to(self)
           }
         }
       }

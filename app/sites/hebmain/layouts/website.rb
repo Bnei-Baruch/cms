@@ -98,9 +98,9 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               mytab.on('tabchange', function(panel, tab){
                 if (tab.contentEl == "tv"){
                   stopPlayer("radioplayer");
-                  startPlayer("tv-player");
+                  startPlayer("tvplayer");
                 } else {
-                  pausePlayer("tv-player");
+                  stopPlayer("tvplayer");
                   startPlayer("radioplayer");
                 }
               });
@@ -151,9 +151,9 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           javascript {
                             rawtext <<-TV
                             if (Ext.isIE) {
-document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject" width="200" height="150" standby="Loading Windows Media Player components..."><param name="URL" value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" /><param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
+document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tvplayer" type="application/x-oleobject" width="200" height="150" standby="Loading Windows Media Player components..."><param name="URL" value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" /><param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
                             } else {
-document.write('<embed id="tv-player" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="200" height="150" />');
+document.write('<embed id="tvplayer" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="200" height="150" />');
                             }
                             TV
                           }
@@ -165,7 +165,7 @@ document.write('<embed id="tv-player" src="http://switch3.castup.net/cunet/gm.as
                           javascript {
                             rawtext <<-RADIO
                               if (Ext.isIE) {
-document.write('<object id="radioplayer" style="display:none" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject" width="222" height="40" standby="Loading Windows Media Player components..."> <param name="URL" value="mms://vod.kab.tv/radioheb" /> <param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /> <param name="uiMode" value="invisible" /><param name="animationAtStart" value="0" /> <param name="showDisplay" value="0" /><param name="transparentAtStart" value="0" /> <param name="ShowControls" value="0" /><param name="ShowStatusBar" value="0" /> <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /> <param name="windowlessVideo" value="0" /><param name="balance" value="0" /> </object>');
+document.write('<object id="radioplayer" style="display:none" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tvplayer" type="application/x-oleobject" width="222" height="40" standby="Loading Windows Media Player components..."> <param name="URL" value="mms://vod.kab.tv/radioheb" /> <param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /> <param name="uiMode" value="invisible" /><param name="animationAtStart" value="0" /> <param name="showDisplay" value="0" /><param name="transparentAtStart" value="0" /> <param name="ShowControls" value="0" /><param name="ShowStatusBar" value="0" /> <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /> <param name="windowlessVideo" value="0" /><param name="balance" value="0" /> </object>');
                               } else {
 document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="222" height="40" />');
                               }

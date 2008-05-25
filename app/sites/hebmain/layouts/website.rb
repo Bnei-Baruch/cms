@@ -276,6 +276,11 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                       }
                       
                       div(:class => 'item') {
+                        div(:class => 'h1') {
+                          text 'פסך'
+                          img(:src => img_path('top-right-blue.gif'),:class =>'h1-right', :alt => '')
+                          img(:src => img_path('top-left-blue.gif'),:class =>'h1-left', :alt => '')
+                        }
                         div(:class => 'section_preview') {
                           div(:class => 'element'){
                             h1 'ט"ו בשבט - חג המקובלים'

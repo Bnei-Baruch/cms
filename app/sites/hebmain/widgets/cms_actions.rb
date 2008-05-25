@@ -1,5 +1,5 @@
 class Hebmain::Widgets::CmsActions < WidgetManager::Base
-  
+  @@idx = 0  
   # tree_node - is the node object to which the operations will be performed. Editing will be for this object, New is a new child for this object, Delete is deleting this tree_node
   def render_full
     # operations permitted only on tree nodes other than the page you are on now.
@@ -16,13 +16,39 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
       end
     end
     unless buttons.empty?
-      # debugger
-      position = @options[:position] || 'top'
-      div(:class => 'action_buttons' + ' ' + position ){
-        buttons.each{ |e| 
-          self.send(e)
+      @@idx += 1
+      #      position = @options[:position] || 'top'
+      javascript{
+        rawtext <<-CMS1
+        Ext.onReady(function(){
+            var menu = new Ext.menu.Menu({
+                      items:[
+        CMS1
+        
+        buttons.each_with_index {|b, idx|
+          rawtext ',' unless idx.eql?(0)
+          self.send(b)
         }
+        
+        rawtext <<-CMS2
+                      ]
+                  });
+            var button = new Ext.Button({
+              renderTo: 'div_#{@@idx}',
+              text: '',
+              iconCls:'button-menu',
+              menu:menu
+            });
+            button.on('mouseover', function(button, event){
+              button.el.parent().parent().addClass('highlight');
+            });
+            button.on('mouseout', function(button, event){
+              button.el.parent().parent().removeClass('highlight');
+            });
+        });
+        CMS2
       }
+      div(:id => "div_#{@@idx}")
     end         
   end
 
@@ -46,13 +72,43 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
   end
 
   def edit_button
-    a 'ערוך', :href => edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id), :title => 'ערוך אובייקט', :class => 'edit_button'
+    href = edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id)
+    rawtext <<-EDIT
+      {
+        text: 'ערוך',
+        href: '#{href}'
+      }
+    EDIT
   end
 
   def delete_button
-    rawtext <<-CODE_BLOCK
-    <a onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'delete'); f.appendChild(m);f.submit(); };return false;" href="#{admin_tree_node_path(tree_node)}" class="delete_button">מחק</a>
-    CODE_BLOCK
+    name = tree_node.resource.name.gsub(/'/,'&#39;')
+    rawtext <<-DELETE
+      {
+        text: 'מחק',
+        handler: function (item) {
+          Ext.Msg.confirm('Item Deletion', 'Are you sure you want to delete <#{name}>?',
+            function(e){
+              if(e == 'yes') {
+                Ext.Ajax.request({
+                  url: '#{admin_tree_node_path(tree_node)}',
+                  method: 'post',
+                  callback: function (options, success, responce){
+                    if (success) {
+                      Ext.Msg.alert('Item Deletion', 'The item <#{name}> was successfully deleted');
+                      Ext.get('div_#{@@idx}').parent().remove();
+                    } else {
+                      Ext.Msg.alert('Item Deletion', 'FAILURE!!!');
+                    }
+                  },
+                  params: { '_method': 'delete' }
+                });
+              }
+            }
+          )
+        }
+      }
+    DELETE
   end
 
   
@@ -68,9 +124,9 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
           Ext.onReady(function(){
             tree_drop_zone("#{widget_id}", "#{page_url}", "#{widget_name}", "#{updatable}");
             });
-            EXT_ONREADY
-          }
-          div(:id => "dz-#{widget_id}", :class => 'drop-zone')
+          EXT_ONREADY
+        }
+        div(:id => "dz-#{widget_id}", :class => 'drop-zone')
       end
     end
   end
@@ -78,32 +134,46 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
 
   private
 
-  def new_button_link(resource_types, parent_id, is_main, has_url, placeholder, new_text)
-    a new_text, :href => new_admin_resource_path(
-    :resource => {
-      :resource_type_id => resource_types.first.id, 
-      :tree_node => {:parent_id => parent_id, :is_main => is_main, :has_url => has_url, :placeholder => placeholder}
-    }
-    ), :title => 'צור חדש', :class => 'new_button'
-
+  def new_button_link(resource_types, parent_id, is_main, has_url, placeholder, new_text = nil)
+    href = new_admin_resource_path(
+      :resource => {
+        :resource_type_id => resource_types.first.id, 
+        :tree_node => {:parent_id => parent_id, :is_main => is_main, :has_url => has_url, :placeholder => placeholder}
+      })
+    new_text ||= 'צור חדש'
+    rawtext <<-NEW_LINK
+      {
+        text: '#{new_text}',
+        href: '#{href}'
+      }
+    NEW_LINK
   end
 
-  def new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text)
-    form(:method => 'get', :action => new_admin_resource_path, :id => "form-#{parent_id}") {
-      p{
-        select(:name => 'resource[resource_type_id]', :id => 'resource[resource_type_id]') {
-          resource_types.each{ |e|
-            option e.name, :value => e.id
-          }
-        } 
-        input(:type => 'hidden', :name => 'resource[tree_node][parent_id]', :value => parent_id)
-        input(:type => 'hidden', :name => 'resource[tree_node][is_main]', :value => is_main)
-        input(:type => 'hidden', :name => 'resource[tree_node][has_url]', :value => has_url)
-        input(:type => 'hidden', :name => 'resource[tree_node][placeholder]', :value => placeholder)
-        a new_text, :onclick => "Ext.get('form-#{parent_id}').dom.submit();return false;"
-      }# input(:type => 'submit', :name => 'commit', :value => new_text)
-        # p ' ', :class => 'clear'
+  def new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text = nil)
+    new_text ||= 'צור חדש'
+    rawtext <<-NEW_LINK1
+      {
+        text: '#{new_text}',
+        menu: {
+          items: [
+            '<b>Select a Resource to create</b>',
+    NEW_LINK1
+
+    resource_types.each_with_index{ |e, idx|
+      href = new_admin_resource_path(
+        :resource => {
+          :resource_type_id => e.id, 
+          :tree_node => {:parent_id => parent_id, :is_main => is_main, :has_url => has_url, :placeholder => placeholder}
+        })
+      rawtext ',' unless idx.eql?(0)
+      rawtext "{text:'#{e.name}', href:'#{href}'}"
     }
+
+    rawtext <<-NEW_LINK2
+          ]
+        }
+      }
+    NEW_LINK2
   end
 
 end

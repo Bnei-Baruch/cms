@@ -1,56 +1,45 @@
+/*----------  Tree  ---------------*/
+.x-tree {
+  text-align: right;
+  padding:0;
+}
+.x-tree-node-icon {
+  display:none;
+}
+.x-tree-arrows .x-tree-elbow-plus {
+background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt;
+}
+.x-tree-arrows .x-tree-elbow-minus {
+background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+}
+.x-tree-arrows .x-tree-elbow-end-plus {
+background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt 50%;
+}
+.x-tree-arrows .x-tree-elbow-end-minus {
+background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+}
+.x-tree-arrows .x-tree-elbow-end, .x-tree-arrows .x-tree-elbow {
+background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -64px 0pt;
+}
 /*----------  Action Buttons  ---------------*/
-.action_buttons{
-	float: right;
-	position: absolute;
-	right: 0;
-	z-index:100;
+.button-menu{
+background:transparent url(/images/menu.gif) no-repeat scroll 0 0 !important;
 }
-.top{
-	top:0;
+.x-btn-right,.x-btn-center,.x-btn-left{
+border:0 none;
 }
-.bottom{
-	bottom:0;
+.x-menu a.x-menu-item{
+padding:3px 0 3px 3px;
 }
-.action_buttons a{
-	display:block;
-	float:right;
-	margin:0 0 0 3px;
-	padding: 0 3px;
-	opacity:.3;-moz-opacity:.3;filter:alpha(opacity=30);
-	font-weight:bold;
-	color:black;
+.x-menu-item-icon{
+margin:0;
 }
-.action_buttons a:hover{
-	opacity:1;-moz-opacity:1;filter:alpha(opacity=100);
-	text-decoration:none;
+.x-menu li {
+text-align:right;
 }
-.action_buttons a.new_button{
-	background-color: lightgreen;
-	border: 2px solid green;
+.highlight{
+  background-color:#ffffef !important;
 }
-.action_buttons a.edit_button{
-	background-color: lightblue;
-	border: 2px solid blue;
-}
-.action_buttons a.delete_button{
-	background-color: #EF9595;
-	border: 2px solid red;
-}
-.action_buttons form{
-	opacity:.4;-moz-opacity:.4;filter:alpha(opacity=40);
-	background-color: lightgreen;
-	
-}
-.action_buttons form select{
-	float:right;
-}
-.action_buttons form a{
-	opacity:.4;-moz-opacity:.4;filter:alpha(opacity=40);
-}
-.action_buttons form a:hover{
-	opacity:1;-moz-opacity:1;filter:alpha(opacity=100);
-}
-
 /*----------  Drop Zone  ---------------*/
 .drop-zone{
   position:absolute;

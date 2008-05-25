@@ -147,6 +147,13 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                         div(:class =>'h1-right')
                         div(:class =>'h1-left')
                       }
+                      w_class('cms_actions').new(:tree_node => tree_node, 
+                        :options => {:buttons => %W{ new_button }, 
+                          :resource_types => %W{ rss },
+                          :new_text => 'צור יחידת תוכן חדשה', 
+                          :has_url => false, 
+                          :placeholder => 'left'}).render_to(self)
+              
                       div(:id => 'tabs1', :class => 'radio-TV') {
                         div(:id => 'tv', :class => 'x-hide-display body'){
                           javascript {
@@ -241,13 +248,6 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                           }
                         }
                       }
-                      w_class('cms_actions').new(:tree_node => tree_node, 
-                        :options => {:buttons => %W{ new_button }, 
-                          :resource_types => %W{ rss },
-                          :new_text => 'צור יחידת תוכן חדשה', 
-                          :has_url => false, 
-                          :placeholder => 'left'}).render_to(self)
-              
                       left_column_resources.each { |left_column_resource|                
                         render_content_resource(left_column_resource,
                           left_column_resource.resource.resource_type.hrid == 'rss' ? 'preview' : 'full')
@@ -352,6 +352,13 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                   img(:src => img_path('top-right-blue.gif'),:class =>'h1-right', :alt => '')
                   img(:src => img_path('top-left-blue.gif'),:class =>'h1-left', :alt => '')
                 }
+                w_class('cms_actions').new(:tree_node => tree_node, 
+                  :options => {:buttons => %W{ new_button }, 
+                    :resource_types => %W{ site_updates },
+                    :new_text => 'צור יחידת תוכן חדשה', 
+                    :has_url => false, 
+                    :placeholder => 'right'}).render_to(self)
+                
                 div(:class => 'player') {
                   img(:src => img_path('player/player.jpg'), :alt => '')
                   ul{
@@ -361,13 +368,6 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     li(:class => 'more') {a 'לשאלות נוספות...', :href => '#', :title => 'link'}
                   }
                 }
-                
-                w_class('cms_actions').new(:tree_node => tree_node, 
-                  :options => {:buttons => %W{ new_button }, 
-                    :resource_types => %W{ site_updates },
-                    :new_text => 'צור יחידת תוכן חדשה', 
-                    :has_url => false, 
-                    :placeholder => 'right'}).render_to(self)
                 
                 right_column_resources.each { |right_column_resource|
                   render_content_resource(right_column_resource)

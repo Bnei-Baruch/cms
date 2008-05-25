@@ -4,8 +4,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
   def initialize(*args, &block)
     super
-    @header_left = w_class('header').new(:view_mode => 'left')
-    @header_right = w_class('header').new(:view_mode => 'right')
+    @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    @header_logo = w_class('header').new(:view_mode => 'logo')
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @breadcrumbs = w_class('breadcrumbs').new()
@@ -44,7 +44,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
                   @dynamic_tree.render_to(doc)
-                  div(:id => 'hd') { @header_left.render_to(self) } #Header goes here
+                  div(:id => 'hd') { @header_top_links.render_to(self) } #Header goes here
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
                   }    
@@ -67,7 +67,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd-r') { @header_right.render_to(self) } #Logo goes here
+              div(:id => 'hd-r') { @header_logo.render_to(self) } #Logo goes here
               div(:class => 'nav') {
                 div(:class => 'h1') {
                   text presenter.main_section.resource.name if presenter.main_section

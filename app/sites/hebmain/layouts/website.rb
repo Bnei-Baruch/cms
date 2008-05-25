@@ -4,8 +4,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 
   def initialize(*args, &block)
     super
-    @header_left = w_class('header').new(:view_mode => 'left')
-    @header_right = w_class('header').new(:view_mode => 'right')
+    @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    @header_logo = w_class('header').new(:view_mode => 'logo')
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
@@ -135,7 +135,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               div(:class => 'yui-b') {
                 div(:class => 'yui-gd') {
                   @dynamic_tree.render_to(doc)
-                  div(:id => 'hd') { @header_left.render_to(self) } #Header goes here
+                  div(:id => 'hd') { @header_top_links.render_to(self) } #Header goes here
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
                   }    
@@ -151,9 +151,9 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           javascript {
                             rawtext <<-TV
                             if (Ext.isIE) {
-document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject" width="200" height="150" standby="Loading Windows Media Player components..."><param name="URL" value="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
+document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tv-player" type="application/x-oleobject" width="200" height="150" standby="Loading Windows Media Player components..."><param name="URL" value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" /><param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
                             } else {
-document.write('<embed id="tv-player" src="http://files.kab.co.il/video/ger_t_rav_bs-matan-tora_2008-05-18_shiur_bb.wmv" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" uimode="full" width="200" height="150" />');
+document.write('<embed id="tv-player" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="200" height="150" />');
                             }
                             TV
                           }
@@ -344,7 +344,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd-r') { @header_right.render_to(self) } #Logo goes here
+              div(:id => 'hd-r') { @header_logo.render_to(self) } #Logo goes here
               div(:class => 'right-part') {
                 div(:class => 'h1') {
                   text 'מאיפה להתחיל?'

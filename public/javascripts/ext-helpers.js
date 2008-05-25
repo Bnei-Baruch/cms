@@ -204,7 +204,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
           'resource[resource_type_id]='+ resource_type_id +
             '&resource[tree_node][has_url]=true' +
             '&resource[tree_node][is_main]=true' +
-            '&resource[tree_node][parent_id]=' + node.attributes.parent_id
+            '&resource[tree_node][parent_id]=' + node.id
         )
         }),
         new Ext.menu.Item({

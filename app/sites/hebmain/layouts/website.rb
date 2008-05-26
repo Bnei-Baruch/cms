@@ -23,7 +23,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         css get_css_url('header')
         css get_css_url('home_page')
         css get_css_url('page_admin')
-        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'website'
+        javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'website'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
@@ -350,16 +350,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     :new_text => 'צור יחידת תוכן חדשה', 
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
-                
-                div(:class => 'player') {
-                  img(:src => img_path('player/player.jpg'), :alt => '')
-                  ul{
-                    li {a 'מה היא קבלה?'}
-                    li {a 'האם הקבלה קשורה לדת?'}
-                    li {a 'למי מותר ללמוד קבלה?'}
-                    li(:class => 'more') {a 'לשאלות נוספות...', :href => '#', :title => 'link'}
-                  }
-                }
+                w_class('video_gallery').new().render_to(self)
                 
                 right_column_resources.each { |right_column_resource|
                   render_content_resource(right_column_resource)

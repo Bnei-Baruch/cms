@@ -79,8 +79,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               stop.on('mouseout', function(){
                 Ext.get(this).replaceClass('stop-in', 'stop-out');
               });
-            });
-            Ext.onReady(function(){
               var mytab = new Ext.TabPanel({
                 resizeTabs:true,
                 renderTo: 'tabs1',
@@ -96,10 +94,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               mytab.on('tabchange', function(panel, tab){
                 if (tab.contentEl == "tv"){
                   stopPlayer("radioplayer");
+                  playState = false;
+                  Ext.get(play).replaceClass('play-in', 'play-out');
                   startPlayer("tvplayer");
                 } else {
                   stopPlayer("tvplayer");
-                  startPlayer("radioplayer");
                 }
               });
             });

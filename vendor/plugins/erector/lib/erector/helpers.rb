@@ -36,8 +36,8 @@ module Erector
       end
     end
 
-    def javascript_include_merged(key)
-      helpers.javascript_include_merged(key)
+    def javascript_include_merged(*key)
+      text raw(helpers.javascript_include_merged(*key))
     end
 
     def stylesheet_link_merged(key)

@@ -19,14 +19,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
-        stylesheet_link_tag 'reset-fonts-grids', 
-        'base-min',
-        '../ext/resources/css/ext-all'
-        #        stylesheet_link_merged :homepage
+        stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
         css get_css_url('header')
         css get_css_url('home_page')
         css get_css_url('page_admin')
-        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
+        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'website'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
@@ -258,8 +255,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     div(:class => 'content') {
                       div(:class => 'h1') {
                         text 'קבלה ללומד'
-                        img(:src => img_path('top-right-orange.gif'),:class =>'h1-right', :alt => '')
-                        img(:src => img_path('top-left-orange.gif'),:class =>'h1-left', :alt => '')
+                        div(:class =>'h1-right')
+                        div(:class =>'h1-left')
                       }
                       div(:class => 'item') {
                         div(:class => 'main_preview1') {
@@ -277,11 +274,6 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                       }
                       
                       div(:class => 'item') {
-                        # div(:class => 'h1') {
-                        #   text 'פסח'
-                        #   img(:src => img_path('top-right-blue.gif'),:class =>'h1-right', :alt => '')
-                        #   img(:src => img_path('top-left-blue.gif'),:class =>'h1-left', :alt => '')
-                        # }
                         div(:class => 'section_preview') {
                           div(:class => 'element'){
                             h1 'ט"ו בשבט - חג המקובלים'
@@ -349,8 +341,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
               div(:class => 'right-part') {
                 div(:class => 'h1') {
                   text 'מאיפה להתחיל?'
-                  img(:src => img_path('top-right-blue.gif'),:class =>'h1-right', :alt => '')
-                  img(:src => img_path('top-left-blue.gif'),:class =>'h1-left', :alt => '')
+                  div(:class =>'h1-right')
+                  div(:class =>'h1-left')
                 }
                 w_class('cms_actions').new(:tree_node => tree_node, 
                   :options => {:buttons => %W{ new_button }, 

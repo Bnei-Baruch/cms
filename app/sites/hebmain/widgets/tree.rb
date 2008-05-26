@@ -23,9 +23,9 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     source_node_parent = source_node.parent
     # debugger
     unless source_node_parent.eql?(target_node_parent)
-      return rawtext false unless source_node_parent.can_move_child? && target_node_parent.can_move_child? # Check for moving permission
+      return rawtext(false) unless source_node_parent.can_move_child? && target_node_parent.can_move_child? # Check for moving permission
     else
-      return rawtext false unless source_node_parent.can_sort? # Check for sorting permission
+      return rawtext(false) unless source_node_parent.can_sort? # Check for sorting permission
     end
 
     case @options[:point]
@@ -76,8 +76,8 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
             function tree() {
               children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
               create_tree('#{get_page_url(tree_node)}', children, '#{label}',
-                          'קבלה לפי נושאים',
-                          '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
+'אץ ניהול'
+,'#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
             }
           TREE_CODE
         }

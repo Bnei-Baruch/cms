@@ -5,7 +5,7 @@
 //                node_id   - ID of a dropped node
 //                widget_node_id - ID of a target element (see above)
 //                dz_id     - ID of an element (div) to use as a drop zone
-function tree_drop_zone(widget_node_id, url, widget, updatable) {
+function tree_drop_zone(widget_node_id, url, widget, updatable, updatable_view_mode) {
   dz = new Ext.tree.TreePanel({
     renderTo:'dz-' + widget_node_id,
     animate:true,
@@ -51,7 +51,7 @@ function tree_drop_zone(widget_node_id, url, widget, updatable) {
       // 	'Content-Type': 'application/json; charset=utf-8'
       // },
       params: {
-        'view_mode': 'preview_update',
+        'view_mode': updatable_view_mode,
         'options[target_node_id]': node_id,
         'options[widget_node_id]': widget_node_id,
         'options[widget]': widget

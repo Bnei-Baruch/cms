@@ -66,6 +66,9 @@ class TreeNode < ActiveRecord::Base
     return false
   end
 
+  def main
+    TreeNode.find_by_resource_id_and_is_main(resource_id, true)
+  end
 
   # The has_url virtual variable is passed to when requesting for resource edit/create
   # if true than on the resource edit/create of this tree_node will show permalink text field
@@ -91,7 +94,6 @@ class TreeNode < ActiveRecord::Base
       end
       self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
     end
-      # debugger
     case self.resource.status
     when 'DRAFT'
       self.ac_type = 0 if self.ac_type <= 1 
@@ -99,7 +101,11 @@ class TreeNode < ActiveRecord::Base
       self.ac_type = 0 if self.ac_type <= 2 
     end 
   end 
-
+  
+  # def before_save
+  #   max_user_permission = nil
+  # end
+  #  
   def after_save
     #copy parent permission to the new tree_node
     AuthenticationModel.copy_parent_tree_node_permission(self)
@@ -252,11 +258,13 @@ class TreeNode < ActiveRecord::Base
 
   def before_destroy
     #check if has permission for destroy action
-    if not can_administrate?
-      logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-      "to destroy tree_node: #{id} resource: #{resource_id}")
-      raise "User #{AuthenticationModel.current_user} has no permission " + 
-      "to destroy tree_node: #{id} resource: #{resource_id}"
+    unless can_administrate?
+      if is_main || !can_delete?
+        logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+        "to destroy tree_node: #{id} resource: #{resource_id}")
+        raise "User #{AuthenticationModel.current_user} has no permission " + 
+        "to destroy tree_node: #{id} resource: #{resource_id}"
+      end
     end
     tree_node_ac_rights.destroy_all
   end
@@ -295,6 +303,7 @@ class TreeNode < ActiveRecord::Base
         end
       end
     end
+    self.max_user_permission = nil
   end
 
   def before_create

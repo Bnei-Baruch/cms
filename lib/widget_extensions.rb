@@ -53,7 +53,7 @@ module WidgetExtensions
       :host => my_domain)
   end
   
-  def add_node_link_to_resource(parent_node, resource)
+  def add_node_link_to_resource(parent_node, resource, placeholder = nil)
     new_tree_node = 
       TreeNode.new(
       :parent_id => parent_node.id,
@@ -63,10 +63,18 @@ module WidgetExtensions
     new_tree_node.resource = resource
     new_tree_node.save!
   end
+
+  def remove_link_from_resource(tree_node)
+    if !tree_node.is_main && tree_node.can_delete?
+      tree_node.max_user_permission = nil
+      tree_node.destroy
+    end
+  end
   
   def render_content_resource(tree_node, view_mode = 'full')
     class_name = tree_node.resource.resource_type.hrid
     w_class(class_name).new(:tree_node => tree_node, :view_mode => view_mode).render_to(self)
   end
+  
   
 end

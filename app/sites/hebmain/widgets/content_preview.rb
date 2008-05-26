@@ -9,7 +9,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     div(:id => updatable){
       render_preview_update
     }
-    w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable}).render_to(self)
+    w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
   end
 
   # This function is initiated also in Ajax request
@@ -61,24 +61,6 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
         }
       }
     }
-      # div(:class => 'element preview-odd'){
-      #   h1 'ט"ו בשבט - חג המקובלים'
-      #   div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-      #   div(:class => 'author') {
-      #     span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-      #     a(:class => 'left') { text "...לכתבה" }
-      #   }
-      #   img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-      # }
-      # div(:class => 'element preview-even'){
-      #   h1 'ט"ו בשבט - חג המקובלים'
-      #   div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-      #   div(:class => 'author') {
-      #     span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-      #     a(:class => 'left') { text "...לכתבה" }
-      #   }
-      #   img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-      # }
   end
   
   def is_articles_index?
@@ -113,7 +95,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     :depth => 1,
     :has_url => false,
     :is_main => false,
-    :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'DELETED']
+    :status => ['PUBLISHED', 'DRAFT']
     )               
   end
 

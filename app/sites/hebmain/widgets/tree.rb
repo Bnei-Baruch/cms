@@ -93,7 +93,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   end
   
   # Fetch all specific node of website
-  def level_nodes(node_id, regular_user = true)
+  def level_nodes(node_id, regular_user = false) #### TODO - change to true!!!
     properties = regular_user ? 'b_hide_on_navigation = false' : nil
     nodes = TreeNode.get_subtree(
       :parent => node_id,

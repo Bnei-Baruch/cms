@@ -119,10 +119,11 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
       if tree_node.can_edit? && @options[:page_url] && @options[:updatable]
         page_url = @options[:page_url]
         updatable = @options[:updatable]
+        updatable_view_mode = @options[:updatable_view_mode]
         javascript() {
           rawtext <<-EXT_ONREADY
           Ext.onReady(function(){
-            tree_drop_zone("#{widget_id}", "#{page_url}", "#{widget_name}", "#{updatable}");
+            tree_drop_zone("#{widget_id}", "#{page_url}", "#{widget_name}", "#{updatable}", "#{updatable_view_mode}");
             });
           EXT_ONREADY
         }

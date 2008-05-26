@@ -192,11 +192,11 @@ class Resource < ActiveRecord::Base
   end
   # These two functions will prevent errors when using \" or \' chars in property which is set as the 'name' attribute
   def escape_string_for_code(s)
-    s.to_s.gsub(/\"/, "\&quot;").gsub(/\'/, "\&apos;")
+    s.to_s.gsub(/\"/, "\&quot;").gsub(/\'/, "\&#39;")
   end  
 
   def un_escape_string_for_code(s)
-    s.to_s.gsub(/\&quot;/, "\"").gsub(/\&apos;/, "\'")
+    s.to_s.gsub(/\&quot;/, "\"").gsub(/\&#39;/, "\'")
   end  
 
   def save_resource_properties

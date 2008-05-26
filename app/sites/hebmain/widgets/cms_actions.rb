@@ -17,6 +17,8 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     end
     unless buttons.empty?
       @@idx += 1
+      func = @options[:mode].eql?('inline') ? 'span' : 'div'
+      element = "#{func}_#{@@idx}"
       #      position = @options[:position] || 'top'
       javascript{
         rawtext <<-CMS1
@@ -34,8 +36,9 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
                       ]
                   });
             var button = new Ext.Button({
-              renderTo: 'div_#{@@idx}',
-              text: '',
+              renderTo: '#{element}',
+              text: '#{@options[:button_text]}',
+              tooltip:'#{@options[:tooltip]}',
               iconCls:'button-menu',
               menu:menu
             });
@@ -48,7 +51,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
         });
         CMS2
       }
-      div(:id => "div_#{@@idx}")
+      self.send(func, :id => "#{element}", :class => 'span_admin')
     end         
   end
 
@@ -73,9 +76,10 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
 
   def edit_button
     href = edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id)
+    text = @options[:edit_text] || 'ערוך'
     rawtext <<-EDIT
       {
-        text: 'ערוך',
+        text: '#{text}',
         href: '#{href}'
       }
     EDIT
@@ -83,9 +87,10 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
 
   def delete_button
     name = tree_node.resource.name.gsub(/'/,'&#39;')
+    text = @options[:delete_text] || 'מחק'
     rawtext <<-DELETE
       {
-        text: 'מחק',
+        text: '#{text}',
         handler: function (item) {
           Ext.Msg.confirm('Item Deletion', 'Are you sure you want to delete <#{name}>?',
             function(e){

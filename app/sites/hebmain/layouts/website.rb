@@ -27,6 +27,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
+          rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
         }
         javascript{
           rawtext <<-TV

@@ -27,6 +27,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'content_page'
         javascript {
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
+          rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
         }
       }
       body {

@@ -27,6 +27,8 @@ class Hebmain::Widgets::Video < WidgetManager::Base
               videoFile: '#{get_flash_url}',
               initialScale: 'scale', 
               useNativeFullScreen: true,
+              showStopButton:true,
+              autoRewind:true,
               showVolumeSlider: false,
               controlsOverVideo: 'ease',
               controlBarBackgroundColor: -1,

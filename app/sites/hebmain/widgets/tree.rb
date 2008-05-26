@@ -76,7 +76,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
             function tree() {
               children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
               create_tree('#{get_page_url(tree_node)}', children, '#{label}',
-'אץ ניהול'
+'עץ ניהול'
 ,'#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
             }
           TREE_CODE

@@ -184,67 +184,83 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                           }
                         }
                       }
+                      
+                      w_class('cms_actions').new(:tree_node => tree_node, 
+                        :options => {:buttons => %W{ new_button }, 
+                          :resource_types => %W{ media_rss },
+                          :new_text => 'צור יחידת תוכן חדשה', 
+                          :has_url => false, 
+                          :placeholder => 'left'}).render_to(self)
+                        
                       div(:class => 'downloads'){
                         h3 'הורדות חינם', :class => 'box_header'
-                        div(:class => 'x-tree-arrows') {
-                          div(:class => 'toggle',
-                            :onclick => 'toggleUL("download-122")',
-                            :onmouseover => 'mouseUL("download-122", true)',
-                            :onmouseout => 'mouseUL("download-122", false)'){
-                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                            text 'שיעור הבוקר היומי' + ' 26.04.08'
-                          }
-                          ul(:id => 'download-122', :style => 'display:none;'){
-                            li(:class => 'item'){
-                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                              span {text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'}
-                              div(:class => 'services'){
-                                a(:class => 'video'){span {text 'וידאו'} }
-                                a(:class => 'audio'){span {text 'אודיו'} }
-                                a(:class => 'sketch'){span {text 'שרטוט'} }
-                              }
-                            }
-                            li(:class => 'item'){
-                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
-                              div(:class => 'services'){
-                                a(:class => 'video'){text 'וידאו' }
-                                a(:class => 'audio'){text 'אודיו' }
-                                a(:class => 'sketch'){text 'שרטוט' }
-                              }
-                            }
-                          }
-                        }
-                        div(:class => 'x-tree-arrows') {
-                          div(:class => 'toggle',
-                            :onclick => 'toggleUL("download-123")',
-                            :onmouseover => 'mouseUL("download-123", true)',
-                            :onmouseout => 'mouseUL("download-123", false)'){
-                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                            text 'שיעור הבוקר היומי' + ' 26.04.08'
-                          }
-                          ul(:id => 'download-123', :style => 'display:none;'){
-                            li(:class => 'item'){
-                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                              text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'
-                              div(:class => 'services'){
-                                a(:class => 'video'){text 'וידאו' }
-                                a(:class => 'audio'){text 'אודיו' }
-                                a(:class => 'sketch'){text 'שרטוט' }
-                              }
-                            }
-                            li(:class => 'item'){
-                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
-                              div(:class => 'services'){
-                                a(:class => 'video'){text 'וידאו' }
-                                a(:class => 'audio'){text 'אודיו' }
-                                a(:class => 'sketch'){text 'שרטוט' }
-                              }
-                            }
-                          }
-                        }
+
+                        kabbalah_media_resources.each { |kabbalah_media_resource|                
+                          render_content_resource(kabbalah_media_resource)
+                        } 
                       }
+                      
+                      #                      div(:class => 'downloads'){
+                      #                        h3 'הורדות חינם', :class => 'box_header'
+                      #                        div(:class => 'x-tree-arrows') {
+                      #                          div(:class => 'toggle',
+                      #                            :onclick => 'toggleUL("download-122")',
+                      #                            :onmouseover => 'mouseUL("download-122", true)',
+                      #                            :onmouseout => 'mouseUL("download-122", false)'){
+                      #                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                      #                            text 'שיעור הבוקר היומי' + ' 26.04.08'
+                      #                          }
+                      #                          ul(:id => 'download-122', :style => 'display:none;'){
+                      #                            li(:class => 'item'){
+                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                      #                              span {text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'}
+                      #                              div(:class => 'services'){
+                      #                                a(:class => 'video'){span {text 'וידאו'} }
+                      #                                a(:class => 'audio'){span {text 'אודיו'} }
+                      #                                a(:class => 'sketch'){span {text 'שרטוט'} }
+                      #                              }
+                      #                            }
+                      #                            li(:class => 'item'){
+                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                      #                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
+                      #                              div(:class => 'services'){
+                      #                                a(:class => 'video'){text 'וידאו' }
+                      #                                a(:class => 'audio'){text 'אודיו' }
+                      #                                a(:class => 'sketch'){text 'שרטוט' }
+                      #                              }
+                      #                            }
+                      #                          }
+                      #                        }
+                      #                        div(:class => 'x-tree-arrows') {
+                      #                          div(:class => 'toggle',
+                      #                            :onclick => 'toggleUL("download-123")',
+                      #                            :onmouseover => 'mouseUL("download-123", true)',
+                      #                            :onmouseout => 'mouseUL("download-123", false)'){
+                      #                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                      #                            text 'שיעור הבוקר היומי' + ' 26.04.08'
+                      #                          }
+                      #                          ul(:id => 'download-123', :style => 'display:none;'){
+                      #                            li(:class => 'item'){
+                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                      #                              text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'
+                      #                              div(:class => 'services'){
+                      #                                a(:class => 'video'){text 'וידאו' }
+                      #                                a(:class => 'audio'){text 'אודיו' }
+                      #                                a(:class => 'sketch'){text 'שרטוט' }
+                      #                              }
+                      #                            }
+                      #                            li(:class => 'item'){
+                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
+                      #                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
+                      #                              div(:class => 'services'){
+                      #                                a(:class => 'video'){text 'וידאו' }
+                      #                                a(:class => 'audio'){text 'אודיו' }
+                      #                                a(:class => 'sketch'){text 'שרטוט' }
+                      #                              }
+                      #                            }
+                      #                          }
+                      #                        }
+                      #                      }
                       left_column_resources.each { |left_column_resource|                
                         render_content_resource(left_column_resource,
                           left_column_resource.resource.resource_type.hrid == 'rss' ? 'preview' : 'full')
@@ -386,4 +402,12 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
     ) 
   end
   
+  def kabbalah_media_resources
+    @kabbalah_media_nodes ||= TreeNode.get_subtree(
+      :parent => tree_node.id, 
+      :resource_type_hrids => ['media_rss'], 
+      :depth => 1,
+      :placeholders => ['left']
+    ) 
+  end
 end 

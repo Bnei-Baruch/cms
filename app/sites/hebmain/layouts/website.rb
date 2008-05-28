@@ -258,11 +258,10 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                 }
                 w_class('cms_actions').new(:tree_node => tree_node, 
                   :options => {:buttons => %W{ new_button }, 
-                    :resource_types => %W{ site_updates },
+                    :resource_types => %W{ video_gallery site_updates },
                     :new_text => 'צור יחידת תוכן חדשה', 
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
-                w_class('video_gallery').new().render_to(self)
                 
                 right_column_resources.each { |right_column_resource|
                   render_content_resource(right_column_resource)
@@ -283,7 +282,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['site_updates'], 
+      :resource_type_hrids => ['site_updates', 'video_gallery'], 
       :depth => 1,
       :placeholders => ['right']
     ) 

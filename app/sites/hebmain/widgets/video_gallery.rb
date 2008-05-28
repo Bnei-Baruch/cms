@@ -1,24 +1,30 @@
 class Hebmain::Widgets::VideoGallery < WidgetManager::Base
   
   def render_full
+    render_homepage # Default
+  end
+  
+  private
+    
+  def render_homepage
 
     w_class('cms_actions').new( :tree_node => tree_node, 
-      :options => {:buttons => %W{ edit_button delete_button }, 
-        :resource_types => %W{ site_updates_entry },
+      :options => {:buttons => %W{ new_button edit_button delete_button }, 
+        :resource_types => %W{ video },
         :new_text => 'צור יחידת תוכן חדשה', 
         :has_url => false
       }).render_to(self)
     id = tree_node.object_id
     div(:class => 'player') {
       div(:id => "flashplayer-#{id}") {
-        img(:src => img_path('player/player.jpg'), :alt => '', :class => 'flashplayer')
+        img(:src => get_image, :alt => '', :class => 'flashplayer') if get_image
       }
 
       div(:id => "playlist-#{id}"){
-        a 'מה היא קבלה?', :href => 'http://files.kab.co.il/files/heb_o_rav_2008-05-22_qa_bb_shal-et-ha-mekubal_lo-mistaderet-im-boss.flv'
-        a 'האם הקבלה קשורה לדת?', :href => 'http://files.kab.co.il/files/eng_o_norav_2008-05-21_clip_bb_congress-sent-luis.flv'
-        a 'למי מותר ללמוד קבלה?', :href => 'http://files.kab.co.il/files/rus_o_norav_2008-05-18_promo_bb_shavua-sefer-animazia.flv'
-        a 'לשאלות נוספות...', :href => '#', :title => 'link', :class => 'more'
+        video_items.each { |video_item|
+          a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value 
+        }
+        a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url
       }
     }
                 
@@ -64,5 +70,16 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
       Player
     }
   end
+  
+  def video_items
+    TreeNode.get_subtree(
+      :parent => tree_node.id, 
+      :resource_type_hrids => ['video'], 
+      :depth => 1,
+      :has_url => false,
+      :status => ['PUBLISHED', 'DRAFT']
+    )               
+  end
+  
 end
 

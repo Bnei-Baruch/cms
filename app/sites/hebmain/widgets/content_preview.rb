@@ -2,7 +2,11 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
 
   def render_full
     get_content_items
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, 
+                               :options => {:buttons => %W{new_button edit_button delete_button},
+                               :new_text => 'צור יחידת תוכן חדשה', 
+                               :has_url => false,
+                               :resource_types => %W{ custom_preview }}).render_to(self)
     
     # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
     updatable = 'up-' + @widget_id.to_s
@@ -91,12 +95,11 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   def content_items
     TreeNode.get_subtree(
     :parent => tree_node.id, 
-    :resource_type_hrids => ['content_page'], 
+    :resource_type_hrids => ['content_page', 'custom_preview'], 
     :depth => 1,
     :has_url => false,
-    :is_main => false,
+    #:is_main => false,
     :status => ['PUBLISHED', 'DRAFT']
     )               
   end
-
 end

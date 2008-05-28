@@ -16,11 +16,20 @@ class Hebmain::Widgets::Video < WidgetManager::Base
       div(:class => 'full-video') {
         description = get_description
         p { rawtext description if description }
-        div(:id => "flashplayer-#{tree_node.object_id}")
+        # div(:id => "flashplayer-#{tree_node.object_id}")
+        div(:id=> "flashplayer-#{tree_node.object_id}", :class => 'flashplayer'){
+          img(:width => "504", :height => "378", :border => "0", :src => "/splash.jpg")
+          p(:class => "playbutton", :style => "margin-top: -140px;"){
+            a{
+              span 'Show me'
+              b
+            }
+          }
+        }
         javascript {
           rawtext <<-Player
           flashembed("flashplayer-#{tree_node.object_id}", {src:'/flowplayer/FlowPlayerLight.swf', width:504,  
-          height:378}, {config: {
+          height:378,loadEvent: 'click'}, {config: {
 
               autoPlay: false,
               loop: false,
@@ -33,7 +42,11 @@ class Hebmain::Widgets::Video < WidgetManager::Base
               controlsOverVideo: 'ease',
               controlBarBackgroundColor: -1,
               controlBarGloss: 'low',
-              menuItems: [ 0, 0, 0, 0, 0, 1, 1 ]
+              menuItems: [ 0, 0, 0, 0, 0, 1, 1 ],
+//              splashImageFile: '/image.jpg',
+//              usePlayOverlay:true,
+//              overlay: '/playbutton.png',
+              overlayId: 'flashplayer-#{tree_node.object_id} '
             }} 
           );
           Player

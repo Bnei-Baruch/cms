@@ -15,7 +15,9 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       div(:id => updatable){
         render_preview_update
       }
-      w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
+      if !@is_main_format
+        w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
+      end
     }
   end
 
@@ -30,15 +32,40 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       add_new_item
       get_content_items
     end
-    if is_articles_index?
-      show_index
+    
+    if @is_main_format
+      show_main_format
     else
-      show_preview
+      if is_articles_index?
+        show_index
+      else
+        show_preview
+      end
     end
   end
   
   
   private
+  
+   def show_main_format
+    case @items_size
+    when 1
+      view_mode = 'large_main_format'
+    when 2
+      view_mode = 'medium_main_format'
+    when 3
+      view_mode = 'small_main_format'
+    end
+    div(:class => "main_preview#{@items_size}") {
+      @items.each_with_index { |item, index|  
+        klass = (index + 1) == @items_size ? 'element last' : 'element'
+        div(:class => klass) {
+          render_content_item(item, view_mode)
+        }
+      }
+    }
+    div(:class => 'clear')
+  end
   
   def show_preview
     case @items_size
@@ -88,6 +115,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     @items_size = @items.size
     @widget_id = tree_node.id
     @widget_name = tree_node.resource.resource_type.hrid
+    @is_main_format = get_is_main_format == '' ? false : get_is_main_format 
   end
   
   def render_content_item(tree_node, view_mode)

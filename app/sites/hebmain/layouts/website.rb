@@ -19,10 +19,25 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
-        stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
-        css get_css_url('header')
-        css get_css_url('home_page')
-        css get_css_url('page_admin')
+        if @presenter.node.can_edit?
+          stylesheet_link_tag 'reset-fonts-grids', 
+                              'base-min', 
+                              '../ext/resources/css/ext-all', 
+                              'hebmain/header', 
+                              'hebmain/home_page', 
+                              'hebmain/page_admin',
+                              :cache => 'website_admin'
+        else
+          stylesheet_link_tag 'reset-fonts-grids', 
+                              'base-min', 
+                              '../ext/resources/css/ext-all', 
+                              'hebmain/header', 
+                              'hebmain/home_page', 
+                              :cache => 'website'
+        end
+        # css get_css_url('header')
+        # css get_css_url('home_page')
+        # css get_css_url('page_admin')
         javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'website'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
@@ -147,7 +162,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                       w_class('cms_actions').new(:tree_node => tree_node, 
                         :options => {:buttons => %W{ new_button }, 
                           :resource_types => %W{ rss },
-                          :new_text => 'צור יחידת תוכן חדשה', 
+                          :button_text => 'הוספת יחידות תוכן - עמודה שמאלית',
+                          :new_text => 'הוסף RSS נוסף',
                           :has_url => false, 
                           :placeholder => 'left'}).render_to(self)
               
@@ -185,15 +201,18 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                         }
                       }
                       
-                      w_class('cms_actions').new(:tree_node => tree_node, 
-                        :options => {:buttons => %W{ new_button }, 
-                          :resource_types => %W{ media_rss },
-                          :new_text => 'צור יחידת תוכן חדשה', 
-                          :has_url => false, 
-                          :placeholder => 'left'}).render_to(self)
-                        
                       div(:class => 'downloads'){
-                        h3 'הורדות חינם', :class => 'box_header'
+                        h3(:class => 'box_header') {
+                          text 'הורדות חינם'
+                          w_class('cms_actions').new(:tree_node => tree_node, 
+                            :options => {:buttons => %W{ new_button }, 
+                              :resource_types => %W{ media_rss },
+                              :new_text => 'צור יחידת תוכן חדשה',
+                              :mode => 'inline',
+                              :button_text => 'הוספת הורדות',
+                              :has_url => false, 
+                              :placeholder => 'left'}).render_to(self)
+                        }
 
                         kabbalah_media_resources.each { |kabbalah_media_resource|                
                           render_content_resource(kabbalah_media_resource)
@@ -217,8 +236,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                       w_class('cms_actions').new(:tree_node => @tree_node,
                         :options => {:buttons => %W{ new_button },
                           :resource_types => %W{content_preview},
-                          :new_text => 'צור יחידת תוכן חדשה',
-                          :tooltip => 'משמש ליצירת יחידות תוכן חדשות',
+                          :new_text => 'הוסף תצוגה מקדימה',
+                          :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
                       
                       middle_column_resources.each { |middle_column_resource|

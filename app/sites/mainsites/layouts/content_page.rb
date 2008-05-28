@@ -20,10 +20,26 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
-        stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
-        css get_css_url('header')
-        css get_css_url('inner_page')
-        css get_css_url('page_admin')
+        # stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
+        if @presenter.node.can_edit?
+          stylesheet_link_tag 'reset-fonts-grids', 
+                              'base-min', 
+                              '../ext/resources/css/ext-all', 
+                              'hebmain/header', 
+                              'hebmain/inner_page', 
+                              'hebmain/page_admin',
+                              :cache => 'content_page_admin'
+        else
+          stylesheet_link_tag 'reset-fonts-grids', 
+                              'base-min', 
+                              '../ext/resources/css/ext-all', 
+                              'hebmain/header', 
+                              'hebmain/inner_page', 
+                              :cache => 'content_page'
+        end
+        # css get_css_url('header')
+        # css get_css_url('inner_page')
+        # css get_css_url('page_admin')
         javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'content_page'
         javascript {
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'

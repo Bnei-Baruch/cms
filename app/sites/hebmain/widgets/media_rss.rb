@@ -25,7 +25,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     end
     
     content = get_items
-    return '' if content.empty? | content.nil?
+    return '' if content.empty? || content.nil?
     lessons = get_rss_items(content)
 
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
@@ -34,7 +34,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
       curr_date = (Date.today - j).strftime('%d.%m.%Y')
       
       selected_lessons = lessons['lessons']['lesson'].select { |lesson|
-        lesson['date'] == curr_date
+        lesson['date'] == curr_date && lesson['files']
       } 
 
       unless selected_lessons.empty?

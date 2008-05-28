@@ -10,7 +10,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_content
     WidgetManager::Base.new do
       w_class('cms_actions').new(:tree_node => @tree_node,
-        :options => {:buttons => %W{ new_button edit_button delete_button },
+        :options => {:buttons => %W{ new_button edit_button },
                      :resource_types => %W{ article content_preview section_preview rss video},
                      :new_text => 'צור יחידת תוכן חדשה',
                      :tooltip => 'משמש ליצירת יחידות תוכן חדשות',

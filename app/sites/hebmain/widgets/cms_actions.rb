@@ -59,7 +59,9 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     parent_id = tree_node.id
     resource_types = []
     @options[:resource_types].each{|e|
-      resource_types << ResourceType.get_resource_type_by_hrid(e)
+      if rt = ResourceType.get_resource_type_by_hrid(e)
+        resource_types << rt
+      end
     }
     is_main = @options[:is_main] || true
     has_url = @options[:has_url]

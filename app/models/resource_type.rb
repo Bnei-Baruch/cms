@@ -71,7 +71,7 @@ class ResourceType < ActiveRecord::Base
 	end
 	
 	def self.get_resource_type_by_hrid(my_hrid)
-	 find_by_hrid(my_hrid)
+	 ResourceType.find_by_hrid(my_hrid) rescue nil
 	end
 	
 	def get_associations

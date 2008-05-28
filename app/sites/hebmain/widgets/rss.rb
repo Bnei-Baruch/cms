@@ -36,7 +36,12 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     items = get_rss_items(content)
    
     div(:class => 'rss'){
-      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
+      w_class('cms_actions').new(:tree_node => tree_node, 
+                                 :options => {:buttons => %W{ delete_button edit_button }, 
+                                              :position => 'bottom',
+                                              :button_text => "ניהול ה-RSS: #{get_title}",
+                                              :new_text => 'הוסף RSS חדש'
+                                              }).render_to(doc)
       h3(:class => 'box_header') {
         picture = get_picture
         img(:src => picture, :class =>'Rav Michael Laitman', :alt => 'image') if picture

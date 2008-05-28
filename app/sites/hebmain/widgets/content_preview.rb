@@ -4,7 +4,8 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     get_content_items
     w_class('cms_actions').new(:tree_node => tree_node, 
                                :options => {:buttons => %W{new_button edit_button delete_button},
-                               :new_text => 'צור יחידת תוכן חדשה', 
+                               :button_text => 'ניהול תצוגה מקדימה', 
+                               :new_text => 'הוספת יחידה בצורה ידנית', 
                                :has_url => false,
                                :resource_types => %W{ custom_preview }}).render_to(self)
     

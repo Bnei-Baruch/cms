@@ -27,9 +27,10 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
                       items:[
         CMS1
         
+        was_created = false
         buttons.each_with_index {|b, idx|
-          rawtext ',' unless idx.eql?(0)
-          self.send(b)
+          rawtext ',' if was_created
+          was_created = self.send(b)
         }
         
         rawtext <<-CMS2
@@ -73,6 +74,9 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
       else
         new_button_link(resource_types, parent_id, is_main, has_url, placeholder, new_text)
       end
+      true
+    else
+      false
     end
   end
 
@@ -85,6 +89,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
         href: '#{href}'
       }
     EDIT
+    true
   end
 
   def delete_button
@@ -116,6 +121,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
         }
       }
     DELETE
+    true
   end
 
   

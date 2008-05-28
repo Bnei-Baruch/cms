@@ -18,12 +18,12 @@ class Hebmain::Widgets::Video < WidgetManager::Base
         p { rawtext description if description }
         # div(:id => "flashplayer-#{tree_node.object_id}")
         div(:id=> "flashplayer-#{tree_node.object_id}", :class => 'flashplayer'){
-          img(:width => "504", :height => "378", :src => "/splash.jpg")
+          img(:src => get_image) if get_image
           p(:class => "playbutton"){
             a{
 #              img(:src => "#{domain}/images/#{presenter.site_name}/player/play-left.png")
               span 'לחצו לצפייה'
-              b ' '
+                b {rawtext '&nbsp;'}
             }
           }
         }

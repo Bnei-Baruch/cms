@@ -18,11 +18,12 @@ class Hebmain::Widgets::Video < WidgetManager::Base
         p { rawtext description if description }
         # div(:id => "flashplayer-#{tree_node.object_id}")
         div(:id=> "flashplayer-#{tree_node.object_id}", :class => 'flashplayer'){
-          img(:width => "504", :height => "378", :border => "0", :src => "/splash.jpg")
-          p(:class => "playbutton", :style => "margin-top: -140px;"){
+          img(:width => "504", :height => "378", :src => "/splash.jpg")
+          p(:class => "playbutton"){
             a{
-              span 'Show me'
-              b
+#              img(:src => "#{domain}/images/#{presenter.site_name}/player/play-left.png")
+              span 'לחצו לצפייה'
+              b ' '
             }
           }
         }
@@ -30,8 +31,7 @@ class Hebmain::Widgets::Video < WidgetManager::Base
           rawtext <<-Player
           flashembed("flashplayer-#{tree_node.object_id}", {src:'/flowplayer/FlowPlayerLight.swf', width:504,  
           height:378,loadEvent: 'click'}, {config: {
-
-              autoPlay: false,
+              autoPlay: true,
               loop: false,
               videoFile: '#{get_flash_url}',
               initialScale: 'scale', 
@@ -42,11 +42,7 @@ class Hebmain::Widgets::Video < WidgetManager::Base
               controlsOverVideo: 'ease',
               controlBarBackgroundColor: -1,
               controlBarGloss: 'low',
-              menuItems: [ 0, 0, 0, 0, 0, 1, 1 ],
-//              splashImageFile: '/image.jpg',
-//              usePlayOverlay:true,
-//              overlay: '/playbutton.png',
-              overlayId: 'flashplayer-#{tree_node.object_id} '
+              menuItems: [ 0, 0, 0, 0, 0, 1, 1 ]
             }} 
           );
           Player

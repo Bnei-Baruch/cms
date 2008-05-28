@@ -52,9 +52,11 @@
 .content .item{
 	font-size:14px;
 	border-top:1px dashed #e8e8e8;
-	margin:0 0 25px 0;
+	margin:0 0 25px 0;  
 	position: relative;
 	clear: both;
+  width:100%;
+  *width:90%;
 }
 .content .item p{
 	margin-bottom:15px;
@@ -75,6 +77,7 @@
 	background: transparent url(<%= domain %>/images/<%= @site_name %>/player/top.png) no-repeat top right;
 	padding:7px 10px 5px 0;
 	margin:1em 0 0;
+  *width:100%;
 }
 .content .item .full-video {
 	background: transparent url(<%= domain %>/images/<%= @site_name %>/player/bg.png) repeat-y top right;
@@ -83,9 +86,44 @@
 	padding:10px 10px 15px;
 	margin:0;
 }
-.content .item .full-video .flashplayer span{
-	background:transparent url(/play-left.png) no-repeat scroll 0% 50%;
-	padding: 21px 3px 0 22px;
+.content .item .full-video .flashplayer{
+position:relative;
+cursor:pointer;
+}
+.content .item .full-video p.playbutton {
+display:block;
+font-size:15px;
+font-weight:bold;
+line-height:15px;
+position:absolute;
+top:180px;
+right:180px;
+margin:0;
+padding:0;
+}
+.content .item .full-video p.playbutton a{
+text-decoration:none;
+}
+.content .item .full-video p.playbutton img{
+}
+.content .item .full-video p.playbutton span{
+	background:transparent url(<%= domain %>/images/<%= @site_name %>/player/play-left.png) no-repeat scroll 0% 50%;
+	padding: 18px 3px 17px 22px;
+  display:block;
+  color:white;
+  float:left;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<%= domain %>/images/<%= @site_name %>/player/play-left-ie.png');
+  *background: 0 none;
+}
+.content .item .full-video p.playbutton b{
+background:transparent url(<%= domain %>/images/<%= @site_name %>/player/play-right.png) no-repeat scroll 0pt;
+  text-indent:-9999px;
+  float:left;
+  height:50px;
+  width:50px;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<%= domain %>/images/<%= @site_name %>/player/play-right.png');
+  *text-indent:0;
+  *background: 0 none;
 }
 .content .item .embed{
 	background: transparent url(<%= domain %>/images/<%= @site_name %>/player/bottom.png) no-repeat top right;

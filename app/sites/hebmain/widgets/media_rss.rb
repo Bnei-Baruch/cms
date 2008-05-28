@@ -76,7 +76,8 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
         :onmouseover => 'mouseUL("lesson-' + curr_date.to_s + index.to_s +  '", true)',
         :onmouseout => 'mouseUL("lesson-' + curr_date.to_s + index.to_s +  '", false)'){
         img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
-        text get_title + ' ' + curr_date.to_s
+        text get_title
+        span(:class => 'date') { text ' ' + curr_date.to_s}
       }
           
       ul(:id => 'lesson-' + curr_date.to_s + index.to_s, :style => 'display:none;'){

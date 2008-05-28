@@ -2,19 +2,21 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
 
   def render_full
     get_content_items
-    w_class('cms_actions').new(:tree_node => tree_node, 
-                               :options => {:buttons => %W{new_button edit_button delete_button},
-                               :button_text => 'ניהול תצוגה מקדימה', 
-                               :new_text => 'הוספת יחידה בצורה ידנית', 
-                               :has_url => false,
-                               :resource_types => %W{ custom_preview }}).render_to(self)
+    div(:class => 'content_preview'){
+      w_class('cms_actions').new(:tree_node => tree_node, 
+        :options => {:buttons => %W{new_button edit_button delete_button},
+          :button_text => 'ניהול תצוגה מקדימה', 
+          :new_text => 'הוספת יחידה בצורה ידנית', 
+          :has_url => false,
+          :resource_types => %W{ custom_preview }}).render_to(self)
     
-    # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
-    updatable = 'up-' + @widget_id.to_s
-    div(:id => updatable){
-      render_preview_update
+      # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
+      updatable = 'up-' + @widget_id.to_s
+      div(:id => updatable){
+        render_preview_update
+      }
+      w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
     }
-    w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
   end
 
   # This function is initiated also in Ajax request
@@ -69,7 +71,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   end
   
   def is_articles_index?
-     @is_articles_index ||= get_acts_as_articles_index
+    @is_articles_index ||= get_acts_as_articles_index
   end
   
   def add_new_item
@@ -95,12 +97,12 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
 
   def content_items
     TreeNode.get_subtree(
-    :parent => tree_node.id, 
-    :resource_type_hrids => ['content_page', 'custom_preview'], 
-    :depth => 1,
-    :has_url => false,
-    #:is_main => false,
-    :status => ['PUBLISHED', 'DRAFT']
+      :parent => tree_node.id, 
+      :resource_type_hrids => ['content_page', 'custom_preview'], 
+      :depth => 1,
+      :has_url => false,
+      #:is_main => false,
+      :status => ['PUBLISHED', 'DRAFT']
     )               
   end
 end

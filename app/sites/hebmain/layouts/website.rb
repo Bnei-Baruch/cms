@@ -200,67 +200,6 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                         } 
                       }
                       
-                      #                      div(:class => 'downloads'){
-                      #                        h3 'הורדות חינם', :class => 'box_header'
-                      #                        div(:class => 'x-tree-arrows') {
-                      #                          div(:class => 'toggle',
-                      #                            :onclick => 'toggleUL("download-122")',
-                      #                            :onmouseover => 'mouseUL("download-122", true)',
-                      #                            :onmouseout => 'mouseUL("download-122", false)'){
-                      #                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                      #                            text 'שיעור הבוקר היומי' + ' 26.04.08'
-                      #                          }
-                      #                          ul(:id => 'download-122', :style => 'display:none;'){
-                      #                            li(:class => 'item'){
-                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                      #                              span {text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'}
-                      #                              div(:class => 'services'){
-                      #                                a(:class => 'video'){span {text 'וידאו'} }
-                      #                                a(:class => 'audio'){span {text 'אודיו'} }
-                      #                                a(:class => 'sketch'){span {text 'שרטוט'} }
-                      #                              }
-                      #                            }
-                      #                            li(:class => 'item'){
-                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                      #                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
-                      #                              div(:class => 'services'){
-                      #                                a(:class => 'video'){text 'וידאו' }
-                      #                                a(:class => 'audio'){text 'אודיו' }
-                      #                                a(:class => 'sketch'){text 'שרטוט' }
-                      #                              }
-                      #                            }
-                      #                          }
-                      #                        }
-                      #                        div(:class => 'x-tree-arrows') {
-                      #                          div(:class => 'toggle',
-                      #                            :onclick => 'toggleUL("download-123")',
-                      #                            :onmouseover => 'mouseUL("download-123", true)',
-                      #                            :onmouseout => 'mouseUL("download-123", false)'){
-                      #                            img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                      #                            text 'שיעור הבוקר היומי' + ' 26.04.08'
-                      #                          }
-                      #                          ul(:id => 'download-123', :style => 'display:none;'){
-                      #                            li(:class => 'item'){
-                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                      #                              text 'הקדמה לספר הזוהר, אות מ"א, שיעור 13'
-                      #                              div(:class => 'services'){
-                      #                                a(:class => 'video'){text 'וידאו' }
-                      #                                a(:class => 'audio'){text 'אודיו' }
-                      #                                a(:class => 'sketch'){text 'שרטוט' }
-                      #                              }
-                      #                            }
-                      #                            li(:class => 'item'){
-                      #                              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-                      #                              text 'תע"ס, כרך א, חלק ג, חלק ג, , דף ר"ג'
-                      #                              div(:class => 'services'){
-                      #                                a(:class => 'video'){text 'וידאו' }
-                      #                                a(:class => 'audio'){text 'אודיו' }
-                      #                                a(:class => 'sketch'){text 'שרטוט' }
-                      #                              }
-                      #                            }
-                      #                          }
-                      #                        }
-                      #                      }
                       left_column_resources.each { |left_column_resource|                
                         render_content_resource(left_column_resource,
                           left_column_resource.resource.resource_type.hrid == 'rss' ? 'preview' : 'full')
@@ -274,140 +213,161 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                         div(:class =>'h1-right')
                         div(:class =>'h1-left')
                       }
-                      div(:class => 'item') {
-                        div(:class => 'main_preview1') {
-                          div(:class => 'element last') {
-                            h1 'ט"ו בשבט - חג המקובלים'
-                            h2 'חג הצמיחה הרוחנית'
-                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-                            div(:class => 'author') {
-                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-                              a(:class => 'left') { text "...לכתבה" }
-                            }
-                            img(:src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
-                          }
-                        }
+                      
+                      w_class('cms_actions').new(:tree_node => @tree_node,
+                        :options => {:buttons => %W{ new_button },
+                          :resource_types => %W{content_preview},
+                          :new_text => 'צור יחידת תוכן חדשה',
+                          :tooltip => 'משמש ליצירת יחידות תוכן חדשות',
+                          :has_url => false, :placeholder => 'middle'}).render_to(self)
+                      
+                      middle_column_resources.each { |middle_column_resource|
+                        render_content_resource(middle_column_resource)
                       }
                       
-                      div(:class => 'item') {
-                        div(:class => 'section_preview') {
-                          div(:class => 'element'){
-                            h1 'ט"ו בשבט - חג המקובלים'
-                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-                            div(:class => 'author') {
-                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-                              a(:class => 'left') { text "...לכתבה" }
-                            }
-                            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-                          }
-                          div(:class => 'element'){
-                            h1 'ט"ו בשבט - חג המקובלים'
-                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-                            div(:class => 'author') {
-                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-                              a(:class => 'left') { text "...לכתבה" }
-                            }
-                            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-                          }
-                        }
-                      }
+                        #                      div(:class => 'item') {
+                        #                        div(:class => 'main_preview1') {
+                        #                          div(:class => 'element last') {
+                        #                            h1 'ט"ו בשבט - חג המקובלים'
+                        #                            h2 'חג הצמיחה הרוחנית'
+                        #                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+                        #                            div(:class => 'author') {
+                        #                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+                        #                              a(:class => 'left') { text "...לכתבה" }
+                        #                            }
+                        #                            img(:src => img_path('apple-tree-preview1.jpg'), :alt => 'preview')
+                        #                          }
+                        #                        }
+                        #                      }
+                      
+                        #                      div(:class => 'item') {
+                        #                        div(:class => 'section_preview') {
+                        #                          div(:class => 'element'){
+                        #                            h1 'ט"ו בשבט - חג המקובלים'
+                        #                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+                        #                            div(:class => 'author') {
+                        #                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+                        #                              a(:class => 'left') { text "...לכתבה" }
+                        #                            }
+                        #                            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
+                        #                          }
+                        #                          div(:class => 'element'){
+                        #                            h1 'ט"ו בשבט - חג המקובלים'
+                        #                            div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
+                        #                            div(:class => 'author') {
+                        #                              span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
+                        #                              a(:class => 'left') { text "...לכתבה" }
+                        #                            }
+                        #                            img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
+                        #                          }
+                        #                        }
+                        #                      }
 
-                      div(:class => 'item') {
-                        div(:class => 'main_preview3') {
-                          div(:class => 'element') {
-                            h3 'מגזין', :class => 'box_header'
-                            img(:src => img_path('magazin.jpg'), :alt => 'preview')
-                            h4 'גיליון 2 של המגזין קבלה לעם'
-                            ul(:class => 'links'){
-                              li{a 'להורדת גרסת PDF'}
-                              li{a 'להורדת גרסת Word'}
-                              li{a 'למגזין האלקטרוני'}
+                        div(:class => 'item') {
+                          div(:class => 'main_preview3') {
+                            div(:class => 'element') {
+                              h3 'מגזין', :class => 'box_header'
+                              img(:src => img_path('magazin.jpg'), :alt => 'preview')
+                              h4 'גיליון 2 של המגזין קבלה לעם'
+                              ul(:class => 'links'){
+                                li{a 'להורדת גרסת PDF'}
+                                li{a 'להורדת גרסת Word'}
+                                li{a 'למגזין האלקטרוני'}
+                              }
                             }
-                          }
-                          div(:class => 'element') {
-                            h3 'עיתון', :class => 'box_header'
-                            img(:src => img_path('magazin.jpg'), :alt => 'preview')
-                            h4 'גיליון 28 של העיתון קבלה לעם'
-                            ul(:class => 'links'){
-                              li{a 'להורדת גרסת PDF'}
-                              li{a 'להורדת גרסת Word'}
-                              li{a 'למגזין האלקטרוני'}
+                            div(:class => 'element') {
+                              h3 'עיתון', :class => 'box_header'
+                              img(:src => img_path('magazin.jpg'), :alt => 'preview')
+                              h4 'גיליון 28 של העיתון קבלה לעם'
+                              ul(:class => 'links'){
+                                li{a 'להורדת גרסת PDF'}
+                                li{a 'להורדת גרסת Word'}
+                                li{a 'למגזין האלקטרוני'}
+                              }
                             }
-                          }
-                          div(:class => 'element last') {
-                            h3 'ספר', :class => 'box_header'
-                            img(:src => img_path('magazin.jpg'), :alt => 'preview')
-                            h4 'אישי ציבור ואומנים משוחחים על משמעות החיים'
-                            ul(:class => 'links'){
-                              li{a 'להורדת גרסת PDF'}
-                              li{a 'להורדת גרסת Word'}
-                              li{a 'למגזין האלקטרוני'}
+                            div(:class => 'element last') {
+                              h3 'ספר', :class => 'box_header'
+                              img(:src => img_path('magazin.jpg'), :alt => 'preview')
+                              h4 'אישי ציבור ואומנים משוחחים על משמעות החיים'
+                              ul(:class => 'links'){
+                                li{a 'להורדת גרסת PDF'}
+                                li{a 'להורדת גרסת Word'}
+                                li{a 'למגזין האלקטרוני'}
+                              }
                             }
+                            div(:class => 'clear')
                           }
-                          div(:class => 'clear')
                         }
                       }
                     }
                   }
                 }
               }
-            }
-            div(:class => 'yui-b') {
-              div(:id => 'hd-r') { @header_logo.render_to(self) } #Logo goes here
-              div(:class => 'right-part') {
-                div(:class => 'h1') {
-                  text 'מאיפה להתחיל?'
-                  div(:class =>'h1-right')
-                  div(:class =>'h1-left')
-                }
-                w_class('cms_actions').new(:tree_node => tree_node, 
-                  :options => {:buttons => %W{ new_button }, 
-                    :resource_types => %W{ site_updates },
-                    :new_text => 'צור יחידת תוכן חדשה', 
-                    :has_url => false, 
-                    :placeholder => 'right'}).render_to(self)
-                w_class('video_gallery').new().render_to(self)
+              div(:class => 'yui-b') {
+                div(:id => 'hd-r') { @header_logo.render_to(self) } #Logo goes here
+                div(:class => 'right-part') {
+                  div(:class => 'h1') {
+                    text 'מאיפה להתחיל?'
+                    div(:class =>'h1-right')
+                    div(:class =>'h1-left')
+                  }
+                  w_class('cms_actions').new(:tree_node => tree_node, 
+                    :options => {:buttons => %W{ new_button }, 
+                      :resource_types => %W{ site_updates },
+                      :new_text => 'צור יחידת תוכן חדשה', 
+                      :has_url => false, 
+                      :placeholder => 'right'}).render_to(self)
+                  w_class('video_gallery').new().render_to(self)
                 
-                right_column_resources.each { |right_column_resource|
-                  render_content_resource(right_column_resource)
-                }                
+                  right_column_resources.each { |right_column_resource|
+                    render_content_resource(right_column_resource)
+                  }                
+                }
               }
             }
-          }
-          div(:id => 'ft') {
-            @header_bottom_links.render_to(self)
+            div(:id => 'ft') {
+              @header_bottom_links.render_to(self)
+            }
           }
         }
       }
-    }
-  end     
+    end     
   
-  private 
+    private 
   
-  def right_column_resources
-    @tree_nodes_right ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['site_updates'], 
-      :depth => 1,
-      :placeholders => ['right']
-    ) 
-  end
+    def right_column_resources
+      @tree_nodes_right ||= TreeNode.get_subtree(
+        :parent => tree_node.id, 
+        :resource_type_hrids => ['site_updates'], 
+        :depth => 1,
+        :placeholders => ['right']
+      ) 
+    end
   
-  def left_column_resources
-    @tree_nodes_left ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['rss'], 
-      :depth => 1,
-      :placeholders => ['left']
-    ) 
-  end
+    def left_column_resources
+      @tree_nodes_left ||= TreeNode.get_subtree(
+        :parent => tree_node.id, 
+        :resource_type_hrids => ['rss'], 
+        :depth => 1,
+        :placeholders => ['left']
+      ) 
+    end
   
-  def kabbalah_media_resources
-    @kabbalah_media_nodes ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['media_rss'], 
-      :depth => 1,
-      :placeholders => ['left']
-    ) 
-  end
-end 
+    def middle_column_resources
+      @tree_nodes_middle ||= TreeNode.get_subtree(
+        :parent => tree_node.id, 
+        :resource_type_hrids => ['content_preview'], 
+        :depth => 1,
+        :placeholders => ['middle']
+      ) 
+    end
+  
+    def kabbalah_media_resources
+      @kabbalah_media_nodes ||= TreeNode.get_subtree(
+        :parent => tree_node.id, 
+        :resource_type_hrids => ['media_rss'], 
+        :depth => 1,
+        :placeholders => ['left']
+      ) 
+    end
+  end 

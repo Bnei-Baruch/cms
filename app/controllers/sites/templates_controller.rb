@@ -26,7 +26,7 @@ class Sites::TemplatesController < ApplicationController
     
     unless @website
       # External link
-      check_url_migration
+      check_url_migration(true)
       return
     end
     
@@ -42,7 +42,7 @@ class Sites::TemplatesController < ApplicationController
 
     # in case the page is not found in the DB
     unless @presenter.node
-      # External link
+      # Internal link
      check_url_migration
      return
     end
@@ -230,7 +230,7 @@ class Sites::TemplatesController < ApplicationController
     end
   end
   
-  def check_url_migration
+  def check_url_migration(is_external = false)
     migration = UrlMigration.get_action_and_target('http://' + request.env["HTTP_HOST"] + request.request_uri)
     if migration
       case migration[:status]
@@ -240,7 +240,11 @@ class Sites::TemplatesController < ApplicationController
           redirect_301(migration[:target])
       end
     else
-      status_410
+      if is_external
+        status_410
+      else
+        status_404
+      end
     end
   end
 end

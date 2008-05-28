@@ -22,6 +22,7 @@ class Sites::Global < Presenter::Base
   end
 
   def node
+    @node ||=
     if @permalink 
       # debugger
       TreeNode.find_by_permalink_and_has_url(@permalink, true) rescue nil

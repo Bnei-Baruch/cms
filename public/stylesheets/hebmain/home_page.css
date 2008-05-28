@@ -33,13 +33,13 @@ position:relative;
   width:99%;
 }
 .content .h1{
-  background-color: #ffb400;
+  background-color: #3864b5;
 }
 .content .h1-right{
-  background-position:0 -117px;
+  background-position:0 -96px;
 }
 .content .h1-left{
-  background-position:0 -78px;
+  background-position:0 -64px;
 }
 .content h1{
 	font-size:22px;
@@ -179,7 +179,7 @@ position:relative;
 }
 /*----------  Main Preview  ---------------*/
 .main_preview1{
-  margin:0 0 0 250px;
+  margin:0;
   position:relative;
 }
 .main_preview1 .descr{
@@ -189,10 +189,6 @@ position:relative;
   padding:0 0 20px 0;
   border:0 none;
 }
-.main_preview1 .author{
-	height:18px;
-	margin: 5px 0;
-}
 .main_preview1 h1{
   font-size: 18px;
   padding: 10px 0 0;
@@ -201,10 +197,17 @@ position:relative;
   margin: 0 0 10px;
 }
 .main_preview1 img{
-  position:absolute;
-  top:15px;
-  right:223px;
-  *right:208px;
+float:left;
+margin:10px 10px 0 0;
+}
+.main_preview1 .element{
+padding:0 3px 0 0;
+}
+.main_preview1 a.more{
+display:block;
+clear:both;
+top:-1.1em;
+position:relative;
 }
 /*----------  Main Preview 2 ---------------*/
 .main_preview2{
@@ -346,13 +349,13 @@ cursor:pointer;
 width:100%;
 }
 .left-part .h1 {
-background-color:#cd0000;
+background-color:#3864b5;
 }
 .left-part .h1-right{
-  background-position:0 -195px;
+  background-position:0 -96px;
 }
 .left-part .h1-left{
-  background-position:0 -156px;
+  background-position:0 -64px;
 }
 .left-part .radio-TV{
   direction: ltr;

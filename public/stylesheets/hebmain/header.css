@@ -43,14 +43,13 @@ z-index:1000;
 }
 /*----------  h1  ---------------*/
 .h1{
-	background-color:#0D47B2;
+	background-color:#90afe7;
 	color:white;
 	text-align:right;
-	font-size:153.9%;
-	font-weight:bold;
+	font-size:138.5%;
 	margin:0;
-	height:39px;
-	line-height:39px;
+	height:32px;
+	line-height:32px;
   position:relative;
   padding: 0 10px 0 0;
 }
@@ -58,15 +57,15 @@ z-index:1000;
 	position:absolute;
   top:0;
   width:6px;
-  height:39px;
+  height:32px;
 }
 .h1 .h1-right{
   right:0;
-background: transparent url(/images/hebmain/h1-ears.gif) no-repeat 0 -39px;
+background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 -32px;
 }
 .h1 .h1-left{
 left:0;
-background: transparent url(/images/hebmain/h1-ears.gif) no-repeat 0 0;  
+background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;  
 }
 /*----------  Logo  ---------------*/
 #hd-r .logo {

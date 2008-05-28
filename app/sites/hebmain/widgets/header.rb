@@ -35,7 +35,7 @@ class Hebmain::Widgets::Header < WidgetManager::Base
   def render_logo
     div(:class => 'logo') do
       h1 'קבלה לעם'
-      img(:src => img_path('logo.gif'), :alt => 'Title')
+      img(:src => img_path('logo.png'), :alt => 'Title')
     end
   end
   

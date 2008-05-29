@@ -26,16 +26,14 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
       div(:class => 'section_preview') {
         div(:class => 'h1') {
           text get_title.empty? ? section[0].resource.name : get_title
+          a(:class => 'cont', :href => get_page_url(section_main_node)) {
+            text get_read_more_link.empty? ? 'לכל הכתבות במדור' : get_read_more_link
+            img(:src => img_path('arrow-left.gif'), :alt => '')
+          }
           img(:src => img_path('sec-right.gif'),:class =>'h1-right', :alt => '')
           img(:src => img_path('sec-left.gif'),:class =>'h1-left', :alt => '')
         }
         show_index
-        div(:class => 'footer') {
-          a(:class => 'left', :href => get_page_url(section_main_node)) {
-            text get_read_more_link.empty? ? 'לכל הכתבות במדור' : get_read_more_link
-            img(:src => img_path('arrow-left.gif'), :alt => '')
-          }
-        }
       }
     end
   end

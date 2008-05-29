@@ -56,13 +56,17 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   div(:id => 'hd') { @header_top_links.render_to(self) } #Header goes here
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
-                  }    
-                  div(:class => 'h1') {
-                    @titles.render_to(doc)
-                    div(:class =>'h1-right')
-                    div(:class =>'h1-left')
                   }
-                  @breadcrumbs.render_to(self) 
+                  div(:class => 'margin-25') {text ' '}
+                  div(:class => 'middle'){
+                    div(:class => 'h1') {
+                      @titles.render_to(doc)
+                      div(:class =>'h1-right')
+                      div(:class =>'h1-left')
+                    }
+                    @breadcrumbs.render_to(self) 
+                    div(:class => 'margin-25') {text ' '}
+                  }
                   div(:class => 'yui-u first') {
                     div(:class => 'content') { self.ext_content.render_to(doc) }
                   }

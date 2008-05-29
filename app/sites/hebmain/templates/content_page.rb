@@ -157,10 +157,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_main_image
     WidgetManager::Base.new do
-      div(:class => 'image'){
-        img(:src => get_main_image, :alt => get_main_image_alt, :title => get_main_image_alt)
-        text get_main_image_alt
-      }
+      if get_main_image && !get_main_image.empty?
+        div(:class => 'image'){
+          img(:src => get_main_image, :alt => get_main_image_alt, :title => get_main_image_alt)
+          text get_main_image_alt
+        }
+      end                
     end
   end
 

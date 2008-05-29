@@ -15,6 +15,12 @@ class AuthenticationModel
     3 => "Managing",
     4 => "Administrating"
   }
+  
+  def self.get_anonymous_user
+    {:username => $config_manager.appl_settings[:anonymous_login_user][:username],
+     :password => $config_manager.appl_settings[:anonymous_login_user][:password]} rescue {}
+  end
+  
   def self.GET_NODE_AC_TYPES_FOR_EDIT
     NODE_AC_TYPES.reject {| key, value | key == 4 }
   end
@@ -164,6 +170,10 @@ class AuthenticationModel
     end
     return false
     #user_is_admin==1
+  end
+  
+  def self.current_user_is_anonymous?
+    Thread.current[:session][:current_user_is_anonymous] rescue false
   end
 
 end

@@ -29,19 +29,21 @@ class TreeNode < ActiveRecord::Base
 
   #can logical delete (change status to deleted)
   def can_delete?
-    min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-    if (3 <= min_permission_to_child_tree_nodes_cache)
-      #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree(:parent => id)
-      if output
-        output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-        if output.length > 0
-          return false 
+    unless AuthenticationModel.current_user_is_anonymous?
+      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+      if (3 <= min_permission_to_child_tree_nodes_cache)
+        #can not delete if resource has link from other tree
+        output = TreeNode.get_subtree(:parent => id) #### TODO Dima M.
+        if output
+          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
+          if output.length > 0
+            return false 
+          end
         end
-      end
-      return true
-    else
-      return false
+        return true
+      else
+        return false
+      end                                                
     end
   end
   
@@ -55,17 +57,19 @@ class TreeNode < ActiveRecord::Base
 
   #can delete in DB (destroy)
   def can_administrate? 
-    min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-    if (4 <= min_permission_to_child_tree_nodes_cache)
-      #can not delete if resource has link from other tree
-      output = TreeNode.get_subtree(:parent => id)
-      if output
-        output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-        return false if output.length > 0
-      end
-      return true
-    end 
-    return false
+    unless AuthenticationModel.current_user_is_anonymous?
+      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+      if (4 <= min_permission_to_child_tree_nodes_cache)
+        #can not delete if resource has link from other tree
+        output = TreeNode.get_subtree(:parent => id)
+        if output
+          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
+          return false if output.length > 0
+        end
+        return true
+      end 
+      return false
+    end                                                    
   end
 
   def main
@@ -194,7 +198,8 @@ class TreeNode < ActiveRecord::Base
           return "select * from cms_treenode_subtree(#{request})"
         end
         # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
-        find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue []
+        find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
+        # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue [] ###### Eager loading
       else
         []
       end

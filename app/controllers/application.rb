@@ -49,12 +49,12 @@ protected
 
   def activate_global_parms
      if session[:user_id].nil?
-      username = $config_manager.appl_settings[:anonymous_login_user][:username]
-      password = $config_manager.appl_settings[:anonymous_login_user][:password]
-      user = User.authenticate(username, password)
+      anonymous = AuthenticationModel.get_anonymous_user
+      user = User.authenticate(anonymous[:username], anonymous[:password])
         if user
           session[:user_id] = user.id
-          session[:current_user_is_admin]=0
+          session[:current_user_is_admin] = 0
+          session[:current_user_is_anonymous] = true
         else
           logger.error("Anonymous user is not defined or banned. Access denied.")
           raise "Access denied for anonymous user."

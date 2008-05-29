@@ -35,9 +35,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/home_page', 
           :cache => 'website'
         end
-        # css get_css_url('header')
-        # css get_css_url('home_page')
-        # css get_css_url('page_admin')
         javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'website'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'

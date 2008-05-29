@@ -83,7 +83,6 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
           render_content_item(item, view_mode)
         }
       }
-      div(:style => 'clear: right;')
     }                  
   end
 

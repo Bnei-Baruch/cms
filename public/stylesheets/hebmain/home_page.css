@@ -180,7 +180,7 @@ h3.box_header {
 /*----------  Content Preview  ---------------*/
 .content_preview{
     position:relative;
-    *display:inline-block;
+    display:inline-block;
 }
 /*----------  Index  ---------------*/
 .index{
@@ -220,7 +220,7 @@ h3.box_header {
     padding:5px 0 5px 10px;
 }
 .index a.more{
-    display:inline-block;
+    display:block;
     clear:both;
     top:-1.4em;
     right:150px;

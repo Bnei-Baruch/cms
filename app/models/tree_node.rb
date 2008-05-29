@@ -34,8 +34,10 @@ class TreeNode < ActiveRecord::Base
       #can not delete if resource has link from other tree
       output = TreeNode.get_subtree(:parent => id)
       if output
-        output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
-        return false if output.length > 0
+        output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
+        if output.length > 0
+          return false 
+        end
       end
       return true
     else
@@ -58,7 +60,7 @@ class TreeNode < ActiveRecord::Base
       #can not delete if resource has link from other tree
       output = TreeNode.get_subtree(:parent => id)
       if output
-        output.delete_if {|x| x.resource.nil? || x.resource.has_links? == false }
+        output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
         return false if output.length > 0
       end
       return true

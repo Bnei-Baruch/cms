@@ -10,26 +10,30 @@ class Hebmain::Widgets::Video < WidgetManager::Base
         :new_text => 'צור יחידת תוכן חדשה', 
         :has_url => false
       }).render_to(self)
-      h3(:class => 'video'){
-        text get_title
-      }
-      div(:class => 'full-video') {
-        description = get_description
-        p { rawtext description if description }
-        # div(:id => "flashplayer-#{tree_node.object_id}")
-        div(:id=> "flashplayer-#{tree_node.object_id}", :class => 'flashplayer'){
-          img(:src => get_image) if get_image
-          p(:class => "playbutton"){
-            a{
-#              img(:src => "#{domain}/images/#{presenter.site_name}/player/play-left.png")
-              span 'לחצו לצפייה'
-                b {rawtext '&nbsp;'}
-            }
+    h3(:class => 'video'){
+      text get_title
+    }
+    div(:class => 'full-video') {
+      description = get_description
+      id = tree_node.object_id
+      image = get_image
+      p { rawtext description } if !description.empty?
+      div(:id => "flashplayer-#{id}") {
+        if image && !image.empty?
+          img(:src => get_image, :alt => '', :class => 'flashplayer')
+        else
+          div(:class => 'flashplayer')
+        end
+        p(:class => "playbutton"){
+          a{
+            span 'לחצו לצפייה'
+            b {rawtext '&nbsp;'}
           }
         }
-        javascript {
-          rawtext <<-Player
-          flashembed("flashplayer-#{tree_node.object_id}", {src:'/flowplayer/FlowPlayerLight.swf', width:504,  
+      }
+      javascript {
+        rawtext <<-Player
+          flashembed("flashplayer-#{id}", {src:'/flowplayer/FlowPlayerLight.swf', width:504,  
           height:378,loadEvent: 'click'}, {config: {
               autoPlay: true,
               loop: false,
@@ -45,33 +49,33 @@ class Hebmain::Widgets::Video < WidgetManager::Base
               menuItems: [ 0, 0, 0, 0, 0, 1, 1 ]
             }} 
           );
-          Player
-        }
-        # image = get_preview_image
-        # img(:src => image, :alt => 'player') if image
+        Player
+      }
+      # image = get_preview_image
+      # img(:src => image, :alt => 'player') if image
         
-      }
+    }
   
-      div(:class => 'embed'){
-        # span(:class => 'text') {
-        #   text '  Embed'
-        # }
-        # input(:id => 'addr', 
-        #   :value =>'<object width="425" height=...',
-        #   :readonly => 'readonly',
-        #   :onclick => "javascript:document.getElementById('addr').focus();document.getElementById('addr').select()")
-        # span(:class => 'services'){
-        #   img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
-        #   a(:href => get_url, :title => 'arrow') {
-        #     img(:src => '/images/hebmain/player/arrow.gif', :alt => 'arrow')          
-        #   }
-        #   img(:src => '/images/hebmain/player/pipe.gif', :alt => '')
-        # 
-        #   a(:href => '#', :title => 'email', :alt => 'email') {
-        #     img(:src => '/images/hebmain/player/email.gif', :alt => 'email')          
-        #   }
-        # }
-      }
+    div(:class => 'embed'){
+      # span(:class => 'text') {
+      #   text '  Embed'
+      # }
+      # input(:id => 'addr', 
+      #   :value =>'<object width="425" height=...',
+      #   :readonly => 'readonly',
+      #   :onclick => "javascript:document.getElementById('addr').focus();document.getElementById('addr').select()")
+      # span(:class => 'services'){
+      #   img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
+      #   a(:href => get_url, :title => 'arrow') {
+      #     img(:src => '/images/hebmain/player/arrow.gif', :alt => 'arrow')          
+      #   }
+      #   img(:src => '/images/hebmain/player/pipe.gif', :alt => '')
+      # 
+      #   a(:href => '#', :title => 'email', :alt => 'email') {
+      #     img(:src => '/images/hebmain/player/email.gif', :alt => 'email')          
+      #   }
+      # }
+    }
   end
 end
 

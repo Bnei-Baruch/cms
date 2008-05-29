@@ -29,22 +29,23 @@ class TreeNode < ActiveRecord::Base
 
   #can logical delete (change status to deleted)
   def can_delete?
-    unless AuthenticationModel.current_user_is_anonymous?
-      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-      if (3 <= min_permission_to_child_tree_nodes_cache)
-        #can not delete if resource has link from other tree
-        output = TreeNode.get_subtree(:parent => id) #### TODO Dima M.
-        if output
-          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-          if output.length > 0
-            return false 
-          end
-        end
-        return true
-      else
-        return false
-      end                                                
-    end
+    #    unless AuthenticationModel.current_user_is_anonymous?
+    #      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+    #      if (3 <= min_permission_to_child_tree_nodes_cache)
+    #        #can not delete if resource has link from other tree
+    #        output = TreeNode.get_subtree(:parent => id) #### TODO Dima M.
+    #        if output
+    #          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
+    #          if output.length > 0
+    #            return false 
+    #          end
+    #        end
+    #        return true
+    #      else
+    #        return false
+    #      end                                                
+    #    end
+    false
   end
   
   def can_move_child?
@@ -57,19 +58,20 @@ class TreeNode < ActiveRecord::Base
 
   #can delete in DB (destroy)
   def can_administrate? 
-    unless AuthenticationModel.current_user_is_anonymous?
-      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-      if (4 <= min_permission_to_child_tree_nodes_cache)
-        #can not delete if resource has link from other tree
-        output = TreeNode.get_subtree(:parent => id)
-        if output
-          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-          return false if output.length > 0
-        end
-        return true
-      end 
-      return false
-    end                                                    
+#    unless AuthenticationModel.current_user_is_anonymous?
+#      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+#      if (4 <= min_permission_to_child_tree_nodes_cache)
+#        #can not delete if resource has link from other tree
+#        output = TreeNode.get_subtree(:parent => id)
+#        if output
+#          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
+#          return false if output.length > 0
+#        end
+#        return true
+#      end 
+#      return false
+#    end                                                    
+false
   end
 
   def main
@@ -81,8 +83,8 @@ class TreeNode < ActiveRecord::Base
   # Embedded resources won't have permalink
   def ancestors
     TreeNode.find(:all, 
-                  :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes", 
-                    :include => [:resource]) rescue []
+      :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes", 
+      :include => [:resource]) rescue []
     # select * from cms_treenode_ancestors(35, 1)
   end
 
@@ -132,10 +134,10 @@ class TreeNode < ActiveRecord::Base
     # :has_url => false - boolean - optional - default: show all
     # :depth => 3 - integer - optional - default: get all the subtree
     # :properties => where clause for properties on hrids:
-                # field type: each hrid must contain a prefix of its field type. t_ b_ d_ n_ when  t_ is for string, text, plaintext, file(the file name); b_ is for boolean; d_ is for dates and timestamps; n_ is for numbers. For eaxmple - my hrid is num_of_items and its a number so I will use: n_num_of_items = 4; Or can_edit is boolean so I'll write: b_can_write = true OR n_num_of_items = 4
-                # prefix_hrid = value [and or] hrid ~ value, i.e. '(t_name ~ ''arvut'' or in_group) and (d_date > now() or d_date < now() + 15)'
-                # NOTE: keep in mind that you are writing a normal query according field type and all other rules!
-                # the difference is that fieldnames are properties.hrids and values are resource_properties. - optional - default: show all
+    # field type: each hrid must contain a prefix of its field type. t_ b_ d_ n_ when  t_ is for string, text, plaintext, file(the file name); b_ is for boolean; d_ is for dates and timestamps; n_ is for numbers. For eaxmple - my hrid is num_of_items and its a number so I will use: n_num_of_items = 4; Or can_edit is boolean so I'll write: b_can_write = true OR n_num_of_items = 4
+    # prefix_hrid = value [and or] hrid ~ value, i.e. '(t_name ~ ''arvut'' or in_group) and (d_date > now() or d_date < now() + 15)'
+    # NOTE: keep in mind that you are writing a normal query according field type and all other rules!
+    # the difference is that fieldnames are properties.hrids and values are resource_properties. - optional - default: show all
     # :current_page => 3 - integer - optional - default: paging is disabled
     # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
     # :return_parent => true - boolean - optional - default: false
@@ -193,7 +195,7 @@ class TreeNode < ActiveRecord::Base
           req_return_parent,
           req_placeholders,
           req_status
-          ].join(',') 
+        ].join(',') 
         if args[:test]
           return "select * from cms_treenode_subtree(#{request})"
         end
@@ -247,7 +249,7 @@ class TreeNode < ActiveRecord::Base
           args.last[:select] = "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"
         end
       else
-          args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
+        args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
       end
       output=self.old_find(*args)
       
@@ -268,9 +270,9 @@ class TreeNode < ActiveRecord::Base
     unless can_administrate?
       if is_main || !can_delete?
         logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-        "to destroy tree_node: #{id} resource: #{resource_id}")
+            "to destroy tree_node: #{id} resource: #{resource_id}")
         raise "User #{AuthenticationModel.current_user} has no permission " + 
-        "to destroy tree_node: #{id} resource: #{resource_id}"
+          "to destroy tree_node: #{id} resource: #{resource_id}"
       end
     end
     tree_node_ac_rights.destroy_all
@@ -280,9 +282,9 @@ class TreeNode < ActiveRecord::Base
     #check if has permission for edit action
     if not can_edit?
       logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-      "to edit tree_node: #{id} resource: #{resource_id}")
+          "to edit tree_node: #{id} resource: #{resource_id}")
       raise "User #{AuthenticationModel.current_user} has no permission " + 
-      "to edit tree_node: #{id} resource: #{resource_id}"
+        "to edit tree_node: #{id} resource: #{resource_id}"
     end
     
     #check if parent changed
@@ -295,16 +297,16 @@ class TreeNode < ActiveRecord::Base
           if parent_id && parent_id > 0
             if not TreeNode.find_as_admin(parent_id).can_move_child?
               logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-              "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied.")
+                  "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied.")
               raise "User #{AuthenticationModel.current_user} has no permission " + 
-              "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied."
+                "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied."
             end
           else
-              #if parent_id is nil or 0 (it is root tree_node)
-              #only Adinistrator group can create it
-              logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-              "to create root tree_node: #{id}. Moving tree_node denied. Only Administrator can do it.")
-              raise "User #{AuthenticationModel.current_user} has no permission " + 
+            #if parent_id is nil or 0 (it is root tree_node)
+            #only Adinistrator group can create it
+            logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+                "to create root tree_node: #{id}. Moving tree_node denied. Only Administrator can do it.")
+            raise "User #{AuthenticationModel.current_user} has no permission " + 
               "to create root tree_node: #{id}. Moving tree_node denied. Only Administrator can do it."
           end
         end
@@ -317,21 +319,21 @@ class TreeNode < ActiveRecord::Base
     #check if has permission for criating action
     #the parant tree_node can_create_child?
     if parent_id && parent_id > 0
-       if not TreeNode.find_as_admin(parent_id).can_create_child?
-          logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-          "to create a child of tree_node: #{parent_id}")
-          raise "User #{AuthenticationModel.current_user} has no permission " + 
+      if not TreeNode.find_as_admin(parent_id).can_create_child?
+        logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+            "to create a child of tree_node: #{parent_id}")
+        raise "User #{AuthenticationModel.current_user} has no permission " + 
           "to create a child of tree_node: #{parent_id}"
-        end
+      end
     else
-        #if parent_id is nil or 0 (it is root tree_node)
-        #only Adinistrator group can create it
-        if not AuthenticationModel.current_user_is_admin?
-           logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+      #if parent_id is nil or 0 (it is root tree_node)
+      #only Adinistrator group can create it
+      if not AuthenticationModel.current_user_is_admin?
+        logger.error("User #{AuthenticationModel.current_user} has no permission " + 
             "for creation root tree_node, only Adminitrator can create child tree_node.")
-          raise "User #{AuthenticationModel.current_user} has not permission " + 
-            "for creation root tree_node, only Adminitrator can create child tree_node."
-        end
+        raise "User #{AuthenticationModel.current_user} has not permission " + 
+          "for creation root tree_node, only Adminitrator can create child tree_node."
+      end
     end
   end
   

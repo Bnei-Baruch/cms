@@ -70,6 +70,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
   end
   
   def lesson_show(selected_lessons, curr_date, index = 0)
+    return
     div(:class => 'x-tree-arrows') {
       div(:class => 'toggle',
         :onclick => 'toggleUL("lesson-' + curr_date.to_s + index.to_s + '")',

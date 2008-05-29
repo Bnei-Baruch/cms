@@ -45,6 +45,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
         div(:class => klass) {
           render_content_resource(item, 'small')
         }
+        div(:class => 'clear')
         break if (index + 1) >= get_number_of_items # For limiting the preview items
       }
     }

@@ -12,8 +12,9 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
                      :resource_types => %W{ article content_preview section_preview rss video},
+                     :button_text => 'ניהול דף תוכן',
                      :new_text => 'צור יחידת תוכן חדשה',
-                     :tooltip => 'משמש ליצירת יחידות תוכן חדשות',
+                     :edit_text => 'ערוך דף תוכן',
                      :has_url => false, :placeholder => 'main_content'}).render_to(self)
       unless get_acts_as_section
         h1 get_title

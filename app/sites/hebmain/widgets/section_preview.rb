@@ -4,7 +4,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(doc)
     
     # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
-    updatable = 'up-' + @widget_id.to_s
+    updatable = 'up-' + tree_node.id.to_s
     div(:id => updatable){
       show_section
     }
@@ -47,7 +47,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
         div(:class => klass) {
           render_content_resource(item, 'small')
         }
-        break if (index + 1) > get_number_of_items # For limiting the preview items
+        break if (index + 1) >= get_number_of_items # For limiting the preview items
       }
     }
   end
@@ -67,13 +67,6 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
     rescue Exception => e
     end                
   end
-  
-  # def get_section_item
-  #   @section = section
-  #   @items_size = @items.size
-  #   @widget_id = tree_node.id
-  #   # @widget_name = tree_node.resource.resource_type.hrid
-  # end
   
   def section
     TreeNode.get_subtree(

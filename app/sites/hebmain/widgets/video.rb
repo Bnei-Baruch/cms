@@ -33,8 +33,7 @@ class Hebmain::Widgets::Video < WidgetManager::Base
       }
       javascript {
         rawtext <<-Player
-          flashembed("flashplayer-#{id}", {src:'/flowplayer/FlowPlayerLight.swf', width:504,  
-          height:378,loadEvent: 'click'}, {config: {
+          var playerConfig = {
               autoPlay: true,
               loop: false,
               videoFile: '#{get_flash_url}',
@@ -46,9 +45,17 @@ class Hebmain::Widgets::Video < WidgetManager::Base
               controlsOverVideo: 'ease',
               controlBarBackgroundColor: -1,
               controlBarGloss: 'low',
-              menuItems: [ 0, 0, 0, 0, 0, 1, 1 ]
-            }} 
-          );
+              showMenu:false
+          };
+          Ext.onReady(function(){
+            document.getElementById("flashplayer-#{id}").onclick = function(){
+              flashembed("flashplayer-#{id}",  
+                        {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#E5E5E4',width:504, height:378},
+                         {config: playerConfig}
+                         );
+            } 
+          });
+
         Player
       }
       # image = get_preview_image

@@ -125,6 +125,7 @@ width:504px;
 height:378px;
 }
 .content .item .full-video p.playbutton {
+    cursor:pointer;
 display:block;
 font-size:15px;
 font-weight:bold;

@@ -29,7 +29,7 @@ class TreeNode < ActiveRecord::Base
 
   #can logical delete (change status to deleted)
   def can_delete?
-    @ac_type != 3 #"Managing"
+    @ac_type >= 3 #"Managing"
 #        unless AuthenticationModel.current_user_is_anonymous?
 #         # min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
 #          if (3 <= ac_type)# min_permission_to_child_tree_nodes_cache)
@@ -72,7 +72,7 @@ class TreeNode < ActiveRecord::Base
 
   #can delete in DB (destroy)
   def can_administrate? 
-    @ac_type != 4 #"Administrating"
+    @ac_type >= 4 #"Administrating"
 #    unless AuthenticationModel.current_user_is_anonymous?
 #      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
 #      if (4 <= min_permission_to_child_tree_nodes_cache)

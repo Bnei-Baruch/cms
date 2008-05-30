@@ -36,7 +36,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/home_page', 
           :cache => 'cache/website'
         end
-        javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'website'
+        javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/website'
         javascript {
           rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
           rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'

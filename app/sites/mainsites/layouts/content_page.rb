@@ -30,7 +30,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/page_admin',
                               :cache => false
                               #:cache => 'cache/content_page_admin'
-          javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'content_page'
+          javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/admin_content_page'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
@@ -42,7 +42,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/header', 
                               'hebmain/inner_page', 
                               :cache => 'cache/content_page'
-          javascript_include_tag 'flashembed', :cache => 'content_page'
+          javascript_include_tag 'flashembed', :cache => 'cache/content_page'
         end
         # css get_css_url('header')
         # css get_css_url('inner_page')

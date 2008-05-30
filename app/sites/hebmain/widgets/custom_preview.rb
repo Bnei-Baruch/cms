@@ -45,8 +45,11 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
   def show_content_page_main_format
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
    
-    h3 get_title, :class => 'box_header'
-    img(:src => @image_src, :alt => 'preview') if @image_src
+    a(:href => get_url) {  
+     h3 get_title, :class => 'box_header' if get_title      
+     img(:src => @image_src, :alt => 'preview') if @image_src
+    }
+    
     rawtext get_description unless get_description.empty?
   end
   

@@ -18,7 +18,8 @@ class Hebmain::Widgets::Video < WidgetManager::Base
       id = tree_node.object_id
       image = get_image
       p { rawtext description } if !description.empty?
-      div(:id => "flashplayer-#{id}") {
+      div(:id => "flashplayer-#{id}",
+        :onclick => "flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:504, height:378},{config: playerConfig})") {
         if image && !image.empty?
           img(:src => get_image, :alt => '', :class => 'flashplayer')
         else
@@ -47,22 +48,10 @@ class Hebmain::Widgets::Video < WidgetManager::Base
               controlBarGloss: 'low',
               showMenu:false
           };
-          Ext.onReady(function(){
-            document.getElementById("flashplayer-#{id}").onclick = function(){
-              flashembed("flashplayer-#{id}",  
-                        {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#E5E5E4',width:504, height:378},
-                         {config: playerConfig}
-                         );
-            } 
-          });
-
         Player
       }
-      # image = get_preview_image
-      # img(:src => image, :alt => 'player') if image
-        
     }
-  
+    
     div(:class => 'embed'){
       # span(:class => 'text') {
       #   text '  Embed'

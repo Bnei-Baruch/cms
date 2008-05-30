@@ -14,13 +14,17 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
   private
   
   def get_rss_items (data)
-    rss_items = YAML.load(data)
-    rss_items.map do |rss_item|
-      {:title => rss_item.title, 
-        :url => rss_item.guid.content, 
-        :date => rss_item.pubDate,
-        :description => rss_item.description
-      }
+    rss_items = YAML.load(data) rescue nil
+    if rss_items
+      rss_items.map do |rss_item|
+        {:title => (rss_item.title rescue ''), 
+          :url => (rss_item.guid.content rescue ''), 
+          :date => (rss_item.pubDate rescue ''),
+          :description => (rss_item.description rescue '')
+        }
+      end
+    else
+      nil         
     end
   end
   
@@ -34,6 +38,8 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     content = get_items
     return '' if content.empty?
     items = get_rss_items(content)
+
+    return unless items
    
     div(:class => 'rss'){
       w_class('cms_actions').new(:tree_node => tree_node, 

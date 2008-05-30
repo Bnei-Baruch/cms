@@ -27,7 +27,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
         div(:class => 'h1') {
           text get_title.empty? ? section[0].resource.name : get_title
           a(:class => 'cont', :href => get_page_url(section_main_node)) {
-            text get_read_more_link.empty? ? 'לכל הכתבות במדור' : get_read_more_link
+            text get_read_more_link.empty? ? 'לכל הכתבות' : get_read_more_link
             img(:src => img_path('arrow-left.gif'), :alt => '')
           }
           img(:src => img_path('sec-right.gif'),:class =>'h1-right', :alt => '')
@@ -46,7 +46,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
           render_content_resource(item, 'small')
         }
         div(:class => 'clear')
-        break if (index + 1) >= get_number_of_items # For limiting the preview items
+        # break if (index + 1) >= get_number_of_items # For limiting the preview items
       }
     }
   end
@@ -85,43 +85,11 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
     :resource_type_hrids => ['content_page'], 
     :depth => 1,
     :has_url => true,
-    :properties => 'b_acts_as_section = false',
+    :order => "created_at DESC",
+    :limit => get_number_of_items,
+    # :properties => 'b_acts_as_section = false', ### - this will filter only the pages that are not sections
     :status => ['PUBLISHED']
     )               
   end
 
 end
-
-
-
-#   div(:class => 'section_preview') {
-#     div(:class => 'h1') {
-#       text 'פסח'
-#       img(:src => img_path('sec-right.gif'),:class =>'h1-right', :alt => '')
-#       img(:src => img_path('sec-left.gif'),:class =>'h1-left', :alt => '')
-#     }
-#     div(:class => 'element preview-odd'){
-#       h1 'ט"ו בשבט - חג המקובלים'
-#       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-#       div(:class => 'author') {
-#         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-#         a(:class => 'left') { text "...לכתבה" }
-#       }
-#       img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-#     }
-#     div(:class => 'element preview-even'){
-#       h1 'ט"ו בשבט - חג המקובלים'
-#       div(:class => 'descr') { text 'ט"ו בשבט מביא עִמו את תחילתה של העונה הקסומה ביותר בשנה. האוויר הופך צלול, השמים מתבהרים וקרני השמש חודרות מבעד לצמרות העצים. החורף כמעט חלף והאביב נראה בפתח. '}
-#       div(:class => 'author') {
-#         span'תאריך: ' + '04.03.2008', :class => 'right' #unless get_date.empty?
-#         a(:class => 'left') { text "...לכתבה" }
-#       }
-#       img(:class => 'img', :src => img_path('pesah-p1.jpg'), :alt => 'preview')
-#     }
-#     div(:class => 'footer') {
-#       a(:class => 'left') {
-#         text 'לארכיון הכתבות בנושא'
-#         img(:src => img_path('arrow-left.gif'), :alt => '')
-#       }
-#     }
-#   }

@@ -60,7 +60,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   def render_static
     ul(:class => 'static') {
       # We're going to draw only those nodes that are on path
-      build_tree(presenter.main_section.id, all_nodes).each {|element| draw_tree element}
+      build_tree(presenter.main_section.id.to_s, all_nodes).each {|element| draw_tree element}
     }
   end
   def render_dynamic

@@ -2,7 +2,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
   @@idx = 0  
   # tree_node - is the node object to which the operations will be performed. Editing will be for this object, New is a new child for this object, Delete is deleting this tree_node
   def render_full
-    return rawtext '' if AuthenticationModel.current_user_is_anonymous? || !tree_node.can_create_child?
+    return rawtext('') if AuthenticationModel.current_user_is_anonymous? || !tree_node.can_create_child?
     # operations permitted only on tree nodes other than the page you are on now.
     buttons = []
     if @options

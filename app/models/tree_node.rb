@@ -157,6 +157,10 @@ class TreeNode < ActiveRecord::Base
     # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
     # :return_parent => true - boolean - optional - default: false
     # :placeholders => ['related_items', 'main_content'] - array of strings - optional - default: show all
+    # :status => ['PUBLISHED', 'DRAFT'] - array of strings - optional - default - will return only PUBLISHED. 
+    #   avalilable Options: 'PUBLISHED', 'DELETED', 'DRAFT', 'ARCHIVED'
+    # :limit => integer - optional - default: show all
+    # :order => order string - optional - default: sort by position (:order => "created_at DESC, name")
     # 
     # Examples: 
     # get_subtree(:parent => 17, :resource_type_hrids => ['website', 'content_page'], :depth => 3, :properties => {:description => 'yes sair', :title => 'good title'}, )
@@ -203,7 +207,7 @@ class TreeNode < ActiveRecord::Base
           req_resource_type_hrids, 
           req_is_main, 
           req_has_url, 
-          req_depth, 
+          req_depth,
           req_properties,
           req_current_page,
           req_items_per_page,
@@ -215,7 +219,19 @@ class TreeNode < ActiveRecord::Base
           return "select * from cms_treenode_subtree(#{request})"
         end
         # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
-        find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
+
+        sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes"}
+        additional_params = {}
+        if args.has_key?(:limit) && args[:limit].to_i > 0
+          additional_params.merge!({:limit => args[:limit].to_i})
+        end                                                      
+        if args.has_key?(:order) && args[:order].is_a?(String)
+          additional_params.merge!({:order => args[:order]})
+        end                                                      
+        sql_params.merge!(additional_params)
+        find(:all, sql_params) rescue []
+
+          # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
         # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue [] ###### Eager loading
       else
         []

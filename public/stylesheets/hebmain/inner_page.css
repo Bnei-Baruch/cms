@@ -595,6 +595,7 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     padding: 0 0 5px 20px;
     position:relative;
     border-bottom:1px dashed #e8e8e8;
+    display:inline-block;
 }
 .index .preview-even{
     background-color:#f7f8fc;

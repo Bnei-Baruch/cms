@@ -117,6 +117,7 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 /*----------  Footer  ---------------*/
 #ft{
 	position:relative;
+	display:inline-block;
 }
 #ft ul.links {
 	top:15px;

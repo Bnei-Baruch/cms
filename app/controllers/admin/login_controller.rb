@@ -22,6 +22,7 @@ class Admin::LoginController < ApplicationController
   def logout
     session[:user_id] = nil
     session[:current_user_is_admin] = nil
+    session[:current_user_is_anonymous] = nil
     flash[:notice] = "Logged out"
     redirect_to(:action => "login")
   end
@@ -35,6 +36,7 @@ class Admin::LoginController < ApplicationController
       if user
         session[:user_id] = user.id
         session[:current_user_is_admin] = user.groups.find(:all, :conditions => {:groupname=>'Administrators'}).length
+        session[:current_user_is_anonymous] = nil
 
         uri= session[:original_uri]
         session[:original_uri]=nil

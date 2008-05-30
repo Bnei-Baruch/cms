@@ -174,10 +174,7 @@ class AuthenticationModel
   
   def self.current_user_is_anonymous?
     data = Thread.current[:session][:current_user_is_anonymous]
-    if (data == 1)
-      return true
-    end
-    return false
+    data == 1
   end
 
 end

@@ -18,11 +18,7 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
   def show_content_page(display_h2 = true)
     main_tree_node = tree_node.resource.tree_nodes.main
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
-    if @image_src
-      img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt) 
-    else
-      div(:class => 'image')
-    end
+    img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt) if @image_src
     h1 get_title unless get_title.empty?
     h2 get_small_title if display_h2 && !get_small_title.empty?
     div(:class => 'descr') { text get_description } unless get_description.empty?

@@ -60,7 +60,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   def render_static
     ul(:class => 'static') {
       # We're going to draw only those nodes that are on path
-      build_tree(presenter.main_section.id.to_s, all_nodes).each {|element| draw_tree element}
+      build_tree(presenter.main_section.id, all_nodes).each {|element| draw_tree element}
     }
   end
   def render_dynamic
@@ -113,9 +113,15 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
 
   # Fetch all sub-nodes of website 
   def all_nodes(regular_user = true)
-    properties =  regular_user ? 'b_hide_on_navigation = false' : nil
+    if regular_user
+      properties =  'b_hide_on_navigation = false'
+      parent = presenter.main_section.id
+    else
+      properties = nil
+      parent =  @website_parent_node
+    end
     TreeNode.get_subtree(
-      :parent => @website_parent_node,
+      :parent => parent,
       :resource_type_hrids => ['content_page'],
       :properties => properties,
       :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED']

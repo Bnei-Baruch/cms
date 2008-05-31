@@ -1,4 +1,5 @@
 Localization.define('hebrew') do |l|
+  l.store 'Preview title', 'כותרת לתצוגה מקדימה'
   l.store 'Large Title', 'כותרת ראשית'
   l.store 'Permalink', 'לינק של הדף'
   l.store 'Small Title', 'תת כותרת'

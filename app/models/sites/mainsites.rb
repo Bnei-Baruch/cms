@@ -2,7 +2,7 @@ class Sites::Mainsites < Sites::Global
 
   # Used to show the main sections (environments) of the site
   def main_sections
-    @main_sections ||=
+    # @main_sections ||=
     TreeNode.get_subtree(
     :parent => website_node.id, 
     :resource_type_hrids => ['content_page'], 
@@ -13,6 +13,7 @@ class Sites::Mainsites < Sites::Global
   end
 
   def main_section
+    # debugger
      main_sections.include?(node) ? node : node.ancestors.detect{ |e| main_sections.include?(e) }
   end
   

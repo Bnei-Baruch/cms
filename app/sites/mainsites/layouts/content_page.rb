@@ -25,9 +25,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           stylesheet_link_tag 'reset-fonts-grids', 
                               'base-min', 
                               '../ext/resources/css/ext-all', 
+                              'hebmain/common',
                               'hebmain/header', 
                               'hebmain/inner_page', 
                               'hebmain/page_admin',
+                              'hebmain/widgets',
                               :cache => false
                               #:cache => 'cache/content_page_admin'
           javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/admin_content_page'
@@ -39,8 +41,10 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           stylesheet_link_tag 'reset-fonts-grids', 
                               'base-min', 
                               '../ext/resources/css/ext-all', 
+                              'hebmain/common',
                               'hebmain/header', 
                               'hebmain/inner_page', 
+                              'hebmain/widgets',
                               :cache => 'cache/content_page'
           javascript_include_tag 'flashembed', :cache => 'cache/content_page'
         end

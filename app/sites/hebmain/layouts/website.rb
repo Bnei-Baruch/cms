@@ -23,17 +23,21 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           stylesheet_link_tag 'reset-fonts-grids', 
           'base-min', 
           '../ext/resources/css/ext-all', 
+          'hebmain/common',
           'hebmain/header', 
           'hebmain/home_page', 
           'hebmain/page_admin',
+          'hebmain/widgets',
           :cache => false
           # :cache => 'cache/website_admin'
         else
           stylesheet_link_tag 'reset-fonts-grids', 
           'base-min', 
           '../ext/resources/css/ext-all', 
+          'hebmain/common',
           'hebmain/header', 
           'hebmain/home_page', 
+          'hebmain/widgets',
           :cache => 'cache/website'
         end
         javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/website'
@@ -199,7 +203,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                         }
                       }
                       
-                      div(:class => 'downloads'){
+                      div(:class => 'downloads container'){
                         h3(:class => 'box_header') {
                           text 'הורדות חינם'
                           w_class('cms_actions').new(:tree_node => tree_node, 
@@ -211,10 +215,11 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                               :has_url => false, 
                               :placeholder => 'left'}).render_to(self)
                         }
-
-                        kabbalah_media_resources.each { |kabbalah_media_resource|                
-                          render_content_resource(kabbalah_media_resource)
-                        } 
+                        div(:class => 'entries'){
+                          kabbalah_media_resources.each { |kabbalah_media_resource|                
+                            render_content_resource(kabbalah_media_resource)
+                          } 
+                        }
                       }
                       
                       left_column_resources.each { |left_column_resource|                

@@ -53,7 +53,11 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
       else # no article
         if is_video || is_audio
           a(:class => 'more', :href => url) { 
-            text is_video ? 'LE TSFIA' : 'LE AZANA'
+            if is_video
+              span{text 'לצפייה'}
+            else
+              span{text 'להאזנה'}
+            end
             img(:class => 'img', :src => img_path('video.png'), :alt => '') if is_video
             img(:class => 'img', :src => img_path('audio.png'), :alt => '') if is_audio
           }

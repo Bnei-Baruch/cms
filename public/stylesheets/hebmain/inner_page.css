@@ -5,15 +5,6 @@
 #bd .yui-ge{
     margin:0 15px 0 6px;
 }
-h3.box_header {
-    background-color:#F0F5FD;
-    color:black;
-    font-size:133.9%;
-    font-weight:bold;
-    margin:0 0 22px;
-    padding:2px 10px 2px 0pt;
-    position:relative;
-}
 
 /*----------  breadcrumbs  ---------------*/
 #bd .breadcrumbs{
@@ -56,7 +47,7 @@ h3.box_header {
     background-position:0 -64px;
 }
 
-.content h1{
+.content h1, .content h1 a{
     font-size:22px;
     color:#0D47B2;
     margin:0;
@@ -527,11 +518,6 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
 /*----------  News  ---------------*/
 
 .news {
-    border:1px solid #e7e7e7;
-    text-align:right;
-    margin:10px 0 0;
-    padding:5px 5px 10px;
-    position:relative;
 }
 .news .item{
     padding:10px 0 0;
@@ -551,16 +537,16 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     display:block;
 }
 /*----------  Index  ---------------*/
-.index{
+/*.index{
     padding:0;
     margin:25px 0 0;
     position:relative;
 }
-.index .h1{
+.index .h1, .index .h1 a{
     color:black;
     text-align:right;
     font-size:153.9%;
-    font-weight:bold;
+    font-weight:normal;
     margin:0;
     background-color: #e1ecfc;
     background-image: none;
@@ -609,16 +595,16 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     top:0;
     right:0;
     float:right;
-    padding:5px 0 5px 10px;
+    padding:5px 0 2px 10px;
 }
 .index a.more{
     display:block;
     clear:both;
-    top:-1.4em;
+    top:-1.2em;
     padding:0pt 150px 0pt 0pt;
     margin:0;
     position:relative;
-}
+} */
 .section_preview .cont{
     position:absolute;
     left:10px;

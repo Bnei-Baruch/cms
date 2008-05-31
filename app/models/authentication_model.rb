@@ -154,26 +154,17 @@ class AuthenticationModel
   end
   
   def self.current_user
-    # UserInfo.current_user
-   # current_user
-    # $session[:user_id]
     user_id = Thread.current[:session][:user_id]
     return user_id
   end
   
   def self.current_user_is_admin?
-    #UserInfo.user_is_admin==1
-    # $session[:user_is_admin]==1 
     data = Thread.current[:session][:current_user_is_admin]
-    if (data == 1)
-      return true
-    end
-    return false
-    #user_is_admin==1
+    data == 1
   end
   
   def self.current_user_is_anonymous?
-    data = Thread.current[:session][:current_user_is_anonymous]
+    data = Thread.current[:session][:user_id]
     data == 1
   end
 

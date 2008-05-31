@@ -20,9 +20,11 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
         img(:src => get_image, :alt => '', :class => 'flashplayer') if get_image
       }
 
-      div(:id => "playlist-#{id}"){
-        video_items.each { |video_item|
-          a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value 
+      div(:id => "playlist-#{id}", :class => 'playlist'){
+        ul{
+          video_items.each { |video_item|
+            li {a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value }
+          }
         }
         a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url
       }

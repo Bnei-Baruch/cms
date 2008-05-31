@@ -2,15 +2,6 @@
 #bd .yui-ge{
     margin:0 15px 0 6px;
 }
-h3.box_header {
-    background-color:#F0F5FD;
-    color:black;
-    font-size:133.9%;
-    font-weight:bold;
-    margin:0 0 22px;
-    padding:2px 10px 2px 0pt;
-    position:relative;
-}
 /*----------  breadcrumbs  ---------------*/
 #bd .breadcrumbs{
     text-align:right;
@@ -41,8 +32,8 @@ h3.box_header {
 .content .h1-left{
     background-position:0 -64px;
 }
-.content h1{
-    font-size:22px;
+.content h1, .content h1 a{
+	font-weight:bold;
     color:#0D47B2;
     margin:0;
     padding:0;
@@ -135,7 +126,7 @@ h3.box_header {
     clear: both;
 }
 /*----------  Section Preview  ---------------*/
-.index{
+/*.index{
     padding:0;
     margin:25px 0 0;
     position:relative;
@@ -157,7 +148,8 @@ h3.box_header {
     position:relative;
     border-top:1px dashed #e8e8e8;
 }
-.index .element h1{
+.index .element h1, .index .element h1 a{
+	font-weight:normal;
     font-size: 16px;
     padding: 12px 0;
 }
@@ -177,13 +169,15 @@ h3.box_header {
     padding:0 5px 0 0;
     vertical-align:middle;
 }
+*/
 /*----------  Content Preview  ---------------*/
-.content_preview{
+/*.content_preview{
     position:relative;
     display:inline-block;
 }
+*/
 /*----------  Index  ---------------*/
-.index{
+/*.index{
     padding:0;
     margin:25px 0 0;
     position:relative;
@@ -227,9 +221,9 @@ h3.box_header {
     padding:0;
     margin:0;
     position:relative;
-}
-/*----------  Main Preview  ---------------*/
-.main_preview1{
+} */
+/*----------  Main Preview1  ---------------*/
+/*.main_preview1{
     margin:0;
     position:relative;
 }
@@ -260,8 +254,9 @@ h3.box_header {
     top:-1.1em;
     position:relative;
 }
+*/
 /*----------  Main Preview 2 ---------------*/
-.main_preview2{
+/*.main_preview2{
     background:transparent url(/images/hebmain/main_preview2-bg.gif) repeat-y 50% top;
     *display:inline-block;
 }
@@ -297,9 +292,9 @@ h3.box_header {
     position:absolute;
     left:0px;
     top:15px;
-}
+}*/
 /*----------  Main Preview 3 ---------------*/
-.main_preview3{
+/*.main_preview3{
     border:1px solid #e5e5e5;
     margin:10px 0;
     padding:0;
@@ -344,7 +339,7 @@ h3.box_header {
     padding:0 13px 0 0;
     margin:3px 0 0;
     *padding:0;
-}
+}*/
 /*----------  right-part  ---------------*/
 .right-part {
     text-align: center;
@@ -354,26 +349,29 @@ h3.box_header {
     width:100%;
 }
 .right-part .player {
-    padding:5px 5px 20px;
+    padding:5px 5px 15px;
     margin:0;
     background-color: #F0F4FD;
-    text-align:right;
+    text-align:center;
+}
+.right-part .player .playlist{
+	margin: 15px 2px 0;
+	text-align: right;
+}
+.right-part .player .playlist ul{
+	margin: 0 13px 0 0;
+	color: #186BE5;
 }
 .right-part .player a{
     display:block;
 }
 .right-part .player .more{
-    margin:23px 0 0;
+    margin:15px 0 0;
 }
 .right-part .flashplayer {
     cursor:pointer;
 }
 .right-part .updates{
-    border:1px solid #e5e5e5;
-    margin:10px 0;
-    padding:5px;
-    text-align:right;
-    position:relative;
 }
 .right-part .update{
     margin:0 0 20px;
@@ -487,11 +485,6 @@ h3.box_header {
     text-align:center;
 }
 .left-part .rss{
-    border:1px solid #e5e5e5;
-    margin:10px 0;
-    padding:5px;
-    text-align:right;
-    position:relative;
 }
 .left-part .rss h3 img{
     padding:0 0 0 5px;
@@ -511,10 +504,6 @@ h3.box_header {
     display:block;
 }
 .left-part .downloads{
-    border:1px solid #e5e5e5;
-    margin:10px 0;
-    padding:5px;
-    text-align:right;
 }
 .left-part .x-tab-strip span.x-tab-strip-text{
     color:black;
@@ -575,7 +564,7 @@ h3.box_header {
     font-size:11px;
 }
 .left-part .downloads .toggle{
-    font-weight:bold;
+    font-weight:normal;
     cursor:pointer;
 }
 

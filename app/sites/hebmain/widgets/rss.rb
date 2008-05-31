@@ -41,7 +41,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
 
     return unless items
    
-    div(:class => 'rss'){
+    div(:class => 'rss container'){
       w_class('cms_actions').new(:tree_node => tree_node, 
                                  :options => {:buttons => %W{ delete_button edit_button }, 
                                               :position => 'bottom',
@@ -54,21 +54,22 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
         text get_title
       }
 
-      items.each do |item|
-        div(:class => 'entry'){
-          a item[:title], :href => item[:url]
-          div(:class => 'date'){
-            text item[:date].strftime('%d.%m.%y, %H:%m')
-          }
-          if (show_description)
-            div(:class => 'description'){
-              rawtext item[:description]
+      div(:class => 'entries'){
+        items.each do |item|
+          div(:class => 'entry'){
+            a item[:title], :href => item[:url]
+            div(:class => 'date'){
+              text item[:date].strftime('%d.%m.%y, %H:%m')
             }
-          end
-        }
-      end
-
-      a get_read_more_text, :href => get_read_more_url, :class => 'more'
+            if (show_description)
+              div(:class => 'description'){
+                rawtext item[:description]
+              }
+            end
+          }
+        end
+        a get_read_more_text, :href => get_read_more_url, :class => 'more'
+      }
     }
   end
 end

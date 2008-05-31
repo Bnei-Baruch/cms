@@ -98,8 +98,7 @@ class TreeNode < ActiveRecord::Base
   # Embedded resources won't have permalink
   def ancestors
     TreeNode.find(:all, 
-      :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes", 
-      :include => [:resource]) rescue []
+      :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes") rescue []
     # select * from cms_treenode_ancestors(35, 1)
   end
 

@@ -3,7 +3,8 @@ module	Configuration::Global
   SETTINGS = {
     :site_dir => 'global', # define the view directory under app/views/sites/
     :language => 'english', # define the interface language 
-    :site_direction => 'ltr'
+    :site_direction => 'ltr',
+    :use_advanced_read_more => true
   }
 
 end

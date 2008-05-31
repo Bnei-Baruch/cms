@@ -24,9 +24,13 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
         img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt) 
       }
     end
-    unless get_title.empty?
+    preview_title = get_preview_title rescue ''
+    large_title = get_title rescue ''
+    
+    final_title = !preview_title.empty? ? preview_title : (!large_title.empty? ? large_title : '')
+    unless final_title.empty?
       h1{
-        a get_title, :href => url
+        a final_title, :href => url
       }
     end
     h2 get_small_title if display_h2 && !get_small_title.empty?

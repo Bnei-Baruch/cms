@@ -88,29 +88,30 @@ class Sites::TemplatesController < ApplicationController
   
   def sitemap
     host = 'http://' + request.host
-    websites = Website.find(:all, :conditions => ['domain = ? and use_homepage_without_prefix = ?', host, true])
+    @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, params[:prefix]]) rescue nil
+    if @website.nil?
+      head_status_404
+      return
+    end
     
     @pages = []
-    websites.each { |@website|
-      args = {:website=> @website, :controller => self}
-      begin
-        @presenter = get_presenter(site_name, group_name, args)
-        website_node = @website.website_resource.tree_nodes.main unless @website.nil?
-        if (website_node)
-          @pages = @pages + Array.new(1,website_node)
-          @pages = @pages + TreeNode.get_subtree(
-                              :parent => website_node.id, 
-                              :resource_type_hrids => ['content_page'],
-                              :has_url => true,
-                              :is_main => true,
-                              :status => ['PUBLISHED']
-                            )
-        end
-      rescue Exception => e
-        head_status_404
-        return
+    args = {:website=> @website, :controller => self}
+    begin
+      @presenter = get_presenter(site_name, group_name, args)
+      website_node = @website.website_resource.tree_nodes.main
+      if (website_node)
+        @pages = TreeNode.get_subtree(
+          :parent => website_node.id, 
+          :resource_type_hrids => ['content_page'],
+          :has_url => true,
+          :is_main => true,
+          :status => ['PUBLISHED']
+        )
       end
-    }
+    rescue Exception => e
+      head_status_404
+      return
+    end
     render :layout => false
   end
   

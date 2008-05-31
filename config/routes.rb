@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
 
-  map.connect 'sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
+  map.connect ':prefix/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
   
   map.connect '/*path', :controller => 'sites/templates', :action => 'template'
   

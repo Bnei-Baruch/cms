@@ -48,7 +48,7 @@ class UrlMigration < ActiveRecord::Base
             url_migration = new(:source => row[0], :target => row[1], :action => row[2],:state  => row[3])		
           end
           if (url_migration.save != true)
-            error_str = error_str + "Error in line " + index.to_s+1 + "<br />"
+            error_str = error_str + "Error in line " + (index + 1).to_s + "<br />"
           end
         else
           if (validate_header(row) != true)

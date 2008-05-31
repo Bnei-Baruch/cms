@@ -162,7 +162,7 @@ class Admin::UrlMigrationsController < ApplicationController
   def merge_complete
 	buf = params['upload']['datafile'].read
     respond_to do |format|
-      res = UrlMigration.update_from_file(buf, true)
+      res = UrlMigration.update_from_file(buf, false)
       if (res == "")
         flash[:notice] = 'The file was successfully merged!'
         format.html { redirect_to(admin_url_migrations_url) }

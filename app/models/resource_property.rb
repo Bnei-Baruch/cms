@@ -23,7 +23,7 @@ class ResourceProperty < ActiveRecord::Base
   def value(klass = 'number_value')
     v = @attributes[klass]      
     if self.new_record? && 
-      (!v || v.empty?)
+      (!v || (v.respond_to?(empty?) && v.empty?))
       eval default_code
     else
       v

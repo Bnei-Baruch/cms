@@ -259,8 +259,19 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def check_url_migration(is_external = false)
-    migration = UrlMigration.get_action_and_target('http://' + request.env["HTTP_HOST"] + request.request_uri)
-    if migration
+    url = request.request_uri
+    migration = UrlMigration.get_action_and_target('http://' + request.env["HTTP_HOST"] + url)
+    if migration.nil?
+      slash = "/"
+      if url[url.length - 1] != slash[0]
+        url = url + '/'
+      else
+        url.chop!
+      end
+      migration = UrlMigration.get_action_and_target('http://' + request.env["HTTP_HOST"] + url)
+    end
+    
+    unless migration.nil?
       case migration[:status]
       when $config_manager.appl_settings[:url_migration_action][:action_404]:
           head_status_404         

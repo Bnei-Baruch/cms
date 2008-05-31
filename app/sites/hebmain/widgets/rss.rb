@@ -58,7 +58,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
         div(:class => 'entry'){
           a item[:title], :href => item[:url]
           div(:class => 'date'){
-            text item[:date].strftime('%d.%m.%Y, %H:%m')
+            text item[:date].strftime('%d.%m.%y, %H:%m')
           }
           if (show_description)
             div(:class => 'description'){

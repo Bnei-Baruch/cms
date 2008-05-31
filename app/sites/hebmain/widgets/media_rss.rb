@@ -45,12 +45,13 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
       } 
 
       unless selected_lessons.empty?
+        curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')
         if has_lesson_in_site_language(selected_lessons)
           if (get_group_by_date)
-            lesson_show(selected_lessons, curr_date)      
+            lesson_show(selected_lessons, curr_date_to_show)      
           else
             selected_lessons.each_with_index { |selected_lesson, index|
-              lesson_show(Array.new(1,selected_lesson), curr_date, index)  
+              lesson_show(Array.new(1,selected_lesson), curr_date_to_show, index)  
             }
           end
           return

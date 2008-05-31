@@ -36,7 +36,7 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
     h2 get_small_title if display_h2 && !get_small_title.empty?
     div(:class => 'descr') { text get_description } unless get_description.empty?
     
-    unless site_settings[:use_advanced_read_more]
+    unless presenter.site_settings[:use_advanced_read_more]
       a(:class => 'more', :href => url) { text "לכתבה המלאה" }
     else
       is_video, is_audio, is_article = is_video_audio_article

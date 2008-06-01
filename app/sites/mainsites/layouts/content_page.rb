@@ -1,6 +1,6 @@
 class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
-  attr_accessor :ext_content, :ext_title, :ext_main_image, :ext_related_items
+  attr_accessor :ext_content, :ext_title, :ext_description, :ext_main_image, :ext_related_items
 
   def initialize(*args, &block)
     super
@@ -20,6 +20,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       head {
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
+        meta(:name => 'description', :content => ext_description)
         title ext_title
         # stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
         if presenter.node.can_edit?

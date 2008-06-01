@@ -1,6 +1,6 @@
 class Hebmain::Layouts::Website < WidgetManager::Layout
 
-  attr_accessor :ext_content, :ext_title, :ext_main_image, :ext_related_items
+  attr_accessor :ext_meta_title, :ext_meta_description
 
   def initialize(*args, &block)
     super
@@ -19,7 +19,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
       head {
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
-        title ext_title
+        title ext_meta_title
+        meta(:name => 'description', :content => ext_meta_description)
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
           'base-min', 
@@ -206,7 +207,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                       
                       div(:class => 'downloads container'){
                         h3(:class => 'box_header') {
-                          text 'הורדות חינם'
+                          text 'שיעורים להורדה'
                           w_class('cms_actions').new(:tree_node => tree_node, 
                             :options => {:buttons => %W{ new_button }, 
                               :resource_types => %W{ media_rss },

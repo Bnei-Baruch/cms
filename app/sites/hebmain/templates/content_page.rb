@@ -3,6 +3,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def set_layout
     layout.ext_content = ext_content
     layout.ext_title = ext_title
+    layout.ext_description = ext_description
     layout.ext_main_image = ext_main_image
     layout.ext_related_items = ext_related_items
   end
@@ -146,6 +147,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_title
     WidgetManager::Base.new do
       text get_name
+    end
+  end
+
+  def ext_description
+    WidgetManager::Base.new do
+      text get_description
     end
   end
 

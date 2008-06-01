@@ -1,10 +1,10 @@
 class Hebmain::Widgets::Header < WidgetManager::Base
   
   def render_top_links
-    div(:class => 'search') do
-      img(:src => img_path('search.gif'), :alt => 'Search')
-      input(:name => 'search')
-    end
+    # div(:class => 'search') do
+    #   img(:src => img_path('search.gif'), :alt => 'Search')
+    #   input(:name => 'search')
+    # end
     ul(:class => 'links') do
       w_class('cms_actions').new(:tree_node => presenter.website_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ link },:new_text => 'לינק חדש', :has_url => false, :placeholder => 'top_links'}).render_to(self)
       top_links.each do |e|
@@ -35,7 +35,7 @@ class Hebmain::Widgets::Header < WidgetManager::Base
   def render_logo
     div(:class => 'logo') do
       h1 'קבלה לעם'
-      img(:src => img_path('logo.png'), :alt => 'Title')
+      a(:href => presenter.home){img(:src => img_path('logo.png'), :alt => 'Title')}
     end
   end
   

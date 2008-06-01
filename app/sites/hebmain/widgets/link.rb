@@ -1,6 +1,10 @@
 class Hebmain::Widgets::Link < WidgetManager::Base
   
   def render_full
+    w_class('cms_actions').new(:tree_node => @tree_node,
+      :options => {:buttons => %W{ edit_button delete_button },
+        :mode => 'inline',
+        :resource_types => %W{ link }}).render_to(self)
     a get_name, :href => get_url, :title => get_alt if resource
   end
 

@@ -11,6 +11,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
+    @google_analytics = w_class('google_analytics').new
   end
 
   def render
@@ -48,6 +49,13 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               :cache => 'cache/content_page'
           javascript_include_tag 'flashembed', :cache => 'cache/content_page'
         end
+        rawtext <<-IE6
+          <!--[if IE 6]>
+        IE6
+        stylesheet_link_tag 'hebmain/ie6'
+        rawtext <<-IE6
+          <![endif]-->        
+        IE6
         # css get_css_url('header')
         # css get_css_url('inner_page')
         # css get_css_url('page_admin')
@@ -115,6 +123,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             @header_bottom_links.render_to(self)
           }
         }
+        @google_analytics.render_to(self)
       }
     }
   end  

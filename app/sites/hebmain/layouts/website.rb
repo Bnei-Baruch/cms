@@ -10,6 +10,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
+    @google_analytics = w_class('google_analytics').new
   end
 
   def render
@@ -276,6 +277,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
             @header_bottom_links.render_to(self)
           }
         }
+      @google_analytics.render_to(self)
       }
     }
   end     

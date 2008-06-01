@@ -76,6 +76,7 @@
 .main_preview1{
     margin:0;
     position:relative;
+    *display:inline-block;
 }
 .main_preview1 .descr{
     font-size:14px;
@@ -97,6 +98,7 @@
 }
 .main_preview1 .element{
     padding:0 3px 0 0;
+    *display:inline-block;
 }
 .main_preview1 a.more{
     display:block;
@@ -115,6 +117,7 @@
     width:45%;
     padding:176px 0 0;
     margin:0 44px 0 0;
+    *display:inline-block;
 }
 .main_preview2 .last{
     margin:0;
@@ -157,6 +160,7 @@
     padding:5px 5px 20px;
     margin:0;
     border-right:1px dashed #e5e5e5;
+    *display:inline-block;
 }
 .main_preview3 .last{
     border:0 none;

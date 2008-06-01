@@ -17,3 +17,9 @@ h3.box_header {
 .container .entries{
 	padding: 0 8px 5px;
 }
+a.more img{
+	float:none;
+	padding:0 7px 0 0;
+	width:auto;
+	height:auto;
+}

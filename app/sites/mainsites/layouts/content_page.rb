@@ -21,7 +21,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
         # stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
-        if presenter.node.can_edit? && !AuthenticationModel.current_user_is_anonymous?
+        if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
                               'base-min', 
                               '../ext/resources/css/ext-all', 

@@ -21,6 +21,7 @@
     padding:0;
     margin:0;
     position:relative;
+    *display:inline-block;
 }
 .index .descr{
     font-size:12px;

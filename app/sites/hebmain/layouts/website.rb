@@ -19,7 +19,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_title
-        if presenter.node.can_edit? && !AuthenticationModel.current_user_is_anonymous?
+        if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
           'base-min', 
           '../ext/resources/css/ext-all', 

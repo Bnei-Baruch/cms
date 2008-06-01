@@ -12,6 +12,7 @@ h3.box_header {
     text-align:right;
     position:relative;
     margin:10px 0;
+    *display:inline-block;
 }
 .container .entries{
 	padding: 0 8px 5px;

@@ -157,7 +157,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                   div(:class => 'yui-u first') {
                     div(:class => 'left-part') {
                       div(:class => 'h1') {
-                        text 'קבלה online'
+                        text 'קבלה Live'
                         div(:class =>'h1-right')
                         div(:class =>'h1-left')
                       }
@@ -231,7 +231,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                   div(:class => 'yui-u') {
                     div(:class => 'content') {
                       div(:class => 'h1') {
-                        text 'קבלה ללומד'
+                        text 'המומלצים'
                         div(:class =>'h1-right')
                         div(:class =>'h1-left')
                       }
@@ -255,7 +255,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
               div(:id => 'hd-r') { @header_logo.render_to(self) } #Logo goes here
               div(:class => 'right-part') {
                 div(:class => 'h1') {
-                  text 'מאיפה להתחיל?'
+                  text 'קבלה למתחיל'
                   div(:class =>'h1-right')
                   div(:class =>'h1-left')
                 }

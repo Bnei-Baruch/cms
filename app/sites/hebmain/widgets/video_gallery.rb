@@ -21,7 +21,7 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
       }
 
       div(:id => "playlist-#{id}", :class => 'playlist'){
-        ul{
+        ol{
           video_items.each { |video_item|
             li {a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value }
           }

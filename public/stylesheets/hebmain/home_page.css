@@ -358,8 +358,8 @@
 	margin: 15px 2px 0;
 	text-align: right;
 }
-.right-part .player .playlist ul{
-	margin: 0 13px 0 0;
+.right-part .player .playlist ol{
+	margin: 0 19px 0 0;
 	color: #186BE5;
 }
 .right-part .player a{

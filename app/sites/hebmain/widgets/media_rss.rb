@@ -143,9 +143,9 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
               img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
               text lesson['title']
               div(:class => 'services'){
-                a(:class => 'video', :href => video_href){span {text 'וידאו'} } unless video_href.empty? 
-                a(:class => 'audio', :href => audio_href){span {text 'אודיו'} } unless audio_href.empty?
-                a(:class => 'sketch', :href => sirtut_href){span {text 'שרטוט'} } unless sirtut_href.empty?
+                a(:class => 'video', :href => video_href){span {text 'ואדיו'} } unless video_href.empty? 
+                a(:class => 'audio', :href => audio_href){span {text 'וידוא'} } unless audio_href.empty?
+                a(:class => 'sketch', :href => sirtut_href){span {text 'טוטרש'} } unless sirtut_href.empty?
               }
             }
           end

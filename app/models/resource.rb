@@ -37,7 +37,8 @@ class Resource < ActiveRecord::Base
   
   
   def name
-    un_escape_string_for_code(eval calculate_name_code(resource_type.name_code))
+    name_code_calc = eval calculate_name_code(resource_type.name_code)
+    un_escape_string_for_code name_code_calc
   end
 
   def my_properties=(my_properties)

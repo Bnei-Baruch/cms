@@ -293,7 +293,7 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     vertical-align:middle;
 }
 /*----------  Main Preview  ---------------*/
-.main_preview1{
+/*.main_preview1{
     padding:0;
     position:relative;
 }
@@ -332,9 +332,9 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     position:relative;
     *top:-2.2em;
     *margin-right:8px;
-}
+} */
 /*----------  Main Preview 2 ---------------*/
-.main_preview2{
+/*.main_preview2{
     background:transparent url(/images/hebmain/main_preview2-bg.gif) repeat-y 50% top;
 }
 .main_preview2 .element{
@@ -369,9 +369,9 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     position:absolute;
     left:0px;
     top:15px;
-}
+}    */
 /*----------  Main Preview 3 ---------------*/
-.main_preview3{
+/*.main_preview3{
     background:transparent url(/images/hebmain/main_preview3-bg.gif) repeat-y 50% top;
 }
 .main_preview3 .element{
@@ -405,7 +405,7 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     position:absolute;
     right:0px;
     top:15px;
-}
+}      */
 /*----------  Services  ---------------*/
 .content div.services{
     border-top:1px dashed #e8e8e8;

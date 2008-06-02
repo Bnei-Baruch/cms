@@ -2,3 +2,8 @@
 .content {
     width:80%;
 }
+
+/*----------  right-part  ---------------*/
+.right-part .player .playlist ol{
+	margin-right:23px;
+}

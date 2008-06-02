@@ -71,10 +71,9 @@ class CronManager
       end
     end
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
-    rss_parsed = RSS::Parser.parse(content, true) rescue ''
-    data = rss_parsed.empty? ? '' : YAML.dump(rss_parsed.items[range])
+    data = YAML.dump(RSS::Parser.parse(content, false).items[range])
     property = tree_node.resource.properties('items')
-    property.update_attributes(:text_value => data) unless data.empty?
+    property.update_attributes(:text_value => data)
   end
   
   def self.read_and_save_node_media_rss(tree_node, lang)
@@ -111,16 +110,14 @@ class CronManager
       end
     end
 
-    lessons = Hash.from_xml(content) rescue nil
-    if !lessons.nil? && lessons['lessons'] && lessons['lessons']['lesson']
-      lessons['lessons']['lesson'].each do |lesson|
-        lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y') if lesson['date']
-      end
+    lessons = Hash.from_xml(content)
+    lessons['lessons']['lesson'].each do |lesson|
+      lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y') 
     end
     
-    data = lessons.nil? ? '' : YAML.dump(lessons)
+    data = YAML.dump(lessons)
     property = tree_node.resource.properties('items')
-    property.update_attributes(:text_value => data) unless data.empty?
+    property.update_attributes(:text_value => data) unless (data.nil? | data.empty?)
   end
   
   private

@@ -22,4 +22,6 @@ a.more img{
 	padding:0 7px 0 0;
 	width:auto;
 	height:auto;
+	position:relative;
+	top:3px;
 }

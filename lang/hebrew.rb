@@ -1,14 +1,14 @@
 Localization.define('hebrew') do |l|
   l.store 'Preview title', 'כותרת לתצוגה מקדימה'
   l.store 'Large Title', 'כותרת ראשית'
-  l.store 'Permalink', 'לינק של הדף'
+  l.store 'Permalink', 'לינק של הדף (לא לשנות)'
   l.store 'Small Title', 'תת כותרת'
   l.store 'Sub Title', 'כותרת משנה'
-  l.store 'Side Image', 'תמונה צידית'
-  l.store 'Main Image Alt', 'כותרת לתמונה ראשית'
+  l.store 'Side Image', 'תמונה צדית'
+  l.store 'Main Image Alt', 'כותרת לתמונה ראשית (alt)'
   l.store 'Preview Image', 'תמונה לתצוגה מקדימה'
-  l.store 'Preview Image Alt', 'כותרת התמונה לתצוגה מקדימה'
-  l.store 'Writer', 'מחבר'
+  l.store 'Preview Image Alt', 'כותרת התמונה לתצוגה מקדימה (alt)'
+  l.store 'Writer', 'מאת'
   l.store 'Writer Email', 'כתובת אימייל של המחבר'
   l.store 'Date', 'תאריך'
   l.store 'Hide on navigation', 'הסתר בעץ הנביגציה'
@@ -17,6 +17,8 @@ Localization.define('hebrew') do |l|
   l.store 'Title', 'כותרת'
   l.store 'Body', 'תוכן'
   l.store 'Description', 'תאור הדף'
+  l.store 'Description for preview', 'תאור לתצוגה מקדימה'
+  
 
 
   l.store 'Content Page', 'דף תוכן'

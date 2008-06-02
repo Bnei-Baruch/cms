@@ -26,8 +26,8 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
             li {a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value }
           }
         }
-        a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url
       }
+      a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url
     }
                 
     javascript {

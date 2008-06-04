@@ -45,8 +45,8 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
           controlBarBackgroundColor: -1,
           controlBarGloss: 'low',
           showMenu:false
-        };         
-        Ext.onReady(function(){
+        };
+        $(function() {
           var flowplayer = null;
           var links = document.getElementById("playlist-#{id}").getElementsByTagName("a"); 
           for (var i = 0; i < links.length; i++) {

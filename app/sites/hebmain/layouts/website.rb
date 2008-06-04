@@ -32,6 +32,10 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/widgets',
           :cache => false
           # :cache => 'cache/website_admin'
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
+          javascript {
+            rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
+          }
         else
           stylesheet_link_tag 'reset-fonts-grids', 
           'base-min', 
@@ -40,110 +44,10 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/header', 
           'hebmain/home_page', 
           'hebmain/widgets',
+          'jquery.tabs.css',
           :cache => 'cache/website'
         end
-        javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/website'
-        javascript {
-          rawtext 'Ext.util.CSS.swapStyleSheet("theme","ext/resources/css/xtheme-gray.css");'
-          rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
-          rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
-        }
-        javascript{
-          rawtext <<-TV
-            function startPlayer(id){
-              var player = document.getElementById(id);
-              if (player && player.controls && player.controls.isAvailable('Play')){
-                player.controls.play();
-              }
-            };
-            function pausePlayer(id){
-              var player = document.getElementById(id);
-              if (player && player.controls && player.controls.isAvailable('Pause')) {
-                player.controls.pause();
-              }
-            }
-            function stopPlayer(id){
-              var player = document.getElementById(id);
-              if (player && player.controls && player.controls.isAvailable('Stop')) {
-                player.controls.stop();
-              }
-            }
-            Ext.onReady(function() {
-              var play = Ext.select('.radio .play');
-              var playState = false;
-              play.on('click', function(){
-                if (!playState) {
-                  startPlayer('radioplayer');
-                  playState = true;
-                }
-              });
-              play.on('mouseover', function(e){
-                if (!playState)
-                  Ext.get(this).replaceClass('play-out', 'play-in');
-              });
-              play.on('mouseout', function(){
-                if (!playState)
-                  Ext.get(this).replaceClass('play-in', 'play-out');
-              });
-              var stop = Ext.select('.radio .stop');
-              stop.on('click', function(){
-                if (playState) {
-                  stopPlayer('radioplayer');
-                  playState = false;
-                  Ext.get(play).replaceClass('play-in', 'play-out');
-                }
-              });
-              stop.on('mouseover', function(){
-                Ext.get(this).replaceClass('stop-out', 'stop-in');
-              });
-              stop.on('mouseout', function(){
-                Ext.get(this).replaceClass('stop-in', 'stop-out');
-              });
-              var mytab = new Ext.TabPanel({
-                resizeTabs:true,
-                renderTo: 'tabs1',
-                width:222,
-                activeTab:0,
-                deferredRender:false,
-                frame:true,
-                items:[
-                    {contentEl:'radio', title: 'רדיו' },
-                    {contentEl:'tv', title: 'טלויזיה' }
-                ]
-              });
-              mytab.on('tabchange', function(panel, tab){
-                if (tab.contentEl == "tv"){
-                  stopPlayer("radioplayer");
-                  playState = false;
-                  Ext.get(play).replaceClass('play-in', 'play-out');
-                  startPlayer("tvplayer");
-                } else {
-                  stopPlayer("tvplayer");
-                }
-              });
-            });
-            function toggleUL(div){
-              var el = Ext.get(div);
-              var child = el.prev().first();
-              if (el.isDisplayed()) {
-                el.fadeOut({afterStyle:"display:none"});
-                child.replaceClass("x-tree-elbow-minus","x-tree-elbow-plus");
-              } else {
-                el.fadeIn({});
-                child.replaceClass("x-tree-elbow-plus","x-tree-elbow-minus");
-              }
-            }
-           function mouseUL(div, direction){
-            var el = Ext.get(div).prev();
-            if (direction) {
-              el.addClass("x-tree-ec-over");
-            } else {
-              el.removeClass("x-tree-ec-over");
-            }
-          }
-          TV
-        }
-
+        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', :cache => 'cache/website'
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
@@ -171,37 +75,52 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           :has_url => false, 
                           :placeholder => 'left'}).render_to(self)
               
-                      div(:id => 'tabs1', :class => 'radio-TV') {
-                        div(:id => 'tv', :class => 'x-hide-display body'){
-                          javascript {
-                            rawtext <<-TV
-                            if (Ext.isIE) {
-document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tvplayer" type="application/x-oleobject" width="200" height="150" standby="Loading Windows Media Player components..."><param name="URL" value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" /><param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
-                            } else {
-document.write('<embed id="tvplayer" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="200" height="150" />');
+                      
+                      div(:id => 'radio-TV', :class => 'radio-TV') {
+                        ul(:class => 'ui-tabs-nav'){
+                          li{
+                            a(:href => '#radio'){
+                              span 'רדיו'
                             }
-                            TV
                           }
-                          div(:class => 'clear'){
-                            a _('Watch in full window'), :href => ''
+                          li{
+                            a(:href => '#tv'){
+                              span 'טלויזיה'
+                            }
                           }
                         }
-                        div(:id => 'radio', :class => 'x-hide-display body'){
-                          javascript {
-                            rawtext <<-RADIO
-                              if (Ext.isIE) {
+                      }
+                      div(:id => 'tv'){
+                        javascript {
+                          rawtext <<-TV
+                            if (jQuery.browser.msie) {
+                              document.write('<object id="tvplayer" type="application/x-ms-wmp" height="140" standby="Loading Windows Media Player components..." width="200" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"><param name="AutoStart" value="0" /><param value="0" name="balance" /><param name="currentPosition" value="0"><param name="currentMarker" value="0"><param name="enabled" value="true"><param name="mute" value="false"><param name="playCount" value="1"><param name="rate" value="1"><param name="uiMode" value="full"><param name="volume" value="50"><param value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="URL" /><param value="false" name="AutoPlay" /><param value="1" name="animationAtStart" /><param value="1" name="showDisplay" /><param value="0" name="transparentAtStart" /><param value="1" name="ShowControls" /><param value="1" name="ShowStatusBar" /><param value="1" name="ClickToPlay" /><param value="#000000" name="bgcolor" /><param value="1" name="windowlessVideo" /></object>');
+                            } else {
+                              document.write('<object id="tvplayer" type="application/x-ms-wmp" height="140" standby="Loading Windows Media Player components..." width="200"><param name="AutoStart" value="0" /><param value="0" name="balance" /><param name="currentPosition" value="0"><param name="currentMarker" value="0"><param name="enabled" value="true"><param name="mute" value="false"><param name="playCount" value="1"><param name="rate" value="1"><param name="uiMode" value="full"><param name="volume" value="50"><param value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="URL" /><param value="0" name="AutoPlay" /><param value="1" name="animationAtStart" /><param value="1" name="showDisplay" /><param value="0" name="transparentAtStart" /><param value="1" name="ShowControls" /><param value="1" name="ShowStatusBar" /><param value="1" name="ClickToPlay" /><param value="#000000" name="bgcolor" /><param value="1" name="windowlessVideo" /><p>Error - the plugin has not loaded<br/><a href="http://port25.technet.com/pages/windows-media-player-firefox-plugin-download.aspx">Download Microsoft plugin for Firefox here</a></p>');
+                              document.write('<embed width="200" height="140" balance="0" uimode="full" autostart="false" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" type="application/x-mplayer2" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="tvplayer" id="tvplayer"/>');
+                              document.write('</object>');
+                            }
+                          TV
+                        }
+                        div(:class => 'clear'){
+                          a _('Watch in full window'), :href => ''
+                        }
+                      }
+                      div(:id => 'radio'){
+                        div(:class => 'radio') {
+                          img(:src => img_path('radio/bg.jpg'), :alt => '')
+                          div(:class => 'text') {text 'רדיו קבלה FM' }
+                          div(:class => 'play play-out')
+                          div(:class => 'stop stop-out')
+                        }
+                        javascript {
+                          rawtext <<-RADIO
+                              if (jQuery.browser.msie) {
 document.write('<object id="radioplayer" style="display:none" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tvplayer" type="application/x-oleobject" width="222" height="40" standby="Loading Windows Media Player components..."> <param name="URL" value="mms://vod.kab.tv/radioheb" /> <param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /> <param name="uiMode" value="invisible" /><param name="animationAtStart" value="0" /> <param name="showDisplay" value="0" /><param name="transparentAtStart" value="0" /> <param name="ShowControls" value="0" /><param name="ShowStatusBar" value="0" /> <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /> <param name="windowlessVideo" value="0" /><param name="balance" value="0" /> </object>');
                               } else {
 document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="222" height="40" />');
                               }
-                            RADIO
-                          }
-                          div(:class => 'radio') {
-                            img(:src => img_path('radio/bg.jpg'), :alt => '')
-                            div(:class => 'text') {text 'רדיו קבלה FM' }
-                            div(:class => 'play play-out')
-                            div(:class => 'stop stop-out')
-                          }
+                          RADIO
                         }
                       }
                       
@@ -278,7 +197,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
             @header_bottom_links.render_to(self)
           }
         }
-      @google_analytics.render_to(self)
+        @google_analytics.render_to(self)
       }
     }
   end     

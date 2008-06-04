@@ -138,11 +138,11 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
   
   def lesson_show(selected_lessons, curr_date, index = 0)
     div(:class => 'x-tree-arrows') {
-      div(:class => 'toggle',
-        :onclick => 'toggleUL("lesson-' + tree_node.id.to_s + index.to_s + '")',
-        :onmouseover => 'mouseUL("lesson-' + tree_node.id.to_s + index.to_s +  '", true)',
-        :onmouseout => 'mouseUL("lesson-' + tree_node.id.to_s + index.to_s +  '", false)'){
-        img(:class => 'x-tree-ec-icon x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
+      div(:class => 'toggle', :tree_node => tree_node.id.to_s + index.to_s){
+#        :onclick => 'toggleUL("lesson-' + tree_node.id.to_s + index.to_s + '")',
+#        :onmouseover => 'mouseUL("lesson-' + tree_node.id.to_s + index.to_s +  '", true)',
+#        :onmouseout => 'mouseUL("lesson-' + tree_node.id.to_s + index.to_s +  '", false)'){
+        img(:class => 'x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
         text get_title if get_title
         span(:class => 'date') { text ' ' + curr_date.to_s}
       }

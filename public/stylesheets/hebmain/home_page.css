@@ -415,19 +415,24 @@
     padding:10px 0 0;
     margin:0;
 }
+.left-part .radio-TV ul{
+    display:inline-block;
+}
 .left-part .radio-TV ul li{
     list-style-type: none;
     text-align:center;
 }
 .left-part #radio{
+    height:50px;
     padding:2px 0 0;
 }
 .left-part #tv{
     height:170px;
-    padding:2px 0 0;
+    padding:10px 0;
 }
 .left-part .radio{
     position:relative;
+    display:inline-block;
 }
 .left-part #radio #radioplayer{
     position:absolute;
@@ -440,7 +445,7 @@
     width:22px;
     background-image:url(/images/hebmain/radio/buttons.jpg);
     background-repeat:no-repeat;
-    right:185px;
+    right:187px;
 }
 .left-part .radio .play-out{
     background-position:0 0;
@@ -457,7 +462,7 @@
     width:22px;
     background-image:url(/images/hebmain/radio/buttons.jpg);
     background-repeat:no-repeat;
-    right:163px;
+    right:162px;
 }
 .left-part .radio .stop-out{
     background-position:left -44px;
@@ -469,14 +474,13 @@
 }
 .left-part .radio .text{
     position:absolute;
-    right:22px;
+    right:25px;
     top:16px;
 }
 .left-part .radio img{
     position:absolute;
-    left:5px;
     top:10px;
-    *right:5px;
+    right:5px;
 }
 .left-part .body{
     direction: rtl;

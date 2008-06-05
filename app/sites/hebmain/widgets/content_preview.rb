@@ -3,24 +3,17 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   def render_full
     get_content_items
     div(:class => 'content_preview'){
-      buttons = %W{}
-      if @items_size < @max_num
-        buttons = %W{new_button edit_button delete_button}
-      else
-        buttons = %W{edit_button delete_button}
-      end
+      w_class('cms_actions').new(:tree_node => tree_node, 
+        :options => {:buttons => %W{new_button edit_button delete_button},
+          :button_text => 'ניהול תצוגה מקדימה', 
+          :new_text => 'הוספת יחידה בצורה ידנית', 
+          :has_url => false,
+          :resource_types => %W{ custom_preview }}).render_to(self)
     
       # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
       updatable = 'up-' + @widget_id.to_s
       div(:id => updatable){
-        w_class('cms_actions').new(:tree_node => tree_node, 
-          :options => {:buttons => buttons,
-            :button_text => 'ניהול תצוגה מקדימה', 
-            :new_text => 'הוספת יחידה בצורה ידנית', 
-            :has_url => false,
-            :resource_types => %W{ custom_preview }}).render_to(self)
-        
-        render_preview_update(true)
+        render_preview_update
       }
       if !@is_main_format
         w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
@@ -29,41 +22,16 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   end
 
   # This function is initiated also in Ajax request
-  def render_preview_update(show = false)
+  def render_preview_update
     get_content_items
-        
-    is_rebuild = false
-    if tree_node.resource.resource_type.hrid != 'custom_preview' && @items_size >= @max_num && !show
-      is_rebuild = true
+    max_num = get_maximum_number_of_items.to_i
+    if get_maximum_number_of_items.to_i > 3 && !is_articles_index?
+      max_num = 3
     end
-    
-    if is_rebuild
-      if @items.last.resource.resource_type.hrid == 'custom_preview' && @items.last.can_delete?
-        @items.last.max_user_permission = nil
-        @items.last.destroy
-      else
-        remove_link_from_resource(@items.last) 
-      end
-    end
-      
-    if @items_size < @max_num || is_rebuild
+    if @items_size < max_num
       add_new_item
       get_content_items
     end
-
-#    if is_rebuild
-#       @items.each { |item|
-#        item.max_user_permission = nil
-#        item.position = item.position + 1
-#      }
-#      @items.last.position = 1
-##      @items.each { |item|
-##        item.max_user_permission = nil
-##        item.increment_position
-##      }
-##      @items.last.max_user_permission = nil
-##      @items.last.insert_at
-#    end
     
     if @is_main_format
       show_main_format
@@ -79,7 +47,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   
   private
   
-  def show_main_format
+   def show_main_format
     case @items_size
     when 1
       view_mode = 'large_main_format'
@@ -148,10 +116,6 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     @widget_id = tree_node.id
     @widget_name = tree_node.resource.resource_type.hrid
     @is_main_format = get_is_main_format == '' ? false : get_is_main_format 
-    @max_num = get_maximum_number_of_items.to_i
-    if get_maximum_number_of_items.to_i > 3 && !is_articles_index?
-      @max_num = 3
-    end
   end
   
   def render_content_item(tree_node, view_mode)

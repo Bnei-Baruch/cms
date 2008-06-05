@@ -137,33 +137,28 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
   end
   
   def lesson_show(selected_lessons, curr_date, index = 0)
-    div(:class => 'x-tree-arrows') {
-      div(:class => 'toggle', :tree_node => tree_node.id.to_s + index.to_s){
-#        :onclick => 'toggleUL("lesson-' + tree_node.id.to_s + index.to_s + '")',
-#        :onmouseover => 'mouseUL("lesson-' + tree_node.id.to_s + index.to_s +  '", true)',
-#        :onmouseout => 'mouseUL("lesson-' + tree_node.id.to_s + index.to_s +  '", false)'){
-        img(:class => 'x-tree-elbow-plus', :src => '../ext/resources/images/default/s.gif',:alt => '')
-        text get_title if get_title
-        span(:class => 'date') { text ' ' + curr_date.to_s}
-      }
-          
-      ul(:id => 'lesson-' + tree_node.id.to_s + index.to_s, :style => 'display:none;'){
-        selected_lessons.each { |lesson|
-          # Find video, audio, sirtut
-          video_href, audio_href, sirtut_href = lesson_links(lesson)
-                   
-          if !video_href.empty? || !audio_href.empty? || !sirtut_href.empty?
-            li(:class => 'item'){
-              img(:class => 'x-tree-ec-icon x-tree-elbow', :src => '../ext/resources/images/default/s.gif',:alt => '')
-              text lesson['title']
-              div(:class => 'services'){
-                a(:class => 'video', :href => video_href){span {text 'ואדיו'} } unless video_href.empty? 
-                a(:class => 'audio', :href => audio_href){span {text 'וידוא'} } unless audio_href.empty?
-                a(:class => 'sketch', :href => sirtut_href){span {text 'טוטרש'} } unless sirtut_href.empty?
-              }
+    div(:class => 'toggle', :tree_node => tree_node.id.to_s + index.to_s){
+      img(:class => 'x-plus', :src => '/images/hebmain/jquery/s.gif',:alt => '')
+      text get_title if get_title
+      span(:class => 'date') { text ' ' + curr_date.to_s}
+    }
+    
+    ul(:id => 'lesson-' + tree_node.id.to_s + index.to_s, :style => 'display:none;'){
+      selected_lessons.each { |lesson|
+        # Find video, audio, sirtut
+        video_href, audio_href, sirtut_href = lesson_links(lesson)
+        
+        if !video_href.empty? || !audio_href.empty? || !sirtut_href.empty?
+          li(:class => 'item'){
+            img(:class => 'x-', :src => '/images/hebmain/jquery/s.gif',:alt => '')
+            text lesson['title']
+            div(:class => 'services'){
+              a(:class => 'video', :href => video_href){span {text 'ואדיו'} } unless video_href.empty? 
+              a(:class => 'audio', :href => audio_href){span {text 'וידוא'} } unless audio_href.empty?
+              a(:class => 'sketch', :href => sirtut_href){span {text 'טוטרש'} } unless sirtut_href.empty?
             }
-          end
-        }
+          }
+        end
       }
     }
   end

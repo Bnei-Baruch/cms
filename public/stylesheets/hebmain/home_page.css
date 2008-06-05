@@ -433,10 +433,9 @@
     padding:2px 0 0;
 }
 .left-part #tv{
-    height:170px;
-    padding:10px 0;
+    height:185px;
 }
-.left-part .radio{
+.left-part .radio, .left-part .tv{
     position:relative;
     display:inline-block;
 }
@@ -453,11 +452,20 @@
     background-repeat:no-repeat;
     right:187px;
 }
-.left-part .radio .play-out{
+.left-part .tv .play{
+    height:22px;
+    position:absolute;
+    top:23px;
+    width:22px;
+    background-image:url(/images/hebmain/radio/buttons.jpg);
+    background-repeat:no-repeat;
+    right:183px;
+}
+.left-part .radio .play-out,.left-part .tv .play-out{
     background-position:0 0;
     cursor:pointer;
 }
-.left-part .radio .play-in{
+.left-part .radio .play-in,.left-part .tv .play-in{
     background-position:0 -22px;
     cursor:pointer;
 }
@@ -470,11 +478,20 @@
     background-repeat:no-repeat;
     right:162px;
 }
-.left-part .radio .stop-out{
+.left-part .tv .stop{
+    height:22px;
+    position:absolute;
+    top:23px;
+    width:22px;
+    background-image:url(/images/hebmain/radio/buttons.jpg);
+    background-repeat:no-repeat;
+    right:158px;
+}
+.left-part .radio .stop-out,.left-part .tv .stop-out{
     background-position:left -44px;
     cursor:pointer;
 }
-.left-part .radio .stop-in{
+.left-part .radio .stop-in,.left-part .tv .stop-in{
     background-position:left -66px;
     cursor:pointer;
 }
@@ -483,10 +500,20 @@
     right:25px;
     top:16px;
 }
+.left-part .tv .text{
+    position:absolute;
+    right:25px;
+    top:26px;
+}
 .left-part .radio img{
     position:absolute;
     top:10px;
     right:5px;
+}
+.left-part .tv img{
+    position:absolute;
+    top:20px;
+    right:0;
 }
 .left-part .body{
     direction: rtl;
@@ -515,28 +542,6 @@
     display:block;
 }
 .left-part .downloads{
-}
-.left-part .x-tab-strip span.x-tab-strip-text{
-    color:black;
-}
-.left-part .x-tab-strip-top .x-tab-right,
-.left-part .x-tab-strip-top .x-tab-left,
-.left-part .x-tab-strip-top .x-tab-strip-inner {
-    background-image:url(/images/hebmain/ext/tabs-sprite.gif);
-}
-.left-part .x-tab-panel-header, .left-part .x-tab-panel-footer {
-    background:#ffffff none repeat scroll 0% 50%;
-    border-color:#D0D0D0;
-}
-.left-part ul.x-tab-strip-top {
-    background:#E9F1FF none;
-}
-.left-part .x-tab-panel-header {
-    padding-bottom:0;
-    border:0 none;
-}
-.left-part .downloads .item .x-tree-ec-icon{
-    float:right;
 }
 .left-part .downloads ul {
     margin:0 10px 0 0;
@@ -578,8 +583,36 @@
     font-weight:normal;
     cursor:pointer;
 }
-
-
+.left-part .downloads img{
+    height:18px;
+    width:16px;
+    background-repeat:no-repeat;
+    border:0pt none;
+    margin:0pt;
+    padding:0pt;
+    vertical-align:top;
+}
+.left-part .downloads .x-plus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll 0pt;
+}
+.left-part .downloads .x-minus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+}
+.left-part .downloads .x-end-plus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll 0pt 50%;
+}
+.left-part .downloads .x-end-minus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+}
+.left-part .downloads .x-end, .left-part .downloads .x- {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -64px 0pt;
+}
+.left-part .downloads .x-over .x-plus {
+background-position:-32px 0pt;
+}
+.left-part .downloads .x-over .x-minus {
+background-position:-48px 0pt;
+}
 
 
 

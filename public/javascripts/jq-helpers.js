@@ -7,111 +7,179 @@ $(function() {
         $img = $this.find("img");
         if ($ul.css("display") == "none"){
             $ul.show("slow");
-            $img.removeClass("x-tree-elbow-plus");
-            $img.addClass("x-tree-elbow-minus");
+            $img.removeClass("x-plus");
+            $img.addClass("x-minus");
         } else {
             $ul.hide("slow");
-            $img.removeClass("x-tree-elbow-minus");
-            $img.addClass("x-tree-elbow-plus");
+            $img.removeClass("x-minus");
+            $img.addClass("x-plus");
         }
     });
     $(".toggle").hover(
     function(){
-        $(this).toggleClass("x-tree-ec-over");
+        $(this).toggleClass("x-over");
     },
     function(){
-        $(this).toggleClass("x-tree-ec-over");
+        $(this).toggleClass("x-over");
     }
 );
 });
 
-var $play;
-var $stop;
-var playState = false;
+// TV and Radio players.
+var $play_radio;
+var $stop_radio;
+var $play_tv;
+var $stop_tv;
 $(function() {
-    $play = $('.radio .play');
-    $stop = $('.radio .stop');
+    $play_radio = $('.radio .play');
+    $stop_radio = $('.radio .stop');
+    $play_tv = $('.tv .play');
+    $stop_tv = $('.tv .stop');
 });
 
-// Radio-TV tab
+// State of player
+var playState_radio = false;
+var playState_tv = false;
+
+// Radio-TV tab creation
 $(function() {
     $("#radio-TV > ul").tabs({
         selected: 0,
         show:
-            function(tab){
+            // On switch between tabs...
+        function(tab){
             if (tab.tab.hash == "#tv"){
                 stopPlayer("radioplayer");
-                playState = false;
-                $play.removeClass("play-in");
-                $play.addClass("play-out");
+                playState_radio = false;
+                $play_radio.removeClass("play-in");
+                $play_radio.addClass("play-out");
                 startPlayer("tvplayer");
+                playState_tv = true;
             } else {
                 stopPlayer("tvplayer");
             }
         }
     });
+    $a = $('#tv a#full_screen');
+    $a.click(function(event){
+        event.preventDefault();
+        gofs("tvplayer");
+    });
 });
 
 //Radio player management
 $(function() {
-    $play.click(function(event){
-        event.preventDefault();
-        if (!playState) {
-            startPlayer('radioplayer');
-            playState = true;
-        }
-    });
-    $play.hover(
+  // Radio
+  $play_radio.click(function(event){
+    event.preventDefault();
+    if (!playState_radio) {
+      startPlayer('radioplayer');
+      playState_radio = true;
+    }
+  });
+  $play_radio.hover(
     function(){
-        if (!playState) {
-            $(this).removeClass("play-out");
-            $(this).addClass("play-in");
-        }
+      if (!playState_radio) {
+        $(this).removeClass("play-out");
+        $(this).addClass("play-in");
+      }
     },
     function(){
-        if (!playState) {
-            $(this).removeClass("play-in");
-            $(this).addClass("play-out");
-        }
+      if (!playState_radio) {
+        $(this).removeClass("play-in");
+        $(this).addClass("play-out");
+      }
     }
-);
-    $stop.click(function(event){
-        event.preventDefault();
-        if (playState) {
-            stopPlayer('radioplayer');
-            playState = false;
-            $play.removeClass("play-in");
-            $play.addClass("play-out");
-        }
-    });
-    $stop.hover(
+  );
+  $stop_radio.click(function(event){
+    event.preventDefault();
+    if (playState_radio) {
+      stopPlayer('radioplayer');
+      playState_radio = false;
+      $play_radio.removeClass("play-in");
+      $play_radio.addClass("play-out");
+    }
+  });
+  $stop_radio.hover(
     function(){
-        $(this).removeClass("stop-out");
-        $(this).addClass("stop-in");
+      $(this).removeClass("stop-out");
+      $(this).addClass("stop-in");
     },
     function(){
-        $(this).removeClass("stop-in");
-        $(this).addClass("stop-out");
+      $(this).removeClass("stop-in");
+      $(this).addClass("stop-out");
     }
-);
+  );
+  // TV
+  $play_tv.click(function(event){
+    event.preventDefault();
+    if (!playState_tv) {
+      startPlayer('tvplayer');
+      playState_tv = true;
+    }
+  });
+  $play_tv.hover(
+    function(){
+      if (!playState_tv) {
+        $(this).removeClass("play-out");
+        $(this).addClass("play-in");
+      }
+    },
+    function(){
+      if (!playState_tv) {
+        $(this).removeClass("play-in");
+        $(this).addClass("play-out");
+      }
+    }
+  );
+  $stop_tv.click(function(event){
+    event.preventDefault();
+    if (playState_tv) {
+      stopPlayer('tvplayer');
+      playState_tv = false;
+      $play_tv.removeClass("play-in");
+      $play_tv.addClass("play-out");
+    }
+  });
+  $stop_tv.hover(
+    function(){
+      $(this).removeClass("stop-out");
+      $(this).addClass("stop-in");
+    },
+    function(){
+      $(this).removeClass("stop-in");
+      $(this).addClass("stop-out");
+    }
+  );
 });
 
-// Radio-TV buttons
+// Start/stop functions
 function startPlayer(id){
-    var player = document.getElementById(id);
-    if (player && player.controls && player.controls.isAvailable('Play')){
-        player.controls.play();
-    }
+  var player = document.getElementById(id);
+  if (player && player.controls && player.controls.isAvailable('Play')){
+    player.controls.play();
+  }
 }
 function pausePlayer(id){
-    var player = document.getElementById(id);
-    if (player && player.controls && player.controls.isAvailable('Pause')) {
-        player.controls.pause();
-    }
+  var player = document.getElementById(id);
+  if (player && player.controls && player.controls.isAvailable('Pause')) {
+    player.controls.pause();
+  }
 }
 function stopPlayer(id){
-    var player = document.getElementById(id);
-    if (player && player.controls && player.controls.isAvailable('Stop')) {
-        player.controls.stop();
-    }
+  var player = document.getElementById(id);
+  if (player && player.controls && player.controls.isAvailable('Stop')) {
+    player.controls.stop();
+  }
+}
+var fs_str = 'ESC ליציאה ממצב "מסך מלא" לחץ על';
+var nofs_str = 'נא להפעיל נגנ ע"מ לצפותו במסך מלא';
+function gofs(id){
+  var player = document.getElementById(id);
+  if (player && player.playState == 3) {
+    alert(fs_str);
+    player.fullScreen = 'true';
+  } else {
+    alert(nofs_str);
+  }
 }

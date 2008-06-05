@@ -31,7 +31,7 @@
 .ui-tabs-nav a, .ui-tabs-nav a span {
     display: block;
     padding: 0 10px;
-    background: url(/images/jquery/tab.png) no-repeat;
+    background: url(/images/hebmain/jquery/tab.png) no-repeat;
 }
 .ui-tabs-nav a {
     position: relative;

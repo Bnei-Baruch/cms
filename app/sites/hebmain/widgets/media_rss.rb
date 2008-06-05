@@ -69,6 +69,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
         tr {
           th 'Date'
           th 'Title'
+          th 'Description'
           th 'Video'
           th 'Audio'
           th 'Sirtut'
@@ -169,7 +170,17 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
                
       tr {
         td curr_date.to_s
-        td lesson['title']
+        if lesson['title']
+          td lesson['title'] 
+        else
+          td ''
+        end
+        if lesson['description']
+          td lesson['description'] 
+        else
+          td ''
+        end
+        
         td {
           a(:href => video_href) { 
             img(:class => 'img', :src => img_path('video.png'), :alt => '') unless video_href.empty? 

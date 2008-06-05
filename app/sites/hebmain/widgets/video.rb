@@ -10,14 +10,24 @@ class Hebmain::Widgets::Video < WidgetManager::Base
         :new_text => 'צור יחידת תוכן חדשה', 
         :has_url => false
       }).render_to(self)
-    h3(:class => 'video'){
-      text get_title
-    }
+    
+    hide_title = get_hide_title 
+    if hide_title.nil?
+      hide_title = true
+    end
+    
+    if (!hide_title)
+      h3(:class => 'video'){
+        text get_title
+      }
+    end
     div(:class => 'full-video') {
-      description = get_description
       id = tree_node.object_id
       image = get_image
-      p { rawtext description } if !description.empty?
+      if (!hide_title)
+        description = get_description
+        p { rawtext description } if !description.empty?
+      end
       div(:id => "flashplayer-#{id}",
         :onclick => "flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:504, height:378},{config: playerConfig})") {
         if image && !image.empty?

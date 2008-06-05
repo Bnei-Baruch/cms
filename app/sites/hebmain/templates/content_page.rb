@@ -12,7 +12,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     WidgetManager::Base.new do
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
-                     :resource_types => %W{ article content_preview section_preview rss video},
+                     :resource_types => %W{ article content_preview section_preview rss video media_rss},
                      :button_text => 'ניהול דף תוכן',
                      :new_text => 'צור יחידת תוכן חדשה',
                      :edit_text => 'ערוך דף תוכן',
@@ -46,7 +46,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       # debugger
       content_resources.each{|e|
         div(:class => 'item') {
-          render_content_resource(e)
+          render_content_resource(e, e.resource.resource_type.hrid == 'media_rss' ? 'lesson_in_table' : 'full')
           div(:class => 'clear')
         } 
       }
@@ -187,7 +187,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_resources
     TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video'], 
+      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss'], 
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content'],

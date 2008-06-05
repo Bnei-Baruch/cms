@@ -41,7 +41,7 @@ class Attachment < ActiveRecord::Base
   end
   
   def Attachment.save_as_file(attachment, original_image_id, name)
-    path = File.join(File.dirname(__FILE__), '/../../public/images/', (original_image_id.to_i % 100).to_s)
+    path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (original_image_id.to_i % 100).to_s)
     FileUtils.mkdir_p path 
     File.open("#{path}/#{original_image_id}_#{name}", "w") {|file|
       file.binmode
@@ -118,7 +118,7 @@ class Attachment < ActiveRecord::Base
   
   def Attachment.delete_file(original_image_id, name, delete_all = false)
     begin
-      path = File.join(File.dirname(__FILE__), '/../../public/images/', (original_image_id.to_i % 100).to_s)
+      path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (original_image_id.to_i % 100).to_s)
       if delete_all
         Dir.glob(path + "/*.*") { |filename|
           File.delete(filename)

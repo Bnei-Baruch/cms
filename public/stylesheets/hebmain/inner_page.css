@@ -85,6 +85,16 @@
 .content .item p{
     margin-bottom:15px;
 }
+.content .item strong{
+    font-weight:13.5px;
+	color:#1F1F1F;
+}
+.content .item ul, .content .item ol{
+    margin-right:30px;
+}
+.content .item li{
+    margin-bottom:3px;
+}
 .content .image{
     background-color:#E8E8E9;
     margin:0 0 20px 20px;

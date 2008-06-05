@@ -99,8 +99,8 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 	float:left;
 }
 #hd .search .submit{
-	width:auto;
-	height:auto;
+	width:65px;
+	height:19px;
 }
 
 /*----------  Links  ---------------*/

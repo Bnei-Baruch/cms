@@ -1,10 +1,15 @@
 class Hebmain::Widgets::Header < WidgetManager::Base
   
   def render_top_links
-    # div(:class => 'search') do
-    #   img(:src => img_path('search.gif'), :alt => 'Search')
-    #   input(:name => 'search')
-    # end
+    form(:action => 'http://www.google.com/cse', :id => 'cse-search-box'){
+      div(:class => 'search'){
+        input :type => 'image',:src => img_path('search.gif'), :name => 'sa', :class => 'submit'
+        input :type => 'hidden', :name => 'cx', :value => '004693772995587532226:uzmmvhl6lle'
+        input :type => 'hidden', :name => 'ie', :value => 'UTF-8'
+        input :type => 'text', :name => 'q', :size => '31', :class => 'text'
+      }
+    javascript :src => 'http://www.google.com/coop/cse/brand?form=cse-search-box&lang=he'
+    }
     ul(:class => 'links') do
       w_class('cms_actions').new(:tree_node => presenter.website_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ link },:new_text => 'לינק חדש', :has_url => false, :placeholder => 'top_links'}).render_to(self)
       top_links.each do |e|

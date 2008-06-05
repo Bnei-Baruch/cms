@@ -87,7 +87,7 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 	width:300px;
 	height:15px;
 }
-#hd .search input{
+#hd .search .text{
 	height:17px;
 	width:160px;
   border:1px solid #b7b7b7;
@@ -98,6 +98,11 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 #hd .search *{
 	float:left;
 }
+#hd .search .submit{
+	width:auto;
+	height:auto;
+}
+
 /*----------  Links  ---------------*/
 #hd ul.links {
 	position: absolute;

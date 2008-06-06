@@ -484,6 +484,20 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     padding:0;
     margin:0;
 }
+.related .box .box-mid-no-border{
+    padding:0 10px;
+    width:140px;
+}
+.related .box .box-top-no-border{
+    width:165px;
+    padding:0;
+    margin:0;
+}
+.related .box .box-bot-no-border{
+    width:165px;
+    padding:0;
+    margin:0;
+}
 /*----------  Navigation  ---------------*/
 .nav {
     text-align: center;

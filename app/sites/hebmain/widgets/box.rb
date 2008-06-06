@@ -2,7 +2,7 @@ class Hebmain::Widgets::Box < WidgetManager::Base
   
   def render_related_items
     hide_border = get_hide_border
-    if !hide_border.nil? && hide_border
+    if !hide_border.empty? && hide_border
       no_border = '-no-border'
     else
       no_border = ''

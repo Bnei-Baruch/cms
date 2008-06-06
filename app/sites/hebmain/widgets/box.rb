@@ -2,10 +2,9 @@ class Hebmain::Widgets::Box < WidgetManager::Base
   
   def render_related_items
     hide_border = get_hide_border
-    if !hide_border.empty? && hide_border
-      no_border = '-no-border'
-    else
-      no_border = ''
+    no_border = ''
+    unless hide_border.is_a?(String) && hide_border.empty?
+      no_border = '-no-border' if hide_border
     end
     div(:class => 'box') {
       div(:class => 'box-top' + no_border){rawtext('&nbsp;')}

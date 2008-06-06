@@ -11,12 +11,12 @@ class Hebmain::Widgets::Video < WidgetManager::Base
         :has_url => false
       }).render_to(self)
     
-    hide_title = get_hide_title 
-    if hide_title.nil?
-      hide_title = true
+    show_title = get_show_title
+    if show_title.nil?
+      show_title = false
     end
     
-    if (!hide_title)
+    if (show_title)
       h3(:class => 'video'){
         text get_title
       }
@@ -24,7 +24,7 @@ class Hebmain::Widgets::Video < WidgetManager::Base
     div(:class => 'full-video') {
       id = tree_node.object_id
       image = get_image
-      if (!hide_title)
+      if (show_title)
         description = get_description
         p { rawtext description } if !description.empty?
       end

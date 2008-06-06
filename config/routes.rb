@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
   map.css 'stylesheets/:website_id/:css_id.css',
               :controller => 'sites/templates', 
               :action => 'stylesheet'
-  map.image 'images/:image_id/:image_name.:format',
+  map.image 'images/attachments/:image_id/:image_name.:format',
               :controller => 'Attachments',
               :action => 'get_image'
                 

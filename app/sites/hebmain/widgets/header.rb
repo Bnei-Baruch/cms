@@ -29,7 +29,7 @@ class Hebmain::Widgets::Header < WidgetManager::Base
                                               }).render_to(self)
       ul(:class => 'links') do
       bottom_links.each_with_index do |e, i|
-        rawtext '&nbsp;&nbsp;|&nbsp;&nbsp;' unless i.eql?(0)
+        li {rawtext '|'} unless i.eql?(0)
         li do
           w_class('link').new(:tree_node => e).render_to(self)
         end

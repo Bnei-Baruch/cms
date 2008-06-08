@@ -53,6 +53,12 @@
     margin:0;
     padding:0;
 }
+.content .h1-left{
+    background-position: 0 -128px;
+}
+.content .h1-right{
+    background-position: 0 -160px;
+}
 .content h2{
     font-size:16px;
     margin:0 0 30px;
@@ -76,7 +82,7 @@
 }
 .content .item{
     font-size:14px;
-    border-top:1px dashed #e8e8e8;
+    border-bottom:1px dashed #e8e8e8;
     margin:0 0 25px 0;
     position: relative;
     clear: both;

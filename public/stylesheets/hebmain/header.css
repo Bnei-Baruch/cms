@@ -90,7 +90,7 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 #hd .search .text{
 	height:17px;
   	width:160px;
-  	border:1px solid #b7b7b7 !important;
+  	border:1px solid #b7b7b7 !important ;
 	border-left:0 none !important;
 	padding:0 2px !important;
 	font-size:11px;
@@ -123,12 +123,9 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 }
 /*----------  Footer  ---------------*/
 #ft{
-	position:relative;
 	display:inline-block;
 }
 #ft ul.links {
-	top:15px;
-	right:0;
 	height:15px;
 	margin: 30px 0;
 	padding: 0;
@@ -136,7 +133,7 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 	color:#186BE5;
 }
 #ft ul.links li {
-	margin-left: 14px;
+	margin-left: 5px;
 	list-style:none;
 	list-style-position: inside;
 	position: relative;

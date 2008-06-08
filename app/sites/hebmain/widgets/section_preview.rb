@@ -30,8 +30,8 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
             text get_read_more_link.empty? ? 'לכל הכתבות' : get_read_more_link
             img(:src => img_path('arrow-left.gif'), :alt => '')
           }
-          img(:src => img_path('sec-right.gif'),:class =>'h1-right', :alt => '')
-          img(:src => img_path('sec-left.gif'),:class =>'h1-left', :alt => '')
+          div(:class =>'h1-right')
+          div(:class =>'h1-left')
         }
         show_index
       }

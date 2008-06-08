@@ -4,11 +4,41 @@ require 'rss/2.0'
 class Hebmain::Widgets::Rss < WidgetManager::Base
   
   def render_full
-    render_show
+    items = get_all_items
+    div(:class => 'rss'){
+      rss_admin
+      
+      div(:class => 'h1') {
+        text get_title
+        div(:class =>'h1-right')
+        div(:class =>'h1-left')
+      }
+      picture = get_picture
+      text = get_description
+      if (!(picture.empty? && text.empty?))
+        div(:class => 'header'){
+          img(:src => picture, :class =>'Rav Michael Laitman', :alt => 'image') if picture
+          text text
+          div(:class => 'clear')
+        }
+      end
+      display_entries items, true
+    }    
   end
   
   def render_preview
-    render_show(false)  
+    items = get_all_items
+   
+    div(:class => 'rss container'){
+      rss_admin
+      
+      h3(:class => 'box_header') {
+        #        picture = get_picture
+        #        img(:src => picture, :class =>'Rav Michael Laitman', :alt => 'image') if picture
+        text get_title
+      }
+      display_entries items, false
+    }
   end
   
   private
@@ -27,49 +57,48 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
       nil         
     end
   end
-  
-  def render_show(show_description = true)
 
+  def get_all_items
     content = get_items
     if content.empty?
       CronManager.read_and_save_node_rss(tree_node)
     end
-    
+
     content = get_items
-    return '' if content.empty?
-    items = get_rss_items(content)
+    return false if content.empty?
+    get_rss_items(content)
+  end
 
-    return unless items
-   
-    div(:class => 'rss container'){
-      w_class('cms_actions').new(:tree_node => tree_node, 
-                                 :options => {:buttons => %W{ delete_button edit_button }, 
-                                              :position => 'bottom',
-                                              :button_text => "ניהול ה-RSS: #{get_title}",
-                                              :new_text => 'הוסף RSS חדש'
-                                              }).render_to(doc)
-      h3(:class => 'box_header') {
-        picture = get_picture
-        img(:src => picture, :class =>'Rav Michael Laitman', :alt => 'image') if picture
-        text get_title
-      }
+  def rss_admin
+    w_class('cms_actions').new(:tree_node => tree_node, 
+      :options => {:buttons => %W{ delete_button edit_button }, 
+        :position => 'bottom',
+        :button_text => "ניהול ה-RSS: #{get_title}",
+        :new_text => 'הוסף RSS חדש'
+      }).render_to(doc)
+  end
 
-      div(:class => 'entries'){
-        items.each do |item|
-          div(:class => 'entry'){
-            a item[:title], :href => item[:url]
-            div(:class => 'date'){
-              text item[:date].strftime('%d.%m.%y, %H:%m')
-            }
-            if (show_description)
-              div(:class => 'description'){
-                rawtext item[:description]
-              }
-            end
+  def display_entries(items, show_description = true)
+    if items.empty?
+      text _('No entries yet.')
+      return
+    end
+    div(:class => 'entries'){
+      items.each do |item|
+        div(:class => 'entry'){
+          a item[:title], :href => item[:url]
+          div(:class => 'date'){
+            text item[:date].strftime('%d.%m.%y, %H:%m')
           }
-        end
-        a get_read_more_text, :href => get_read_more_url, :class => 'more'
-      }
+          if (show_description)
+            div(:class => 'description'){
+              rawtext item[:description]
+            }
+          end
+        }
+      end
+      a get_read_more_text, :href => get_read_more_url, :class => 'more'
     }
   end
+
 end

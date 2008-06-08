@@ -90,9 +90,9 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 #hd .search .text{
 	height:17px;
   	width:160px;
-  	border:1px solid #b7b7b7;
-	border-left:0 none;
-	padding:0 2px;
+  	border:1px solid #b7b7b7 !important;
+	border-left:0 none !important;
+	padding:0 2px !important;
 	font-size:11px;
 	line-height:11px;
 	margin:0;

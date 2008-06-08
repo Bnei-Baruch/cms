@@ -7,12 +7,10 @@ $(function() {
         $img = $this.find("img");
         if ($ul.css("display") == "none"){
             $ul.show("slow");
-            $img.removeClass("x-plus");
-            $img.addClass("x-minus");
+            $img.removeClass("x-plus").addClass("x-minus");
         } else {
             $ul.hide("slow");
-            $img.removeClass("x-minus");
-            $img.addClass("x-plus");
+            $img.removeClass("x-minus").addClass("x-plus");
         }
     });
     $(".toggle").hover(
@@ -51,8 +49,7 @@ $(function() {
             if (tab.tab.hash == "#tv"){
                 stopPlayer("radioplayer");
                 playState_radio = false;
-                $play_radio.removeClass("play-in");
-                $play_radio.addClass("play-out");
+                $play_radio.removeClass("play-in").addClass("play-out");
                 startPlayer("tvplayer");
                 playState_tv = true;
             } else {
@@ -80,14 +77,12 @@ $(function() {
   $play_radio.hover(
     function(){
       if (!playState_radio) {
-        $(this).removeClass("play-out");
-        $(this).addClass("play-in");
+        $(this).removeClass("play-out").addClass("play-in");
       }
     },
     function(){
       if (!playState_radio) {
-        $(this).removeClass("play-in");
-        $(this).addClass("play-out");
+        $(this).removeClass("play-in").addClass("play-out");
       }
     }
   );
@@ -96,18 +91,15 @@ $(function() {
     if (playState_radio) {
       stopPlayer('radioplayer');
       playState_radio = false;
-      $play_radio.removeClass("play-in");
-      $play_radio.addClass("play-out");
+      $play_radio.removeClass("play-in").addClass("play-out");
     }
   });
   $stop_radio.hover(
     function(){
-      $(this).removeClass("stop-out");
-      $(this).addClass("stop-in");
+      $(this).removeClass("stop-out").addClass("stop-in");
     },
     function(){
-      $(this).removeClass("stop-in");
-      $(this).addClass("stop-out");
+      $(this).removeClass("stop-in").addClass("stop-out");
     }
   );
   // TV
@@ -121,14 +113,12 @@ $(function() {
   $play_tv.hover(
     function(){
       if (!playState_tv) {
-        $(this).removeClass("play-out");
-        $(this).addClass("play-in");
+        $(this).removeClass("play-out").addClass("play-in");
       }
     },
     function(){
       if (!playState_tv) {
-        $(this).removeClass("play-in");
-        $(this).addClass("play-out");
+        $(this).removeClass("play-in").addClass("play-out");
       }
     }
   );
@@ -137,18 +127,15 @@ $(function() {
     if (playState_tv) {
       stopPlayer('tvplayer');
       playState_tv = false;
-      $play_tv.removeClass("play-in");
-      $play_tv.addClass("play-out");
+      $play_tv.removeClass("play-in").addClass("play-out");
     }
   });
   $stop_tv.hover(
     function(){
-      $(this).removeClass("stop-out");
-      $(this).addClass("stop-in");
+      $(this).removeClass("stop-out").addClass("stop-in");
     },
     function(){
-      $(this).removeClass("stop-in");
-      $(this).addClass("stop-out");
+      $(this).removeClass("stop-in").addClass("stop-out");
     }
   );
 });
@@ -183,3 +170,41 @@ function gofs(id){
     alert(nofs_str);
   }
 }
+
+// Video gallery
+// Homepage
+var playerConfig_homepage = { 
+  autoPlay: true,
+  loop: false,
+  initialScale:'scale', 
+  useNativeFullScreen: true,
+  showStopButton:false,
+  autoRewind:true,
+  showVolumeSlider: false,
+  showFullScreenButton:false,
+  controlsOverVideo: 'ease',
+  controlBarBackgroundColor: -1,
+  controlBarGloss: 'low',
+  showMenu:false
+};
+var flowplayer_homepage = null;
+$(function() {
+  var $player = $('.player');
+  var id = $player.attr("target_id");
+  var $links = $player.find("a").not('.more');
+  $links.click(function(event){
+    event.preventDefault();
+    playerConfig_homepage.videoFile = $(this).attr("href");
+    if (flowplayer_homepage == null) {
+      flowplayer_homepage = flashembed("flashplayer-"+id,  
+                              {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#F0F4FD',width:226, height:169},
+                              {config: playerConfig_homepage} 
+                   );
+    } else {     
+      flowplayer_homepage.setConfig(playerConfig_homepage);
+    }
+  });
+  $("#flashplayer-"+id+" img").click(function(){
+      $($links[0]).trigger('click'); 
+  });
+});

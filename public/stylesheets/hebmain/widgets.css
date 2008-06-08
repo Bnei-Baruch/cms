@@ -64,13 +64,14 @@
     padding:0;
     margin:0;
     position:relative;
-	width:130px;
+    width:130px;
 }
 .index a.more img{
-	float:none;
-	padding:0 7px 0 0;
-	width:auto;
-	height:auto;
+    float:none;
+    padding:0 7px 0 0;
+    width:16px;
+    height:16px;
+    vertical-align:top;
 }
 /*----------  Content Preview  ---------------*/
 .content_preview{

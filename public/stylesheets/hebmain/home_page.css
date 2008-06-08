@@ -549,11 +549,10 @@
 }
 .left-part .downloads li.item {
     list-style-image:none;
-    list-style-position:inside;
+    list-style-position:outside;
     list-style-type:none;
     padding:5px 0 10px;
     border-bottom:1px dashed #e8e8e8;
-    *direction:ltr;
 }
 .left-part .downloads .services {
     margin:10px 5px 0;

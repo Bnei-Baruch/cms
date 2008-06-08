@@ -191,8 +191,7 @@ var flowplayer_homepage = null;
 $(function() {
   var $player = $('.player');
   var id = $player.attr("target_id");
-  var $links = $player.find("a").not('.more');
-  $links.click(function(event){
+  var $links = $player.find("a").not(".more").click(function(event){
     event.preventDefault();
     playerConfig_homepage.videoFile = $(this).attr("href");
     if (flowplayer_homepage == null) {

@@ -200,26 +200,26 @@ vertical-align:middle;
     *padding:0;
 }
 /*----------  RSS ---------------*/
-.rss .h1{
+.item .rss .h1{
     background-color:#E1ECFC;
     color:black;
 }
-.rss .entry{
+.item .rss .entry{
     padding:10px 0;
     border-bottom:1px dashed #E8E8E8;
 }
-.rss .more{
+.item .rss .more{
     display:block;
 }
-.rss .date{
+.item .rss .date{
     margin:10px 0;
     color:#767676;
 }
-.rss .header{
+.item .rss .header{
     padding:20px 0;
     border-bottom:1px solid #E8E8E8;
 }
-.rss .header img{
+.item .rss .header img{
     height:94px;
     width:138px;
     margin:0 0 5px 5px;

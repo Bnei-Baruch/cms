@@ -1,5 +1,9 @@
 class Hebmain::Widgets::Box < WidgetManager::Base
   
+  def render_full
+    render_related_items
+  end
+  
   def render_related_items
     hide_border = get_hide_border
     no_border = ''

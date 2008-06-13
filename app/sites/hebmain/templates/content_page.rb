@@ -45,7 +45,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       end
       content_resources.each{|e|
         div(:class => 'item') {
-          render_content_resource(e, e.resource.resource_type.hrid == 'media_rss' ? 'lesson_in_table' : 'full')
+          render_content_resource(e)
           div(:class => 'clear')
         } 
       }
@@ -105,7 +105,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def render_related_item(tree_node)
     class_name = tree_node.resource.resource_type.hrid
-    return w_class(class_name).new(:tree_node => tree_node, :view_mode => 'related_items').render_to(self)
+    return w_class(class_name).new(:tree_node => tree_node).render_to(self)
   end
 
   def related_items

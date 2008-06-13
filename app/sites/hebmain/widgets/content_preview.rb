@@ -1,5 +1,9 @@
 class Hebmain::Widgets::ContentPreview < WidgetManager::Base
 
+  def render_middle
+    render_full
+  end
+  
   def render_full
     get_content_items
     div(:class => 'content_preview'){

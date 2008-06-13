@@ -3,6 +3,10 @@ require 'rss/2.0'
 
 class Hebmain::Widgets::Rss < WidgetManager::Base
   
+  def render_left
+    render_preview
+  end
+  
   def render_full
     items = get_all_items
     div(:class => 'rss'){

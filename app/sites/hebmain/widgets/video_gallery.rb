@@ -1,5 +1,9 @@
 class Hebmain::Widgets::VideoGallery < WidgetManager::Base
   
+  def render_right
+    render_full
+  end
+  
   def render_full
     render_homepage # Default
   end

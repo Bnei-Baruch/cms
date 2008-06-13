@@ -1,7 +1,6 @@
 class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
   
-  def render_full
-    
+  def render_right
     div(:class => 'updates container'){
       w_class('cms_actions').new( :tree_node => tree_node, 
                                   :options => {:buttons => %W{ new_button edit_button delete_button }, 
@@ -17,6 +16,10 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
         end
       }
     }
+  end
+  
+  def render_full
+    render_news
   end
   
   def render_news

@@ -106,7 +106,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               }
               
               global_site_updates_node = global_site_updates
-              render_content_resource(global_site_updates_node, 'news') if global_site_updates_node
+              render_content_resource(global_site_updates_node) if global_site_updates_node
               #              w_class('cms_actions').new(:tree_node => tree_node, 
               #                :options => {:buttons => %W{ new_button }, 
               #                  :resource_types => %W{ site_updates },

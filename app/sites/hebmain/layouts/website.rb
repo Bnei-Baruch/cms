@@ -144,14 +144,13 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                         }
                         div(:class => 'entries'){
                           kabbalah_media_resources.each { |kabbalah_media_resource|                
-                            render_content_resource(kabbalah_media_resource)
+                            render_content_resource(kabbalah_media_resource, 'left')
                           } 
                         }
                       }
                       
                       left_column_resources.each { |left_column_resource|                
-                        render_content_resource(left_column_resource,
-                          left_column_resource.resource.resource_type.hrid == 'rss' ? 'preview' : 'full')
+                        render_content_resource(left_column_resource, 'left')
                       } 
                     }
                   }
@@ -171,7 +170,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
                       
                       middle_column_resources.each { |middle_column_resource|
-                        render_content_resource(middle_column_resource)
+                        render_content_resource(middle_column_resource, 'middle')
                       }
                     }
                   }
@@ -194,7 +193,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     :placeholder => 'right'}).render_to(self)
                 
                 right_column_resources.each { |right_column_resource|
-                  render_content_resource(right_column_resource)
+                  render_content_resource(right_column_resource, 'right')
                 }                
               }
             }

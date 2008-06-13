@@ -3,16 +3,11 @@ require 'rss/2.0'
 
 class Hebmain::Widgets::MediaRss < WidgetManager::Base
   
-  def render_full
-    # default is lesson
-    render_lesson
-  end
-  
-  def render_lesson
+  def render_left
     show_content
   end
   
-  def render_lesson_in_table
+  def render_full
     show_content_in_table
   end
   

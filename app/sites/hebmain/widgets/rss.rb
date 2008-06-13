@@ -48,7 +48,8 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     if rss_items
       rss_items.map do |rss_item|
         {:title => (rss_item.title rescue ''), 
-          :url => (rss_item.guid.content rescue ''), 
+          :url => (rss_item.guid.content rescue ''),
+          :aditional_url => (rss_item.link rescue ''),
           :date => (rss_item.pubDate rescue ''),
           :description => (rss_item.description rescue '')
         }
@@ -86,7 +87,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     div(:class => 'entries'){
       items.each do |item|
         div(:class => 'entry'){
-          a item[:title], :href => item[:url]
+          a item[:title], :href => item[:url].empty? ? item[:aditional_url] : item[:url]
           div(:class => 'date'){
             text item[:date].strftime('%d.%m.%y, %H:%m')
           }

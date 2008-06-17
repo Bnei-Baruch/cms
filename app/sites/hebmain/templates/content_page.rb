@@ -66,7 +66,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_meta_title
     WidgetManager::Base.new do
-      text get_name# unless get_hide_name
+     #  text get_name# unless get_hide_name
+     w_class('breadcrumbs').new(:view_mode => 'meta_title') 
     end
   end
 

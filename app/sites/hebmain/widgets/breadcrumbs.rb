@@ -13,6 +13,17 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
 
   end
 
+  def render_meta_title  
+    title = ''
+    unless parents.empty?
+        parents.reverse_each{ |e|
+          title = title + e.resource.name + ' | '
+        }
+    end
+    title = title + @tree_node.resource.name
+    text title
+  end
+  
   def render_titles
     unless calculated_titles.empty?
       calculated_titles.reverse.each_with_index{ |e, i|

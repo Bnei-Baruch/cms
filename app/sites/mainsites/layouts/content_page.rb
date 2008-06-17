@@ -11,6 +11,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
+    @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
     @google_analytics = w_class('google_analytics').new
   end
 
@@ -21,7 +22,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
         meta(:name => 'description', :content => ext_description)
-        title ext_title
+        title @meta_title #ext_title
         # stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 

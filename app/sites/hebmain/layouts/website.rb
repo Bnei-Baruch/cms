@@ -32,7 +32,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/widgets',
           :cache => false
           # :cache => 'cache/website_admin'
-          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
           }
@@ -46,7 +46,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/jquery.tabs.css',
           :cache => 'cache/website'
         end
-        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', :cache => 'cache/website'
+        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', :cache => 'cache/website'
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
@@ -103,8 +103,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                             TV
                           }
                           div(:class => 'tv') {
-  #                          img(:src => img_path('radio/bg.jpg'), :alt => '')
-  #                          div(:class => 'text') {text 'ווידאו קבלה' }
                             div(:class => 'play play-in')
                             div(:class => 'stop stop-out')
                             a(:class => 'right', :id => 'full_screen', :href => '') {rawtext _('למסך מלא')}

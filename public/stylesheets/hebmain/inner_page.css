@@ -199,6 +199,64 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
     vertical-align: middle;
     padding: 0 0 0 10px;
 }
+/*----------  Video gallery  ---------------*/
+.item .inner-player{
+    background-color:#e9e9e9;
+    padding-bottom:8px;
+}
+.item .inner-player .play-serv{
+    height:0px;
+    border-bottom:1px solid #BFBFBF;
+}
+.item .inner-player .playlist{
+    border-top:1px solid white;
+    height:300px;
+    overflow:auto;
+}
+.item .inner-player .play-title{
+    color:#4b4b4b;
+    font-weight:bold;
+    padding:7px 10px;
+}
+.item .inner-player .player-placeholder{
+    height:378px;
+    width:504px;
+    cursor:pointer;
+}
+.item .inner-player .flashplayer{
+    border-bottom:1px dashed white;
+}
+.item .playlist ul{
+    margin:0;
+}
+.item .playlist ul li{
+    list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+border-bottom:1px dashed #7b7b7b;
+}
+.item .playlist .odd{
+    background-color:#f2f2f2;
+}
+.item .playlist .playing{
+    background-color:#d3e6f3 !important;
+}
+.item .playlist ul li img{
+    width:80px;
+    height:60px;
+    float:right;
+    margin:7px 10px;
+}
+.item .playlist ul li a.h1-play{
+    color:black;
+    font-weight:bold;
+}
+.item .playlist ul li .play-separator{
+    color:#b1b1b1;
+}
+.item .playlist ul li .descr-play{
+    margin-top:1ex;
+}
 /*----------  More on page  ---------------*/
 .content .more {
     margin:15px 0 25px 0;

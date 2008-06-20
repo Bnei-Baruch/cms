@@ -1,16 +1,19 @@
 class Hebmain::Widgets::Video < WidgetManager::Base
-  
-  def render_full
-    # flowplayer
-    # default flash, second wmv url 
 
+  def video_admin  
     w_class('cms_actions').new( :tree_node => tree_node, 
       :options => {:buttons => %W{ edit_button delete_button }, 
         :resource_types => %W{ site_updates_entry },
         :new_text => 'צור יחידת תוכן חדשה', 
         :has_url => false
       }).render_to(self)
-    
+  end
+  
+  def render_full
+    video_admin
+    # flowplayer
+    # default flash, second wmv url 
+
     show_title = get_show_title
     if show_title.nil?
       show_title = false
@@ -82,6 +85,22 @@ class Hebmain::Widgets::Video < WidgetManager::Base
       #   }
       # }
     }
+  end
+  
+  def render_video_list
+    video_admin
+    a(:href => get_flash_url) {
+      img(:src => get_image(:image_name => 'thumb'), :alt => '', :class => 'flashplayer')
+    }
+    a(:href => get_flash_url, :class => 'h1-play') {
+      text get_title
+    }
+    span(:class => 'play-separator') {rawtext ' | '}
+    text get_length
+    span(:class => 'play-separator') {rawtext ' | '}
+    a 'הורד קובץ', :href => get_wmv_url
+    div(:class => 'descr-play') {text get_description}
+    div(:class => 'clear')
   end
 end
 

@@ -190,7 +190,9 @@ var playerConfig_homepage = {
 var flowplayer_homepage = null;
 $(function() {
   var $player = $('.player');
+  if ($player.size() == 0) return;
   var id = $player.attr("target_id");
+  if (id == 0) return;
   var $links = $player.find("a").not(".more").click(function(event){
     event.preventDefault();
     playerConfig_homepage.videoFile = $(this).attr("href");
@@ -206,4 +208,55 @@ $(function() {
   $("#flashplayer-"+id+" img").click(function(){
       $($links[0]).trigger('click'); 
   });
+});
+// Inner page
+var playerConfig_innerpage = { 
+  autoPlay: true,
+  loop: false,
+  initialScale:'scale', 
+  useNativeFullScreen: true,
+  showStopButton:false,
+  autoRewind:true,
+  showVolumeSlider: false,
+  showFullScreenButton:false,
+  controlsOverVideo: 'ease',
+  controlBarBackgroundColor: -1,
+  controlBarGloss: 'low',
+  showMenu:false
+};
+var flowplayer_innerpage = null;
+var now_playing = null;
+$(function() {
+  var $player = $('.inner-player')
+  if ($player.size() == 0) return;
+  $player.corner({
+          tl:{radius: 8},
+          tr:{radius: 8},
+          bl:{radius: 8},
+          br:{radius: 8},
+          antiAlias:true
+  });
+  var id = $player.attr("target_id");
+  if (id == 0) return;
+
+  var $links = $player.find("a").not(".more").click(function(event){
+    event.preventDefault();
+    playerConfig_innerpage.videoFile = $(this).attr("href");
+    if (flowplayer_innerpage == null) {
+      flowplayer_innerpage = flashembed("flashplayer-"+id,  
+                              {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#F0F4FD',width:503, height:378},
+                              {config: playerConfig_innerpage}
+                   );
+    } else {     
+      flowplayer_innerpage.setConfig(playerConfig_innerpage);
+    }
+    
+    if (now_playing) now_playing.toggleClass("playing");
+    now_playing = $(this).parent();
+    now_playing.toggleClass("playing");
+  });
+  $("#flashplayer-"+id+" img").click(function(){
+      $($links[0]).trigger('click'); 
+  });
+  $(".inner-player ul li:nth-child(odd)").addClass("odd");
 });

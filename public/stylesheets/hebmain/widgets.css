@@ -203,6 +203,7 @@ vertical-align:middle;
 .item .rss .h1{
     background-color:#E1ECFC;
     color:black;
+    overflow:hidden;
 }
 .item .rss .entry{
     padding:10px 0;

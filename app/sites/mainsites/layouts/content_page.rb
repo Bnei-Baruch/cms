@@ -35,7 +35,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/widgets',
                               :cache => false
                               #:cache => 'cache/content_page_admin'
-          javascript_include_tag 'flashembed', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/admin_content_page'
+          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/admin_content_page'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
@@ -49,7 +49,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/inner_page', 
                               'hebmain/widgets',
                               :cache => 'cache/content_page'
-          javascript_include_tag 'flashembed', :cache => 'cache/content_page'
+          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', :cache => 'cache/content_page'
         end
         rawtext <<-IE6
           <!--[if IE 6]>

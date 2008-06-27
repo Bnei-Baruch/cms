@@ -104,7 +104,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
             function(e){
               if(e == 'yes') {
                 Ext.Ajax.request({
-                  url: '#{admin_tree_node_path(tree_node)}',
+                  url: '#{tree_node_delete_admin_tree_node_path(tree_node)}',
                   method: 'post',
                   callback: function (options, success, responce){
                     if (success) {
@@ -113,8 +113,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
                     } else {
                       Ext.Msg.alert('Item Deletion', 'FAILURE!!!');
                     }
-                  },
-                  params: { '_method': 'delete' }
+                  }
                 });
               }
             }

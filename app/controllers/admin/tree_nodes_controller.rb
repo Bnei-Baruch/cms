@@ -1,7 +1,7 @@
 class Admin::TreeNodesController < ApplicationController
-	layout 'admin'
+  layout 'admin'
         
-  before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights ]
+  before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights, :tree_node_delete ]
   before_filter {|controller| 
     unless ['destroy'].include?(controller.action_name)
       controller.admin_authorize(['System manager'])
@@ -11,15 +11,15 @@ class Admin::TreeNodesController < ApplicationController
   # GET /tree_nodes
   # GET /tree_nodes.xml
   def index  
-  	if params[:parent_id] && params[:parent_id] != '0'
-  		@parent_id = params[:parent_id]
-  		@parent_node = TreeNode.find(@parent_id)
-#  		@grand_parent_id = @parent.parent.id if @parent.parent
-		else
-			@parent_id = 0
-  	end
+    if params[:parent_id] && params[:parent_id] != '0'
+      @parent_id = params[:parent_id]
+      @parent_node = TreeNode.find(@parent_id)
+      #  		@grand_parent_id = @parent.parent.id if @parent.parent
+    else
+      @parent_id = 0
+    end
 
-		@tree_nodes = TreeNode.find(:all,
+    @tree_nodes = TreeNode.find(:all,
       :conditions => ["parent_id = ?", @parent_id], :order => "position ASC")
     
     respond_to do |format|
@@ -65,6 +65,41 @@ class Admin::TreeNodesController < ApplicationController
     #load  permission rights list
     @tree_node_ac_rights = TreeNodeAcRight.find(:all, :conditions => ["tree_node_id = ?", params[:id]])
   end
+  
+  # GET /tree_nodes/1/tree_node_delete
+  def tree_node_delete
+    @tree_node = TreeNode.find(params[:id])
+    #   ******************
+    #   Check permissions!
+    if not (@tree_node && @tree_node.can_delete?)
+      flash[:notice] = "Access denied. User can't delete tree node"
+      redirect_to session[:referer]
+    end
+    #   ******************
+
+    if not (@tree_node.is_main?)
+      @tree_node.destroy
+    else
+      @tree_node.resource.status = 'DELETED'
+      if @tree_node.resource.save
+        flash[:notice] = 'Resource was successfully deleted.'
+      end
+    end
+    
+    respond_to do |format|
+      format.html {
+        if request.xhr?
+          head(:ok).to_json
+          return
+        end
+        redirect_to session[:referer] 
+        
+      }
+      format.xml  { head :ok }
+      format.json { head(:ok).to_json}
+    end
+    return
+  end
 
   # POST /tree_nodes
   # POST /tree_nodes.xml
@@ -106,7 +141,7 @@ class Admin::TreeNodesController < ApplicationController
     @tree_node = TreeNode.find(params[:id])
     #   ******************
     #   Check permissions!
-    if not (@tree_node && @tree_node.can_delete?)
+    if not (@tree_node && @tree_node.can_administrate?)
       flash[:notice] = "Access denied. User can't delete tree node"
       redirect_to session[:referer]
     end
@@ -142,12 +177,13 @@ class Admin::TreeNodesController < ApplicationController
     @tree_nodes.each do |element|
       @new_tree_nodes << Hash["id" => element.id,
         "text" => element.resource.name,
+        "status" => element.resource.status,
         "type" => element.resource.resource_type.name,
         "permalink" => element.permalink,
         "parentId" => id,
         "ismain" => element.is_main,
         "canEdit" => !element.can_edit?,
-        "canDelete" => !element.can_delete?,
+        "canDelete" => !element.can_administrate?,
         "canAdd" => !element.can_create_child?,
         #"addTarget" => new_admin_resource_path,
         "delTarget" => admin_resource_path(element.resource),

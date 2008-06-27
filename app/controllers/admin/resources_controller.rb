@@ -153,7 +153,7 @@ class Admin::ResourcesController < ApplicationController
     #   ******************
     #   Check permissions!
     main_tree_node = @resource.tree_nodes.select{ |e| e.is_main == true }.first
-    if not (main_tree_node && main_tree_node.can_delete?)
+    if not (main_tree_node && main_tree_node.can_administrate?)
       flash[:notice] = "Access denied. User can't delete tree node"
       redirect_to session[:referer]
     end

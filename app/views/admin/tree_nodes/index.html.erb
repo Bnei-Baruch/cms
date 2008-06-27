@@ -21,7 +21,8 @@
       <th>Children</th>
       <th>Type</th>
       <th>Name</th>
-      <th>Is main?</th>
+      <th>Status</th>
+      <th>Main?</th>
       <th>Permalink</th>
       <th colspan="4">Actions</th>
     </tr>
@@ -37,12 +38,13 @@
 	  </td>
       <td><%=h tree_node.resource.resource_type.name if tree_node.resource %></td>
       <td><%=h tree_node.resource.name %></td>
+      <td><%=h tree_node.resource.status.chars[0..2] %></td>
       <td><%=h tree_node.is_main %></td>
       <td><%=h tree_node.permalink %></td>
       <td><%= link_to 'Show', admin_resource_path(tree_node.resource) %></td>
-      <td><%= link_to 'Permissions', admin_tree_node_tree_node_permissions_path(tree_node) %></td>
+      <td><%= link_to 'Perm', admin_tree_node_tree_node_permissions_path(tree_node) %></td>
       <td><%= link_to 'Edit', edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id) %></td>
-      <td><%= link_to 'Destroy', admin_tree_node_path(tree_node), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to 'X', admin_tree_node_path(tree_node), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>

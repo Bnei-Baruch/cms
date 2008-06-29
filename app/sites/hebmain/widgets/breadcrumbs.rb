@@ -1,6 +1,8 @@
 class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
   def render_full
-    div(:class => 'breadcrumbs') {
+    div(:class => 'breadcrumbs') { 
+    a(:href => presenter.home ) {text 'ראשי'}
+    span(:class => 'gt') {text ' > '}
       unless parents.empty?
         parents.reverse_each{ |e, i|
           name = e.resource.name
@@ -15,12 +17,26 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
 
   def render_meta_title  
     title = ''
+    
+    meta_title = @tree_node.resource.properties("meta_title").get_value rescue nil
+    if !meta_title || meta_title.empty?
+        meta_title = @tree_node.resource.name
+	end
+    title = title + meta_title 
+    
     unless parents.empty?
-        parents.reverse_each{ |e|
-          title = title + e.resource.name + ' | '
+        parents.each{ |e| 
+        meta_title = e.resource.properties("meta_title").get_value rescue nil
+        if !meta_title || meta_title.empty?
+        	meta_title = e.resource.name
+	  	end
+	  	
+          title = title + ' | ' + meta_title 
         }
     end
-    title = title + @tree_node.resource.name
+    
+    
+    
     text title
   end
   

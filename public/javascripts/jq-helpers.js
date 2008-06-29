@@ -209,6 +209,19 @@ $(function() {
       $($links[0]).trigger('click'); 
   });
 });
+
+$(function() {
+  var $sitemap = $('.sitemap');
+  if ($sitemap.size() == 0) {return};
+  $sitemap.corner({
+          tl:{radius: 8},
+          tr:{radius: 8},
+          bl:{radius: 8},
+          br:{radius: 8},
+          antiAlias:true
+  });
+});
+  
 // Inner page
 var playerConfig_innerpage = { 
   autoPlay: true,
@@ -226,6 +239,7 @@ var playerConfig_innerpage = {
 };
 var flowplayer_innerpage = null;
 var now_playing = null;
+
 $(function() {
   var $player = $('.inner-player')
   if ($player.size() == 0) return;
@@ -260,3 +274,5 @@ $(function() {
   });
   $(".inner-player ul li:nth-child(odd)").addClass("odd");
 });
+
+

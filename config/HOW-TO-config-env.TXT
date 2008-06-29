@@ -1,0 +1,10 @@
+install postgresql - 8.2.7 
+install ruby with rubygem option ticked
+install rails
+	gem install rails -v=2.0.2
+	gem install postgres-pr
+	gem install mongrel
+	gem install ruby-debug
+	
+install tortoise - http://tortoisesvn.net/downloads
+imagemagick http://www.imagemagick.org/script/download.php

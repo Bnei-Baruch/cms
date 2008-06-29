@@ -7,6 +7,7 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
         li{
           a(:href => presenter.home){
             img(:src => img_path('home.gif'), :alt => 'home')
+            text ' ראשי'
           }
         }
         main_sections.each{ |section|

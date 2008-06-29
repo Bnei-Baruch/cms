@@ -11,6 +11,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @google_analytics = w_class('google_analytics').new
+    @newsletter = w_class('newsletter').new
+
   end
 
   def render
@@ -62,7 +64,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                   div(:class => 'yui-u first') {
                     div(:class => 'left-part') {
                       div(:class => 'h1') {
-                        text 'קבלה Live'
+                        text 'קבלה בשידור חי'
                         div(:class =>'h1-right')
                         div(:class =>'h1-left')
                       }
@@ -84,7 +86,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           }
                           li{
                             a(:href => '#tv'){
-                              span 'טלויזיה'
+                              span 'טלוויזיה'
                             }
                           }
                         }
@@ -189,9 +191,15 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     :new_text => 'צור יחידת תוכן חדשה', 
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
-                
-                right_column_resources.each { |right_column_resource|
-                  render_content_resource(right_column_resource, 'right')
+            	
+                    
+            
+                right_column_resources.each_with_index { |right_column_resource, i|
+                	@newsletter.render_to(self) if (i == 1)
+                  	render_content_resource(right_column_resource, 'right')
+              		
+            
+              		
                 }                
               }
             }

@@ -1,0 +1,75 @@
+/*----------  Content  ---------------*/
+
+html{
+	padding: 5 15px;
+}
+
+.mceContentBody {
+    padding:0;
+    text-align:right;
+    position: relative;
+	width:100%;
+	font-size: 14px;
+    border-bottom:1px dashed #e8e8e8;
+    margin:0 0 25px 0;
+    clear: both;
+}
+.mceContentBody .middle .h1{
+    background-color: #3864b5;
+}
+.mceContentBody .middle .h1-right{
+    background-position:0 -96px;
+    right:-1px;
+}
+.mceContentBody .middle .h1-left{
+    background-position:0 -64px;
+}
+
+.mceContentBody h1, .mceContentBody h1 a{
+    font-size:22px;
+    color:#0D47B2;
+    margin:0;
+    padding:0;
+}
+.mceContentBody .h1-left{
+    background-position: 0 -128px;
+}
+.mceContentBody .h1-right{
+    background-position: 0 -160px;
+}
+.mceContentBody h2{
+    font-size:16px;
+    margin:0 0 30px;
+    padding:0;
+}
+.mceContentBody h3{
+    font-size:16px;
+    color:#192862;
+    margin-bottom:3px;
+}
+.mceContentBody p{
+    margin-bottom:15px;
+}
+.mceContentBody strong{
+    font-weight:13.5px;
+	color:#1F1F1F;
+}
+.mceContentBody ul, .mceContentBody  ol{
+    margin-right: 0px;
+}
+.mceContentBody li{
+    margin-bottom:3px;
+}
+
+.mceContentBody .image{
+    background-color:#E8E8E9;
+    margin:0 0 20px 20px;
+    padding: 5px;
+    float:right;
+}
+.mceContentBody .full-image{
+    background-color:#E8E8E9;
+    margin:0 auto 10px;
+    padding: 5px;
+    text-align:center;
+}

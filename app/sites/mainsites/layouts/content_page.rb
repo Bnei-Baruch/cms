@@ -13,6 +13,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
     @google_analytics = w_class('google_analytics').new
+    @newsletter = w_class('newsletter').new
+    @sitemap = w_class('sitemap').new
   end
 
   def render
@@ -51,6 +53,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               :cache => 'cache/content_page'
           javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', :cache => 'cache/content_page'
         end
+        
+        
         rawtext <<-IE6
           <!--[if IE 6]>
         IE6
@@ -105,6 +109,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                 }
                 @static_tree.render_to(doc)
               }
+           		
+             @newsletter.render_to(self)
               
               global_site_updates_node = global_site_updates
               render_content_resource(global_site_updates_node) if global_site_updates_node
@@ -122,6 +128,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             }
           }
           div(:id => 'ft') {
+            @sitemap.render_to(self)
             @header_bottom_links.render_to(self)
           }
         }

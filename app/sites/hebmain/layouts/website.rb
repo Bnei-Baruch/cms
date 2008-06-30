@@ -11,7 +11,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @google_analytics = w_class('google_analytics').new
-    @newsletter = w_class('newsletter').new
+    #@newsletter = w_class('newsletter').new
 
   end
 
@@ -195,7 +195,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     
             
                 right_column_resources.each_with_index { |right_column_resource, i|
-                	@newsletter.render_to(self) if (i == 1)
+                	#@newsletter.render_to(self) if (i == 1)
                   	render_content_resource(right_column_resource, 'right')
               		
             

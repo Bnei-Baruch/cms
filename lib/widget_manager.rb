@@ -30,11 +30,11 @@ module WidgetManager
         name = $1
         if name == 'name'
           metaclass.class_eval(
-          "def #{method_name.to_s}(*args, &block)\n" <<
-          "  resource.name rescue ''\n" <<
-          "end",
-          __FILE__,
-          __LINE__ - 4
+            "def #{method_name.to_s}(*args, &block)\n" <<
+              "  resource.name rescue ''\n" <<
+              "end",
+            __FILE__,
+            __LINE__ - 4
           )
           return resource.name rescue ''
         elsif rp = resource.properties(name)
@@ -68,8 +68,6 @@ module WidgetManager
       @resource ||= tree_node.resource rescue nil
     end
 
-
-
   end
 
   class Template < Base
@@ -96,5 +94,29 @@ module WidgetManager
     end
 
   end       
+
+end
+
+module ActionController #:nodoc:
+  class Base
+    def render_widget_to_string(widget_class, assigns = @assigns)
+      add_variables_to_assigns
+      if AuthenticationModel.current_user_is_anonymous? 
+        Rails.cache.fetch(this_cache_key) {
+          @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
+          @rendered_widget.to_s
+        }
+      else
+        @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
+        @rendered_widget.to_s
+      end
+    end
+
+    private
+    def this_cache_key
+      @presenter.node.cache_key #+ '-' + @rendered_widget.class.to_s.underscore.gsub!('/','_') +
+      #'-render_' + @rendered_widget.view_mode
+    end
+  end
 
 end

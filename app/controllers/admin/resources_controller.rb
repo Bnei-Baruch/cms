@@ -1,6 +1,8 @@
 class Admin::ResourcesController < ApplicationController
-	before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy ]
+  before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy ]
   
+  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
+
   # This block sets layout for admin user and for all other.
   layout :set_layout
   def set_layout
@@ -49,14 +51,14 @@ class Admin::ResourcesController < ApplicationController
     @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
     
-#   ******************
-#   Check permissions!
+    #   ******************
+    #   Check permissions!
     parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
     if not (parent_tree_node && parent_tree_node.can_create_child?)
       flash[:notice] = "Access denied. User can't create tree node"
       redirect_to session[:referer]
     end
-#   ******************
+    #   ******************
   
     @tree_node = TreeNode.new(params[:resource][:tree_node])
   end

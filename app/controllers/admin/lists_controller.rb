@@ -1,8 +1,10 @@
 class Admin::ListsController < ApplicationController
-	layout 'admin'
+  layout 'admin'
         
   before_filter {|c| c.admin_authorize(['System manager'])}
   
+  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
+
   # GET /lists
   # GET /lists.xml
   def index

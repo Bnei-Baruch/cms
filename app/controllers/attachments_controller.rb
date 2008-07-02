@@ -1,6 +1,6 @@
 class AttachmentsController < ApplicationController
   
-	def get_image
+  def get_image
     #    :image_id/:image_name.:format
     image_id = params[:image_id]
     image_name = params[:image_name]
@@ -19,5 +19,5 @@ class AttachmentsController < ApplicationController
       :filename => attachment.filename,
       :type => attachment.mime_type,
       :disposition => "inline"
-	end
+  end
 end

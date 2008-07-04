@@ -70,19 +70,17 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def render_json_widget
-    unless params.has_key?(:options) && params[:options].has_key?(:widget)
+    unless params.has_key?(:widget)
       status_404
       return
     end
-    options = params[:options]
-    widget = options[:widget]
-    tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
-    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
-    # debugger
+    widget = params[:widget]
+    tree_node = TreeNode.find(params[:widget_node_id]) rescue nil
+    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => params).to_s
     if respond == 'false'
       render :text => respond, status => 500
     else
-      render :text => respond
+      render :json => respond
     end
   end
   

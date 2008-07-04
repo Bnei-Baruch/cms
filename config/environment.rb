@@ -24,11 +24,6 @@ Rails::Initializer.run do |config|
   config.load_paths += %W( #{RAILS_ROOT}/app/sites #{RAILS_ROOT}/app/sweepers )
   config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache/"
 
-  # Force all environments to use the same logger level
-  # (by default production uses :info, the others :debug)
-  # config.log_level = :debug
-  config.logger = Logger.new(config.log_path, 10, 5242880)
-
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
   # config.action_controller.session_store = :active_record_store

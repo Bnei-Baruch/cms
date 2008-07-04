@@ -221,3 +221,7 @@ background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no
 .x-tree-arrows .x-tree-elbow-end, .x-tree-arrows .x-tree-elbow {
 background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -64px 0pt;
 }
+.x-tree-node-loading .x-tree-node-icon{
+display:inline;
+background-image:url(/ext/resources/images/default/tree/loading.gif)!important;
+}

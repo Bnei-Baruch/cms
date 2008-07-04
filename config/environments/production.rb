@@ -7,6 +7,11 @@ config.cache_classes = true
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
 
+# Force all environments to use the same logger level
+# (by default production uses :info, the others :debug)
+# config.log_level = :debug
+config.logger = Logger.new(config.log_path, 10, 5242880)
+
 # Full error reports are disabled and caching is turned on
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true

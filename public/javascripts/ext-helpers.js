@@ -136,9 +136,10 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
   // create the tree
   tree = new Ext.tree.TreePanel({
     loader: new Ext.tree.TreeLoader({
-      url: url,
-      requestMethod:'GET',
-      baseParams:{format:'json',
+      dataUrl: url,
+//      requestMethod:'GET',
+      baseParams:{
+        format:'json',
         widget:'tree',
         view_mode:'json_node',
         display_hidden:'t'

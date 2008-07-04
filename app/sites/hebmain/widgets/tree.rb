@@ -53,7 +53,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     if id == 0
       build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten
     else
-      level_nodes(id).flatten
+      level_nodes(id)
     end
   end
 
@@ -102,13 +102,14 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
       :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED'],
       :depth => 2
     )
-    nodes.select { |element| element.parent_id == node_id }.collect { |node|
+    json = nodes.select { |element| element.parent_id == node_id }.collect { |node|
       has_children = nodes.select { |child|
         child.parent_id == node.id
       }.size == 0
       
       [:id => node.id, :text => node.resource.name, :href => get_page_url(node), :leaf => has_children]
     }
+    rawtext json.flatten.to_json
   end
 
   # Fetch all sub-nodes of website 
@@ -124,7 +125,8 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
       :parent => parent,
       :resource_type_hrids => ['content_page'],
       :properties => properties,
-      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED']
+      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED'],
+      :depth => 1
     )
     
   end

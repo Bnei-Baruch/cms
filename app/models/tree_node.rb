@@ -266,7 +266,7 @@ class TreeNode < ActiveRecord::Base
     alias :old_find_by_sql :find_by_sql
     def find_by_sql(arg)
       arg = arg.gsub("SELECT * FROM tree_nodes   WHERE", "SELECT *, get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2 FROM tree_nodes   WHERE")
-      output=self.old_find_by_sql(arg)
+      output = self.old_find_by_sql(arg)
       output.delete_if {|x| x.ac_type == 0 }
       output
     end

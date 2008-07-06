@@ -49,6 +49,14 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           :cache => 'cache/website'
         end
         javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', :cache => 'cache/website'
+
+        rawtext <<-IE61
+          <!--[if IE]>
+        IE61
+        stylesheet_link_tag 'hebmain/ie6'
+        rawtext <<-IE62
+          <![endif]-->        
+        IE62
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {

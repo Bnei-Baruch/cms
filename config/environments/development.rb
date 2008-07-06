@@ -15,7 +15,7 @@ config.whiny_nils = true
 config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false
 #ZZZ config.action_controller.perform_caching             = true
-config.cache_store = :file_store, "tmp/cache/"
+#config.cache_store = :file_store, "tmp/cache/"
 #ZZZ deprecated config.action_view.cache_template_extensions         = false
 config.action_view.debug_rjs                         = true
 # Don't care if the mailer can't send

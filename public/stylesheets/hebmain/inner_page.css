@@ -257,6 +257,16 @@ border-bottom:1px dashed #7b7b7b;
 .item .playlist ul li .descr-play{
     margin-top:1ex;
 }
+.item .table-no-border{
+	border-width: 0px;
+}
+
+.item .table-no-border td, .item .table-no-border th {
+	border-width: 0px;
+	padding-left: 20px;
+	vertical-align: top;
+}
+
 /*----------  More on page  ---------------*/
 .content .more {
     margin:15px 0 25px 0;

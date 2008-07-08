@@ -73,3 +73,13 @@ html{
     padding: 5px;
     text-align:center;
 }
+.mceContentBody .table-no-border{
+	border-width: 0px;
+}
+
+.mceContentBody .table-no-border td, .item .table-no-border th {
+	border-width: 1px;
+	padding-left: 20px;
+	border-style: dashed;
+	vertical-align: top;
+}

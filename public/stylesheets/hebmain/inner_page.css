@@ -34,7 +34,7 @@
     padding:0;
     text-align:right;
     position: relative;
-	width:100%;
+    width:504px;
 }
 .middle .h1{
     background-color: #3864b5;
@@ -48,7 +48,7 @@
 }
 
 .content h1, .content h1 a{
-    font-size:22px;
+    font-size:18px;
     color:#0D47B2;
     margin:0;
     padding:0;
@@ -77,7 +77,7 @@
     font-size:16px;
     color:#696969;
     margin:0;
-    padding:0 0 25px;
+    padding:0 0 15px;
     border-bottom:1px solid #e8e8e8;
 }
 .content .item{
@@ -273,9 +273,6 @@ border-bottom:1px dashed #7b7b7b;
     width:225px;
     padding: 10px 20px 0;
 }
-.content .more h3, .content .more img, .content .more .article{
-    float:right;
-}
 .content .clear {
     clear: both;
 }
@@ -340,7 +337,6 @@ border-bottom:1px dashed #7b7b7b;
     padding: 0 158px 0 20px;
     position:relative;
     border-bottom:1px dashed #e8e8e8;
-    *width:96%;
     *margin-right:3px;
 }
 .section_preview .preview-even{
@@ -535,6 +531,7 @@ border-bottom:1px dashed #7b7b7b;
     padding:0 10px;
     background: white url(/images/hebmain/box-mid.gif) repeat-y top right;
     width:140px;
+    margin:-5px 0 0;
 }
 .related .box .box-top{
     background: white url(/images/hebmain/box-top.gif) no-repeat top right;

@@ -36,30 +36,44 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
     h2 get_small_title if display_h2 && !get_small_title.empty?
     div(:class => 'descr') { text get_description } unless get_description.empty?
     
+    klass = @image_src ? 'more' : 'more_no_img'
     unless presenter.site_settings[:use_advanced_read_more]
-      a(:class => 'more', :href => url) { text "לכתבה המלאה" }
+      a(:class => klass, :href => url) { text "לכתבה המלאה" }
     else
       is_video, is_audio, is_article = is_video_audio_article
       if is_article
         if !is_video && !is_audio
-          a(:class => 'more', :href => url) { text "לכתבה המלאה" }
+          a(:class => klass, :href => url) { text "לכתבה המלאה" }
         else
-          a(:class => 'more', :href => url) { 
-            text "לכתבה המלאה"
-            img(:class => 'img', :src => img_path('video.png'), :alt => '') if is_video
-            img(:class => 'img', :src => img_path('audio.png'), :alt => '') if is_audio
+          a(:class => klass, :href => url) { 
+            if @image_src
+              text "לכתבה המלאה"
+              img(:class => 'img', :src => img_path('video.png'), :alt => '') if is_video
+              img(:class => 'img', :src => img_path('audio.png'), :alt => '') if is_audio
+            else
+              img(:class => 'img', :src => img_path('video.png'), :alt => '') if is_video
+              img(:class => 'img', :src => img_path('audio.png'), :alt => '') if is_audio
+              text "לכתבה המלאה"
+            end
           }
         end
-      else # no article
+      else # not article
         if is_video || is_audio
-          a(:class => 'more', :href => url) { 
+          a(:class => klass, :href => url) { 
             if is_video
-              span{text 'לצפייה'}
+              text = 'לצפייה'
+              image = 'video.png'
             else
+              text = 'להאזנה'
+              image = 'audio.png'
+            end
+            if @image_src
+              span{text 'להאזנה'}
+              img(:class => 'img', :src => img_path('audio.png'), :alt => '')
+            else
+              img(:class => 'img', :src => img_path('audio.png'), :alt => '')
               span{text 'להאזנה'}
             end
-            img(:class => 'img', :src => img_path('video.png'), :alt => '') if is_video
-            img(:class => 'img', :src => img_path('audio.png'), :alt => '') if is_audio
           }
         end
       end

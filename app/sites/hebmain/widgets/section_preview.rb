@@ -44,6 +44,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
         klass = index.odd? ? 'element preview-even' : 'element preview-odd'
         div(:class => klass) {
           render_content_resource(item, 'small')
+          div(:class => 'clear')
         }
         div(:class => 'clear')
         # break if (index + 1) >= get_number_of_items # For limiting the preview items

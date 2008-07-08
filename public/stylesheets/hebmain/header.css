@@ -136,9 +136,7 @@ background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 	margin-left: 5px;
 	list-style:none;
 	list-style-position: inside;
-	position: relative;
 	z-index:100;
-	display:inline;
 	float:right;
 }
 /*----------  Menu  ---------------*/

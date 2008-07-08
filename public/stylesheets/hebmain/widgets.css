@@ -36,7 +36,7 @@ vertical-align:middle;
     color:#696969;
 }
 .index .element{
-    padding: 15px 0 0;
+    padding: 15px 0;
     position:relative;
     border-bottom:1px dashed #e8e8e8;
     *display:inline-block;
@@ -65,6 +65,17 @@ vertical-align:middle;
     margin:0;
     position:relative;
     width:130px;
+}
+.index a.more_no_img{
+    float:right;
+    clear:both;
+    padding:0;
+    margin:10px 0 0;
+}
+.index a.more_no_img .img{
+    float:left;
+    padding:0 5px 0 10px;
+    vertical-align:text-bottom;
 }
 .index a.more img{
     float:none;
@@ -246,12 +257,12 @@ vertical-align:middle;
 }
 .main_preview2 h1{
     font-size: 18px;
-    padding: 27px 0 33px;
+    padding: 0 0 10px;
 }
 .main_preview2 img{
     width:204px;
     position:absolute;
-    left:0px;
+    right:0px;
     top:15px;
 }
 /*----------  Main Preview 3 ---------------*/

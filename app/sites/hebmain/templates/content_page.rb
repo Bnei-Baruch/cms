@@ -19,24 +19,30 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
                      :has_url => false, :placeholder => 'main_content'}).render_to(self)
       unless get_acts_as_section
         h1 get_title
-        h2 get_small_title
-        div(:class => 'descr') { text get_sub_title }
-        div(:class => 'author') {
-          span'תאריך: ' + get_date, :class => 'left' unless get_date.empty?
-          unless get_writer.empty?
-            span(:class => 'right') {
-              text 'מאת: '
-              unless get_writer_email.empty?
-                a(:href => 'mailto:' + get_writer_email){
-                  img(:src => img_path('email.gif'), :alt => 'email')
-                  text ' ' + get_writer
-                }
-              else
-                text ' ' + get_writer
-              end
-            }
-          end
-        }
+        small_title = get_small_title
+        h2 get_small_title unless small_title.empty?
+        sub_title = get_sub_title
+        div(:class => 'descr') { text get_sub_title } unless sub_title.empty?
+        my_date = get_date
+        writer = get_writer
+        unless my_date.empty? && writer.empty?
+          div(:class => 'author') {
+            span'תאריך: ' + my_date, :class => 'left' unless my_date.empty?
+            unless writer.empty?
+              span(:class => 'right') {
+                text 'מאת: '
+                unless get_writer_email.empty?
+                  a(:href => 'mailto:' + get_writer_email){
+                    img(:src => img_path('email.gif'), :alt => 'email')
+                    text ' ' + writer
+                  }
+                else
+                  text ' ' + writer
+                end
+              }
+            end
+          }
+        end
       end
       unless get_body.empty?
         div(:class => 'item') {

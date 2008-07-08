@@ -51,7 +51,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   
   private
   
-   def show_main_format
+  def show_main_format
     case @items_size
     when 1
       view_mode = 'large_main_format'
@@ -87,6 +87,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
           render_content_item(item, view_mode)
         }
       }
+      div(:class => 'clear')
     }                  
   end
 

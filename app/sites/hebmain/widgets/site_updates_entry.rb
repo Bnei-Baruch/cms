@@ -4,11 +4,11 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
     div(:class => 'update'){
       
       w_class('cms_actions').new( :tree_node => tree_node, 
-                                  :options => {:buttons => %W{ edit_button delete_button }, 
-                                  :resource_types => %W{ site_updates_entry },
-                                  :new_text => 'צור יחידת תוכן חדשה', 
-                                  :has_url => false,
-                                  :position => 'bottom'}).render_to(self)
+        :options => {:buttons => %W{ edit_button delete_button }, 
+          :resource_types => %W{ site_updates_entry },
+          :new_text => 'צור יחידת תוכן חדשה', 
+          :has_url => false,
+          :position => 'bottom'}).render_to(self)
  
       h4 get_title
       
@@ -27,22 +27,22 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
   end
   
   def gg_analytics_tracking (name_of_link = '')
-	  if presenter.is_homepage? 
-	  	{:onclick => 'javascript:urchinTracker(\'/homepage/news/'+name_of_link+'\');'}
-  	  else
-  	  	{}
-  	  end
+    if presenter.is_homepage? 
+      {:onclick => "javascript:urchinTracker('/homepage/news/#{name_of_link}');"}
+    else
+      {}
+    end
   end
   
   def render_news
     div(:class => 'item'){
       
       w_class('cms_actions').new( :tree_node => tree_node, 
-                                  :options => {:buttons => %W{ edit_button delete_button }, 
-                                  :resource_types => %W{ site_updates_entry },
-                                  :new_text => 'צור יחידת תוכן חדשה', 
-                                  :has_url => false,
-                                  :position => 'bottom'}).render_to(self)
+        :options => {:buttons => %W{ edit_button delete_button }, 
+          :resource_types => %W{ site_updates_entry },
+          :new_text => 'צור יחידת תוכן חדשה', 
+          :has_url => false,
+          :position => 'bottom'}).render_to(self)
  
       h4 get_title
       

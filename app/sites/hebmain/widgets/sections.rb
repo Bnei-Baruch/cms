@@ -14,8 +14,8 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
           li(:class => 'divider'){ rawtext '|'}
           li(section.eql?(presenter.main_section) ? {:class => 'selected'} : {}){
             a ({:href => get_page_url(section)}.merge!gg_analytics_tracking(section.resource.name)) {
-            	text section.resource.name
-        	}
+              text section.resource.name
+            }
           }
         }
       }
@@ -28,11 +28,11 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
   end
   
   def gg_analytics_tracking (name_of_link = '')
-	  if presenter.is_homepage? 
-	  	{:onclick => 'javascript:urchinTracker(\'/homepage/sections/'+name_of_link+'\');'}
-  	  else
-  	  	{}
-  	  end
-	end
+    if presenter.is_homepage? 
+      {:onclick => "javascript:urchinTracker('/homepage/sections/#{name_of_link}');"}
+    else
+      {}
+    end
+  end
   
 end

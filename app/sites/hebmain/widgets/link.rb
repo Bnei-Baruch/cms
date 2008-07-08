@@ -28,7 +28,7 @@ class Hebmain::Widgets::Link < WidgetManager::Base
   
   def gg_analytics_tracking (name_of_link = '')
     if presenter.is_homepage? 
-	  {:onclick => 'javascript:urchinTracker("/homepage/outgoing/'+name_of_link+'");'}
+	  {:onclick => "javascript:urchinTracker('/homepage/outgoing/#{name_of_link}');"}
   	else
   	  {}
   	end

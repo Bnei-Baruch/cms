@@ -15,13 +15,13 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
     show_content_page(false)
   end
 
-	def gg_analytics_tracking (name_of_link = '')
-	  if presenter.is_homepage? 
-	  	{:onclick => 'javascript:urchinTracker("/homepage/'+name_of_link+'");'}
-  	  else
-  	  	{}
-  	  end
-	end
+  def gg_analytics_tracking (name_of_link = '')
+    if presenter.is_homepage? 
+      {:onclick => "javascript:urchinTracker('/homepage/#{name_of_link}');"}
+    else
+      {}
+    end
+  end
 
   def show_content_page(display_h2 = true)
     main_tree_node = tree_node.resource.tree_nodes.main
@@ -34,7 +34,7 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
       }
     end
     preview_title = get_preview_title rescue ''
-	large_title = get_title rescue ''
+    large_title = get_title rescue ''
     
     final_title = !preview_title.empty? ? preview_title : (!large_title.empty? ? large_title : '')
     unless final_title.empty?
@@ -54,7 +54,7 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
       is_video, is_audio, is_article = is_video_audio_article
       if is_article
         if !is_video && !is_audio
-	       a({:class => klass, :href => url}.merge!gg_analytics_tracking(url_name)) { text "לכתבה המלאה" }
+          a({:class => klass, :href => url}.merge!gg_analytics_tracking(url_name)) { text "לכתבה המלאה" }
         else
           a({:class => klass, :href => url}.merge!gg_analytics_tracking(url_name)) { 
             if @image_src

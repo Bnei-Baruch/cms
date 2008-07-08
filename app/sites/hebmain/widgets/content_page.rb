@@ -15,22 +15,33 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
     show_content_page(false)
   end
 
+	def gg_analytics_tracking (name_of_link = '')
+	  if presenter.is_homepage? 
+	  	{:onclick => 'javascript:urchinTracker("/homepage/'+name_of_link+'");'}
+  	  else
+  	  	{}
+  	  end
+	end
+
   def show_content_page(display_h2 = true)
     main_tree_node = tree_node.resource.tree_nodes.main
     url = get_page_url(main_tree_node)
+    url_name = url.split('/').reverse[0];
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
     if @image_src
-      a(:href => url){
+      a({:href => url}.merge!gg_analytics_tracking(url_name)){
         img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt) 
       }
     end
     preview_title = get_preview_title rescue ''
-    large_title = get_title rescue ''
+	large_title = get_title rescue ''
     
     final_title = !preview_title.empty? ? preview_title : (!large_title.empty? ? large_title : '')
     unless final_title.empty?
       h1{
-        a final_title, :href => url
+        a({:href => url}.merge!gg_analytics_tracking(url_name)) {
+    	  text final_title
+        } 
       }
     end
     h2 get_small_title if display_h2 && !get_small_title.empty?
@@ -38,14 +49,14 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
     
     klass = @image_src ? 'more' : 'more_no_img'
     unless presenter.site_settings[:use_advanced_read_more]
-      a(:class => klass, :href => url) { text "לכתבה המלאה" }
+      a({:class => klass, :href => url}.merge!gg_analytics_tracking(url_name)) { text "לכתבה המלאה" }
     else
       is_video, is_audio, is_article = is_video_audio_article
       if is_article
         if !is_video && !is_audio
-          a(:class => klass, :href => url) { text "לכתבה המלאה" }
+	       a({:class => klass, :href => url}.merge!gg_analytics_tracking(url_name)) { text "לכתבה המלאה" }
         else
-          a(:class => klass, :href => url) { 
+          a({:class => klass, :href => url}.merge!gg_analytics_tracking(url_name)) { 
             if @image_src
               text "לכתבה המלאה"
               img(:class => 'img', :src => img_path('video.png'), :alt => '') if is_video
@@ -59,7 +70,7 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
         end
       else # not article
         if is_video || is_audio
-          a(:class => klass, :href => url) { 
+          a({:class => klass, :href => url}.merge!gg_analytics_tracking(url_name)) { 
             if is_video
               text = 'לצפייה'
               image = 'video.png'

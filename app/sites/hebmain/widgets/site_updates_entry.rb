@@ -15,14 +15,23 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
       rawtext get_description
       div(:class => 'link'){
         url = get_url
+
         unless url.empty?
-          a(:href => url, :title => 'link') {
+          a({:href => url, :title => 'link'}.merge!gg_analytics_tracking(get_url_text)) {
             rawtext get_url_text
             img(:src => img_path('arrow-left.gif'), :alt => '')
           }
         end
       }
     }
+  end
+  
+  def gg_analytics_tracking (name_of_link = '')
+	  if presenter.is_homepage? 
+	  	{:onclick => 'javascript:urchinTracker(\'/homepage/news/'+name_of_link+'\');'}
+  	  else
+  	  	{}
+  	  end
   end
   
   def render_news

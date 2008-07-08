@@ -31,6 +31,10 @@ class Sites::Global < Presenter::Base
     end
   end
   
+  def is_homepage?
+  	node == website_node
+  end
+  
   def node_name
     node.resource.name
   end

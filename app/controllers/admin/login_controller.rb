@@ -40,11 +40,28 @@ class Admin::LoginController < ApplicationController
 
         uri= session[:original_uri]
         session[:original_uri]=nil
-        redirect_to(uri || admin_resources_path)
+        redirect_to(uri || user_home_page(user.website_id))
       else
         flash.now[:notice] = "Invalid user/password combination"
         render :action => "login" 
       end
+  end
+  
+  def user_home_page(user_website_id)
+    if user_website_id
+      website = Website.find(user_website_id)
+      if website
+        my_port = request.server_port.to_s
+        my_port = (my_port == '80' ? '' : ':' + my_port)
+        prefix = ''
+        prefix = '/' + website.prefix unless website.use_homepage_without_prefix
+        website.domain + my_port + prefix
+      else
+        admin_resources_path
+      end
+    else
+      admin_resources_path
+    end
   end
   
 end

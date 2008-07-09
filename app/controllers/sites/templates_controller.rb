@@ -74,14 +74,15 @@ class Sites::TemplatesController < ApplicationController
       status_404
       return
     end
-    options = params[:options]
-    widget = options[:widget]
-    tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
-    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
+# Rami's version
+#    options = params[:options]
+#    widget = options[:widget]
+#    tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
+#    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
 # Old version
-#   widget = params[:widget]
-#   tree_node = TreeNode.find(params[:widget_node_id]) rescue nil
-#   respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => params).to_s
+   widget = params[:widget]
+   tree_node = TreeNode.find(params[:widget_node_id]) rescue nil
+   respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => params).to_s
 
     if respond == 'false'
       render :text => respond, status => 500

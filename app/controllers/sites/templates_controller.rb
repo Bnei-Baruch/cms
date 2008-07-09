@@ -17,13 +17,13 @@ class Sites::TemplatesController < ApplicationController
     host = 'http://' + request.host
     prefix = params[:prefix]
     permalink = params[:id]
+    path = params[:path]
     if prefix || permalink
       @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
       @website = nil if @website && @website.use_homepage_without_prefix && !(prefix && permalink)
-    else
+    elsif !path || (path && path.empty?)
       @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', host, true])
     end
-    
     unless @website
       # External link
       check_url_migration(true)
@@ -74,9 +74,15 @@ class Sites::TemplatesController < ApplicationController
       status_404
       return
     end
-    widget = params[:widget]
-    tree_node = TreeNode.find(params[:widget_node_id]) rescue nil
-    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => params).to_s
+    options = params[:options]
+    widget = options[:widget]
+    tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
+    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
+# Old version
+#   widget = params[:widget]
+#   tree_node = TreeNode.find(params[:widget_node_id]) rescue nil
+#   respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => params).to_s
+
     if respond == 'false'
       render :text => respond, status => 500
     else

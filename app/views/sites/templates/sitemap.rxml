@@ -1,8 +1,5 @@
 xml.instruct!
 xml.urlset(:xmlns => 'http://www.sitemaps.org/schemas/sitemap/0.9') {
-  xml.url {
-    xml.loc(@presenter.home)
-  }
   for page in @pages
     xml.url {
       xml.loc(get_page_url(page))

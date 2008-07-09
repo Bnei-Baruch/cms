@@ -97,7 +97,7 @@ class IndicesAndConstraints < ActiveRecord::Migration
       CREATE INDEX fki_users_websites_fk ON users(website_id);
 
       CREATE INDEX index_resources_on_id ON resources(id);
-      CREATE INDEX gshilin_index_properties_on_id ON properties(id);
+      CREATE INDEX index_properties_on_id ON properties(id);
     my_code
     execute sql
   end

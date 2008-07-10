@@ -223,6 +223,9 @@ background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no
 display:inline;
 background-image:url(/ext/resources/images/default/tree/loading.gif)!important;
 }
+li.x-tree-node{
+list-style-type:none;
+}
 .x-tree-node a span{
 white-space:normal;
 }

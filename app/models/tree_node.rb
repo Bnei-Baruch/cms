@@ -94,6 +94,17 @@ class TreeNode < ActiveRecord::Base
     TreeNode.find_by_resource_id_and_is_main(resource_id, true)
   end
 
+  # destroy tree_node if it is not main or mark resource as deleted if it is main
+  # return true if success
+  def logical_delete
+     if not (is_main?)
+      destroy
+    else
+      resource.status = 'DELETED'
+      resource.save
+    end
+  end
+  
   # The has_url virtual variable is passed to when requesting for resource edit/create
   # if true than on the resource edit/create of this tree_node will show permalink text field
   # Embedded resources won't have permalink

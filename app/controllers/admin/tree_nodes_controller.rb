@@ -79,13 +79,10 @@ class Admin::TreeNodesController < ApplicationController
     end
     #   ******************
 
-    if not (@tree_node.is_main?)
-      @tree_node.destroy
-    else
-      @tree_node.resource.status = 'DELETED'
-      if @tree_node.resource.save
+    if @tree_node.logical_delete
         flash[:notice] = 'Resource was successfully deleted.'
-      end
+    else
+        flash[:notice] = 'Resource was fail on delete.'
     end
     
     respond_to do |format|

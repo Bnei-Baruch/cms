@@ -156,7 +156,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
     renderTo:tree_label,
     title: title,
     collapseFirst:true,
-    autoHeight:true,
+    autoHeight:false,
     lines:false,
     useArrows:true,
     width:180,

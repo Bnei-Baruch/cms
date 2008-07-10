@@ -53,7 +53,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     if id == 0
       build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten
     else
-      level_nodes(id)
+      level_nodes(id, false)
     end
   end
 
@@ -94,7 +94,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   
   # Fetch all specific node of website
   def level_nodes(node_id, regular_user = true)
-    properties = regular_user ? 'b_hide_on_navigation = false' : nil
+    properties = regular_user ? 'b_hide_on_navigation = false' : ''
     nodes = TreeNode.get_subtree(
       :parent => node_id,
       :resource_type_hrids => ['content_page'],
@@ -117,16 +117,18 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     if regular_user
       properties =  'b_hide_on_navigation = false'
       parent = presenter.main_section.id
+      status = ['PUBLISHED']
     else
       properties = nil
       parent =  @website_parent_node
+      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
     end
     TreeNode.get_subtree(
       :parent => parent,
       :resource_type_hrids => ['content_page'],
       :properties => properties,
-      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED'],
-      :depth => 1
+      :status => status,
+      :depth => 2
     )
     
   end

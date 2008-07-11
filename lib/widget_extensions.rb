@@ -53,11 +53,12 @@ module WidgetExtensions
       :host => my_domain)
   end
   
-  def add_node_link_to_resource(parent_node, resource, placeholder = nil)
+  def add_node_link_to_resource(parent_node, resource, placeholder = '')
     new_tree_node = 
       TreeNode.new(
       :parent_id => parent_node.id,
       :has_url => false,
+      :placeholder => placeholder,
       :is_main => false
     )
     new_tree_node.resource = resource

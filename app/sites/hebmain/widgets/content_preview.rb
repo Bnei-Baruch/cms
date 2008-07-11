@@ -55,7 +55,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       get_content_items
     end
 
-    if is_rebuild
+    if !show
       @items.last.move_to_top
       get_content_items
     end

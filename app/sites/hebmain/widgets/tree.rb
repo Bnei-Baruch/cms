@@ -107,7 +107,15 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
         child.parent_id == node.id
       }.size == 0
       
-      [:id => node.id, :text => node.resource.name, :href => get_page_url(node), :leaf => has_children]
+      [
+        :id => node.id, :text => node.resource.name, :href => get_page_url(node), :leaf => has_children,
+        :parent_id => node.parent_id,
+        :cannot_edit => !node.can_edit?, :cannot_create_child => !node.can_create_child?,
+        :cannot_delete => !node.can_delete?,
+        :addTarget => new_admin_resource_path,
+        :delTarget => admin_tree_node_path(node),
+        :editTarget => edit_admin_resource_path(:id => node.resource, :tree_id => node.id)
+      ]
     }
     rawtext json.flatten.to_json
   end
@@ -146,7 +154,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     end
     [
       {
-        :id => id, :text => name, :href => href, :leaf => false,#!item[:submenu],
+        :id => id, :text => name, :href => href, :leaf => false,
         :parent_id => leaf.parent_id,
         :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,
         :cannot_delete => !leaf.can_delete?,

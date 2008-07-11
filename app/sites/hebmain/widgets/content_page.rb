@@ -79,11 +79,11 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
               image = 'audio.png'
             end
             if @image_src
-              span{text 'להאזנה'}
-              img(:class => 'img', :src => img_path('audio.png'), :alt => '')
+              span{text text}
+              img(:class => 'img', :src => img_path(image), :alt => '')
             else
-              img(:class => 'img', :src => img_path('audio.png'), :alt => '')
-              span{text 'להאזנה'}
+              img(:class => 'img', :src => img_path(image), :alt => '')
+              span{text text}
             end
           }
         end

@@ -179,7 +179,9 @@ class Sites::TemplatesController < ApplicationController
   end
 
   def l_class(resource)
-    my_layout_path(resource).camelize.constantize
+    l_class_str = site_settings[:layout_map][resource]
+    l_class_str = resource if l_class_str.nil?
+    my_layout_path(l_class_str).camelize.constantize
   end
 
   private     

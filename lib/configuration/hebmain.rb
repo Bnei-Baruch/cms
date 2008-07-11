@@ -8,7 +8,8 @@ module	Configuration::Hebmain
     :group_name => 'mainsites',
  # define the interface language (for the frontend). This is powered by a multilingual plugin
     :language => 'hebrew',
-    :site_direction => 'rtl'
+    :site_direction => 'rtl',
+    :layout_map => { 'search' => 'content_page'}
   }
 
 end

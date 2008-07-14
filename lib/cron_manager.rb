@@ -70,10 +70,11 @@ class CronManager
         raise
       end
     end
+    puts "RSS #{content}"
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
     data = YAML.dump(RSS::Parser.parse(content, false).items[range])
     property = tree_node.resource.properties('items')
-    if property.text_value != data
+    unless property.text_value == data
       property.update_attributes(:text_value => data)
       system("rake tmp:cache:clear")
     end
@@ -120,7 +121,7 @@ class CronManager
     
     data = YAML.dump(lessons)
     property = tree_node.resource.properties('items')
-    if property.tree_value != data
+    unless property.text_value == data
       property.update_attributes(:text_value => data) unless (data.nil? | data.empty?)
       system("rake tmp:cache:clear")
     end

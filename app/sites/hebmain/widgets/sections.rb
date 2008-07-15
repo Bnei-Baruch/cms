@@ -5,7 +5,7 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
       div(:class => 'first')
       ul {
         li{
-          a({:href => presenter.home}.merge!gg_analytics_tracking('ראשי')){
+          a({:href => presenter.home}.merge!(gg_analytics_tracking('ראשי'))){
             img(:src => img_path('home.gif'), :alt => 'home')
             text ' ראשי'
           }
@@ -13,7 +13,7 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
         main_sections.each{ |section|
           li(:class => 'divider'){ rawtext '|'}
           li(section.eql?(presenter.main_section) ? {:class => 'selected'} : {}){
-            a ({:href => get_page_url(section)}.merge!gg_analytics_tracking(section.resource.name)) {
+            a({:href => get_page_url(section)}.merge!(gg_analytics_tracking(section.resource.name))) {
               text section.resource.name
             }
           }

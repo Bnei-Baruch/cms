@@ -102,7 +102,8 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
           end
         }
       end
-      a get_read_more_text, :href => get_read_more_url, :class => 'more'
+      text = get_read_more_text
+      a text, :href => get_read_more_url, :class => 'more' unless text.empty?
     }
   end
 

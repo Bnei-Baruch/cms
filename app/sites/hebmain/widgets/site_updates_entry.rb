@@ -17,7 +17,7 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
         url = get_url
 
         unless url.empty?
-          a({:href => url, :title => 'link'}.merge!gg_analytics_tracking(get_url_text)) {
+          a({:href => url, :title => 'link'}.merge!(gg_analytics_tracking(get_url_text))) {
             rawtext get_url_text
             img(:src => img_path('arrow-left.gif'), :alt => '')
           }

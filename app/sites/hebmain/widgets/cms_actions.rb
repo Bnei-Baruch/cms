@@ -31,7 +31,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
         was_created = false
         buttons.each_with_index {|b, idx|
           rawtext ',' if was_created
-          was_created = self.send(b)
+          was_created = self.send(b, element)
         }
       
         rawtext <<-CMS2
@@ -57,7 +57,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     end         
   end
 
-  def new_button
+  def new_button(element)
     parent_id = tree_node.id
     resource_types = []
     @options[:resource_types].each{|e|
@@ -81,7 +81,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     end
   end
 
-  def edit_button
+  def edit_button(element)
     href = edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id)
     text = @options[:edit_text] || 'ערוך'
     rawtext <<-EDIT
@@ -93,7 +93,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     true
   end
 
-  def delete_button
+  def delete_button(element)
     name = tree_node.resource.name.gsub(/'/,'&#39;')
     text = @options[:delete_text] || 'מחק'
     rawtext <<-DELETE
@@ -109,7 +109,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
                   callback: function (options, success, responce){
                     if (success) {
                       Ext.Msg.alert('Item Deletion', 'The item <#{name}> was successfully deleted');
-                      Ext.get('div_#{@@idx}').parent().remove();
+                      Ext.get('#{element}').parent().remove();
                     } else {
                       Ext.Msg.alert('Item Deletion', 'FAILURE!!!');
                     }

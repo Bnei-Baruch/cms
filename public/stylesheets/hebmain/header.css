@@ -1,231 +1,232 @@
 /******** GENERAL *********************/
 body {
-	direction: rtl;
-	unicode-bidi: bidi-override;
+    direction: rtl;
+    unicode-bidi: bidi-override;
 }
 a, a:visited{
-	color:#186BE5;
-	text-decoration:none;
+    color:#186BE5;
+    text-decoration:none;
 }
 a:hover{
-	text-decoration:underline;
+    text-decoration:underline;
 }
 #yui-main {
-	/*background: transparent url(/images/hebmain/page-bg.gif) repeat-y 0 0;*/
+    /*background: transparent url(/images/hebmain/page-bg.gif) repeat-y 0 0;*/
 }
 .left {
-	float:left;
+    float:left;
 }
 .right {
-	float:right;
+    float:right;
 }
 strong{
-	font-weight:bold;
+    font-weight:bold;
 }
 /***********  HEADER  ****************/
 .dynamic_tree {
-right:0;
-top:0;
-position:fixed;
-z-index:1000;
+    right:0;
+    top:0;
+    position:fixed;
+    z-index:1000;
 }
 #hd {
-	position: relative;
-	height:80px;
-	font-size: 108%;
-	margin:0 0 0 7px;
-        background-color:white;
+    position: relative;
+    height:80px;
+    font-size: 108%;
+    margin:0 0 0 7px;
+    background-color:white;
 }
 #hd-r {
-	position: relative;
-	height:80px;
-	font-size: 108%;
-	margin:0;
+    position: relative;
+    height:80px;
+    font-size: 108%;
+    margin:0;
 }
 /*----------  h1  ---------------*/
 .h1{
-	background-color:#90aede;
-	color:white;
-	text-align:right;
-	font-size:138.5%;
-	margin:0;
-	height:32px;
-	line-height:32px;
-  position:relative;
-  padding: 0 10px 0 0;
+    background-color:#90aede;
+    color:white;
+    text-align:right;
+    font-size:138.5%;
+    margin:0;
+    height:32px;
+    line-height:32px;
+    position:relative;
+    padding: 0 10px 0 0;
 }
 .h1 .h1-right,.h1 .h1-left{
-	position:absolute;
-  top:0;
-  width:6px;
-  height:32px;
+    position:absolute;
+    top:0;
+    width:6px;
+    height:32px;
 }
 .h1 .h1-right{
-  right:0;
-background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 -32px;
+    right:0;
+    background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 -32px;
 }
 .h1 .h1-left{
-left:0;
-background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;  
+    left:0;
+    background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;  
 }
 /*----------  Logo  ---------------*/
 #hd-r .logo {
-	position: absolute;
-	top:-15px;
-	right:0;
+    position: absolute;
+    top:-15px;
+    right:0;
 }
 #hd-r .logo h1{
-	position: absolute;
-	top:-1000px;
-	right:0;
+    position: absolute;
+    top:-1000px;
+    right:0;
 }
 /*----------  Search  ---------------*/
 #hd .search {
-	position: absolute;
-	top:15px;
-	left:0;
-	width:300px;
-	height:15px;
+    position: absolute;
+    top:15px;
+    left:0;
+    width:300px;
+    height:15px;
 }
 #hd .search .text{
-	height:17px;
-  	width:160px;
-  	border:1px solid #b7b7b7 !important ;
-	border-left:0 none !important;
-	padding:0 2px !important;
-	font-size:11px;
-	line-height:11px;
-	margin:0;
+    height:17px;
+    width:160px;
+    border:1px solid #b7b7b7 !important ;
+    border-left:0 none !important;
+    padding:0 2px !important;
+    font-size:11px;
+    line-height:11px;
+    margin:0;
 }
 #hd .search *{
-	float:left;
+    float:left;
 }
 #hd .search .submit{
-	width:65px;
-	height:19px;
+    width:65px;
+    height:19px;
 }
 
 /*----------  Links  ---------------*/
 #hd ul.links {
-	position: absolute;
-	top:15px;
-	right:0;
-	height:15px;
-	margin: 0;
-	padding: 0;
+    position: absolute;
+    top:15px;
+    right:0;
+    height:15px;
+    margin: 0;
+    padding: 0;
 }
 #hd ul.links li {
-	float: left;
-	margin-left: 14px;
-	list-style:none;
-	list-style-position: inside;
-	position: relative;
+    float: left;
+    margin-left: 14px;
+    list-style:none;
+    list-style-position: inside;
+    position: relative;
 }
 /*----------  Footer  ---------------*/
 #ft{
-	display:inline-block;
+    text-align:right;
+    *display:inline-block;
 }
 #ft ul.links {
-	height:15px;
-	margin: 30px 0;
-	padding: 0;
-	text-align:center;
-	color:#186BE5;
+    height:15px;
+    margin: 30px 0;
+    padding: 0;
+    text-align:center;
+    color:#186BE5;
 }
 #ft ul.links li {
-	margin-left: 5px;
-	list-style:none;
-	list-style-position: inside;
-	z-index:100;
-	float:right;
+    margin-left: 5px;
+    list-style:none;
+    list-style-position: inside;
+    z-index:100;
+    float:right;
 }
 /*----------  Menu  ---------------*/
 #bd .menu {
-	font-size:116%;
-	font-weight: bold;
-	background: white url(/images/hebmain/menu-bg.gif) repeat-x left -62px;
-  position:relative;
-  height:31px;
-  width:100%;
-	margin: 0 0 25px;
+    font-size:116%;
+    font-weight: bold;
+    background: white url(/images/hebmain/menu-bg.gif) repeat-x left -62px;
+    position:relative;
+    height:31px;
+    width:100%;
+    margin: 0 0 25px;
 }
 #bd .menu a {
-color:black;
+    color:black;
 }
 #bd .menu ul {
-  position:absolute;
-  top:0;
-  right:0;
-  width:100%;
-	height:31px;
-	line-height:21px;
-	padding: 3px 0 0; 
-	margin: 0;
+    position:absolute;
+    top:0;
+    right:0;
+    width:100%;
+    height:31px;
+    line-height:21px;
+    padding: 3px 0 0; 
+    margin: 0;
 }
 #bd .menu .first {
-  position:absolute;
-  top:0;
-  right:0;
-  height:31px;
-  width:4px;
-	background: white url(/images/hebmain/menu-bg.gif) no-repeat right 0;
+    position:absolute;
+    top:0;
+    right:0;
+    height:31px;
+    width:4px;
+    background: white url(/images/hebmain/menu-bg.gif) no-repeat right 0;
 }
 #bd .menu .last {
-  position:absolute;
-  top:0;
-  left:0;
-  height:31px;
-  width:4px;
-	background: white url(/images/hebmain/menu-bg.gif) no-repeat right -31px;
+    position:absolute;
+    top:0;
+    left:0;
+    height:31px;
+    width:4px;
+    background: white url(/images/hebmain/menu-bg.gif) no-repeat right -31px;
 }
 #bd .menu ul li {
-	float: right;
-	list-style-type: none;
-	list-style-position: inside;
-	padding: 2px 15px;
-	margin:0;
+    float: right;
+    list-style-type: none;
+    list-style-position: inside;
+    padding: 2px 15px;
+    margin:0;
 }
 #bd .menu ul li.divider{
-	color:#838383;
-	margin: 0;
-	padding: 0;
+    color:#838383;
+    margin: 0;
+    padding: 0;
 }
 #bd .menu ul li.selected{
-	background-color:#EAF0FC;
+    background-color:#EAF0FC;
 }
 #bd .menu img{
-  *vertical-align:middle;
+    *vertical-align:middle;
 }
 /*----------  Tree  ---------------*/
 .x-tree {
-  text-align: right;
-  padding:0;
+    text-align: right;
+    padding:0;
 }
 .x-tree-node-icon {
-  display:none;
+    display:none;
 }
 .x-tree-arrows .x-tree-elbow-plus {
-background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt;
+    background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt;
 }
 .x-tree-arrows .x-tree-elbow-minus {
-background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+    background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
 }
 .x-tree-arrows .x-tree-elbow-end-plus {
-background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt 50%;
+    background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt 50%;
 }
 .x-tree-arrows .x-tree-elbow-end-minus {
-background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+    background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
 }
 .x-tree-arrows .x-tree-elbow-end, .x-tree-arrows .x-tree-elbow {
-background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -64px 0pt;
+    background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -64px 0pt;
 }
 .x-tree-node-loading .x-tree-node-icon{
-display:inline;
-background-image:url(/ext/resources/images/default/tree/loading.gif)!important;
+    display:inline;
+    background-image:url(/ext/resources/images/default/tree/loading.gif)!important;
 }
 li.x-tree-node{
-list-style-type:none;
+    list-style-type:none;
 }
 .x-tree-node a span{
-white-space:normal;
+    white-space:normal;
 }

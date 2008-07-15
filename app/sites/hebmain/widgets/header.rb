@@ -12,7 +12,9 @@ class Hebmain::Widgets::Header < WidgetManager::Base
         input :type => 'hidden', :name => 'cof', :value => 'FORID:11'
         input :type => 'text', :name => 'q', :size => '31', :class => 'text'
       }
-      javascript :src => 'http://www.google.com/coop/cse/brand?form=cse-search-box&lang=he'
+      rawtext <<-CODE
+        <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=he"></script>
+      CODE
     }   
   
     ul(:class => 'links') do

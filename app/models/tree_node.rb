@@ -97,7 +97,7 @@ class TreeNode < ActiveRecord::Base
   # destroy tree_node if it is not main or mark resource as deleted if it is main
   # return true if success
   def logical_delete
-     if not (is_main?)
+    if not (is_main?)
       destroy
     else
       resource.status = 'DELETED'

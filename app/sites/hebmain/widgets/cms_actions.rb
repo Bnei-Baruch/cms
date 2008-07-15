@@ -106,6 +106,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
                 Ext.Ajax.request({
                   url: '#{tree_node_delete_admin_tree_node_path(tree_node)}',
                   method: 'post',
+                  data: {},
                   callback: function (options, success, responce){
                     if (success) {
                       Ext.Msg.alert('Item Deletion', 'The item <#{name}> was successfully deleted');

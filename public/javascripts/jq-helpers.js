@@ -212,7 +212,7 @@ $(function() {
 
 $(function() {
   var $sitemap = $('.sitemap');
-  if ($sitemap.size() == 0) {return};
+  if ($sitemap.size() == 0) {return;}
   $sitemap.corner({
           tl:{radius: 8},
           tr:{radius: 8},
@@ -220,6 +220,11 @@ $(function() {
           br:{radius: 8},
           antiAlias:true
   });
+  if (!jQuery.browser.msie) {
+    $sitemap = $('.sitemap-inner');
+    if ($sitemap.size() == 0) {return;}
+    $sitemap.parent().css("float", "right");
+  }
 });
   
 // Inner page

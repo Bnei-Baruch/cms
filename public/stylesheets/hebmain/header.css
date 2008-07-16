@@ -123,7 +123,7 @@ strong{
 }
 /*----------  Footer  ---------------*/
 #ft{
-    text-align:right;
+    text-align:center;
     *display:inline-block;
 }
 #ft ul.links {
@@ -132,6 +132,7 @@ strong{
     padding: 0;
     text-align:center;
     color:#186BE5;
+    font-size:90%;
 }
 #ft ul.links li {
     margin-left: 5px;

@@ -1,45 +1,45 @@
 class Hebmain::Widgets::Sitemap < WidgetManager::Base
   
   def render_full
- 	div(:class => 'sitehead'){
-  				text 'מפת האתר'
-  			}
-  	div(:class => 'sitemap'){
+#    div(:class => 'sitehead'){
+#      text 'מפת האתר'
+#    }
+    div(:class => 'sitemap'){
+      div(:class => 'sitemap-inner'){
   			
-  			presenter.main_sections.each {|section|
+        presenter.main_sections.each {|section|
   			
-  			if (section.resource.name == 'בלוגים')
-  				debugger 
-  			end
-  				
+          if (section.resource.name == 'בלוגים')
+            #          debugger 
+          end
   			
-  			
-  			div(:class => 'box'){
-  			  	
-  			  div(:class => 'title'){a section.resource.name, :href => get_page_url(section)}
-  			  
-  			 get_sub_section(section).each {|i|
-			    div (:class => 'list'){
-				  a i.resource.name, :href => get_page_url(i)
-			    }
-			  }
-			  
-			}
-  		}
-  		div(:class => 'clear') {text ' '}	
-  	}
+          sub_sections = get_sub_section(section) || []
+          ul(:class => 'box'){
+            li {
+              a section.resource.name, :href => get_page_url(section), :class => 'title'
+              ul{
+                sub_sections.each {|section|
+                  li(:class => 'list'){
+                    a section.resource.name, :href => get_page_url(section)
+                  }
+                }
+              }
+            }
+          } unless sub_sections.empty?
+        }
+        div(:class => 'clear')
+      }
+    }
   end
-  
   
   def get_sub_section (tree_node)
-  	TreeNode.get_subtree (
-  		:parent => tree_node.id, 
-    	:resource_type_hrids => ['content_page',], 
-    	:depth => 1,
-    	:has_url => true,
-    	:properties => 'b_hide_on_navigation = false')
+    TreeNode.get_subtree(
+      :parent => tree_node.id, 
+      :resource_type_hrids => ['content_page',], 
+      :depth => 1,
+      :has_url => true,
+      :properties => 'b_hide_on_navigation = false')
   	
   end
-  	
   
 end

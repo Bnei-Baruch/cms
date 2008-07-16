@@ -14,7 +14,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
     @google_analytics = w_class('google_analytics').new
 	#@newsletter = w_class('newsletter').new
-	#@sitemap = w_class('sitemap').new
+    @sitemap = w_class('sitemap').new
   end
 
   def render
@@ -128,7 +128,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             }
           }
           div(:id => 'ft') {
-            #@sitemap.render_to(self)
+            @sitemap.render_to(self)
             @header_bottom_links.render_to(self)
           }
         }

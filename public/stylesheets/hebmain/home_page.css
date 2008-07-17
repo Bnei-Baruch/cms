@@ -21,7 +21,6 @@
     padding:0;
     text-align:right;
     position: relative;
-    *width:99%;
 }
 .content .h1{
     background-color: #3864b5;
@@ -204,9 +203,6 @@
     padding:10px 0 0;
     margin:0;
 }
-.left-part .radio-TV ul{
-    display:inline-block;
-}
 .left-part .radio-TV ul li{
     list-style-type: none;
     text-align:center;
@@ -224,12 +220,10 @@
     text-align:center;
 }
 .left-part a.full_screen{
-    display:inline-block;
     padding:10px 3px 0 0;
 }
 .left-part .radio, .left-part .tv{
     position:relative;
-    display:inline-block;
     margin-top:3px;
 }
 .left-part .tv .clear{
@@ -250,12 +244,9 @@
 }
 .left-part .tv .play{
     height:22px;
-    /*position:absolute;
-    top:3px;*/
     width:22px;
     background-image:url(/images/hebmain/radio/buttons.jpg);
     background-repeat:no-repeat;
-    /*right:183px;*/
     float:left;
 }
 .left-part .radio .play-out,.left-part .tv .play-out{
@@ -277,12 +268,9 @@
 }
 .left-part .tv .stop{
     height:22px;
-    /*position:absolute;
-    top:3px;*/
     width:22px;
     background-image:url(/images/hebmain/radio/buttons.jpg);
     background-repeat:no-repeat;
-    /*right:158px;*/
     float:left;
 }
 .left-part .radio .stop-out,.left-part .tv .stop-out{
@@ -354,8 +342,6 @@
 }
 .left-part .downloads .services {
     margin:10px 5px 0;
-    *margin:10px 20px 0 5px;
-    *direction:ltr;
 }
 .left-part .downloads .services a:hover{
     text-decoration:underline;

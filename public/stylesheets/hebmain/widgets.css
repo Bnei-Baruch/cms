@@ -1,21 +1,3 @@
-/*----------  Section Preview  ---------------*/
-/*.index .img{
-position:absolute;
-right:0px;
-top:12px;
-}
-.index .footer{
-background-color:#f6f8fb;
-height:35px;
-line-height:35px;
-border-bottom:1px solid #e8e8e8;
-padding:0 0 0 10px;
-}
-.index .footer img{
-padding:0 5px 0 0;
-vertical-align:middle;
-}
-*/
 /*----------  Index  ---------------*/
 .index{
     padding:0;
@@ -87,7 +69,7 @@ vertical-align:middle;
 /*----------  Content Preview  ---------------*/
 .content_preview{
     position:relative;
-    display:inline-block;
+    *display:inline-block;
 }
 /*----------- Newsletter ----------------*/
 .newsletter{

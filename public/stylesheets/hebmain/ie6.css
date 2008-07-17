@@ -1,5 +1,7 @@
 /*----------  Content  ---------------*/
-
+.content {
+    width:99%;
+}
 /*----------  right-part  ---------------*/
 .right-part .player {
     display:inline-block;
@@ -14,4 +16,18 @@
 }
 .right-part .player .more{
     padding-right:10px;
+}
+/*----------  left-part  ---------------*/
+.left-part .radio-TV ul{
+    display:inline-block;
+}
+.left-part a.full_screen{
+    display:inline-block;
+}
+.left-part .radio, .left-part .tv{
+    display:inline-block;
+}
+.left-part .downloads .services {
+    margin:10px 20px 0 5px;
+    direction:ltr;
 }

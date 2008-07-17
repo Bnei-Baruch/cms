@@ -13,7 +13,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
     @google_analytics = w_class('google_analytics').new
-	#@newsletter = w_class('newsletter').new
+    @newsletter = w_class('newsletter').new
     @sitemap = w_class('sitemap').new
   end
 
@@ -110,7 +110,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                 @static_tree.render_to(doc)
               }
            		
-             #@newsletter.render_to(self)
+              @newsletter.render_to(self)
               
               global_site_updates_node = global_site_updates
               render_content_resource(global_site_updates_node) if global_site_updates_node

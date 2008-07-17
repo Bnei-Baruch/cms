@@ -83,10 +83,10 @@
 .content .item{
     font-size:14px;
     border-bottom:1px dashed #e8e8e8;
-    margin:0 0 25px 0;
     position: relative;
     clear: both;
     width:504px;
+    padding:5px 0 0;
 }
 .content .item p{
     margin-bottom:15px;
@@ -269,7 +269,7 @@ border-bottom:1px dashed #7b7b7b;
 
 /*----------  More on page  ---------------*/
 .content .more {
-    margin:15px 0 25px 0;
+    margin:15px 0 10px;
     font-size: 93%;
 }
 .content .more h3{
@@ -506,7 +506,7 @@ border-bottom:1px dashed #7b7b7b;
 }
 .news .item .border{
     border-bottom:1px dotted #e7e7e7;
-    height:25px;
+    height:15px;
     font-size:1px;
     line-height:1px;
 }

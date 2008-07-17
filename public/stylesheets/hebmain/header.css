@@ -124,6 +124,7 @@ strong{
 /*----------  Footer  ---------------*/
 #ft{
     text-align:center;
+    margin:20px 0 0;
     *display:inline-block;
 }
 #ft ul.links {

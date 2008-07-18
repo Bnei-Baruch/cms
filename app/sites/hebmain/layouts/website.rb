@@ -120,7 +120,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                             div(:class => 'play play-in')
                             div(:class => 'stop stop-out')
                             a(:class => 'right', :id => 'full_screen', :href => '') {rawtext _('למסך מלא')}
-                            div(:class => 'clear'){rawtext '&nbsp'}
+                            div(:class => 'clear'){rawtext '&nbsp;'}
                           }
                         }
                       }

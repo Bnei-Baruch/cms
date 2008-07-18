@@ -94,9 +94,9 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
 
   def show_item(item, view_mode)
     if item.resource.status == 'DRAFT'
-      div(:class => 'draft') { render_content_item(item, view_mode) }
+      div(:class => 'draft') { render_content_resource(item, view_mode) }
     else
-      render_content_item(item, view_mode)
+      render_content_resource(item, view_mode)
     end
   end
   

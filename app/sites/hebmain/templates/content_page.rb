@@ -12,11 +12,11 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     WidgetManager::Base.new do
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
-                     :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery},
-                     :button_text => 'ניהול דף תוכן',
-                     :new_text => 'צור יחידת תוכן חדשה',
-                     :edit_text => 'ערוך דף תוכן',
-                     :has_url => false, :placeholder => 'main_content'}).render_to(self)
+          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery},
+          :button_text => 'ניהול דף תוכן',
+          :new_text => 'צור יחידת תוכן חדשה',
+          :edit_text => 'ערוך דף תוכן',
+          :has_url => false, :placeholder => 'main_content'}).render_to(self)
       unless get_acts_as_section
         h1 get_title
         small_title = get_small_title
@@ -45,12 +45,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         end
       end
       unless get_body.empty?
-        div(:class => 'item') {
+        div(:class => "item#{' draft' if @tree_node.resource.status == 'DRAFT'}") {
           rawtext get_body
         }
       end
       content_resources.each{|e|
-        div(:class => 'item') {
+        div(:class => "item#{' draft' if e.resource.status == 'DRAFT'}") {
           render_content_resource(e)
           div(:class => 'clear')
         } 
@@ -72,8 +72,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_meta_title
     WidgetManager::Base.new do
-     #  text get_name# unless get_hide_name
-     w_class('breadcrumbs').new(:view_mode => 'meta_title') 
+      #  text get_name# unless get_hide_name
+      w_class('breadcrumbs').new(:view_mode => 'meta_title') 
     end
   end
 
@@ -91,9 +91,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_related_items
     WidgetManager::Base.new do
       w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box },:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
-      related_items.each{|e|
-        render_related_item(e)
-      }  
+      show_related_items(related_items)
     end
   end
 
@@ -126,5 +124,13 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     )               
   end
 
-
-end
+  def show_related_items(related_items)
+    related_items.each { |e|
+      if e.resource.status == 'DRAFT'
+        div(:class => 'draft') { render_related_item(e) }
+      else
+        render_related_item(e)
+      end
+    } 
+  end    
+  end

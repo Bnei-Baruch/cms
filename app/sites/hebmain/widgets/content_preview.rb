@@ -87,7 +87,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       @items.each_with_index { |item, index|  
         klass = (index + 1) == @items_size ? 'element last' : 'element'
         div(:class => klass) {
-          render_content_item(item, view_mode)
+          show_item(item, view_mode)
         }
       }
       div(:class => 'clear')
@@ -107,7 +107,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       @items.each_with_index { |item, index|  
         klass = (index + 1) == @items_size ? 'element last' : 'element'
         div(:class => klass) {
-          render_content_item(item, view_mode)
+          show_item(item, view_mode)
         }
       }
       div(:class => 'clear')
@@ -119,7 +119,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       @items.each_with_index { |item, index|  
         klass = index.odd? ? 'element preview-even' : 'element preview-odd'
         div(:class => klass) {
-          render_content_item(item, 'small')
+          show_item(item, 'small')
         }
       }
     }
@@ -165,4 +165,13 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       :status => ['PUBLISHED', 'DRAFT']
     )               
   end
+  
+  def show_item(item, view_mode)
+    if item.resource.status == 'DRAFT'
+      div(:class => 'draft') { render_content_item(item, view_mode) }
+    else
+      render_content_item(item, view_mode)
+    end
+  end
+  
 end

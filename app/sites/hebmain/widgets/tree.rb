@@ -146,7 +146,8 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   def draw_json_tree(node)
     item = node.shift
     leaf = item[:item]
-    name = leaf.resource.name
+    name = leaf.resource.status == 'DRAFT' ? 
+              "<span class='draft'>#{leaf.resource.name}</span>" : leaf.resource.name
     id = leaf.id
     href = get_page_url(leaf)
     if item[:submenu]

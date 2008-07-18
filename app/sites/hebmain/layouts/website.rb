@@ -155,15 +155,11 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                               :placeholder => 'left'}).render_to(self)
                         }
                         div(:class => 'entries'){
-                          kabbalah_media_resources.each { |kabbalah_media_resource|                
-                            render_content_resource(kabbalah_media_resource, 'left')
-                          } 
+                          show_content_resources(kabbalah_media_resources, 'left')
                         }
                       }
                       
-                      left_column_resources.each { |left_column_resource|                
-                        render_content_resource(left_column_resource, 'left')
-                      } 
+                      show_content_resources(left_column_resources, 'left')
                     }
                   }
                   div(:class => 'yui-u') {
@@ -181,9 +177,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                           :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
                       
-                      middle_column_resources.each { |middle_column_resource|
-                        render_content_resource(middle_column_resource, 'middle')
-                      }
+                      show_content_resources(middle_column_resources, 'middle')
                     }
                   }
                 }
@@ -204,15 +198,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
             	
-                    
-            
-                right_column_resources.each_with_index { |right_column_resource, i|
-                	@newsletter.render_to(self) if (i == 1)
-                  	render_content_resource(right_column_resource, 'right')
-              		
-            
-              		
-                }                
+                @newsletter.render_to(self)
+                show_content_resources(right_column_resources, 'right')
               }
             }
           }
@@ -232,7 +219,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :parent => tree_node.id, 
       :resource_type_hrids => ['site_updates', 'video_gallery'], 
       :depth => 1,
-      :placeholders => ['right']
+      :placeholders => ['right'],
+      :status => ['PUBLISHED', 'DRAFT']
     ) 
   end
   
@@ -241,7 +229,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :parent => tree_node.id, 
       :resource_type_hrids => ['rss'], 
       :depth => 1,
-      :placeholders => ['left']
+      :placeholders => ['left'],
+      :status => ['PUBLISHED', 'DRAFT']
     ) 
   end
   
@@ -250,7 +239,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :parent => tree_node.id, 
       :resource_type_hrids => ['content_preview'], 
       :depth => 1,
-      :placeholders => ['middle']
+      :placeholders => ['middle'],
+      :status => ['PUBLISHED', 'DRAFT']
     ) 
   end
   
@@ -259,7 +249,18 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :parent => tree_node.id, 
       :resource_type_hrids => ['media_rss'], 
       :depth => 1,
-      :placeholders => ['left']
+      :placeholders => ['left'],
+      :status => ['PUBLISHED', 'DRAFT']
     ) 
+  end
+  
+  def show_content_resources(content_resources, view_mode)
+    content_resources.each { |e|
+      if e.resource.status == 'DRAFT'
+        div(:class => 'draft') { render_content_resource(e, view_mode) }
+      else
+        render_content_resource(e, view_mode)
+      end
+    }
   end
 end 

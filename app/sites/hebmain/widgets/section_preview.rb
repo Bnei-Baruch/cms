@@ -43,7 +43,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
       content_items.each_with_index { |item, index|  
         klass = index.odd? ? 'element preview-even' : 'element preview-odd'
         div(:class => klass) {
-          render_content_resource(item, 'small')
+          show_item(item, 'small')
           div(:class => 'clear')
         }
         div(:class => 'clear')
@@ -92,4 +92,12 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
     )               
   end
 
+  def show_item(item, view_mode)
+    if item.resource.status == 'DRAFT'
+      div(:class => 'draft') { render_content_item(item, view_mode) }
+    else
+      render_content_item(item, view_mode)
+    end
+  end
+  
 end

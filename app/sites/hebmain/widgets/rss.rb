@@ -91,7 +91,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     div(:class => 'entries'){
       items.each do |item|
         div(:class => 'entry'){
-          a item[:title], :href => item[:url].empty? ? item[:aditional_url] : item[:url]
+          a(:href => item[:url].empty? ? item[:aditional_url] : item[:url], :target => '_blank' ) {rawtext item[:title]}
           div(:class => 'date'){
             text item[:date].strftime('%d.%m.%y, %H:%m')
           }
@@ -103,7 +103,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
         }
       end
       text = get_read_more_text
-      a text, :href => get_read_more_url, :class => 'more' unless text.empty?
+      a text, :href => get_read_more_url, :class => 'more', :target => '_blank' unless text.empty?
     }
   end
 

@@ -21,6 +21,7 @@
     padding:0;
     text-align:right;
     position: relative;
+    *width:99%;
 }
 .content .h1{
     background-color: #3864b5;

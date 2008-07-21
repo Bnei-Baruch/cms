@@ -48,7 +48,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/jquery.tabs.css',
           :cache => 'cache/website'
         end
-        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', 'jquery.browser.js', 'jrails', :cache => 'cache/website'
+        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', 'jquery.browser.js', :cache => 'cache/website'
 
         rawtext <<-IE61
           <!--[if IE]>

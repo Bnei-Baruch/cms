@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_cms_session_id'
-  include SimpleCaptcha::ControllerHelpers
 
 	def set_website_session(show_all_websites)
 		if show_all_websites

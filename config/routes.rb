@@ -1,9 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
 
-
-  # map.resources :login, :member => {:login => :get, :logout => :get}
-  map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
-  
   # Tests
   map.resources :tests
 

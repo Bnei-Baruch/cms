@@ -12,7 +12,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @google_analytics = w_class('google_analytics').new
     @newsletter = w_class('newsletter').new
-
   end
 
   def render
@@ -122,6 +121,9 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                             a(:class => 'right', :id => 'full_screen', :href => '') {rawtext _('למסך מלא')}
                             div(:class => 'clear'){rawtext '&nbsp;'}
                           }
+                          
+                          
+                          
                         }
                       }
                       div(:id => 'radio'){
@@ -131,7 +133,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           div(:class => 'play play-out')
                           div(:class => 'stop stop-out')
                         }
-                        javascript {
+                     javascript {
                           rawtext <<-RADIO
                               if (jQuery.browser.msie) {
 document.write('<object id="radioplayer" style="display:none" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tvplayer" type="application/x-oleobject" width="222" height="40" standby="Loading Windows Media Player components..."> <param name="URL" value="mms://vod.kab.tv/radioheb" /> <param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /> <param name="uiMode" value="invisible" /><param name="animationAtStart" value="0" /> <param name="showDisplay" value="0" /><param name="transparentAtStart" value="0" /> <param name="ShowControls" value="0" /><param name="ShowStatusBar" value="0" /> <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /> <param name="windowlessVideo" value="0" /><param name="balance" value="0" /> </object>');
@@ -140,6 +142,8 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                               }
                           RADIO
                         }
+                        
+                    
                       }
                       
                       div(:class => 'downloads container'){
@@ -201,6 +205,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                 show_content_resources(right_column_resources, 'right'){ |idx|
                   @newsletter.render_to(self) if (idx == 1)
                 }
+
               }
             }
           }

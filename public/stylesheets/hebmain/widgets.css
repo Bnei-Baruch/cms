@@ -71,6 +71,7 @@
     position:relative;
     *display:inline-block;
 }
+
 /*----------- Newsletter ----------------*/
 .newsletter{
     border: 1px solid #E5E5E5;
@@ -113,6 +114,7 @@
     margin-bottom: 5px;
 }
 /********* Site map ***************/
+
 .sitehead{
     font-weight: bold;
     margin-bottom: 10px;
@@ -152,6 +154,7 @@ list-style-type:none;
     clear: both;
     height:20px;
 }
+
 /*----------  Main Preview1  ---------------*/
 .main_preview1{
     margin:0;
@@ -299,7 +302,46 @@ list-style-type:none;
     width:138px;
     margin:0 0 5px 5px;
     float:right;
+    
 }
 .item .rss .description .preview{
     display:none;
+}
+
+/********** Campus form *******/
+
+.campus .text {
+	margin-bottom: 10px;
+}
+.campus .label {
+	width: 4em;
+float: right;
+text-align: right;
+margin-right: 0.5em;
+display: block
+	
+}
+.campus .label_captcha {
+	text-align: right;
+	margin-right: 0.5em;
+	margin-bottom: 5px;
+}
+.campus .error {
+	color: red;
+	font-style: bold;
+}
+.campus .success {
+	color: green;
+	font-style: bold;
+}
+.campus table{
+	border: thin solid grey;	
+}
+.campus td {
+	padding: 3px;
+	border: thin dashed #6495ed;
+	text-align: right;
+}
+.campus .title {
+ font-weight: bold;
 }

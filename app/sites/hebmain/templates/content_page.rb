@@ -12,11 +12,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     WidgetManager::Base.new do
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
-          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery},
-          :button_text => 'ניהול דף תוכן',
-          :new_text => 'צור יחידת תוכן חדשה',
-          :edit_text => 'ערוך דף תוכן',
-          :has_url => false, :placeholder => 'main_content'}).render_to(self)
+                     :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form},
+                     :button_text => 'ניהול דף תוכן',
+                     :new_text => 'צור יחידת תוכן חדשה',
+                     :edit_text => 'ערוך דף תוכן',
+                     :has_url => false, :placeholder => 'main_content'}).render_to(self)
+
       unless get_acts_as_section
         h1 get_title
         small_title = get_small_title
@@ -100,7 +101,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_resources
     TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery'], 
+      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form'], 
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content'],

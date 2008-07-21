@@ -78,6 +78,10 @@ class Sites::Global < Presenter::Base
     domain + prefix
   end
   
+  def page_params
+  	@controller.params
+  end
+  
 
   def node_template_path
     template_path(node_resource_type.hrid, 'full')

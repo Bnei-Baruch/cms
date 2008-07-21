@@ -14,6 +14,8 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
     }
 
   end
+  
+  
 
   def render_meta_title  
     title = ''
@@ -33,9 +35,7 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
 	  	
           title = title + ' | ' + meta_title 
         }
-    end
-    
-    
+    end  
     
     text title
   end
@@ -61,4 +61,6 @@ class Hebmain::Widgets::Breadcrumbs < WidgetManager::Base
   def parents
     presenter.parents(@tree_node) || []
   end
+  
+
 end

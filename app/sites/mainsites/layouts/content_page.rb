@@ -35,7 +35,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/page_admin',
                               'hebmain/widgets',
                               :cache => false
-          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/admin_content_page'
+                              #:cache => 'cache/content_page_admin'
+          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', '../ext/adapter/ext/ext-base', 'jquery.tabs.js' ,'../ext/ext-all', 'ext-helpers', 'jquery.media.js', 'jquery.metadata.js', 'jquery.form.js', :cache => 'cache/admin_content_page'
+
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
@@ -49,7 +51,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/inner_page', 
                               'hebmain/widgets',
                               :cache => 'cache/content_page'
-          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', :cache => 'cache/content_page'
+          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.media.js','jquery.tabs.js' , 'jquery.metadata.js','jquery.form.js', :cache => 'cache/content_page'
+         
+
         end
         
         

@@ -3,10 +3,12 @@
 
 class ApplicationController < ActionController::Base
   
+	
   before_filter :activate_global_parms, :set_translations
   
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_cms_session_id'
+  include SimpleCaptcha::ControllerHelpers
 
 	def set_website_session(show_all_websites)
 		if show_all_websites
@@ -14,7 +16,7 @@ class ApplicationController < ActionController::Base
 		else
 			website = Website.find(params[:website_id])
 			session[:website] = website.id if website
-    end
+        end
 	end
 
   def site_settings

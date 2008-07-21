@@ -25,7 +25,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         meta(:name => 'description', :content => ext_description)
         title @meta_title #ext_title
-        # stylesheet_link_tag 'reset-fonts-grids', 'base-min', '../ext/resources/css/ext-all', :cache => 'all'
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
                               'base-min', 
@@ -36,8 +35,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/page_admin',
                               'hebmain/widgets',
                               :cache => false
-                              #:cache => 'cache/content_page_admin'
-          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/admin_content_page'
+          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', :cache => 'cache/admin_content_page'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
@@ -51,20 +49,17 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                               'hebmain/inner_page', 
                               'hebmain/widgets',
                               :cache => 'cache/content_page'
-          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', :cache => 'cache/content_page'
+          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', :cache => 'cache/content_page'
         end
         
         
         rawtext <<-IE6
-          <!--[if IE 6]>
+          \n<!--[if IE 6]>
         IE6
         stylesheet_link_tag 'hebmain/ie6'
         rawtext <<-IE6
-          <![endif]-->        
+          \n<![endif]-->\n
         IE6
-        # css get_css_url('header')
-        # css get_css_url('inner_page')
-        # css get_css_url('page_admin')
       }
       body {
         div(:id => 'doc2', :class => 'yui-t4') {

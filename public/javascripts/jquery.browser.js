@@ -64,4 +64,7 @@ jQuery Browser Plugin
 if (jQuery.browser.safari == undefined){
 	jQuery.browser.safari = false;
 }
+if (jQuery.browser.mozilla == undefined){
+	jQuery.browser.mozilla = false;
+}
 

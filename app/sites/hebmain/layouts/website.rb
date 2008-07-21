@@ -48,7 +48,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/jquery.tabs.css',
           :cache => 'cache/website'
         end
-        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js', :cache => 'cache/website'
+        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', 'jquery.browser.js', 'jrails', :cache => 'cache/website'
 
         rawtext <<-IE61
           <!--[if IE]>
@@ -198,8 +198,9 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
             	
-                @newsletter.render_to(self)
-                show_content_resources(right_column_resources, 'right')
+                show_content_resources(right_column_resources, 'right'){ |idx|
+                  @newsletter.render_to(self) if (idx == 1)
+                }
               }
             }
           }
@@ -253,9 +254,10 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :status => ['PUBLISHED', 'DRAFT']
     ) 
   end
-  
-  def show_content_resources(content_resources, view_mode)
-    content_resources.each { |e|
+
+  def show_content_resources(content_resources, view_mode, &block)
+    content_resources.each_with_index { |e, idx|
+      block.call(idx) if block
       if e.resource.status == 'DRAFT'
         div(:class => 'draft') { render_content_resource(e, view_mode) }
       else

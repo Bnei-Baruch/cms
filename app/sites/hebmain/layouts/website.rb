@@ -102,15 +102,15 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                         div(:class => 'tv-border'){
                           javascript {
                             rawtext <<-TV
-                              if (jQuery.browser.msie) {
+                              if (jQuery.browser.ie) {
                                 document.write('<object id="tvplayer" type="application/x-ms-wmp" height="140" standby="Loading Windows Media Player components..." width="194" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"><param name="AutoStart" value="0" /><param value="0" name="balance" /><param name="currentPosition" value="0"><param name="currentMarker" value="0"><param name="enabled" value="true"><param name="mute" value="false"><param name="playCount" value="1"><param name="rate" value="1"><param name="uiMode" value="none"><param name="volume" value="50"><param value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="URL" /><param value="false" name="AutoPlay" /><param value="1" name="animationAtStart" /><param value="1" name="showDisplay" /><param value="0" name="transparentAtStart" /><param value="1" name="ShowControls" /><param value="1" name="ShowStatusBar" /><param value="1" name="ClickToPlay" /><param value="#000000" name="bgcolor" /><param value="1" name="windowlessVideo" /></object>');
                               } else {
-                                if (!(jQuery.browser.firefox==true && jQuery.browser.versionNumber == 3)) {
+                                if (jQuery.browser.firefox) {
+                                  document.write('<embed width="200" height="140" balance="0" uimode="none" autostart="false" type="application/x-mplayer2" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="tvplayer" id="tvplayer"/>');
+                                } else {
                                   document.write('<object id="tvplayer" type="application/x-ms-wmp" height="140" standby="Loading Windows Media Player components..." width="200"><param name="AutoStart" value="0" /><param value="0" name="balance" /><param name="currentPosition" value="0"><param name="currentMarker" value="0"><param name="enabled" value="true"><param name="mute" value="false"><param name="playCount" value="1"><param name="rate" value="1"><param name="uiMode" value="none"><param name="volume" value="50"><param value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="URL" /><param value="0" name="AutoPlay" /><param value="1" name="animationAtStart" /><param value="1" name="showDisplay" /><param value="0" name="transparentAtStart" /><param value="1" name="ShowControls" /><param value="1" name="ShowStatusBar" /><param value="1" name="ClickToPlay" /><param value="#000000" name="bgcolor" /><param value="1" name="windowlessVideo" /><p>Error - the plugin has not loaded<br/><a href="http://port25.technet.com/pages/windows-media-player-firefox-plugin-download.aspx">Download Microsoft plugin for Firefox here</a></p>');
                                   document.write('<embed width="200" height="140" balance="0" uimode="none" autostart="false" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" type="application/x-mplayer2" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="tvplayer" id="tvplayer"/>');
                                   document.write('</object>');
-                                } else {
-                                  document.write('<embed width="200" height="140" balance="0" uimode="none" autostart="false" type="application/x-mplayer2" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="tvplayer" id="tvplayer"/>');
                                 }
                               }
                             TV

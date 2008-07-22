@@ -309,7 +309,7 @@ $.fn.media.swf = function(el, opts) {
 
 $.fn.media.mp3 = function(el, opts) {
 	var width = 400 ;
-    var height = 50 ;
+    var height = 20 ;
     var src = opts.src;
     var player = /\.mp3\b/i.test(src) ? $.fn.media.defaults.mp3Player : $.fn.media.defaults.flvPlayer;
     opts.src = player;

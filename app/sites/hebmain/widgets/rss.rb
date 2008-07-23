@@ -90,8 +90,14 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     end
     div(:class => 'entries'){
       items.each do |item|
+        url = ''
+        if !item[:url].empty? && !item[:aditional_url].empty?
+          url = item[:aditional_url]
+        else
+          url = item[:url].empty? ? item[:aditional_url] : item[:url]
+        end
         div(:class => 'entry'){
-          a(:href => item[:url].empty? ? item[:aditional_url] : item[:url], :target => '_blank' ) {rawtext item[:title]}
+          a(:href => url, :target => '_blank' ) {rawtext item[:title]}
           div(:class => 'date'){
             text item[:date].strftime('%d.%m.%y, %H:%m')
           }

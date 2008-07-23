@@ -54,7 +54,7 @@ class Hebmain::Widgets::Header < WidgetManager::Base
   def render_copyright
     e = copyright
     # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
-    updatable = 'up-' + @widget_id.to_s
+    updatable = 'up-' + presenter.website_node.id.to_s
     div(:id => updatable){
 
       if e.nil?

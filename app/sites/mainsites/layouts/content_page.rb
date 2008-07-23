@@ -7,6 +7,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @header_top_links = w_class('header').new(:view_mode => 'top_links')
     @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
+    @header_copyright = w_class('header').new(:view_mode => 'copyright')
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @breadcrumbs = w_class('breadcrumbs').new()
@@ -131,6 +132,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             @header_bottom_links.render_to(self)
           }
         }
+        @header_copyright.render_to(self)
         @google_analytics.render_to(self)
       }
     }

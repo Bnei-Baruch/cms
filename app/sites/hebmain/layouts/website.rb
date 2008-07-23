@@ -7,6 +7,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @header_top_links = w_class('header').new(:view_mode => 'top_links')
     @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
+    @header_copyright = w_class('header').new(:view_mode => 'copyright')
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
@@ -213,6 +214,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
             @header_bottom_links.render_to(self)
           }
         }
+        @header_copyright.render_to(self)
         @google_analytics.render_to(self)
       }
     }

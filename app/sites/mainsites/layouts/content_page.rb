@@ -130,9 +130,10 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           div(:id => 'ft') {
             @sitemap.render_to(self)
             @header_bottom_links.render_to(self)
+            @header_copyright.render_to(self)
           }
         }
-        @header_copyright.render_to(self)
+        
         @google_analytics.render_to(self)
       }
     }

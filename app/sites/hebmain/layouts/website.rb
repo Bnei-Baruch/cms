@@ -212,9 +212,10 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
           }
           div(:id => 'ft') {
             @header_bottom_links.render_to(self)
+            @header_copyright.render_to(self)
           }
         }
-        @header_copyright.render_to(self)
+        
         @google_analytics.render_to(self)
       }
     }

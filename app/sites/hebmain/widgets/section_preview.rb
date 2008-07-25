@@ -85,7 +85,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
     :resource_type_hrids => ['content_page'], 
     :depth => 1,
     :has_url => true,
-    :order => "created_at DESC",
+    :order => "position DESC",
     :limit => get_number_of_items,
     # :properties => 'b_acts_as_section = false', ### - this will filter only the pages that are not sections
     :status => ['PUBLISHED']

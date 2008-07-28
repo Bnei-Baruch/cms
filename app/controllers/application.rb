@@ -2,9 +2,8 @@
 # all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  
 	
-  before_filter :activate_global_parms, :set_translations
+	before_filter :activate_global_parms, :set_translations
   
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_cms_session_id'

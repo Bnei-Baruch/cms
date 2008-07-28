@@ -1,6 +1,6 @@
 class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	 
-	
+	    
 	def render_full
 		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button }, :position => 'bottom'}).render_to(doc) 
 		 
@@ -11,7 +11,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	    if tree_node.can_edit?
 	    	campus_admin_mode
     	else 
-			campus_user_mode
+				campus_user_mode
     	end
     	
 	end
@@ -22,16 +22,19 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
   		else	
   		  div(:class => 'error'){text '‫שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית'}
   		  br
-  		  campus_user_mode
+  		  campus_user_mode(@options[:name], @options[:email] ,@options[:tel])
   		end	
 	end
 
 	def create_student
-		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id])
+		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id], :adwords => @options[:adwords])
 		new_student.save
 		div(:class => 'success'){
 		  text "הפרטים נתקבלו בהצלחה.‬"	
 		}					
+		javascript{
+		rawtext 'alert("הפרטים נתקבלו בהצלחה.‬");'
+		}
 	end
 	
 	
@@ -44,14 +47,15 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	    	  	td{text 'שם'}
 	    	  	td{text 'טל'}
 	    	  	td{text 'אימייל'}
+	    	  	td{text 'קמפיין'}
 	    	  }
 	    	  students_list = Student.list_all_students	    	  
 	    	  students_list.each { |sl|
-	    	 # debugger
 	    	  	tr{
 	    	  		td {text sl.name }
 	    	  		td {text sl.telephone}
 	    	  		td {text sl.email}
+	    	  		td {text sl.adwords}
 	    	  	} #end of table line	
     	  } #end of list
     	  }#end of table
@@ -60,19 +64,26 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		
 	end
 	
-	def campus_user_mode
+	def campus_user_mode(def_name = '', def_email='', def_tel='')
+			
+		if defined? params[:adwords]
+			def_adwords = params[:adwords]
+		else
+			def_adwords = ''
+		end
+		
 		div(:class => 'campus'){
 	    	 	div(:id => 'output2'){
 		 			form(:id => 'myForm2'){
 	    	 		   #user fields
 	    	 		   span(:class => 'label') {text "שם : "}
-     				   input :type => 'text', :name => 'options[name]', :size => '31', :class => 'text'
+     				   input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
      				   br
      				   span(:class => 'label') {text "אימייל : "}
-     				   input :type => 'text', :name => 'options[email]', :size => '31', :class => 'text'
+     				   input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
      				   br
      				   span(:class => 'label') {text "טל : "}
-     				   input :type => 'text', :name => 'options[tel]', :size => '31', :class => 'text'
+     				   input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
      				   
      				   #hidden fields
      				   input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
@@ -81,9 +92,10 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
      				   input :type => 'hidden', :name => 'options[new_student]', :value => 'true'
      				   input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
      				   input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
+     				   input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
      				   br
      				   
-     				   # captcha
+     				#  captcha
      				  
 					  session_id = rand(10_000)
 					  div(:class => 'label_captcha') {text "אבטחת הרשמה :"}
@@ -100,8 +112,8 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
      				   input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
      				   
 				}
-		   	 }
-	      }
+		  }
+	  }
 	end
 	
 	

@@ -55,7 +55,7 @@ class Hebmain::Widgets::Video < WidgetManager::Base
               useNativeFullScreen: true,
               showStopButton:true,
               autoRewind:true,
-              showVolumeSlider: false,
+              showVolumeSlider: true,
               controlsOverVideo: 'ease',
               controlBarBackgroundColor: -1,
               controlBarGloss: 'low',

@@ -1,15 +1,17 @@
 class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
   
   def render_full
-        rawtext <<-Google
-
+  	return unless ENV['RAILS_ENV'] == 'production'
+  	
+    rawtext <<-google
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">
 _uacct = "UA-548326-62";
 urchinTracker();
 </script>        
-                  Google
+        google
+        
 #         rawtext <<-Google
 # 
 # <script type="text/javascript">

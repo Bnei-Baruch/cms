@@ -336,6 +336,10 @@ display: block
 	margin-right: 0.5em;
 	margin-bottom: 5px;
 }
+.campus .img_captcha {
+	width: 150px;
+}
+
 .campus .error {
 	color: red;
 	font-style: bold;

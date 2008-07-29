@@ -215,7 +215,6 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
             @header_copyright.render_to(self)
           }
         }
-        
         @google_analytics.render_to(self)
       }
     }

@@ -13,19 +13,19 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
     	else 
 				campus_user_mode
     	end
-    	
+    		
 	end
 	
 	def render_new_student
-		if captcha_pass? @options[:session_id], @options[:captcha_input]
-  		  create_student
-  		else	
-  		  div(:class => 'error'){text '‫שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית'}
-  		  br
-  		  campus_user_mode(@options[:name], @options[:email] ,@options[:tel])
-  		end	
+		if validate_captcha(@options[:captcha_value], @options[:captcha_index])
+		 create_student
+		else
+			 div(:class => 'error'){text '‫שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית'}
+			 br
+		   campus_user_mode
+		end
 	end
-
+		
 	def create_student
 		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id], :adwords => @options[:adwords])
 		new_student.save
@@ -85,7 +85,14 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
      				   span(:class => 'label') {text "טל : "}
      				   input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
      				   
-     				   #hidden fields
+							div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
+							captcha_index = rand(11)
+							img :src => generate_captcha(captcha_index)[0] , :class => 'img_captcha'
+							br
+							div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
+							input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
+							input :type => 'hidden', :name => 'options[captcha_index]', :value => captcha_index	
+							
      				   input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
      				   input :type => 'hidden', :name => 'node', :value => tree_node.id
      				   input :type => 'hidden', :name => 'options[tree_node_id]', :value => tree_node.id
@@ -93,21 +100,8 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
      				   input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
      				   input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
      				   input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
-     				   br
      				   
-     				#  captcha
-     				  
-					  session_id = rand(10_000)
-					  div(:class => 'label_captcha') {text "אבטחת הרשמה :"}
-  					  img :src => "http://captchator.com/captcha/image/"+session_id.to_s 
-  					  br
-     				  input :name => 'options[session_id]', :type => 'hidden', :value => session_id
-     				  div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
-   					  input  :name => 'options[captcha_input]', :type => 'text', :size => '10', :class => 'text'
-					  
-
-     				   
-     				   #submit
+     				  #submit
      				   br
      				   input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
      				   
@@ -116,17 +110,70 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	  }
 	end
 	
-	
-	def captcha_pass?(session, answer)	
-  	  session = session.to_i
-  	  answer  = answer.gsub(/\W/, '')
-  	  res = Net::HTTP.get_response(URI.parse("http://captchator.com/captcha/check_answer/#{session}/#{answer}"))
-  	  if res.body == '1'
-  	  	return true
-  	  else
-  	  	return false
-  	  end
-	end
 
+	def generate_captcha(index = 0)
+		captcha_array = get_captcha_array
+		return captcha_array[index]
+	end
+	
+	def validate_captcha(textvalue, index)		
+		captcha_array = get_captcha_array
+		if(textvalue == captcha_array[index.to_i][1])
+			return true
+		end			
+	end
+	
+	def get_captcha_array
+		captcha_array = Array.new
+		captcha_array[0] = Array.new
+		captcha_array[0][0] = '../../jcap/cimg/1.jpg'
+		captcha_array[0][1] = 'polish'
+		
+		captcha_array[1] = Array.new
+		captcha_array[1][0] = '../../jcap/cimg/2.jpg'
+		captcha_array[1][1] = 'past'
+		
+		captcha_array[2] = Array.new
+		captcha_array[2][0] = '../../jcap/cimg/3.jpg'
+		captcha_array[2][1] = 'again'
+
+		captcha_array[3] = Array.new
+		captcha_array[3][0] = '../../jcap/cimg/4.jpg'
+		captcha_array[3][1] = 'when'
+		
+		captcha_array[4] = Array.new
+		captcha_array[4][0] = '../../jcap/cimg/5.jpg'
+		captcha_array[4][1] = 'birth'
+		
+		captcha_array[5] = Array.new
+		captcha_array[5][0] = '../../jcap/cimg/6.jpg'
+		captcha_array[5][1] = 'crime'		
+		
+		captcha_array[6] = Array.new
+		captcha_array[6][0] = '../../jcap/cimg/7.jpg'
+		captcha_array[6][1] = 'square'
+		
+		captcha_array[7] = Array.new
+		captcha_array[7][0] = '../../jcap/cimg/8.jpg'
+		captcha_array[7][1] = 'rule'
+	
+		captcha_array[8] = Array.new
+		captcha_array[8][0] = '../../jcap/cimg/9.jpg'
+		captcha_array[8][1] = 'degree'
+		
+		captcha_array[9] = Array.new
+		captcha_array[9][0] = '../../jcap/cimg/10.jpg'
+		captcha_array[9][1] = 'linen'
+		
+		captcha_array[10] = Array.new
+		captcha_array[10][0] = '../../jcap/cimg/11.jpg'
+		captcha_array[10][1] = 'pocket'
+		
+		captcha_array[11] = Array.new
+		captcha_array[11][0] = '../../jcap/cimg/12.jpg'
+		captcha_array[11][1] = 'expert'
+		
+		return captcha_array
+	end
 	
 end

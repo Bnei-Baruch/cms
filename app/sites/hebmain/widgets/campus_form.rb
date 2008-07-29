@@ -22,7 +22,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		else
 			 div(:class => 'error'){text '‫שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית'}
 			 br
-		   campus_user_mode
+		   campus_user_mode(@options[:name], @options[:email], @options[:tel])
 		end
 	end
 		

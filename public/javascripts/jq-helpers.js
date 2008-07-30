@@ -46,9 +46,6 @@ function showResponse(responseText, statusText)  {
     }); 
 } 
 
-
-
-
 // Download lessons
 $(function() {
     $(".toggle").click(function(event){
@@ -73,8 +70,6 @@ $(function() {
     }
 );
 });
-
-
 
 
 // TV and Radio players.
@@ -120,7 +115,8 @@ $(function() {
       $rpp = $('.radio .play');
       $rpp.click(function(event){
           event.preventDefault();
-		  rppl("radioplayer");
+		  		rppl("radioplayer");
+		  		return false;
     });
        
    
@@ -175,6 +171,8 @@ $(function() {
   // Radio
   $play_radio.click(function(event){
     event.preventDefault();
+    rppl("radioplayer");
+    return false;
     if (!playState_radio) {
       startPlayer('radioplayer');
       playState_radio = true;
@@ -286,9 +284,10 @@ function rppl(id){
 	else if (player && player.src && player.openPlayer) {
     stopPlayer(id);
     player.openPlayer(player.src);
-  }else if (player){
+  } else if (player){
     startPlayer(id);
   }
+  return false;
 }
 
 

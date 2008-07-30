@@ -117,7 +117,7 @@ $(function() {
         gofs("tvplayer");
     });
     
-      $rpp = $('.play');
+      $rpp = $('.radio .play');
       $rpp.click(function(event){
           event.preventDefault();
 		  rppl("radioplayer");

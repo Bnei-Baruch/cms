@@ -155,23 +155,23 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		
 		captcha_array[7] = Array.new
 		captcha_array[7][0] = '../../jcap/cimg/8.jpg'
-		captcha_array[7][1] = 'rule'
+		captcha_array[7][1] = 'expert'
 	
 		captcha_array[8] = Array.new
 		captcha_array[8][0] = '../../jcap/cimg/9.jpg'
-		captcha_array[8][1] = 'degree'
+		captcha_array[8][1] = 'rule'
 		
 		captcha_array[9] = Array.new
 		captcha_array[9][0] = '../../jcap/cimg/10.jpg'
-		captcha_array[9][1] = 'linen'
+		captcha_array[9][1] = 'degree'
 		
 		captcha_array[10] = Array.new
 		captcha_array[10][0] = '../../jcap/cimg/11.jpg'
-		captcha_array[10][1] = 'pocket'
+		captcha_array[10][1] = 'linen'
 		
 		captcha_array[11] = Array.new
 		captcha_array[11][0] = '../../jcap/cimg/12.jpg'
-		captcha_array[11][1] = 'expert'
+		captcha_array[11][1] = 'pocket'
 		
 		return captcha_array
 	end

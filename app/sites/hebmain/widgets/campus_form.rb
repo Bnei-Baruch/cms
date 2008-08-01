@@ -66,7 +66,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	
 	def campus_user_mode(def_name = '', def_email='', def_tel='')
 			
-		if defined? params[:adwords]
+		if params.include?(:adwords)
 			def_adwords = params[:adwords]
 		else
 			def_adwords = ''

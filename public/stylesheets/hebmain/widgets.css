@@ -107,23 +107,32 @@
     background-color: #ffffff;
     border:1px solid #b1c4e2;
 }
-.newsletter input[type="submit"]{
-    width:30%;
-    color: black;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
+
 .newsletter .check{
-    margin-top: 3px;
     margin-bottom: 1px;
     float: right;
+    display: block;
+    margin-top: 8px;
+    *margin-top: 3px;
 }
 .newsletter .label{
-		margin-right: 15px;
+		margin-right: 24px;
     margin-top: 3px;
     margin-bottom: 1px;
-    width: 150px;
+    width: 140px;
+    display: block;
 }
+
+.newsletter .button{
+		border: none;
+		width:54pt;
+		height:17pt;
+    color: black;
+    background: transparent url(/images/hebmain/submit.png) no-repeat;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
 
 
 /********* Site map ***************/
@@ -352,7 +361,7 @@ display: block
 	font-style: bold;
 }
 .campus table{
-	border: thin solid grey;	
+	border: thin solid gray;	
 }
 .campus td {
 	padding: 3px;
@@ -361,4 +370,86 @@ display: block
 }
 .campus .title {
  font-weight: bold;
+}
+
+.campus .submit{
+		border: none;
+		width: 54pt;
+		height: 17pt;
+    color: black;
+    background: transparent url(/images/hebmain/submit.png) no-repeat;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+/*--- Media RSS ----*/
+.media_rss table{
+	border-width: 0px;
+	width: 100%;
+}
+.media_rss th{
+	background-color: #90AEDE;
+	color: white;
+	height: 31px;
+	line-height: 31px;
+	margin: 0pt;
+	padding: 0pt 0px 0pt 5pt;
+	position: relative;
+	text-align: center;
+	border-width: 0px;
+	font-weight: bold;
+}
+.date-rss{
+	color: #3764b9;
+}
+.icon-rss{
+	text-align:center;
+}
+.top-right-corner{
+	 background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat right -32px;
+/*	 background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat 74px -32px;
+	 *background-position-x: 80px ; */
+	 width: 65px;
+}
+
+.top-left-corner{
+	background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat 0px 0px;
+}
+
+.right-cell{
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 1px solid #E5E5E5;
+	border-right: 1px none #E5E5E5;
+	border-left: 1px solid #E5E5E5;
+	padding: 5px 5px 3px 20px;
+}
+
+.icon-cell{
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 1px solid #E5E5E5;
+	border-right: 1px solid #E5E5E5;
+	border-left: 1px solid #E5E5E5;
+	padding:5px 10px 3px 10px;	
+}
+.name-cell{
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 1px solid #E5E5E5;
+	border-right: 1px solid #E5E5E5;
+	border-left: 1px solid #E5E5E5;
+	padding: 5px 20px 3px 5px;
+}
+
+.left-cell{
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 1px solid #E5E5E5;
+	border-right: 1px solid #E5E5E5;
+	border-left: 1px none #E5E5E5;
+	padding:5px 10px 3px 10px;
+}
+.grey-over{
+	background-color: #F0F4FD;
 }

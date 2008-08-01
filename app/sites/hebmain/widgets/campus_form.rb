@@ -104,6 +104,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
      				  #submit
      				   br
      				   input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
+     				   br
      				   
 				}
 		  }

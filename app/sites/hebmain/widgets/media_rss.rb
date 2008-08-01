@@ -58,44 +58,45 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
     
     days_num = get_days_num rescue 1
-     
-    table(:border=>'1') {
-      thead {
-        tr {
-          th 'Date'
-          th 'Title'
-          th 'Description'
-          th 'Video'
-          th 'Audio'
-          th 'Sirtut'
-        }
-      }
-      
-      30.times do |j|
-        curr_date = (Date.today - j).strftime('%d.%m.%Y')
-      
-        selected_lessons = lessons['lessons']['lesson'].select { |lesson|
-          lesson['date'] && lesson['date'] == curr_date && 
-            lesson['files'] && #lesson['files'].is_a?(Hash) &&
-          lesson['files']['file'] #&& lesson['files']['file'].is_a?(Hash) && !lesson['files']['file'].empty?
-        } 
-
-        unless selected_lessons.empty?
-          curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')
-          if has_lesson_in_site_language(selected_lessons)
-            if (get_group_by_date)
-              lessons_show_in_table(selected_lessons, curr_date_to_show)
-            else
-              selected_lessons.each { |selected_lesson|
-                lessons_show_in_table(Array.new(1,selected_lesson), curr_date_to_show)   
-              }
-            end
-            days_num = days_num - 1
-            return if days_num == 0
-          end
-        end
-      end
-    }
+    div(:class => "media_rss"){
+	    table(:border=>'1') {
+	      thead {
+	        tr {
+	          th(:class => 'top-right-corner'){ text 'תאריך'}
+	          th 'שם'
+	          #th 'Description'
+	          th 'וידאו'
+	          th 'אודיו'
+	          th(:class => 'top-left-corner'){ text 'שרטוט'}
+	        }
+	      }
+	      
+	      30.times do |j|
+	        curr_date = (Date.today - j).strftime('%d.%m.%Y')
+	      
+	        selected_lessons = lessons['lessons']['lesson'].select { |lesson|
+	          lesson['date'] && lesson['date'] == curr_date && 
+	            lesson['files'] && #lesson['files'].is_a?(Hash) &&
+	          lesson['files']['file'] #&& lesson['files']['file'].is_a?(Hash) && !lesson['files']['file'].empty?
+	        } 
+	
+	        unless selected_lessons.empty?
+	          curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')
+	          if has_lesson_in_site_language(selected_lessons)
+	            if (get_group_by_date)
+	              lessons_show_in_table(selected_lessons, curr_date_to_show)
+	            else
+	              selected_lessons.each { |selected_lesson|
+	                lessons_show_in_table(Array.new(1,selected_lesson), curr_date_to_show)   
+	              }
+	            end
+	            days_num = days_num - 1
+	            return if days_num == 0
+	          end
+	        end
+	      end
+	    }
+  	}
   end
   
   def has_lesson_in_site_language(lessons)
@@ -136,7 +137,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     div(:class => 'toggle', :tree_node => tree_node.id.to_s + index.to_s){
       img(:class => 'x-plus', :src => '/images/hebmain/jquery/s.gif',:alt => '')
       text get_title if get_title
-      span(:class => 'date') { text ' ' + curr_date.to_s}
+      span(:class => 'date') {text ' ' + curr_date.to_s}
     }
     
     ul(:id => 'lesson-' + tree_node.id.to_s + index.to_s, :style => 'display:none;'){
@@ -163,32 +164,32 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     selected_lessons.each_with_index { |lesson, i|
       video_href, audio_href, sirtut_href = lesson_links(lesson)
                
-      tr {
-        td curr_date.to_s
+      tr(:class => 'mouse-grey-over') {
+        td(:class => 'right-cell date-rss'){text curr_date.to_s}
         if lesson['title']
-          td lesson['title'] 
+          td(:class => 'name-cell'){text lesson['title']}
         else
           td ''
         end
-        if lesson['description']
-          td lesson['description'] 
-        else
-          td ''
-        end
+        # if lesson['description']
+        # 	td lesson['description'] 
+        # else
+        # 	td ''
+        # end
         
-        td {
+        td(:class => 'icon-cell icon-rss'){
           a(:href => video_href) { 
             img(:class => 'img', :src => img_path('video.png'), :alt => '') unless video_href.empty? 
           }
         }
-        td {
+        td(:class => 'icon-cell icon-rss'){
           a(:href => audio_href) { 
             img(:class => 'img', :src => img_path('audio.png'), :alt => '') unless audio_href.empty?
           }
         }
-        td {
+        td(:class => 'left-cell icon-rss') {
           a(:href => sirtut_href) { 
-            img(:class => 'img', :src => img_path('video.png'), :alt => '') unless sirtut_href.empty?
+            img(:class => 'img', :src => img_path('skric.gif'), :alt => '') unless sirtut_href.empty?
           }
         }
       }

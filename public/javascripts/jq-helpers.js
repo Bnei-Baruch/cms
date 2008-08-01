@@ -1,3 +1,15 @@
+$(function(){
+  $(".mouse-grey-over").hover(
+  function(){
+      $(this).toggleClass("grey-over");
+  },
+  function(){
+      $(this).toggleClass("grey-over");
+  })
+  
+  });
+
+
 $(document).ready(function() { 
     var options = { 
         target:        '#output2',   // target element(s) to be updated with server response 

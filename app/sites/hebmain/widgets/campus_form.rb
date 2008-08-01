@@ -1,5 +1,6 @@
 class Hebmain::Widgets::CampusForm < WidgetManager::Base
-	 
+	 require "parsedate.rb"
+	 include ParseDate
 	    
 	def render_full
 		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button }, :position => 'bottom'}).render_to(doc) 
@@ -44,6 +45,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	    	  br
 	    	  table{
 	    	  tr(:class => 'title'){
+	    	  	td{text 'תאריך'}
 	    	  	td{text 'שם'}
 	    	  	td{text 'טל'}
 	    	  	td{text 'אימייל'}
@@ -51,7 +53,9 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	    	  }
 	    	  students_list = Student.list_all_students	    	  
 	    	  students_list.each { |sl|
+	    	    stcreated = parsedate sl.created_at.to_s	  	
 	    	  	tr{
+	    	  		td {text "#{stcreated[0]}/#{stcreated[1]}/#{stcreated[2]}"}
 	    	  		td {text sl.name }
 	    	  		td {text sl.telephone}
 	    	  		td {text sl.email}

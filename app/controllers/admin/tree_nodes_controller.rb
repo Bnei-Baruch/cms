@@ -5,7 +5,7 @@ class Admin::TreeNodesController < ApplicationController
 
   before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights, :tree_node_delete ]
   before_filter {|controller| 
-    unless ['destroy'].include?(controller.action_name)
+    unless ['destroy', 'tree_node_delete'].include?(controller.action_name)
       controller.admin_authorize(['System manager'])
     end
   }
@@ -70,25 +70,43 @@ class Admin::TreeNodesController < ApplicationController
   
   # GET /tree_nodes/1/tree_node_delete
   def tree_node_delete
+    success_flag = true
     @tree_node = TreeNode.find(params[:id])
+    
+    if @tree_node.nil?
+        flash[:notice] = "Tree node does not exist " + params[:id]
+        logger.error("Tree node does not exist " + params[:id])
+        return
+    end
+    
     #   ******************
     #   Check permissions!
-    if not (@tree_node && @tree_node.can_delete?)
+    if not (@tree_node.can_delete?)
       flash[:notice] = "Access denied. User can't delete tree node"
-      redirect_to session[:referer]
+      logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+          "to edit tree_node: #{@tree_node.id} resource: #{@tree_node.resource_id}")
+      return
     end
     #   ******************
 
-    if @tree_node.logical_delete
-        flash[:notice] = 'Resource was successfully deleted.'
-    else
-        flash[:notice] = 'Resource was fail on delete.'
+    if success_flag
+      if @tree_node.logical_delete
+          flash[:notice] = 'Resource was successfully deleted.'
+      else
+          success_flag = false
+          flash[:notice] = 'Resource was fail on delete.'
+          logger.error("Resource was fail on delete.")
+      end
+    end
+    
+    if not success_flag
+      return
     end
     
     respond_to do |format|
       format.html {
         if request.xhr?
-          head(:ok).to_json
+            head(:ok).to_json
           return
         end
         redirect_to session[:referer] 

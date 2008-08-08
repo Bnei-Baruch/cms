@@ -164,7 +164,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                               :mode => 'inline',
                               :button_text => 'הוספת הורדות',
                               :has_url => false, 
-                              :placeholder => 'left'}).render_to(self)
+                              :placeholder => 'lesson'}).render_to(self)
                         }
                         div(:class => 'entries sortable'){
                           show_content_resources(:resources => kabbalah_media_resources,

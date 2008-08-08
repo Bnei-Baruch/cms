@@ -1,4 +1,13 @@
 class Sites::Global < Presenter::Base
+
+  def find_trash
+    TreeNode.get_subtree(
+      :parent => website_node.id,
+      :limit => 1,
+      :depth => 1,
+      :resource_type_hrids => ['Trash']
+    )
+  end
   
   def port
     my_port = @controller.request.server_port.to_s
@@ -17,13 +26,13 @@ class Sites::Global < Presenter::Base
     website_resource.tree_nodes.main rescue nil
   end                      
   
-  def website_subtree
-    TreeNode.get_subtree(:parent => website_resource.id)
-  end
+#  def website_subtree
+#    TreeNode.get_subtree(:parent => website_resource.id)
+#  end
 
   def node
     @node ||=
-    if @permalink 
+      if @permalink 
       # debugger
       TreeNode.find_by_permalink_and_has_url(@permalink, true) rescue nil
     else
@@ -32,7 +41,7 @@ class Sites::Global < Presenter::Base
   end
   
   def is_homepage?
-  	node == website_node
+    node == website_node
   end
   
   def node_name
@@ -79,7 +88,7 @@ class Sites::Global < Presenter::Base
   end
   
   def page_params
-  	@controller.params
+    @controller.params
   end
   
 

@@ -289,7 +289,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :parent => tree_node.id, 
       :resource_type_hrids => ['media_rss'], 
       :depth => 1,
-      :placeholders => ['left'],
+      :placeholders => ['lesson'],
       :status => ['PUBLISHED', 'DRAFT']
     ) 
   end

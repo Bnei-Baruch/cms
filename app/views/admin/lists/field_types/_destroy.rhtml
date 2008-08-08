@@ -1,6 +1,6 @@
 <% if list_value.new_record? %>
 		<%= link_to_function image_tag("delete.gif"), 
-				"this.up('.list_value').remove()" %>
+				"$(this).parent('.list_value').remove()" %>
 <% else %>	
 		<%= link_to_function image_tag("delete.gif"), "mark_for_destroy(this)" %>
 		<%= f.hidden_field :id, :index => nil%>

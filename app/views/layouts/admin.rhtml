@@ -4,10 +4,16 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <meta http-equiv="Content-language" content="utf8" /> 
     <title><%= @title %></title>
-    <%= javascript_include_tag :defaults, 'lowpro' %>
-    <%= calendar_date_select_includes nil %>
+    <%= javascript_include_tag 'jquery', 'jquery.placement.below.js',
+      'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/ui.sortable.min.js',
+      'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js', 'ui/jquery.color.js',
+      'ui/ui.datepicker.min.js', 'ui/ui.timepicker.js',
+      'jrails', 'application'
+    %>
+    <%= javascript_include_tag "ui/i18n/ui.datepicker-#{params[:slang]}" if params[:slang] %>
     <%= stylesheet_link_tag 'reset-fonts-grids' %>
     <%= stylesheet_link_tag 'admin' %>
+    <%= stylesheet_link_tag 'local.datepicker.css' %>
     <%= yield :header %>
   </head>
   <body>
@@ -16,41 +22,40 @@
         <%= link_to(image_tag("/images/cms_logo_small.gif"), '/') %>
         <h1><%= @title %></h1>
         <% if flash[:notice] %>
-        <p class="notice"><%= flash[:notice] %></p>
+          <p class="notice"><%= flash[:notice] %></p>
         <% end %>
       </div>
       <div id="bd">
         <div id="yui-main">
           <div class="yui-b"><div class="yui-g">
-              <%= yield :submenu %>
-			  <%site_directoin = session[:site_direction] rescue 'rtl'%>
-		      <div class="<%= site_directoin %>">
-			      <div id="content">
-	                <%= yield %>
-	              </div>    
+              <%site_direction = session[:site_direction] rescue 'rtl'%>
+              <div class="<%= site_direction %>">
+                <div id="content">
+                  <%= yield %>
+                </div>    
               </div>
-              
             </div>
           </div>
         </div>
         <div class="yui-b">
           <div id="menu">
+            <%= yield :submenu %>
             <h2 class="menu">Main Menu</h2>
             <ul>
               <li><%= link_to 'Websites', admin_websites_path %></li>	 
-              <li><%= link_to 'Resources', admin_resources_path %></li>	 
+              <%#*<li><%= link_to 'Resources', admin_resources_path % ></li>%>
               <li><%= link_to 'Resource Types', admin_resource_types_path %></li>	 
               <li><%= link_to 'Lists', admin_lists_path %></li>	 
-              <li><%= link_to 'Tree Nodes', ext_admin_tree_nodes_path %></li>
-              <li><%= link_to 'Old Tree Nodes', admin_tree_nodes_path %></li>
+              <%#*<li><%= link_to 'Ext Tree Nodes', ext_admin_tree_nodes_path % ></li>%>
+              <li><%= link_to 'Tree Nodes', admin_tree_nodes_path %></li>
             </ul>
             <br />
             <ul>
               <li><%= link_to "Url Migrations", admin_url_migrations_path %></li>
-			  <li><%= link_to 'Url Migrations Import', admin_url_migration_path("import") %></li>
-			  <li><%= link_to 'Url Migrations Export', admin_url_migration_path("export") %></li>
-			  <li><%= link_to 'Url Migrations Merge', admin_url_migration_path("merge") %></li>
-			  <li><%= link_to 'Url Migrations Cleanup', admin_url_migration_path("cleanup"), :confirm => 'Are you sure do you want to delete all URL Migrations?' %></li>
+              <li><%= link_to 'Url Migrations Import', admin_url_migration_path("import") %></li>
+              <li><%= link_to 'Url Migrations Export', admin_url_migration_path("export") %></li>
+              <li><%= link_to 'Url Migrations Merge', admin_url_migration_path("merge") %></li>
+              <li><%= link_to 'Url Migrations Cleanup', admin_url_migration_path("cleanup"), :confirm => 'Are you sure do you want to delete all URL Migrations?' %></li>
             </ul>
             <br />
             <ul>
@@ -62,7 +67,7 @@
             <ul>
               <li><%= link_to "Logout", :controller => 'login', :action => 'logout' %></li>
             </ul>
-         
+            
           </div>
           
         </div>

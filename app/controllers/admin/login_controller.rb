@@ -4,7 +4,7 @@ class Admin::LoginController < ApplicationController
   def login
 
     if request.post?
-      autonticate
+      authenticate
     end
 
   end
@@ -16,7 +16,7 @@ class Admin::LoginController < ApplicationController
 
   # POST /login
   def create
-    autonticate
+    authenticate
   end
 
   def logout
@@ -30,7 +30,7 @@ class Admin::LoginController < ApplicationController
 
   private
   
-  def autonticate
+  def authenticate
      session[:user_id] = nil
       user = User.authenticate(params[:login], params[:password])
       if user
@@ -57,10 +57,10 @@ class Admin::LoginController < ApplicationController
         prefix = '/' + website.prefix unless website.use_homepage_without_prefix
         website.domain + my_port + prefix
       else
-        admin_resources_path
+        admin_tree_nodes_path
       end
     else
-      admin_resources_path
+      admin_tree_nodes_path
     end
   end
   

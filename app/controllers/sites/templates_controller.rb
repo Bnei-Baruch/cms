@@ -9,7 +9,18 @@ class Sites::TemplatesController < ApplicationController
   def json(id = params[:node])
     respond_to do |format|
     end
-    
+  end
+  
+  def update_positions
+    nodes = YAML.load(params[:nodes]) rescue []
+    positions = params[params[:key]] rescue []
+    begin
+      result = TreeNode.update_positions(nodes, positions) ? 200 : 500
+      render :nothing => true, :status => result and return
+    rescue => exception
+      render :text => exception.message, :status => 500 and return
+    end
+
   end
   
   # This is the action that renders the view and responds to client

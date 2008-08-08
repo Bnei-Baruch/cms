@@ -9,14 +9,14 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   end
 
   def ext_content
-    WidgetManager::Base.new do
+    WidgetManager::Base.new(helpers) do
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
-                     :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form},
-                     :button_text => 'ניהול דף תוכן',
-                     :new_text => 'צור יחידת תוכן חדשה',
-                     :edit_text => 'ערוך דף תוכן',
-                     :has_url => false, :placeholder => 'main_content'}).render_to(self)
+          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form},
+          :button_text => 'ניהול דף תוכן',
+          :new_text => 'צור יחידת תוכן חדשה',
+          :edit_text => 'ערוך דף תוכן',
+          :has_url => false, :placeholder => 'main_content'}).render_to(self)
 
       unless get_acts_as_section
         h1 get_title
@@ -51,11 +51,13 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         }
       end
       content_resources.each{|e|
-        div(:class => "item#{' draft' if e.resource.status == 'DRAFT'}") {
+        div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}") {
+          sort_handle
           render_content_resource(e)
           div(:class => 'clear')
         } 
       }
+      content_resources
     end
   end
 
@@ -90,9 +92,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   end
 
   def ext_related_items
-    WidgetManager::Base.new do
+    resources = related_items
+    WidgetManager::Base.new(helpers) do
       w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box },:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
-      show_related_items(related_items)
+      show_content_resources(:resources => resources, :force_mode => 'related_items',
+        :sortable => true)
+      resources
     end
   end
 
@@ -109,11 +114,6 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     )               
   end
 
-  def render_related_item(tree_node)
-    class_name = tree_node.resource.resource_type.hrid
-    return w_class(class_name).new(:tree_node => tree_node).render_to(self)
-  end
-
   def related_items
     TreeNode.get_subtree(
       :parent => tree_node.id, 
@@ -125,13 +125,4 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     )               
   end
 
-  def show_related_items(related_items)
-    related_items.each { |e|
-      if e.resource.status == 'DRAFT'
-        div(:class => 'draft') { render_related_item(e) }
-      else
-        render_related_item(e)
-      end
-    } 
-  end    
-  end
+end

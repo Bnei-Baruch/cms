@@ -112,7 +112,7 @@ module ApplicationHelper
   # the custom FormBuilder
   class CMSFormBuilder < ActionView::Helpers::FormBuilder
     [:password_field, :file_field, :text_area, :radio_button,
-      :hidden_field, :text_field, :calendar_date_select].each do |meth|
+      :hidden_field, :text_field].each do |meth|
       src = <<-end_src
       def #{meth}(method, options = {})
         if options.has_key?(:id)

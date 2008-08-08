@@ -8,8 +8,24 @@ module	Configuration::Hebmain
     :group_name => 'mainsites',
  # define the interface language (for the frontend). This is powered by a multilingual plugin
     :language => 'hebrew',
+    :short_language => 'he',
     :site_direction => 'rtl',
-    :layout_map => { 'search' => 'content_page'}
+    :layout_map => { 'search' => 'content_page'},
+    # define view modes per parent widget and placeholder.
+    :view_modes => {
+      # parent widget
+      :website => {
+        # placeholder
+        :left => {
+          :media_rss => 'left',
+          :rss => 'preview'
+        },
+        :right => {
+          :video_gallery => 'homepage',
+          :render_right => 'right'
+        }
+      }
+    }
   }
 
 end

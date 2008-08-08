@@ -1,78 +1,108 @@
 <div class="property">
-	<% @property = property # for use with error_messages_for only
-	errors = rp_error_messages_for :property
-	obj_id = 'obj_' + property.object_id.to_s
-	label_options = errors.empty? ? {:for => obj_id, :title => @property.name} : {:title => @property.name, :class => 'fieldWithErrors', :for => obj_id}
-	%>
-	
-   <% cms_fields_for "resource[my_properties][]", property do |f| %>
-
-		<%= f.hidden_field(:property_type, :index => nil) %>
-		<%= f.hidden_field(:property_id, :index => nil) %>
-		<%= f.hidden_field(:id, :index => nil) %>
-		
-		<%= content_tag(:label,_(property.name), label_options) %>
-		<%= errors %>
-		<% case data_type 
-			 when 'number', 'string': %>
-				<%= f.text_field(:value, :index => nil, :id => obj_id) %>
-			<% when 'boolean': %>                                          
-				<% checked = %w{ t true 1}.include?(property.value) %>
-				<%= check_box_tag :value_dummy, property.value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
-			<% when 'date': %>
-				<%= f.calendar_date_select :value, 
-				:time => false, 
-				:popup => :force,
-				:size => 57,
-				:name => 'resource[my_properties][][value]',
-				:id => obj_id %>
-				<%= link_to_function _('Reset Date') do |page|
-						page[obj_id].value = "" 
-				    end  %>
-			<% when 'timestamp': %>
-				<%= f.calendar_date_select :value, 
-				:time => true, 
-				:popup => :force,
-				:size => 57,
-				:name => 'resource[my_properties][][value]',
-				:id => obj_id %>
-				<%= link_to_function _('Reset Date') do |page|
-						apage[obj_id].value = ""
-				    end  %>
-			<% when 'list': %>
-				<%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil, :id => obj_id) %>
-			<% when 'plaintext': %>
-				<%= f.text_area(:value, :index => nil, :id => obj_id) %>
-			<% when 'text': %>
-				<%= f.text_area(:value, :index => nil, :class => 'mce', :id => obj_id) %>
-			<% when 'file': %>
-				<% original = @property.original %>
-				<% if original %>
-					Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/>
-					<% if original.is_image? %>
-            <%= image_tag	admin_attachment_url(original) %>
+  <% @property = property # for use with error_messages_for only
+  errors = rp_error_messages_for :property
+  obj_id = 'obj_' + property.object_id.to_s
+  label_options = errors.empty? ? {:for => obj_id, :title => @property.name} : {:title => @property.name, :class => 'fieldWithErrors', :for => obj_id}
+%>
+  
+  <% cms_fields_for "resource[my_properties][]", property do |f| %>
+  
+    <%= f.hidden_field(:property_type, :index => nil) %>
+    <%= f.hidden_field(:property_id, :index => nil) %>
+    <%= f.hidden_field(:id, :index => nil) %>
+  
+    <%= content_tag(:label,_(property.name), label_options) %>
+    <%= errors %>
+    <% case data_type 
+    when 'number', 'string': %>
+      <%= f.text_field(:value, :index => nil, :id => obj_id) %>
+    <% when 'boolean': %>                                          
+      <% checked = %w{ t true 1}.include?(property.value) %>
+      <%= check_box_tag :value_dummy, property.value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
+    <% when 'date': %>
+      Format of Date: yyyy-mm-dd<br/>
+      <%= f.text_field(:value, :index => nil, :id => obj_id, :name => 'resource[my_properties][][value]') %>
+      <script type="text/javascript">  
+        $(function() {
+          $('#<%= obj_id %>').datepicker({
+          gotoCurrent: true,
+          yearRange: '1900:2500',
+          showOn: 'button',
+          dateFormat: 'yy-mm-dd',
+          buttonText: '<%=_('Choose')%>',
+          buttonImage: '/images/calendar.gif'
+        });
+      })
+      </script>  
+    <% when 'timestamp': %>
+        Format of Date: yyyy-mm-dd<br/>Format of Time: hh:mm<br/>
+      <%= f.text_field(:value, :index => nil, :id => "date_#{obj_id}", :name => 'xxx', :class => 'datepick') %>
+      <%= f.text_field(:value, :index => nil, :id => "time_#{obj_id}", :name => 'yyy', :class => 'timepick') %>
+      <%= f.hidden_field(:value, :index => nil, :id => "#{obj_id}", :name => 'resource[my_properties][][value]') %>
+      <script type="text/javascript">
+      $(function() {
+          var date = new Date($('#<%= obj_id %>').val());
+          $('#date_<%= obj_id %>')
+          .val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate())
+          .datepicker({
+              gotoCurrent: true,
+              yearRange: '1900:2500',
+              showOn: 'button',
+              dateFormat: 'yy-mm-dd',
+              buttonText: '<%=_('Choose')%>',
+              buttonImage: '/images/calendar.gif'
+          })
+          .change(function(){
+              var fdate = $('#date_<%= obj_id %>').val().split("-");
+              var ftime = $('#time_<%= obj_id %>').val().split(":");
+              var date = new Date(fdate[0], fdate[1] - 1, fdate[2], ftime[0], ftime[1], 0);
+              $('#<%= obj_id %>').val(date);
+          });
+          $('#time_<%= obj_id %>')
+          .val(date.getHours() + ":" + date.getMinutes())
+          .timePicker({step:5,  startTime : "00:00", endTime : "24:00"})
+          .change(function(){
+              var fdate = $('#date_<%= obj_id %>').val().split("-");
+              var ftime = $('#time_<%= obj_id %>').val().split(":");
+              var date = new Date(fdate[0], fdate[1] - 1, fdate[2], ftime[0], ftime[1], 0);
+              $('#<%= obj_id %>').val(date);
+          })
+      })
+      </script>  
+    <% when 'list': %>
+      <%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil, :id => obj_id) %>
+    <% when 'plaintext': %>
+      <%= f.text_area(:value, :index => nil, :id => obj_id) %>
+    <% when 'text': %>
+      <%= f.text_area(:value, :index => nil, :class => 'mce', :id => obj_id) %>
+    <% when 'file': %>
+      <% original = @property.original %>
+      <% if original %>
+        Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/>
+        <% if original.is_image? %>
+          <%= image_tag	admin_attachment_url(original) %>
+          <br/>
+          <br/>
+          <% if myself = @property.myself %>
+            Self: <%= "#{myself.filename}: #{myself.mime_type.split('/').last} of #{myself.size} bytes" %><br/>
+            <%= image_tag	admin_attachment_url(myself) %>
             <br/>
-            <br/>
-            <% if myself = @property.myself %>
-              Self: <%= "#{myself.filename}: #{myself.mime_type.split('/').last} of #{myself.size} bytes" %><br/>
-              <%= image_tag	admin_attachment_url(myself) %>
-              <br/>
-            <% end %>
-            <% @property.thumbnails.each {|img|%>
-              Attachment: <%= "#{img.filename}: #{img.mime_type.split('/').last} of #{img.size} bytes" %><br/>
-              <%= image_tag	admin_attachment_url(img) %>
-              <hr/>
-            <% } %>
           <% end %>
-				<% end %>
-				<%= f.file_field(:value, :index => nil) %>
-		<% end %>
-		<% if data_type = 'file' && original %>
-			<br/>Remove:<br/>
-			<%= f.check_box :remove, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
-		<% else %>
-			<%= f.hidden_field(:remove, :index => nil) %>
-		<% end%>
-	
-	<% end %>
+          <% @property.thumbnails.each {|img|%>
+            Attachment: <%= "#{img.filename}: #{img.mime_type.split('/').last} of #{img.size} bytes" %><br/>
+            <%= image_tag	admin_attachment_url(img) %>
+            <hr/>
+          <% } %>
+        <% end %>
+      <% end %>
+      <%= f.file_field(:value, :index => nil) %>
+    <% end %>
+    <% if data_type = 'file' && original %>
+      <br/>Remove:<br/>
+      <%= f.check_box :remove, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
+    <% else %>
+      <%= f.hidden_field(:remove, :index => nil) %>
+    <% end%>
+  
+  <% end %>
 </div>

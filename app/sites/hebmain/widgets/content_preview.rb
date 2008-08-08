@@ -1,21 +1,16 @@
 class Hebmain::Widgets::ContentPreview < WidgetManager::Base
 
-  def render_middle
-    render_full
-  end
-  
   def render_full
     get_content_items
     div(:class => 'content_preview'){
-      buttons = %W{}
+      buttons = %W{edit_button delete_button}
       if @items_size < @max_num
-        buttons = %W{new_button edit_button delete_button}
-      else
-        buttons = %W{edit_button delete_button}
+        buttons = %W{new_button} + buttons
       end
-    
+      
       # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
       updatable = 'up-' + @widget_id.to_s
+      sort_direction = 0
       div(:id => updatable){
         w_class('cms_actions').new(:tree_node => tree_node, 
           :options => {:buttons => buttons,
@@ -24,11 +19,14 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
             :has_url => false,
             :resource_types => %W{ custom_preview }}).render_to(self)
         
-        render_preview_update(true)
+        sort_direction = render_preview_update(true)
       }
       if !@is_main_format
         w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
       end
+      make_sortable(:selector => "##{updatable} .sortable", :direction => sort_direction) {
+        content_items(tree_node.id)
+      }
     }
   end
 
@@ -49,7 +47,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
         remove_link_from_resource(@items.last) 
       end
     end
-      
+
     if @items_size < @max_num || is_rebuild
       add_new_item
       get_content_items
@@ -59,7 +57,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       @items.last.move_to_top
       get_content_items
     end
-    
+
     if @is_main_format
       show_main_format
     else
@@ -70,10 +68,9 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       end
     end
   end
-  
-  
+
   private
-  
+
   def show_main_format
     case @items_size
     when 1
@@ -83,15 +80,17 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     when 3
       view_mode = 'small_main_format'
     end
-    div(:class => "main_preview#{@items_size}") {
+    div(:class => "main_preview#{@items_size} sortable") {
       @items.each_with_index { |item, index|  
         klass = (index + 1) == @items_size ? 'element last' : 'element'
-        div(:class => klass) {
+        div(:class => klass, :id => sort_id(item)) {
+          sort_handle
           show_item(item, view_mode)
         }
       }
       div(:class => 'clear')
     }
+    :horizontal
   end
   
   def show_preview
@@ -103,26 +102,30 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     when 3
       view_mode = 'small'
     end
-    div(:class => "main_preview#{@items_size}") {
+    div(:class => "main_preview#{@items_size} sortable") {
       @items.each_with_index { |item, index|  
         klass = (index + 1) == @items_size ? 'element last' : 'element'
-        div(:class => klass) {
+        div(:class => klass, :id => sort_id(item)) {
+          sort_handle
           show_item(item, view_mode)
         }
       }
       div(:class => 'clear')
-    }                  
+    }
+    :horizontal
   end
 
   def show_index
-    div(:class => 'index') {
+    div(:class => 'index sortable') {
       @items.each_with_index { |item, index|  
         klass = index.odd? ? 'element preview-even' : 'element preview-odd'
-        div(:class => klass) {
+        div(:class => klass, :id => sort_id(item)) {
+          sort_handle
           show_item(item, 'small')
         }
       }
     }
+    :vertical
   end
   
   def is_articles_index?
@@ -139,7 +142,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
   end
   
   def get_content_items
-    @items = content_items
+    @items = content_items(tree_node.id)
     @items_size = @items.size
     @widget_id = tree_node.id
     @widget_name = tree_node.resource.resource_type.hrid
@@ -155,9 +158,9 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     return w_class(klass).new(:tree_node => tree_node, :view_mode => view_mode).render_to(self)
   end
 
-  def content_items
+  def content_items(node_id)
     TreeNode.get_subtree(
-      :parent => tree_node.id, 
+      :parent => node_id, 
       :resource_type_hrids => ['content_page', 'custom_preview'], 
       :depth => 1,
       :has_url => false,

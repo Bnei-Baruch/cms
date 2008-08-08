@@ -107,7 +107,7 @@ $(function() {
         show:
             // On switch between tabs...
         function(tab){
-            if (tab.tab.hash == "#tv"){
+            if (tab.hash == "#tv"){
                 stopPlayer("radioplayer");
                 playState_radio = false;
                 $play_radio.removeClass("play-in").addClass("play-out");
@@ -414,5 +414,4 @@ $(function() {
   });
   $(".inner-player ul li:nth-child(odd)").addClass("odd");
 });
-
 

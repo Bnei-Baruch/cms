@@ -1,25 +1,5 @@
 class Hebmain::Widgets::VideoGallery < WidgetManager::Base
   
-  def render_right
-    render_homepage
-  end
-  
-  def render_full
-    render_inner
-    #    render_homepage # Default
-  end
-  
-  private
-
-  def video_admin
-    w_class('cms_actions').new( :tree_node => tree_node, 
-      :options => {:buttons => %W{ new_button edit_button delete_button }, 
-        :resource_types => %W{ video },
-        :new_text => 'צור יחידת תוכן חדשה', 
-        :has_url => false
-      }).render_to(self)
-  end
-  
   def render_homepage
     video_admin
     id = tree_node.object_id
@@ -39,7 +19,7 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
     }
   end
   
-  def render_inner
+  def render_full
     video_admin
     id = tree_node.object_id
     first_with_image = video_items.detect { |item| item.resource.properties('image') }
@@ -63,6 +43,18 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
       a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url != ""
     }
   end
+
+  private
+
+  def video_admin
+    w_class('cms_actions').new( :tree_node => tree_node, 
+      :options => {:buttons => %W{ new_button edit_button delete_button }, 
+        :resource_types => %W{ video },
+        :new_text => 'צור יחידת תוכן חדשה', 
+        :has_url => false
+      }).render_to(self)
+  end
+  
   def video_items
     @video_items ||= TreeNode.get_subtree(
       :parent => tree_node.id, 

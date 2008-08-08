@@ -4,20 +4,6 @@ require 'rss/2.0'
 class Hebmain::Widgets::MediaRss < WidgetManager::Base
   
   def render_left
-    show_content
-  end
-  
-  def render_full
-    show_content_in_table
-  end
-  
-  private
-  
-  def get_rss_items (data)
-    rss_items = YAML.load(data) rescue nil
-  end
-    
-  def show_content
     lessons = lesson_validation
     return rawtext('') if lessons.nil?
     
@@ -51,7 +37,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     end
   end
   
-  def show_content_in_table
+  def render_full
     lessons = lesson_validation
     return rawtext('') if lessons.nil?
     
@@ -99,6 +85,12 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
   	}
   end
   
+  private
+  
+  def get_rss_items (data)
+    YAML.load(data) rescue nil
+  end
+    
   def has_lesson_in_site_language(lessons)
     lessons.each_with_index { |lesson, i|
       files_array = lesson['files']['file'].is_a?(Hash) ? Array.new(1,lesson['files']['file']) : lesson['files']['file']

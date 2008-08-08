@@ -1,3 +1,6 @@
+body{
+    background-color:white;
+}
 h3.box_header {
     background-color:#F0F5FD;
     color:black;
@@ -27,6 +30,24 @@ a.more img{
 }
 .draft{
     background-color:#FFF6CF !important;
+}
+/* Sortables */
+.handle{
+    float:left !important;
+    z-index:1000 !important;
+    height:13px !important;
+    width:13px !important;
+    cursor: move !important;
+    margin:0 !important;
+    padding:0 !important;
+    position:relative !important;
+}
+.sort-area{
+    background-color:#86cb9c!important;
+    padding:5px 0 !important;
+}
+.placeholder{
+    background-color:olive;
 }
 .copyright{
     color:#767676;

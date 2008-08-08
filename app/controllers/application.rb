@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
       if (user_groups.length == 0)
          session[:original_uri]=request.request_uri
          flash[:notice] = "Access denied."
-         redirect_to(:controller => "login", :action => "login")
+         redirect_to(:controller => "login", :action => "login", :status => 401)
       end
     end
   end

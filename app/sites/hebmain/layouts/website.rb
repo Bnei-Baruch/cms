@@ -25,16 +25,16 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta(:name => 'description', :content => ext_meta_description)
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
-          'base-min', 
-          '../ext/resources/css/ext-all', 
-          'hebmain/common',
-          'hebmain/header', 
-          'hebmain/home_page', 
-          'hebmain/page_admin',
-          'hebmain/widgets',
-          :cache => false
-          # :cache => 'cache/website_admin'
-          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js'
+                              'base-min', 
+                              '../ext/resources/css/ext-all', 
+                              'hebmain/common',
+                              'hebmain/header', 
+                              'hebmain/home_page', 
+                              'hebmain/page_admin',
+                              'hebmain/widgets',
+                              'hebmain/jquery.tabs.css',
+                              :cache => false
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
           }
@@ -48,7 +48,10 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/jquery.tabs.css',
           :cache => 'cache/website'
         end
-        javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.tabs.js', 'jquery.browser.js', :cache => 'cache/website'
+        javascript_include_tag 'flashembed', 'jquery', 
+        'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/ui.sortable.min.js',
+        'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js', 'ui/jquery.color.js',
+        'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js', :cache => 'cache/website'
 
         rawtext <<-IE61
           <!--[if IE]>
@@ -65,7 +68,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               div(:class => 'yui-b') {
                 div(:class => 'yui-gd') {
                   @dynamic_tree.render_to(doc)
-                  div(:id => 'hd') { @header_top_links.render_to(self) } #Header goes here
+                  div(:id => 'hd') {
+                    make_sortable(:selector => '#hd .links', :axis => 'x') {
+                      @header_top_links.render_to(self)
+                    }
+                  }
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
                   }    
@@ -134,7 +141,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           div(:class => 'play play-out')
                           div(:class => 'stop stop-out')
                         }
-                     javascript {
+                        javascript {
                           rawtext <<-RADIO
                               if (jQuery.browser.ie) {
 document.write('<object id="radioplayer" style="display:none" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tvplayer" type="application/x-oleobject" width="222" height="40" standby="Loading Windows Media Player components..."> <param name="URL" value="mms://vod.kab.tv/radioheb" /> <param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /> <param name="uiMode" value="invisible" /><param name="animationAtStart" value="0" /> <param name="showDisplay" value="0" /><param name="transparentAtStart" value="0" /> <param name="ShowControls" value="0" /><param name="ShowStatusBar" value="0" /> <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /> <param name="windowlessVideo" value="0" /><param name="balance" value="0" /> </object>');
@@ -159,12 +166,28 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                               :has_url => false, 
                               :placeholder => 'left'}).render_to(self)
                         }
-                        div(:class => 'entries'){
-                          show_content_resources(kabbalah_media_resources, 'left')
+                        div(:class => 'entries sortable'){
+                          show_content_resources(:resources => kabbalah_media_resources,
+                            :parent => :website,
+                            :placeholder => :left,
+                            :sortable => true
+                          )
+                        }
+                        make_sortable(:selector => ".downloads .sortable") {
+                          kabbalah_media_resources
                         }
                       }
                       
-                      show_content_resources(left_column_resources, 'left')
+                      div(:class => 'left-column'){
+                        show_content_resources(:resources => left_column_resources,
+                          :parent => :website,
+                          :placeholder => :left,
+                          :sortable => true
+                        )
+                      }
+                      make_sortable(:selector => ".left-column") {
+                        left_column_resources
+                      }
                     }
                   }
                   div(:class => 'yui-u') {
@@ -182,7 +205,9 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                           :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
                       
-                      show_content_resources(middle_column_resources, 'middle')
+                      show_content_resources(:resources => middle_column_resources,
+                        :parent => :website,
+                        :placeholder => :middle)
                     }
                   }
                 }
@@ -203,15 +228,22 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
             	
-                show_content_resources(right_column_resources, 'right'){ |idx|
+                show_content_resources(:resources => right_column_resources,
+                  :parent => :website,
+                  :placeholder => :right,
+                  :sortable => true) { |idx|
                   @newsletter.render_to(self) if (idx == 1)
                 }
-
+                make_sortable(:selector => ".right-part") {
+                  right_column_resources
+                }
               }
             }
           }
           div(:id => 'ft') {
-            @header_bottom_links.render_to(self)
+            make_sortable(:selector => '#ft .links', :axis => 'x') {
+              @header_bottom_links.render_to(self)
+            }
             @header_copyright.render_to(self)
           }
         }
@@ -257,19 +289,9 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :parent => tree_node.id, 
       :resource_type_hrids => ['media_rss'], 
       :depth => 1,
-      :placeholders => ['left'],
+      :placeholders => ['lesson'],
       :status => ['PUBLISHED', 'DRAFT']
     ) 
   end
 
-  def show_content_resources(content_resources, view_mode, &block)
-    content_resources.each_with_index { |e, idx|
-      block.call(idx) if block
-      if e.resource.status == 'DRAFT'
-        div(:class => 'draft') { render_content_resource(e, view_mode) }
-      else
-        render_content_resource(e, view_mode)
-      end
-    }
-  end
 end 

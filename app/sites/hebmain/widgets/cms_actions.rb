@@ -82,7 +82,9 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
   end
 
   def edit_button(element)
-    href = edit_admin_resource_path(:id => tree_node.resource, :tree_id => tree_node.id)
+    href = edit_admin_resource_path(:id => tree_node.resource,
+      :tree_id => tree_node.id,
+      :slang => @presenter.site_settings[:short_language])
     text = @options[:edit_text] || 'ערוך'
     rawtext <<-EDIT
       {
@@ -100,7 +102,7 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
       {
         text: '#{text}',
         handler: function (item) {
-          Ext.Msg.confirm('Item Deletion', 'Are you sure you want to delete <#{name}>?',
+          Ext.Msg.confirm('#{name}', 'Are you sure you want to delete<br/><#{name}>?',
             function(e){
               if(e == 'yes') {
                 Ext.Ajax.request({
@@ -109,10 +111,10 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
                   params: {elem:'#{element}'},
                   callback: function (options, success, responce){
                     if (success) {
-                      Ext.Msg.alert('Item Deletion', 'The item <#{name}> was successfully deleted');
+                      Ext.Msg.alert('#{name}', 'The item was successfully deleted');
                       Ext.get('#{element}').parent().remove();
                     } else {
-                      Ext.Msg.alert('Item Deletion', 'FAILURE!!!');
+                      Ext.Msg.alert('#{name}', 'FAILURE: ' + responce.status + ' ' + responce.statusText);
                     }
                   }
                 });
@@ -155,8 +157,14 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
     href = new_admin_resource_path(
       :resource => {
         :resource_type_id => resource_types.first.id, 
-        :tree_node => {:parent_id => parent_id, :is_main => is_main, :has_url => has_url, :placeholder => placeholder}
-      })
+        :tree_node => {:parent_id => parent_id,
+          :is_main => is_main,
+          :has_url => has_url,
+          :placeholder => placeholder
+        },
+        :slang => @presenter.site_settings[:short_language]
+      }
+    )
     new_text ||= 'צור חדש'
     rawtext <<-NEW_LINK
       {
@@ -178,10 +186,15 @@ class Hebmain::Widgets::CmsActions < WidgetManager::Base
 
     resource_types.each_with_index{ |e, idx|
       href = new_admin_resource_path(
+        :slang => @presenter.site_settings[:short_language],
         :resource => {
           :resource_type_id => e.id, 
-          :tree_node => {:parent_id => parent_id, :is_main => is_main, :has_url => has_url, :placeholder => placeholder}
-        })
+          :tree_node => {:parent_id => parent_id,
+            :is_main => is_main,
+            :has_url => has_url,
+            :placeholder => placeholder}
+        }
+      )
       rawtext ',' unless idx.eql?(0)
       rawtext "{text:'#{e.name}', href:'#{href}'}"
     }

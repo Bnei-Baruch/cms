@@ -1,5 +1,7 @@
 module WidgetExtensions
-  
+
+  @@sort_prefix_no = 0
+
   def img_path(image_name)
     "#{domain}/images/#{presenter.site_name}/#{image_name}"
   end                  
@@ -72,10 +74,104 @@ module WidgetExtensions
     end
   end
   
-  def render_content_resource(tree_node, view_mode = 'full')
-    class_name = tree_node.resource.resource_type.hrid
-    w_class(class_name).new(:tree_node => tree_node, :view_mode => view_mode).render_to(self)
+  def show_content_resources(options, &block)
+    options.delete(:resources).each_with_index { |e, idx|
+      block.call(idx) if block
+      klass = e.resource.status == 'DRAFT' ? ' draft' : ''
+      
+      div(:id => sort_id(e), :class => klass) {
+        sort_handle if options[:sortable]
+        render_content_resource(e, options)
+      }
+    }
   end
   
+  def render_content_resource(tree_node, options = nil)
+    return unless tree_node
+    class_name = tree_node.resource.resource_type.hrid
+    if options.is_a?(Hash)
+      options.merge!(:widget => class_name.to_sym)
+      view_mode = calculate_view_mode(options)
+    else
+      view_mode = options || 'full'
+    end
+    w_class(class_name).new(@helpers, :tree_node => tree_node, 
+      :view_mode => view_mode).render_to(self)
+  end
+
+  def calculate_view_mode(options)
+    return 'full' unless options
+    return options[:force_mode] if options.include?(:force_mode)
+    view_modes = @presenter.site_settings[:view_modes]
+    return 'full' unless view_modes
+    parent = view_modes[options[:parent]]
+    return 'full' unless parent
+    placeholder = parent[options[:placeholder]]
+    return 'full' unless placeholder
+    placeholder[options[:widget]] || 'full'
+  end
+
+  def sort_handle
+    img(:class => 'handle', :src => "/images/draggable.png", :alt => "") if tree_node.can_edit?
+  end
   
+  def sort_id(item)
+    @@sort_prefix_no += 1
+    "el#{@@sort_prefix_no}_#{item.position}"
+  end
+  
+  def make_sortable(options, &block)
+    unless tree_node.can_edit?
+      block.call if block
+      return
+    end
+    
+    selector = options[:selector]
+    if options.include?(:direction) # :vertical, :horizontal
+      direction = options[:direction]
+      constraint = "horizontal" if direction == :horizontal
+      constraint = "vertical" if direction == :vertical
+    elsif options.include?(:constraint)
+      constraint = options[:constraint] # "vertical", "horizontal"
+    else
+      constraint = options[:axis] # :axis => "x|y"
+    end
+
+    sortable_element(selector, :scroll => true, :handle => 'handle',
+      :opacity => 0.5,
+      :ghosting => true, :dropOnEmpty => true, :cursor => '"move"',
+      :url => {:controller => 'sites/templates',
+        :action => :update_positions,
+        :id => "0",
+        :key => selector,
+        :nodes => YAML.dump(block.call.map { |node| {:id => node.id} })
+      },
+      :expression => 'el[0-9]+[-=_](.+)',
+      :constraint => constraint,
+      :success => mark_success(selector),
+      :error => alert(selector)
+    )
+    javascript {
+      rawtext "jQuery('#{selector} .handle').mouseover(function(event){"
+      rawtext '  $(event.target).parent().toggleClass("sort-area"); '
+      rawtext '}).mouseout(function(event){'
+      rawtext '  $(event.target).parent().toggleClass("sort-area"); '
+      rawtext '});'
+    }
+  end
+
+  def alert(selector)
+    javascript = highlight(selector, "red", "white");
+    javascript << "alert(request.responseText);"
+  end
+
+  def mark_success(selector)
+    highlight(selector)
+  end
+  
+  def highlight(element, start_color = "#ffff99", end_color = "#ffffff")
+    javascript = "jQuery('#{element}').animate({backgroundColor:'#{start_color}'}, 500)"
+    javascript << ".animate({backgroundColor:'#{end_color}'}, 500);"
+  end
+
 end

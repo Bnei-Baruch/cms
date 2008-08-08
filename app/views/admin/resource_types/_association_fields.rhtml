@@ -15,7 +15,7 @@
 					</td>
 					<td>
 						<%= link_to_function image_tag("delete.gif"), 
-							"this.up('.dynamic_element').remove()" %>
+							"$(this).parent('.dynamic_element').remove()" %>
 					</td>
 				<% else -%>
 					<td>

@@ -124,9 +124,9 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                 new Ext.menu.Item({
                     text: 'חדש',
                     disabled: node.attributes.cannot_create_child,
-                    href: node.attributes.addTarget + '?' +
+                    href: node.attributes.addTarget +
                         encodeURI(
-                    'resource[resource_type_id]='+ resource_type_id +
+                        '&resource[resource_type_id]='+ resource_type_id +
                         '&resource[tree_node][has_url]=true' +
                         '&resource[tree_node][is_main]=true' +
                         '&resource[tree_node][parent_id]=' + node.id

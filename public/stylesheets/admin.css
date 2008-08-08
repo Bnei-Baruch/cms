@@ -1,6 +1,7 @@
 body {
 font-family:verdana,arial,helvetica,clean,sans-serif;
 text-align:left;
+background-color:white;
 }
 table{
 border-collapse:separate;
@@ -12,7 +13,7 @@ font-style:italic
 th, td{
 padding: 5px;    
 }
-table. tr. td{
+table.tr.td{
 border:1px solid gray;    
 }
 a:link, a:visited {
@@ -133,12 +134,13 @@ color: green;
 font-weight: bold;   
 }
 #submenu{
-width: 160px;
+/*width: 160px;
 float:left;  
 border-right: 1px solid lightblue;
 margin:-30px 0 0 0;
 padding: 30px 0 0 20px;
-height: 400px
+height: 400px;*/
+display:none;
 }
 #content{
 float:left; 

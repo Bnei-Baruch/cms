@@ -9,7 +9,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
   end
 
   def ext_content
-    WidgetManager::Base.new do
+    WidgetManager::Base.new(helpers) do
 
       h1 get_title if get_title
             
@@ -64,7 +64,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
   def ext_related_items
     WidgetManager::Base.new do
       w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box },:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
-      show_related_items(related_items)
+      show_content_resources(:resources => related_items)
     end
   end
 
@@ -86,14 +86,4 @@ class Hebmain::Templates::Search < WidgetManager::Template
     )               
   end
 
-  def show_related_items(related_items)
-    related_items.each { |e|
-      if e.resource.status == 'DRAFT'
-        div(:class => 'draft') { render_related_item(e) }
-      else
-        render_related_item(e)
-      end
-    } 
-  end    
-  
 end

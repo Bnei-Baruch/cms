@@ -49,7 +49,7 @@
 			</td>
 			<td rowspan="2">
 				<% if property.new_record? %>
-				<%= link_to_function image_tag("delete.gif"), "this.up('.property').remove()", :class => 'delete' %>
+				<%= link_to_function image_tag("delete.gif"), "$(this).parents('.property').hide();", :class => 'delete' %>
 				<% else %>	
 				<%= link_to_function image_tag("delete.gif"), "mark_for_destroy(this)", :class => 'delete' %>
 				<%= f.hidden_field :id, :index => nil%>

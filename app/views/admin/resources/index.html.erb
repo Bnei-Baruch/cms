@@ -1,32 +1,31 @@
 <% content_for(:submenu) do -%>
-	<div id="submenu">
-		<h2 class="menu">Website Filter</h2>
-	<%= render :partial => 'admin/share/website_control' %>
-	</div>
-	<%= observe_form :website_control,
-		:url => admin_resources_path, :method => :get%>
+  <div id='submenu'>
+    <h2 class="menu">Website Filter</h2>
+    <%= render :partial => 'admin/share/website_control' %>
+    <%= observe_form :website_control, :url => admin_resources_path, :method => :get%>
+  </div>
 <% end -%>
 
 <% @title = "Listing resources" %>
 
 <% form_for(:resource, :url => new_admin_resource_path, :html => {:method => :get}) do |f| %>
-	<p>
-		Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
-		<%= submit_tag "Create new Resource" %>
-	</p>
+  <p>
+    Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
+    <%= submit_tag "Create new Resource" %>
+  </p>
 <% end %>
 
 <br />
 
 <div id="table">
-	<%= render :partial => 'table', :locals => { :resources => @resources } %>
+  <%= render :partial => 'table', :locals => { :resources => @resources } %>
 </div>
 
 <br />
 
 <% form_for(:resource, :url => new_admin_resource_path, :html => {:method => :get}) do |f| %>
-	<p>
-		Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
-		<%= submit_tag "Create new Resource" %>
-	</p>
+  <p>
+    Type: <%= f.select(:resource_type_id, ResourceType.resource_types_for_select) %>
+    <%= submit_tag "Create new Resource" %>
+  </p>
 <% end %>

@@ -17,14 +17,18 @@ class Hebmain::Widgets::Header < WidgetManager::Base
       CODE
     }   
   
-    ul(:class => 'links') do
+    ul(:class => 'links') {
       w_class('cms_actions').new(:tree_node => presenter.website_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ link },:new_text => 'לינק חדש', :has_url => false, :placeholder => 'top_links'}).render_to(self)
-      top_links.each do |e|
-        li do
+      top_links.each { |e|
+        li(:id => sort_id(e)) {
+          sort_handle
           w_class('link').new(:tree_node => e, :view_mode => 'with_image').render_to(self)
-        end
-      end
-    end
+        }
+      }
+    }
+
+    top_links
+
   end
 
   def render_bottom_links
@@ -34,14 +38,17 @@ class Hebmain::Widgets::Header < WidgetManager::Base
         :has_url => false, 
         :placeholder => 'bottom_links'
       }).render_to(self)
-    ul(:class => 'links') do
-      bottom_links.each_with_index do |e, i|
+    ul(:class => 'links') {
+      bottom_links.each_with_index { |e, i|
         li {rawtext '|'} unless i.eql?(0)
-        li do
+        li(:id => sort_id(e)) {
+          sort_handle
           w_class('link').new(:tree_node => e).render_to(self)
-        end
-      end
-    end
+        }
+      }
+    }
+    bottom_links
+
   end
   
   def render_logo

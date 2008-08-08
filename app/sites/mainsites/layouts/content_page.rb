@@ -28,35 +28,35 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         title @meta_title #ext_title
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
-                              'base-min', 
-                              '../ext/resources/css/ext-all', 
-                              'hebmain/common',
-                              'hebmain/header', 
-                              'hebmain/inner_page', 
-                              'hebmain/page_admin',
-                              'hebmain/widgets',
-                              :cache => false
-                              #:cache => 'cache/content_page_admin'
-          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', '../ext/adapter/ext/ext-base', 'jquery.tabs.js' ,'../ext/ext-all', 'ext-helpers', 'jquery.media.js', 'jquery.metadata.js', 'jquery.form.js', :cache => 'cache/admin_content_page'
-
+          'base-min', 
+          '../ext/resources/css/ext-all', 
+          'hebmain/common',
+          'hebmain/header', 
+          'hebmain/inner_page', 
+          'hebmain/page_admin',
+          'hebmain/widgets',
+          :cache => false
+          #:cache => 'cache/content_page_admin'
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
           }
         else
           stylesheet_link_tag 'reset-fonts-grids', 
-                              'base-min', 
-                              '../ext/resources/css/ext-all', 
-                              'hebmain/common',
-                              'hebmain/header', 
-                              'hebmain/inner_page', 
-                              'hebmain/widgets',
-                              :cache => 'cache/content_page'
-          javascript_include_tag 'flashembed', 'jquery', 'jquery-ui', 'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.media.js','jquery.tabs.js' , 'jquery.metadata.js','jquery.form.js', :cache => 'cache/content_page'
-         
-
+          'base-min', 
+          '../ext/resources/css/ext-all', 
+          'hebmain/common',
+          'hebmain/header', 
+          'hebmain/inner_page', 
+          'hebmain/widgets',
+          :cache => 'cache/content_page'
         end
-        
+        javascript_include_tag 'flashembed', 'jquery', 
+        'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/ui.sortable.min.js',
+        'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js', 'ui/jquery.color.js',
+        'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js', :cache => 'cache/content_page'
         
         rawtext <<-IE6
           \n<!--[if IE 6]>
@@ -73,7 +73,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
                   @dynamic_tree.render_to(doc)
-                  div(:id => 'hd') { @header_top_links.render_to(self) } #Header goes here
+                  div(:id => 'hd') {
+                    make_sortable(:selector => '#hd .links', :axis => 'x') {
+                      @header_top_links.render_to(self)
+                    }
+                  }
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
                   }
@@ -88,12 +92,18 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                     div(:class => 'margin-25') {text ' '}
                   }
                   div(:class => 'yui-u first') {
-                    div(:class => 'content') { self.ext_content.render_to(doc) }
+                    div(:class => 'content') {
+                      make_sortable(:selector => ".content", :axis => 'y') {
+                        self.ext_content.render_to(doc)
+                      }
+                    }
                   }
                   div(:class => 'yui-u') {
                     div(:class => 'related') {
                       self.ext_main_image.render_to(doc)
-                      self.ext_related_items.render_to(doc)
+                      make_sortable(:selector => ".related", :axis => 'y') {
+                        self.ext_related_items.render_to(doc)
+                      }
                     }
                   }
                 }
@@ -112,24 +122,14 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
            		
               @newsletter.render_to(self)
               
-              global_site_updates_node = global_site_updates
-              render_content_resource(global_site_updates_node) if global_site_updates_node
-              #              w_class('cms_actions').new(:tree_node => tree_node, 
-              #                :options => {:buttons => %W{ new_button }, 
-              #                  :resource_types => %W{ site_updates },
-              #                  :new_text => 'צור יחידת תוכן חדשה', 
-              #                  :has_url => false, 
-              #                  :placeholder => 'right'}).render_to(self)
-              #                
-              #              right_column_resources.each { |right_column_resource|                
-              #                render_content_resource(right_column_resource,
-              #                    right_column_resource.resource.resource_type.hrid == 'site_updates' ? 'news' : 'full')
-              #              }                
+              render_content_resource(global_site_updates)
             }
           }
           div(:id => 'ft') {
             @sitemap.render_to(self)
-            @header_bottom_links.render_to(self)
+            make_sortable(:selector => '#ft .links', :axis => 'x') {
+              @header_bottom_links.render_to(self)
+            }
             @header_copyright.render_to(self)
           }
         }

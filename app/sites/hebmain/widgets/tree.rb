@@ -105,18 +105,20 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
       :depth => 2
     )
     json = nodes.select { |element| element.parent_id == node_id }.collect { |node|
-      has_children = nodes.select { |child|
-        child.parent_id == node.id
-      }.size == 0
+      has_children = nodes.select { |child| child.parent_id == node.id
+        }.size == 0 || TreeNode.find(:id => node_id).resource.acts_as_section
       
       [
         :id => node.id, :text => node.resource.name, :href => get_page_url(node), :leaf => has_children,
         :parent_id => node.parent_id,
         :cannot_edit => !node.can_edit?, :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,
-        :addTarget => new_admin_resource_path,
+        :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
         :delTarget => admin_tree_node_path(node),
-        :editTarget => edit_admin_resource_path(:id => node.resource, :tree_id => node.id)
+        :editTarget => edit_admin_resource_path(:id => node.resource,
+          :tree_id => node.id,
+          :slang => @presenter.site_settings[:short_language]
+        )
       ]
     }
     rawtext json.flatten.to_json
@@ -147,7 +149,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
     item = node.shift
     leaf = item[:item]
     name = leaf.resource.status == 'DRAFT' ? 
-              "<span class='draft'>#{leaf.resource.name}</span>" : leaf.resource.name
+      "<span class='draft'>#{leaf.resource.name}</span>" : leaf.resource.name
     id = leaf.id
     href = get_page_url(leaf)
     if item[:submenu]
@@ -161,9 +163,12 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
         :parent_id => leaf.parent_id,
         :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,
         :cannot_delete => !leaf.can_delete?,
-        :addTarget => new_admin_resource_path,
+        :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
         :delTarget => admin_tree_node_path(leaf),
-        :editTarget => edit_admin_resource_path(:id => leaf.resource, :tree_id => leaf.id)
+        :editTarget => edit_admin_resource_path(:id => leaf.resource,
+          :tree_id => leaf.id,
+          :slang => @presenter.site_settings[:short_language]
+        )
       }.merge(children ? {:children => children} : {} )
     ]
   end

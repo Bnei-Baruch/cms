@@ -32,36 +32,36 @@ class TreeNode < ActiveRecord::Base
   #can logical delete (change status to deleted)
   def can_delete?
     @ac_type >= 3 #"Managing"
-#        unless AuthenticationModel.current_user_is_anonymous?
-#         # min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-#          if (3 <= ac_type)# min_permission_to_child_tree_nodes_cache)
-#            #can not delete if resource has link from other tree
-#            output = TreeNode.get_subtree(:parent => id) #### TODO Dima M.
-#            if output
-#              output.each { |x| 
-#                #check all sub tree_node if all all child tree_nodes has 
-#                #minimal permissions for delete
-#                if (x.ac_type < 3)
-#                  return false
-#                else
-#                 if (x.is_main == true && !x.resource.nil? && x.resource.has_links?)
-#                   #if resorse has links on him self we can't delete
-#                   return false
-#                 end 
-#                end
-#              }
-##              output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-##              if output.length > 0
-##                return false 
-##              end
-#            end
-#            return true
-#          else
-#            return false
-#          end                                                
-#        end
-#    #for anonymous user return false
-#    false
+    #        unless AuthenticationModel.current_user_is_anonymous?
+    #         # min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+    #          if (3 <= ac_type)# min_permission_to_child_tree_nodes_cache)
+    #            #can not delete if resource has link from other tree
+    #            output = TreeNode.get_subtree(:parent => id) #### TODO Dima M.
+    #            if output
+    #              output.each { |x| 
+    #                #check all sub tree_node if all all child tree_nodes has 
+    #                #minimal permissions for delete
+    #                if (x.ac_type < 3)
+    #                  return false
+    #                else
+    #                 if (x.is_main == true && !x.resource.nil? && x.resource.has_links?)
+    #                   #if resorse has links on him self we can't delete
+    #                   return false
+    #                 end 
+    #                end
+    #              }
+    ##              output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
+    ##              if output.length > 0
+    ##                return false 
+    ##              end
+    #            end
+    #            return true
+    #          else
+    #            return false
+    #          end                                                
+    #        end
+    #    #for anonymous user return false
+    #    false
   end
   
   def can_move_child?
@@ -75,20 +75,20 @@ class TreeNode < ActiveRecord::Base
   #can delete in DB (destroy)
   def can_administrate? 
     @ac_type >= 4 #"Administrating"
-#    unless AuthenticationModel.current_user_is_anonymous?
-#      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-#      if (4 <= min_permission_to_child_tree_nodes_cache)
-#        #can not delete if resource has link from other tree
-#        output = TreeNode.get_subtree(:parent => id)
-#        if output
-#          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-#          return false if output.length > 0
-#        end
-#        return true
-#      end 
-#      return false
-#    end                                                    
-#false
+    #    unless AuthenticationModel.current_user_is_anonymous?
+    #      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
+    #      if (4 <= min_permission_to_child_tree_nodes_cache)
+    #        #can not delete if resource has link from other tree
+    #        output = TreeNode.get_subtree(:parent => id)
+    #        if output
+    #          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
+    #          return false if output.length > 0
+    #        end
+    #        return true
+    #      end 
+    #      return false
+    #    end                                                    
+    #false
   end
 
   def main
@@ -172,7 +172,7 @@ class TreeNode < ActiveRecord::Base
     # :status => ['PUBLISHED', 'DRAFT'] - array of strings - optional - default - will return only PUBLISHED. 
     #   avalilable Options: 'PUBLISHED', 'DELETED', 'DRAFT', 'ARCHIVED'
     # :limit => integer - optional - default: show all
-    # :order => order string - optional - default: sort by position (:order => "created_at DESC, name")
+    # :order => order string - optional - default: sort by position (exapmle: :order => "created_at DESC, name")
     # 
     # Examples: 
     # get_subtree(:parent => 17, :resource_type_hrids => ['website', 'content_page'], :depth => 3, :properties => {:description => 'yes sair', :title => 'good title'}, )
@@ -243,7 +243,7 @@ class TreeNode < ActiveRecord::Base
         sql_params.merge!(additional_params)
         find(:all, sql_params) rescue []
 
-          # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
+        # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
         # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue [] ###### Eager loading
       else
         []
@@ -451,8 +451,30 @@ class TreeNode < ActiveRecord::Base
     node
   end
 
-
-  #def attribute_changed?(attr)
-  #      
-  #end
+  # The function to update positions of nodes.
+  # == Returns
+  # * true - success
+  # * false - error: uneven length of attributes, unsuccessfull save
+  #
+  # == Attributes
+  # * nodes - list of ids of nodes to update position
+  # * positions - list of _new_ positions of the nodes in the above list
+  #
+  def TreeNode.update_positions(nodes, positions)
+    total_nodes = nodes.length
+    raise "Uneven arrays nodes (#{total_nodes} elements) and positions (#{positions.length} elements)" if total_nodes != positions.length
+    transaction {
+      positions.each_with_index { |pos, idx|
+        pos = pos.to_i - 1
+        raise "Wrong position: #{pos}. Max permitted position must be less than #{total_nodes}" if pos >= total_nodes
+        node = nodes[pos]
+        new_position = idx + 1
+        tree_node = TreeNode.find(:first, :conditions => {:id => node[:id]})
+        if tree_node.position != new_position
+          tree_node.position = new_position
+          tree_node.save
+        end
+      }
+    }
+  end
 end

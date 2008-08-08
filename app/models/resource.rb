@@ -19,7 +19,8 @@ class Resource < ActiveRecord::Base
     end
   end
 
-  attr_accessor :tree_node 
+  attr_accessor :tree_node
+  attr_accessor :slang
 
   #only associate resources of the type 'website'
   has_one :website, :foreign_key => 'entry_point_id'

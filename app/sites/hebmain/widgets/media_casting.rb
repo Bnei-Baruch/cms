@@ -1,32 +1,30 @@
 class Hebmain::Widgets::MediaCasting < WidgetManager::Base
     
   def render_full
-  	 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }, :position => 'bottom'}).render_to(doc) 
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }, :position => 'bottom'}).render_to(doc) 
   	
-	title = get_title
-	url = get_url
-	filetype = url.split('.').reverse[0]
-	id_unik = (rand(10)).to_s();
-	id_unik += title;
+    title = get_title
+    url = get_url
 	        
-	div(:class => 'mediacasting'){
+    div(:class => 'mediacasting'){
 	
-		 a(:class => 'hide-player', :href => ''){
-			text 'הסתר נגן'	  
-	  	 }
+      a(:class => 'hide-player', :href => ''){
+        img :src => '/images/delete.gif', :alt => '', :style => 'vertical-align:middle;'
+        text 'הפסק'
+      }
 		 
-	  	 div(:class => 'toggle-media'){
-			a(:href => url, :class => 'media', :id => id_unik){
-				text title
-			}
-		  }
+      div(:class => 'toggle-media'){
+        a(:href => url, :class => 'media'){
+          text title
+        }
+      }
 	  	 
 	  		
-	  	  a(:class => 'show-player', :href => ''){
-			text title
-  		}
+      a(:class => 'show-player', :href => ''){
+        text title
+      }
 	  		
-	}
+    }
 	    
   end
 

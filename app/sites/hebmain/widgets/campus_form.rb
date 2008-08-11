@@ -1,5 +1,7 @@
 class Hebmain::Widgets::CampusForm < WidgetManager::Base
-	 require "parsedate.rb"
+	 require 'parsedate'
+   require 'net/smtp'
+
 	 include ParseDate
 	    
 	def render_full
@@ -8,7 +10,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		# make a form that is sending with get protocol info to itself & creating a new object
 		# if user -> msg to say bravo
 		# if admin -> show me all the users in the system
-		
+    
 	    if tree_node.can_edit?
 	    	campus_admin_mode
     	else 
@@ -30,6 +32,8 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	def create_student
 		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id], :adwords => @options[:adwords])
 		new_student.save
+    send_student_by_mail(@options[:name],@options[:email],@options[:tel])
+    
 		div(:class => 'success'){
 		  text "הפרטים נתקבלו בהצלחה.‬"	
 		}					
@@ -38,6 +42,27 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		}
 	end
 	
+  def send_student_by_mail(name = '' , email = '', tel = '')
+    msg = <<EOF
+From: campus@kab.co.il
+Content-Type: text/plain; charset=utf-8
+Subject: You have a new student
+
+New campus registration:
+
+Name: #{name}
+Email: #{email}
+Tel: #{tel}
+
+
+
+EOF
+    msg
+    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','user','pass', :plain ) { |smtp|
+    Net::SMTP.start("localhost", 25) { |smtp|
+      smtp.sendmail msg, 'campus@kab.co.il', ['info@kab.co.il']
+    }
+  end
 	
 	def campus_admin_mode
 		div(:class => 'campus') {

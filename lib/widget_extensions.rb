@@ -144,12 +144,17 @@ module WidgetExtensions
         :action => :update_positions,
         :id => "0",
         :key => selector,
-        :nodes => YAML.dump(block.call.map { |node| {:id => node.id} })
+        :nodes => YAML.dump(block.call.map { |node|
+            {
+              :id => node.id,
+              :pos => node.position
+            }
+          })
       },
       :expression => 'el[0-9]+[-=_](.+)',
       :constraint => constraint,
       :success => mark_success(selector),
-      :error => alert(selector)
+      :error => mark_error(selector)
     )
     javascript {
       rawtext "jQuery('#{selector} .handle').mouseover(function(event){"
@@ -160,18 +165,16 @@ module WidgetExtensions
     }
   end
 
-  def alert(selector)
-    javascript = highlight(selector, "red", "white");
-    javascript << "alert(request.responseText);"
-  end
-
-  def mark_success(selector)
-    highlight(selector)
-  end
-  
   def highlight(element, start_color = "#ffff99", end_color = "#ffffff")
     javascript = "jQuery('#{element}').animate({backgroundColor:'#{start_color}'}, 500)"
     javascript << ".animate({backgroundColor:'#{end_color}'}, 500);"
+  end
+
+  alias :mark_success :highlight
+
+  def mark_error(selector)
+    javascript = highlight(selector, "red", "white");
+    javascript << "alert(request.responseText);"
   end
 
 end

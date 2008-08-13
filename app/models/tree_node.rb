@@ -454,25 +454,27 @@ class TreeNode < ActiveRecord::Base
   # The function to update positions of nodes.
   # == Returns
   # * true - success
-  # * false - error: uneven length of attributes, unsuccessfull save
+  # * false - error: uneven length of attributes, unsuccessfull save, etc.
   #
   # == Attributes
-  # * nodes - list of ids of nodes to update position
+  # * nodes - list of ids and original positions of nodes to update position
   # * positions - list of _new_ positions of the nodes in the above list
   #
   def TreeNode.update_positions(nodes, positions)
-    total_nodes = nodes.length
-    raise "Uneven arrays nodes (#{total_nodes} elements) and positions (#{positions.length} elements)" if total_nodes != positions.length
+    raise "Uneven arrays: nodes (#{nodes.length} elements) and positions (#{positions.length} elements).\nPlease reload the page." if nodes.length != positions.length
     transaction {
+      # Go over new positions
       positions.each_with_index { |pos, idx|
-        pos = pos.to_i - 1
-        raise "Wrong position: #{pos}. Max permitted position must be less than #{total_nodes}" if pos >= total_nodes
-        node = nodes[pos]
-        new_position = idx + 1
-        tree_node = TreeNode.find(:first, :conditions => {:id => node[:id]})
+        pos = pos.to_i
+        # Find its id
+        id = nodes.select { |node|  node[:pos] == pos}[0][:id]
+        # Find tree node
+        tree_node = TreeNode.find(:first, :conditions => {:id => id})
+        # It's new position is now...
+        new_position = nodes[idx][:pos]
         if tree_node.position != new_position
-          tree_node.position = new_position
-          tree_node.save
+            tree_node.position = new_position
+            tree_node.save
         end
       }
     }

@@ -19,7 +19,6 @@ class Hebmain::Widgets::MediaCasting < WidgetManager::Base
         }
       }
 	  	 
-	  		
       a(:class => 'show-player', :href => ''){
         text title
       }

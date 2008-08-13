@@ -431,15 +431,18 @@ border-bottom:1px dashed #7b7b7b;
 }
 .related .box .box-top{
     background: white url(/images/hebmain/box-top.gif) no-repeat top right;
-    width:165px;
+    width:159px;
     padding:0;
     margin:0;
 }
 .related .box .box-bot{
     background: white url(/images/hebmain/box-bot.gif) no-repeat bottom right;
-    width:165px;
+    width:159px;
     padding:0;
     margin:0;
+}
+.related .box .box-background{
+  background-color:#F0F5FD;
 }
 .related .box .box-mid-no-border{
     padding:0 10px;
@@ -594,4 +597,21 @@ border-bottom:1px dashed #7b7b7b;
 .section_preview a.cont img{
     padding:0pt 5px 0pt 0pt;
     vertical-align:middle;
+}
+.rss h3 img{
+    padding:0 0 0 5px;
+    vertical-align:middle;
+}
+.rss .entry{
+    color:#767676;
+    margin:0 0 10px 0;
+}
+.rss .entry .date{
+    color:#767676;
+    font-size:13px;
+}
+.rss .more{
+    height:27px;
+    border-top:1px dashed #bbbbbb;
+    display:block;
 }

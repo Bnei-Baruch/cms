@@ -24,6 +24,14 @@ module	Configuration::Hebmain
           :video_gallery => 'homepage',
           :render_right => 'right'
         }
+      },
+      # parent widget
+      :content_page => {
+        # placeholder
+        :related_items => {
+          :box => 'related_items',
+          :rss => 'preview'
+        }
       }
     }
   }

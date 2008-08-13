@@ -94,9 +94,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_related_items
     resources = related_items
     WidgetManager::Base.new(helpers) do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box },:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
-      show_content_resources(:resources => resources, :force_mode => 'related_items',
-        :sortable => true)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss},:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
+      show_content_resources(:parent => :content_page, :placeholder => :related_items, :resources => resources, :sortable => true)
       resources
     end
   end
@@ -117,7 +116,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def related_items
     TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['box'], 
+      :resource_type_hrids => ['box', 'rss'], 
       :depth => 1,
       :has_url => false,
       :placeholders => ['related_items'],

@@ -19,6 +19,8 @@ inline_styles : true,
 content_css : "/stylesheets/hebmain/tinymce.css,/stylesheets/hebmain/common.css",
 relative_urls : false,
 invalid_elements : 'u,font',
+paste_remove_styles: true,
+paste_insert_word_content_callback : "convertWord",
 paste_auto_cleanup_on_paste : true,
 paste_convert_headers_to_strong : false,
 paste_strip_class_attributes : 'all',
@@ -45,6 +47,21 @@ template_templates : [
 		}
 	]
 });
+function convertWord(type, content) {
+      switch (type) {
+          // Gets executed before the built in logic performes it's cleanups
+          case "before":
+              // do nothing
+              break;
+          
+          // Gets executed after the built in logic performes it's cleanups
+      case "after":
+          content = content.replace(/<(!--)([\s\S]*)(--)>/gi, "");
+          break;
+  }
+  
+  return content;
+}
 //]]>
 </script>
 <% end %>                                     

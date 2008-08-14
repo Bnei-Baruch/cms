@@ -85,6 +85,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       if get_main_image && !get_main_image.empty?
         div(:class => 'image'){
           img(:src => get_main_image, :alt => get_main_image_alt, :title => get_main_image_alt)
+          br
           text get_main_image_alt
         }
       end                

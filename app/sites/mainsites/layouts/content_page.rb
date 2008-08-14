@@ -56,7 +56,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/ui.sortable.min.js',
         'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js', 'ui/jquery.color.js',
         'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.media.js', 'jquery.metadata.js','jquery.form.js', :cache => 'cache/content_page'
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js' #, :cache => 'cache/content_page'
         
         rawtext <<-IE6
           \n<!--[if IE 6]>

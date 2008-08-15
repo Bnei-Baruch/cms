@@ -105,8 +105,9 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
       :depth => 2
     )
     json = nodes.select { |element| element.parent_id == node_id }.collect { |node|
-      has_children = nodes.select { |child| child.parent_id == node.id
-        }.size == 0 || TreeNode.find(:id => node_id).resource.acts_as_section
+      has_children = nodes.select { |child|
+        child.parent_id == node.id
+      }.size == 0 || TreeNode.find(node_id).resource.properties('acts_as_section')
       
       [
         :id => node.id, :text => node.resource.name, :href => get_page_url(node), :leaf => has_children,

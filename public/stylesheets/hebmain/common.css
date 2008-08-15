@@ -55,7 +55,6 @@ a.more img{
 .table-article{
     float:left;
     background-color:#F0F5FD;  
-    line-height:5px;
     width:265px;
     margin:5px 5px 0pt 0pt;
 }
@@ -69,12 +68,14 @@ a.more img{
 .table-article .table-article-td-top-middle{
     width:100%;
     height:5px;
+    line-height:5px;
     background:white url(/images/hebmain/table-article-top-bot.gif) repeat-x left top;
     border:0px;
 }
 .table-article .table-article-td-bottom-middle{
     width:100%;
     height:5px;
+    line-height:5px;
     background:white url(/images/hebmain/table-article-top-bot.gif) repeat-x left -5px;
     border:0px;
 }
@@ -94,24 +95,28 @@ a.more img{
     border:0px;
     width:5px;
     height:5px;
+    line-height:5px;
     background:white url(/images/hebmain/table-article-ears.gif) no-repeat scroll left -10px;
 }
 .table-article .ear-bottom-right{
     border:0px;
     width:5px;
     height:5px;
+    line-height:5px;
     background:white url(/images/hebmain/table-article-ears.gif) no-repeat scroll left -16px;
 }
 .table-article .ear-top-left{
     border:0px;
     width:5px;
     height:5px;
+    line-height:5px;
     background:white url(/images/hebmain/table-article-ears.gif) no-repeat scroll left top;
 }
 .table-article .ear-bottom-left{
     border:0px;
     width:5px;
     height:5px;
+    line-height:5px;
     background:white url(/images/hebmain/table-article-ears.gif) no-repeat scroll left -10px;   
 }
 .table-article .table-article-title{

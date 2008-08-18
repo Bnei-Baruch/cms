@@ -24,8 +24,10 @@ ActionController::Routing::Routes.draw do |map|
 #  map.json 'json',
 #              :controller => 'sites/templates', 
 #              :action => 'json'
+  map.tm ':prefix/short/:id', :controller => 'sites/shorturl', :action => 'shorturl'
   map.tm ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'
   map.connect '/', :controller => 'sites/templates', :action => 'template'
+  
                                            
   map.js ':prefix/js/:id' , :controller => 'sites/javascripts' , :action => 'javascript'
   map.css 'stylesheets/:website_id/:css_id.css',
@@ -54,6 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
+  
 
   map.connect ':prefix/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
   

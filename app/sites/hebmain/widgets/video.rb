@@ -95,10 +95,6 @@ class Hebmain::Widgets::Video < WidgetManager::Base
     a(:href => get_flash_url, :class => 'h1-play') {
       text get_title
     }
-    span(:class => 'play-separator') {rawtext ' | '}
-    text get_length
-    span(:class => 'play-separator') {rawtext ' | '}
-    a 'הורד קובץ', :href => get_wmv_url
     div(:class => 'descr-play') {text get_description}
     div(:class => 'clear')
   end

@@ -125,7 +125,7 @@ strong{
 #ft{
     text-align:center;
     margin:20px 0 0;
-    *display:inline-block;
+    zoom:1;
 }
 #ft ul.links {
     height:15px;

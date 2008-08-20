@@ -354,9 +354,13 @@ $(function() {
         antiAlias:true
     });
 
-    if (!jQuery.browser.msie) {
-        $sitemap = $('.sitemap-inner');
-        if ($sitemap.size() == 0) {return;}
+    $sitemap = $('.sitemap-inner');
+    if ($sitemap.size() == 0) {return;}
+    if ($.browser.ie) {
+        if ($.browser.versionNumber == 7) {
+            $sitemap.parent().css("width", "100%");
+        }
+    } else {
         $sitemap.parent().css("float", "right");
     }
 });
@@ -371,7 +375,7 @@ var playerConfig_innerpage = {
     useNativeFullScreen: true,
     showStopButton:false,
     autoRewind:true,
-    showVolumeSlider: false,
+    showVolumeSlider: true,
     showFullScreenButton:false,
     controlsOverVideo: 'ease',
     controlBarBackgroundColor: -1,
@@ -391,14 +395,14 @@ $(function() {
         br:{radius: 8},
         antiAlias:true
     });
-    var id = $player.attr("target_id");
+    var id = $player.attr("rel");
     if (id == 0) return;
 
     var $links = $player.find("a").not(".more").click(function(event){
         event.preventDefault();
         playerConfig_innerpage.videoFile = $(this).attr("href");
         if (flowplayer_innerpage == null) {
-            flowplayer_innerpage = flashembed("flashplayer-"+id,  
+            flowplayer_innerpage = flashembed("flashplayer-"+id,
             {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#F0F4FD',width:503, height:378},
             {config: playerConfig_innerpage}
         );
@@ -409,6 +413,11 @@ $(function() {
         if (now_playing) now_playing.toggleClass("playing");
         now_playing = $(this).parent();
         now_playing.toggleClass("playing");
+        // Find out and replace title
+        var $this = $(this);
+        var hdr = $($(this).parent().children('.h1-play')[0]).text();
+        $(this).parents('.inner-player').find('.play-title').text(hdr);
+        return false;
     });
     $("#flashplayer-"+id+" img").click(function(){
         $($links[0]).trigger('click'); 

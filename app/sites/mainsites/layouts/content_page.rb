@@ -16,7 +16,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @google_analytics = w_class('google_analytics').new
     @newsletter = w_class('newsletter').new
     @sitemap = w_class('sitemap').new
-    @send_to_friend = w_class('send_to_friend').new
   end
 
   def render
@@ -97,9 +96,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                     div(:class => 'content') {
                       make_sortable(:selector => ".content", :axis => 'y') {
                         self.ext_content.render_to(doc)
-                        
                       }
-                      @send_to_friend.render_to(self) 
                     }
                   }
                   div(:class => 'yui-u') {

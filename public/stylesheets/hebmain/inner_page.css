@@ -93,7 +93,7 @@
 }
 .content .item strong{
     font-weight:13.5px;
-	color:#1F1F1F;
+    color:#1F1F1F;
 }
 .content .item ul, .content .item ol{
     margin-right:30px;
@@ -126,44 +126,44 @@
     margin:0;
 }
 .content .item .full-video .flashplayer{
-position:relative;
-cursor:pointer;
-width:504px;
-height:378px;
+    position:relative;
+    cursor:pointer;
+    width:504px;
+    height:378px;
 }
 .content .item .full-video p.playbutton {
     cursor:pointer;
-display:block;
-font-size:15px;
-font-weight:bold;
-line-height:15px;
-position:absolute;
-bottom:225px;
-right:180px;
-margin:0;
-padding:0;
+    display:block;
+    font-size:15px;
+    font-weight:bold;
+    line-height:15px;
+    position:absolute;
+    bottom:225px;
+    right:180px;
+    margin:0;
+    padding:0;
 }
 .content .item .full-video p.playbutton a{
-text-decoration:none;
+    text-decoration:none;
 }
 .content .item .full-video .playbutton span{
-background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0% 50%;
-padding: 18px 3px 17px 22px;
-  display:block;
-  color:white;
-  float:left;
-  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-left-ie.png');
-  *background: 0 none;
+    background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0% 50%;
+    padding: 18px 3px 17px 22px;
+    display:block;
+    color:white;
+    float:left;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-left-ie.png');
+    *background: 0 none;
 }
 .content .item .full-video p.playbutton b{
-background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0pt;
-  text-indent:-9999px;
-  float:left;
-  height:50px;
-  width:50px;
-  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-right.png');
-  *text-indent:0;
-  *background: 0 none;
+    background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0pt;
+    text-indent:-9999px;
+    float:left;
+    height:50px;
+    width:50px;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-right.png');
+    *text-indent:0;
+    *background: 0 none;
 }
 .content .item .embed{
     background: transparent url(/images/hebmain/player/bottom.png) no-repeat top right;
@@ -203,6 +203,7 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
 .item .inner-player{
     background-color:#e9e9e9;
     padding-bottom:8px;
+    zoom:1;
 }
 .item .inner-player .play-serv{
     height:0px;
@@ -211,6 +212,7 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
 .item .inner-player .playlist{
     border-top:1px solid white;
     height:300px;
+    width:503px;
     overflow:auto;
 }
 .item .inner-player .play-title{
@@ -231,9 +233,9 @@ background:transparent url(/images/hebmain/player/play-right.png) no-repeat scro
 }
 .item .playlist ul li{
     list-style-image:none;
-list-style-position:outside;
-list-style-type:none;
-border-bottom:1px dashed #7b7b7b;
+    list-style-position:outside;
+    list-style-type:none;
+    border-bottom:1px dashed #7b7b7b;
 }
 .item .playlist .odd{
     background-color:#f2f2f2;
@@ -258,13 +260,13 @@ border-bottom:1px dashed #7b7b7b;
     margin-top:1ex;
 }
 .item .table-no-border{
-	border-width: 0px;
+    border-width: 0px;
 }
 
 .item .table-no-border td, .item .table-no-border th {
-	border-width: 0px;
-	padding-left: 20px;
-	vertical-align: top;
+    border-width: 0px;
+    padding-left: 20px;
+    vertical-align: top;
 }
 
 /*----------  More on page  ---------------*/
@@ -439,7 +441,7 @@ border-bottom:1px dashed #7b7b7b;
     margin:0;
 }
 .related .box .box-background{
-  background-color:#F0F5FD;
+    background-color:#F0F5FD;
 }
 .related .box .box-mid-no-border{
     padding:0 10px;
@@ -517,75 +519,6 @@ border-bottom:1px dashed #7b7b7b;
     margin:10px 0 0;
     display:block;
 }
-/*----------  Index  ---------------*/
-/*.index{
-    padding:0;
-    margin:25px 0 0;
-    position:relative;
-}
-.index .h1, .index .h1 a{
-    color:black;
-    text-align:right;
-    font-size:153.9%;
-    font-weight:normal;
-    margin:0;
-    background-color: #e1ecfc;
-    background-image: none;
-    height:33px;
-    line-height:33px;
-    position:relative;
-    padding: 0 10px 0 0;
-}
-.index .h1 .h1-right{
-    position:absolute;
-    top:0;
-    right:0;
-}
-.index .h1 .h1-left{
-    position:absolute;
-    top:0;
-    left:0;
-}
-.index .descr{
-    font-size:12px;
-    color:black;
-    border:0 none;
-    padding:0;
-}
-.index .author{
-    height:12px;
-    margin: 15px 0;
-    font-size:12px;
-    color:#696969;
-}
-.index .element{
-    padding: 0 0 5px 20px;
-    position:relative;
-    border-bottom:1px dashed #e8e8e8;
-    display:inline-block;
-}
-.index .preview-even{
-    background-color:#f7f8fc;
-}
-.index .element h1{
-    font-size: 16px;
-    padding:2px 0pt 3px;
-}
-.index .img{
-    position:relative;
-    top:0;
-    right:0;
-    float:right;
-    padding:5px 0 2px 10px;
-}
-.index a.more{
-    display:block;
-    clear:both;
-    top:-1.2em;
-    padding:0pt 150px 0pt 0pt;
-    margin:0;
-    position:relative;
-} */
 .section_preview .cont{
     position:absolute;
     left:10px;

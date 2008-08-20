@@ -3,7 +3,7 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
   def render_homepage
     video_admin
     id = tree_node.object_id
-    div(:class => 'player', :target_id => id) {
+    div(:class => 'player', :rel => id) {
       div(:id => "flashplayer-#{id}") {
         img(:src => get_image, :alt => '', :class => 'flashplayer') if get_image
       }
@@ -23,7 +23,7 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
     video_admin
     id = tree_node.object_id
     first_with_image = video_items.detect { |item| item.resource.properties('image') }
-    div(:class => 'inner-player', :target_id => id) {
+    div(:class => 'inner-player', :rel => id) {
       div(:class => 'play-title') {
         rawtext first_with_image.resource.properties('title').get_value if first_with_image
       }

@@ -26,10 +26,12 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
           :position => 'bottom'}).render_to(self)
     
       h3 get_title, :class => 'box_header'
-    
       div(:class => 'entries'){
-        show_content_resources(:resources => site_update_entries,
-          :force_mode => 'news')
+        make_sortable(:selector => ".entries", :axis => 'y') {
+          show_content_resources(:resources => site_update_entries,
+            :sortable => 'true',
+            :force_mode => 'news')
+        }
       }
     }
   end

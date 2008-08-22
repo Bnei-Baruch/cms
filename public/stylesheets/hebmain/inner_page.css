@@ -545,3 +545,7 @@
     border-top:1px dashed #bbbbbb;
     display:block;
 }
+/*----------  iframe  ---------------*/
+.iframe_no_border {
+    border:0 none;
+}

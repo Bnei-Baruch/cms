@@ -6,7 +6,7 @@ class Hebmain::Widgets::Iframe < WidgetManager::Base
     unless url.empty?
       title = get_title || ''
       height = get_height || 500
-      iframe(:src => url, :title => title, :width => '100%', :height => height.to_s)
+      iframe(:class => 'iframe_no_border', :src => url, :title => title, :width => '100%', :height => height.to_s)
     end
   end
   

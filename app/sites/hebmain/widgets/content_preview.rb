@@ -10,7 +10,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       
       # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
       updatable = 'up-' + @widget_id.to_s
-      sort_direction = 0
+      sort_direction = :vertical
       div(:id => updatable){
         w_class('cms_actions').new(:tree_node => tree_node, 
           :options => {:buttons => buttons,
@@ -58,7 +58,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       get_content_items
     end
 
-    if @is_main_format
+    sort_direction = if @is_main_format
       show_main_format
     else
       if is_articles_index?
@@ -67,6 +67,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
         show_preview
       end
     end
+    sort_direction
   end
 
   private
@@ -90,7 +91,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       }
       div(:class => 'clear')
     }
-    :horizontal
+    :horizontal # Sort direction
   end
   
   def show_preview
@@ -112,7 +113,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       }
       div(:class => 'clear')
     }
-    :horizontal
+    :horizontal # Sort direction
   end
 
   def show_index
@@ -125,7 +126,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
         }
       }
     }
-    :vertical
+    :vertical # Sort direction
   end
   
   def is_articles_index?

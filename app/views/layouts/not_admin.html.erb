@@ -4,8 +4,16 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <meta http-equiv="Content-language" content="utf8" /> 
     <title><%= @title %></title>
+    <%= javascript_include_tag 'jquery', 'jquery.placement.below.js',
+      'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/ui.sortable.min.js',
+      'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js', 'ui/jquery.color.js',
+      'ui/ui.datepicker.min.js', 'ui/ui.timepicker.js',
+      'jrails', 'application'
+    %>
+    <%= javascript_include_tag "ui/i18n/ui.datepicker-#{params[:slang]}" if params[:slang] %>
     <%= stylesheet_link_tag 'reset-fonts-grids' %>
     <%= stylesheet_link_tag 'admin' %>
+    <%= stylesheet_link_tag 'local.datepicker.css' %>
     <%= yield :header %>
   </head>
   <body>

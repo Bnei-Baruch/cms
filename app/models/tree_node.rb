@@ -478,5 +478,6 @@ class TreeNode < ActiveRecord::Base
         end
       }
     }
+    true
   end
 end

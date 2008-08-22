@@ -27,6 +27,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta(:name => 'node_id', :content => @tree_node.id)
         meta(:name => 'description', :content => ext_description)
         title @meta_title #ext_title
+        javascript_include_tag 'flashembed', 'jquery',
+        'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
+        'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js' #, :cache => 'cache/content_page'
+
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
           'base-min', 
@@ -38,7 +43,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/widgets',
           :cache => false
           #:cache => 'cache/content_page_admin'
-          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers'
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
+          'jquery.livequery.min.js', 'ui/ui.sortable.min.js',
+          'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
@@ -53,11 +60,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/widgets',
           :cache => 'cache/content_page'
         end
-        javascript_include_tag 'flashembed', 'jquery', 
-        'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/ui.sortable.min.js',
-        'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js', 'ui/jquery.color.js',
-        'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.media.js', 'jquery.metadata.js','jquery.form.js' #, :cache => 'cache/content_page'
         
         rawtext <<-IE6
           \n<!--[if IE 6]>

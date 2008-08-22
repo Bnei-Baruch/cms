@@ -7,10 +7,12 @@ class Hebmain::Widgets::Box < WidgetManager::Base
       background = ' box-background' if show_background
     end
     
-    hide_border = get_hide_border
     no_border = ''
-    unless hide_border.is_a?(String) && hide_border.empty?
-      no_border = '-no-border' if hide_border
+    if background.empty?
+      hide_border = get_hide_border
+      unless hide_border.is_a?(String) && hide_border.empty?
+        no_border = '-no-border' if hide_border
+      end
     end
     
     div(:class => 'box') {

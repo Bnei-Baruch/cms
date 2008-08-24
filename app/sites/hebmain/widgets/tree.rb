@@ -105,13 +105,18 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
       :depth => 2
     )
     json = nodes.select { |element| element.parent_id == node_id }.collect { |node|
-      has_children = nodes.select { |child|
+      has_no_children = nodes.select { |child|
         child.parent_id == node.id
-      }.size == 0 || TreeNode.find(node_id).resource.properties('acts_as_section')
+      }.size == 0
+      if has_no_children
+        # Maybe there are no children _YET_?
+        rp = TreeNode.find(node.id).resource.properties('acts_as_section')
+        has_no_children = (rp && rp.get_value) ? false : true
+      end
       
       [
-        :id => node.id, :text => node.resource.name, :href => get_page_url(node), :leaf => has_children,
-        :parent_id => node.parent_id,
+        :id => node.id, :text => node.resource.name, :href => get_page_url(node),
+        :leaf => has_no_children, :parent_id => node.parent_id,
         :cannot_edit => !node.can_edit?, :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),

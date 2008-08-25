@@ -58,13 +58,22 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/header', 
           'hebmain/inner_page', 
           'hebmain/widgets',
-          :cache => 'cache/content_page'
+          :cache => 'cache/content_page',
+          :media => 'all'
+          
+          stylesheet_link_tag 'hebmain/print',
+          :media => 'print'
         end
         
         rawtext <<-IE6
           \n<!--[if IE 6]>
         IE6
-        stylesheet_link_tag 'hebmain/ie6'
+        stylesheet_link_tag 'hebmain/ie6',
+          :media => 'all'
+
+        stylesheet_link_tag 'hebmain/ie6_print',
+          :media => 'print'
+          
         rawtext <<-IE6
           \n<![endif]-->\n
         IE6

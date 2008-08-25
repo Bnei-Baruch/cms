@@ -89,13 +89,16 @@ class Sites::TemplatesController < ApplicationController
     widget = options[:widget]
     options[:node] = params[:node] if params.has_key?(:node)
     tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
-    respond = w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
 
-    if respond == 'false'
-      render :text => respond, status => 500
-    else
-      render :json => respond
+    begin
+      result = render_to_string(:widget => w_class(widget), :tree_node => tree_node,
+        :view_mode => params[:view_mode], :options => options, :layout => false)
+      render :json => result
+      #      render :json => w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
+    rescue Exception => ex
+      render :text => ex, :status => 500
     end
+
   end
   
   def sitemap

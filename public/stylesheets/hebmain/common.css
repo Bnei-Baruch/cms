@@ -33,7 +33,6 @@ a.more img{
 }
 /* Sortables */
 .handle{
-    float:left !important;
     z-index:2000 !important;
     height:13px !important;
     width:13px !important;

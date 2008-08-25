@@ -1,5 +1,7 @@
 class Hebmain::Widgets::ContentPreview < WidgetManager::Base
 
+  attr_accessor :updatable
+  
   def render_full
     get_content_items
     div(:class => 'content_preview'){
@@ -9,9 +11,8 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       end
       
       # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
-      updatable = 'up-' + @widget_id.to_s
-      sort_direction = :vertical
-      div(:id => updatable){
+      @updatable = 'up-' + tree_node.id.to_s
+      div(:id => @updatable){
         w_class('cms_actions').new(:tree_node => tree_node, 
           :options => {:buttons => buttons,
             :button_text => 'ניהול תצוגה מקדימה', 
@@ -19,19 +20,18 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
             :has_url => false,
             :resource_types => %W{ custom_preview }}).render_to(self)
         
-        sort_direction = render_preview_update(true)
+        render_preview_update(true)
       }
       if !@is_main_format
         w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
       end
-      make_sortable(:selector => "##{updatable} .sortable", :direction => sort_direction) {
-        content_items(tree_node.id)
-      }
     }
   end
 
   # This function is initiated also in Ajax request
   def render_preview_update(show = false)
+    @updatable ||= 'up-' + tree_node.id.to_s
+    
     get_content_items
         
     is_rebuild = false
@@ -67,7 +67,9 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
         show_preview
       end
     end
-    sort_direction
+    make_sortable(:selector => "##{updatable} .sortable", :direction => sort_direction) {
+      content_items(tree_node.id)
+    }
   end
 
   private

@@ -2,7 +2,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   
   attr_accessor :counter
   
-  def initialize(args_hash = {})
+  def initialize(helpers, args_hash = {})
     super
     @website_parent_node = presenter.website_node.id
     @ancestors = presenter.parents.collect{|a|a.id} + [presenter.node.id]

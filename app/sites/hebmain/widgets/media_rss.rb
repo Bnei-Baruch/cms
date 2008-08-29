@@ -31,7 +31,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
             }
           end
           days_num = days_num - 1
-          return if days_num == 0
+          break if days_num == 0
         end
       end
     end
@@ -44,45 +44,41 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
     
     days_num = get_days_num rescue 1
-    div(:class => "media_rss"){
-	    table(:border=>'1') {
-	      thead {
-	        tr {
-	          th(:class => 'top-right-corner'){ text 'תאריך'}
-	          th 'שם'
-	          #th 'Description'
-	          th 'וידאו'
-	          th 'אודיו'
-	          th(:class => 'top-left-corner'){ text 'שרטוט'}
-	        }
-	      }
+    table(:class => "media_rss") {
+      thead {
+        tr {
+          th(:class => 'top-right-corner'){ text 'תאריך'}
+          th 'שם'
+          th 'וידאו'
+          th 'אודיו'
+          th(:class => 'top-left-corner'){ text 'שרטוט'}
+        }
+      }
 	      
-	      30.times do |j|
-	        curr_date = (Date.today - j).strftime('%d.%m.%Y')
+      30.times { |j|
+        curr_date = (Date.today - j).strftime('%d.%m.%Y')
 	      
-	        selected_lessons = lessons['lessons']['lesson'].select { |lesson|
-	          lesson['date'] && lesson['date'] == curr_date && 
-	            lesson['files'] && #lesson['files'].is_a?(Hash) &&
-	          lesson['files']['file'] #&& lesson['files']['file'].is_a?(Hash) && !lesson['files']['file'].empty?
-	        } 
+        selected_lessons = lessons['lessons']['lesson'].select { |lesson|
+          lesson['date'] && (lesson['date'] == curr_date) && 
+            lesson['files'] && lesson['files']['file']
+        } 
 	
-	        unless selected_lessons.empty?
-	          curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')
-	          if has_lesson_in_site_language(selected_lessons)
-	            if (get_group_by_date)
-	              lessons_show_in_table(selected_lessons, curr_date_to_show)
-	            else
-	              selected_lessons.each { |selected_lesson|
-	                lessons_show_in_table(Array.new(1,selected_lesson), curr_date_to_show)   
-	              }
-	            end
-	            days_num = days_num - 1
-	            return if days_num == 0
-	          end
-	        end
-	      end
-	    }
-  	}
+        unless selected_lessons.empty?
+          curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')
+          if has_lesson_in_site_language(selected_lessons)
+            if (get_group_by_date)
+              lessons_show_in_table(selected_lessons, curr_date_to_show)
+            else
+              selected_lessons.each { |selected_lesson|
+                lessons_show_in_table(Array.new(1,selected_lesson), curr_date_to_show)   
+              }
+            end
+            days_num = days_num - 1
+            break if days_num == 0
+          end
+        end
+      }
+    }
   end
   
   private
@@ -158,16 +154,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
                
       tr(:class => 'mouse-grey-over') {
         td(:class => 'right-cell date-rss'){text curr_date.to_s}
-        if lesson['title']
-          td(:class => 'name-cell'){text lesson['title']}
-        else
-          td ''
-        end
-        # if lesson['description']
-        # 	td lesson['description'] 
-        # else
-        # 	td ''
-        # end
+        td(:class => 'name-cell'){text lesson['title'] || ''}
         
         td(:class => 'icon-cell icon-rss'){
           a(:href => video_href) { 

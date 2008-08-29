@@ -387,11 +387,11 @@ display: block
 }
 
 /*--- Media RSS ----*/
-.media_rss table{
-	border-width: 0px;
+table.media_rss{
+	border: 0 none;
 	width: 100%;
 }
-.media_rss th{
+table.media_rss th{
 	background-color: #90AEDE;
 	color: white;
 	height: 31px;
@@ -411,16 +411,12 @@ display: block
 }
 .top-right-corner{
 	 background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat right -32px;
-/*	 background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat 74px -32px;
-	 *background-position-x: 80px ; */
 	 width: 65px;
 }
-
 .top-left-corner{
 	background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat 0px 0px;
 }
-
-.right-cell{
+.right-cell, .icon-cell, .name-cell, .left-cell{
 	height: 20px;
 	line-height: 20px;
 	border-bottom: 1px solid #E5E5E5;
@@ -428,31 +424,11 @@ display: block
 	border-left: 1px solid #E5E5E5;
 	padding: 5px 5px 3px 20px;
 }
-
-.icon-cell{
-	height: 20px;
-	line-height: 20px;
-	border-bottom: 1px solid #E5E5E5;
-	border-right: 1px solid #E5E5E5;
-	border-left: 1px solid #E5E5E5;
+.icon-cell, .left-cell{
 	padding:5px 10px 3px 10px;	
 }
 .name-cell{
-	height: 20px;
-	line-height: 20px;
-	border-bottom: 1px solid #E5E5E5;
-	border-right: 1px solid #E5E5E5;
-	border-left: 1px solid #E5E5E5;
 	padding: 5px 20px 3px 5px;
-}
-
-.left-cell{
-	height: 20px;
-	line-height: 20px;
-	border-bottom: 1px solid #E5E5E5;
-	border-right: 1px solid #E5E5E5;
-	border-left: 1px none #E5E5E5;
-	padding:5px 10px 3px 10px;
 }
 .grey-over{
 	background-color: #F0F4FD;

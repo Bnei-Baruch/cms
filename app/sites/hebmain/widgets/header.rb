@@ -6,7 +6,7 @@ class Hebmain::Widgets::Header < WidgetManager::Base
         
     form(:action => search_page, :id => 'cse-search-box'){
       div(:class => 'search'){
-        input :type => 'image',:src => img_path('search.gif'), :name => 'sa', :class => 'submit'
+        input :type => 'image', :src => img_path('search.gif'), :name => 'sa', :class => 'submit'
         input :type => 'hidden', :name => 'cx', :value => '011301558357120452512:ulicov2mspu'
         input :type => 'hidden', :name => 'ie', :value => 'UTF-8'
         input :type => 'hidden', :name => 'cof', :value => 'FORID:11'
@@ -17,8 +17,8 @@ class Hebmain::Widgets::Header < WidgetManager::Base
       CODE
     }   
   
+    w_class('cms_actions').new(:tree_node => presenter.website_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ link },:new_text => 'לינק חדש', :has_url => false, :placeholder => 'top_links'}).render_to(self)
     ul(:class => 'links') {
-      w_class('cms_actions').new(:tree_node => presenter.website_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ link },:new_text => 'לינק חדש', :has_url => false, :placeholder => 'top_links'}).render_to(self)
       top_links.each { |e|
         li(:id => sort_id(e)) {
           sort_handle

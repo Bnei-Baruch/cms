@@ -7,9 +7,9 @@ class Hebmain::Widgets::Link < WidgetManager::Base
         :resource_types => %W{ link }}).render_to(self)
         
     if resource
-    	a({:href => get_url, :title => get_alt}.merge!(gg_analytics_tracking(get_name))) {
-    		text get_name
-    	}
+      a({:href => get_url, :title => get_alt}.merge!(gg_analytics_tracking(get_name))) {
+        text get_name
+      }
     end
   end
 
@@ -19,7 +19,7 @@ class Hebmain::Widgets::Link < WidgetManager::Base
         :options => {:buttons => %W{ edit_button delete_button },
           :mode => 'inline',
           :resource_types => %W{ link }}).render_to(self)
-      a({:href => get_url, :title => get_alt, :target => get_open_in_new_window ? '_blank' : 'self' }.merge!(gg_analytics_tracking(get_name))) {
+      a({:href => get_url, :title => get_alt, :class => get_open_in_new_window ? 'target_blank' : 'target_self' }.merge!(gg_analytics_tracking(get_name))) {
         img(:src => img_path('link.gif'), :alt => '') 
         text get_name
       }
@@ -28,9 +28,9 @@ class Hebmain::Widgets::Link < WidgetManager::Base
   
   def gg_analytics_tracking (name_of_link = '')
     if presenter.is_homepage? 
-	  {:onclick => "javascript:urchinTracker('/homepage/outgoing/#{name_of_link}');"}
-  	else
-  	  {}
-  	end
+      {:onclick => "javascript:urchinTracker('/homepage/outgoing/#{name_of_link}');"}
+    else
+      {}
+    end
   end
 end

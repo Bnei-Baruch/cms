@@ -492,3 +492,7 @@ $(function() {
 //    });
 //    $(".inner-player ul li:nth-child(odd)").addClass("odd");
 });
+
+$(function() {
+    $('a.target_blank').attr('target', '_blank');
+});

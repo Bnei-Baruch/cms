@@ -6,13 +6,15 @@ class Hebmain::Widgets::Title < WidgetManager::Base
     title = get_title
     url = get_url
     url_string = get_url_string
-    list_value_id = tree_node.resource.properties('title_style').get_value
-    style = ''
-    if list_value_id 
-      color =  ListValue.find(:first, :conditions => ["id = ?", list_value_id]).string_value
-      style = 'h1'
-      style = (style + '_' + color) unless color == 'blue'
-    end
+    style = get_gray_back ? 'h1_gray' : 'h1'
+    
+#    list_value_id = tree_node.resource.properties('title_style').get_value
+#    style = ''
+#    if list_value_id 
+#      color =  ListValue.find(:first, :conditions => ["id = ?", list_value_id]).string_value
+#      style = 'h1'
+#      style = (style + '_' + color) unless color == 'blue'
+#    end
     
     div(:class => 'section_preview') {
       div(:class => style) {

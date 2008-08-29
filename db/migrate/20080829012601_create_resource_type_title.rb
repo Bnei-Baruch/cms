@@ -3,7 +3,7 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
     
     migration_login
     
-    resource_type = ResourceType.find(:first, :conditions => ['hrid = ?', 'title_ex'])
+    resource_type = ResourceType.find(:first, :conditions => ['hrid = ?', 'title'])
     if resource_type
       puts 'Title exists'
       return
@@ -13,7 +13,7 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
       
     resource_type = ResourceType.new(:name => 'Title',
       :name_code => '<title>',
-      :hrid => 'title_ex')
+      :hrid => 'title')
     raise 'Failed to create Title' unless resource_type
     resource_type.save!
      
@@ -21,24 +21,24 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
 
     #create list
     
-    puts 'Going to create List'
-    
-    style_list = List.new(:name => 'Title Style',
-      :list_type => 'string')
-    raise 'Failed to create list' unless style_list
-    style_list.save!
-    
-    list_value = ListValue.new(:string_value => 'blue',
-      :list_id => style_list.id)
-    raise 'Failed to create list_value' unless list_value
-    list_value.save!
-    
-    list_value = ListValue.new(:string_value => 'gray',
-      :list_id => style_list.id)
-    raise 'Failed to create list_value' unless list_value
-    list_value.save!
-    
-    puts 'List creation OK'
+    #    puts 'Going to create List'
+    #    
+    #    style_list = List.new(:name => 'Title Style',
+    #      :list_type => 'string')
+    #    raise 'Failed to create list' unless style_list
+    #    style_list.save!
+    #    
+    #    list_value = ListValue.new(:string_value => 'blue',
+    #      :list_id => style_list.id)
+    #    raise 'Failed to create list_value' unless list_value
+    #    list_value.save!
+    #    
+    #    list_value = ListValue.new(:string_value => 'gray',
+    #      :list_id => style_list.id)
+    #    raise 'Failed to create list_value' unless list_value
+    #    list_value.save!
+    #    
+    #    puts 'List creation OK'
      
     #create properties
 
@@ -71,17 +71,26 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
     raise 'Failed to create url_string_property' unless url_string_property
     url_string_property.save!
 
-    style_property = Property.new(:name => 'Title Style',
-      :field_type => 'List',
-      :hrid => 'title_style',
-      :list_id => style_list.id,
+    background_property = Property.new(:name => 'Gray background',
+      :field_type => 'Boolean',
+      :hrid => 'gray_back',
       :resource_type_id => resource_type.id, 
       :position => 4,
       :is_required => false)
-    raise 'Failed to create style_property' unless style_property
-    style_property.save!
+    raise 'Failed to create background_property' unless background_property
+    background_property.save!
     
-     puts 'Properties creation OK'
+    #    style_property = Property.new(:name => 'Title Style',
+    #      :field_type => 'List',
+    #      :hrid => 'title_style',
+    #      :list_id => style_list.id,
+    #      :resource_type_id => resource_type.id, 
+    #      :position => 4,
+    #      :is_required => false)
+    #    raise 'Failed to create style_property' unless style_property
+    #    style_property.save!
+    
+    puts 'Properties creation OK'
   end
 
   def self.down

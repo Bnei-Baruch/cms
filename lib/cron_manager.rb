@@ -54,10 +54,17 @@ class CronManager
   def self.read_and_save_node_rss(tree_node)
     content = ''
     
+    url = (tree_node.resource.properties('url')).get_value
+    url_encoded = CGI.escape(url)
+    url_encoded.gsub!('%3A', ':')
+    url_encoded.gsub!('%2F', '/')
+    url_encoded.gsub!('%3F', '?')
+    url_encoded.gsub!('%26', '&')
+
     retries = 2
     begin
       Timeout::timeout(25){
-        open((tree_node.resource.properties('url')).get_value) { |f|
+        open(url_encoded) { |f|
           content = f.read
         }
       }

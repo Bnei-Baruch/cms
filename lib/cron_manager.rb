@@ -24,7 +24,11 @@ class CronManager
         )
 
         tree_nodes.each do |tree_node|
-          read_and_save_node_rss(tree_node)
+          begin
+            read_and_save_node_rss(tree_node)
+          rescue
+            puts 'FAILURE!!!'
+          end
         end
       end
     end
@@ -60,6 +64,8 @@ class CronManager
     url_encoded.gsub!('%2F', '/')
     url_encoded.gsub!('%3F', '?')
     url_encoded.gsub!('%26', '&')
+    url_encoded.gsub!('%3D', '=')
+    print "Read Tree Node #{tree_node.id} #{url_encoded} "
 
     retries = 2
     begin
@@ -77,7 +83,7 @@ class CronManager
         raise
       end
     end
-    puts "RSS #{content}"
+    #    puts "RSS #{content}"
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
     data = YAML.dump(RSS::Parser.parse(content, false).items[range])
     property = tree_node.resource.properties('items')
@@ -85,6 +91,7 @@ class CronManager
       property.update_attributes(:text_value => data)
       system("rake tmp:cache:clear")
     end
+    puts 'OK'
   end
   
   def self.read_and_save_node_media_rss(tree_node, lang)

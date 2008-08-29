@@ -321,6 +321,18 @@
     position:relative;
     padding: 0 10px 0 0;
 }
+.section_preview .h1_gray{
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #f0f0f0;
+    background-image: none;
+    border-top: medium solid #cbcbcd;
+    height:32px;
+    line-height:32px;
+    position:relative;
+    padding: 0 10px 0 0;
+}
 .section_preview .h1 .h1-right{
     position:absolute;
     top:0;

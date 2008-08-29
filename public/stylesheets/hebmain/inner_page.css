@@ -327,9 +327,9 @@
     margin:0;
     background-color: #f0f0f0;
     background-image: none;
-    border-top: medium solid #cbcbcd;
-    height:32px;
-    line-height:32px;
+    border-top: thin solid #cbcbcd;
+    height:22px;
+    line-height:22px;
     position:relative;
     padding: 0 10px 0 0;
 }

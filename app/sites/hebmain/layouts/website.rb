@@ -26,7 +26,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         javascript_include_tag 'jquery', 
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers',
-	'flashembed' #, :cache => 'cache/website'
+	'flashembed.min.js' #, :cache => 'cache/website'
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
                               'base-min', 
@@ -39,8 +39,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                               'hebmain/jquery.tabs.css',
                               :cache => false
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
-          'jquery.livequery.min.js', 'ui/ui.sortable.min.js',
-          'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
+          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
           }

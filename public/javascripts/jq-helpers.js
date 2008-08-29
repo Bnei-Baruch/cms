@@ -321,7 +321,7 @@ var flowplayer_homepage = null;
 $(function() {
     var $player = $('.player');
     if ($player.size() == 0) return;
-    var id = $player.attr("target_id");
+    var id = $player.attr("id");
     if (id == 0) return;
     var $links = $player.find("a").not(".more").click(function(event){
         event.preventDefault();
@@ -395,12 +395,13 @@ $(function() {
         br:{radius: 8},
         antiAlias:true
     });
-    var id = $player.attr("rel");
+    var id = $player.attr("id");
     if (id == 0) return;
 
     var $links = $player.find("a").not(".more").click(function(event){
+        var $this = $(this);
         event.preventDefault();
-        playerConfig_innerpage.videoFile = $(this).attr("href");
+        playerConfig_innerpage.videoFile = $this.attr("href");
         if (flowplayer_innerpage == null) {
             flowplayer_innerpage = flashembed("flashplayer-"+id,
             {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#F0F4FD',width:503, height:378},
@@ -409,14 +410,16 @@ $(function() {
         } else {     
             flowplayer_innerpage.setConfig(playerConfig_innerpage);
         }
+        window.onClipDone = function() {
+            now_playing.next().find('a.h1-play').click();
+        };
     
         if (now_playing) now_playing.toggleClass("playing");
-        now_playing = $(this).parent();
+        now_playing = $this.parent();
         now_playing.toggleClass("playing");
         // Find out and replace title
-        var $this = $(this);
-        var hdr = $($(this).parent().children('.h1-play')[0]).text();
-        $(this).parents('.inner-player').find('.play-title').text(hdr);
+        var hdr = $($this.parent().children('.h1-play')[0]).text();
+        $this.parents('.inner-player').find('.play-title').text(hdr);
         return false;
     });
     $("#flashplayer-"+id+" img").click(function(){
@@ -425,3 +428,67 @@ $(function() {
     $(".inner-player ul li:nth-child(odd)").addClass("odd");
 });
 
+//***************************************
+// Player with a playlist 
+//***************************************
+//var playerConfig_palylist = { 
+//    autoPlay: true,
+//    loop: true,
+//    initialScale:'scale', 
+//    useNativeFullScreen: true,
+//    showStopButton:false,
+//    autoRewind:true,
+//    showVolumeSlider: true,
+//    showFullScreenButton:false,
+//    controlsOverVideo: 'ease',
+//    controlBarBackgroundColor: -1,
+//    controlBarGloss: 'low',
+//    showMenu:false
+//};
+//var flowplayer_playlist = null;
+//
+$(function() {
+    var $playlist = $('.playlist-player')
+    if ($playlist.size() == 0) return;
+//    $playlist.corner({
+//        tl:{radius: 8},
+//        tr:{radius: 8},
+//        bl:{radius: 8},
+//        br:{radius: 8},
+//        antiAlias:true
+//    });
+//
+    // 1. Let's build a playlist
+    // 2. On stop/done re-build a playlist
+//
+    var $links = jQuery.makeArray($playlist.find("checkbox").filter(function(){return $this.val() != '1'}));
+    alert($links);
+//        click(function(event){
+//        var $this = $(this);
+//        event.preventDefault();
+//        playerConfig_innerpage.videoFile = $this.attr("href");
+//        if (flowplayer_innerpage == null) {
+//            flowplayer_innerpage = flashembed("flashplayer-"+id,
+//            {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#F0F4FD',width:503, height:378},
+//            {config: playerConfig_innerpage}
+//        );
+//        } else {     
+//            flowplayer_innerpage.setConfig(playerConfig_innerpage);
+//        }
+//        window.onClipDone = function() {
+//            now_playing.next().find('a.h1-play').click();
+//        };
+//    
+//        if (now_playing) now_playing.toggleClass("playing");
+//        now_playing = $this.parent();
+//        now_playing.toggleClass("playing");
+//        // Find out and replace title
+//        var hdr = $($this.parent().children('.h1-play')[0]).text();
+//        $this.parents('.inner-player').find('.play-title').text(hdr);
+//        return false;
+//    });
+//    $("#flashplayer-"+id+" img").click(function(){
+//        $($links[0]).trigger('click'); 
+//    });
+//    $(".inner-player ul li:nth-child(odd)").addClass("odd");
+});

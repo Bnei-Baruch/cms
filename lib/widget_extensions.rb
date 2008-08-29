@@ -157,9 +157,9 @@ module WidgetExtensions
       :error => mark_error(selector)
     )
     javascript {
-      rawtext "jQuery('#{selector} .handle').livequery('mouseover',function(event){"
+      rawtext "jQuery('#{selector} .handle').mouseover(function(event){"
       rawtext '  $(event.target).parent().addClass("sort-area"); '
-      rawtext '}).livequery(\'mouseout\',function(event){'
+      rawtext '}).mouseout(function(event){'
       rawtext '  $(event.target).parent().removeClass("sort-area"); '
       rawtext '});'
     }

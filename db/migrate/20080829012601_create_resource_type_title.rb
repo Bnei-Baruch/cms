@@ -3,7 +3,7 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
     
     migration_login
     
-    resource_type = ResourceType.find(:first, :conditions => ['hrid = ?', 'title'])
+    resource_type = ResourceType.find(:first, :conditions => ['hrid = ?', 'title_ex'])
     if resource_type
       puts 'Title exists'
       return
@@ -13,11 +13,15 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
       
     resource_type = ResourceType.new(:name => 'Title',
       :name_code => '<title>',
-      :hrid => 'title')
+      :hrid => 'title_ex')
     raise 'Failed to create Title' unless resource_type
     resource_type.save!
-      
+     
+    puts 'Title creation OK'
+
     #create list
+    
+    puts 'Going to create List'
     
     style_list = List.new(:name => 'Title Style',
       :list_type => 'string')
@@ -34,6 +38,8 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
     raise 'Failed to create list_value' unless list_value
     list_value.save!
     
+    puts 'List creation OK'
+     
     #create properties
 
     puts 'Going to create properties'
@@ -75,6 +81,7 @@ class CreateResourceTypeTitle < ActiveRecord::Migration
     raise 'Failed to create style_property' unless style_property
     style_property.save!
     
+     puts 'Properties creation OK'
   end
 
   def self.down

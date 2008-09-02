@@ -16,6 +16,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @google_analytics = w_class('google_analytics').new
     @newsletter = w_class('newsletter').new
     @sitemap = w_class('sitemap').new
+    @send_to_friend = w_class('send_to_friend').new
+    @direct_link = w_class('shortcut').new
   end
 
   def render
@@ -30,8 +32,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         javascript_include_tag 'flashembed.min.js', 'jquery',
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
         'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.media.js', 'jquery.metadata.js','jquery.form.js'
-        #, :cache => 'cache/content_page'
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js', 
+        'jquery-lightbox/jquery.lightbox.js' #, :cache => 'cache/content_page'
 
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
@@ -42,6 +44,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/inner_page', 
           'hebmain/page_admin',
           'hebmain/widgets',
+          'lightbox',
           :cache => false
           #:cache => 'cache/content_page_admin'
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
@@ -58,6 +61,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/header', 
           'hebmain/inner_page', 
           'hebmain/widgets',
+          'lightbox',
           :cache => 'cache/content_page',
           :media => 'all'
           
@@ -108,6 +112,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                       make_sortable(:selector => ".content", :axis => 'y') {
                         self.ext_content.render_to(doc)
                       }
+                      @send_to_friend.render_to(self)
+                      @direct_link.render_to(self) 
                     }
                   }
                   div(:class => 'yui-u') {

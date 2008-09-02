@@ -21,11 +21,26 @@ ActionController::Routing::Routes.draw do |map|
   end	
 
   # Path to the site
-#  map.json 'json',
-#              :controller => 'sites/templates', 
-#              :action => 'json'
+  #  map.json 'json',
+  #  :controller => 'sites/templates', 
+  #  :action => 'json'
+  
+  # shorturl controller : allow to make a link to a treenode based on tree node id
+  # instead of permanlink (espacially useful for hebrew links)
   map.tm ':prefix/short/:id', :controller => 'sites/shorturl', :action => 'shorturl'
+  
+  # Email controller : initially build for 'send to your friend' function
+  # with a though about the future - 
+  # :id is the tree node id
+  map.tm ':prefix/mail/:id/' , :controller => 'email' , :action => 'send_node'
+  
+  # Template controller - it is the main content controller for 90% of the site
+  # :id is the permalink stuff (right, it is not consistent... so what ?!)
   map.tm ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'
+  
+  # Mmm, I guess this one is for website homepage that do not make use of
+  # prefix for the homepage - but not sure - should ask Rami
+  # (anyway, he should have comment it on the firt place)
   map.connect '/', :controller => 'sites/templates', :action => 'template'
   
                                            

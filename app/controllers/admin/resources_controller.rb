@@ -53,12 +53,21 @@ class Admin::ResourcesController < ApplicationController
     
     #   ******************
     #   Check permissions!
-    parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
-    if not (parent_tree_node && parent_tree_node.can_create_child?)
-      flash[:notice] = "Access denied. User can't create tree node"
-      redirect_to session[:referer]
-    end
+#    parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
+#    if not (parent_tree_node && parent_tree_node.can_create_child?)
+#      flash[:notice] = "Access denied. User can't create tree node"
+#      redirect_to session[:referer]
+#    end
     #   ******************
+    parent_id = params[:resource][:tree_node][:parent_id]
+    unless parent_id == '0' && AuthenticationModel.current_user_is_admin?
+      parent_tree_node = TreeNode.find(parent_id)
+      if not (parent_tree_node && parent_tree_node.can_create_child?)
+        flash[:notice] = "Access denied. User can't create tree node"
+        redirect_to session[:referer]
+      end
+    end
+    
   
     @tree_node = TreeNode.new(params[:resource][:tree_node])
   end

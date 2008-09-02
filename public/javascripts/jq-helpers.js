@@ -1,3 +1,122 @@
+// picture gallery
+$(document).ready(function() { 
+  $('a.gallery').lightbox({
+	overlayBgColor: '#FFF',
+	overlayOpacity: 0.8,
+	containerResizeSpeed: 350,
+   fileBottomNavCloseImage : '/images/closelabel-heb.gif',
+   strings : {
+			prevLinkTitle: 'תמונה הקודמת',
+			nextLinkTitle: 'תמונה הבא ',
+			prevLinkText:  ' &laquo; קודם ',
+			nextLinkText:  ' הבא &raquo; ',
+			closeTitle: 'סגור',
+			image: '',
+			of: ' / '
+    }
+  });
+});
+
+
+
+
+
+// form sending email - for manpower form
+$(document).ready(function() { 
+  $('#success').hide();
+  var manpower_ajax_form_options = {
+  target: '#img_loader',
+  timeout:   30000,
+  beforeSubmit: b4_manpower,
+  success: after_manpower
+  
+  };
+  
+  $('#manpower_form').ajaxForm(manpower_ajax_form_options);
+});
+
+function b4_manpower(formData, jqForm, options) { 
+  var queryString = $.param(formData); 
+  var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  if (formData[1].value.search(emailRegEx) == -1) {
+      alert("כתובת הדואר האלקארונית לא תקינה");
+      return false;
+  }
+  
+  if (formData[0].value == '' || formData[2].value == '' || 
+        formData[5].value == '' || formData[6].value == '' ||
+        formData[7].value == '' || formData[12].value == '' ||
+        formData[13].value == ''  ){
+     alert('יש להזין את כל השדות עם כוכבית');
+     return false;
+  }
+    
+  $('.manpower').append("<img id='img_loader' align='center' src='/images/bar-loader.gif'>")
+}
+
+
+function after_manpower(responseText, statusText){
+ $('#img_loader').hide();
+ $('#success').fadeIn('slow');
+ setTimeout(function(){$('#success').fadeOut("slow");}, 5000);
+ $('#manpower_form').resetForm();
+}
+
+// Send to friend form
+$(document).ready(function() { 
+  $("#friend_form").hide();
+  $("#closed_friend").click(schnurf);
+
+    function schnurf(){
+      $("#friend_form").show();
+      $("#closed_friend").hide();
+      
+        
+      $("#friend_form").submit(function(){
+        $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' src='/images/ajax-loader.gif'></span>");
+        var inputs = [];
+        var is_ok = true;
+        $(':input', this).each(function(){
+            var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+            var field_name = $(this).attr('name');
+            if (field_name == 'adresseto' && this.value.search(emailRegEx) == -1) {
+              alert("כתובת הדואר האלקארונית לא תקינה");
+              is_ok = false;
+              return false;
+            }
+            if (field_name != 'submit'){
+              inputs.push(field_name + '=' + encodeURIComponent(this.value));
+            }
+        });
+        if (!is_ok) return false;
+        jQuery.ajax({
+          data: inputs.join('&'),
+          url: this.action,
+          timeout: 15000,
+          error: function(){
+            //some error
+            alert('השליחה לא הצליחה אנא נסה מאוחר יותר');
+          },
+          success: function(){
+           $("#friend_form").resetForm();
+           $("#friend_form #loader").remove();
+           $("#friend_form").hide();
+           $("#closed_friend").show();
+           alert('נשלח בהצלחה!');
+          }
+        });
+        return false;
+      }) //end of submit   
+    }
+  })
+
+ 
+
+
+//*****************************************
+//This bit of code ise 
+//actually managing the campus submit form
+//******************************************
 $(document).ready(function() { 
 
     //************************************
@@ -16,7 +135,7 @@ $(document).ready(function() {
 
     //************************************
     // Campus Form
-    //************************************
+    // ************************************
     // pre-submit callback 
     function showRequest(formData, jqForm, options) { 
         var queryString = $.param(formData); 
@@ -428,6 +547,7 @@ $(function() {
     $(".inner-player ul li:nth-child(odd)").addClass("odd");
 });
 
+
 //***************************************
 // Player with a playlist 
 //***************************************
@@ -496,3 +616,4 @@ $(function() {
 $(function() {
     $('a.target_blank').attr('target', '_blank');
 });
+

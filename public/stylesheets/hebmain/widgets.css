@@ -433,3 +433,183 @@ table.media_rss th{
 .grey-over{
 	background-color: #F0F4FD;
 }
+
+/******* Permalink **************/
+
+.permalink{
+  display: inline;
+  margin: 0 5px;
+}
+
+.permalink img{
+  margin-left: 5px;
+}
+
+/***** Send to friend *****/
+
+.send_to_friend{
+  display: inline;
+  margin-left: 5px;
+}
+.send_to_friend img{
+  margin-left: 5px;
+}
+.link_to_friend{
+  color: #186BE5;
+}
+
+.link_to_friend:hover {
+  color: #186BE5;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#friend {
+    border: 1px solid #E5E5E5;
+    margin: 10px 0pt;
+    position: relative;
+    text-align: right;
+}
+
+.tshuptshik{
+  height: 15px;
+  width: 15px;
+}
+
+#friend td{
+  padding: 5px;
+  border: 0px;
+}
+
+#friend h1{
+  background-color:#F0F5FD;
+  font-size:110%;
+  font-weight:normal;
+  margin:2px 2px 22px;
+  padding:2px 10px 2px 0;
+  position:relative;
+}
+
+
+#friend input{
+  background-color:#FFFFFF;
+  border:1px solid #B1C4E2;
+  height:15pt;
+  width:90%;
+}
+
+#friend .button{
+  background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
+  border: medium none;
+  color: black;
+  height: 17pt;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  width: 54pt;
+}
+
+/******* Manpower ******/
+
+
+.manpower {
+  border:1px solid #E5E5E5;
+  margin:10px 0;
+  position:relative;
+  text-align:right;
+  margin-right:0px;
+}
+.manpower table,  .manpower td, .manpower  tr{
+  border: 0px solid white;
+}
+
+.manpower td{
+  padding: 4px;  
+}
+
+.manpower #manpower_form{
+  padding-right:35px;
+  padding-top:20px;
+}
+.manpower .section{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color:#F0F5FD;
+  font-weight: bold;
+  padding-right: 6px;  
+}
+
+.manpower input{
+  width: 100px;
+}
+
+.manpower .first{
+  width: 80px;
+}
+
+.manpower .second{
+  padding-right: 10px;
+  width: 80px;
+}
+
+.manpower .button{
+  width: 80px;
+}
+
+.manpower .checkbox {
+  width: 170px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.manpower .checkbox input {
+  width: 5px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.manpower h3{
+  background-color:#F0F5FD;
+  color:black;
+  font-size:133.9%;
+  font-weight:normal;
+  margin:2px 2px 0;
+  padding:2px 10px 2px 0;
+  position:relative;
+}
+
+.manpower .msg{
+  width: 290px;
+}
+.manpower #success{
+  width: 210px;
+  padding:5px 85px 5px 30px;
+  margin-top: 5px;
+  background-color: #FFFED0;
+  color: green;
+  font-weight: bold; 
+}
+
+/*******  Picture gallery  ********/
+
+.picture_gallery{
+  display: block;
+}
+
+.picture_gallery h3{ 
+  margin:1em 0 0;
+  padding:7px 10px 5px 0;
+  color:#192862;
+  font-size:16px;
+  margin-bottom:3px;
+}
+
+.picture_gallery .pictures a{
+	cursor:url(/images/zoomin.cur), pointer;
+}
+
+img.thumbnails{
+  width: 90px;
+  height: 90px;
+  margin: 3px;
+}
+

@@ -3,7 +3,7 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
   def render_homepage
     video_admin
     id = tree_node.object_id
-    div(:class => 'player', :id => id) {
+    div(:class => 'player', :id => "id-#{id}") {
       div(:id => "flashplayer-#{id}") {
         img(:src => get_image, :alt => '', :class => 'flashplayer') if get_image
       }

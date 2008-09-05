@@ -1,20 +1,22 @@
 // picture gallery
 $(document).ready(function() { 
-  $('a.gallery').lightbox({
+    if (jQuery.isFunction($('a.gallery').lightbox)){
+    $('a.gallery').lightbox({
 	overlayBgColor: '#FFF',
 	overlayOpacity: 0.8,
 	containerResizeSpeed: 350,
-   fileBottomNavCloseImage : '/images/closelabel-heb.gif',
-   strings : {
-			prevLinkTitle: 'תמונה הקודמת',
-			nextLinkTitle: 'תמונה הבא ',
-			prevLinkText:  ' &laquo; קודם ',
-			nextLinkText:  ' הבא &raquo; ',
-			closeTitle: 'סגור',
-			image: '',
-			of: ' / '
+        fileBottomNavCloseImage : '/images/closelabel-heb.gif',
+        strings : {
+            prevLinkTitle: 'תמונה הקודמת',
+            nextLinkTitle: 'תמונה הבא ',
+            prevLinkText:  ' &laquo; קודם ',
+            nextLinkText:  ' הבא &raquo; ',
+            closeTitle: 'סגור',
+            image: '',
+            of: ' / '
+        }
+    });
     }
-  });
 });
 
 
@@ -23,92 +25,93 @@ $(document).ready(function() {
 
 // form sending email - for manpower form
 $(document).ready(function() { 
-  $('#success').hide();
-  var manpower_ajax_form_options = {
-  target: '#img_loader',
-  timeout:   30000,
-  beforeSubmit: b4_manpower,
-  success: after_manpower
+    $('#success').hide();
+    var manpower_ajax_form_options = {
+        target: '#img_loader',
+        timeout:   30000,
+        beforeSubmit: b4_manpower,
+        success: after_manpower
   
-  };
-  
-  $('#manpower_form').ajaxForm(manpower_ajax_form_options);
+    };
+  if (jQuery.isFunction($('#manpower_form').ajaxForm)){
+    $('#manpower_form').ajaxForm(manpower_ajax_form_options);
+  }
 });
 
 function b4_manpower(formData, jqForm, options) { 
-  var queryString = $.param(formData); 
-  var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  if (formData[1].value.search(emailRegEx) == -1) {
-      alert("כתובת הדואר האלקארונית לא תקינה");
-      return false;
-  }
+    var queryString = $.param(formData); 
+    var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    if (formData[1].value.search(emailRegEx) == -1) {
+        alert("כתובת הדואר האלקארונית לא תקינה");
+        return false;
+    }
   
-  if (formData[0].value == '' || formData[2].value == '' || 
+    if (formData[0].value == '' || formData[2].value == '' || 
         formData[5].value == '' || formData[6].value == '' ||
         formData[7].value == '' || formData[12].value == '' ||
         formData[13].value == ''  ){
-     alert('יש להזין את כל השדות עם כוכבית');
-     return false;
-  }
+        alert('יש להזין את כל השדות עם כוכבית');
+        return false;
+    }
     
-  $('.manpower').append("<img id='img_loader' align='center' src='/images/bar-loader.gif'>")
+    $('.manpower').append("<img id='img_loader' align='center' src='/images/bar-loader.gif'>")
 }
 
 
 function after_manpower(responseText, statusText){
- $('#img_loader').hide();
- $('#success').fadeIn('slow');
- setTimeout(function(){$('#success').fadeOut("slow");}, 5000);
- $('#manpower_form').resetForm();
+    $('#img_loader').hide();
+    $('#success').fadeIn('slow');
+    setTimeout(function(){$('#success').fadeOut("slow");}, 5000);
+    $('#manpower_form').resetForm();
 }
 
 // Send to friend form
 $(document).ready(function() { 
-  $("#friend_form").hide();
-  $("#closed_friend").click(schnurf);
+    $("#friend_form").hide();
+    $("#closed_friend").click(schnurf);
 
     function schnurf(){
-      $("#friend_form").show();
-      $("#closed_friend").hide();
+        $("#friend_form").show();
+        $("#closed_friend").hide();
       
         
-      $("#friend_form").submit(function(){
-        $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' src='/images/ajax-loader.gif'></span>");
-        var inputs = [];
-        var is_ok = true;
-        $(':input', this).each(function(){
-            var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-            var field_name = $(this).attr('name');
-            if (field_name == 'adresseto' && this.value.search(emailRegEx) == -1) {
-              alert("כתובת הדואר האלקארונית לא תקינה");
-              is_ok = false;
-              return false;
-            }
-            if (field_name != 'submit'){
-              inputs.push(field_name + '=' + encodeURIComponent(this.value));
-            }
-        });
-        if (!is_ok) return false;
-        jQuery.ajax({
-          data: inputs.join('&'),
-          url: this.action,
-          timeout: 15000,
-          error: function(){
-            //some error
-            alert('השליחה לא הצליחה אנא נסה מאוחר יותר');
-          },
-          success: function(){
-           $("#friend_form").resetForm();
-           $("#friend_form #loader").remove();
-           $("#friend_form").hide();
-           $("#closed_friend").show();
-           alert('נשלח בהצלחה!');
-          }
-        });
-        return false;
-      }) //end of submit   
+        $("#friend_form").submit(function(){
+            $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' src='/images/ajax-loader.gif'></span>");
+            var inputs = [];
+            var is_ok = true;
+            $(':input', this).each(function(){
+                var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+                var field_name = $(this).attr('name');
+                if (field_name == 'adresseto' && this.value.search(emailRegEx) == -1) {
+                    alert("כתובת הדואר האלקארונית לא תקינה");
+                    is_ok = false;
+                    return false;
+                }
+                if (field_name != 'submit'){
+                    inputs.push(field_name + '=' + encodeURIComponent(this.value));
+                }
+            });
+            if (!is_ok) return false;
+            jQuery.ajax({
+                data: inputs.join('&'),
+                url: this.action,
+                timeout: 15000,
+                error: function(){
+                    //some error
+                    alert('השליחה לא הצליחה אנא נסה מאוחר יותר');
+                },
+                success: function(){
+                    $("#friend_form").resetForm();
+                    $("#friend_form #loader").remove();
+                    $("#friend_form").hide();
+                    $("#closed_friend").show();
+                    alert('נשלח בהצלחה!');
+                }
+            });
+            return false;
+        }) //end of submit   
     }
-  })
+})
 
  
 
@@ -130,6 +133,9 @@ $(document).ready(function() {
         function(){
             $(this).toggleClass("grey-over");
         })
+    });
+    $(function() {
+        $('.media_rss a').attr('target', '_blank');
     });
 
 
@@ -497,7 +503,7 @@ var playerConfig_innerpage = {
     showVolumeSlider: true,
     showFullScreenButton:false,
     controlsOverVideo: 'ease',
-    controlBarBackgroundColor: -1,
+    controlBarBackgroundColor:0xe9e9e9,
     controlBarGloss: 'low',
     showMenu:false
 };
@@ -514,7 +520,7 @@ $(function() {
         br:{radius: 8},
         antiAlias:true
     });
-    var id = $player.attr("id");
+    var id = $player.attr("id").replace('id-', '');
     if (id == 0) return;
 
     var $links = $player.find("a").not(".more").click(function(event){
@@ -530,7 +536,11 @@ $(function() {
             flowplayer_innerpage.setConfig(playerConfig_innerpage);
         }
         window.onClipDone = function() {
-            now_playing.next().find('a.h1-play').click();
+            var next = now_playing.next();
+            if (next.length == 0){
+                next = $($links[0]).parent();
+            }
+            next.find('a.h1-play').click();
         };
     
         if (now_playing) now_playing.toggleClass("playing");
@@ -549,68 +559,77 @@ $(function() {
 
 
 //***************************************
-// Player with a playlist 
+// Audio Player with a playlist 
 //***************************************
-//var playerConfig_palylist = { 
-//    autoPlay: true,
-//    loop: true,
-//    initialScale:'scale', 
-//    useNativeFullScreen: true,
-//    showStopButton:false,
-//    autoRewind:true,
-//    showVolumeSlider: true,
-//    showFullScreenButton:false,
-//    controlsOverVideo: 'ease',
-//    controlBarBackgroundColor: -1,
-//    controlBarGloss: 'low',
-//    showMenu:false
-//};
-//var flowplayer_playlist = null;
-//
+var playerConfig_playlist = { 
+    autoPlay: true,
+    videoHeight:0,
+    loop: true,
+    initialScale:'scale', 
+    useNativeFullScreen: true,
+    showStopButton:false,
+    autoRewind:true,
+    showVolumeSlider: true,
+    showFullScreenButton:false,
+    controlsOverVideo: 'locked',
+    controlBarBackgroundColor:0xe9e9e9,
+    controlBarGloss: 'low',
+    showMenu:false
+};
 $(function() {
-    var $playlist = $('.playlist-player')
-    if ($playlist.size() == 0) return;
-//    $playlist.corner({
-//        tl:{radius: 8},
-//        tr:{radius: 8},
-//        bl:{radius: 8},
-//        br:{radius: 8},
-//        antiAlias:true
-//    });
-//
-    // 1. Let's build a playlist
-    // 2. On stop/done re-build a playlist
-//
-    var $links = jQuery.makeArray($playlist.find("checkbox").filter(function(){return $this.val() != '1'}));
-    alert($links);
-//        click(function(event){
-//        var $this = $(this);
-//        event.preventDefault();
-//        playerConfig_innerpage.videoFile = $this.attr("href");
-//        if (flowplayer_innerpage == null) {
-//            flowplayer_innerpage = flashembed("flashplayer-"+id,
-//            {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#F0F4FD',width:503, height:378},
-//            {config: playerConfig_innerpage}
-//        );
-//        } else {     
-//            flowplayer_innerpage.setConfig(playerConfig_innerpage);
-//        }
-//        window.onClipDone = function() {
-//            now_playing.next().find('a.h1-play').click();
-//        };
-//    
-//        if (now_playing) now_playing.toggleClass("playing");
-//        now_playing = $this.parent();
-//        now_playing.toggleClass("playing");
-//        // Find out and replace title
-//        var hdr = $($this.parent().children('.h1-play')[0]).text();
-//        $this.parents('.inner-player').find('.play-title').text(hdr);
-//        return false;
-//    });
-//    $("#flashplayer-"+id+" img").click(function(){
-//        $($links[0]).trigger('click'); 
-//    });
-//    $(".inner-player ul li:nth-child(odd)").addClass("odd");
+    var audio = [];
+    $('.playlist-player').each(function(){
+        var $this = $(this);
+        var id = $this.attr("id").replace('id-', '');
+        if (id == 0) return;
+        $this.corner({
+            tl:{radius: 8},
+            tr:{radius: 8},
+            bl:{radius: 8},
+            br:{radius: 8},
+            antiAlias:true
+        });
+        var player = flashembed("flashplayer-"+id,
+        {src:"/flowplayer/FlowPlayerLight.swf", bgcolor:'#F0F4FD',width:503, height:50},
+        {config: playerConfig_playlist}
+    );
+        audio.push(player);
+        var now_playing = null;
+        var $links = $this.find("a").click(function(event){
+            var $this = $(this);
+            event.preventDefault();
+            window.onClipDone = function() {
+                var next = now_playing.next();
+                if (next.length == 0){
+                    next = $($links[0]).parent();
+                }
+                next.find('a.h1-play').click();
+            };
+            jQuery.each(audio, function(index, value) {
+                value.Pause();
+            });
+            if (now_playing){
+                now_playing.toggleClass("playing");
+            }
+            now_playing = $this.parent();
+            now_playing.toggleClass("playing");
+            playerConfig_playlist.videoFile = $this.attr("href");
+            player.setConfig(playerConfig_playlist);
+            // Find out and replace title
+            var hdr = $this.text();
+            $this.parents('.playlist-player').find('.play-title').text(hdr);
+            return false;
+        });
+        $(".playlist-player ul li:nth-child(odd)").addClass("odd");
+        $(".playlist-player ul li a").hover(
+        function () {
+            $(this).css("color", "#0D47B2");
+        }, 
+        function () {
+            $(this).css("color", "black");
+        }    
+    );
+    })
 });
 
 $(function() {

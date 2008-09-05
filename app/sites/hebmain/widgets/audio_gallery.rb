@@ -1,24 +1,26 @@
 class Hebmain::Widgets::AudioGallery < WidgetManager::Base
 
-# WORK IN PROGRESS, DO NOT USE IT  
   def render_full
     audio_admin
     id = tree_node.object_id
-    div(:class => 'playlist-player', :id => id) {
+    div(:class => 'playlist-player', :id => "id-#{id}") {
       div(:class => 'play-title') {
-        rawtext first_with_image.resource.properties('title').get_value if first_with_image
+        rawtext tree_node.resource.properties('title').get_value
       }
-      div(:id => "flashplayer-#{id}") {
+      div(:id => "flashplayer-#{id}", :class => 'flashplayer') {
       }
       div(:class => 'play-serv'){}
       div(:id => "playlist-#{id}", :class => 'playlist'){
         ul{
-          audio_items.each { |audio_item|
-            li {w_class('video').new(:tree_node => audio_item, :view_mode => 'audio_list').render_to(self)}
+          audio_items.each_with_index { |audio_item, index|
+            li {
+              a(:href => audio_item.resource.properties('url').get_value, :class => 'h1-play') {
+                rawtext format('%02d. %s', index, audio_item.resource.properties('title').get_value)
+              }
+            }
           }
         }
       }
-      a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url != ""
     }
   end
 
@@ -34,9 +36,9 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
   end
   
   def audio_items
-    @video_items ||= TreeNode.get_subtree(
+    @audio_items ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['audio'], 
+      :resource_type_hrids => ['audio'],
       :depth => 1,
       :has_url => false,
       :status => ['PUBLISHED', 'DRAFT']

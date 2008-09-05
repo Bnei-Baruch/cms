@@ -24,11 +24,16 @@ class Sites::TemplatesController < ApplicationController
   end
   
   # This is the action that renders the view and responds to client
-  def template
+  def template 
+    
     host = 'http://' + request.host
     prefix = params[:prefix]
     permalink = params[:id]
     path = params[:path]
+    
+    logout = params.has_key?('logout') ? params[:logout] : false
+    AuthenticationModel.logout_from_admin if logout
+    
     if prefix || permalink
       @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
       @website = nil if @website && @website.use_homepage_without_prefix && !(prefix && permalink)
@@ -57,7 +62,7 @@ class Sites::TemplatesController < ApplicationController
       check_url_migration
       return
     end
-    
+       
     session[:site_direction] = site_settings[:site_direction] rescue 'rtl'
     session[:language] = site_settings[:language] rescue 'default'
     set_translations
@@ -303,4 +308,5 @@ class Sites::TemplatesController < ApplicationController
       end
     end
   end
+  
 end

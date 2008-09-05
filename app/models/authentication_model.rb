@@ -3,11 +3,11 @@ class AuthenticationModel
   #attr_reader :tree_node
   #def initialize(access_type = 0)#, tree_node = nil)
   #    @ac_type = access_type
-      #@tree_node = tree_node
+  #@tree_node = tree_node
   #end
   #include UserInfo
   
-   NODE_AC_TYPES = {
+  NODE_AC_TYPES = {
     #  Displayed        stored in db
     0 => "Forbidden",
     1 => "Reading",
@@ -18,16 +18,16 @@ class AuthenticationModel
   
   def self.get_anonymous_user
     {:username => $config_manager.appl_settings[:anonymous_login_user][:username],
-     :password => $config_manager.appl_settings[:anonymous_login_user][:password]} rescue {}
+      :password => $config_manager.appl_settings[:anonymous_login_user][:password]} rescue {}
   end
   
   def self.GET_NODE_AC_TYPES_FOR_EDIT
     NODE_AC_TYPES.reject {| key, value | key == 4 }
   end
   
- # def to_s
- #   NODE_AC_TYPES[ac_type]
- # end
+  # def to_s
+  #   NODE_AC_TYPES[ac_type]
+  # end
   
   #return min permission to child nodes by current user (recursive) 999 = no child
   def self.get_min_permission_to_child_tree_nodes_by_user(tree_node_id)
@@ -38,20 +38,20 @@ class AuthenticationModel
     chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
         where parent_id =#{tree_node_id}")
     chields.each{ |tn|
-        #get current node permission
-        if tn.ac_type < result
-          result = tn.ac_type
-        end
+      #get current node permission
+      if tn.ac_type < result
+        result = tn.ac_type
+      end
         
-        #optimization (if it already minimal value)
-        if result == 0 #"Forbidden"
-          return result 
-        end
-        #get child permission
-        tmp_res = tn.get_min_permission_to_child_tree_nodes_by_user()
-        if tmp_res < result
-          result = tmp_res
-        end
+      #optimization (if it already minimal value)
+      if result == 0 #"Forbidden"
+        return result 
+      end
+      #get child permission
+      tmp_res = tn.get_min_permission_to_child_tree_nodes_by_user()
+      if tmp_res < result
+        result = tmp_res
+      end
     }
     result #999 no child
   end
@@ -62,10 +62,10 @@ class AuthenticationModel
     action_flg = false
     #delete automatic node by parent
     tnrs = TreeNodeAcRight.find(:all, 
-          :conditions => ["tree_node_id = ? and group_id not in 
+      :conditions => ["tree_node_id = ? and group_id not in 
           (select group_id from tree_node_ac_rights where tree_node_id = ?) 
           and is_automatic = true", 
-            tree_node.id, tree_node.parent_id])
+        tree_node.id, tree_node.parent_id])
     tnrs.each{|d_tnr| 
       d_tnr.destroy
       action_flg = true
@@ -74,8 +74,8 @@ class AuthenticationModel
     #add or update permission by parent node
     parent_rights.each{ |p_tnr|
       tnr = TreeNodeAcRight.find(:first, 
-          :conditions => ["tree_node_id = ? and group_id = ?", 
-            tree_node.id, p_tnr.group_id])
+        :conditions => ["tree_node_id = ? and group_id = ?", 
+          tree_node.id, p_tnr.group_id])
         
       if tnr.nil?
         TreeNodeAcRight.create(:tree_node_id => tree_node.id, 
@@ -99,22 +99,22 @@ class AuthenticationModel
     chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
         where parent_id =#{tree_node_right.tree_node_id}")
     chields.each{ |tn|
-     tnr = TreeNodeAcRight.find(:first, 
-          :conditions => ["tree_node_id = ? and group_id = ?",
-            tn.id, tree_node_right.group_id])
-     if tnr.nil?
-         tnr = TreeNodeAcRight.create(:tree_node_id => tn.id, 
-              :group_id => tree_node_right.group_id,
-              :is_automatic => true, 
-              :ac_type => tree_node_right.ac_type)
+      tnr = TreeNodeAcRight.find(:first, 
+        :conditions => ["tree_node_id = ? and group_id = ?",
+          tn.id, tree_node_right.group_id])
+      if tnr.nil?
+        tnr = TreeNodeAcRight.create(:tree_node_id => tn.id, 
+          :group_id => tree_node_right.group_id,
+          :is_automatic => true, 
+          :ac_type => tree_node_right.ac_type)
          
-     else
-       #change access type by parant tree_node only if it automatic (not manual)
-       if tnr.is_automatic == true &&  tnr.ac_type != tree_node_right.ac_type
-         tnr.ac_type = tree_node_right.ac_type
-         tnr.save
-       end
-     end
+      else
+        #change access type by parant tree_node only if it automatic (not manual)
+        if tnr.is_automatic == true &&  tnr.ac_type != tree_node_right.ac_type
+          tnr.ac_type = tree_node_right.ac_type
+          tnr.save
+        end
+      end
     }
    
   end
@@ -124,16 +124,16 @@ class AuthenticationModel
     chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
         where parent_id =#{tree_node_right.tree_node_id}")
     chields.each{ |tn|
-     tnr = TreeNodeAcRight.find(:first, 
-          :conditions => ["tree_node_id = ? and group_id = ?",
-            tn.id, tree_node_right.group_id])
-     if not tnr.nil?
+      tnr = TreeNodeAcRight.find(:first, 
+        :conditions => ["tree_node_id = ? and group_id = ?",
+          tn.id, tree_node_right.group_id])
+      if not tnr.nil?
       
-       #delete tree_node_rights only if it automatic (not manual)
-       if tnr.is_automatic == true 
-         tnr.destroy
-       end
-     end
+        #delete tree_node_rights only if it automatic (not manual)
+        if tnr.is_automatic == true 
+          tnr.destroy
+        end
+      end
     }
    
   end
@@ -154,18 +154,27 @@ class AuthenticationModel
   end
   
   def self.current_user
-    user_id = Thread.current[:session][:user_id]
-    return user_id
+    Thread.current[:session][:user_id]
   end
   
   def self.current_user_is_admin?
-    data = Thread.current[:session][:current_user_is_admin]
-    data == 1
+    Thread.current[:session][:current_user_is_admin] == 1
   end
   
   def self.current_user_is_anonymous?
-    data = Thread.current[:session][:current_user_is_anonymous]
-    data == 1
+    Thread.current[:session][:current_user_is_anonymous] == 1
   end
 
+  def self.logout_from_admin
+    anonymous = AuthenticationModel.get_anonymous_user
+    user = User.authenticate(anonymous[:username], anonymous[:password])
+    if user
+      Thread.current[:session][:user_id] = user.id
+      Thread.current[:session][:current_user_is_admin] = 0
+      Thread.current[:session][:current_user_is_anonymous] = 1
+    else
+      logger.error("Anonymous user is not defined or banned. Access denied.")
+      raise "Access denied for anonymous user."
+    end
+  end
 end

@@ -67,6 +67,14 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   end
   def render_dynamic
     if tree_node.can_edit?
+      
+      link = ''
+      if AuthenticationModel.current_user_is_admin?
+        user_name = User.find(AuthenticationModel.current_user).username rescue ''
+        url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node) 
+        link = '<a href="' + url + '?logout=true">&nbsp;&nbsp;&nbsp;&nbsp;Logout from ' + user_name + '</a>'
+      end
+
       @counter += 1
       label = "TREE_#{@counter}"
       div(:id => label, :class => 'dynamic_tree') {
@@ -78,7 +86,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
             function tree() {
               children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
               create_tree('#{get_page_url(tree_node)}', children, '#{label}',
-'עץ ניהול'
+'עץ ניהול   #{link}'
 ,'#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
             }
           TREE_CODE

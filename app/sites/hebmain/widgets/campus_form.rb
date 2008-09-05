@@ -3,7 +3,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
    require 'net/smtp'
 
 	 include ParseDate
-	    
+  
 	def render_full
 		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button }, :position => 'bottom'}).render_to(doc) 
 		 
@@ -16,7 +16,6 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
     	else 
 				campus_user_mode
     	end
-    		
 	end
 	
 	def render_new_student
@@ -33,12 +32,11 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id], :adwords => @options[:adwords])
 		new_student.save
     send_student_by_mail(@options[:name],@options[:email],@options[:tel])
-    
 		div(:class => 'success'){
 		  text "הפרטים נתקבלו בהצלחה.‬"	
-		}					
+		}
 		javascript{
-		rawtext 'alert("הפרטים נתקבלו בהצלחה.‬");'
+    	rawtext 'alert("הפרטים נתקבלו בהצלחה.‬");'
 		}
 	end
 	
@@ -55,11 +53,10 @@ Email: #{email}
 Tel: #{tel}
 
 
-
 EOF
     msg
-    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','user','pass', :plain ) { |smtp|
-    Net::SMTP.start("localhost", 25) { |smtp|
+    Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
+   # Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, 'campus@kab.co.il', ['info@kab.co.il']
     }
   end
@@ -89,8 +86,6 @@ EOF
     	  } #end of list
     	  }#end of table
     	}
-	
-		
 	end
 	
 	def campus_user_mode(def_name = '', def_email='', def_tel='')
@@ -103,38 +98,41 @@ EOF
 		
 		div(:class => 'campus'){
 	    	 	div(:id => 'output2'){
-		 			form(:id => 'myForm2'){
+		 			form(:id => 'myForm2', :action => 'register'){
 	    	 		   #user fields
-	    	 		   span(:class => 'label') {text "שם : "}
-     				   input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
-     				   br
-     				   span(:class => 'label') {text "אימייל : "}
-     				   input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
-     				   br
-     				   span(:class => 'label') {text "טל : "}
-     				   input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
-     				   
-							div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
-							captcha_index = rand(11)
-							img :src => generate_captcha(captcha_index)[0] , :class => 'img_captcha'
-							br
-							div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
-							input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
-							input :type => 'hidden', :name => 'options[captcha_index]', :value => captcha_index	
-							
-     				   input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
-     				   input :type => 'hidden', :name => 'node', :value => tree_node.id
-     				   input :type => 'hidden', :name => 'options[tree_node_id]', :value => tree_node.id
-     				   input :type => 'hidden', :name => 'options[new_student]', :value => 'true'
-     				   input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
-     				   input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
-     				   input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
-     				   
-     				  #submit
-     				   br
-     				   input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
-     				   br
-     				   
+                p{
+                span(:class => 'label') {text "שם : "}
+                input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
+                br
+
+                span(:class => 'label') {text "אימייל : "}
+                input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
+                br
+                
+                span(:class => 'label') {text "טל : "}
+                input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
+
+                div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
+                captcha_index = rand(11)
+                img :src => generate_captcha(captcha_index)[0] , :class => 'img_captcha', :alt => 'captcha'
+                br
+                div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
+                input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
+                input :type => 'hidden', :name => 'options[captcha_index]', :value => captcha_index	
+
+                input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
+                input :type => 'hidden', :name => 'node', :value => tree_node.id
+                input :type => 'hidden', :name => 'options[tree_node_id]', :value => tree_node.id
+                input :type => 'hidden', :name => 'options[new_student]', :value => 'true'
+                input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
+                input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
+                input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
+
+                #submit
+                br
+                input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
+                br
+              }
 				}
 		  }
 	  }

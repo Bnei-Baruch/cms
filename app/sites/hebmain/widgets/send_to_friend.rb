@@ -1,7 +1,7 @@
 class Hebmain::Widgets::SendToFriend < WidgetManager::Base
     
   def render_full
-    div(:class => 'send_to_friend', :id => @tree_node.id, :lang => @presenter.website.prefix){
+    div(:class => 'send_to_friend'){
       form(:id => 'friend_form', :method => 'post', :action => '/'+@presenter.website.prefix+'/mail/'+@tree_node.id.to_s){
         table(:id => 'friend'){
           tr{
@@ -15,6 +15,14 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
             }
             td{
               input :type => 'text', :size => '20', :name => 'sender_name'
+            }
+          }
+          tr{
+            td{
+              text _('Address of sender')
+            }
+            td{
+              input :type => 'text', :size => '20', :name => 'adressefrom'
             }
           }
           tr{
@@ -41,7 +49,7 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
         }
       }
       span(:id => 'closed_friend'){
-        img(:src => "/images/mail.jpg")
+        img(:src => "/images/mail.jpg", :alt => 'close')
         span(:class => 'link_to_friend'){
           text 'שלח לחבר'
         }

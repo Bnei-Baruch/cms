@@ -27,17 +27,6 @@ class EmailController < ApplicationController
     send_mail(url, adresse_to, adresse_from, sender_name, receiver_name)
     redirect_to url
     
-#    respond_to do |format|
-#      format.html {
-#       render :text => "respond"   
-#       return
-#        
-#      }
-#      format.json {
-#        return
-#      }
-#    end
-    
   end
   
   #def send_mail(email_dest = '', add_from = '', url = '')

@@ -96,7 +96,8 @@ Localization.define('hebrew') do |l|
   
   l.store 'Send to friend', 'שלח לחבר'
   l.store 'Name of sender', 'שם השולח/ת:'
-  l.store 'Name of receiver','כתובת השולח/ת:'
+  l.store 'Name of receiver', 'שם החבר/ה: '
+  l.store 'Address of sender', 'כתובת השולח/ת:'
   l.store 'Send to email address', 'שלחו לכתובת דוא''ל:'
   l.store 'Send', 'שלח'
   l.store 'Everything went fine', 'תהליך הרישום עבר בהצלחה. '

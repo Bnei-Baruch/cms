@@ -1,41 +1,39 @@
 // picture gallery
 $(document).ready(function() { 
-    if (jQuery.isFunction($('a.gallery').lightbox)){
+  if (jQuery.isFunction($('a.gallery').lightbox)){
     $('a.gallery').lightbox({
-	overlayBgColor: '#FFF',
-	overlayOpacity: 0.8,
-	containerResizeSpeed: 350,
-        fileBottomNavCloseImage : '/images/closelabel-heb.gif',
-        strings : {
-            prevLinkTitle: 'תמונה הקודמת',
-            nextLinkTitle: 'תמונה הבא ',
-            prevLinkText:  ' &laquo; קודם ',
-            nextLinkText:  ' הבא &raquo; ',
-            closeTitle: 'סגור',
-            image: '',
-            of: ' / '
-        }
+    overlayBgColor: '#FFF',
+    overlayOpacity: 0.8,
+    containerResizeSpeed: 350,
+     fileBottomNavCloseImage : '/images/closelabel-heb.gif',
+     strings : {
+        prevLinkTitle: 'תמונה הקודמת',
+        nextLinkTitle: 'תמונה הבא ',
+        prevLinkText:  ' &laquo; קודם ',
+        nextLinkText:  ' הבא &raquo; ',
+        closeTitle: 'סגור',
+        image: '',
+        of: ' / '
+      }
     });
-    }
+  }
 });
-
-
-
 
 
 // form sending email - for manpower form
 $(document).ready(function() { 
-    $('#success').hide();
-    var manpower_ajax_form_options = {
-        target: '#img_loader',
-        timeout:   30000,
-        beforeSubmit: b4_manpower,
-        success: after_manpower
-  
-    };
+  $('#success').hide();
+  var manpower_ajax_form_options = {
+    target: '#img_loader',
+    timeout:   30000,
+    beforeSubmit: b4_manpower,
+    success: after_manpower
+
+  };
   if (jQuery.isFunction($('#manpower_form').ajaxForm)){
-    $('#manpower_form').ajaxForm(manpower_ajax_form_options);
+     $('#manpower_form').ajaxForm(manpower_ajax_form_options);
   }
+
 });
 
 function b4_manpower(formData, jqForm, options) { 
@@ -50,11 +48,13 @@ function b4_manpower(formData, jqForm, options) {
         formData[5].value == '' || formData[6].value == '' ||
         formData[7].value == '' || formData[12].value == '' ||
         formData[13].value == ''  ){
-        alert('יש להזין את כל השדות עם כוכבית');
-        return false;
-    }
-    
+     alert('יש להזין את כל השדות עם כוכבית');
+      $('.must').addClass('emptyfield');
+     return false;
+  }
+
     $('.manpower').append("<img id='img_loader' align='center' src='/images/bar-loader.gif'>")
+  return true;
 }
 
 
@@ -63,53 +63,53 @@ function after_manpower(responseText, statusText){
     $('#success').fadeIn('slow');
     setTimeout(function(){$('#success').fadeOut("slow");}, 5000);
     $('#manpower_form').resetForm();
+ $('.must').removeClass('emptyfield');
 }
 
 // Send to friend form
 $(document).ready(function() { 
-    $("#friend_form").hide();
-    $("#closed_friend").click(schnurf);
-
-    function schnurf(){
-        $("#friend_form").show();
-        $("#closed_friend").hide();
+  $("#friend_form").hide();
+  $("#closed_friend").click(toggler);
+  //toggler is toggling the state of the 'send to friend' form
+    function toggler(){
+      $("#friend_form").show();
+      $("#closed_friend").hide();
       
-        
-        $("#friend_form").submit(function(){
-            $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' src='/images/ajax-loader.gif'></span>");
-            var inputs = [];
-            var is_ok = true;
-            $(':input', this).each(function(){
-                var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-                var field_name = $(this).attr('name');
-                if (field_name == 'adresseto' && this.value.search(emailRegEx) == -1) {
-                    alert("כתובת הדואר האלקארונית לא תקינה");
-                    is_ok = false;
-                    return false;
-                }
-                if (field_name != 'submit'){
-                    inputs.push(field_name + '=' + encodeURIComponent(this.value));
-                }
-            });
-            if (!is_ok) return false;
-            jQuery.ajax({
-                data: inputs.join('&'),
-                url: this.action,
-                timeout: 15000,
-                error: function(){
-                    //some error
-                    alert('השליחה לא הצליחה אנא נסה מאוחר יותר');
-                },
-                success: function(){
-                    $("#friend_form").resetForm();
-                    $("#friend_form #loader").remove();
-                    $("#friend_form").hide();
-                    $("#closed_friend").show();
-                    alert('נשלח בהצלחה!');
-                }
-            });
-            return false;
-        }) //end of submit   
+      $("#friend_form").submit(function(){
+      $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></span>");
+        var inputs = [];
+        var is_ok = true;
+        $(':input', this).each(function(){
+            var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+            var field_name = $(this).attr('name');
+            if (field_name == 'adresseto' && this.value.search(emailRegEx) == -1) {
+              alert("כתובת הדואר האלקארונית לא תקינה");
+              is_ok = false;
+              return false;
+            }
+            if (field_name != 'submit'){
+              inputs.push(field_name + '=' + encodeURIComponent(this.value));
+            }
+        });
+        if (!is_ok) return false;
+        jQuery.ajax({
+          data: inputs.join('&'),
+          url: this.action,
+          timeout: 60000,
+          error: function(){
+            //some error
+            alert('השליחה לא הצליחה אנא נסה מאוחר יותר');
+          },
+          success: function(){
+           $("#friend_form").resetForm();
+           $("#friend_form #loader").remove();
+           $("#friend_form").hide();
+           $("#closed_friend").show();
+           alert('נשלח בהצלחה!');
+          }
+        });
+        return false;
+      }) //end of submit   
     }
 })
 
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 
 //*****************************************
-//This bit of code ise 
+//This bit of code is
 //actually managing the campus submit form
 //******************************************
 $(document).ready(function() { 
@@ -166,6 +166,11 @@ $(document).ready(function() {
             $(this).ajaxSubmit(options); 
             return false; 
         }); 
+        
+        
+        //$('#output2').append('<script src="http://yaakov.kbb1.com/plop.js"><script>');
+       
+        $('#output2').append('<img height="1" width="1" border="0" src="http://www.googleadservices.com/pagead/conversion/1061981111/?label=vTzlCJGNUhC3l7L6Aw&amp;script=0"/>')
     } 
 
     var options = { 

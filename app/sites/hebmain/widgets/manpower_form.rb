@@ -16,31 +16,29 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             td(:colspan => '4'){text _('Personnal details')}
           }
           tr{
-            td(:class => 'first'){
+            td(:class => 'first, must'){
               text _('First Name')
               text ' *:'
             }
             td{
               input :type => 'text', :name => 'firstname'
             } 
-            
-            td(:class => 'second'){
+            td(:class => 'second, must'){
               text _('Email')
-              text ' :'
+              text ' *:'
             }
             td{
               input :type => 'text', :name => 'email'
             }
           }
           tr{  
-            td(:class => 'first'){
+            td(:class => 'first, must'){
               text _('Last Name')
               text ' *:'
             }
             td{
               input :type => 'text', :name => 'lastname'
             }
-            
             td(:class => 'second'){
               text _('Mobile Phone')
               text ' :'
@@ -63,7 +61,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               }
             }
             
-            td(:class => 'second'){
+            td(:class => 'second, must'){
               text _('Main phone')
               text ' *:'
             }
@@ -72,7 +70,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             }
           }
           tr{
-            td(:class => 'first'){
+            td(:class => 'first, must'){
               text _('Hometown')
               text ' *:'
             }
@@ -80,7 +78,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               input :type => 'text', :name => 'hometown'
             }
             
-            td(:class => 'second'){
+            td(:class => 'second, must'){
               text _('First Language')
               text ' *:'
             }
@@ -104,16 +102,15 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               select(:name => 'language1'){
                list_of_country
               }
-              
-              td(:class => 'checkbox', :colspan => '2'){
-                text _('Read')
-                input :type => 'checkbox', :name => 'read1', :value => 'Read'
-                text _('Write')
-                input :type => 'checkbox', :name => 'write1', :value => 'Write'
-                text _('Speak')
-                input :type => 'checkbox', :name => 'speak1', :value => 'Speak'
-              }           
             }
+            td(:class => 'checkbox', :colspan => '2'){
+              text _('Read')
+              input :type => 'checkbox', :name => 'read1', :value => 'Read', :class => 'check'
+              text _('Write')
+              input :type => 'checkbox', :name => 'write1', :value => 'Write', :class => 'check'
+              text _('Speak')
+              input :type => 'checkbox', :name => 'speak1', :value => 'Speak', :class => 'check'
+            }           
           }
 
           tr{
@@ -125,15 +122,14 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               select(:name => 'language2'){
                 list_of_country
               }
-              
-              td(:class => 'checkbox', :colspan => '2'){
-                text _('Read')
-                input :type => 'checkbox', :name => 'read2', :value => 'Read'
-                text _('Write')
-                input :type => 'checkbox', :name => 'write2', :value => 'Write'
-                text _('Speak')
-                input :type => 'checkbox', :name => 'speak2', :value => 'Speak'
-              }
+            }
+            td(:class => 'checkbox', :colspan => '2'){
+              text _('Read')
+              input :type => 'checkbox', :name => 'read2', :value => 'Read', :class => 'check'
+              text _('Write')
+              input :type => 'checkbox', :name => 'write2', :value => 'Write', :class => 'check'
+              text _('Speak')
+              input :type => 'checkbox', :name => 'speak2', :value => 'Speak', :class => 'check'
             }
           }
 
@@ -146,15 +142,14 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               select(:name => 'language3'){
                 list_of_country
               }
-              
-              td(:class => 'checkbox', :colspan => '2'){
-                text _('Read')
-                input :type => 'checkbox', :name => 'read3', :value => 'Read'
-                text _('Write')
-                input :type => 'checkbox', :name => 'write3', :value => 'Write'
-                text _('Speak')
-                input :type => 'checkbox', :name => 'speak3', :value => 'Speak'
-              }
+            }
+            td(:class => 'checkbox', :colspan => '2'){
+              text _('Read')
+              input :type => 'checkbox', :name => 'read3', :value => 'Read', :class => 'check'
+              text _('Write')
+              input :type => 'checkbox', :name => 'write3', :value => 'Write', :class => 'check'
+              text _('Speak')
+              input :type => 'checkbox', :name => 'speak3', :value => 'Speak', :class => 'check'
             }
           }
           tr{td{text ''}}
@@ -173,7 +168,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
           }
 
           tr{
-            td(:class => 'first'){
+            td(:class => 'first, must'){
               text _('Free Time')
               text ' *:'
             }
@@ -189,7 +184,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
           }
           
           tr{
-            td(:class => 'first'){
+            td(:class => 'first, must'){
               text _('Where do you want to help?')
               text ' *:'
             }

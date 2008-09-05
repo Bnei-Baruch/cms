@@ -154,8 +154,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                                         } else {
                                             Ext.Msg.alert('Tree item Deletion', 'FAILURE!!!');
                                         }
-                                    },
-                                    params: { '_method': 'delete' }
+                                    }
                                 });
                             }
                         }

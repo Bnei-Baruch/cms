@@ -120,7 +120,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
         :cannot_edit => !node.can_edit?, :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
-        :delTarget => admin_tree_node_path(node),
+        :delTarget => tree_node_delete_admin_tree_node_path(node.id),
         :editTarget => edit_admin_resource_path(:id => node.resource,
           :tree_id => node.id,
           :slang => @presenter.site_settings[:short_language]
@@ -170,7 +170,7 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
         :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,
         :cannot_delete => !leaf.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
-        :delTarget => admin_tree_node_path(leaf),
+        :delTarget => tree_node_delete_admin_tree_node_path(leaf.id), #admin_tree_node_path(leaf),
         :editTarget => edit_admin_resource_path(:id => leaf.resource,
           :tree_id => leaf.id,
           :slang => @presenter.site_settings[:short_language]

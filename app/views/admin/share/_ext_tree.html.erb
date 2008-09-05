@@ -183,8 +183,7 @@
                       Ext.Ajax.request({
                         url: node.attributes.delTarget,
                         method: 'post',
-                        success: node.remove(),
-                        params: { '_method': 'delete' }
+                        success: node.remove()
                       });
                     }
                   });

@@ -203,7 +203,7 @@ class Admin::TreeNodesController < ApplicationController
         "canDelete" => !element.can_administrate?,
         "canAdd" => !element.can_create_child?,
         #"addTarget" => new_admin_resource_path,
-        "delTarget" => admin_resource_path(element.resource),
+        "delTarget" => tree_node_delete_admin_tree_node_path(element.id), # admin_resource_path(element.resource),
         "editTarget" => url_for(edit_admin_resource_path(:id => element.resource, :tree_id => element.id)),
         "permissionsTarget" => url_for(admin_tree_node_tree_node_permissions_path(element.id)),
         "leaf" => element.leaf]

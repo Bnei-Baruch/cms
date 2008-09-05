@@ -25,7 +25,9 @@ class EmailController < ApplicationController
     url = host + portinurl + '/' + prefix + '/short/' + node_id
     
     send_mail(url, adresse_to, adresse_from, sender_name, receiver_name)
-    redirect_to url
+    render :nothing => true, :status => 200 and return
+    #redirect_to url
+    
     
   end
   
@@ -42,7 +44,7 @@ Subject: שלום #{receiver_name} חברך #{sender_name} ממליץ לך על 
 
 EOF
     msg # end of rawtext 
-    # Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','user','pass', :plain ) { |smtp|
+    #Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','yaakov','einodmilvado', :plain ) { |smtp|
     Net::SMTP.start("localhost", 25) { |smtp|
                       
       smtp.sendmail msg, adresse_from, [adresse_to]

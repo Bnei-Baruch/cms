@@ -22,7 +22,7 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
               text _('Address of sender')
             }
             td{
-              input :type => 'text', :size => '20', :name => 'adressefrom'
+              input :type => 'text', :size => '20', :name => 'adressefrom', :dir => 'ltr'
             }
           }
           tr{
@@ -38,7 +38,7 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
               text _('Send to email address')
             }
             td{
-              input :type => 'text', :size => '20', :name => 'adresseto'
+              input :type => 'text', :size => '20', :name => 'adresseto', :dir => 'ltr'
             }
           }
           tr{

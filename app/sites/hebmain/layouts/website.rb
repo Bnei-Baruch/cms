@@ -51,7 +51,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/home_page', 
           'hebmain/widgets',
           'hebmain/jquery.tabs.css'
-#          , :cache => 'cache/website'
+#,
+          #:cache => 'cache/website'
         end
 
         rawtext <<-IE61

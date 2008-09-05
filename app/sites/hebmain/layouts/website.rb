@@ -50,8 +50,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/header', 
           'hebmain/home_page', 
           'hebmain/widgets',
-          'hebmain/jquery.tabs.css',
-          :cache => 'cache/website'
+          'hebmain/jquery.tabs.css'
+#          , :cache => 'cache/website'
         end
 
         rawtext <<-IE61
@@ -167,14 +167,14 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                               :has_url => false, 
                               :placeholder => 'lesson'}).render_to(self)
                         }
-                        div(:class => 'entries sortable'){
+                        div(:class => 'entries'){
                           show_content_resources(:resources => kabbalah_media_resources,
                             :parent => :website,
                             :placeholder => :left,
                             :sortable => true
                           )
                         }
-                        make_sortable(:selector => ".downloads .sortable") {
+                        make_sortable(:selector => ".downloads .entries", :axis => 'y') {
                           kabbalah_media_resources
                         }
                       }

@@ -27,7 +27,7 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
     
       h3 get_title, :class => 'box_header'
       div(:class => 'entries'){
-        make_sortable(:selector => ".entries", :axis => 'y') {
+        make_sortable(:selector => ".news .entries", :axis => 'y') {
           show_content_resources(:resources => site_update_entries,
             :sortable => 'true',
             :force_mode => 'news')

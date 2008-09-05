@@ -55,8 +55,8 @@ Tel: #{tel}
 
 EOF
     msg
-    Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
-   # Net::SMTP.start("localhost", 25) { |smtp|
+    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
+    Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, 'campus@kab.co.il', ['info@kab.co.il']
     }
   end
@@ -98,7 +98,7 @@ EOF
 		
 		div(:class => 'campus'){
 	    	 	div(:id => 'output2'){
-		 			form(:id => 'myForm2', :action => 'register'){
+		 			form(:id => 'myForm2'){
 	    	 		   #user fields
                 p{
                 span(:class => 'label') {text "שם : "}

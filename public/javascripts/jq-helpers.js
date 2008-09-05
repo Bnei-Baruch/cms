@@ -28,8 +28,8 @@ $(document).ready(function() {
     timeout:   30000,
     beforeSubmit: b4_manpower,
     success: after_manpower
-
   };
+  
   if (jQuery.isFunction($('#manpower_form').ajaxForm)){
      $('#manpower_form').ajaxForm(manpower_ajax_form_options);
   }
@@ -66,6 +66,7 @@ function after_manpower(responseText, statusText){
  $('.must').removeClass('emptyfield');
 }
 
+
 // Send to friend form
 $(document).ready(function() { 
   $("#friend_form").hide();
@@ -75,8 +76,8 @@ $(document).ready(function() {
       $("#friend_form").show();
       $("#closed_friend").hide();
       
-      $("#friend_form").submit(function(){
-      $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></span>");
+      $("#friend_form").submit(function(event){
+      event.preventDefault();
         var inputs = [];
         var is_ok = true;
         $(':input', this).each(function(){
@@ -87,31 +88,38 @@ $(document).ready(function() {
               is_ok = false;
               return false;
             }
+            if (!is_ok) return false;
+            if (field_name == 'adressefrom' && this.value.search(emailRegEx) == -1) {
+              alert("כתובת השולח אינה תקינה");
+              is_ok = false;
+              return false;
+            }
             if (field_name != 'submit'){
               inputs.push(field_name + '=' + encodeURIComponent(this.value));
             }
         });
         if (!is_ok) return false;
+        $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></span>");
         jQuery.ajax({
           data: inputs.join('&'),
           url: this.action,
-          timeout: 60000,
-          error: function(){
-            //some error
-            alert('השליחה לא הצליחה אנא נסה מאוחר יותר');
-          },
-          success: function(){
-           $("#friend_form").resetForm();
-           $("#friend_form #loader").remove();
-           $("#friend_form").hide();
-           $("#closed_friend").show();
-           alert('נשלח בהצלחה!');
-          }
+          timeout: 60000
         });
+        
+        setTimeout("after_send_to_friend()", 3000);
+        
         return false;
       }) //end of submit   
     }
 })
+function after_send_to_friend(){
+  $("#friend_form").resetForm();
+  $("#friend_form #loader").remove();
+  $("#friend_form").hide();
+  $("#closed_friend").show();
+  alert('נשלח בהצלחה!');
+}
+
 
  
 

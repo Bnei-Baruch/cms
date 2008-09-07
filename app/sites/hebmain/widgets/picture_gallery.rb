@@ -1,6 +1,13 @@
 class Hebmain::Widgets::PictureGallery< WidgetManager::Base
     
   def render_full
+   w_class('cms_actions').new( :tree_node => tree_node, 
+    :options => {:buttons => %W{ new_button edit_button delete_button }, 
+      :resource_types => %W{ image },
+      :new_text => 'צור יחידת תוכן חדשה', 
+      :has_url => false
+    }).render_to(self)
+  
     div(:class => 'picture_gallery'){
       h3{text get_title}
       div(:class => 'pictures'){

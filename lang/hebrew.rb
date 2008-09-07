@@ -101,4 +101,6 @@ Localization.define('hebrew') do |l|
   l.store 'Send to email address', 'שלחו לכתובת דוא''ל:'
   l.store 'Send', 'שלח'
   l.store 'Everything went fine', 'תהליך הרישום עבר בהצלחה. '
+  l.store 'stf subject', 'שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה'
+  
 end

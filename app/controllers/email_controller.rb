@@ -1,5 +1,6 @@
 class EmailController < ApplicationController
   require 'net/smtp'
+  require "base64"
 
 
   
@@ -10,7 +11,21 @@ class EmailController < ApplicationController
     sender_name = params[:sender_name]
     receiver_name = params[:receiver_name]
     sendmode = params[:sendmode]
+    sendsubject = params[:subject]
+
+    sendsubject = sendsubject.gsub('sender_name', sender_name)
+    sendsubject = sendsubject.gsub('receiver_name', receiver_name)
     
+    my_array = sendsubject.split()
+    puts my_array
+    enc_test =''
+    my_array.each{|i| 
+     str = i + ' '
+     enc_test = enc_test + ' =?UTF-8?B?' + Base64.b64encode(str).chop + '?='
+    }
+
+
+   
     if sendmode == "manpower"
       send_manpower(adresse_to, params)
       return
@@ -24,7 +39,7 @@ class EmailController < ApplicationController
     
     url = host + portinurl + '/' + prefix + '/short/' + node_id
     
-    send_mail(url, adresse_to, adresse_from, sender_name, receiver_name)
+    send_mail(url, adresse_to, adresse_from, sender_name, receiver_name, enc_test)
     render :nothing => true, :status => 200 and return
     #redirect_to url
     
@@ -33,20 +48,19 @@ class EmailController < ApplicationController
   
   #def send_mail(email_dest = '', add_from = '', url = '')
   #def send_mail(url = '')
-  def send_mail(url = '', adresse_to ='', adresse_from ='', sender_name = '', receiver_name = ''  )
+  def send_mail(url = '', adresse_to ='', adresse_from ='', sender_name = '', receiver_name = '', sendsubject = ''  )
     msg = <<EOF
 From: #{adresse_from}
 Content-Type: text/plain; charset=utf-8
-Subject: שלום #{receiver_name} חברך #{sender_name} ממליץ לך על הלינק הזה
+Subject: #{sendsubject}
 
 שלום #{receiver_name} חברך #{sender_name} ממליץ לך על הלינק הזה
 #{url}
 
 EOF
     msg # end of rawtext 
-    #Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','yaakov','einodmilvado', :plain ) { |smtp|
-    Net::SMTP.start("localhost", 25) { |smtp|
-                      
+    Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','yaakov','einodmilvado', :plain ) { |smtp|
+    #Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, adresse_from, [adresse_to]
     }
 

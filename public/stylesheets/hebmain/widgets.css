@@ -610,3 +610,122 @@ img.thumbnails{
   margin: 3px;
 }
 
+
+
+/****Media casting****/
+/** stil DEVELOPPING */
+/*.red{*/
+/*   background-color: #00FF00;*/
+/*}*/
+/**/
+/*.audio{*/
+/*  width: 800px;*/
+/*  height: 800px;*/
+/*  padding-left: 120px;*/
+/*  background-color: #00FF00;*/
+/*  background-image: url('/images/hebmain/audio.png');*/
+/*  background-repeat: no-repeat;*/
+/*  background-attachment:scroll;*/
+/*  background-position: 100% 0%;  */
+/*}*/
+/**/
+/*.video{*/
+/*  background-color: #0000FF;*/
+/*  background:transparent url(/images/hebmain/video.png) no-repeat scroll 0 0;*/
+/*}*/
+
+
+/*----------  Section Preview  ---------------*/
+.section_preview{
+    padding:0;
+    margin:25px 0 0;
+    position:relative;
+    width:100%;
+}
+.section_preview .h1{
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #e1ecfc;
+    background-image: none;
+    height:32px;
+    line-height:32px;
+    position:relative;
+    padding: 0 10px 0 0;
+}
+.section_preview .h1_gray{
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #f0f0f0;
+    background-image: none;
+    border-top: thin solid #cbcbcd;
+    height:22px;
+    line-height:22px;
+    position:relative;
+    padding: 0 10px 0 0;
+}
+.section_preview .h1 .h1-right{
+    background-position:0 -160px;
+    position:absolute;
+    top:0;
+    right:0;
+    height:32px;
+}
+.section_preview .h1 .h1-left{
+  background-position:0 -128px;
+    position:absolute;
+    height:32px;
+    top:0;
+    left:0;
+}
+.section_preview .descr{
+    font-size:12px;
+    color:black;
+    border:0 none;
+    padding:0;
+}
+.section_preview .author{
+    height:12px;
+    margin: 15px 0;
+    font-size:12px;
+    color:#696969;
+}
+.section_preview .element{
+    padding: 0 158px 0 20px;
+    position:relative;
+    border-bottom:1px dashed #e8e8e8;
+    *margin-right:3px;
+}
+.section_preview .preview-even{
+    background-color:#f6f8fb;
+}
+.section_preview .element h1{
+    font-size: 16px;
+    padding: 15px 0;
+}
+.section_preview .img{
+    position:absolute;
+    right:0px;
+    top:15px;
+}
+.section_preview .footer{
+    background-color:#f6f8fb;
+    height:35px;
+    line-height:35px;
+    border-bottom:1px solid #e8e8e8;
+    padding:0 0 0 10px;
+}
+.section_preview .footer img{
+    padding:0 5px 0 0;
+    vertical-align:middle;
+}
+.section_preview .cont{
+    position:absolute;
+    left:10px;
+    font-size:12px;
+}
+.section_preview a.cont img{
+    padding:0pt 5px 0pt 0pt;
+    vertical-align:middle;
+}

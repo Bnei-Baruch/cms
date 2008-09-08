@@ -59,8 +59,8 @@ Subject: #{sendsubject}
 
 EOF
     msg # end of rawtext 
-    Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','yaakov','einodmilvado', :plain ) { |smtp|
-    #Net::SMTP.start("localhost", 25) { |smtp|
+    #Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','user','pass', :plain ) { |smtp|
+    Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, adresse_from, [adresse_to]
     }
 

@@ -202,7 +202,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
                       
                       w_class('cms_actions').new(:tree_node => @tree_node,
                         :options => {:buttons => %W{ new_button },
-                          :resource_types => %W{content_preview},
+                          :resource_types => %W{content_preview title},
                           :new_text => 'הוסף תצוגה מקדימה',
                           :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
@@ -279,7 +279,7 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
   def middle_column_resources
     @tree_nodes_middle ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['content_preview'], 
+      :resource_type_hrids => ['content_preview', 'title'], 
       :depth => 1,
       :placeholders => ['middle'],
       :status => ['PUBLISHED', 'DRAFT']

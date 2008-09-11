@@ -272,6 +272,14 @@ $rpp.click(function(event){
 // Media player(s) on inner page
 //************************************
 
+// Previous form - please do not remove for now - thanks
+//$('.mediacasting').filter(function(){
+//  return ($(this).find('.media').attr('href')).search('mp3') == -1
+//}).addClass('video');
+
+$('.mediacasting:has(.media[href*=mp3])').addClass('audio');
+$('.mediacasting:not(:has(.media[href*=mp3]))').addClass('video');
+
 $("a.hide-player").hide();
 $("a.show-player").hide();
 
@@ -279,6 +287,8 @@ $("a.media").click(function(event){
   event.preventDefault();
   $this = $(this);
   $this.parents('.mediacasting').children("a.hide-player").toggle();
+  $this.parents('.audio').css('background-image', 'url(/images/blank.gif)');
+  $this.parents('.video').css('background-image', 'url(/images/blank.gif)');
   $this.removeClass('media');
   $this.addClass('mediaplayer');
   $this.media({autoplay: true});
@@ -288,6 +298,8 @@ $("a.media").click(function(event){
 $("a.hide-player").click(function(event){
   event.preventDefault();
   $this = $(this);
+  $this.parents('.audio').css('background-image', 'url(/images/hebmain/audio.png)');
+  $this.parents('.video').css('background-image', 'url(/images/hebmain/video.png)');
   $this.toggle();
   $this.siblings().toggle();
   var player = $this.parents('.mediacasting').find("object");
@@ -304,6 +316,9 @@ $("a.show-player").click(function(event){
   $this = $(this);
   $this.toggle();
   $this.siblings().toggle();
+  $this.parents('.audio').css('background-image', 'url(/images/blank.gif)');
+  $this.parents('.video').css('background-image', 'url(/images/blank.gif)');
+  
   var player = $this.parents('.mediacasting').find("object");
   if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {
     player[0].controls.start();

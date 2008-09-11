@@ -613,26 +613,26 @@ img.thumbnails{
 
 
 /****Media casting****/
-/** stil DEVELOPPING */
-/*.red{*/
-/*   background-color: #00FF00;*/
-/*}*/
-/**/
-/*.audio{*/
-/*  width: 800px;*/
-/*  height: 800px;*/
-/*  padding-left: 120px;*/
-/*  background-color: #00FF00;*/
-/*  background-image: url('/images/hebmain/audio.png');*/
-/*  background-repeat: no-repeat;*/
-/*  background-attachment:scroll;*/
-/*  background-position: 100% 0%;  */
-/*}*/
-/**/
-/*.video{*/
-/*  background-color: #0000FF;*/
-/*  background:transparent url(/images/hebmain/video.png) no-repeat scroll 0 0;*/
-/*}*/
+
+.mediacasting{
+  padding-right: 25px;
+}
+
+.audio{
+  background-image: url('/images/hebmain/audio.png');
+  background-repeat: no-repeat;
+  background-attachment:scroll;
+  background-position: 100% 0%;  
+}
+
+.video{
+  background-image: url('/images/hebmain/video.png');
+  background-repeat: no-repeat;
+  background-attachment:scroll;
+  background-position: 100% 0%;  
+}
+
+
 
 
 /*----------  Section Preview  ---------------*/

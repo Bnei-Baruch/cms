@@ -11,7 +11,7 @@ module	Configuration::Hebmain
     :short_language => 'he',
     :site_direction => 'rtl',
     :layout_map => { 'search' => 'content_page'},
-    # define view modes per parent widget and placeholder.
+ # define view modes per parent widget and placeholder.
     :view_modes => {
       # parent widget
       :website => {
@@ -33,7 +33,9 @@ module	Configuration::Hebmain
           :rss => 'preview'
         }
       }
-    }
+    },
+  # define widgets that should not have bottom border  
+    :disable_bottom_border => ['title']
   }
 
 end

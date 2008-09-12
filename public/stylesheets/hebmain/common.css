@@ -137,4 +137,7 @@ a.more img{
     line-height:1px;
     font-size:1px;
 }
+.no-bottom-border{
+    border-bottom:none !important;
+}
 

@@ -51,7 +51,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         }
       end
       content_resources.each{|e|
-        div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}") {
+        disable_bottom_border = @presenter.site_settings[:disable_bottom_border].include?(e.resource.resource_type.hrid)
+        div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}#{' no-bottom-border' if disable_bottom_border }") {
           sort_handle
           render_content_resource(e)
           div(:class => 'clear')

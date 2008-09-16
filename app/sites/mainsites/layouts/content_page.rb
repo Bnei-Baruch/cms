@@ -29,7 +29,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta(:name => 'node_id', :content => @tree_node.id)
         meta(:name => 'description', :content => ext_description)
         title @meta_title #ext_title
-        javascript_include_tag 'flashembed.min.js', 'jquery',
+        javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
         'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js', 

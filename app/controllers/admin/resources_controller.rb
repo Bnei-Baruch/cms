@@ -116,6 +116,7 @@ class Admin::ResourcesController < ApplicationController
         flash[:notice] = "Access denied. User can't create tree node"
         redirect_to session[:referer]
       end
+      return
     end
 
     @tree_node = TreeNode.new(params[:resource][:tree_node])

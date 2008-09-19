@@ -294,9 +294,7 @@ class TreeNode < ActiveRecord::Base
       else
         args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
       end
-      output=self.old_find(*args)
-      
-      output
+      self.old_find(*args)
     end
 
     def find_as_admin(tree_node_id)

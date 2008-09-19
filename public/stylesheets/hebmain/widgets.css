@@ -637,10 +637,8 @@ img.thumbnails{
 
 /*----------  Section Preview  ---------------*/
 .section_preview{
-    padding:0;
-    margin:25px 0 0;
     position:relative;
-    width:100%;
+    *display:inline-block;
 }
 .section_preview .h1{
     color:black;
@@ -678,6 +676,13 @@ img.thumbnails{
     height:32px;
     top:0;
     left:0;
+}
+/* This supposed to be the same as for content_preview. -- Grisha
+.section_preview{
+    padding:0;
+    margin:25px 0 0;
+    position:relative;
+    width:100%;
 }
 .section_preview .descr{
     font-size:12px;
@@ -729,3 +734,4 @@ img.thumbnails{
     padding:0pt 5px 0pt 0pt;
     vertical-align:middle;
 }
+*/

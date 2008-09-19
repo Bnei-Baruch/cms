@@ -26,14 +26,13 @@ class Sites::Global < Presenter::Base
     website_resource.tree_nodes.main rescue nil
   end                      
   
-#  def website_subtree
-#    TreeNode.get_subtree(:parent => website_resource.id)
-#  end
+  #  def website_subtree
+  #    TreeNode.get_subtree(:parent => website_resource.id)
+  #  end
 
   def node
     @node ||=
       if @permalink 
-      # debugger
       TreeNode.find_by_permalink_and_has_url(@permalink, true) rescue nil
     else
       website_node

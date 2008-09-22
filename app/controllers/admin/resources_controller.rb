@@ -53,14 +53,13 @@ class Admin::ResourcesController < ApplicationController
     
     #   ******************
     #   Check permissions!
-#    parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
-#    if not (parent_tree_node && parent_tree_node.can_create_child?)
-#      flash[:notice] = "Access denied. User can't create tree node"
-#      redirect_to session[:referer]
-#    end
+    #    parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
+    #    if not (parent_tree_node && parent_tree_node.can_create_child?)
+    #      flash[:notice] = "Access denied. User can't create tree node"
+    #      redirect_to session[:referer]
+    #    end
     #   ******************
     parent_id = params[:resource][:tree_node][:parent_id]
-    debugger
     unless parent_id == '0' && AuthenticationModel.current_user_is_admin?
       parent_tree_node = TreeNode.find(parent_id)
       if not (parent_tree_node && parent_tree_node.can_create_child?)
@@ -102,11 +101,11 @@ class Admin::ResourcesController < ApplicationController
 
     #   ******************
     #   Check permissions!
-#    parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
-#    if not (parent_tree_node && parent_tree_node.can_create_child?)
-#      flash[:notice] = "Access denied. User can't create tree node"
-#      redirect_to session[:referer]
-#    end
+    #    parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
+    #    if not (parent_tree_node && parent_tree_node.can_create_child?)
+    #      flash[:notice] = "Access denied. User can't create tree node"
+    #      redirect_to session[:referer]
+    #    end
     #   ******************
     
     parent_id = params[:resource][:tree_node][:parent_id]
@@ -115,8 +114,8 @@ class Admin::ResourcesController < ApplicationController
       if not (parent_tree_node && parent_tree_node.can_create_child?)
         flash[:notice] = "Access denied. User can't create tree node"
         redirect_to session[:referer]
+        return
       end
-      return
     end
 
     @tree_node = TreeNode.new(params[:resource][:tree_node])
@@ -148,15 +147,15 @@ class Admin::ResourcesController < ApplicationController
       @tree_node = TreeNode.find_by_id_and_resource_id(tree_node[:id],params[:id])
     end
 
-#    #   ******************
-#    #   Check permissions!
-#    if not (@tree_node && @tree_node.can_edit?)
-#      flash[:notice] = "Access denied. User can't edit this node"
-#      redirect_to session[:referer]
-#    end
-#    #   ******************
+    #    #   ******************
+    #    #   Check permissions!
+    #    if not (@tree_node && @tree_node.can_edit?)
+    #      flash[:notice] = "Access denied. User can't edit this node"
+    #      redirect_to session[:referer]
+    #    end
+    #    #   ******************
 
-  parent_id = params[:resource][:tree_node][:parent_id]
+    parent_id = params[:resource][:tree_node][:parent_id]
     unless parent_id == '0' && AuthenticationModel.current_user_is_admin?
       parent_tree_node = TreeNode.find(parent_id)
       if not (@tree_node && @tree_node.can_edit?)
@@ -181,14 +180,14 @@ class Admin::ResourcesController < ApplicationController
   def destroy
     @resource = Resource.find(params[:id])
 
-#    #   ******************
-#    #   Check permissions!
-#    main_tree_node = @resource.tree_nodes.select{ |e| e.is_main == true }.first
-#    if not (main_tree_node && main_tree_node.can_administrate?)
-#      flash[:notice] = "Access denied. User can't delete tree node"
-#      redirect_to session[:referer]
-#    end
-#    #   ******************
+    #    #   ******************
+    #    #   Check permissions!
+    #    main_tree_node = @resource.tree_nodes.select{ |e| e.is_main == true }.first
+    #    if not (main_tree_node && main_tree_node.can_administrate?)
+    #      flash[:notice] = "Access denied. User can't delete tree node"
+    #      redirect_to session[:referer]
+    #    end
+    #    #   ******************
 
     @resource.destroy
     respond_to do |format|

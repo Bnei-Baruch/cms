@@ -55,10 +55,14 @@ Tel: #{tel}
 
 EOF
     msg
+    begin
     #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
     Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, 'campus@kab.co.il', ['info@kab.co.il']
     }
+    rescue 
+      #the email have not been send, but student is in database
+    end
   end
 	
 	def campus_admin_mode

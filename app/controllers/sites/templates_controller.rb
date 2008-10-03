@@ -93,6 +93,7 @@ class Sites::TemplatesController < ApplicationController
     end
     widget = options[:widget]
     options[:node] = params[:node] if params.has_key?(:node)
+    options[:force] = true
     tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
 
     begin

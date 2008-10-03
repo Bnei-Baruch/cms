@@ -101,8 +101,9 @@ module ActionController #:nodoc:
   class Base
     def render_widget_to_string(widget_class, assigns = @assigns)
       add_variables_to_assigns
-      if AuthenticationModel.current_user_is_anonymous? 
-        Rails.cache.fetch(this_cache_key, :force => Rails.env == 'development') {
+      if AuthenticationModel.current_user_is_anonymous?
+        force = assigns[:options][:force] rescue force = Rails.env == 'development'
+        Rails.cache.fetch(this_cache_key, :force => force) {
           @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
           @rendered_widget.to_s
         }

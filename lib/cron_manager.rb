@@ -18,10 +18,14 @@ class CronManager
       website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
 
       if (website_tree_node)
+	# Workaround:
+	# TreeNode.get_subtree doesn't work properly recursively
+	# so let's add content_pages and then filter them out
         tree_nodes = TreeNode.get_subtree(
           :parent => website_tree_node.id, 
-          :resource_type_hrids => ['rss']
-        )
+          :resource_type_hrids => ['rss', 'content_page']
+        ).select{|node|
+          node.resource.resource_type.hrid=='rss'}
 
         tree_nodes.each do |tree_node|
           begin
@@ -89,7 +93,13 @@ class CronManager
     property = tree_node.resource.properties('items')
     unless property.text_value == data
       property.update_attributes(:text_value => data)
-      system("rake tmp:cache:clear")
+      if system("rake tmp:cache:clear")
+         print "Cache was cleared\n"
+      else
+         print "Error to clear cache: $?\n"
+      end
+    else
+      print "No changes\n"
     end
     puts 'OK'
   end

@@ -144,8 +144,8 @@ strong{
 }
 /*----------  Menu  ---------------*/
 #bd .menu {
-    font-size:116%;
-    font-weight: bold;
+    font-size:119%;
+    font-weight: normal;
     background: white url(/images/hebmain/menu-bg.gif) repeat-x left -62px;
     position:relative;
     height:31px;
@@ -185,7 +185,7 @@ strong{
     float: right;
     list-style-type: none;
     list-style-position: inside;
-    padding: 2px 15px;
+    padding: 2px 6px;
     margin:0;
 }
 #bd .menu ul li.divider{

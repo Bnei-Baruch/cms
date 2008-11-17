@@ -12,7 +12,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @google_analytics = w_class('google_analytics').new
-    @newsletter = w_class('newsletter').new
+    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
   end
 
   def render

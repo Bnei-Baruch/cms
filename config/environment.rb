@@ -57,3 +57,24 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+ActionMailer::Base.delivery_method = :smtp
+#ActionMailer::Base.smtp_settings = {
+#    :address => "smtp.kabbalah.info",
+#    :port => 25,
+#    :domain => "kbb1.com",
+#    :authentication => :login,
+#    :user_name => "yaakov",
+#    :password => "pass",
+#}
+ActionMailer::Base.smtp_settings = {
+    :address => "localhost",
+    :port => 25,
+    #:domain => "kbb1.com",
+    #:authentication => :login,
+    #:user_name => "yaakov",
+    #:password => "einodmilvado",
+}
+
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.raise_delivery_errors = true
+ActionMailer::Base.default_charset = "utf-8" 

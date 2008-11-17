@@ -29,9 +29,19 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	end
 		
 	def create_student
-		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id], :adwords => @options[:adwords])
+    mail_from = get_email_from
+    mail_to = get_email_to
+    mail_subject = get_text_email
+    mail_body = get_text_conf
+    mail_do_not_send = get_do_not_send
+    mail_conf =  @options[:email]
+    mail_list_name = get_list_name
+		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id], :adwords => @options[:adwords], :listname => @options[:listname])
 		new_student.save
-    send_student_by_mail(@options[:name],@options[:email],@options[:tel])
+    mail = Notifier.create_contact(mail_conf, mail_from, mail_subject, mail_body)
+    mail.set_content_type("text/html")
+    Notifier.deliver(mail) unless mail_do_not_send 
+    send_student_by_mail(@options[:name],@options[:email],@options[:tel], mail_from, mail_to, mail_list_name)
 		div(:class => 'success'){
 		  text "הפרטים נתקבלו בהצלחה.‬"	
 		}
@@ -40,13 +50,13 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		}
 	end
 	
-  def send_student_by_mail(name = '' , email = '', tel = '')
+  def send_student_by_mail(name = '' , email = '', tel = '', mailfrom = 'campus@kab.co.il', mailto = 'info@kab.co.il', mail_list_name = 'campus')
     msg = <<EOF
-From: campus@kab.co.il
+From: #{mailfrom}
 Content-Type: text/plain; charset=utf-8
-Subject: You have a new student
+Subject: You have a new registration
 
-New campus registration:
+New registration to the #{mail_list_name} list
 
 Name: #{name}
 Email: #{email}
@@ -56,15 +66,16 @@ Tel: #{tel}
 EOF
     msg
     begin
-    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
+    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','pass', :plain ) { |smtp|
     Net::SMTP.start("localhost", 25) { |smtp|
-      smtp.sendmail msg, 'campus@kab.co.il', ['info@kab.co.il']
+      smtp.sendmail msg, mailfrom, [mailto]
     }
     rescue 
       #the email have not been send, but student is in database
     end
   end
-	
+  
+ 
 	def campus_admin_mode
 		div(:class => 'campus') {
 	    	  text 'אדמין'
@@ -76,8 +87,13 @@ EOF
 	    	  	td{text 'טל'}
 	    	  	td{text 'אימייל'}
 	    	  	td{text 'קמפיין'}
+            td{text 'שם הרשימה'}
 	    	  }
-	    	  students_list = Student.list_all_students	    	  
+          if get_list_name == "" 
+            students_list = Student.list_all_students	    	  
+          else
+            students_list = Student.list_all_students_for_list(get_list_name)
+          end
 	    	  students_list.each { |sl|
 	    	    stcreated = parsedate sl.created_at.to_s	  	
 	    	  	tr{
@@ -86,6 +102,7 @@ EOF
 	    	  		td {text sl.telephone}
 	    	  		td {text sl.email}
 	    	  		td {text sl.adwords}
+              td {text sl.listname}
 	    	  	} #end of table line	
     	  } #end of list
     	  }#end of table
@@ -109,11 +126,11 @@ EOF
                 input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
                 br
 
-                span(:class => 'label') {text "אימייל : "}
+                span(:class => 'label') {text "דוא''ל :"}
                 input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
                 br
                 
-                span(:class => 'label') {text "טל : "}
+                span(:class => 'label') {text "טלפון :"}
                 input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
 
                 div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
@@ -131,6 +148,7 @@ EOF
                 input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
                 input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
                 input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
+                input :type => 'hidden', :name => 'options[listname]', :value => get_list_name
 
                 #submit
                 br

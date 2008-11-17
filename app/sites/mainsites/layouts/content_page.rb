@@ -14,7 +14,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
     @google_analytics = w_class('google_analytics').new
-    @newsletter = w_class('newsletter').new
+    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
     @sitemap = w_class('sitemap').new
     @send_to_friend = w_class('send_to_friend').new
     @direct_link = w_class('shortcut').new

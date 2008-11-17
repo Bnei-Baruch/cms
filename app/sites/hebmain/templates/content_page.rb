@@ -12,7 +12,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     WidgetManager::Base.new(helpers) do
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
-          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form iframe title manpower_form picture_gallery audio_gallery},
+          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form iframe title manpower_form picture_gallery audio_gallery newsletter},
           :button_text => 'ניהול דף תוכן',
           :new_text => 'צור יחידת תוכן חדשה',
           :edit_text => 'ערוך דף תוכן',
@@ -107,7 +107,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_resources
     TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery'],
+      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content'],

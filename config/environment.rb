@@ -63,16 +63,12 @@ ActionMailer::Base.delivery_method = :smtp
 #    :port => 25,
 #    :domain => "kbb1.com",
 #    :authentication => :login,
-#    :user_name => "yaakov",
+#    :user_name => "user",
 #    :password => "pass",
 #}
 ActionMailer::Base.smtp_settings = {
     :address => "localhost",
     :port => 25,
-    #:domain => "kbb1.com",
-    #:authentication => :login,
-    #:user_name => "yaakov",
-    #:password => "einodmilvado",
 }
 
 ActionMailer::Base.perform_deliveries = true

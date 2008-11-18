@@ -10,7 +10,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		# make a form that is sending with get protocol info to itself & creating a new object
 		# if user -> msg to say bravo
 		# if admin -> show me all the users in the system
-    
+      rawtext get_description
 	    if tree_node.can_edit?
 	    	campus_admin_mode
     	else 
@@ -116,7 +116,7 @@ EOF
 		else
 			def_adwords = ''
 		end
-		
+    
 		div(:class => 'campus'){
 	    	 	div(:id => 'output2'){
 		 			form(:id => 'myForm2'){

@@ -18,7 +18,7 @@ Localization.define('hebrew') do |l|
   l.store 'Body', 'תוכן'
   l.store 'Description', 'תאור הדף'
   l.store 'Description for preview', 'תאור לתצוגה מקדימה'
-  
+  l.store 'Title and description', 'כותרת ותאור'
 
   l.store 'Content Page', 'דף תוכן'
   l.store 'Article', 'מאמר'
@@ -102,5 +102,21 @@ Localization.define('hebrew') do |l|
   l.store 'Send', 'שלח'
   l.store 'Everything went fine', 'תהליך הרישום עבר בהצלחה. '
   l.store 'stf subject', 'שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה'
+  
+  l.store 'email from', '  הכתובת ממנה נשלח המייל'
+  l.store 'email to', 'כתובת המייל של האדמיניסטרטור שיקבל הודעה על ההרשמה'
+  l.store 'Email subject', 'נושא המייל'
+  l.store 'Confirmation Text', 'תוכן ההודעה שתשלח לנרשם'
+  l.store 'Do not send confirmation letter', 'אל תשלח הודעה לנרשם'
+  l.store 'List name', 'שם הרשימה (למלאות באנגלית)'
+  l.store 'Campus Label 1', 'שם השדה הראשון'
+  l.store 'Hide Campus Label 1', ' הסתר שדה ראשון'
+  l.store 'Campus Label 1 mandatory', '  שדה חובה'
+  l.store 'Campus Label 2', ' שם השדה השני'
+  l.store 'Hide Campus Label 2', 'הסתר שדה שני'
+  l.store 'Campus Label 2 mandatory', 'שדה חובה'
+  l.store 'Campus Label 3', ' שם השדה השלישי'
+  l.store 'Hide Campus Label 3', ' הסתר שדה שלישי'
+  l.store 'Campus Label 3 mandatory', 'שדה חובה'
   
 end

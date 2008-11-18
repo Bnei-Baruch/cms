@@ -143,6 +143,8 @@ $(document).ready(function() {
     $(function() {
       $('.media_rss a').attr('target', '_blank');
     });
+
+
     
     
     //************************************
@@ -156,6 +158,9 @@ $(document).ready(function() {
         alert("כתובת הדואר האלקארונית לא תקינה");
         return false;
       }
+      
+      $('.campus .submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
+      
       return true; 
     } 
     

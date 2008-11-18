@@ -103,8 +103,8 @@ Localization.define('hebrew') do |l|
   l.store 'Everything went fine', 'תהליך הרישום עבר בהצלחה. '
   l.store 'stf subject', 'שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה'
   
-  l.store 'email from', '  הכתובת ממנה נשלח המייל'
-  l.store 'email to', 'כתובת המייל של האדמיניסטרטור שיקבל הודעה על ההרשמה'
+  l.store 'Email From', '  הכתובת ממנה נשלח המייל'
+  l.store 'Email To', 'כתובת המייל של האדמיניסטרטור שיקבל הודעה על ההרשמה'
   l.store 'Email subject', 'נושא המייל'
   l.store 'Confirmation Text', 'תוכן ההודעה שתשלח לנרשם'
   l.store 'Do not send confirmation letter', 'אל תשלח הודעה לנרשם'

@@ -5,7 +5,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	 include ParseDate
   
 	def render_full
-		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button }, :position => 'bottom'}).render_to(doc) 
+		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(doc) 
 		 
 		# make a form that is sending with get protocol info to itself & creating a new object
 		# if user -> msg to say bravo
@@ -110,28 +110,92 @@ EOF
 	end
 	
 	def campus_user_mode(def_name = '', def_email='', def_tel='')
-			
+    
+    field_1_label = get_campus_label_1
+    field_1_must = get_campus_label_1_is_mandatory
+    field_1_hide = get_campus_hide_label_1
+    
+    field_2_label = get_campus_label_2
+    field_2_must = get_campus_label_2_is_mandatory
+    field_2_hide = get_campus_hide_label_2
+    
+    field_3_label = get_campus_label_3
+    field_3_must = get_campus_label_3_is_mandatory
+    field_3_hide = get_campus_hide_label_3
+    
+    
+    #if user was clever enought to hide all the field - just leave - stupid!
+    if field_1_hide && field_2_hide && field_3_hide
+      return
+    end
+    
+    #if field is hidden - it can't be mandatory - sorry
+    if field_1_hide
+      field_1_must = false
+    end
+    
+    if field_2_hide
+      field_2_must = false
+    end
+  
+    if field_3_hide
+      field_3_must = false
+    end
+    
+    #if label are empty - keep original label the form was built for
+    if field_1_label == ""
+      field_1_label = "שם"
+    end
+    
+    if field_2_label == ""
+      field_2_label = "דוא''ל"
+    end
+    
+    if field_3_label == ""
+      field_3_label = "טלפון"
+    end
+    
+    #if label are mandatory - add a nice star next to it
+    if field_1_must
+      field_1_label = field_1_label + "<span class='mandatory'>*</span>"
+    end
+    if field_2_must
+      field_2_label = field_2_label + "<span class='mandatory'>*</span>"
+    end
+    if field_2_must
+      field_2_label = field_2_label + "<span class='mandatory'>*</span>"
+    end
+    
+    # if campaign
 		if params.include?(:adwords)
 			def_adwords = params[:adwords]
 		else
 			def_adwords = ''
 		end
     
+    
 		div(:class => 'campus'){
 	    	 	div(:id => 'output2'){
 		 			form(:id => 'myForm2'){
 	    	 		   #user fields
                 p{
-                span(:class => 'label') {text "שם : "}
-                input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
-                br
-
-                span(:class => 'label') {text "דוא''ל :"}
-                input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
-                br
                 
-                span(:class => 'label') {text "טלפון :"}
-                input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
+                unless field_1_hide
+                  span(:class => 'label') {text field_1_label+ " : "}
+                  input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
+                  br
+                end
+
+                unless field_2_hide
+                  span(:class => 'label') {text field_2_label+" : "}
+                  input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
+                  br
+                end
+                
+                unless field_3_hide
+                  span(:class => 'label') {text field_3_label+" : "}
+                  input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
+                end
 
                 div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
                 captcha_index = rand(11)

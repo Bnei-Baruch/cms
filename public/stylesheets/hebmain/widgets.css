@@ -133,6 +133,12 @@
     margin-bottom: 5px;
 }
 
+.content .newsletter{
+    width: 16.25em;
+}
+.content .newsletter h1{
+   margin: 2px;
+}
 
 
 /********* Site map ***************/
@@ -335,7 +341,9 @@ list-style-type:none;
 }
 
 /********** Campus form *******/
-
+#position_center{
+  padding-left: 130px;
+}
 .campus .text {
 	margin-bottom: 10px;
 }

@@ -118,5 +118,14 @@ Localization.define('hebrew') do |l|
   l.store 'Campus Label 3', ' שם השדה השלישי'
   l.store 'Hide Campus Label 3', ' הסתר שדה שלישי'
   l.store 'Campus Label 3 mandatory', 'שדה חובה'
+ 
+  l.store 'Details saved successfully ', "הפרטים נתקבלו בהצלחה.‬"	
+  l.store 'admin', 'אדמין'
+  l.store 'date', 'תאריך'
+  l.store 'name', 'שם'
+  l.store 'tel', "טלפון"
+  l.store 'email', "דוא''ל"
+  l.store 'campaign', 'קמפיין'
+  l.store 'list name', 'שם הרשימה'
   
 end

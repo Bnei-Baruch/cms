@@ -5,7 +5,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	 include ParseDate
   
 	def render_full
-		@presenter.disable_cache
+    @presenter.disable_cache
 		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(doc) 
 		 
 		# make a form that is sending with get protocol info to itself & creating a new object
@@ -20,7 +20,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	end
 	
 	def render_new_student
-		@presenter.disable_cache
+    @presenter.disable_cache
 		if validate_captcha(@options[:captcha_value], @options[:captcha_index])
 		 create_student
 		else
@@ -50,6 +50,10 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		javascript{
     	rawtext 'alert("הפרטים נתקבלו בהצלחה.‬");'
 		}
+    unless get_track_string == ""
+      img :height => "1", :width => "1", :border => "0", :src => get_track_string  
+    end
+    
 	end
 	
   def send_student_by_mail(name = '' , email = '', tel = '', mailfrom = 'campus@kab.co.il', mailto = 'info@kab.co.il', mail_list_name = 'campus')
@@ -68,7 +72,7 @@ Tel: #{tel}
 EOF
     msg
     begin
-    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','pass', :plain ) { |smtp|
+    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
     Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, mailfrom, [mailto]
     }
@@ -80,16 +84,17 @@ EOF
  
 	def campus_admin_mode
 		div(:class => 'campus') {
-	    	  text 'אדמין'
+	    	#  text 'אדמין'
+        text _('admin')
 	    	  br
 	    	  table{
 	    	  tr(:class => 'title'){
-	    	  	td{text 'תאריך'}
-	    	  	td{text 'שם'}
-	    	  	td{text 'טל'}
-	    	  	td{text 'אימייל'}
-	    	  	td{text 'קמפיין'}
-            td{text 'שם הרשימה'}
+	    	  	td{text _('date')}
+	    	  	td{text _('name')}
+	    	  	td{text _('tel')}
+	    	  	td{text _('email')}
+	    	  	td{text _('campaign')}
+            td{text _('list name')}
 	    	  }
           if get_list_name == "" 
             students_list = Student.list_all_students	    	  
@@ -146,26 +151,26 @@ EOF
     
     #if label are empty - keep original label the form was built for
     if field_1_label == ""
-      field_1_label = "שם"
+      field_1_label = _('name')
     end
     
     if field_2_label == ""
-      field_2_label = "דוא''ל"
+      field_2_label = _('email')
     end
     
     if field_3_label == ""
-      field_3_label = "טלפון"
+      field_3_label = _('tel')
     end
     
     #if label are mandatory - add a nice star next to it
     if field_1_must
-      field_1_label = field_1_label + "<span class='mandatory'>*</span>"
+      field_1_label = field_1_label + "<span class='mandatory'>&nbsp;*</span>"
     end
     if field_2_must
-      field_2_label = field_2_label + "<span class='mandatory'>*</span>"
+      field_2_label = field_2_label + "<span class='mandatory'>&nbsp;*</span>"
     end
-    if field_2_must
-      field_2_label = field_2_label + "<span class='mandatory'>*</span>"
+    if field_3_must
+      field_3_label = field_3_label + "<span class='mandatory'>&nbsp;*</span>"
     end
     
     # if campaign
@@ -176,20 +181,23 @@ EOF
 		end
     
     
-		div(:class => 'campus'){
+    if get_centered
+      id_centered = 'position_center'
+    end
+		div(:class => 'campus', :id => id_centered){
 	    	 	div(:id => 'output2'){
 		 			form(:id => 'myForm2'){
 	    	 		   #user fields
                 p{
                 
                 unless field_1_hide
-                  span(:class => 'label') {text field_1_label+ " : "}
+                  span(:class => 'label') {rawtext field_1_label+ " : "}
                   input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
                   br
                 end
 
                 unless field_2_hide
-                  span(:class => 'label') {text field_2_label+" : "}
+                  span(:class => 'label') {rawtext field_2_label+" : "}
                   input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
                   br
                 end
@@ -198,8 +206,8 @@ EOF
                   span(:class => 'label') {text field_3_label+" : "}
                   input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
                 end
-
-                div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
+                                            
+               div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
                 captcha_index = rand(11)
                 img :src => generate_captcha(captcha_index)[0] , :class => 'img_captcha', :alt => 'captcha'
                 br
@@ -220,6 +228,7 @@ EOF
                 br
                 input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
                 br
+                
               }
 				}
 		  }

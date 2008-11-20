@@ -84,7 +84,7 @@ $(document).ready(function() {
       var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       var field_name = $(this).attr('name');
       if (field_name == 'adresseto' && this.value.search(emailRegEx) == -1) {
-        alert("כתובת הדואר האלקארונית לא תקינה");
+        alert("כתובת הדואר האלקטרוני לא תקינה");
         is_ok = false;
         return false;
       }
@@ -155,7 +155,7 @@ $(document).ready(function() {
       var queryString = $.param(formData); 
       var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       if (formData[1].value.search(emailRegEx) == -1) {
-        alert("כתובת הדואר האלקארונית לא תקינה");
+        alert("כתובת הדואר האלקטרוני לא תקינה");
         return false;
       }
       
@@ -170,7 +170,8 @@ $(document).ready(function() {
         target:        '#output2',
         beforeSubmit:  showRequest,  
         success:       showResponse, 
-        resetForm: true    
+        resetForm: true    ,
+        clearForm: true        // clear all form fields after successful submit 
       }; 
       
       $('#myForm2').submit(function() { 
@@ -178,16 +179,13 @@ $(document).ready(function() {
         return false; 
       }); 
       
-      
-      //$('#output2').append('<script src="http://yaakov.kbb1.com/plop.js"><script>');
-      
-      $('#output2').append('<img height="1" width="1" border="0" src="http://www.googleadservices.com/pagead/conversion/1061981111/?label=vTzlCJGNUhC3l7L6Aw&amp;script=0"/>')
     } 
     
     var options = { 
       target:        '#output2',   // target element(s) to be updated with server response 
       beforeSubmit:  showRequest,  // pre-submit callback 
       success:       showResponse,  // post-submit callback 
+      resetForm: true    ,
       clearForm: true        // clear all form fields after successful submit 
       
     };

@@ -24,16 +24,51 @@ class Hebmain::Widgets::Newsletter < WidgetManager::Base
   end
   
   def render_full
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }, :position => 'bottom'}).render_to(doc)
+    
     box_title = get_title
     box_name = get_name
     box_id = get_id
     box_text_button = get_text_button
+    input_box_text = get_input_box_text
     
-    div(:class => 'newsletter'){
+    if box_text_button == ""
+      box_text_button = 'שלח'
+    end    
+    
+    div(:class => 'newsletter', :id => 'newsletter_width'){
 			h1 box_title
 			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
 				p{
-					input :type => 'text', :id => 'email', :name => 'email', :onfocus =>  "if(document.getElementById('email').value == 'הזן כתובת e-mail') { document.getElementById('email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
+          text input_box_text +" : "
+					input :type => 'text', :id => 'email', :name => 'email' #, :onfocus =>  "if(document.getElementById('email').value == 'הזן כתובת e-mail') { document.getElementById('email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
+					input :type => 'hidden', :name => 'id', :value => box_id
+          input :type => 'hidden', :name => 'name', :value => box_name
+				  br
+          br
+					input :name => "subscribe", :class => "button", :value => box_text_button , :type => "submit", :title => box_text_button, :alt => box_text_button  
+				}
+			}
+		}
+  end
+  
+   def render_middle
+    box_title = get_title
+    box_name = get_name
+    box_id = get_id
+    box_text_button = get_text_button
+    input_box_text = get_input_box_text
+    
+    if box_text_button == ""
+      box_text_button = 'שלח'
+    end    
+    
+    div(:class => 'newsletter', :id => 'newsletter_width'){
+			h1 box_title
+			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
+				p{
+          text input_box_text +" : "
+					input :type => 'text', :id => 'email', :name => 'email' #, :onfocus =>  "if(document.getElementById('email').value == 'הזן כתובת e-mail') { document.getElementById('email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
 					input :type => 'hidden', :name => 'id', :value => box_id
           input :type => 'hidden', :name => 'name', :value => box_name
 				  br

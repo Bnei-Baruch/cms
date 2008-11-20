@@ -58,12 +58,13 @@ end
 
 # Include your application configuration below
 ActionMailer::Base.delivery_method = :sendmail
+#ActionMailer::Base.delivery_method = :smtp
 #ActionMailer::Base.smtp_settings = {
 #    :address => "smtp.kabbalah.info",
 #    :port => 25,
 #    :domain => "kbb1.com",
 #    :authentication => :login,
-#    :user_name => "user",
+#    :user_name => "yaakov",
 #    :password => "pass",
 #}
 #ActionMailer::Base.smtp_settings = {

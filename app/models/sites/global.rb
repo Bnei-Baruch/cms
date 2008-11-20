@@ -9,6 +9,15 @@ class Sites::Global < Presenter::Base
     )
   end
   
+  # Use this function to disable page cacheing on per widget basis
+  # Any widget can use it in any render_xxx function
+  def disable_cache
+    Thread.current[:force] = true
+  end
+  def get_cacheing_status
+    Thread.current[:force]
+  end
+
   def port
     my_port = @controller.request.server_port.to_s
     my_port == '80' ? '' : ':' + my_port

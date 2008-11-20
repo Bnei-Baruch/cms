@@ -5,6 +5,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	 include ParseDate
   
 	def render_full
+		@presenter.disable_cache
 		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(doc) 
 		 
 		# make a form that is sending with get protocol info to itself & creating a new object
@@ -19,6 +20,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	end
 	
 	def render_new_student
+		@presenter.disable_cache
 		if validate_captcha(@options[:captcha_value], @options[:captcha_index])
 		 create_student
 		else

@@ -103,14 +103,22 @@ module ActionController #:nodoc:
       add_variables_to_assigns
       if AuthenticationModel.current_user_is_anonymous?
         force = assigns[:options][:force] rescue force = Rails.env == 'development'
-        Rails.cache.fetch(this_cache_key, :force => force) {
+        result = Rails.cache.fetch(this_cache_key, :force => force) {
           @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
           @rendered_widget.to_s
         }
+	# logger.info("cache key: " + this_cache_key)
+	# Did some widget requested to miss cache?
+	if @presenter.get_cacheing_status
+		logger.info("Delete fetch: " + @presenter.get_cacheing_status.to_s)
+		# clear cache
+		Rails.cache.delete(this_cache_key)
+	end
       else
         @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
-        @rendered_widget.to_s
+        result = @rendered_widget.to_s
       end
+      result
     end
 
     private

@@ -66,7 +66,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
     end
 
     content = get_items
-    return false if content.empty?
+    return nil if content.empty?
     get_rss_items(content)
   end
 
@@ -80,8 +80,8 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
   end
 
   def display_entries(items, show_description = true)
-    if items.empty?
-      text _('No entries yet.')
+    if items.nil? || items.empty?
+      text _('No entries yet. Check url!')
       return
     end
     div(:class => 'entries'){

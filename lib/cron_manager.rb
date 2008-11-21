@@ -74,9 +74,14 @@ class CronManager
     retries = 2
     begin
       Timeout::timeout(25){
-        open(url_encoded) { |f|
-          content = f.read
-        }
+        begin        
+          open(url_encoded) { |f|
+            content = f.read
+          }
+        rescue
+          puts 'Failed to open url ' + url_encoded
+          return 
+        end    
       }
     
     rescue Timeout::Error
@@ -94,9 +99,9 @@ class CronManager
     unless property.text_value == data
       property.update_attributes(:text_value => data)
       if system("rake tmp:cache:clear")
-         print "Cache was cleared\n"
+        print "Cache was cleared\n"
       else
-         print "Error to clear cache: $?\n"
+        print "Error to clear cache: $?\n"
       end
     else
       print "No changes\n"
@@ -124,9 +129,15 @@ class CronManager
     retries = 2
     begin
       Timeout::timeout(25){
-        open(url) { |f|
-          content = f.read
-        }
+        begin        
+          open(url) { |f|
+            content = f.read
+          }
+        rescue
+          puts 'Failed to open url ' + url
+          return 
+        end    
+        
       }
     
     rescue Timeout::Error

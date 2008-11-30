@@ -198,18 +198,18 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
         img(:id => 'kabtv-loading', :src => "/images/ajax-loader.gif", :alt => "", :style => 'display:none')
         h3 {rawtext 'שאל שאלה'}
         form(:id => 'ask', :action => "#{@web_node_url}", :method => 'post'){
-          p{
+          div{
             div(:class => 'q') {
               label(:for => 'options_qname') {rawtext 'שמך'}
               input :type => 'text', :id => 'options_qname', :name => 'options[qname]', :value => '', :size => '31', :class => 'text'
             }
             div(:class => 'q') {
               label(:for => 'options_qfrom') {rawtext 'מקומך'}
-              input :type => 'text', :name => 'options[qfrom]', :value => '', :size => '31', :class => 'text'
+              input :type => 'text', :id => 'options_qfrom', :name => 'options[qfrom]', :value => '', :size => '31', :class => 'text'
             }
             div(:class => 'q') {
               label(:class => 'ta-label', :for => 'options_qquestion') {rawtext 'שאלה'}
-              textarea :name => 'options[qquestion]', :class => 'textarea', :cols => 30, :rows => 10
+              textarea :name => 'options[qquestion]', :id => 'options_qquestion', :class => 'textarea', :cols => 30, :rows => 10
             }
             input(:id => 'ask_submit', :type => "submit", :value => "שלח", :title => "שלח",
               :name => "ask", :class => "button", :alt => "שלח")
@@ -272,10 +272,15 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
         item.start_time % 100,
         calc_end_time(item.start_time, item.duration))
       title = item.title.gsub '[\r\n]', ''
-      title.gsub '\'', '&#39;'
       descr = item.descr.gsub '[\r\n]', ''
-      descr.gsub '\'', '&#39;'
       list += "<div class='item#{index % 2}'>#{time}<b>#{title}</b><br/>#{descr}</div>"
+      list.gsub! /href=[^"](\S+)/, 'href="\1" '
+      list.gsub! 'target=_blank', 'class="target_blank"'
+      list.gsub! 'target="_blank"', 'class="target_blank"'
+      list.gsub! '&main', '&amp;main'
+      list.gsub! '<br>', '<br/>'
+      list.gsub! /<font\s+color\s*=\s*["\'](\w+)["\']>/, '<span style="color:\1">'
+      list.gsub! '</font>', '</span>'
     }
     
     list

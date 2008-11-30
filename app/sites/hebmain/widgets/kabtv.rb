@@ -9,6 +9,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
   end
 
   def render_full
+    @presenter.disable_cache
     @url = Language.get_url(@language)
     #        text Question.approved_questions.inspect
     #        br

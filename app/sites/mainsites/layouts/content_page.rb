@@ -1,6 +1,7 @@
 class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
-  attr_accessor :ext_content, :ext_title, :ext_description, :ext_main_image, :ext_related_items
+  attr_accessor :ext_content, :ext_content_header, :ext_title, :ext_description,
+    :ext_main_image, :ext_related_items
 
   def initialize(*args, &block)
     super
@@ -32,7 +33,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
         'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.media.js', 'jquery.metadata.js','jquery.form.js', 
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
+        '../highslide/highslide-full.packed.js',
         'jquery-lightbox/jquery.lightbox.js' #, :cache => 'cache/content_page'
 
         if presenter.node.can_edit?
@@ -43,7 +45,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/header', 
           'hebmain/inner_page', 
           'hebmain/page_admin',
+          'hebmain/jquery.tabs.css',
           'hebmain/widgets',
+          '../highslide/highslide',
           'lightbox',
           :cache => false
           #:cache => 'cache/content_page_admin'
@@ -60,7 +64,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/common',
           'hebmain/header', 
           'hebmain/inner_page', 
+          'hebmain/jquery.tabs.css',
           'hebmain/widgets',
+          '../highslide/highslide',
           'lightbox',
           :cache => 'cache/content_page',
           :media => 'all'
@@ -70,17 +76,26 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         end
         
         rawtext <<-IE6
-          \n<!--[if IE 6]>
+          \n<!--[if IE 6]>\n
         IE6
         stylesheet_link_tag 'hebmain/ie6',
-          :media => 'all'
+        :media => 'all'
 
         stylesheet_link_tag 'hebmain/ie6_print',
-          :media => 'print'
-          
+        :media => 'print'
+
         rawtext <<-IE6
           \n<![endif]-->\n
         IE6
+
+        rawtext <<-IE7
+          \n<!--[if IE 7]>\n
+        IE7
+        stylesheet_link_tag 'hebmain/ie7', :media => 'all'
+
+        rawtext <<-IE7
+          \n<![endif]-->\n
+        IE7
       }
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
@@ -106,6 +121,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                     }
                     @breadcrumbs.render_to(self) 
                     div(:class => 'margin-25') {text ' '}
+                  }
+                  div(:class => 'content-header') {
+                    make_sortable(:selector => ".content-header", :axis => 'y') {
+                      self.ext_content_header.render_to(doc)
+                    }
                   }
                   div(:class => 'yui-u first') {
                     div(:class => 'content') {

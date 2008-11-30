@@ -59,7 +59,7 @@ module WidgetManager
           return ''
         end
       else
-        super(method_name, *args, &block) # to initiate the framework's (Eractor) method missing
+        super(method_name, *args, &block) # to initiate the framework's (Erector) method missing
       end
 
     end

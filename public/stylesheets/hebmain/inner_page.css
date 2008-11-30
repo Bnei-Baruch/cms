@@ -46,6 +46,10 @@
 .middle .h1-left{
     background-position:0 -64px;
 }
+.content-header{
+    padding-bottom:10px;
+    background-color:white;
+}
 
 .content h1, .content h1 a{
     font-size:18px;

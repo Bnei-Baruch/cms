@@ -2,10 +2,30 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def set_layout
     layout.ext_content = ext_content
+    layout.ext_content_header = ext_content_header
     layout.ext_title = ext_title
     layout.ext_description = ext_description
     layout.ext_main_image = ext_main_image
     layout.ext_related_items = ext_related_items
+  end
+
+  def ext_content_header
+    WidgetManager::Base.new(helpers) do
+      w_class('cms_actions').new(:tree_node => @tree_node,
+        :options => {:buttons => %W{ new_button },
+          :resource_types => %W{ kabtv },
+          :button_text => 'ניהול חלק עליון',
+          :new_text => 'צור יחידת תוכן חדשה',
+          :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
+      content_header_resources.each{|e|
+        div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}") {
+          sort_handle
+          render_content_resource(e)
+          div(:class => 'clear')
+        }
+      }
+      content_header_resources
+    end
   end
 
   def ext_content
@@ -56,7 +76,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           sort_handle
           render_content_resource(e)
           div(:class => 'clear')
-        } 
+        }
       }
       content_resources
     end
@@ -77,7 +97,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_meta_title
     WidgetManager::Base.new do
       #  text get_name# unless get_hide_name
-      w_class('breadcrumbs').new(:view_mode => 'meta_title') 
+      w_class('breadcrumbs').new(:view_mode => 'meta_title')
     end
   end
 
@@ -89,7 +109,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           br
           text get_main_image_alt
         }
-      end                
+      end
     end
   end
 
@@ -106,11 +126,22 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def content_resources
     TreeNode.get_subtree(
-      :parent => tree_node.id, 
+      :parent => tree_node.id,
       :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content'],
+      :status => ['PUBLISHED', 'DRAFT']
+    )
+  end
+
+  def content_header_resources
+    TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['kabtv'],
+      :depth => 1,
+      :has_url => false,
+      :placeholders => ['main_content_header'],
       :status => ['PUBLISHED', 'DRAFT']
     )
   end
@@ -123,7 +154,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       :has_url => false,
       :placeholders => ['related_items'],
       :status => ['PUBLISHED', 'DRAFT']
-    )               
+    )
   end
 
 end

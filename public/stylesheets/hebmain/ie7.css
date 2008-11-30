@@ -1,34 +1,3 @@
-/*----------  Content  ---------------*/
-
-/*----------  right-part  ---------------*/
-.right-part .player {
-    display:inline-block;
-    padding:5px 7px 15px;
-}
-.right-part .player .playlist ol{
-    margin-right:23px;
-}
-.right-part .player .playlist{
-    display:inline-block;
-    padding-right:10px;
-}
-.right-part .player .more{
-    padding-right:10px;
-}
-/*----------  left-part  ---------------*/
-.left-part .radio-TV ul{
-    display:inline-block;
-}
-.left-part a.full_screen{
-    display:inline-block;
-}
-.left-part .radio, .left-part .tv{
-    display:inline-block;
-}
-.left-part .downloads .services {
-    margin:10px 20px 0 5px;
-    direction:ltr;
-}
 /*----------  kab.tv  ---------------*/
 #kabtv .ui-tabs-nav a{ /* auto clear */
     display:inline-block;
@@ -64,3 +33,4 @@
 #kabtv #player_options #separate-msg{
     display:none;
 }
+

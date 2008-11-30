@@ -131,9 +131,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                             a(:class => 'right', :id => 'full_screen', :href => '') {rawtext _('למסך מלא')}
                             div(:class => 'clear'){rawtext '&nbsp;'}
                           }
-                          
-                          
-                          
                         }
                       }
                       div(:id => 'radio'){

@@ -82,6 +82,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
   end
 
   def render_questions
+    @presenter.disable_cache
     question = Question.approved_questions
     if question.blank?
       div(:class => 'question0') {rawtext 'אין שאלות חדשות.'}
@@ -115,6 +116,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
   end
 
   def render_sketches
+    @presenter.disable_cache
     content =
       begin
       Timeout::timeout(25){
@@ -154,6 +156,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
   end
 
   def render_new_question
+    @presenter.disable_cache
     unless BaseParam.enabled('kab.tv')
       rawtext 'לא ניתן כרגע לשאול שאלות'
       return

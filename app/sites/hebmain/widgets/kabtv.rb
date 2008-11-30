@@ -14,6 +14,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
     #        br
     #        text @presenter.controller.request
     div(:id => 'kabtv') {
+      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(doc)
       javascript() {
         rawtext 'function reloadSketches(){'
         rawtext "$('#sketch').load('#{@web_node_url}',{view_mode:'sketches','options[widget]':'kabtv','options[widget_node_id]':#{tree_node.id}})"

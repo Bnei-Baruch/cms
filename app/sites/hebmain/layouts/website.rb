@@ -91,7 +91,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                       w_class('cms_actions').new(:tree_node => tree_node,
                         :options => {:buttons => %W{ new_button },
                           :resource_types => %W{ kabtv },
-                          :button_text => 'הוספת יחידת טלוויזיה',
+                          :button_text => 'ניהול יחידת טלוויזיה',
+                          :new_text => 'הוספת יחידת טלוויזיה',
                           :has_url => false,
                           :placeholder => 'home_kabtv'}).render_to(self)
                         show_content_resources(:resources => kabtv_resources,

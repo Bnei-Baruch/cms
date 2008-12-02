@@ -163,6 +163,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               render_content_resource(global_site_updates)
             }
           }
+          div(:id => 'ie6-clear', :class => 'clear', :style => 'clear:both;display:inner-block;')
           div(:id => 'ft') {
             @sitemap.render_to(self)
             make_sortable(:selector => '#ft .links', :axis => 'x') {

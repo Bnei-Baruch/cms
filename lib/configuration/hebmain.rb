@@ -16,6 +16,9 @@ module	Configuration::Hebmain
       # parent widget
       :website => {
         # placeholder
+        :home_kabtv => {
+          :kabtv => 'homepage'
+        },
         :left => {
           :media_rss => 'left',
           :rss => 'preview'

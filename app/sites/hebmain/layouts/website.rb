@@ -80,78 +80,25 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                   }    
                   div(:class => 'yui-u first') {
                     div(:class => 'left-part') {
-                      div(:class => 'h1') {
-                        text 'קבלה בשידור חי'
-                        div(:class =>'h1-right')
-                        div(:class =>'h1-left')
-                      }
-                      w_class('cms_actions').new(:tree_node => tree_node, 
-                        :options => {:buttons => %W{ new_button }, 
+                      w_class('cms_actions').new(:tree_node => tree_node,
+                        :options => {:buttons => %W{ new_button },
                           :resource_types => %W{ rss },
                           :button_text => 'הוספת יחידות תוכן - עמודה שמאלית',
                           :new_text => 'הוסף RSS נוסף',
-                          :has_url => false, 
+                          :has_url => false,
                           :placeholder => 'left'}).render_to(self)
               
-                      
-                      div(:id => 'radio-TV', :class => 'radio-TV') {
-                        ul(:class => 'ui-tabs-nav'){
-                          li{
-                            a(:href => '#radio'){
-                              span 'רדיו'
-                            }
-                          }
-                          li{
-                            a(:href => '#tv'){
-                              span 'טלוויזיה'
-                            }
-                          }
-                        }
-                      }
-                      div(:id => 'tv'){
-                        div(:class => 'tv-border'){
-                          javascript {
-                            rawtext <<-TV
-                              if (jQuery.browser.ie) {
-                                document.write('<object id="tvplayer" type="application/x-ms-wmp" height="140" standby="Loading Windows Media Player components..." width="194" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"><param name="AutoStart" value="0" /><param value="0" name="balance" /><param name="currentPosition" value="0"><param name="currentMarker" value="0"><param name="enabled" value="true"><param name="mute" value="false"><param name="playCount" value="1"><param name="rate" value="1"><param name="uiMode" value="none"><param name="volume" value="50"><param value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="URL" /><param value="false" name="AutoPlay" /><param value="1" name="animationAtStart" /><param value="1" name="showDisplay" /><param value="0" name="transparentAtStart" /><param value="1" name="ShowControls" /><param value="1" name="ShowStatusBar" /><param value="1" name="ClickToPlay" /><param value="#000000" name="bgcolor" /><param value="1" name="windowlessVideo" /></object>');
-                              } else {
-                                if (jQuery.browser.firefox) {
-                                  document.write('<embed width="200" height="140" balance="0" uimode="none" autostart="false" type="application/x-mplayer2" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="tvplayer" id="tvplayer"/>');
-                                } else {
-                                  document.write('<object id="tvplayer" type="application/x-ms-wmp" height="140" standby="Loading Windows Media Player components..." width="200"><param name="AutoStart" value="0" /><param value="0" name="balance" /><param name="currentPosition" value="0"><param name="currentMarker" value="0"><param name="enabled" value="true"><param name="mute" value="false"><param name="playCount" value="1"><param name="rate" value="1"><param name="uiMode" value="none"><param name="volume" value="50"><param value="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="URL" /><param value="0" name="AutoPlay" /><param value="1" name="animationAtStart" /><param value="1" name="showDisplay" /><param value="0" name="transparentAtStart" /><param value="1" name="ShowControls" /><param value="1" name="ShowStatusBar" /><param value="1" name="ClickToPlay" /><param value="#000000" name="bgcolor" /><param value="1" name="windowlessVideo" /><p>Error - the plugin has not loaded<br/><a href="http://port25.technet.com/pages/windows-media-player-firefox-plugin-download.aspx">Download Microsoft plugin for Firefox here</a></p>');
-                                  document.write('<embed width="200" height="140" balance="0" uimode="none" autostart="false" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" type="application/x-mplayer2" src="http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788" name="tvplayer" id="tvplayer"/>');
-                                  document.write('</object>');
-                                }
-                              }
-                            TV
-                          }
-                          div(:class => 'tv') {
-                            div(:class => 'play play-in')
-                            div(:class => 'stop stop-out')
-                            a(:class => 'right', :id => 'full_screen', :href => '') {rawtext _('למסך מלא')}
-                            div(:class => 'clear'){rawtext '&nbsp;'}
-                          }
-                        }
-                      }
-                      div(:id => 'radio'){
-                        div(:class => 'radio') {
-                          img(:src => img_path('radio/bg.jpg'), :alt => '')
-                          div(:class => 'text') {text 'רדיו קבלה FM' }
-                          div(:class => 'play play-out')
-                          div(:class => 'stop stop-out')
-                        }
-                        javascript {
-                          rawtext <<-RADIO
-                              if (jQuery.browser.ie) {
-document.write('<object id="radioplayer" style="display:none" classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="display:inline;background-color:#000000;" id="tvplayer" type="application/x-oleobject" width="222" height="40" standby="Loading Windows Media Player components..."> <param name="URL" value="mms://vod.kab.tv/radioheb" /> <param name="AutoStart" value="0" /><param name="AutoPlay" value="0" /><param name="volume" value="50" /> <param name="uiMode" value="invisible" /><param name="animationAtStart" value="0" /> <param name="showDisplay" value="0" /><param name="transparentAtStart" value="0" /> <param name="ShowControls" value="0" /><param name="ShowStatusBar" value="0" /> <param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /> <param name="windowlessVideo" value="0" /><param name="balance" value="0" /> </object>');
-                              } else {
-document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="false" uimode="full" width="222" height="40" />');
-                              }
-                          RADIO
-                        }
-                        
-                    
-                      }
+                      w_class('cms_actions').new(:tree_node => tree_node,
+                        :options => {:buttons => %W{ new_button },
+                          :resource_types => %W{ kabtv },
+                          :button_text => 'הוספת יחידת טלוויזיה',
+                          :has_url => false,
+                          :placeholder => 'home_kabtv'}).render_to(self)
+                        show_content_resources(:resources => kabtv_resources,
+                          :parent => :website,
+                          :placeholder => :home_kabtv,
+                          :sortable => false
+                        )
                       
                       div(:class => 'downloads container'){
                         h3(:class => 'box_header') {
@@ -291,6 +238,16 @@ document.write('<embed id="radioplayer" src="mms://vod.kab.tv/radioheb" type="ap
       :placeholders => ['lesson'],
       :status => ['PUBLISHED', 'DRAFT']
     ) 
+  end
+
+  def kabtv_resources
+    @kabtv_nodes ||= TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['kabtv'],
+      :depth => 1,
+      :placeholders => ['home_kabtv'],
+      :status => ['PUBLISHED', 'DRAFT']
+    )
   end
 
 end 

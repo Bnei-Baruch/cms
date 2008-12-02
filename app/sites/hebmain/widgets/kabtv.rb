@@ -20,28 +20,30 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
         div(:id => 'home-kabtv') {
             cms_action
             div(:id => 'kabtv-top'){
-                height = 176
+                height = 214
                 width = 199
                 url = Language.get_url(@language)
                 javascript {
                     rawtext <<-TV
                     if (jQuery.browser.ie) {
-                        document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
+                        document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="mute" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
                     } else if (jQuery.browser.firefox) {
-                        document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" autosize="false" uimode="full" width="#{width}" height="#{height}" />');
+                        document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" autosize="false" uimode="full" width="#{width}" height="#{height}"/>');
                     } else {
-                        document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />');
-                        document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" />');
+                        document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="mute" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />');
+                        document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" mute="1" />');
                         document.write('</object>');
                     }
                     TV
                 }
             }
             div(:id => 'kabtv-mid'){
-#                display_current_program
             }
+            # display_current_program
             javascript {
+                rawtext "function reloadSchedule(){"
                 rawtext "$('#kabtv-mid').load('#{@web_node_url}',{view_mode:'current_program','options[widget]':'kabtv','options[widget_node_id]':#{tree_node.id}})"
+                rawtext "}; reloadSchedule();setInterval(reloadSchedule, 300000)"
             }
             div(:id => 'kabtv-bot'){
                 a(:href => get_target) {

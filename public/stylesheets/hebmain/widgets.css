@@ -920,7 +920,7 @@ a.highslide-full-expand {
   width:222px;
 }
 #home-kabtv #kabtv-top{
-  height:271px;
+  height:309px;
   background:#315bbc url(/images/hebmain/kabtv/home-top.jpg) no-repeat 0 0;
   position:relative;
 }
@@ -939,7 +939,7 @@ a.highslide-full-expand {
 #home-kabtv .hdr{
   color:#00EAFF;
   font-weight:bold;
-  text-align:center;
+  text-align:right;
   padding:6px 50px 0 0;
 }
 #home-kabtv .item{

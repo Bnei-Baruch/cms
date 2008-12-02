@@ -726,7 +726,7 @@ $(function() {
 //***************************************
 var sketchTimer;
 function startSketches(){
-    sketchTimer = setInterval(reloadSketches, 10000)
+    sketchTimer = setInterval(reloadSketches, 30000)
 }
 function stopSketches(){
     clearTimeout(sketchTimer)

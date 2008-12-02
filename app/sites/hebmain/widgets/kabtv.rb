@@ -75,15 +75,15 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
                     li{a(:href => '#questions'){span 'שאלות'}}
                     li{a(:href => '#sketch'){span 'שרטוטים'}}
                 }
-                div(:id => 'schedule', :style => 'float:left'){
+                div(:id => 'schedule'){
                     display_schedule
                 }
-                div(:id => 'questions', :style => 'float:left'){
+                div(:id => 'questions'){
                     h3 {rawtext 'שאלות התלמידים'}
                     div(:id => 'q') { render_questions }
                     ask_button_and_form
                 }
-                div(:id => 'sketch', :style => 'float:left'){
+                div(:id => 'sketch'){
                 }
             }
             height = 336

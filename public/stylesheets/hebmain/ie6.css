@@ -30,6 +30,14 @@
     direction:ltr;
 }
 /*----------  kab.tv  ---------------*/
+#kabtv #tabs{
+  width:302px;
+}
+#kabtv .schedule_day{
+  position:absolute;
+  top:0;
+  right:0;
+}
 #kabtv .ui-tabs-nav a{ /* auto clear */
     display:inline-block;
 }

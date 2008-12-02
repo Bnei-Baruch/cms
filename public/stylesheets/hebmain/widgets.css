@@ -727,8 +727,8 @@ img.thumbnails{
 }
 #kabtv #tabs{
   float:right;
-  width:302px;
   margin:8px 5px 22px 0;
+  width:304px;
 }
 #kabtv .ui-tabs-nav {
   padding:0;
@@ -771,9 +771,6 @@ img.thumbnails{
   margin: 10px 0 0;
   overflow-y:scroll;
   padding:0 5px 0;
-  position:absolute;
-  top:0;
-  right:0;
   width:280px;
 }
 #kabtv .schedule_selected{

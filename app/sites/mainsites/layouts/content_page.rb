@@ -75,27 +75,15 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           :media => 'print'
         end
         
-        rawtext <<-IE6
-          \n<!--[if IE 6]>\n
-        IE6
-        stylesheet_link_tag 'hebmain/ie6',
-        :media => 'all'
+        rawtext "\n<!--[if IE 6]>\n"
+        stylesheet_link_tag 'hebmain/ie6', :media => 'all'
+        stylesheet_link_tag 'hebmain/ie6_print', :media => 'print'
+        rawtext "\n<![endif]-->\n"
 
-        stylesheet_link_tag 'hebmain/ie6_print',
-        :media => 'print'
-
-        rawtext <<-IE6
-          \n<![endif]-->\n
-        IE6
-
-        rawtext <<-IE7
-          \n<!--[if IE 7]>\n
-        IE7
+        rawtext "\n<!--[if IE 7]>\n"
+        stylesheet_link_tag 'hebmain/ie6', :media => 'all'
         stylesheet_link_tag 'hebmain/ie7', :media => 'all'
-
-        rawtext <<-IE7
-          \n<![endif]-->\n
-        IE7
+        rawtext "\n<![endif]-->\n"
       }
       body {
         div(:id => 'doc2', :class => 'yui-t4') {

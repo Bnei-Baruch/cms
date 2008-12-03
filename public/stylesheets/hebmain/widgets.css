@@ -934,7 +934,7 @@ a.highslide-full-expand {
   display:block;
 }
 #home-kabtv .hdr{
-  color:#00EAFF;
+  color:white;
   font-weight:bold;
   text-align:right;
   padding:6px 50px 0 0;
@@ -942,7 +942,7 @@ a.highslide-full-expand {
 #home-kabtv .item{
   clear:both;
   line-height:19px;
-  padding:3px 0;
+  padding:6px 0;
 }
 #home-kabtv .item .time {
   color:white;

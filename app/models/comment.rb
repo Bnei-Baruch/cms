@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
 	end
 	
   def self.list_all_comments_for_page(node_id)
-		find(:all, :order => "created_at DESC", :conditions => { :node_id => node_id, :is_spam => false, :is_valid => 1})
+		find(:all, :order => "created_at DESC", :conditions => { :node_id => node_id, :is_valid => '200'})
 	end
   
   

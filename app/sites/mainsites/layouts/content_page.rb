@@ -125,9 +125,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                       @send_to_friend.render_to(self)
                       @direct_link.render_to(self) 
 
-                      if @presenter.site_settings[:comments][:enable_site_wide]
-                        @comments.render_to(self) 
-                      end
+                      #if @presenter.site_settings[:comments][:enable_site_wide]
+                      @comments.render_to(self) 
+                      #end
                       
                       if ext_kabtv_exist
                           div(:id => 'ft'){

@@ -16,7 +16,6 @@ def create_main_div
   else
     write_inside_of_form
   end
-      
     }
   }
 end

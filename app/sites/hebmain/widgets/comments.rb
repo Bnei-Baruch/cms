@@ -69,6 +69,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
     
     comment_list = Comment.list_all_comments_for_page(tree_node.id)
     i = comment_list.size
+    debugger
     div(:class => 'comment_header'){text _('Reactions')} if i > 0
     comment_list.each { |cl|
       cmcreated = parsedate cl.created_at.to_s

@@ -1,7 +1,7 @@
 class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
   attr_accessor :ext_content, :ext_content_header, :ext_title, :ext_description,
-    :ext_main_image, :ext_related_items
+    :ext_main_image, :ext_related_items, :ext_kabtv_exist
 
   def initialize(*args, &block)
     super
@@ -122,6 +122,12 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                       }
                       @send_to_friend.render_to(self)
                       @direct_link.render_to(self) 
+                      if ext_kabtv_exist
+                          div(:id => 'ft'){
+                            @header_bottom_links.render_to(self)
+                            @header_copyright.render_to(self)
+                          }
+                      end
                     }
                   }
                   div(:class => 'yui-u') {
@@ -150,17 +156,16 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               
               render_content_resource(global_site_updates)
             }
-          }
-          div(:id => 'ie6-clear', :class => 'clear', :style => 'clear:both;display:inner-block;')
+        }
+        
           div(:id => 'ft') {
             @sitemap.render_to(self)
             make_sortable(:selector => '#ft .links', :axis => 'x') {
               @header_bottom_links.render_to(self)
             }
             @header_copyright.render_to(self)
-          }
+          } unless ext_kabtv_exist
         }
-        
         @google_analytics.render_to(self)
       }
     }

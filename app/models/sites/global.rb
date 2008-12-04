@@ -14,6 +14,10 @@ class Sites::Global < Presenter::Base
   def disable_cache
     Thread.current[:force] = true
   end
+  def enable_cache
+    Thread.current[:force] = false
+  end
+
   def get_cacheing_status
     Thread.current[:force]
   end

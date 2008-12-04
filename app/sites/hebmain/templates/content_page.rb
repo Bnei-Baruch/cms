@@ -7,8 +7,13 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     layout.ext_description = ext_description
     layout.ext_main_image = ext_main_image
     layout.ext_related_items = ext_related_items
+    layout.ext_kabtv_exist = ext_kabtv_exist
   end
 
+  def ext_kabtv_exist
+    !content_header_resources.blank?
+  end
+  
   def ext_content_header
     WidgetManager::Base.new(helpers) do
       w_class('cms_actions').new(:tree_node => @tree_node,
@@ -125,7 +130,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   private
 
   def content_resources
-    TreeNode.get_subtree(
+    @content_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
       :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter'],
       :depth => 1,
@@ -136,7 +141,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   end
 
   def content_header_resources
-    TreeNode.get_subtree(
+    @content_header_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
       :resource_type_hrids => ['kabtv'],
       :depth => 1,
@@ -147,7 +152,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   end
 
   def related_items
-    TreeNode.get_subtree(
+    @related_items ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
       :resource_type_hrids => ['box', 'rss', 'newsletter'], 
       :depth => 1,

@@ -17,6 +17,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
     #    div(:class => 'clear'){rawtext '&nbsp;'}
     #  }
     def render_homepage
+        @presenter.enable_cache
         div(:id => 'home-kabtv') {
             cms_action
             div(:id => 'kabtv-top'){
@@ -152,7 +153,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
                     end
 
                 }
-                div(:class => 'what') {rawtext q.qquestion}
+                div(:class => 'what') {rawtext h q.qquestion}
             }
         }
     end
@@ -248,18 +249,18 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
                 img(:id => 'kabtv-loading', :src => "/images/ajax-loader.gif", :alt => "", :style => 'display:none')
                 h3 {rawtext 'שאל שאלה'}
                 form(:id => 'ask', :action => "#{@web_node_url}", :method => 'post'){
-                    p{
+                    div{
                         div(:class => 'q') {
                             label(:for => 'options_qname') {rawtext 'שמך'}
                             input :type => 'text', :id => 'options_qname', :name => 'options[qname]', :value => '', :size => '31', :class => 'text'
                         }
                         div(:class => 'q') {
                             label(:for => 'options_qfrom') {rawtext 'מקומך'}
-                            input :type => 'text', :name => 'options[qfrom]', :value => '', :size => '31', :class => 'text'
+                            input :id => 'options_qfrom', :type => 'text', :name => 'options[qfrom]', :value => '', :size => '31', :class => 'text'
                         }
                         div(:class => 'q') {
                             label(:class => 'ta-label', :for => 'options_qquestion') {rawtext 'שאלה'}
-                            textarea :name => 'options[qquestion]', :class => 'textarea', :cols => 30, :rows => 10
+                            textarea :id => 'options_qquestion', :name => 'options[qquestion]', :class => 'textarea', :cols => 30, :rows => 10
                         }
                         input(:id => 'ask_submit', :type => "submit", :value => "שלח", :title => "שלח",
                             :name => "ask", :class => "button", :alt => "שלח")

@@ -1,4 +1,46 @@
 /*----------  Content  ---------------*/
+.index{
+  display:inline-block;
+}
+.index .element{
+  display:inline-block;
+}
+.content_preview{
+  display:inline-block;
+}
+.newsletter .check{
+  margin-top: 3px;
+}
+.sitemap{
+  zoom:1;
+}
+.sitemap-inner{
+  zoom:1;
+}
+.main_preview1{
+  display:inline-block;
+}
+.main_preview1 .element{
+  display:inline-block;
+}
+.main_preview2{
+  display:inline-block;
+}
+.main_preview2 .element{
+  display:inline-block;
+}
+.main_preview3{
+  display:inline-block;
+}
+.main_preview3 .element{
+  display:inline-block;
+}
+.main_preview3 .element ul.links li{
+  padding:0;
+}
+.section_preview{
+  display:inline-block;
+}
 
 /*----------  right-part  ---------------*/
 .right-part .player {

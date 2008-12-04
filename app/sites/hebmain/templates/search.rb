@@ -8,7 +8,11 @@ class Hebmain::Templates::Search < WidgetManager::Template
     layout.ext_main_image = ext_main_image
     layout.ext_related_items = ext_related_items
   end
-
+  
+  def ext_content_header
+      WidgetManager::Base.new(helpers) do
+      end
+  end
   def ext_content
     WidgetManager::Base.new(helpers) do
 

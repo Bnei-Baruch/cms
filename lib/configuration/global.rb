@@ -5,7 +5,10 @@ module	Configuration::Global
     :language => 'english', # define the interface language 
     :site_direction => 'ltr',
     :short_language => 'en',
-    :use_advanced_read_more => true
+    :use_advanced_read_more => true,
+    :comments => {
+     :enable_site_wide => true
+    }
   }
 
 end

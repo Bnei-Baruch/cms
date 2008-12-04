@@ -128,4 +128,8 @@ Localization.define('hebrew') do |l|
   l.store 'campaign', 'קמפיין'
   l.store 'list name', 'שם הרשימה'
   
+  l.store 'Reactions', 'תגובות'
+  l.store 'Name', 'שם'
+  
+  
 end

@@ -19,6 +19,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @sitemap = w_class('sitemap').new
     @send_to_friend = w_class('send_to_friend').new
     @direct_link = w_class('shortcut').new
+    @comments = w_class('comments').new
   end
 
   def render
@@ -120,14 +121,21 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                       make_sortable(:selector => ".content", :axis => 'y') {
                         self.ext_content.render_to(doc)
                       }
+                      
                       @send_to_friend.render_to(self)
                       @direct_link.render_to(self) 
+
+                      if @presenter.site_settings[:comments][:enable_site_wide]
+                        @comments.render_to(self) 
+                      end
+                      
                       if ext_kabtv_exist
                           div(:id => 'ft'){
                             @header_bottom_links.render_to(self)
                             @header_copyright.render_to(self)
                           }
                       end
+
                     }
                   }
                   div(:class => 'yui-u') {

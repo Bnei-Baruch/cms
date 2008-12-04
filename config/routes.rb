@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :attachments
     admin.resources :users
     admin.resources :groups
+    admin.resources :comments
     admin.resources :tree_node_ac_rights
     admin.resources :login, :collection => {:login => :get, :logout => :get}
     admin.resources :url_migrations, :collection => {:import => :get, :export => :get, :merge => :get, :cleanup => :get}

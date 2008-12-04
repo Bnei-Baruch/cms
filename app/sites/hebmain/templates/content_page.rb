@@ -22,6 +22,15 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           :button_text => 'ניהול חלק עליון',
           :new_text => 'צור יחידת תוכן חדשה',
           :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
+      if AuthenticationModel.current_user_is_admin?
+        w_class('cms_actions').new(:tree_node => @tree_node,
+          :options => {:buttons => %W{ new_button },
+            :resource_types => %W{ admin_comment },
+            :button_text => 'ניהול חלק עליון',
+            :new_text => 'צור יחידת תוכן חדשה',
+            :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
+      end
+      
       content_header_resources.each{|e|
         div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}") {
           sort_handle
@@ -143,7 +152,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_header_resources
     @content_header_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['kabtv'],
+      :resource_type_hrids => ['kabtv', 'admin_comment'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content_header'],

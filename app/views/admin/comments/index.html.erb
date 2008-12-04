@@ -1,0 +1,42 @@
+<% @title = "Moderate Comments" %>
+
+<table border="1">
+<thead>
+	<tr>
+    <th>Page ID</th>
+		<th>Date</th>
+		<th>Valid</th>
+		<th>Spam</th>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Body</th>
+    <th colspan="2">Actions</th>
+    <th colspan="2">Mark As</th>
+	</tr>
+</thead>
+	
+<% for c in @comments %>  
+		<tr>
+  <% #debugger %>
+      <td><%=c.node_id %></td>
+			<td>10.12.2008</td>
+			<td><%=c.is_valid %></td>
+			<td><%=c.is_spam %></td>
+      <td><%=c.title%></td>
+      <td><%=c.name %></td>
+      <td><%=c.body %></td>
+      <td><%= link_to 'Delete', admin_comment_path(c), :confirm => 'Are you sure?', :method => :delete%></td>
+      <td><%= link_to 'Edit', edit_admin_comment_path(c) %></td>
+      <td>
+         <%= link_to 'Valid', admin_comment_path(c, :valid => :true), :method => :put %>
+        /<%= link_to 'Not Valid', admin_comment_path(c, :valid => :false), :method => :put %>
+      </td>
+      <td>
+           <%= link_to 'Spam', admin_comment_path(c, :spam => :true), :confirm => 'Are you sure?', :method => :put %>
+          /<%= link_to 'Not Spam', admin_comment_path(c, :spam => :false), :confirm => 'Are you sure?', :method => :put %>
+      </td>
+		</tr>
+<% end %>
+</table>
+
+<br />

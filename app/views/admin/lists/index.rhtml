@@ -26,10 +26,3 @@
 </table>
 
 <br />
-
-<% form_for(:list, :url => new_admin_list_path, :html => {:method => :get}) do |f| %>
-	<p>
-		Type: <%= f.select(:list_type, List.types_for_select) %>
-		<%= submit_tag "Create new List" %>
-	</p>
-<% end %>

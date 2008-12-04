@@ -1,3 +1,28 @@
+//comment
+$(document).ready(function() { 
+  
+  function before_admin_comment_post(formData, jqForm, options) { 
+    var queryString = $.param(formData); 
+    $('.admin_comment_main #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
+    return true; 
+  }  
+  function after_admin_comment_post(responseText, statusText){ 
+      // null
+  } 
+  var options = { 
+      target:       '#admin_comment_form',   // target element(s) to be updated with server response 
+      beforeSubmit:  before_admin_comment_post,  
+      success:       after_admin_comment_post, 
+      resetForm: true    ,
+      clearForm: true        // clear all form fields after successful submit 
+  };
+  $('#admin_comment_form').submit(function() { 
+    $(this).ajaxSubmit(options); 
+    return false; 
+  });
+});
+
+
 // picture gallery
 $(document).ready(function() { 
     if (jQuery.isFunction($('a.gallery').lightbox)){
@@ -122,6 +147,78 @@ function after_send_to_friend(){
 
 
 
+//*****************************
+// Comment system
+//*****************************
+
+$(document).ready(function(){
+  
+  $("#comment_form").hide();
+  
+  $("#comment_form #cancel").click(function(){
+    $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
+    $("#comment_form").hide();
+    $("#closed_comment").show();
+  });
+  
+  $("#closed_comment").click(function(){
+    $("#comment_form").show();
+    $("#closed_comment").hide();
+  });
+  
+  $(".comment_title").click(function(){
+    $this = $(this);
+    $this.parents('.comment_item').children(".comment_body").toggle();
+  });
+ 
+ function before_comment_post(formData, jqForm, options) { 
+      var queryString = $.param(formData); 
+     // var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+     // if (formData[1].value.search(emailRegEx) == -1) {
+     //   alert("כתובת הדואר האלקטרוני לא תקינה");
+     //   return false;
+     // }
+      
+      $('.create_comment #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
+      
+      return true; 
+    } 
+    
+    // post-submit callback 
+    function after_comment_post(responseText, statusText)  { 
+      var options = { 
+        target:        '#comment_form',
+        beforeSubmit:  before_comment_post,  
+        success:       after_comment_post, 
+        resetForm: true    ,
+        clearForm: true        // clear all form fields after successful submit 
+      }; 
+      
+      $("#comment_form").hide();
+      $("#closed_comment").show();
+      
+       $('#comment_form').submit(function() { 
+        $(this).ajaxSubmit(options); 
+        return false; 
+      });
+    } 
+    
+    var options = { 
+      target:        '#comment_form',   // target element(s) to be updated with server response 
+      beforeSubmit:  before_comment_post,  // pre-submit callback 
+      success:       after_comment_post,  // post-submit callback 
+      resetForm: true    ,
+      clearForm: true        // clear all form fields after successful submit 
+      
+    };
+    
+    $('#comment_form').submit(function() { 
+      $(this).ajaxSubmit(options); 
+      return false; 
+    });
+  
+});
+
 
 
 //*****************************************
@@ -191,6 +288,7 @@ $(document).ready(function() {
         clearForm: true        // clear all form fields after successful submit
       
     };
+    
     $('#myForm2').submit(function() { 
         $(this).ajaxSubmit(options);
       

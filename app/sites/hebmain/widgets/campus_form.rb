@@ -12,6 +12,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		# if user -> msg to say bravo
 		# if admin -> show me all the users in the system
       rawtext get_description
+      
 	    if tree_node.can_edit?
 	    	campus_admin_mode
     	else 

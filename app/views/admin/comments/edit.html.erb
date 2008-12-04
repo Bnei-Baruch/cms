@@ -1,0 +1,20 @@
+<% @title = "Editing comment" %>
+
+<%  @comment = Comment.find(params[:id])%>
+<% #debugger %>
+<% form_for(:comment, :url => admin_comment_path(@comment), :html => {:method => 'put'}) do |f| %>	
+    <% #debugger %>
+    <label for="comment_title">Title</label>
+		<%= f.text_field :title%> 
+    <label for="comment_email">Email</label>
+    <%= f.text_field :email %>
+    <label for="comment_name">Name</label>
+    <%= f.text_field :name %>
+    <label for="comment_body">Body</label>
+    <%= f.text_area :body %>
+    
+		<span id="submit"><%= submit_tag "Update" %></span>
+<% end %>
+
+<%= link_to 'Show', admin_comment_path(@comment) %> |
+<%= link_to 'Back', admin_comment_path %>

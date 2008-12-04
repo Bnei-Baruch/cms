@@ -34,12 +34,15 @@ class Sites::TemplatesController < ApplicationController
     logout = params.has_key?('logout') ? params[:logout] : false
     AuthenticationModel.logout_from_admin if logout
     
+    @ip = request.remote_ip
+    
     if prefix || permalink
       @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
       @website = nil if @website && @website.use_homepage_without_prefix && !(prefix && permalink)
     elsif !path || (path && path.empty?)
       @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', host, true])
     end
+     
     unless @website
       # External link
       check_url_migration(true)

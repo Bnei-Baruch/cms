@@ -2,6 +2,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
 
   def set_layout
     layout.ext_content = ext_content
+    layout.ext_content_header = ext_content_header
     layout.ext_title = ext_title
     layout.ext_description = ext_description
     layout.ext_main_image = ext_main_image

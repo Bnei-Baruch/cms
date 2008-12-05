@@ -154,7 +154,12 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                       
                       show_content_resources(:resources => middle_column_resources,
                         :parent => :website,
-                        :placeholder => :middle)
+                        :placeholder => :middle,
+                          :sortable => true)
+                      
+                      make_sortable(:selector => ".content") {
+                        middle_column_resources
+                      }
                     }
                   }
                 }

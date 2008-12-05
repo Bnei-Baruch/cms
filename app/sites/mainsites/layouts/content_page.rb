@@ -19,6 +19,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @sitemap = w_class('sitemap').new
     @send_to_friend = w_class('send_to_friend').new
     @direct_link = w_class('shortcut').new
+    @subscription = w_class('header').new(:view_mode => 'subscription')
     @comments = w_class('comments').new
   end
 
@@ -121,7 +122,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                       make_sortable(:selector => ".content", :axis => 'y') {
                         self.ext_content.render_to(doc)
                       }
-                      
+                      @subscription.render_to(self)
+                      div(:class => 'clear')
                       @send_to_friend.render_to(self)
                       @direct_link.render_to(self) 
 
@@ -162,7 +164,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
            		
               @newsletter.render_to(self)
               
-              render_content_resource(global_site_updates)
+              global_site_updates.each{|e|
+                  render_content_resource(e)
+              } 
             }
         }
         
@@ -197,7 +201,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       :depth => 1,
       :placeholders => ['right']
     )
-    return @site_updates ? @site_updates[0] : nil
   end
   
 end 

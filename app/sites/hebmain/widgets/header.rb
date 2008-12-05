@@ -79,6 +79,28 @@ class Hebmain::Widgets::Header < WidgetManager::Base
     }
   end
   
+  def render_subscription
+    e = subscription
+    # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
+    # Add 00 in order to differ from copyright
+    updatable = 'up-00' + presenter.website_node.id.to_s
+    div(:id => updatable){
+
+      if e.nil?
+        w_class('cms_actions').new(:tree_node => presenter.website_node, 
+          :options => {:buttons => %W{ new_button }, 
+            :resource_types => %W{ subscription },
+            :new_text => 'צור יחידת הרשמה', 
+            :button_text => 'הוספת הרשמה',
+            :has_url => false
+          }).render_to(self)
+
+      else
+        w_class('subscription').new(:tree_node => e).render_to(self)
+      end
+    }
+  end
+  
   private
   
   def top_links
@@ -110,5 +132,15 @@ class Hebmain::Widgets::Header < WidgetManager::Base
       :has_url => false
     ) 
     @copyright.empty? ? nil : @copyright.first
+  end    
+  def subscription
+    @subscription ||=
+      TreeNode.get_subtree(
+      :parent => presenter.website_node.id, 
+      :resource_type_hrids => ['subscription'], 
+      :depth => 1,
+      :has_url => false
+    ) 
+    @subscription.empty? ? nil : @subscription.first
   end    
 end

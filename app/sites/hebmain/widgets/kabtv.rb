@@ -322,7 +322,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
             item.start_time / 100,
             item.start_time % 100)
         title = item.title.gsub '[\r\n]', ''
-        title.gsub!(/href=[^"](\S+)/, 'href="\1" ')
+        title.gsub!(/href=([^"])(\S+)/, 'href="\1\2" ')
         title.gsub!('target=_blank', 'class="target_blank"')
         title.gsub!('target="_blank"', 'class="target_blank"')
         title.gsub!('&main', '&amp;main')
@@ -366,14 +366,14 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
                 calc_end_time(item.start_time, item.duration))
             title = item.title.gsub '[\r\n]', ''
             descr = item.descr.gsub '[\r\n]', ''
+            descr.gsub!(/href=([^"])(\S+)/, 'href="\1\2" ')
+            descr.gsub!('target=_blank', 'class="target_blank"')
+            descr.gsub!('target="_blank"', 'class="target_blank"')
+            descr.gsub!('&main', '&amp;main')
+            descr.gsub!('<br>', '<br/>')
+            descr.gsub!(/<font\s+color\s*=\s*["\'](\w+)["\']>/, '<span style="color:\1">')
+            descr.gsub!('</font>', '</span>')
             list += "<div class='item#{index % 2}'>#{time}<b>#{title}</b><br/>#{descr}</div>"
-            list.gsub!(/href=[^"](\S+)/, 'href="\1" ')
-            list.gsub!('target=_blank', 'class="target_blank"')
-            list.gsub!('target="_blank"', 'class="target_blank"')
-            list.gsub!('&main', '&amp;main')
-            list.gsub!('<br>', '<br/>')
-            list.gsub!(/<font\s+color\s*=\s*["\'](\w+)["\']>/, '<span style="color:\1">')
-            list.gsub!('</font>', '</span>')
         }
     
         list

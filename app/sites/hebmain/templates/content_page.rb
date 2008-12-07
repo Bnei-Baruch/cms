@@ -26,8 +26,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
             :resource_types => %W{ admin_comment },
-            :button_text => 'ניהול חלק עליון',
-            :new_text => 'צור יחידת תוכן חדשה',
+            :button_text => 'ניהול אדמין',
+            :new_text => 'צור מודול ניהול תגובות',
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       end
       

@@ -7,6 +7,7 @@ class TreeNode < ActiveRecord::Base
   acts_as_list :scope => 'parent_id = #{parent_id} AND placeholder = \'#{placeholder}\''
   acts_as_tree  :order => 'position', :counter_cache => true
   has_many :students, :dependent => :nullify
+  #has_many :comments, :dependent => :nullify
 
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache

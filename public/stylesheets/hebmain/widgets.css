@@ -499,23 +499,43 @@ table.media_rss th{
   text-decoration: underline;
 }
 
-#create_comment_div table{
-  border-color: red;
-}
-
 #create_comment_div td{
   padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   border-bottom:0 none;
   border-left:0 none;
   border-right:0 none;
   border-width:0;
 }
 
-#create_comment_div tr{
-  border-color: green;
+#create_comment_div td#content{
+  vertical-align:top;
 }
 
+#create_comment_div textarea{
+  width:22em;
+}
 
+#reactions {
+  border:1px solid #E5E5E5;
+  margin:10px 0;
+  position:relative;
+  text-align:right;
+}
+
+#reactions h1{
+  background-color:#F0F5FD;
+  font-size:110%;
+  font-weight:normal;
+  margin:2px 2px 22px;
+  padding:2px 10px 2px 0;
+  position:relative;
+}
+
+#yellow_effect{ 
+  background-color: yellow;
+}
 
 
 

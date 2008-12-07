@@ -1,5 +1,7 @@
 //comment
 $(document).ready(function() { 
+
+  
   
   function before_admin_comment_post(formData, jqForm, options) { 
     var queryString = $.param(formData); 
@@ -194,13 +196,19 @@ $(document).ready(function(){
         clearForm: true        // clear all form fields after successful submit 
       }; 
       
-      $("#comment_form").hide();
-      $("#closed_comment").show();
+      $("#reactions").hide();
+      
+      $('#yellow_effect').fadeOut(10000, function(){
+        $(this).remove();
+        $("#comment_form").hide();
+        $("#closed_comment").show();
+        $("#reactions").show();
+      });
       
        $('#comment_form').submit(function() { 
         $(this).ajaxSubmit(options); 
         return false; 
-      });
+        });
     } 
     
     var options = { 

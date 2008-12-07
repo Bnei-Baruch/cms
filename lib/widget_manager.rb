@@ -107,13 +107,13 @@ module ActionController #:nodoc:
           @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
           @rendered_widget.to_s
         }
-	# logger.info("cache key: " + this_cache_key)
-	# Did some widget requested to miss cache?
-	if @presenter.get_cacheing_status
-		logger.info("Delete fetch: " + @presenter.get_cacheing_status.to_s)
-		# clear cache
-		Rails.cache.delete(this_cache_key)
-	end
+        # logger.info("cache key: " + this_cache_key)
+        # Did some widget requested to miss cache?
+        if @presenter.get_cacheing_status
+          logger.info("Delete fetch: " + @presenter.get_cacheing_status.to_s)
+          # clear cache
+          Rails.cache.delete(this_cache_key)
+        end
       else
         @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
         result = @rendered_widget.to_s

@@ -13,4 +13,5 @@ class CmsSweeper < ActionController::Caching::Sweeper
   def self.sweep(record)
     FileUtils.rm_rf(Dir['tmp/cache/[^.]*']) rescue Errno::ENOENT
   end
+  
 end

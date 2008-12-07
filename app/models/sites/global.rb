@@ -19,7 +19,8 @@ class Sites::Global < Presenter::Base
   end
 
   def get_cacheing_status
-    Thread.current[:force]
+    false
+    #Thread.current[:force]
   end
 
   def port

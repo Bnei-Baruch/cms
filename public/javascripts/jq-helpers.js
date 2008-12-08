@@ -2,7 +2,6 @@
 $(document).ready(function() { 
 
   
-  
   function before_admin_comment_post(formData, jqForm, options) { 
     var queryString = $.param(formData); 
     $('.admin_comment_main #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
@@ -205,10 +204,10 @@ $(document).ready(function(){
         $("#reactions").show();
       });
       
-       $('#comment_form').submit(function() { 
-        $(this).ajaxSubmit(options); 
-        return false; 
-        });
+//       $('#comment_form').submit(function() { 
+//        $(this).ajaxSubmit(options); 
+//        return false; 
+//        });
     } 
     
     var options = { 

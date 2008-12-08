@@ -109,7 +109,7 @@ module ActionController #:nodoc:
         }
         # logger.info("cache key: " + this_cache_key)
         # Did some widget requested to miss cache?
-        if @presenter.get_cacheing_status
+        if @presenter.get_cacheing_status || force
           logger.info("Delete fetch: " + @presenter.get_cacheing_status.to_s)
           # clear cache
           Rails.cache.delete(this_cache_key)

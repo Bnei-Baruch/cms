@@ -24,6 +24,22 @@ module WidgetManager
       end
     end
 
+#    def define_load_function(*args)
+#      name = args[:name]
+#      target = args[:target]
+#      url = args[:url]
+#      widget = args[:widget]
+#      view_mode = args[:view_mode]
+#      widget_node_id = args[:widget_node_id]
+#      if name.blank? || target.blank? || url.blank? || widget.blank? || view_mode.blank? || widget_node_id.blank
+#        raise
+#      end
+#      javascript() {
+#        rawtext "function #{name
+#        rawtext "$('#sketch').load('#{@web_node_url}',{view_mode:'sketches','options[widget]':'kabtv','options[widget_node_id]':#{tree_node.id}})"
+#        rawtext '}'
+#      }
+#    end
     def method_missing(method_name, *args, &block)
       if tree_node && (method_name.to_s =~ /^get_(.+)/)
         my_args = args.detect{|arg|arg.is_a?(Hash)} || {}
@@ -101,27 +117,26 @@ module ActionController #:nodoc:
   class Base
     def render_widget_to_string(widget_class, assigns = @assigns)
       add_variables_to_assigns
+      proc = Proc.new { widget_class.new(@template, assigns.merge(:params => params)) }
       if AuthenticationModel.current_user_is_anonymous?
         force = assigns[:options][:force] rescue force = Rails.env == 'development'
-        # In case 1. Some widget requested or 2. Request is made via XHR
-        if @presenter.get_cacheing_status || force
-          @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
-	else
-          @rendered_widget = Rails.cache.fetch(this_cache_key) {
-            widget_class.new(@template, assigns.merge(:params => params))
-          }
+        # TRUE in case a request is made via XHR(Ajax) or in non-development mode
+        # TRUE means 'FORCE A CACHE MISS', i.e. perform a new call
+        @rendered_widget = if force
+          proc.call
+        else
+          Rails.cache.fetch(this_cache_key, &proc)
         end
       else
-	# Authenticated user
-        @rendered_widget = widget_class.new(@template, assigns.merge(:params => params))
-      end
+        # Authenticated user
+        @rendered_widget = proc.call
+      end.to_s
       @rendered_widget.to_s
     end
 
     private
     def this_cache_key
-      @presenter.node.cache_key #+ '-' + @rendered_widget.class.to_s.underscore.gsub!('/','_') +
-      #'-render_' + @rendered_widget.view_mode
+      @presenter.node.cache_key
     end
   end
 

@@ -1,12 +1,5 @@
 class Sites::Global < Presenter::Base
 
-  attr_accessor :force
-
-  def initialize(*args, &block)
-    @force = true
-    super
-  end
-
   def find_trash
     TreeNode.get_subtree(
       :parent => website_node.id,
@@ -14,19 +7,6 @@ class Sites::Global < Presenter::Base
       :depth => 1,
       :resource_type_hrids => ['Trash']
     )
-  end
-  
-  # Use this function to disable page cacheing on per widget basis
-  # Any widget can use it in any render_xxx function
-  def disable_cache
-    @force = true
-  end
-  def enable_cache
-    @force = false
-  end
-
-  def get_cacheing_status
-    @force
   end
 
   def port

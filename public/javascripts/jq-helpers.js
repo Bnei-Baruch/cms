@@ -880,6 +880,13 @@ $(function() {
             }
         }
     });
+    if (typeof reloadSchedule == "function") {
+        reloadSchedule();
+    }
+    if (typeof currentProgram == "function") {
+        currentProgram();
+        setInterval(currentProgram, 300000);
+    }
     $("a.schedule_menu_item").click(function () {
         $("div.schedule_day").hide();
         $("#schedule_list div#D_" + this.id).show();

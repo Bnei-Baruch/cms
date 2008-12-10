@@ -5,7 +5,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	 include ParseDate
   
 	def render_full
-    @presenter.disable_cache
+    #@presenter.disable_cache
 		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(doc) 
 		 
 		# make a form that is sending with get protocol info to itself & creating a new object
@@ -21,7 +21,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 	end
 	
 	def render_new_student
-    @presenter.disable_cache
+    #@presenter.disable_cache
 		if validate_captcha(@options[:captcha_value], @options[:captcha_index])
 		 create_student
 		else
@@ -30,6 +30,12 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		   campus_user_mode(@options[:name], @options[:email], @options[:tel])
 		end
 	end
+  
+  def render_captcha
+    captcha_index = rand(11)
+    input :type => 'hidden', :name => 'options[captcha_index]', :value => captcha_index	
+    img :src => generate_captcha(captcha_index)[0] , :class => 'img_captcha', :alt => 'captcha'
+  end
 		
 	def create_student
     mail_from = get_email_from
@@ -131,12 +137,12 @@ EOF
     field_3_must = get_campus_label_3_is_mandatory
     field_3_hide = get_campus_hide_label_3
     
-    
+
     #if user was clever enought to hide all the field - just leave - stupid!
     if field_1_hide && field_2_hide && field_3_hide
       return
     end
-    
+
     #if field is hidden - it can't be mandatory - sorry
     if field_1_hide
       field_1_must = false
@@ -190,7 +196,6 @@ EOF
 		 			form(:id => 'myForm2'){
 	    	 		   #user fields
                 p{
-                
                 unless field_1_hide
                   span(:class => 'label') {rawtext field_1_label+ " : "}
                   input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
@@ -209,12 +214,19 @@ EOF
                 end
                                             
                div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
-                captcha_index = rand(11)
-                img :src => generate_captcha(captcha_index)[0] , :class => 'img_captcha', :alt => 'captcha'
-                br
+                
+                javascript{
+                  rawtext 'function loadCaptcha(){'
+                  rawtext "$('.campus_captcha').load('#{get_page_url(@presenter.node)}', {view_mode:'captcha', 'options[widget]':'campus_form','options[widget_node_id]':#{tree_node.id}})"
+                  rawtext '}'
+              
+                }
+            
+            
+                div(:class => 'campus_captcha')
                 div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
                 input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
-                input :type => 'hidden', :name => 'options[captcha_index]', :value => captcha_index	
+                
 
                 input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
                 input :type => 'hidden', :name => 'node', :value => tree_node.id

@@ -3,7 +3,6 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
   include ParseDate
 
   def render_full
-    @presenter.disable_cache
     if tree_node.can_edit?
       create_main_div  
     end
@@ -17,12 +16,14 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
   end
   
   def render_moderate_comment
-#    if @options['filter'] == 'nil'
-      action_hash= {'node_id' => @options['widget_node_id'], 'validate' => {}, 'delete' => []}
+    if @options['filter'] == 'nil'
+      action_hash= {'node_id' => @options['widget_node_id'], 'validate' => {}, 'delete' => [], 'cache' => []}
       @options.each{|op|
         is_action = op[0].include? "action"
         if is_action
           id = op[0].split('action')[1]
+          page_id = op[0].split('action')[0]
+          action_hash['cache'].push(page_id) unless action_hash['cache'].include?(page_id)
           action_value = op[1]
           case action_value 
           when 'validate' then 
@@ -36,14 +37,16 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       }
       Comment.delete(action_hash['delete'])
       Comment.update(action_hash['validate'].keys, action_hash['validate'].values )
-      FileUtils.rm(Dir['tmp/cache/tree_nodes/'+@options['widget_node_id']+'-*']) rescue Errno::ENOENT
-#    end
+      action_hash['cache'].each{|c|
+        FileUtils.rm(Dir['tmp/cache/tree_nodes/'+c+'-*']) rescue Errno::ENOENT
+      }
+    end
     write_inside_of_form
   end
 
   private 
+  
   def create_main_div
-    @presenter.disable_cache
     input :type=>"button", :value=>"Reload", 
       :onClick=>"window.location.href=window.location.href.split('?')[0]"
     br
@@ -56,20 +59,32 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
         end
       }
     }
-  end
+  end  
+  
+ 
 
   def write_inside_of_form
+    cat =  @presenter.main_sections
     p{
+      
+      br
+      input :type => 'checkbox', :name => 'options[onlymoderated]'
+      text ' Non Moderated'
+      br
+      
       input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => 'שלח'
       input :type => 'reset', :name => 'Cancel', :id => 'cancel', :class => 'submit', :value => 'בטל'
       input :type => 'hidden', :name => 'view_mode', :value => 'moderate_comment'
       input :type => 'hidden', :name => 'options[widget]', :value => 'admin_comment'
       input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
-
-#      select(:name => 'filter'){
-#        option(:value => "nil"){text '------'}
-#        option(:value => 'non-mod'){text 'Non Moderated'}
-#      }
+      
+      
+      select(:name => 'options[filter]'){
+        option(:value => "nil"){text 'All'}
+        cat.each{|c|
+          option(:value => c.id ){text c.resource.name}
+        }
+      }
 
       
       b{'Admin comment'}
@@ -89,17 +104,27 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
           }
         }
 
-##        debugger
-##        case @options['filter']
-#        when 'nil' then comment_list = Comment.list_all_comments
-#        when 'non-mod' then comment_list = Comment.list_all_non_moderated_comments
-#        else
-            comment_list = Comment.list_all_comments
-#        end
+        #debugger 
+        if params.include?('options')
+          if options['onlymoderated'] == 'on'
+            if @options['filter'] == 'nil'
+              comment_list = Comment.list_all_non_moderated_comments
+            else
+                comment_list = Comment.list_non_moderated_comments_for_category(@options['filter'])
+            end
+          else
+            if @options['filter'] == 'nil'
+              comment_list = Comment.list_all_comments
+            else
+              comment_list = Comment.list_all_comments_for_category(@options['filter'])
+            end
+          end
+        else
+          comment_list = Comment.list_all_comments
+        end
         
         comment_list.each { |cl|
-          cmcreated = parsedate cl.created_at.to_s  
-          
+          cmcreated = parsedate cl.created_at.to_s
           case cl.is_valid 
           when 0 then klass = 'notmod'
           when 500 then klass = 'badmod'
@@ -125,13 +150,13 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
             }
             #valid
             td(:class => 'green'){
-              input :type=>'radio', :name => 'options[action'+cl.id.to_s+']', :value => 'validate'
+              input :type=>'radio', :name => 'options['+cl.node_id.to_s+'action'+cl.id.to_s+']', :value => 'validate'
             }
             td(:class => 'red'){
-              input :type=>'radio', :name => 'options[action'+cl.id.to_s+']', :value => 'invalidate'
+              input :type=>'radio', :name => 'options['+cl.node_id.to_s+'action'+cl.id.to_s+']', :value => 'invalidate'
             }
             td(:class => 'funct'){
-              input :type=>'radio', :name => 'options[action'+cl.id.to_s+']', :value => 'delete'
+              input :type=>'radio', :name => 'options['+cl.node_id.to_s+'action'+cl.id.to_s+']', :value => 'delete'
             }
           }
         }

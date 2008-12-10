@@ -1,7 +1,5 @@
 //comment
 $(document).ready(function() { 
-
-  
   function before_admin_comment_post(formData, jqForm, options) { 
     var queryString = $.param(formData); 
     $('.admin_comment_main #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
@@ -15,7 +13,7 @@ $(document).ready(function() {
       beforeSubmit:  before_admin_comment_post,  
       success:       after_admin_comment_post, 
       resetForm: true    ,
-      clearForm: true        // clear all form fields after successful submit 
+      clearForm: true   // clear all form fields after successful submit 
   };
   $('#admin_comment_form').submit(function() { 
     $(this).ajaxSubmit(options); 
@@ -234,6 +232,9 @@ $(document).ready(function(){
 //******************************************
 $(document).ready(function() { 
   
+    if (typeof loadCaptcha == "function"){
+      loadCaptcha();
+    }
     //************************************
     // Media RSS, lessons_show_in_table
     //************************************

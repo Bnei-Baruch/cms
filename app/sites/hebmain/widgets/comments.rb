@@ -27,12 +27,23 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
       '',                           # author url
       @options[:body],                         # comment text
       {})  
-      
-    new_comment = Comment.new(:title => @options[:title], :name => @options[:name],:email => @options[:email], :body => @options[:body], :node_id => @options[:widget_node_id], :is_spam => is_spam, :is_valid => false)
+    
+    
+    ppt = @tree_node.parent
+    pt = @tree_node
+    while ppt.id != @presenter.website_node.id
+      ppt = ppt.parent
+      pt = pt.parent
+    end 
+    categ = pt.id
+    
+    
+    new_comment = Comment.new(:title => @options[:title], :name => @options[:name],:email => @options[:email], :body => @options[:body], :node_id => @options[:widget_node_id], :is_spam => is_spam, :is_valid => false, :category => categ)
     new_comment.save!
+    
     write_effect_yellow(@options[:name])
     write_create_form
-
+    
     #@akismet.commentCheck(@presenter.controller.request.remote_ip, @presenter.controller.request.user_agent, @presenter.controller.request.env['HTTP_REFERER'],  '', 'comment', @options[:name], @options[:email],'', @options[:body], {})  
    
   end
@@ -70,8 +81,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
         tr{
           td{label(:for => 'title'){text _('Title')}}
           td{input :type => 'text', :id => 'title', :name => 'options[title]',  :size => '31', :class => 'text'}
-        }
-               
+        }    
         tr{
           td{label(:for => 'name'){text _('Name')}}
           td{input :type => 'text', :id => 'name', :name => 'options[name]',  :size => '31', :class => 'text'}
@@ -93,7 +103,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
             input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => 'שלח'
             input :type => 'reset', :name => 'Cancel', :id => 'cancel', :class => 'submit', :value => 'בטל'
           }
-        }      
+        }
       }
       br           
     }

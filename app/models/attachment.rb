@@ -87,6 +87,7 @@ class Attachment < ActiveRecord::Base
     # myself:geom;thumb1:geom;...
     geometry = {}
     geometry_string = resource_property.property.geometry rescue ""
+    geometry_string = '' if geometry_string.nil?
     geometry_string.scan(/(\w+):([\w%!><]+)/) { |key, value|
       geometry[key] = value
     }
@@ -163,7 +164,8 @@ class Attachment < ActiveRecord::Base
     # Format of geometry string:
     # myself:geom;thumb1:geom;...
     geometry = {}
-    geometry_string = resource_property.property.geometry rescue ""
+    geometry_string = resource_property.property.geometry rescue ''
+    geometry_string = '' if geometry_string.nil?
     geometry_string.scan(/(\w+):([\w%!><]+)/) { |key, value|
       geometry[key] = value
     }

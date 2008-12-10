@@ -821,7 +821,6 @@ img.thumbnails{
 
 /*----------  kab.tv ---------------*/
 #kabtv {
-  background-image:url(/images/hebmain/kabtv/bg70.jpg);
   background-repeat:no-repeat;
   width:714px;
   margin: 0 0 0 22px;
@@ -984,8 +983,6 @@ a.highslide-full-expand {
 }
 #kabtv div.who{
   color: #3864b5;
-}
-#kabtv div.what{
 }
 #kabtv #ask .text{
   border: 1px solid #b1c4e2;

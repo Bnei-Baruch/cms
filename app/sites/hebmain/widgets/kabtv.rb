@@ -47,16 +47,9 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
   
   def render_full
     @url = Language.get_url(@language)
-    div(:id => 'kabtv') {
+    div(:id => 'kabtv', :style => "background-image:url(#{get_background});") {
       cms_action
-#      define_load_function(
-#        :name => 'reloadSketches',
-#        :target => '#sketch',
-#        :url => @web_node_url,
-#        :widget => 'kabtv',
-#        :view_mode => 'sketches',
-#        :widget_node_id => tree_node.id)
-      javascript() {
+      javascript {
         rawtext 'function reloadSketches(){'
         rawtext "$('#sketch').load('#{@web_node_url}',{view_mode:'sketches','options[widget]':'kabtv','options[widget_node_id]':#{tree_node.id}})"
         rawtext '}'
@@ -75,12 +68,10 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
           li{a(:href => '#sketch'){span 'שרטוטים'}}
         }
         div(:id => 'schedule'){
-          #                    display_schedule
         }
         div(:id => 'questions'){
           h3 {rawtext 'שאלות התלמידים'}
           div(:id => 'q')
-          #                    { render_questions }
           ask_button_and_form
         }
         div(:id => 'sketch'){

@@ -71,7 +71,6 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   end
   
   def write_create_form
-    p{
       table(:id => 'reactions'){
         tr{
           td(:colspan => '2'){
@@ -91,8 +90,8 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
           td{input :type => 'text', :id => 'email',:name => 'options[email]', :size => '31', :class => 'text'}
         }
         tr{
-          td(:id => 'content'){label(:for => 'body'){text _('Body')}}
-          td{textarea :cols => '50', :rows => '6', :name => 'options[body]', :size => '31', :class => 'text'}
+          td(:id => 'content'){label(:for => 'options_body'){text _('Body')}}
+          td{textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]', :class => 'text'}
         }
         input :type => 'hidden', :name => 'view_mode', :value => 'new_comment'
         input :type => 'hidden', :name => 'options[widget]', :value => 'comments'
@@ -105,8 +104,6 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
           }
         }
       }
-      br           
-    }
   end
   
   def write_trigger

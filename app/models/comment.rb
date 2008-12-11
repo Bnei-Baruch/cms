@@ -12,7 +12,7 @@ class Comment < ActiveRecord::Base
 	
   def self.list_all_comments_for_page(node_id)
 		find(:all, :order => "created_at DESC",
-      :conditions => { :node_id => node_id, :is_valid => 200})
+      :conditions => { :tree_node_id => node_id, :is_valid => 200})
 	end
   
   def self.list_all_non_moderated_comments(page = 1)

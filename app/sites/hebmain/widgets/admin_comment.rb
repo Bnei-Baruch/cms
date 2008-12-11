@@ -137,7 +137,9 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
           mod = @options['onlymoderated'] 
           page = 1
         end
-        
+        if mod.blank?
+          mod = 'off'
+        end
         if mod == 'on'
           if cat == 'nil'
             hash_comment = Comment.list_all_non_moderated_comments(page)
@@ -164,7 +166,7 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
           else  klass = 'modok'
           end
           tr(:class => klass){
-            td(:class => 'title'){a(:href => '/kabbalah/short/'+cl.node_id.to_s){text TreeNode.find(cl.node_id).resource.name}}
+            td(:class => 'title'){a(:href => '/kabbalah/short/'+cl.tree_node_id.to_s){text TreeNode.find(cl.tree_node_id).resource.name}}
             td(:class => 'title'){ #date
               text cmcreated[2]
               text "."
@@ -182,13 +184,13 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
             }
             #valid
             td(:class => 'green'){
-              input :type=>'radio', :name => 'options['+cl.node_id.to_s+'action'+cl.id.to_s+']', :value => 'validate'
+              input :type=>'radio', :name => 'options['+cl.tree_node_id.to_s+'action'+cl.id.to_s+']', :value => 'validate'
             }
             td(:class => 'red'){
-              input :type=>'radio', :name => 'options['+cl.node_id.to_s+'action'+cl.id.to_s+']', :value => 'invalidate'
+              input :type=>'radio', :name => 'options['+cl.tree_node_id.to_s+'action'+cl.id.to_s+']', :value => 'invalidate'
             }
             td(:class => 'funct'){
-              input :type=>'radio', :name => 'options['+cl.node_id.to_s+'action'+cl.id.to_s+']', :value => 'delete'
+              input :type=>'radio', :name => 'options['+cl.tree_node_id.to_s+'action'+cl.id.to_s+']', :value => 'delete'
             }
           }
           break unless i < (page*50)

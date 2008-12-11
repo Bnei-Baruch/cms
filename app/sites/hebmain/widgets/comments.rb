@@ -38,7 +38,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
     categ = pt.id
     
     
-    new_comment = Comment.new(:title => @options[:title], :name => @options[:name],:email => @options[:email], :body => @options[:body], :node_id => @options[:widget_node_id], :is_spam => is_spam, :is_valid => false, :category => categ)
+    new_comment = Comment.new(:title => @options[:title], :name => @options[:name],:email => @options[:email], :body => @options[:body], :tree_node_id => @options[:widget_node_id], :is_spam => is_spam, :is_valid => false, :category => categ)
     new_comment.save!
     
     write_effect_yellow(@options[:name])

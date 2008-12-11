@@ -33,7 +33,6 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     @updatable ||= 'up-' + tree_node.id.to_s
     
     get_content_items
-    debugger
     
     is_rebuild = false
     if tree_node.resource.resource_type.hrid != 'custom_preview' && @items_size >= @max_num && !show

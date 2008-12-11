@@ -119,9 +119,10 @@ module ActionController #:nodoc:
       add_variables_to_assigns
       proc = Proc.new { widget_class.new(@template, assigns.merge(:params => params)) }
       if AuthenticationModel.current_user_is_anonymous?
-        force = assigns[:options][:force] rescue force = Rails.env == 'development'
+        force = assigns[:options][:force] rescue force = Rails.env != 'development'
         # TRUE in case a request is made via XHR(Ajax) or in non-development mode
         # TRUE means 'FORCE A CACHE MISS', i.e. perform a new call
+        
         @rendered_widget = if force
           proc.call
         else

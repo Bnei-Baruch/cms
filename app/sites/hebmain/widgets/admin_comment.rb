@@ -41,11 +41,22 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
         FileUtils.rm(Dir['tmp/cache/tree_nodes/'+c+'-*']) rescue Errno::ENOENT
       }
     end
-    write_inside_of_form
+    write_inside_of_form  
   end
 
   private 
-  
+
+
+  def write_links_of_page(total=0,offset=1,cat='nil', mod='off')
+    nb_page = (total/offset)
+    index = 0
+    while nb_page >= index
+      a(:href => get_page_url(@presenter.node)+'?page_nb='+(index+1).to_s+'&cat='+cat+'&mod='+mod){text ' <'+(index+1).to_s+'> '}
+      index += 1
+    end
+  end  
+
+
   def create_main_div
     input :type=>"button", :value=>"Reload", 
       :onClick=>"window.location.href=window.location.href.split('?')[0]"
@@ -66,7 +77,6 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
   def write_inside_of_form
     cat =  @presenter.main_sections
     p{
-      
       br
       input :type => 'checkbox', :name => 'options[onlymoderated]'
       text ' Non Moderated'
@@ -80,7 +90,7 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       
       
       select(:name => 'options[filter]'){
-        option(:value => "nil"){text 'All'}
+        option(:value => "nil"){text _('All')}
         cat.each{|c|
           option(:value => c.id ){text c.resource.name}
         }
@@ -91,46 +101,68 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       table{
         thead{
           tr{
-            th 'Page'
-            th 'Date'
-            th 'Valid'
-            th 'Spam'
-            th 'Name'
-            th 'Title'
-            th 'Body'
-            th 'Edit'
-            th(:colspan => '2'){text 'Valid'}
-            th 'Del'
+            th _('Page')
+            th _('Date')
+            th _('Valid')
+            th _('Spam')
+            th _('Name')
+            th _('Title')
+            th _('Body')
+            th _('Edit')
+            th(:colspan => '2'){text _('Valid')}
+            th _('Del')
           }
         }
-
-        #debugger 
-        if params.include?('options')
-          if options['onlymoderated'] == 'on'
-            if @options['filter'] == 'nil'
-              comment_list = Comment.list_all_non_moderated_comments
-            else
-                comment_list = Comment.list_non_moderated_comments_for_category(@options['filter'])
-            end
-          else
-            if @options['filter'] == 'nil'
-              comment_list = Comment.list_all_comments
-            else
-              comment_list = Comment.list_all_comments_for_category(@options['filter'])
-            end
-          end
+        
+        if params[:page_nb].blank?
+          page = 1
         else
-          comment_list = Comment.list_all_comments
+          page = params[:page_nb].to_i
         end
         
-        comment_list.each { |cl|
+        if params[:cat].blank?
+          cat = 'nil'
+        else
+          cat = params[:cat]
+        end
+        
+        if params[:mod].blank?
+          mod = 'off'
+        else
+          mod = params[:mod]
+        end
+        
+        if params.include?('options')
+          cat = @options['filter'] 
+          mod = @options['onlymoderated'] 
+          page = 1
+        end
+        
+        if mod == 'on'
+          if cat == 'nil'
+            hash_comment = Comment.list_all_non_moderated_comments(page)
+          else
+            hash_comment = Comment.list_non_moderated_comments_for_category(cat, page)
+          end
+        else
+          if cat  == 'nil'
+            hash_comment = Comment.list_all_comments(page)
+          else
+            hash_comment = Comment.list_all_comments_for_category(cat, page)
+          end
+        end
+        
+        
+        comment_list = hash_comment['content_arrays']
+        comment_count = hash_comment['count_comments']  
+          
+        comment_list.each_with_index { |cl,i|
           cmcreated = parsedate cl.created_at.to_s
-          case cl.is_valid 
+          case cl.is_valid
           when 0 then klass = 'notmod'
           when 500 then klass = 'badmod'
           else  klass = 'modok'
           end
-          
           tr(:class => klass){
             td(:class => 'title'){a(:href => '/kabbalah/short/'+cl.node_id.to_s){text TreeNode.find(cl.node_id).resource.name}}
             td(:class => 'title'){ #date
@@ -159,7 +191,11 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
               input :type=>'radio', :name => 'options['+cl.node_id.to_s+'action'+cl.id.to_s+']', :value => 'delete'
             }
           }
+          break unless i < (page*50)
         }
+        tr{td(:colspan => 11 ){
+            write_links_of_page(comment_count, 50, cat, mod) 
+          }}
       }
     }
   end

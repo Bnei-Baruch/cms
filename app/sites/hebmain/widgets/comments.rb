@@ -4,7 +4,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
    
   def initialize(*args, &block)
     super
-  #  @presenter.disable_cache
+    #  @presenter.disable_cache
   end
   
   def render_full
@@ -63,7 +63,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   def write_create_div
     div(:class => 'create_comment'){
       div(:id => 'create_comment_div'){
-        form(:id => 'comment_form', :method => 'post'){
+        form(:id => 'comment_form', :method => 'post', :action => get_page_url(@presenter.node)){
           write_create_form
         }
       }
@@ -71,39 +71,41 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   end
   
   def write_create_form
-      table(:id => 'reactions'){
-        tr{
-          td(:colspan => '2'){
-              h1{text _('Reactions')}
-            }
+    table(:id => 'reactions'){
+      tr{
+        td(:colspan => '2'){
+          h1{text _('Reactions')}
         }
-        tr{
-          td{label(:for => 'title'){text _('Title')}}
-          td{input :type => 'text', :id => 'title', :name => 'options[title]',  :size => '31', :class => 'text'}
-        }    
-        tr{
-          td{label(:for => 'name'){text _('Name')}}
-          td{input :type => 'text', :id => 'name', :name => 'options[name]',  :size => '31', :class => 'text'}
-        }
-        tr{
-          td{label(:for => 'email'){text _('Email')}}
-          td{input :type => 'text', :id => 'email',:name => 'options[email]', :size => '31', :class => 'text'}
-        }
-        tr{
-          td(:id => 'content'){label(:for => 'options_body'){text _('Body')}}
-          td{textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]', :class => 'text'}
-        }
+      }
+      tr{
+        td{label(:for => 'title'){text _('Title')}}
+        td{input :type => 'text', :id => 'title', :name => 'options[title]',  :size => '31', :class => 'text'}
+      }    
+      tr{
+        td{label(:for => 'name'){text _('Name')}}
+        td{input :type => 'text', :id => 'name', :name => 'options[name]',  :size => '31', :class => 'text'}
+      }
+      tr{
+        td{label(:for => 'email'){text _('Email')}}
+        td{input :type => 'text', :id => 'email',:name => 'options[email]', :size => '31', :class => 'text'}
+      }
+      tr{
+        td(:id => 'content'){label(:for => 'options_body'){text _('Body')}}
+        td{textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]', :class => 'text'}
         input :type => 'hidden', :name => 'view_mode', :value => 'new_comment'
         input :type => 'hidden', :name => 'options[widget]', :value => 'comments'
         input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
-        tr{
-          td{text ' '}
-          td{
-            input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => 'שלח'
-            input :type => 'reset', :name => 'Cancel', :id => 'cancel', :class => 'submit', :value => 'בטל'
-          }
+      }
+        
+        
+      tr{
+        td{text ' '}
+        td{
+          input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => 'שלח'
+          input :type => 'reset', :name => 'Cancel', :id => 'cancel', :class => 'submit', :value => 'בטל'
         }
       }
+    }
   end
   
   def write_trigger

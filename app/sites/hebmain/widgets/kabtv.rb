@@ -11,6 +11,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
   def render_homepage
     div(:id => 'home-kabtv') {
       cms_action
+#      We don't want to use different backgrounds here
       div(:id => 'kabtv-top'){
         height = 214
         width = 199

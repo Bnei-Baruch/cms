@@ -8,6 +8,10 @@ class AttachmentsController < ApplicationController
 
     begin
       attachment = Attachment.get_image(image_id, image_name, format)
+      if attachment.nil?
+        head :status => 404
+        return
+      end
     rescue Exception => e
       head :status => 404
       return

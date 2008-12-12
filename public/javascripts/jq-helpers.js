@@ -398,8 +398,8 @@ $(function() {
         event.preventDefault();
         $this = $(this);
         $this.parents('.mediacasting').children("a.hide-player").toggle();
-        $this.parents('.audio').css('background-image', 'url(/images/blank.gif)');
-        $this.parents('.video').css('background-image', 'url(/images/blank.gif)');
+        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
+        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
         $this.removeClass('media');
         $this.addClass('mediaplayer');
         $this.media({
@@ -429,8 +429,8 @@ $(function() {
         $this = $(this);
         $this.toggle();
         $this.siblings().toggle();
-        $this.parents('.audio').css('background-image', 'url(/images/blank.gif)');
-        $this.parents('.video').css('background-image', 'url(/images/blank.gif)');
+        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
+        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
   
         var player = $this.parents('.mediacasting').find("object");
         if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {

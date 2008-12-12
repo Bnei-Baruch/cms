@@ -64,7 +64,7 @@
 	border: 1px solid white;
 	background-color: white;
 	padding-left: 22px;
-	background-image: url(graphics/loader.white.gif);
+	background-image: url(../../highslide/graphics/loader.white.gif);
 	background-repeat: no-repeat;
 	background-position: 3px 1px;
 }

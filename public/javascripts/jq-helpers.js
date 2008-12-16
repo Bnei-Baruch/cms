@@ -914,7 +914,7 @@ $(function() {
         currentProgram();
         setInterval(currentProgram, 300000);
     }
-    $("a.schedule_menu_item").click(function () {
+    $("a.schedule_menu_item").livequery('click',function () {
         $("div.schedule_day").hide();
         $("#schedule_list div#D_" + this.id).show();
         $("a.schedule_menu_item").removeClass('schedule_selected');

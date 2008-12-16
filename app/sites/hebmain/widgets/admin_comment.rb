@@ -16,7 +16,7 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
   end
   
   def render_moderate_comment
-    if @options['filter'] == 'nil'
+    unless @options['filter'].blank?
       action_hash= {'node_id' => @options['widget_node_id'], 'validate' => {}, 'delete' => [], 'cache' => []}
       @options.each{|op|
         is_action = op[0].include? "action"
@@ -114,32 +114,34 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
           }
         }
         
-        if params[:page_nb].blank?
-          page = 1
-        else
-          page = params[:page_nb].to_i
-        end
         
-        if params[:cat].blank?
-          cat = 'nil'
-        else
-          cat = params[:cat]
-        end
-        
-        if params[:mod].blank?
-          mod = 'off'
-        else
-          mod = params[:mod]
-        end
         
         if params.include?('options')
           cat = @options['filter'] 
           mod = @options['onlymoderated'] 
           page = 1
+        else
+          if params[:page_nb].blank?
+            page = 1
+          else
+            page = params[:page_nb].to_i
+          end
+        
+          if params[:cat].blank?
+            cat = 'nil'
+          else
+            cat = params[:cat]
+          end
+        
+          if params[:mod].blank?
+            mod = 'off'
+          else
+            mod = params[:mod]
+          end
         end
-        if mod.blank?
-          mod = 'off'
-        end
+
+        mod = (mod.blank? || mod == 'off') ?  'off' : 'on'
+
         if mod == 'on'
           if cat == 'nil'
             hash_comment = Comment.list_all_non_moderated_comments(page)
@@ -153,7 +155,6 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
             hash_comment = Comment.list_all_comments_for_category(cat, page)
           end
         end
-        
         
         comment_list = hash_comment['content_arrays']
         comment_count = hash_comment['count_comments']  
@@ -193,10 +194,10 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
               input :type=>'radio', :name => 'options['+cl.tree_node_id.to_s+'action'+cl.id.to_s+']', :value => 'delete'
             }
           }
-          break unless i < (page*50)
+          break unless i < (page*Comment::NBCOMMENTPERPAGE)
         }
         tr{td(:colspan => 11 ){
-            write_links_of_page(comment_count, 50, cat, mod) 
+            write_links_of_page(comment_count, Comment::NBCOMMENTPERPAGE, cat, mod) 
           }}
       }
     }

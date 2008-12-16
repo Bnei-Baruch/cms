@@ -388,7 +388,7 @@ function generate(el, opts, player) {
         o.attr('src', opts.src);
         o.css('backgroundColor', o.bgColor);
     }
-    else if ($.browser.msie) {
+    else if ($.browser.className.indexOf('ie') != -1 ){
         var a = ['<object width="' + opts.width + '" height="' + opts.height + '" '];
         for (var key in opts.attrs)
             a.push(key + '="'+opts.attrs[key]+'" ');
@@ -418,7 +418,7 @@ function generate(el, opts, player) {
     var cls = opts.cls ? (' class="' + opts.cls + '"') : '';
     var $div = $('<div' + id + cls + '>');
     $el.after($div).remove();
-    ($.browser.msie || player == 'iframe') ? $div.append(o) : $div.html(a.join(''));
+      (($.browser.className.indexOf('ie') != -1 ) || player == 'iframe') ? $div.append(o) : $div.html(a.join(''));
     if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
     return $div;
 };

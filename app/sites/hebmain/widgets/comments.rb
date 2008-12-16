@@ -14,7 +14,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   end
   
   def render_new_comment
-    @akismet = Akismet.new('002dac05fca4e3', 'http://hebrew.localhost:3000/') 
+    @akismet = Akismet.new('2dac05fca4e3', 'http://kab.co.il/') 
     #akismet_api = true unless @akismet.verifyAPIKey 
     is_spam = @akismet.commentCheck(
       @presenter.controller.request.remote_ip,            # remote IP

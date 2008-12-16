@@ -153,6 +153,11 @@ function after_send_to_friend(){
 $(document).ready(function(){
   
   $("#comment_form").hide();
+  $("#comment_form").hover(function(){
+         $(this).addClass('pretty-hover');
+  }, function(){
+       $(this).removeClass('pretty-hover');
+  });
   
   $("#comment_form #cancel").click(function(){
     $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
@@ -388,6 +393,12 @@ $(function() {
     //  return ($(this).find('.media').attr('href')).search('mp3') == -1
     //}).addClass('video');
 
+
+    //$('.mediacasting').last.css('border-bottom','0px none #E8E8E8')
+    
+    //$('.mediacasting').prev().css('border-bottom','0px none #E8E8E8');
+    var item = $('.mediacasting').prev();
+    item.css('border-bottom','0px none #E8E8E8');
     $('.mediacasting:has(.media[href*=mp3])').addClass('audio');
     $('.mediacasting:not(:has(.media[href*=mp3]))').addClass('video');
 
@@ -435,6 +446,9 @@ $(function() {
         var player = $this.parents('.mediacasting').find("object");
         if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {
             player[0].controls.start();
+        }
+        if (player && player[0]){
+          player[0].SetVariable('closePlayer', 0);
         }
     });
 

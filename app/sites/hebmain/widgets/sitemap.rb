@@ -20,7 +20,8 @@ class Hebmain::Widgets::Sitemap < WidgetManager::Base
               ul{
                 sub_sections.each {|section|
                   li(:class => 'list'){
-                    a section.resource.name, :href => get_page_url(section)
+                    text_for_the_link = section.resource.name.gsub(/ /,'&nbsp;') 
+                    a(:href => get_page_url(section)){rawtext text_for_the_link}
                   }
                 }
               }

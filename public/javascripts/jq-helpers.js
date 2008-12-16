@@ -1,24 +1,24 @@
 //comment
 $(document).ready(function() { 
-  function before_admin_comment_post(formData, jqForm, options) { 
-    var queryString = $.param(formData); 
-    $('.admin_comment_main #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
-    return true; 
-  }  
-  function after_admin_comment_post(responseText, statusText){ 
-      // null
-  } 
-  var options = { 
-      target:       '#admin_comment_form',   // target element(s) to be updated with server response 
-      beforeSubmit:  before_admin_comment_post,  
-      success:       after_admin_comment_post, 
-      resetForm: true    ,
-      clearForm: true   // clear all form fields after successful submit 
-  };
-  $('#admin_comment_form').submit(function() { 
-    $(this).ajaxSubmit(options); 
-    return false; 
-  });
+    function before_admin_comment_post(formData, jqForm, options) {
+        var queryString = $.param(formData);
+        $('.admin_comment_main #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
+        return true;
+    }
+    function after_admin_comment_post(responseText, statusText){
+    // null
+    }
+    var options = {
+        target:       '#admin_comment_form',   // target element(s) to be updated with server response
+        beforeSubmit:  before_admin_comment_post,
+        success:       after_admin_comment_post,
+        resetForm: true    ,
+        clearForm: true   // clear all form fields after successful submit
+    };
+    $('#admin_comment_form').submit(function() {
+        $(this).ajaxSubmit(options);
+        return false;
+    });
 });
 
 
@@ -152,91 +152,91 @@ function after_send_to_friend(){
 
 $(document).ready(function(){
   
-  $("#comment_form").hide();
-  $("#comment_form").hover(function(){
-         $(this).addClass('pretty-hover');
-  }, function(){
-       $(this).removeClass('pretty-hover');
-  });
-  
-  $(".comment_clickable").hover(function(){
-         $(this).addClass('pretty-hover');
-  }, function(){
-       $(this).removeClass('pretty-hover');
-  });
-  $("#closed_comment").hover(function(){
-         $(this).addClass('pretty-hover');
-  }, function(){
-       $(this).removeClass('pretty-hover');
-  });
-  
-  
-  $("#comment_form #cancel").click(function(){
-    $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
     $("#comment_form").hide();
-    $("#closed_comment").show();
-  });
+    $("#comment_form").hover(function(){
+        $(this).addClass('pretty-hover');
+    }, function(){
+        $(this).removeClass('pretty-hover');
+    });
   
-  $("#closed_comment").click(function(){
-    $("#comment_form").show();
-    $("#closed_comment").hide();
-  });
+    $(".comment_clickable").hover(function(){
+        $(this).addClass('pretty-hover');
+    }, function(){
+        $(this).removeClass('pretty-hover');
+    });
+    $("#closed_comment").hover(function(){
+        $(this).addClass('pretty-hover');
+    }, function(){
+        $(this).removeClass('pretty-hover');
+    });
   
-  $(".comment_title").click(function(){
-    $this = $(this);
-    $this.parents('.comment_item').children(".comment_body").toggle();
-  });
+  
+    $("#comment_form #cancel").click(function(){
+        $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
+        $("#comment_form").hide();
+        $("#closed_comment").show();
+    });
+  
+    $("#closed_comment").click(function(){
+        $("#comment_form").show();
+        $("#closed_comment").hide();
+    });
+  
+    $(".comment_title").click(function(){
+        $this = $(this);
+        $this.parents('.comment_item').children(".comment_body").toggle();
+    });
  
- function before_comment_post(formData, jqForm, options) { 
-      var queryString = $.param(formData); 
-     // var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-     // if (formData[1].value.search(emailRegEx) == -1) {
-     //   alert("כתובת הדואר האלקטרוני לא תקינה");
-     //   return false;
-     // }
+    function before_comment_post(formData, jqForm, options) {
+        var queryString = $.param(formData);
+        // var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        // if (formData[1].value.search(emailRegEx) == -1) {
+        //   alert("כתובת הדואר האלקטרוני לא תקינה");
+        //   return false;
+        // }
       
-      $('.create_comment #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
+        $('.create_comment #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
       
-      return true; 
+        return true;
     } 
     
     // post-submit callback 
     function after_comment_post(responseText, statusText)  { 
-      var options = { 
-        target:        '#comment_form',
-        beforeSubmit:  before_comment_post,  
-        success:       after_comment_post, 
-        resetForm: true    ,
-        clearForm: true        // clear all form fields after successful submit 
-      }; 
+        var options = {
+            target:        '#comment_form',
+            beforeSubmit:  before_comment_post,
+            success:       after_comment_post,
+            resetForm: true    ,
+            clearForm: true        // clear all form fields after successful submit
+        };
       
-      $("#reactions").hide();
+        $("#reactions").hide();
       
-      $('#yellow_effect').fadeOut(10000, function(){
-        $(this).remove();
-        $("#comment_form").hide();
-        $("#closed_comment").show();
-        $("#reactions").show();
-      });
+        $('#yellow_effect').fadeOut(10000, function(){
+            $(this).remove();
+            $("#comment_form").hide();
+            $("#closed_comment").show();
+            $("#reactions").show();
+        });
       
-//       $('#comment_form').submit(function() { 
-//        $(this).ajaxSubmit(options); 
-//        return false; 
-//        });
+    //       $('#comment_form').submit(function() {
+    //        $(this).ajaxSubmit(options);
+    //        return false;
+    //        });
     } 
     
     var options = { 
-      target:        '#comment_form',   // target element(s) to be updated with server response 
-      beforeSubmit:  before_comment_post,  // pre-submit callback 
-      success:       after_comment_post,  // post-submit callback 
-      resetForm: true    ,
-      clearForm: true        // clear all form fields after successful submit 
+        target:        '#comment_form',   // target element(s) to be updated with server response
+        beforeSubmit:  before_comment_post,  // pre-submit callback
+        success:       after_comment_post,  // post-submit callback
+        resetForm: true    ,
+        clearForm: true        // clear all form fields after successful submit
       
     };
     
     $('#comment_form').submit(function() { 
-      $(this).ajaxSubmit(options); 
-      return false; 
+        $(this).ajaxSubmit(options);
+        return false;
     });
   
 });
@@ -250,7 +250,7 @@ $(document).ready(function(){
 $(document).ready(function() { 
   
     if (typeof loadCaptcha == "function"){
-      loadCaptcha();
+        loadCaptcha();
     }
     //************************************
     // Media RSS, lessons_show_in_table
@@ -460,7 +460,7 @@ $(function() {
             player[0].controls.start();
         }
         if (player && player[0]){
-          player[0].SetVariable('closePlayer', 0);
+            player[0].SetVariable('closePlayer', 0);
         }
     });
 
@@ -914,13 +914,15 @@ $(function() {
         currentProgram();
         setInterval(currentProgram, 300000);
     }
-    $("a.schedule_menu_item").livequery('click',function () {
-        $("div.schedule_day").hide();
-        $("#schedule_list div#D_" + this.id).show();
-        $("a.schedule_menu_item").removeClass('schedule_selected');
-        $(this).toggleClass('schedule_selected');
-        return false;
-    });
+    if (typeof livequery == "function") {
+        $("a.schedule_menu_item").livequery('click',function () {
+            $("div.schedule_day").hide();
+            $("#schedule_list div#D_" + this.id).show();
+            $("a.schedule_menu_item").removeClass('schedule_selected');
+            $(this).toggleClass('schedule_selected');
+            return false;
+        });
+    }
     if (typeof hs != "undefined") {
         hs.graphicsDir = '../highslide/graphics/';
         hs.wrapperClassName = 'highslide-white';

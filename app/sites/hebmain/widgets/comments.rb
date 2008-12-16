@@ -121,7 +121,10 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
     
     comment_list = Comment.list_all_comments_for_page(tree_node.id)
     counter_for_comments = comment_list.size
-    div(:class => 'comment_header'){text _('Reactions')} if counter_for_comments > 0
+    div(:class => 'comment_header'){text _('Reactions')} 
+    if counter_for_comments == 0
+      div(:class => 'comment_empty'){text _('There are no reactions so far')}
+    end
     comment_list.each { |cl|
       cmcreated = parsedate cl.created_at.to_s
       div(:class => 'comment_item'){

@@ -228,6 +228,7 @@ tr.badmod td{
 .sitemap .box li{
   list-style-position:inside;
   list-style-type:none;
+  white-space:nowrap;
 }
 .sitemap .clear{
   clear: both;
@@ -494,7 +495,6 @@ table.media_rss th{
   margin-left: 5px;
 }
 .pretty-hover{
-  color: #186BE5;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -816,6 +816,10 @@ img.thumbnails{
   height:32px;
   top:0;
   left:0;
+}
+.section_preview .cont {
+  left:5px;
+position:absolute;
 }
 
 /*----------  kab.tv ---------------*/

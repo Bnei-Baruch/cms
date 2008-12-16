@@ -159,6 +159,18 @@ $(document).ready(function(){
        $(this).removeClass('pretty-hover');
   });
   
+  $(".comment_clickable").hover(function(){
+         $(this).addClass('pretty-hover');
+  }, function(){
+       $(this).removeClass('pretty-hover');
+  });
+  $("#closed_comment").hover(function(){
+         $(this).addClass('pretty-hover');
+  }, function(){
+       $(this).removeClass('pretty-hover');
+  });
+  
+  
   $("#comment_form #cancel").click(function(){
     $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
     $("#comment_form").hide();

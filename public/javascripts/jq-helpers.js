@@ -169,7 +169,8 @@ $(document).ready(function(){
     }, function(){
         $(this).removeClass('pretty-hover');
     });
-    $("#closed_comment").hover(function(){
+    
+    $(".link_comment").hover(function(){
         $(this).addClass('pretty-hover');
     }, function(){
         $(this).removeClass('pretty-hover');

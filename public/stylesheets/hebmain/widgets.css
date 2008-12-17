@@ -563,10 +563,7 @@ table.media_rss th{
   padding-right: 10px;
   padding-top: 5px;
 }
-.comment_clickable:hover{
-  cursor: pointer;
-  text-decoration: underline;
-}
+
 .comment_header{
   font-weight: bold;
   margin-top: 10px;

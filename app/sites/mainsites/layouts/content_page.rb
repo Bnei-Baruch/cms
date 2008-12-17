@@ -34,11 +34,10 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         title @meta_title #ext_title
         javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
-        'jq-helpers', 'jquery.curvycorners.packed.js', 'jquery.browser.js',
+        'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-        '../highslide/highslide-full.packed.js',
-        'jquery-lightbox/jquery.lightbox.js',
-        'jquery.livequery.min.js' #, :cache => 'cache/content_page'
+        '../highslide/highslide-full.packed.js', 'jquery-lightbox/jquery.lightbox.js',
+        'jquery.livequery.min.js', 'jq-helpers', #, :cache => 'cache/content_page'
 
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 

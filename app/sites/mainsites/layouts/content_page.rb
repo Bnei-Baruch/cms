@@ -37,7 +37,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
         '../highslide/highslide-full.packed.js', 'jquery-lightbox/jquery.lightbox.js',
-        'jquery.livequery.min.js', 'jq-helpers', #, :cache => 'cache/content_page'
+        'jquery.livequery.min.js', 'jq-helpers' #, :cache => 'cache/content_page'
 
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 

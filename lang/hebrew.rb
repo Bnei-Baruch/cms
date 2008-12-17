@@ -130,6 +130,5 @@ Localization.define('hebrew') do |l|
   
   l.store 'Reactions', 'תגובות'
   l.store 'Name', 'שם'
-  l.store 'There are no reactions so far', 'אין תגובות כרגע'
-  
+  l.store 'There are no reactions so far','אין כרגע תגובות '
 end

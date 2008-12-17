@@ -21,6 +21,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @direct_link = w_class('shortcut').new
     @subscription = w_class('header').new(:view_mode => 'subscription')
     @comments = w_class('comments').new
+    @previous_comments = w_class('comments').new(:view_mode => 'previous')
   end
 
   def render
@@ -125,11 +126,12 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                       @subscription.render_to(self)
                       div(:class => 'clear')
                       
+                      @comments.render_to(self)
                       @send_to_friend.render_to(self)
                       @direct_link.render_to(self) 
 
                       #if @presenter.site_settings[:comments][:enable_site_wide]
-                      @comments.render_to(self)
+                      @previous_comments.render_to(self)
                       #end
                       
                       if ext_kabtv_exist

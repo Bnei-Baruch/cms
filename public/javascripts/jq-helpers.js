@@ -100,6 +100,11 @@ $(document).ready(function() {
         $("#friend_form").show();
         $("#closed_friend").hide();
     });
+    $("#stf_cancel").click(function(){
+        $("#friend_form").hide();
+        $("#closed_friend").show();
+    });
+  
   
     //toggler is toggling the state of the 'send to friend' form
     $("#friend_form").submit(function(event){

@@ -44,6 +44,7 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
           tr{
             td{
               input :type => 'submit', :class => 'button', :name => 'submit', :value => _('Send')
+              input :type => 'reset', :class => 'button', :name => 'cancel', :id => 'stf_cancel', :value => _('Cancel')
               input :type => 'hidden', :name => 'subject', :value => _('stf subject')
             }
           }

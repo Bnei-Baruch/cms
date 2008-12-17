@@ -9,9 +9,13 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   
   def render_full
     write_trigger
+  end
+  
+  def render_previous
     write_create_div
     write_previous_comments
   end
+  
   
   def render_new_comment
     @akismet = Akismet.new('2dac05fca4e3', 'http://kab.co.il/') 
@@ -109,8 +113,8 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   end
   
   def write_trigger
-    span(:id => 'closed_comment'){
-      img(:src => "/images/plus.jpg", :alt => 'הוסף תגובה ')
+    div(:id => 'closed_comment'){
+      img(:src => "/images/comment.gif", :alt => 'הוסף תגובה ')
       span(:class => 'link_comment'){
         text 'הוסף תגובה '
       }

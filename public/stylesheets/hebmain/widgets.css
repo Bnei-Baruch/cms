@@ -146,13 +146,16 @@ tr.badmod td{
   font-size: 133.9%;
   font-weight: normal;
   color:black;
-  margin: 2px 2px 22px;
+  margin: 2px 2px 12px;
   padding: 2px 10px 2px 0pt;
   position: relative;
 }
 .newsletter .inner {
   padding: 2px 2px 2px 2px;
   margin-right:5px;
+}
+.newsletter .inner p {
+  margin-bottom: 0;
 }
 .newsletter input[type="text"]{
   width:90%;

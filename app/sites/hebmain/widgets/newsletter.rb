@@ -2,10 +2,10 @@ class Hebmain::Widgets::Newsletter < WidgetManager::Base
   
   def render_sidebar
 		div(:class => 'newsletter'){
-			h1 'הרשמה לגיליון האלקטרוני'
+			h1 'הרשמו לניוזלטר השבועי'
 			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
 				p{
-					input :type => 'text', :id => 'ml_user_email', :name => 'email', :onfocus => "if(document.getElementById('ml_user_email').value == 'הזן כתובת e-mail') { document.getElementById('ml_user_email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
+					input :type => 'text', :id => 'ml_user_email', :name => 'email', :onfocus => "if(document.getElementById('ml_user_email').value == 'הזינו דואר אלקטרוני') { document.getElementById('ml_user_email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזינו דואר אלקטרוני'
 				  input :name => 'id', :type => 'hidden', :value => '161'
 				  input :type => 'hidden', :name => 'name', :value => 'hebrew'
 				  br

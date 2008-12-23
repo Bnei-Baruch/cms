@@ -642,6 +642,9 @@ $(function() {
     $("#flashplayer-"+id+" img").click(function(){
         $($links[0]).trigger('click');
     });
+    $(".play-list-button").click(function(){
+        $($links[0]).trigger('click');
+    });
 });
 
 $(function() {

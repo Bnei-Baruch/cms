@@ -169,6 +169,46 @@
     *text-indent:0;
     *background: 0 none;
 }
+
+/*****************/
+
+.content .item p.play-list-button {
+    cursor:pointer;
+    display:block;
+    font-size:15px;
+    font-weight:bold;
+    line-height:15px;
+    position:absolute;
+    bottom:465px;
+    right:180px;
+    margin:0;
+    padding:0;
+}
+.content .item p.play-list-button  a{
+    text-decoration:none;
+}
+.content .item p.play-list-button span{
+    background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0% 50%;
+    padding: 18px 3px 17px 22px;
+    display:block;
+    color:white;
+    float:left;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-left-ie.png');
+    *background: 0 none;
+}
+.content .item p.play-list-button b{
+    background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0pt;
+    text-indent:-9999px;
+    float:left;
+    height:50px;
+    width:50px;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-right.png');
+    *text-indent:0;
+    *background: 0 none;
+}
+/**************/
+
+
 .content .item .embed{
     background: transparent url(/images/hebmain/player/bottom.png) no-repeat top right;
     padding:10px 8px 5px 0;

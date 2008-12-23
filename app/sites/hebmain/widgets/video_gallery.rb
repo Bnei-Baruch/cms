@@ -42,6 +42,12 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
       }
       a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url != ""
     }
+    p(:class => "play-list-button"){
+        a{
+          span 'לחצו לצפייה'
+          b {rawtext '&nbsp;'}
+        }
+      }
   end
 
   private

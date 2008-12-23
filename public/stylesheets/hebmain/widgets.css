@@ -547,6 +547,16 @@ table.media_rss th{
   background-color: yellow;
 }
 
+.create_comment .submit{
+  background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
+  border: medium none;
+  color: black;
+  height: 17pt;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  width: 54pt;
+}
+
 .create_comment label{
   margin-left: 10px;
   vertical-align: top;

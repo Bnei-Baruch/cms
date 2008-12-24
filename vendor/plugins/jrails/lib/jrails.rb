@@ -260,6 +260,10 @@ module ActionView
 		
     module ScriptaculousHelper
 			
+       def jquery_id(id)
+        id.to_s.count('#.*,>+~:[/ ') == 0 ? "##{id}" : id
+      end
+      
       unless const_defined? :JQUERY_VAR
         JQUERY_VAR = ActionView::Helpers::PrototypeHelper::JQUERY_VAR
       end

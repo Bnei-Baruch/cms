@@ -27,20 +27,22 @@ ActionController::Base.class_eval do
   alias_method_chain :render, :erector_widget
 
   def render_cached_widget(widget, assigns, &block)
-#ZZZ This is wrong way:    assigns.merge!(:params => params)
     if AuthenticationModel.current_user_is_anonymous?
       # TRUE in case a request is made via XHR(Ajax) or in non-development mode
       # To cache even in development mode (but only non-Ajax) change
       #       Rails.env == 'development'
       # to
       #       Rails.env != 'development'
+      # Do not forget also to uncomment correspondent lines in development.rb
       miss_cache = assigns[:options][:force] rescue Rails.env == 'development'
       if miss_cache
         render_widget(widget, assigns, &block)
       else
-        Rails.cache.fetch(this_cache_key) {
+        if result = Rails.cache.fetch(this_cache_key)
+          render :text => result
+        else
           render_widget(widget, assigns, &block)
-        }
+        end
       end
     else
       # Authenticated user

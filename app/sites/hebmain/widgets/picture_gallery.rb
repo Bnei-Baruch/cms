@@ -13,13 +13,14 @@ class Hebmain::Widgets::PictureGallery< WidgetManager::Base
       div(:class => 'pictures'){
         pictures_list.each{|e|
         #  text e.resource.properties('path').get_value
-          a(:href => get_file_html_url(:attachment => e.resource.properties('picture').attachment, :image_name => ''), 
-                                       :class => 'gallery', 
-                                       :title => e.resource.properties('title').get_value, 
-                                       :rel => 'gallery'){
-            img(:src => get_file_html_url(:attachment => e.resource.properties('picture').attachment, :image_name => 'thumb'),
-                                          :alt => e.resource.properties('title').get_value,
-                                          :class => 'thumbnails')
+
+
+          a(:href => get_file_html_url(:attachment => e.resource.properties('picture').attachment, :image_name => ''),
+                                :class => 'gallery', 
+                                :onclick => 'return hs.expand(this)'){
+                        img(:src => get_file_html_url(:attachment => e.resource.properties('picture').attachment, :image_name => 'thumb'),
+                                                      :alt => e.resource.properties('title').get_value,
+                                                      :class => 'thumbnails')
           }
         }
       }

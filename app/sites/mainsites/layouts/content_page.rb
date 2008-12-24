@@ -51,7 +51,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/jquery.tabs.css',
           'hebmain/widgets',
           '../highslide/highslide',
-          'lightbox',
           :cache => false
           #:cache => 'cache/content_page_admin'
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',

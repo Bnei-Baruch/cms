@@ -22,26 +22,6 @@ $(document).ready(function() {
 });
 
 
-// picture gallery
-$(document).ready(function() { 
-    if (jQuery.isFunction($('a.gallery').lightbox)){
-        $('a.gallery').lightbox({
-            overlayBgColor: '#FFF',
-            overlayOpacity: 0.8,
-            containerResizeSpeed: 350,
-            fileBottomNavCloseImage : '/images/closelabel-heb.gif',
-            strings : {
-                prevLinkTitle: 'תמונה הקודמת',
-                nextLinkTitle: 'תמונה הבא ',
-                prevLinkText:  ' &laquo; קודם ',
-                nextLinkText:  ' הבא &raquo; ',
-                closeTitle: 'סגור',
-                image: '',
-                of: ' / '
-            }
-        });
-    }
-});
 
 
 // form sending email - for manpower form

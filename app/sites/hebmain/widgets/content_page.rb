@@ -27,7 +27,7 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
     main_tree_node = tree_node.resource.tree_nodes.main
     url = get_page_url(main_tree_node)
     url_name = url.split('/').reverse[0];
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
     if @image_src
       a({:href => url}.merge!(gg_analytics_tracking(url_name))){
         img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt) 

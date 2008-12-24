@@ -6,7 +6,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
   
 	def render_full
     #@presenter.disable_cache
-		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(doc) 
+		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
 		 
 		# make a form that is sending with get protocol info to itself & creating a new object
 		# if user -> msg to say bravo

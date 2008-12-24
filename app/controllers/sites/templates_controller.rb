@@ -285,7 +285,7 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def check_url_migration(is_external = false)
-    url = request.request_uri
+    url = request.request_uri.dup
     migration = UrlMigration.get_action_and_target('http://' + request.env["HTTP_HOST"] + url)
     if migration.nil?
       slash = "/"

@@ -19,7 +19,7 @@ class Hebmain::Widgets::Newsletter < WidgetManager::Base
   end
   
   def render_full
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }, :position => 'bottom'}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }, :position => 'bottom'}).render_to(self)
     
     box_title = get_title
     box_name = get_name

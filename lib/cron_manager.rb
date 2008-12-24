@@ -101,7 +101,7 @@ class CronManager
       if system("rake tmp:cache:clear")
         print "Cache was cleared\n"
       else
-        print "Error to clear cache: $?\n"
+        print "Error to clear cache: #{$?}\n"
       end
     else
       print "No changes\n"

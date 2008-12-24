@@ -76,7 +76,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
         :position => 'bottom',
         :button_text => "ניהול ה-RSS: #{get_title}",
         :new_text => 'הוסף RSS חדש'
-      }).render_to(doc)
+      }).render_to(self)
   end
 
   def display_entries(items, show_description = true)

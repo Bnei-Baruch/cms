@@ -69,7 +69,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-gd') {
-                  @dynamic_tree.render_to(doc)
+                  @dynamic_tree.render_to(self)
                   div(:id => 'hd') {
                     make_sortable(:selector => '#hd .links', :axis => 'x') {
                       @header_top_links.render_to(self)

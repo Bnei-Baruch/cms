@@ -7,7 +7,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     lessons = lesson_validation
     return rawtext('') if lessons.nil?
     
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
     
     days_num = get_days_num rescue 1
      
@@ -41,7 +41,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     lessons = lesson_validation
     return rawtext('') if lessons.nil?
     
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
     
     days_num = get_days_num rescue 1
     table(:class => "media_rss") {

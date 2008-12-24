@@ -1,7 +1,7 @@
 class Hebmain::Widgets::SectionPreview < WidgetManager::Base
 
   def render_full
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(self)
     
     # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
     updatable = 'up-' + tree_node.id.to_s

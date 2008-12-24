@@ -16,7 +16,7 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
   end
 
   def show_content_page
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
     h1 get_title unless get_title.empty?
     div(:class => 'descr') { rawtext get_description } unless get_description.empty?
     div(:class => 'author') {
@@ -43,7 +43,7 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
   end
 
   def show_content_page_main_format
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(doc)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
    
     a(:href => get_url) {  
      h3 get_title, :class => 'box_header' if get_title      

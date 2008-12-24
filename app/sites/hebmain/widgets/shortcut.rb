@@ -7,7 +7,7 @@ class Hebmain::Widgets::Shortcut < WidgetManager::Base
   def render_full
     url_domain = @presenter.domain
     url_node = @presenter.node.id.to_s 
-    url_prefix =  params[:prefix]
+    url_prefix = @presenter.website.prefix
 
     full_url = [url_domain,url_prefix, 'short', url_node].join('/')
     

@@ -94,7 +94,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
-                  @dynamic_tree.render_to(doc)
+                  @dynamic_tree.render_to(self)
                   div(:id => 'hd') {
                     make_sortable(:selector => '#hd .links', :axis => 'x') {
                       @header_top_links.render_to(self)
@@ -106,7 +106,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   div(:class => 'margin-25') {text ' '}
                   div(:class => 'middle'){
                     div(:class => 'h1') {
-                      @titles.render_to(doc)
+                      @titles.render_to(self)
                       div(:class =>'h1-right')
                       div(:class =>'h1-left')
                     }
@@ -115,13 +115,13 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   }
                   div(:class => 'content-header') {
                     make_sortable(:selector => ".content-header", :axis => 'y') {
-                      self.ext_content_header.render_to(doc)
+                      self.ext_content_header.render_to(self)
                     }
                   }
                   div(:class => 'yui-u first') {
                     div(:class => 'content') {
                       make_sortable(:selector => ".content", :axis => 'y') {
-                        self.ext_content.render_to(doc)
+                        self.ext_content.render_to(self)
                       }
                       @subscription.render_to(self)
                       div(:class => 'clear')
@@ -145,9 +145,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   }
                   div(:class => 'yui-u') {
                     div(:class => 'related') {
-                      self.ext_main_image.render_to(doc)
+                      self.ext_main_image.render_to(self)
                       make_sortable(:selector => ".related", :axis => 'y') {
-                        self.ext_related_items.render_to(doc)
+                        self.ext_related_items.render_to(self)
                       }
                     }
                   }
@@ -162,7 +162,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   div(:class =>'h1-right')
                   div(:class =>'h1-left')
                 }
-                @static_tree.render_to(doc)
+                @static_tree.render_to(self)
               }
            		
               @newsletter.render_to(self)

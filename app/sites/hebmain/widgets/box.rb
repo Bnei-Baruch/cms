@@ -25,7 +25,7 @@ class Hebmain::Widgets::Box < WidgetManager::Base
         end
         rawtext get_body
         br
-        w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(doc)
+        w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(self)
       }
       div(:class => 'box-bot' + no_border + background){rawtext('&nbsp;')}
     }

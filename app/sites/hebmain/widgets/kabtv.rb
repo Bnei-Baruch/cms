@@ -384,6 +384,6 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
       :options => {
         :button_text => 'עריכת יחידת טלוויזיה',
         :buttons => %W{ delete_button  edit_button }
-      }).render_to(doc)
+      }).render_to(self)
   end
 end

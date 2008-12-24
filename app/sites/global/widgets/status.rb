@@ -1,4 +1,4 @@
-class Global::Widgets::Status < Widget::Base
+class Global::Widgets::Status < WidgetManager::Base
 end
   
   

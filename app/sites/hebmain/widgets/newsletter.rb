@@ -6,7 +6,7 @@ class Hebmain::Widgets::Newsletter < WidgetManager::Base
 			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
 				p{
 					input :type => 'text', :id => 'ml_user_email', :name => 'email', :onfocus => "if(document.getElementById('ml_user_email').value == 'הזינו דואר אלקטרוני') { document.getElementById('ml_user_email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזינו דואר אלקטרוני'
-				  input :name => 'id', :type => 'hidden', :value => '161'
+				  input :name => 'id', :type => 'hidden', :value => '175'
 				  input :type => 'hidden', :name => 'name', :value => 'hebrew'
 				  br
 				  br

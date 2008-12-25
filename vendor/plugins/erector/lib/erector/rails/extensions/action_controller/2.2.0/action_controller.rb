@@ -41,7 +41,8 @@ ActionController::Base.class_eval do
         if result = Rails.cache.fetch(this_cache_key)
           render :text => result
         else
-          render_widget(widget, assigns, &block)
+          Rails.cache.write(this_cache_key,
+		render_widget(widget, assigns, &block))
         end
       end
     else
@@ -49,6 +50,7 @@ ActionController::Base.class_eval do
       render_widget(widget, assigns, &block)
     end
   end
+
 
   private
   def this_cache_key

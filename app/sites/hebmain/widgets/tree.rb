@@ -2,12 +2,11 @@ class Hebmain::Widgets::Tree < WidgetManager::Base
   
   attr_accessor :counter
   
-  def initialize(helpers, args_hash = {})
+  def initialize(*args, &block)
     super
     @website_parent_node = presenter.website_node.id
     @ancestors = presenter.parents.collect{|a|a.id} + [presenter.node.id]
     @ancestors.reject! { |id| id == @website_parent_node }
-    # @display_hidden = (@args_hash[:display_hidden] || (@args_hash[:options]&&@args_hash[:options][:display_hidden]))
     @counter = -1
   end
   

@@ -5,6 +5,7 @@ class	Configuration::ConfigurationManager
   def initialize  
     @appl_settings = load_appl_settings
     @general_settings = load_general_settings
+    @site_settings_cache = {}
   end
 
   # Returns a hash with all application settings
@@ -14,16 +15,19 @@ class	Configuration::ConfigurationManager
   
   # Returns a unified hash with settings for the site.
   def site_settings(site = nil)
-    if site && @general_settings[site.to_sym]
-      site_obj =  @general_settings[site.to_sym]
+    site_sym = site.to_sym
+    @site_settings_cache[site_sym] if site && @site_settings_cache[site_sym]
+    
+    if site && @general_settings[site_sym]
+      site_obj =  @general_settings[site_sym]
       group_dir = site_obj[:group_dir]
-      group = {}
       if group_dir
         group = @general_settings[group_dir.to_sym] || {}
         result = @general_settings[:global].merge(group).merge(site_obj)
       else
         result = @general_settings[:global].merge(site_obj)
       end
+      @site_settings_cache[site_sym] ||= result
       return result
     else
       nil

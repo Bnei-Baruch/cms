@@ -1,9 +1,6 @@
 class Hebmain::Widgets::Sitemap < WidgetManager::Base
   
   def render_full
-#    div(:class => 'sitehead'){
-#      text 'מפת האתר'
-#    }
     div(:class => 'sitemap'){
       div(:class => 'sitemap-inner'){
   			

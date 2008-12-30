@@ -1,4 +1,4 @@
-class Mainsites::Layouts::ContentPage < WidgetManager::Layout
+class Hebmain::Layouts::ContentPage < WidgetManager::Layout
 
   attr_accessor :ext_content, :ext_content_header, :ext_title, :ext_description,
     :ext_main_image, :ext_related_items, :ext_kabtv_exist

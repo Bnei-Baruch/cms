@@ -12,9 +12,20 @@ class Hebmain::Widgets::Header < WidgetManager::Base
         input :type => 'hidden', :name => 'cof', :value => 'FORID:11'
         input :type => 'text', :name => 'q', :size => '31', :class => 'text'
       }
-      rawtext <<-CODE
-        <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=he"></script>
-      CODE
+      # Delay execution
+      # <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=he"></script>
+      javascript {
+        rawtext <<-google
+$(document).ready(function(){
+  $.ajax({
+     type: "GET",
+     url: "http://www.google.com/coop/cse/brand",
+     data: {form:'cse-search-box', lang:'he'},
+     dataType: "script"
+  });
+});
+        google
+      }
     }   
   
     w_class('cms_actions').new(:tree_node => presenter.website_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ link },:new_text => 'לינק חדש', :has_url => false, :placeholder => 'top_links'}).render_to(self)

@@ -93,7 +93,7 @@ class Admin::ResourcesController < ApplicationController
   # POST /resources POST /resources.xml
   def create
     # Draft or Publish buttons support
-debugger
+
     params[:resource][:status] = 'PUBLISHED' if params[:publish_button]
     params[:resource][:status] = 'DRAFT' if params[:draft_button]
 

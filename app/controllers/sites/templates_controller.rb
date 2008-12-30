@@ -75,7 +75,28 @@ class Sites::TemplatesController < ApplicationController
         end 
         resource = @presenter.node_resource_type.hrid
         klass = t_class(resource)
-        render :widget => klass, :layout_class => l_class(resource)
+        layout_class = l_class(resource)
+	if AuthenticationModel.current_user_is_anonymous?
+          # To cache even in development mode change
+          #       Rails.env == 'development'
+          # to
+          #       Rails.env != 'development'
+          # Do not forget to uncomment correspondent lines in development.rb
+	  if Rails.env == 'development'
+            render :widget => klass, :layout_class => layout_class
+	  else
+	    key = this_cache_key
+            if result = Rails.cache.fetch(key)
+              render :text => result
+            else
+              Rails.cache.write(key,
+                    render(:widget => klass, :layout_class => layout_class))
+            end
+	  end
+	else
+	  # Authenticated user ==> no cache
+          render :widget => klass, :layout_class => layout_class
+	end
       }
       format.json {
         render_json_widget
@@ -93,7 +114,6 @@ class Sites::TemplatesController < ApplicationController
     end
     widget = options[:widget]
     options[:node] = params[:node] if params.has_key?(:node)
-    options[:force] = true # Do not cache Ajax actions!!!
     tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
 
     begin
@@ -205,6 +225,10 @@ class Sites::TemplatesController < ApplicationController
   end
 
   private     
+
+  def this_cache_key
+    @presenter.node.cache_key
+  end
   
   def my_layout_path(resource)
     get_layout_path(site_name, group_name, resource)

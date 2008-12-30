@@ -1,4 +1,4 @@
-class Hebmain::Layouts::Website < WidgetManager::Layout
+class Mainsites::Layouts::Website < WidgetManager::Layout
 
   attr_accessor :ext_meta_title, :ext_meta_description
 

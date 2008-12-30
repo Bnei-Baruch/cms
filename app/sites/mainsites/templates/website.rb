@@ -1,4 +1,4 @@
-class Hebmain::Templates::Website < WidgetManager::Template
+class Mainsites::Templates::Website < WidgetManager::Template
 
   def set_layout
     layout.ext_meta_title = ext_meta_title

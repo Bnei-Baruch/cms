@@ -3,8 +3,8 @@ class Sites::TemplatesController < ApplicationController
   attr_reader :website
   
   # Add the 'app/sites' path of sites which is used by the application instead of regular 'app/views' folder
-  custom_view_path = "#{RAILS_ROOT}/app/sites"
-  self.prepend_view_path(custom_view_path)
+  # custom_view_path = "#{RAILS_ROOT}/app/sites"
+  # self.prepend_view_path(custom_view_path)
   
   def json(id = params[:node])
     respond_to do |format|
@@ -25,7 +25,6 @@ class Sites::TemplatesController < ApplicationController
   
   # This is the action that renders the view and responds to client
   def template 
-    
     host = 'http://' + request.host
     prefix = params[:prefix]
     permalink = params[:id]
@@ -35,14 +34,12 @@ class Sites::TemplatesController < ApplicationController
     AuthenticationModel.logout_from_admin if logout
     
     @ip = request.remote_ip
-    
     if prefix || permalink
       @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
       @website = nil if @website && @website.use_homepage_without_prefix && !(prefix && permalink)
     elsif !path || (path && path.empty?)
       @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', host, true])
     end
-     
     unless @website
       # External link
       check_url_migration(true)

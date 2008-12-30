@@ -21,7 +21,8 @@ $(document).ready(function(){
      type: "GET",
      url: "http://www.google.com/coop/cse/brand",
      data: {form:'cse-search-box', lang:'he'},
-     dataType: "script"
+     dataType: "script",
+     cache: true
   });
 });
         google

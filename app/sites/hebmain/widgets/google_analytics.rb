@@ -10,7 +10,7 @@ $(document).ready(function(){
    $.getScript('http://www.google-analytics.com/urchin.js', function(){
      _uacct = "UA-548326-62";
      urchinTracker();
-   });
+   }, true);
 });
       google
     }

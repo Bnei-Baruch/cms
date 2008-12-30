@@ -10,8 +10,8 @@ class Hebmain::Templates::Search < WidgetManager::Template
   end
   
   def ext_content_header
-      WidgetManager::Base.new(helpers) do
-      end
+    WidgetManager::Base.new(helpers) do
+    end
   end
   def ext_content
     WidgetManager::Base.new(helpers) do
@@ -29,9 +29,15 @@ class Hebmain::Templates::Search < WidgetManager::Template
           var googleSearchPath = "/cse";
         SCRIPT_CODE
       }
-      rawtext <<-CODE
-        <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
-      CODE
+      #        <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
+      javascript {
+        rawtext <<-google
+$(document).ready(function(){
+   $.getScript('http://www.google.com/afsonline/show_afs_search.js', function(){
+   }, true);
+});
+        google
+      }
 
     end
   end

@@ -24,7 +24,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         title ext_meta_title
         meta(:name => 'description', :content => ext_meta_description)
         javascript_include_tag 'jquery', 
-        'ui/ui.core.min.js',# 'ui/ui.tabs.min.js',
+        'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers',
 	'flashembed.min.js' #, :cache => 'cache/website'
@@ -37,7 +37,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                               'hebmain/home_page', 
                               'hebmain/page_admin',
                               'hebmain/widgets',
-                              'hebmain/jquery.tabs.css',
                               :cache => false
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
@@ -50,8 +49,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/common',
           'hebmain/header', 
           'hebmain/home_page', 
-          'hebmain/widgets',
-          'hebmain/jquery.tabs.css'
+          'hebmain/widgets'
 #,
           #:cache => 'cache/website'
         end

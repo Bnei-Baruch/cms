@@ -37,8 +37,8 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-        '../highslide/highslide-full.packed.js', 'jquery-lightbox/jquery.lightbox.js',
-        'jquery.livequery.min.js', 'jq-helpers' #, :cache => 'cache/content_page'
+        '../highslide/highslide-full.packed.js',  
+        'jquery.livequery.min.js', 'jq-helpers' #,:cache => 'cache/content_page'
 
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
@@ -124,7 +124,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       }
                       @subscription.render_to(self)
                       div(:class => 'clear')
-                      
+
                       @comments.render_to(self)
                       @send_to_friend.render_to(self)
                       @direct_link.render_to(self) 

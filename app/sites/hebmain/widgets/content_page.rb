@@ -80,7 +80,7 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
   def is_video_audio_article
     tree_nodes = TreeNode.get_subtree(
       :parent => tree_node.main.id, 
-      :resource_type_hrids => ['video', 'article', 'audio'], 
+      :resource_type_hrids => ['video', 'article', 'audio', 'video_gallery'], 
       :depth => 1
     ) 
     is_article = !get_body.empty?
@@ -91,6 +91,8 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
       when 'audio'
         is_audio = true
       when 'video'
+        is_video = true
+      when 'video_gallery'
         is_video = true
       when 'article'
         is_article = true

@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
 	
-	before_filter :activate_global_parms, :set_translations
+	before_filter :activate_global_parms, :set_translations 
   
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_cms_session_id'
@@ -23,6 +23,9 @@ class ApplicationController < ActionController::Base
   
   def set_translations
     Localization.lang = session[:language] rescue 'default'
+#    locale = session[:locale] || 'en-US'
+#    I18n.locale = locale
+#    I18n.load_path += Dir[ File.join(RAILS_ROOT, 'lib', 'locale', '*.{rb,yml}') ]
   end
 
 #  private

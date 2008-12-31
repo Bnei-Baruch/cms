@@ -181,11 +181,11 @@ EOF
     end
     
     # if campaign
-		if params.include?(:adwords)
-			def_adwords = params[:adwords]
-		else
-			def_adwords = ''
-		end
+    if @presenter.page_params.member?(:adwords)
+      def_adwords = @presenter.page_params[:adwords]
+    else
+      def_adwords = ''
+    end
     
     
     if get_centered

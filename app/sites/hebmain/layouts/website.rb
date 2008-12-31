@@ -24,7 +24,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         title ext_meta_title
         meta(:name => 'description', :content => ext_meta_description)
         javascript_include_tag 'jquery', 
-        'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
+        'ui/ui.core.min.js',# 'ui/ui.tabs.min.js',
+        'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers',
 	'flashembed.min.js' #, :cache => 'cache/website'
         if presenter.node.can_edit?

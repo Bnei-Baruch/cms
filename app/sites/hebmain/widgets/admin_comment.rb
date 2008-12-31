@@ -63,10 +63,10 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
     br
     div(:class => 'admin_comment_main'){
       form(:id => 'admin_comment_form') {
-        if @presenter.website.comment_id.blank?
+        if @presenter.page_params[:comment_id].blank?
           write_inside_of_form
         else
-          single_comment(@presenter.website.comment_id)
+          single_comment(@presenter.page_params[:comment_id])
         end
       }
     }
@@ -116,27 +116,27 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
         
         
         
-        if params.include?('options')
+        if @presenter.page_params.include?('options')
           cat = @options['filter'] 
           mod = @options['onlymoderated'] 
           page = 1
         else
-          if @presenter.website.page_nb.blank?
+          if @presenter.page_params[:page_nb].blank?
             page = 1
           else
-            page = @presenter.website.page_nb.to_i
+            page = @presenter.page_params[:page_nb].to_i
           end
         
-          if @presenter.website.cat.blank?
+          if @presenter.page_params[:cat].blank?
             cat = 'nil'
           else
-            cat = @presenter.website.cat
+            cat = @presenter.page_params[:cat]
           end
         
-          if @presenter.website.mod.blank?
+          if @presenter.page_params[:mod].blank?
             mod = 'off'
           else
-            mod = @presenter.website.mod
+            mod = @presenter.page_params[:mod]
           end
         end
 

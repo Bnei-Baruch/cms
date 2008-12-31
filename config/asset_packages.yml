@@ -1,0 +1,25 @@
+--- 
+javascripts: 
+- content: 
+  - jquery
+  - flashembed.min
+  - embed
+  - ui/ui-core
+  - ui/ui.tabs
+  - ui/jquery.color
+  - jquery.curvycorners.packed
+  - jquery.browser
+  - jquery.media
+  - jquery.metadata
+  - jquery.form
+  - ../highslide/highslide-full.packed
+stylesheets: 
+- base: 
+  - admin
+  - base-min
+  - ext-all
+  - jquery-ui-theme
+  - lightbox
+  - local.datepicker
+  - reset-fonts-grids
+  - scaffold

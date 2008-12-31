@@ -122,7 +122,6 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   end
   
   def write_previous_comments
-    
     comment_list = Comment.list_all_comments_for_page(tree_node.id)
     counter_for_comments = comment_list.size
     div(:class => 'comment_header'){text _('Reactions')} 

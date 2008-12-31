@@ -696,7 +696,8 @@ function gofs(){
     }
 }
 $(function() {
-    $("#tabs").tabs({
+    if (typeof $("#tabs").tabs == "function") {
+      $("#tabs").tabs({
         show:
         // On switch between tabs...
         function(event, ui){
@@ -710,7 +711,8 @@ $(function() {
                 startQuestions();
             }
         }
-    });
+      });
+    }
     if (typeof reloadSchedule == "function") {
         reloadSchedule();
     }

@@ -6,10 +6,6 @@ class Hebmain::Widgets::Sitemap < WidgetManager::Base
   			
         presenter.main_sections.each {|section|
   			
-          if (section.resource.name == 'בלוגים')
-            #          debugger 
-          end
-  			
           sub_sections = get_sub_section(section) || []
           ul(:class => 'box'){
             li {

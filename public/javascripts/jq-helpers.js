@@ -786,14 +786,20 @@ $(function() {
         $("#kabtv #ask_btn").show();
     });
     $("#kabtv #ask").submit(function() {
+        var question = $.trim($("#kabtv #options_qquestion")[0].value);
+        if (question == "") {
+          alert('Please write a question');
+          return false;
+        }
         $("#kabtv #kabtv-loading").show();
-        $(this).ajaxSubmit(function(responseText, statusText){
+        $(this).ajaxSubmit(function(responseText, statusCode){
             $("#kabtv #kabtv-loading").hide();
             alert(responseText);
-            $("#kabtv #ask_question").hide();
-            $("#kabtv #q").show();
-            $("#kabtv #ask_btn").show();
-
+            if (statusCode == "success") {
+              $("#kabtv #ask_question").hide();
+              $("#kabtv #q").show();
+              $("#kabtv #ask_btn").show();
+            }
         });
         // always return false to prevent standard browser submit and page navigation
         return false;

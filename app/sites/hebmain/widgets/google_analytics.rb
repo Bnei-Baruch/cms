@@ -1,7 +1,12 @@
 class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
   
   def render_full
-  	return unless ENV['RAILS_ENV'] == 'production'
+    unless ENV['RAILS_ENV'] == 'production'
+      javascript {
+        rawtext 'function urchinTracker(){}'
+      }
+      return
+    end
 
     # Delay loading until the last second
     javascript {

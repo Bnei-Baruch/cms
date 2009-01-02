@@ -788,7 +788,7 @@ $(function() {
     $("#kabtv #ask").submit(function() {
         var question = $.trim($("#kabtv #options_qquestion")[0].value);
         if (question == "") {
-          alert('Please write a question');
+          alert('נא לכתוב שאלה');
           return false;
         }
         $("#kabtv #kabtv-loading").show();

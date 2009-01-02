@@ -76,27 +76,27 @@ class Sites::TemplatesController < ApplicationController
         resource = @presenter.node_resource_type.hrid
         klass = t_class(resource)
         layout_class = l_class(resource)
-	if AuthenticationModel.current_user_is_anonymous?
+        if AuthenticationModel.current_user_is_anonymous?
           # To cache even in development mode change
           #       Rails.env == 'development'
           # to
           #       Rails.env != 'development'
           # Do not forget to uncomment correspondent lines in development.rb
-	  if Rails.env == 'development'
+          if Rails.env == 'development'
             render :widget => klass, :layout_class => layout_class
-	  else
-	    key = this_cache_key
+          else
+            key = this_cache_key
             if result = Rails.cache.fetch(key)
-              render :text => result
+              render :text => result if stale?(:etag => result)
             else
               Rails.cache.write(key,
-                    render(:widget => klass, :layout_class => layout_class))
+                render(:widget => klass, :layout_class => layout_class))
             end
-	  end
-	else
-	  # Authenticated user ==> no cache
+          end
+        else
+          # Authenticated user ==> no cache
           render :widget => klass, :layout_class => layout_class
-	end
+        end
       }
       format.json {
         render_json_widget

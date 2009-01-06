@@ -1,3 +1,5 @@
+require 'uri'
+
 class Sites::ShorturlController < ApplicationController
 
   attr_reader :website
@@ -32,7 +34,7 @@ class Sites::ShorturlController < ApplicationController
     namedurl = host + portinurl + '/' + prefix + '/' + @node.permalink
     
     if @node.has_url && @node.can_read?
-      redirect_301(namedurl)
+      redirect_301(URI.escape(namedurl))
     end
     
 

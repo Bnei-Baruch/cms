@@ -303,7 +303,8 @@ $.fn.media.swf = function(el, opts) {
         so.write($div[0]);
     }
 
-    if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
+   // if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
+   $('<div>').appendTo($div).html("&nbsp;");
     return $div;
 };
 
@@ -372,7 +373,8 @@ $.fn.media.xaml = function(el, opts) {
         events: events
     });
 
-    if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
+    //if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
+    $('<div>').appendTo($div).html("&nbsp;");
     return $div;
 };
 
@@ -419,7 +421,8 @@ function generate(el, opts, player) {
     var $div = $('<div' + id + cls + '>');
     $el.after($div).remove();
       (($.browser.className.indexOf('ie') != -1 ) || player == 'iframe') ? $div.append(o) : $div.html(a.join(''));
-    if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
+   // if (opts.caption) $('<div>').appendTo($div).html(opts.caption);
+   $('<div>').appendTo($div).html("&nbsp;");
     return $div;
 };
 

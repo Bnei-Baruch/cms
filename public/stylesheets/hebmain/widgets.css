@@ -776,6 +776,9 @@ img.thumbnails{
   padding-right: 25px;
 }
 
+.media-download{
+  margin-right: 10px;
+}
 .audio{
   background-image: url('/images/hebmain/audio.png');
   background-repeat: no-repeat;

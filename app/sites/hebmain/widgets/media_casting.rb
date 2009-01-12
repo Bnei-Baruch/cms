@@ -12,6 +12,10 @@ class Hebmain::Widgets::MediaCasting < WidgetManager::Base
         img :src => '/images/delete.gif', :alt => '', :style => 'vertical-align:middle;'
         text 'הפסק'
       }
+      a(:class => 'media-download', :href => url){
+        img :src => '/images/download.jpg', :alt => '', :style => 'vertical-align:middle;'
+        text '  הורד'
+      }
 		 
       div(:class => 'toggle-media'){
         a(:href => url, :class => 'media'){

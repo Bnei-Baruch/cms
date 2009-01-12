@@ -275,11 +275,13 @@ $(document).ready(function() {
 
     $("a.hide-player").hide();
     $("a.show-player").hide();
+    $("a.media-download").hide();
 
     $("a.media").click(function(event){
         event.preventDefault();
         $this = $(this);
         $this.parents('.mediacasting').children("a.hide-player").toggle();
+        $this.parents('.mediacasting').children("a.media-download").toggle();
         $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
         $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
         $this.removeClass('media');

@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Tree < WidgetManager::Base
+class Mainsites::Widgets::Tree < WidgetManager::Base
   
   attr_accessor :counter
   

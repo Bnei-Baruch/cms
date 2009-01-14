@@ -1,0 +1,224 @@
+/******** GENERAL *********************/
+body {
+    direction: ltr;
+    width:946px;
+    margin:0 auto;
+    font:normal normal 13px sans-serif;
+}
+a, a:visited{
+    color:#186BE5;
+    text-decoration:none;
+}
+a:hover{
+    text-decoration:underline;
+}
+.left {
+    float:left;
+}
+.right {
+    float:right;
+}
+strong{
+    font-weight:bold;
+}
+#header{
+    position:relative;
+    height:99px;
+    width:946px;
+    background-color:#f9f9f9;
+}
+#nav-empty{
+    height:6px;
+    background-color:#c5c6cb;
+    font-size:1px;
+    line-height:1px;
+    width:100%;
+}
+#nav{
+    height:51px;
+    line-height:51px;
+    margin:0 0 15px;
+    padding:0 6px;
+    text-align:center;
+    background:#787A7E url(/images/rusmain/nav-gradient.gif) repeat-x 0 0;
+    position:relative;
+    font-weight:bold;
+    z-index: 99;
+}
+#nav .left-ear, #nav .right-ear{
+    position:absolute;
+    top:0;
+    width:5px;
+    height:51px;
+    background:#c5c6cb url(/images/rusmain/nav-ears.gif) no-repeat 0 0;
+}
+#nav .left-ear{
+    left:0;
+}
+#nav .right-ear{
+    background-position: -5px 0;
+    right:0;
+}
+#nav a, #nav a:visited, #nav a:hovered{
+    color:#485458;
+}
+#body{
+    text-align:left;
+    position:relative;
+}
+#body-left{
+    float:left;
+    width:242px;
+    position:relative;
+}
+#body-right{
+    float:right;
+    width:224px;
+    position:relative;
+}
+#body-middle{
+    margin-left:252px; /* + 10px between columns */
+    margin-right:234px; /* + 10px between columns */
+    width:auto;
+}
+#body-middle #mid-content{
+    border:1px solid #e5e5eb;
+}
+#footer{
+    height:20px;
+    border:1px solid black;
+    clear:both;
+    margin:10px 0 0;
+}
+.side-box-top{
+    background:#b1c385 url(/images/rusmain/box-top-gradient.gif) repeat-x 0 0;
+    height:16px;
+    position:relative;
+    line-height:24px;
+    padding:0 6px;
+}
+.side-box-top .left-ear, .side-box-top .right-ear{
+    position:absolute;
+    top:0;
+    width:6px;
+    height:25px;
+    background:#b1c385 url(/images/rusmain/box-top-ears.jpg) no-repeat 0 0;
+}
+.side-box-top .left-ear{
+    left:0;
+}
+.side-box-top .right-ear{
+    background-position: -6px 0;
+    right:0;
+}
+.mid-box-top{
+    background:#2a6fab url(/images/rusmain/box-top-gradient.gif) repeat-x 0 -25px;
+    height:25px;
+    position:relative;
+    line-height:25px;
+    padding:0 6px;
+    color:white;
+}
+.mid-box-top .left-ear, .mid-box-top .right-ear{
+    position:absolute;
+    top:0;
+    width:6px;
+    height:25px;
+    background:#b1c385 url(/images/rusmain/box-top-ears.jpg) no-repeat -12px 0;
+}
+.mid-box-top .left-ear{
+    left:0;
+}
+.mid-box-top .right-ear{
+    background-position: -18px 0;
+    right:0;
+}
+.box-content{
+    border:1px solid #e5e5eb;
+    background-color:#fafafa;
+    padding:0;
+    margin:0;
+}
+.side-box{
+    margin:10px 0 0;
+    clear:both;
+}
+#body-left .roundtop, #body-right .roundtop{
+    margin: 8px 0 0;
+}
+#body-left .roundbot, #body-right .roundbot{
+    margin: 0 0 18px;
+}
+.side-box h3{
+    background-color:#979797;
+    color:white;
+    height:20px;
+    line-height:20px;
+    padding:0 6px;
+}
+#header #logo{
+    position:absolute;
+    left:55px;
+    top:9px;
+}
+#header #links{
+    position:absolute;
+    right:137px;
+    top:59px;
+}
+#header #divisor{
+    border-left:1px solid #d9dbe0;
+    height:23px;
+    position:absolute;
+    right:120px;
+    top:60px;
+}
+#header #languages{
+    height:18px;
+    line-height:18px;
+    position:absolute;
+    right:38px;
+    top:20px;
+    width:110px;
+    border: 1px solid #e5e5eb;
+    color:silver;
+}
+#header #rss{
+    position:absolute;
+    right:39px;
+    top:59px;
+}
+#header #search{
+    position:absolute;
+    right:167px;
+    top:19px;
+}
+#header #search .text{
+    vertical-align:super;
+    width:109px;
+    border: 1px solid #e5e5eb;
+    margin:0 4px 0 0;
+}
+#static-menu a{
+    display:block;
+}
+
+#command-panel{
+    position:fixed;
+    top:0;
+    z-index:1000;
+    border:2px solid #D57100;
+    border-top:none;
+    width:942px;
+    background-color:beige;
+    height:26px;
+}
+.under-command-panel{
+    margin-top:30px;
+}
+.dynamic_tree{
+    position:absolute;
+}
+.clear {
+    clear:both;
+}

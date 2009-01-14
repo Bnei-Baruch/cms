@@ -94,7 +94,6 @@ module WidgetManager
       super(*args, &block)
       layout_class = @args_hash[:layout_class] || nil
       @layout = layout_class.new(*args)
-
     end
 
     def render
@@ -108,7 +107,6 @@ module WidgetManager
     def initialize(*args, &block)
       super(*args, &block)
     end
-
   end       
 
 end

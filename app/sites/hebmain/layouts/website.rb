@@ -26,7 +26,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         javascript_include_tag 'jquery', 
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
-        'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers',
+        'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers-hb',
 	'flashembed.min.js' #, :cache => 'cache/website'
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 

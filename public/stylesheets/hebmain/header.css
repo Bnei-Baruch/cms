@@ -10,9 +10,6 @@ a, a:visited{
 a:hover{
     text-decoration:underline;
 }
-#yui-main {
-    /*background: transparent url(/images/hebmain/page-bg.gif) repeat-y 0 0;*/
-}
 .left {
     float:left;
 }

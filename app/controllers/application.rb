@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_translations
-    Localization.lang = session[:language] rescue 'default'
+    Localization.lang = session[:language] || :default
 #    locale = session[:locale] || 'en-US'
 #    I18n.locale = locale
 #    I18n.load_path += Dir[ File.join(RAILS_ROOT, 'lib', 'locale', '*.{rb,yml}') ]

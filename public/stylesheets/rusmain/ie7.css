@@ -1,0 +1,36 @@
+/*----------  kab.tv  ---------------*/
+#kabtv .ui-tabs-nav a{ /* auto clear */
+    display:inline-block;
+}
+#kabtv .ui-tabs-nav { /* auto clear */
+    display: inline-block;
+}
+#kabtv #ask_question-ie{
+    display:inline-block;
+}
+#kabtv .ui-tabs-nav .ui-tabs-disabled {
+    position: relative; /* fixes opacity */
+    filter: alpha(opacity=40);
+}
+#kabtv .ui-tabs-nav .ui-tabs-disabled a span {
+    _height: 19px; /* for some reason the height is 1px to less with opacity... */
+    min-height: 19px; /* ...in both IE 6 and 7 */
+}
+#kabtv #sketch #thumbnails {
+    height:110px;
+    white-space:pre;
+}
+#kabtv #sketch #thumbnails a.highslide{
+    position:static;
+}
+#kabtv #sketch #thumbnails a.highslide img{
+    width:114px;
+    height:85px;
+}
+#kabtv #player_options #separate-win,#kabtv #player_options #full-win{
+    display:block;
+}
+#kabtv #player_options #separate-msg{
+    display:none;
+}
+

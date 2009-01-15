@@ -64,15 +64,14 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
       }
     end
   end
+
   def render_dynamic
     if tree_node.can_edit?
       
       link = ''
-      if AuthenticationModel.current_user_is_admin?
-        user_name = User.find(AuthenticationModel.current_user).username rescue ''
-        url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node) 
-        link = '<a href="' + url + '?logout=true">&nbsp;&nbsp;&nbsp;&nbsp;Logout from ' + user_name + '</a>'
-      end
+      user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
+      url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node)
+      link = '<a href="' + url + '?logout=true">&nbsp;&nbsp;&nbsp;&nbsp;Logout from ' + user_name + '</a>'
 
       @counter += 1
       label = "TREE_#{@counter}"
@@ -86,7 +85,8 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
               children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
               create_tree('#{get_page_url(tree_node)}', children, '#{label}',
 'עץ ניהול   #{link}'
-,'#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}');
+,'#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
+ '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{@presenter.node.resource.name}');
             }
           TREE_CODE
         }
@@ -98,7 +98,7 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
 
   def expand_path
     #    path = @ancestors.reject {|e| e.eql?(@ancestors.last)}
-    '/0/' + @ancestors.join('/')
+    "/#{@website_parent_node}/" + @ancestors.join('/')
   end
   
   # Fetch all specific node of website

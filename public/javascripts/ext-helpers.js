@@ -52,7 +52,7 @@ function tree_drop_zone(widget_node_id, url, widget, updatable, updatable_view_m
     });
 }
 
-function create_tree(url, children, tree_label, title, expand_path, resource_type_id)
+function create_tree(url, children, tree_label, title, expand_path, resource_type_id, root_id, admin_url, root_title)
 {
     var myTreeLoader = new Ext.tree.TreeLoader({
         dataUrl: url,
@@ -69,10 +69,13 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
         loader: myTreeLoader,
         // create initial root node
         root:new Ext.tree.AsyncTreeNode({
-            text: 'Invisible Root',
-            id:'0',
+            text: root_title,
+            id:root_id,
             loaded:true,
             leaf:false,
+            addTarget:admin_url,
+            cannot_edit:true,
+            cannot_edit_delete:true,
             children:children
         }),
         renderTo:tree_label,
@@ -86,7 +89,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
         autoScroll:true,
         enableDD:true,
         animate:true,
-        rootVisible:false,
+        rootVisible:true,
         collapsed:true,
         collapsible:true
     });

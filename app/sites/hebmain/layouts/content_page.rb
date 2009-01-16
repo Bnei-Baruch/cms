@@ -21,6 +21,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
     @direct_link = w_class('shortcut').new
     @subscription = w_class('header').new(:view_mode => 'subscription')
     @comments = w_class('comments').new
+    @archive = w_class('archive').new
     @previous_comments = w_class('comments').new(:view_mode => 'previous')
   end
 
@@ -37,7 +38,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-        '../highslide/highslide-full.packed.js',  
+        '../highslide/highslide-full.packed.js',
         'jquery.livequery.min.js', 'jq-helpers-hb' #,:cache => 'cache/content_page'
 
         if presenter.node.can_edit?
@@ -124,11 +125,11 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       }
                       @subscription.render_to(self)
                       div(:class => 'clear')
-
+                      
                       @comments.render_to(self)
                       @send_to_friend.render_to(self)
                       @direct_link.render_to(self) 
-
+                      @archive.render_to(self) if archived_resources.size > 0 && !@presenter.page_params.has_key?('archive')
                       #if @presenter.site_settings[:comments][:enable_site_wide]
                       @previous_comments.render_to(self)
                       #end
@@ -204,4 +205,13 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
     )
   end
   
+  def archived_resources
+    @archived_resources ||= TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids =>  ['content_page'], 
+      :depth => 1,
+      :has_url => true,
+      :status => ['ARCHIVED']
+    )  
+  end
 end 

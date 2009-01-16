@@ -93,6 +93,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
         collapsed:true,
         collapsible:true
     });
+
     // First time all branch on path was sent, so let's expand it
     tree.expandPath(expand_path);
     tree.on('beforenodedrop', function(dropEvent){ 
@@ -165,6 +166,78 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                     )
                     }
                 }),
+                new Ext.menu.Item({
+                    text: 'Publish',
+                    disabled: node.attributes.cannot_edit,
+                    handler: function (item) {
+                        Ext.Msg.confirm('Tree item Publish', 'Are you sure you want to publish ' + node.text + '?',
+                        function(e){
+                            if(e == 'yes') {
+                                Ext.Ajax.request({
+                                    url: node.attributes.publishStatus,
+                                    method: 'post',
+                                    callback: function (options, success, responce){
+                                        if (success) {
+                                            node.setText("<span class='published'>" + node.attributes.resource_name + "</span>");
+                                            Ext.Msg.alert('Tree item Publish', 'The tree item <' + node.text + '> was successfully published');                                             
+                                        } else {
+                                            Ext.Msg.alert('Tree item Publish', 'FAILURE!!!');
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    )
+                    }
+                }),  
+                new Ext.menu.Item({
+                    text: 'Draft',
+                    disabled: node.attributes.cannot_edit,
+                    handler: function (item) {
+                        Ext.Msg.confirm('Tree item Archive', 'Are you sure you want to draft ' + node.text + '?',
+                        function(e){
+                            if(e == 'yes') {
+                                Ext.Ajax.request({
+                                    url: node.attributes.draftStatus,
+                                    method: 'post',
+                                    callback: function (options, success, responce){
+                                        if (success) {
+                                            node.setText("<span class='draft'>" + node.attributes.resource_name + "</span>");
+                                            Ext.Msg.alert('Tree item Draft', 'The tree item <' + node.text + '> was successfully drafted');
+                                        } else {
+                                            Ext.Msg.alert('Tree item Draft', 'FAILURE!!!');
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    )
+                    }
+                }), 
+                new Ext.menu.Item({
+                    text: 'Archive',
+                    disabled: node.attributes.cannot_edit,
+                    handler: function (item) {
+                        Ext.Msg.confirm('Tree item Archive', 'Are you sure you want to archive ' + node.text + '?',
+                        function(e){
+                            if(e == 'yes') {
+                                Ext.Ajax.request({
+                                    url: node.attributes.archiveStatus,
+                                    method: 'post',
+                                    callback: function (options, success, responce){
+                                        if (success) {
+                                            node.setText("<span class='archived'>" + node.attributes.resource_name + "</span>");
+                                            Ext.Msg.alert('Tree item Archive', 'The tree item <' + node.text + '> was successfully archived');
+                                        } else {
+                                            Ext.Msg.alert('Tree item Archive', 'FAILURE!!!');
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    )
+                    }
+                }),                 
             ]
         });
         menu.showAt(e.getXY());

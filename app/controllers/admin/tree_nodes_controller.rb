@@ -67,6 +67,44 @@ class Admin::TreeNodesController < ApplicationController
     #load  permission rights list
     @tree_node_ac_rights = TreeNodeAcRight.find(:all, :conditions => ["tree_node_id = ?", params[:id]])
   end
+ 
+  def update_state
+    
+    tree_node = TreeNode.find(params[:id])
+  
+    if tree_node.nil?
+        flash[:notice] = "Tree node does not exist " + params[:id]
+        logger.error("Tree node does not exist " + params[:id])
+        return
+    end
+    
+    #   ******************
+    #   Check permissions!
+    if not (tree_node.can_edit?)
+      flash[:notice] = "Access denied. User can't edit tree node"
+      logger.error("User #{AuthenticationModel.current_user} has no permission " + 
+          "to edit tree_node: #{tree_node.id} resource: #{tree_node.resource_id}")
+      return
+    end
+    #   ******************
+    
+    @resource = Resource.find(tree_node.resource)
+    @resource.status = params[:status]
+    @resource.save
+    
+    respond_to do |format|
+      format.html {
+        if request.xhr?
+            head(:ok).to_json
+          return
+        end
+        redirect_to session[:referer]  
+      }
+      format.xml  { head :ok }
+      format.json { head(:ok).to_json}
+    end
+    return
+  end
   
   # GET /tree_nodes/1/tree_node_delete
   def tree_node_delete
@@ -194,6 +232,7 @@ class Admin::TreeNodesController < ApplicationController
     @tree_nodes.each do |element|
       @new_tree_nodes << Hash["id" => element.id,
         "text" => element.resource.name,
+        "resource_name" => element.resource.name,
         "status" => element.resource.status,
         "type" => element.resource.resource_type.name,
         "permalink" => element.permalink,
@@ -205,6 +244,9 @@ class Admin::TreeNodesController < ApplicationController
         #"addTarget" => new_admin_resource_path,
         "delTarget" => tree_node_delete_admin_tree_node_path(element.id), # admin_resource_path(element.resource),
         "editTarget" => url_for(edit_admin_resource_path(:id => element.resource, :tree_id => element.id)),
+        "publishStatus" => update_state_admin_tree_node_path(:id => element.id, :status => 'PUBLISHED'),
+        "draftStatus" => update_state_admin_tree_node_path(:id => element.id, :status => 'DRAFT'),
+        "archiveStatus" => update_state_admin_tree_node_path(:id => element.id, :status => 'ARCHIVED'),
         "permissionsTarget" => url_for(admin_tree_node_tree_node_permissions_path(element.id)),
         "leaf" => element.leaf]
     end

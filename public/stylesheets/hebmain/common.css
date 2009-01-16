@@ -33,6 +33,9 @@ a.more img{
 .draft{
     background-color:#FFF6CF !important;
 }
+.archived{
+    background-color:#00FF66 !important;
+}
 /* Sortables */
 .handle{
     z-index:2000 !important;

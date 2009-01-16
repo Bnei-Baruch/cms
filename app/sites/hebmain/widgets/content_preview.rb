@@ -168,13 +168,20 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       :depth => 1,
       :has_url => false,
       #:is_main => false,
-      :status => ['PUBLISHED', 'DRAFT']
-    )               
+      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED']
+    )
   end
   
-  def show_item(item, view_mode)
-    if item.resource.status == 'DRAFT'
+  def show_item(item, view_mode) 
+    case item.resource.status
+    when 'DRAFT'
       div(:class => 'draft') { render_content_item(item, view_mode) }
+    when 'ARCHIVED' 
+      if AuthenticationModel.current_user_is_admin?
+        div(:class => 'archive') { render_content_item(item, view_mode) }
+      else
+        render_content_item(item, view_mode)
+      end      
     else
       render_content_item(item, view_mode)
     end

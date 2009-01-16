@@ -16,19 +16,21 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   
   def ext_content_header
     WidgetManager::Base.new(helpers) do
-      w_class('cms_actions').new(:tree_node => @tree_node,
-        :options => {:buttons => %W{ new_button },
-          :resource_types => %W{ kabtv },
-          :button_text => 'ניהול חלק עליון',
-          :new_text => 'צור יחידת תוכן חדשה',
-          :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
-      if AuthenticationModel.current_user_is_admin?
+      if @presenter.page_params.has_key?('archive') || !get_acts_as_section
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
-            :resource_types => %W{ admin_comment },
+            :resource_types => %W{ kabtv },
             :button_text => 'ניהול אדמין',
             :new_text => 'צור מודול ניהול תגובות',
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
+        if AuthenticationModel.current_user_is_admin?
+          w_class('cms_actions').new(:tree_node => @tree_node,
+            :options => {:buttons => %W{ new_button },
+              :resource_types => %W{ admin_comment },
+              :button_text => 'ניהול חלק עליון',
+              :new_text => 'צור יחידת תוכן חדשה',
+              :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
+        end
       end
       
       content_header_resources.each{|e|
@@ -44,14 +46,16 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_content
     WidgetManager::Base.new(helpers) do
-      w_class('cms_actions').new(:tree_node => @tree_node,
-        :options => {:buttons => %W{ new_button edit_button },
-          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form iframe title manpower_form picture_gallery audio_gallery newsletter},
-          :button_text => 'ניהול דף תוכן',
-          :new_text => 'צור יחידת תוכן חדשה',
-          :edit_text => 'ערוך דף תוכן',
-          :has_url => false, :placeholder => 'main_content'}).render_to(self)
-
+      if !@presenter.page_params.has_key?('archive') || !get_acts_as_section
+        w_class('cms_actions').new(:tree_node => @tree_node,
+          :options => {:buttons => %W{ new_button edit_button },
+            :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form iframe title manpower_form picture_gallery audio_gallery newsletter},
+            :button_text => 'ניהול דף תוכן',
+            :new_text => 'צור יחידת תוכן חדשה',
+            :edit_text => 'ערוך דף תוכן',
+            :has_url => false, :placeholder => 'main_content'}).render_to(self)
+      end
+      
       unless get_acts_as_section
         h1 get_title
         small_title = get_small_title
@@ -84,14 +88,27 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           rawtext get_body
         }
       end
-      content_resources.each{|e|
-        disable_bottom_border = @presenter.site_settings[:disable_bottom_border].include?(e.resource.resource_type.hrid)
-        div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}#{' no-bottom-border' if disable_bottom_border }") {
-          sort_handle
-          render_content_resource(e)
-          div(:class => 'clear')
+      
+      if @presenter.page_params.has_key?('archive') && get_acts_as_section
+        div(:class => 'index sortable') {
+          content_resources.each_with_index { |item, index|  
+            klass = index.odd? ? 'element preview-even' : 'element preview-odd'
+            div(:class => klass, :id => sort_id(item)) {
+              sort_handle
+              render_content_item(item, 'small')
+            }
+          }
         }
-      }
+      else
+         content_resources.each{|e|
+          disable_bottom_border = @presenter.site_settings[:disable_bottom_border].include?(e.resource.resource_type.hrid)
+          div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}#{' no-bottom-border' if disable_bottom_border }") {
+            sort_handle
+            render_content_resource(e)
+            div(:class => 'clear')
+          }
+        }       
+      end
       content_resources
     end
   end
@@ -138,15 +155,30 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   private
 
+  def render_content_item(tree_node, view_mode)
+    klass = tree_node.resource.resource_type.hrid
+    return w_class(klass).new(:tree_node => tree_node, :view_mode => view_mode).render_to(self)
+  end
+  
   def content_resources
-    @content_resources ||= TreeNode.get_subtree(
-      :parent => tree_node.id,
-      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter'],
-      :depth => 1,
-      :has_url => false,
-      :placeholders => ['main_content'],
-      :status => ['PUBLISHED', 'DRAFT']
-    )
+    if @presenter.page_params.has_key?('archive') && get_acts_as_section
+      @content_resources ||= TreeNode.get_subtree(
+        :parent => tree_node.id,
+        :resource_type_hrids =>  ['content_page'], 
+        :depth => 1,
+        :has_url => true,
+        :status => ['ARCHIVED']
+      )
+    else
+      @content_resources ||= TreeNode.get_subtree(
+        :parent => tree_node.id,
+        :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter'],
+        :depth => 1,
+        :has_url => false,
+        :placeholders => ['main_content'],
+        :status => ['PUBLISHED', 'DRAFT']
+      )     
+    end
   end
 
   def content_header_resources

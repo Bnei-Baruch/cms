@@ -77,7 +77,15 @@ module WidgetExtensions
   def show_content_resources(options, &block)
     options.delete(:resources).each_with_index { |e, idx|
       block.call(idx) if block
-      klass = e.resource.status == 'DRAFT' ? ' draft' : ''
+     
+      case e.resource.status
+      when 'DRAFT'    
+        klass = ' draft' 
+      when 'ARCHIVED' 
+        klass = AuthenticationModel.current_user_is_admin? ? ' archived' : ''
+      else             
+       klass = ''
+      end
       
       div(:id => sort_id(e), :class => klass) {
         sort_handle if options[:sortable]

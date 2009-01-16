@@ -96,6 +96,7 @@ class Admin::ResourcesController < ApplicationController
 
     params[:resource][:status] = 'PUBLISHED' if params[:publish_button]
     params[:resource][:status] = 'DRAFT' if params[:draft_button]
+    params[:resource][:status] = 'ARCHIVED' if params[:archive_button]
 
     @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
@@ -139,6 +140,7 @@ class Admin::ResourcesController < ApplicationController
     # Draft or Publish buttons support
     params[:resource][:status] = 'PUBLISHED' if params[:publish_button]
     params[:resource][:status] = 'DRAFT' if params[:draft_button]
+    params[:resource][:status] = 'ARCHIVED' if params[:archive_button]
 
     @resource = Resource.find(params[:id])
     @resource_type = @resource.resource_type
@@ -196,5 +198,5 @@ class Admin::ResourcesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
+ 
 end

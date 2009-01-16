@@ -9,10 +9,18 @@
 		<br />                                             
 		<br />                                             
 		<p class="submit"><input type="submit" value="<%= update_name %>" name="publish_button"/>
-		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/></p>
+		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/>
+        <% if @tree_node.has_url %>
+            <input type="submit" value="<%= I18n.t(:move_to_archive) %>" name="archive_button"/>
+        <% end %>
+        </p>
 
 		<%= render :partial => 'fields', :locals => {:f => f} %>
 		<p class="submit"><input type="submit" value="<%= update_name %>" name="publish_button"/>
-		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/></p>
+		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/>
+        <% if @tree_node.has_url %>
+            <input type="submit" value="<%= I18n.t(:move_to_archive) %>" name="archive_button"/>
+        <% end %>
+        </p>
 <% end %>
 <%= link_to I18n.t(:cancel), session[:referer], {:class => 'button'} %>

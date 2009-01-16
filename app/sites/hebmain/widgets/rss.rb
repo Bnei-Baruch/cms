@@ -81,7 +81,7 @@ class Hebmain::Widgets::Rss < WidgetManager::Base
 
   def display_entries(items, show_description = true)
     if items.nil? || items.empty?
-      text _('No entries yet. Check url!')
+      text I18n.t(:no_entries_yet_check_url)
       return
     end
     div(:class => 'entries'){

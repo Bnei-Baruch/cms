@@ -1,0 +1,157 @@
+hebrew:
+  preview_title: כותרת לתצוגה מקדימה 
+  large_title: כותרת ראשית 
+  permalink: לינק של הדף (לא לשנות) 
+  small_title: תת כותרת 
+  sub_title: כותרת משנה 
+  side_image: תמונה צדי 
+  main_image_alt: כותרת לתמונה ראשית (alt) 
+  preview_image: תמונה לתצוגה מקדימה 
+  preview_image_alt: כותרת התמונה לתצוגה מקדימה (alt) 
+  writer: מאת 
+  writer_email: כתובת אימייל של המחבר 
+  date: תאריך 
+  hide_on_navigation: הסתר בעץ הנביגציה 
+  acts_as_section: התנהג כסביבה/מדור 
+  reset_date: אפס תאריך 
+  title: כותרת 
+  body: תוכן 
+  description: תאור הדף 
+  description_for_preview: תאור לתצוגה מקדימה 
+  title_and_description: כותרת ותאור 
+
+  content_page: דף תוכן 
+  article: מאמר 
+  box: קופסא 
+  content_preview: Content preview
+  website: website
+  site_name: Site Name
+  prefix: prefix
+  domain: domain
+  maximum_number_of_items:  Maximum number of items
+  acts_as_articles_index: Acts as articles index
+  is_main_format: is main format
+  link: link
+  url: Url
+  alt: Alt
+  open_in_new_window: Open in new window
+  
+
+  publish_on_site: פרסם באתר 
+  save_draft: שמור כטיוטה 
+  update: עדכן 
+  creating: יצירת 
+  editing: עריכת 
+  cancel: בטל 
+
+  regular_text: טקסט רץ 
+  sub_title: תת כותרת 
+  
+  first_name: שם פרטי 
+  
+ 
+  personnal_details: פרטים אישיים
+  last_name: שם משפחה 
+  year_of_birth: ש. לידה 
+  hometown: עיר מגורים 
+  mobile_phone: טלפון נייד 
+  main_phone: טלפון עיקרי 
+  email: דוא"ל 
+  knowledge_of_languages: שליטה בשפות 
+  language_name:  שם השפה 
+  first_language: שפת אם 
+  more_details: פרטים נוספים 
+  profession:  מקצוע 
+  free_time: זמן שתקדישו לעניין 
+  where_do_you_want_to_help: במה היית רוצה לעזור 
+  
+  read: קריאה 
+  write: כתיבה 
+  speak: דיבור 
+  less_than_1h: פחות משעה בשבוע 
+  between_2h_up_to_4h: משעתים עד 4 שעות בשבוע 
+  between_4h_to_6h: 4-6 שעות בשבוע 
+  more_than_6h: יותר מ-6 שעות בשבוע 
+  submit: שלח 
+  choose_language: בחר שפה 
+  response_text: תהליך הרישום עבר בהצלחה.  
+  
+  arabic: العربية 
+  german: Deutsch 
+  spanish: Español 
+  french: Français 
+  danish: Dansk 
+  bulgar: Български 
+  tshekh: Česky 
+  greek: Ελληνικά 
+  persian: فارسی 
+  hebrew: עברית 
+  hindi: हिन्दी 
+  hungarian: Magyar 
+  italian: Italiano
+  japanese: 日本語 
+  georgian: ქართული
+  lithunian: Lietuvių
+  latvian: Latviešu
+  macedonian: Македонски
+  nederlands: Nederlands
+  polish: Polski
+  portugese: Português
+  romanian: Română
+  russian: Русский
+  turkish: Türkçe
+  ukranian: Українська
+  vietnamian: Tiếng Việt
+  chinese: 中文
+  chinese_classical: 文言
+  yiddish: ייִדיש 
+  english: English
+  
+  send_to_friend: שלח לחבר 
+  name_of_sender: שם השולח/ת 
+  name_of_receiver: שם החבר/ה 
+  address_of_sender: כתובת השולח/ת 
+  send_to_email_address: שלחו לכתובת דוא''ל 
+  send: שלח 
+  everything_went_fine: תהליך הרישום עבר בהצלחה.  
+  stf_subject: שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה 
+  
+  email_from:   הכתובת ממנה נשלח המייל 
+  email_to: כתובת המייל של האדמיניסטרטור שיקבל הודעה על ההרשמה
+  email_subject: נושא המייל 
+  confirmation_text: תוכן ההודעה שתשלח לנרשם 
+  do_not_send_confirmation_letter: אל תשלח הודעה לנרשם 
+  list_name: שם הרשימה (למלאות באנגלית) 
+  campus_label_1: שם השדה הראשון 
+  hide_campus_label_1:  הסתר שדה ראשון 
+  campus_label_1_mandatory:   שדה חובה 
+  campus_Label_2:  שם השדה השני 
+  hide_Campus_Label_2: הסתר שדה שני 
+  campus_Label_2_mandatory: שדה חובה
+  campus_Label_3:  שם השדה השלישי
+  hide_Campus_Label_3:  הסתר שדה שלישי
+  campus_Label_3_mandatory: שדה חובה
+ 
+  Editing: editing
+  
+
+  download:  הורד 
+  details_saved_successfully:      הפרטים נתקבלו בהצלחה
+  admin: אדמין
+  date: תאריך
+  name: שם
+  tel:  טלפון
+  email:  דוא''ל
+  campaign: קמפיין
+  list_name: שם הרשימה
+  spam: spam
+  valid: valid
+  page:  דף 
+  edit: edit
+  all: all
+  del:  מחק 
+  no_entries_yet_check_url: No entries yet. Check url!
+
+  reactions: תגובות
+  name:  שם
+  there_are_no_reactions_so_far: אין כרגע תגובות 

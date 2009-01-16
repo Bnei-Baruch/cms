@@ -13,18 +13,18 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
       form(:action => action, :method => 'post', :id =>'manpower_form'){
         table{
           tr(:class => 'section' ){
-            td(:colspan => '4'){text _('Personnal details')}
+            td(:colspan => '4'){text I18n.t(:personnal_details)}
           }
           tr{
             td(:class => 'first, must'){
-              text _('First Name')
+              text I18n.t(:first_name)
               text ' *:'
             }
             td{
               input :type => 'text', :name => 'firstname'
             } 
             td(:class => 'second, must'){
-              text _('Email')
+              text I18n.t(:email)
               text ' *:'
             }
             td{
@@ -33,14 +33,14 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
           }
           tr{  
             td(:class => 'first, must'){
-              text _('Last Name')
+              text I18n.t(:last_name)
               text ' *:'
             }
             td{
               input :type => 'text', :name => 'lastname'
             }
             td(:class => 'second'){
-              text _('Mobile Phone')
+              text I18n.t(:mobile_phone)
               text ' :'
             }
             td{
@@ -49,7 +49,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
           }
           tr{
             td(:class => 'first'){
-              text _('Year of Birth')
+              text I18n.t(:year_of_birth)
               text ' :'
             }
             td{
@@ -62,7 +62,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             }
             
             td(:class => 'second, must'){
-              text _('Main phone')
+              text I18n.t(:main_phone)
               text ' *:'
             }
             td{
@@ -71,7 +71,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
           }
           tr{
             td(:class => 'first, must'){
-              text _('Hometown')
+              text I18n.t(:hometown)
               text ' *:'
             }
             td{
@@ -79,7 +79,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             }
             
             td(:class => 'second, must'){
-              text _('First Language')
+              text I18n.t(:first_language)
               text ' *:'
             }
             td{
@@ -90,12 +90,12 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
 
           tr{td{text ''}}
           tr(:class => 'section' ){
-            td(:colspan => '4'){text _('Knowledge of languages')}
+            td(:colspan => '4'){text I18n.t(:knowledge_of_languages)}
           }
           
           tr{
             td(:class => 'first'){
-              text _('Language Name')
+              text I18n.t(:language_name)
               text ' :'
             }
             td{
@@ -104,18 +104,18 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               }
             }
             td(:class => 'checkbox', :colspan => '2'){
-              text _('Read')
+              text I18n.t(:read)
               input :type => 'checkbox', :name => 'read1', :value => 'Read', :class => 'check'
-              text _('Write')
+              text I18n.t(:write)
               input :type => 'checkbox', :name => 'write1', :value => 'Write', :class => 'check'
-              text _('Speak')
+              text I18n.t(:speak)
               input :type => 'checkbox', :name => 'speak1', :value => 'Speak', :class => 'check'
             }           
           }
 
           tr{
             td(:class => 'first'){
-              text _('Language Name')
+              text I18n.t(:language_name)
               text ' :'
             }
             td{
@@ -124,18 +124,18 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               }
             }
             td(:class => 'checkbox', :colspan => '2'){
-              text _('Read')
+              text I18n.t(:read)
               input :type => 'checkbox', :name => 'read2', :value => 'Read', :class => 'check'
-              text _('Write')
+              text I18n.t(:write)
               input :type => 'checkbox', :name => 'write2', :value => 'Write', :class => 'check'
-              text _('Speak')
+              text I18n.t(:speak)
               input :type => 'checkbox', :name => 'speak2', :value => 'Speak', :class => 'check'
             }
           }
 
           tr{
             td(:class => 'first'){
-              text _('Language Name')
+              text I18n.t(:language_name)
               text ' :'
             }
             td{
@@ -144,22 +144,22 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               }
             }
             td(:class => 'checkbox', :colspan => '2'){
-              text _('Read')
+              text I18n.t(:read)
               input :type => 'checkbox', :name => 'read3', :value => 'Read', :class => 'check'
-              text _('Write')
+              text I18n.t(:write)
               input :type => 'checkbox', :name => 'write3', :value => 'Write', :class => 'check'
-              text _('Speak')
+              text I18n.t(:speak)
               input :type => 'checkbox', :name => 'speak3', :value => 'Speak', :class => 'check'
             }
           }
           tr{td{text ''}}
           tr(:class => 'section' ){
-            td(:colspan => '4'){text _('More details')}
+            td(:colspan => '4'){text I18n.t(:more_details)}
           }
 
           tr{
             td(:class => 'first'){
-              text _('Profession')
+              text I18n.t(:profession)
               text ' :'
             }
             td{
@@ -169,23 +169,23 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
 
           tr{
             td(:class => 'first, must'){
-              text _('Free Time')
+              text I18n.t(:free_time)
               text ' *:'
             }
             td(:colspan => '2'){
               select(:name => 'time'){
                 option(:value => "nil"){text '------'}
-                option(:value => _('Less than 1h')){text _('Less than 1h')}
-                option(:value => _('Between 2h up to 4h')){text _('Between 2h up to 4h')}
-                option(:value => _('Between 4h to 6h')){text _('Between 4h to 6h')}
-                option(:value =>  _('More than 6h')){text _('More than 6h')}
+                option(:value => I18n.t(:less_than_1h)){text I18n.t(:less_than_1h)}
+                option(:value => I18n.t(:between_2h_up_to_4h)){text I18n.t(:between_2h_up_to_4h)}
+                option(:value => I18n.t(:between_4h_to_6h)){text I18n.t(:between_4h_to_6h)}
+                option(:value =>  I18n.t(:more_than_6h)){text I18n.t(:more_than_6h)}
               }
             }
           }
           
           tr{
             td(:class => 'first, must'){
-              text _('Where do you want to help?')
+              text I18n.t(:where_do_you_want_to_help)
               text ' *:'
             }
             td(:colspan => '4'){
@@ -196,9 +196,9 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             td(:colspan => '3'){
               input :type => 'hidden', :name => 'sendmode', :value => 'manpower'
               input :type => 'hidden', :name => 'adresseto', :value => email
-              input :type => 'submit', :value => _('submit'), :class => 'button'
+              input :type => 'submit', :value => I18n.t(:submit), :class => 'button'
               div(:id => "success"){
-                text _('Everything went fine')
+                text I18n.t(:everything_went_fine)
               }
             }
           }
@@ -211,7 +211,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
     ["Hebrew","English", "Russian", "Spanish", "French", "German", "Arabic", "Greek", "Georgian", 
     "Danish",  "Ukranian", "Turkish", "Lithunian", "Latvian", "Macedonian", "Nederlands", "Polish", "Portugese", "Romanian",
     "Vietnamian", "Chinese", "Yiddish"].each{ |e|
-      option(:value => e){text _(e)}
+      option(:value => e){text I18n.t(e.downcase.to_sym)}
     }
   end
   

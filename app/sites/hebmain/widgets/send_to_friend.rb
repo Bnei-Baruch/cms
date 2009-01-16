@@ -6,12 +6,12 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
         table(:id => 'friend'){
           tr{
             td(:colspan => '2'){
-              h1{text _('Send to friend')}
+              h1{text I18n.t(:send_to_friend)}
             }
           }
           tr{
             td{
-              text _('Name of sender')
+              text I18n.t(:name_of_sender)
             }
             td{
               input :type => 'text', :size => '20', :name => 'sender_name'
@@ -19,7 +19,7 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
           }
           tr{
             td{
-              text _('Address of sender')
+              text I18n.t(:address_of_sender)
             }
             td{
               input :type => 'text', :size => '20', :name => 'adressefrom', :dir => 'ltr'
@@ -27,7 +27,7 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
           }
           tr{
             td{
-              text _('Name of receiver')
+              text I18n.t(:name_of_receiver)
             }
             td{
               input :type => 'text', :size => '20', :name => 'receiver_name'
@@ -35,7 +35,7 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
           }
           tr{
             td{
-              text _('Send to email address')
+              text I18n.t(:send_to_email_address)
             }
             td{
               input :type => 'text', :size => '20', :name => 'adresseto', :dir => 'ltr'
@@ -43,9 +43,9 @@ class Hebmain::Widgets::SendToFriend < WidgetManager::Base
           }
           tr{
             td{
-              input :type => 'submit', :class => 'button', :name => 'submit', :value => _('Send')
-              input :type => 'reset', :class => 'button', :name => 'cancel', :id => 'stf_cancel', :value => _('Cancel')
-              input :type => 'hidden', :name => 'subject', :value => _('stf subject')
+              input :type => 'submit', :class => 'button', :name => 'submit', :value => I18n.t(:send)
+              input :type => 'reset', :class => 'button', :name => 'cancel', :id => 'stf_cancel', :value => I18n.t(:cancel)
+              input :type => 'hidden', :name => 'subject', :value => I18n.t(:stf_subject)
             }
           }
         }

@@ -11,7 +11,7 @@
     <%= f.hidden_field(:property_id, :index => nil) %>
     <%= f.hidden_field(:id, :index => nil) %>
   
-    <%= content_tag(:label,_(property.name), label_options) %>
+    <%= content_tag(:label,I18n.t(property.name.downcase.tr(' ','_').to_sym), label_options) %>
     <%= errors %>
     <% case data_type 
     when 'number', 'string': %>
@@ -29,7 +29,7 @@
           yearRange: '1900:2500',
           showOn: 'button',
           dateFormat: 'yy-mm-dd',
-          buttonText: '<%=_('Choose')%>',
+          buttonText: '<% I18n.t(:Choose)%>',
           buttonImage: '/images/calendar.gif'
         });
       })
@@ -49,7 +49,7 @@
               yearRange: '1900:2500',
               showOn: 'button',
               dateFormat: 'yy-mm-dd',
-              buttonText: '<%=_('Choose')%>',
+              buttonText: '<%=I18n.t(:choose)%>',
               buttonImage: '/images/calendar.gif'
           })
           .change(function(){

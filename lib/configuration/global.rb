@@ -7,8 +7,8 @@ module	Configuration::Global
     :short_language => 'en',
     :use_advanced_read_more => true,
     :comments => {
-     :enable_site_wide => true
+      :enable_site_wide => true
     }
   }
-
+ 
 end

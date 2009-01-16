@@ -1,18 +1,18 @@
 <% name = @resource.resource_type.name %>
-<% @title = _('Editing') + ' ' + _(name) %>
+<% @title = I18n.t(:editing) + ' ' + I18n.t(name.downcase.tr(' ','_').to_sym) %>
 <%= render :partial => "admin/share/tiny_mce_full" %>
 
 <% cms_form_for(:resource, :url => admin_resource_path(@resource), :html => {:method => 'put', :multipart => true}) do |f| %>
-		<% update_name =  _('Update') + ' ' + _(name) %>
+		<% update_name =  I18n.t(:update) + ' ' + I18n.t(name.downcase.tr(' ','_').to_sym) %>
 		<br />
-		<%= link_to _('Cancel'), session[:referer], {:class => 'button'} %>
+		<%= link_to I18n.t(:cancel), session[:referer], {:class => 'button'} %>
 		<br />                                             
 		<br />                                             
 		<p class="submit"><input type="submit" value="<%= update_name %>" name="publish_button"/>
-		<input type="submit" value="<%= _"Save draft" %>" name="draft_button"/></p>
+		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/></p>
 
 		<%= render :partial => 'fields', :locals => {:f => f} %>
 		<p class="submit"><input type="submit" value="<%= update_name %>" name="publish_button"/>
-		<input type="submit" value="<%= _"Save draft" %>" name="draft_button"/></p>
+		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/></p>
 <% end %>
-<%= link_to _('Cancel'), session[:referer], {:class => 'button'} %>
+<%= link_to I18n.t(:cancel), session[:referer], {:class => 'button'} %>

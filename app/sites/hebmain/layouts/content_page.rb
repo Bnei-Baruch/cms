@@ -132,7 +132,6 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       #if @presenter.site_settings[:comments][:enable_site_wide]
                       @previous_comments.render_to(self)
                       #end
-                      
                       if ext_kabtv_exist
                           div(:id => 'ft'){
                             @header_bottom_links.render_to(self)

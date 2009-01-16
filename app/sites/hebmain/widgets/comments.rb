@@ -78,23 +78,23 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
     table(:id => 'reactions'){
       tr{
         td(:colspan => '2'){
-          h1{text _('Reactions')}
+          h1{text I18n.t(:reactions)}
         }
       }
       tr{
-        td{label(:for => 'title'){text _('Title')}}
+        td{label(:for => 'title'){text I18n.t(:title)}}
         td{input :type => 'text', :id => 'title', :name => 'options[title]',  :size => '31', :class => 'text'}
       }    
       tr{
-        td{label(:for => 'name'){text _('Name')}}
+        td{label(:for => 'name'){text I18n.t(:name)}}
         td{input :type => 'text', :id => 'name', :name => 'options[name]',  :size => '31', :class => 'text'}
       }
       tr{
-        td{label(:for => 'email'){text _('Email')}}
+        td{label(:for => 'email'){text I18n.t(:email)}}
         td{input :type => 'text', :id => 'email',:name => 'options[email]', :size => '31', :class => 'text'}
       }
       tr{
-        td(:id => 'content'){label(:for => 'options_body'){text _('Body')}}
+        td(:id => 'content'){label(:for => 'options_body'){text I18n.t(:body)}}
         td{textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]', :class => 'text'}
         input :type => 'hidden', :name => 'view_mode', :value => 'new_comment'
         input :type => 'hidden', :name => 'options[widget]', :value => 'comments'
@@ -124,9 +124,9 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   def write_previous_comments
     comment_list = Comment.list_all_comments_for_page(tree_node.id)
     counter_for_comments = comment_list.size
-    div(:class => 'comment_header'){text _('Reactions')} 
+    div(:class => 'comment_header'){text I18n.t(:reactions)} 
     if counter_for_comments == 0
-      div(:class => 'comment_empty'){text _('There are no reactions so far')}
+      div(:class => 'comment_empty'){text I18n.t(:there_are_no_reactions_so_far)}
     end
     comment_list.each { |cl|
       cmcreated = parsedate cl.created_at.to_s

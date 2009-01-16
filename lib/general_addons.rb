@@ -1,3 +1,19 @@
+module I18n 
+  class << self
+    def default_translation(exception, locale, key, options)
+      if MissingTranslationData === exception
+        case key.class
+        when String
+          return key
+        when Symbol
+          return key.humanize
+        end
+        return key.to_s.humanize
+       #raise exception
+      end
+    end  
+  end
+end
 
 class NilClass
   def empty?

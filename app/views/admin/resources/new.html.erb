@@ -1,8 +1,8 @@
 <% name = @resource.resource_type.name %>
-<% @title = _('Creating') + ' ' + _(name) %>
+<% @title = I18n.t(:Creating') + ' ' + _(name) %>
 <%= render :partial => "admin/share/tiny_mce_full" %>
 <% cms_form_for(:resource, :url => admin_resources_path, :html => {:multipart => true}) do |f| %>
-<%= link_to _('Cancel'), session[:referer], {:class => 'button'} %>
+<%= link_to I18n.t(:Cancel'), session[:referer], {:class => 'button'} %>
 <br />
 <br />
 <br />
@@ -22,4 +22,4 @@
 	</div>
 <% end %>
 <br />
-<%= link_to _('Cancel'), session[:referer], {:class => 'button'} %>
+<%= link_to I18n.t(:Cancel'), session[:referer], {:class => 'button'} %>

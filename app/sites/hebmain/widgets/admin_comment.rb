@@ -90,7 +90,7 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       
       
       select(:name => 'options[filter]'){
-        option(:value => "nil"){text _('All')}
+        option(:value => "nil"){text I18n.t(:all)}
         cat.each{|c|
           option(:value => c.id ){text c.resource.name}
         }
@@ -101,16 +101,16 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       table{
         thead{
           tr{
-            th _('Page')
-            th _('Date')
-            th _('Valid')
-            th _('Spam')
-            th _('Name')
-            th _('Title')
-            th _('Body')
-            th _('Edit')
-            th(:colspan => '2'){text _('Valid')}
-            th _('Del')
+            th I18n.t(:page)
+            th I18n.t(:date)
+            th I18n.t(:valid)
+            th I18n.t(:spam)
+            th I18n.t(:name)
+            th I18n.t(:title)
+            th I18n.t(:body)
+            th I18n.t(:edit)
+            th(:colspan => '2'){text I18n.t(:valid)}
+            th I18n.t(:del)
           }
         }
         
@@ -208,11 +208,11 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
   def single_comment(cid = 0)
     cm = Comment.find(cid)
     p(:class => 'right'){
-      text _('Title')+': '
+      text I18n.t(:title)+': '
       input  :type => 'text', :name => 'options[title]', :value => cm.title
       br
       br
-      text _('Body')+': '
+      text I18n.t(:body)+': '
       textarea(:cols => '10', :rows =>'15', :name => 'options[body]'){text cm.body}
       br
       br

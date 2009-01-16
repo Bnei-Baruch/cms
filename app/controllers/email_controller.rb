@@ -91,18 +91,18 @@ EOF
   time = params[:time]
   whelp = params[:whelp]
   
-  firstname_label = _('First Name')
-  lastname_label = _('Last Name')
-  email_label = _('Email')
-  birthdate_label = _('Year of Birth')
-  mainphone_label = _('Main phone')
-  mobilephone_label = _('Mobile Phone')
-  hometown_label = _('Hometown')
-  firstlanguage_label = _('First Language')
-  languages_label = _('Knowledge of languages')
-  profession_label = _('Profession')
-  time_label = _('Free Time')
-  whelp_label = _('Where do you want to help?')
+  firstname_label = I18n.t(:first_name)
+  lastname_label = I18n.t(:last_name)
+  email_label = I18n.t(:email)
+  birthdate_label = I18n.t(:year_of_birth)
+  mainphone_label = I18n.t(:main_phone)
+  mobilephone_label = I18n.t(:mobile_phone)
+  hometown_label = I18n.t(:hometown)
+  firstlanguage_label = I18n.t(:first_language)
+  languages_label = I18n.t(:knowledge_of_languages)
+  profession_label = I18n.t(:profession)
+  time_label = I18n.t(:free_time)
+  whelp_label = I18n.t(:where_do_you_want_to_help)
     
      msg = <<EOF
 From: manpowerform@kab.co.il

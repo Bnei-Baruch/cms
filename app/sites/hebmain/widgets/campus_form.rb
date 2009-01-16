@@ -92,16 +92,16 @@ EOF
 	def campus_admin_mode
 		div(:class => 'campus') {
 	    	#  text 'אדמין'
-        text _('admin')
+        text I18n.t(:admin)
 	    	  br
 	    	  table{
 	    	  tr(:class => 'title'){
-	    	  	td{text _('date')}
-	    	  	td{text _('name')}
-	    	  	td{text _('tel')}
-	    	  	td{text _('email')}
-	    	  	td{text _('campaign')}
-            td{text _('list name')}
+	    	  	td{text I18n.t(:date)}
+	    	  	td{text I18n.t(:name)}
+	    	  	td{text I18n.t(:tel)}
+	    	  	td{text I18n.t(:email)}
+	    	  	td{text I18n.t(:campaign)}
+            td{text I18n.t(:list_name)}
 	    	  }
           if get_list_name == "" 
             students_list = Student.list_all_students	    	  
@@ -158,15 +158,15 @@ EOF
     
     #if label are empty - keep original label the form was built for
     if field_1_label == ""
-      field_1_label = _('name')
+      field_1_label = I18n.t(:name)
     end
     
     if field_2_label == ""
-      field_2_label = _('email')
+      field_2_label = I18n.t(:email)
     end
     
     if field_3_label == ""
-      field_3_label = _('tel')
+      field_3_label = I18n.t(:tel)
     end
     
     #if label are mandatory - add a nice star next to it

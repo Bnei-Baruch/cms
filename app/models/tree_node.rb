@@ -278,7 +278,10 @@ class TreeNode < ActiveRecord::Base
 
     alias :old_find_by_sql :find_by_sql
     def find_by_sql(arg)
-      arg = arg.sub(/SELECT \* FROM "*tree_nodes"* +WHERE/, "SELECT *, get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2 FROM tree_nodes   WHERE")
+      unless arg.include? "cms_treenode_subtree" or arg.include? "cms_treenode_ancestors"
+        arg = arg.sub(/SELECT \* FROM "*tree_nodes"* +WHERE/, "SELECT *, get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2 FROM tree_nodes   WHERE")
+      end
+      
       output = self.old_find_by_sql(arg)
       output.delete_if {|x| x.ac_type == 0 }
       output
@@ -286,15 +289,21 @@ class TreeNode < ActiveRecord::Base
     
     alias :old_find :find
     def find(*args)
+      
       if args.last.is_a?(::Hash) 
-        if args.last[:select]
-          args.last[:select] =  args.last[:select] + ", get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2 " 
-        else
-          args.last[:select] = "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"
+        #some cms_treenode_ methods have permissions by tham self
+        if args.last[:from].nil? or (args.last[:from] and not (args.last[:from].include? "cms_treenode_subtree" or args.last[:from].include? "cms_treenode_ancestors"))
+          #adding permission field
+          if args.last[:select]
+            args.last[:select] =  args.last[:select] + ", get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2 " 
+          else
+            args.last[:select] = "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"
+          end
         end
       else
         args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
       end
+
       self.old_find(*args)
     end
 
@@ -472,8 +481,8 @@ class TreeNode < ActiveRecord::Base
         # It's new position is now...
         new_position = nodes[idx][:pos]
         if tree_node.position != new_position
-            tree_node.position = new_position
-            tree_node.save
+          tree_node.position = new_position
+          tree_node.save
         end
       }
     }

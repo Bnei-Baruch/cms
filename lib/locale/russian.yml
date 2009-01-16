@@ -1,0 +1,157 @@
+russian:
+  preview_title: 
+  large_title: 
+  permalink: 
+  small_title: 
+  sub_title: 
+  side_image: 
+  main_image_alt: 
+  preview_image: 
+  preview_image_alt: 
+  writer: 
+  writer_email: 
+  date: 
+  hide_on_navigation: 
+  acts_as_section: 
+  reset_date: 
+  title: 
+  body: 
+  description: 
+  description_for_preview: 
+  title_and_description: 
+
+  content_page: 
+  article: 
+  box: 
+  content_preview: 
+  website: 
+  site_name: 
+  prefix: 
+  domain: 
+  maximum_number_of_items: 
+  acts_as_articles_index: 
+  is_main_format: 
+  link: 
+  url: 
+  alt: 
+  open_in_new_window: 
+  
+
+  publish_on_site: 
+  save_draft: 
+  update: 
+  creating: 
+  editing: 
+  cancel: 
+
+  regular_text: 
+  sub_title: 
+  
+  first_name: 
+  
+ 
+  personnal_details: 
+  last_name: 
+  year_of_birth: 
+  hometown: 
+  mobile_phone: 
+  main_phone: 
+  email: 
+  knowledge_of_languages: 
+  language_name: 
+  first_language: 
+  more_details: 
+  profession: 
+  free_time: 
+  where_do_you_want_to_help: 
+  
+  read: 
+  write: 
+  speak: 
+  less_than_1h: 
+  between_2h_up_to_4h: 
+  between_4h_to_6h: 
+  more_than_6h: 
+  submit: 
+  choose_language: 
+  response_text: 
+  
+  arabic: 
+  german: 
+  spanish: 
+  french: 
+  danish: 
+  bulgar: 
+  tshekh: 
+  greek: 
+  persian: 
+  hebrew: 
+  hindi: 
+  hungarian: 
+  italian: 
+  japanese: 
+  georgian: 
+  lithunian: 
+  latvian: 
+  macedonian: 
+  nederlands: 
+  polish: 
+  portugese: 
+  romanian: 
+  russian: 
+  turkish: 
+  ukranian: 
+  vietnamian: 
+  chinese: 
+  chinese_classical: 
+  yiddish: 
+  english: 
+  
+  send_to_friend: 
+  name_of_sender: 
+  name_of_receiver: 
+  address_of_sender: 
+  send_to_email_address: 
+  send: 
+  everything_went_fine: 
+  stf_subject: 
+  
+  email_from: 
+  email_to: 
+  email_subject: 
+  confirmation_text: 
+  do_not_send_confirmation_letter: 
+  list_name: 
+  campus_label_1: 
+  hide_campus_label_1: 
+  campus_label_1_mandatory: 
+  campus_Label_2: 
+  hide_Campus_Label_2: 
+  campus_Label_2_mandatory: 
+  campus_Label_3: 
+  hide_Campus_Label_3: 
+  campus_Label_3_mandatory: 
+ 
+  Editing: 
+  
+
+  download: 
+  details_saved_successfully: 
+  admin: 
+  date: 
+  name: 
+  tel: 
+  email: 
+  campaign: 
+  list_name: 
+  spam: 
+  valid: 
+  page: 
+  edit: 
+  all: 
+  del: 
+  no_entries_yet_check_url: 
+
+  reactions: 
+  name: 
+  there_are_no_reactions_so_far: 

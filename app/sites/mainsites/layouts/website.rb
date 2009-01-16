@@ -135,10 +135,12 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         }
         div(:id => 'body'){
           div(:id => 'body-left'){
-            div(:class => 'side-box-top roundtop'){
+            div(:class => 'side-box-top'){
               rawtext 'Kabbalah for Beginners'
+              div(:class => 'left-ear')
+              div(:class => 'right-ear')
             }
-            div(:class => 'box-content roundbot'){
+            div(:class => 'box-content'){
               div(:id => 'static-menu'){
                 a(:href => '#'){rawtext 'Что такое каббала?'}
                 ul(:class => 'minus') {
@@ -184,12 +186,12 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
             }
           }
           div(:id => 'body-right'){
-            div(:class => 'side-box-top roundtop'){
+            div(:class => 'side-box-top'){
               rawtext 'Rav Laitman\'s Blog'
-              #              div(:class => 'left-ear')
-              #              div(:class => 'right-ear')
+              div(:class => 'left-ear')
+              div(:class => 'right-ear')
             }
-            div(:class => 'roundbot box-content'){
+            div(:class => 'box-content'){
               rawtext 'tv'
             }
             div(:class => 'side-box'){

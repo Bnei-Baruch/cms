@@ -5,23 +5,23 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
   def initialize(*args, &block)
     super
-#    @header_top_links = w_class('header').new(:view_mode => 'top_links')
-#    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
-#    @header_logo = w_class('header').new(:view_mode => 'logo')
-#    @header_copyright = w_class('header').new(:view_mode => 'copyright')
-#    @static_tree = w_class('tree').new(:view_mode => 'static')
+    #    @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    #    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
+    #    @header_logo = w_class('header').new(:view_mode => 'logo')
+    #    @header_copyright = w_class('header').new(:view_mode => 'copyright')
+    @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
-#    @breadcrumbs = w_class('breadcrumbs').new()
-#    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
-#    @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
-#    @google_analytics = w_class('google_analytics').new
-#    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
-#    @sitemap = w_class('sitemap').new
-#    @send_to_friend = w_class('send_to_friend').new
-#    @direct_link = w_class('shortcut').new
-#    @subscription = w_class('header').new(:view_mode => 'subscription')
-#    @comments = w_class('comments').new
-#    @previous_comments = w_class('comments').new(:view_mode => 'previous')
+    #    @breadcrumbs = w_class('breadcrumbs').new()
+    #    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
+    #    @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
+    #    @google_analytics = w_class('google_analytics').new
+    #    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
+    #    @sitemap = w_class('sitemap').new
+    #    @send_to_friend = w_class('send_to_friend').new
+    #    @direct_link = w_class('shortcut').new
+    #    @subscription = w_class('header').new(:view_mode => 'subscription')
+    #    @comments = w_class('comments').new
+    #    @previous_comments = w_class('comments').new(:view_mode => 'previous')
   end
 
   def render
@@ -54,7 +54,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         else
           stylesheet_link_tag 'base-min', 
           'common/reset.css',
-          'rusmain/homepage.css',
+          'rusmain/content_page.css',
           'rusmain/superfish.css',
           'rusmain/jquery.tabs.css'
           #,
@@ -144,11 +144,14 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         }
         div(:id => 'body'){
           div(:id => 'body-left'){
-            div(:class => 'side-box-top roundtop'){
+            div(:class => 'side-box-top'){
               rawtext 'Kabbalah for Beginners'
+              div(:class => 'left-ear')
+              div(:class => 'right-ear')
             }
-            div(:class => 'box-content roundbot'){
+            div(:class => 'box-content'){
               div(:id => 'static-menu'){
+                @static_tree.render_to(self)
                 a(:href => '#'){rawtext 'Что такое каббала?'}
                 ul(:class => 'minus') {
                   li {a(:href => '#'){rawtext 'Каббала обо всём'}}
@@ -192,22 +195,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               }
             }
           }
-          div(:id => 'body-right'){
-            div(:class => 'side-box-top roundtop'){
-              rawtext 'Rav Laitman\'s Blog'
-              #              div(:class => 'left-ear')
-              #              div(:class => 'right-ear')
-            }
-            div(:class => 'roundbot box-content'){
-              rawtext 'tv'
-            }
-            div(:class => 'side-box'){
-              h3 'Newsletter'
-              div(:class => 'box-content'){
-                rawtext 'tv'
-              }
-            }
-          }
           div(:id => 'body-middle'){
             div(:class => 'mid-box-top'){
               rawtext 'Recent Lessons'
@@ -215,11 +202,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               div(:class => 'right-ear')
             }
             div(:id => 'mid-content'){
-              p 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin. Praesent purus. Duis et augue. Mauris at erat sit amet massa porttitor ultricies. Sed nisl ante, ornare eu, mollis ultrices, euismod euismod, ligula. Integer sit amet nibh eu felis posuere blandit. Cras pede felis, malesuada sit amet, viverra pellentesque, volutpat nec, dui. Sed est lectus, facilisis adipiscing, ultricies ac, consectetur quis, turpis. Praesent non ante nec urna posuere feugiat. Proin consequat sapien sit amet est. Cras eget diam nec nisi vehicula feugiat. Morbi sed massa. Integer enim. Pellentesque in odio a mauris fermentum accumsan. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam aliquet sapien a enim vulputate sodales. Integer accumsan condimentum eros.'
-              p 'Cras gravida, lacus eu mattis fringilla, mi magna iaculis odio, et rutrum magna dolor id risus. Praesent bibendum posuere diam. Phasellus a neque. Quisque augue eros, aliquet eget, faucibus eu, accumsan eget, turpis. Morbi orci. Curabitur consectetur faucibus sem. Ut cursus orci sit amet orci. Integer at orci id lorem luctus porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut eleifend pretium lorem. Aliquam erat volutpat. Nunc auctor. Quisque posuere neque id ipsum. Nunc vulputate neque lobortis neque. Mauris sit amet justo ut tellus iaculis pharetra. Pellentesque diam. Nunc dui magna, sagittis vel, dictum at, ullamcorper non, pede. Proin dignissim semper velit. Suspendisse potenti.'
-              p 'Duis dapibus, massa in tristique bibendum, mi purus vehicula massa, sit amet aliquet metus orci a lacus. Vivamus non sem sed enim fringilla tincidunt. Nunc accumsan varius justo. Quisque nibh nisi, laoreet id, sagittis sit amet, hendrerit eget, dolor. Fusce felis. Pellentesque ultricies. Maecenas vel eros eget erat molestie eleifend. Vestibulum ultrices purus vel odio. Nullam non sem. Pellentesque iaculis. In non libero ac mauris tincidunt commodo. Vestibulum vehicula consequat turpis. Vestibulum nec leo.'
-              p 'Duis eget ligula a arcu vestibulum facilisis. Quisque ultrices consectetur leo. Donec commodo. Ut orci. Nulla dictum fringilla odio. Cras nec leo. Fusce justo nulla, feugiat sed, laoreet a, lacinia pharetra, arcu. Etiam nibh pede, malesuada a, fermentum id, porttitor at, augue. Nullam accumsan varius pede. Aliquam erat volutpat.'
-              p 'Sed non urna in ligula hendrerit venenatis. Vivamus sed odio porta risus malesuada malesuada. Ut sed turpis. Sed bibendum. Donec luctus tellus in nisi. Mauris nisi. Nulla facilisi. Integer dapibus velit tempus purus. Integer tristique. Integer feugiat. Etiam ut ligula. '
+              make_sortable(:selector => ".mid-content", :axis => 'y') {
+                self.ext_content.render_to(self)
+              }
             }
           }
         }

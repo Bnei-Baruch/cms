@@ -68,17 +68,12 @@ strong{
 }
 #body-left{
     float:left;
-    width:242px;
-    position:relative;
-}
-#body-right{
-    float:right;
     width:224px;
     position:relative;
 }
 #body-middle{
-    margin-left:252px; /* + 10px between columns */
-    margin-right:234px; /* + 10px between columns */
+    margin-left:243px; /* + 10px between columns */
+    margin-right:0;
     width:auto;
 }
 #body-middle #mid-content{
@@ -92,17 +87,18 @@ strong{
 }
 .side-box-top{
     background:#b1c385 url(/images/rusmain/box-top-gradient.gif) repeat-x 0 0;
-    height:16px;
+    height:25px;
     position:relative;
     line-height:24px;
     padding:0 6px;
 }
-.side-box-top .left-ear, .side-box-top .right-ear{
+.side-box-top .left-ear, .side-box-top .right-ear,
+.mid-box-top .left-ear, .mid-box-top .right-ear{
     position:absolute;
     top:0;
     width:6px;
     height:25px;
-    background:#b1c385 url(/images/rusmain/box-top-ears.jpg) no-repeat 0 0;
+    background:#b1c385 url(/images/rusmain/box-top-ears.gif) no-repeat 0 0;
 }
 .side-box-top .left-ear{
     left:0;
@@ -120,11 +116,7 @@ strong{
     color:white;
 }
 .mid-box-top .left-ear, .mid-box-top .right-ear{
-    position:absolute;
-    top:0;
-    width:6px;
-    height:25px;
-    background:#b1c385 url(/images/rusmain/box-top-ears.jpg) no-repeat -12px 0;
+    background-position: -12px 0;
 }
 .mid-box-top .left-ear{
     left:0;
@@ -143,11 +135,27 @@ strong{
     margin:10px 0 0;
     clear:both;
 }
-#body-left .roundtop, #body-right .roundtop{
-    margin: 8px 0 0;
+.side-box-top{
+    background:#2a6fab url(/images/rusmain/box-top-gradient.gif) repeat-x 0 0;
+    height:25px;
+    position:relative;
+    line-height:25px;
+    padding:0 6px;
+    color:white;
 }
-#body-left .roundbot, #body-right .roundbot{
-    margin: 0 0 18px;
+.side-box-top .left-ear, .side-box-top .right-ear{
+    position:absolute;
+    top:0;
+    width:6px;
+    height:25px;
+    background:#b1c385 url(/images/rusmain/box-top-ears.gif) no-repeat 0 0;
+}
+.side-box-top .left-ear{
+    left:0;
+}
+.side-box-top .right-ear{
+    background-position: -6px 0;
+    right:0;
 }
 .side-box h3{
     background-color:#979797;

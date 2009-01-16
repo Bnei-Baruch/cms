@@ -1,4 +1,4 @@
-class Hebmain::Widgets::CmsActions < WidgetManager::Base
+class Mainsites::Widgets::CmsActions < WidgetManager::Base
   @@idx = 0  
   # tree_node - is the node object to which the operations will be performed. Editing will be for this object, New is a new child for this object, Delete is deleting this tree_node
   def render_full

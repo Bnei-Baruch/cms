@@ -15,6 +15,10 @@ module I18n
   end
 end
 
+class Object
+  def _(*args); I18n.translate(*args); end
+end
+
 class NilClass
   def empty?
     true

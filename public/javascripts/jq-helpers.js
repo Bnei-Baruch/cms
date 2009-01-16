@@ -1,37 +1,5 @@
 // Russian site
 $(document).ready(function() {
-    //Round top corners
-    $('.roundtop').corner({
-        tl:{
-            radius: 8
-        },
-        tr:{
-            radius: 8
-        },
-        bl:{
-            radius: 0
-        },
-        br:{
-            radius: 0
-        },
-        antiAlias:true
-    });
-    //Round bottom corners
-    $('.roundbot').corner({
-        tl:{
-            radius: 0
-        },
-        tr:{
-            radius: 0
-        },
-        bl:{
-            radius: 8
-        },
-        br:{
-            radius: 8
-        },
-        antiAlias:true
-    });
     //Make it a menu
     $("ul.sf-menu").superfish();
     //Add pipes between menu elements

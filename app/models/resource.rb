@@ -2,7 +2,7 @@ class Resource < ActiveRecord::Base
 
   has_and_belongs_to_many :websites
   belongs_to :resource_type
-  has_many :resource_properties, :dependent => :destroy
+  has_many :resource_properties, :dependent => :destroy, :include => :property
   has_many :rp_number_properties, :class_name => 'RpNumber', :dependent => :destroy
   has_many :rp_string_properties, :class_name => 'RpString', :dependent => :destroy
   has_many :rp_text_properties, :class_name => 'RpText', :dependent => :destroy

@@ -39,7 +39,7 @@ class Hebmain::Widgets::Kabtv < WidgetManager::Base
         rawtext "}"
       }
       div(:id => 'kabtv-bot'){
-        a(:href => get_target) {
+        a(:href => get_target, :onclick => "javascript:pageTracker._trackPageview('/outbound/kabtv');") {
           img(:id => 'yellow-button', :src => "/images/hebmain/kabtv/home-button.gif", :alt => "לכל תוכניות הטלוויזיה")
         }
       }

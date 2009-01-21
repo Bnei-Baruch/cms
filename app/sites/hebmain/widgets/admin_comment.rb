@@ -48,6 +48,7 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
 
 
   def write_links_of_page(total=0,offset=1,cat='nil', mod='off')
+    cat = 'nil' if cat.blank?
     nb_page = (total/offset)
     index = 0
     while nb_page >= index
@@ -88,7 +89,6 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       input :type => 'hidden', :name => 'options[widget]', :value => 'admin_comment'
       input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
       
-      
       select(:name => 'options[filter]'){
         option(:value => "nil"){text I18n.t(:all)}
         cat.each{|c|
@@ -113,7 +113,6 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
             th I18n.t(:del)
           }
         }
-        
         
         
         if @presenter.page_params.include?('options')
@@ -158,7 +157,6 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
         
         comment_list = hash_comment['content_arrays']
         comment_count = hash_comment['count_comments']  
-          
         comment_list.each_with_index { |cl,i|
           cmcreated = parsedate cl.created_at.to_s
           case cl.is_valid

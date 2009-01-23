@@ -57,10 +57,19 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
   end
 
   def render_static
-    unless presenter.main_section.nil?
+    unless presenter.main_section.nil? or all_nodes.blank?
       ul(:class => 'static') {
         # We're going to draw only those nodes that are on path
         build_tree(presenter.main_section.id, all_nodes).each {|element| draw_tree element}
+      }
+    end
+  end
+
+  def render_static_ltr
+    nodes = all_nodes(true, @website_parent_node)
+    unless nodes.blank?
+      ul(:id => 'static-menu') {
+        build_tree(@website_parent_node, nodes).each {|element| draw_ltr_tree element}
       }
     end
   end
@@ -71,7 +80,7 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
       link = ''
       user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
       url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node)
-      link = '<a href="' + url + '?logout=true">&nbsp;&nbsp;&nbsp;&nbsp;Logout from ' + user_name + '</a>'
+      link = '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">Logout from ' + user_name + '</a>'
 
       @counter += 1
       label = "TREE_#{@counter}"
@@ -83,10 +92,9 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
             });
             function tree() {
               children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
-              create_tree('#{get_page_url(tree_node)}', children, '#{label}',
-'עץ ניהול   #{link}'
-,'#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
- '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{@presenter.node.resource.name}');
+              create_tree('#{get_page_url(tree_node)}', children, '#{label}', '#{_(:administration_tree)}   #{link}',
+                          '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
+                          '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{@presenter.node.resource.name}');
             }
           TREE_CODE
         }
@@ -138,17 +146,17 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
   end
 
   # Fetch all sub-nodes of website 
-  def all_nodes(regular_user = true)
+  def all_nodes(regular_user = true, parent = nil)
     if regular_user
       properties =  'b_hide_on_navigation = false'
-      parent = presenter.main_section.id
+      parent ||= presenter.main_section.id
       status = ['PUBLISHED']
     else
       properties = nil
-      parent =  @website_parent_node
+      parent ||= @website_parent_node
       status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
     end
-    TreeNode.get_subtree(
+    @all_nodes ||= TreeNode.get_subtree(
       :parent => parent,
       :resource_type_hrids => ['content_page'],
       :properties => properties,
@@ -189,7 +197,7 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
   def draw_tree(node)
     item = node.shift
     children = node
-    if item[:submenu] 
+    if item[:submenu]
       if item[:selected] # Display subtree
         li(:class => "submenu selected") {
           draw_link item[:item]
@@ -207,12 +215,34 @@ class Mainsites::Widgets::Tree < WidgetManager::Base
         draw_link item[:item]
       }
     end
-    
   end
 
-  def draw_link(tree_node)
+  def draw_ltr_tree(node)
+    # :item => tree_node
+    # :class => submenu -- has subitems,
+    #           final   -- has no subtree
+    # :selected => true -- is on the path to a currently displayed page
+
+    item = node.shift
+    children = node
+    if item[:submenu]
+      klass = item[:selected] ? 'minus selected' : 'plus'
+      li{
+        draw_link item[:item], klass
+        ul {
+          children.each {|element| draw_ltr_tree element}
+        }
+      }
+    else # 'final' element
+      li{
+        draw_link item[:item], "#{item[:selected] ? ' selected' : ''}"
+      }
+    end
+  end
+
+  def draw_link(tree_node, klass = '')
     name = tree_node.resource.name
-    a name, :title => name, :href => get_page_url(tree_node)
+    a name, :class => klass, :title => name, :href => get_page_url(tree_node)
   end
   
   # 

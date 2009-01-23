@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Sitemap < WidgetManager::Base
+class Mainsites::Widgets::Sitemap < WidgetManager::Base
   
   def render_full
     div(:class => 'sitemap'){

@@ -152,10 +152,38 @@ hebrew:
   del:  מחק 
   no_entries_yet_check_url: No entries yet. Check url!
 
-  reactions: תגובות
+  comments: תגובות
   name:  שם
-  there_are_no_reactions_so_far: אין כרגע תגובות 
+  there_are_no_comments_so_far: אין כרגע תגובות
+  thanks: תודה
+  comment_received: תגובתך התקבלה
+  will_be_published: ותפורסם בקרוב, בהתאם לשיקולי המערכת.
+  add_comment: הוסף תגובה
+  without_content: (לת)
 
   content_page_management: ניהול דף תוכן
   create_new_content_item: צור יחידת תוכן חדשה
   edit_content_page: ערוך דף תוכן
+  upper_part_admin: ניהול חלק עליון
+  admin: ניהול אדמין
+  create_modul_comments_administration: צור מודול ניהול תגובות
+
+  home_breadcrumb: ראשי
+
+  newsletter_subscription: הרשמו לניוזלטר השבועי
+  enter_email:  הזינו דואר אלקטרוני
+  email_address: כתובת e-mail
+  subscribe: הרשם
+
+  direct_link: לינק ישיר לכתבה
+
+  administration_tree: עץ ניהול
+  new_link: לינק חדש
+  new_language: שפה חדשה
+  new_bottom_link: לינק חדש לפוטר
+  new_copyright: צור יחידת זכויות יוצרים
+  add_copyright:   הוספת זכויות יוצרים
+  new_subscription: צור יחידת הרשמה
+  add_subscription: הוספת הרשמה
+
+  create_new_box: צור קופסא חדשה

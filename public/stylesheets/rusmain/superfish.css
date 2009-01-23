@@ -71,24 +71,25 @@ ul.sf-menu li li li.sfHover ul {
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
     color:			white;
 }
-.sf-menu li li a{
+.sf-menu li a{
     color:          white !important;
+}
+.sf-menu li li a{
+    color:          #E5E5EB !important;
+    font-size:      11px;
+    line-height:    150%;
 }
 .sf-menu li {
     height:20px;
     line-height:20px;
-    /*background:#c5c6cb url(/images/rusmain/nav-gradient.gif) repeat-x 0 0;*/
 }
 .sf-menu li li {
-    background-color:#c5c6cb;
-    /*background:		#AABDE6;*/
+    background-color:#787a7e;
 }
 .sf-menu li li li {
-    /*background:		#9AAEDB;*/
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
-    /*background:		#C5C6CB;*/
     color:          silver;
     outline:		0;
     text-decoration:none;

@@ -19,15 +19,15 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button },
           :resource_types => %W{ kabtv },
-          :button_text => 'ניהול חלק עליון',
-          :new_text => 'צור יחידת תוכן חדשה',
+          :button_text => _(:upper_part_admin),
+          :new_text => _(:create_new_content_item),
           :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       if AuthenticationModel.current_user_is_admin?
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
             :resource_types => %W{ admin_comment },
-            :button_text => 'ניהול אדמין',
-            :new_text => 'צור מודול ניהול תגובות',
+            :button_text => _(:admin),
+            :new_text => _(:create_modul_comments_administration),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       end
       
@@ -62,10 +62,10 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         writer = get_writer
         unless my_date.empty? && writer.empty?
           div(:class => 'author') {
-            span'תאריך: ' + my_date, :class => 'left' unless my_date.empty?
+            span _(:date) + ': ' + my_date, :class => 'left' unless my_date.empty?
             unless writer.empty?
               span(:class => 'right') {
-                text 'מאת: '
+                text _('writer') + ': '
                 unless get_writer_email.empty?
                   a(:href => 'mailto:' + get_writer_email){
                     img(:src => img_path('email.gif'), :alt => 'email')
@@ -130,7 +130,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
   def ext_related_items
     resources = related_items
     WidgetManager::Base.new(helpers) do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss newsletter},:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss newsletter},:new_text => _(:create_new_box), :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
       show_content_resources(:parent => :content_page, :placeholder => :related_items, :resources => resources, :sortable => true)
       resources
     end

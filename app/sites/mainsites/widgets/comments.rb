@@ -1,10 +1,9 @@
-class Hebmain::Widgets::Comments < WidgetManager::Base
+class Mainsites::Widgets::Comments < WidgetManager::Base
   require 'parsedate'
   include ParseDate
    
   def initialize(*args, &block)
     super
-    #  @presenter.disable_cache
   end
   
   def render_full
@@ -19,7 +18,6 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   
   def render_new_comment
     @akismet = Akismet.new('2dac05fca4e3', 'http://kab.co.il/') 
-    #akismet_api = true unless @akismet.verifyAPIKey 
     is_spam = @akismet.commentCheck(
       @presenter.controller.request.remote_ip,            # remote IP
       @presenter.controller.request.user_agent,           # user agent
@@ -47,20 +45,17 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
     
     write_effect_yellow(@options[:name])
     write_create_form
-    
-    #@akismet.commentCheck(@presenter.controller.request.remote_ip, @presenter.controller.request.user_agent, @presenter.controller.request.env['HTTP_REFERER'],  '', 'comment', @options[:name], @options[:email],'', @options[:body], {})  
-   
   end
 
   private
   
   def write_effect_yellow(name)
     div(:id => 'yellow_effect'){
-      text " תודה #{name}"
+      text _(:thanks) + " #{name}"
       br
-      text "תגובתך התקבלה,"
+      text _(:comment_received) + ","
       br
-      text "ותפורסם בקרוב, בהתאם לשיקולי המערכת. "
+      text _(:will_be_published)
     }
   end
 
@@ -78,27 +73,29 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
     table(:id => 'reactions'){
       tr{
         td(:colspan => '2'){
-          h1{text I18n.t(:reactions)}
+          h1{text _(:comments)}
         }
       }
       tr{
-        td{label(:for => 'title'){text I18n.t(:title)}}
+        td{label(:for => 'title'){text _(:title)}}
         td{input :type => 'text', :id => 'title', :name => 'options[title]',  :size => '31', :class => 'text'}
       }    
       tr{
-        td{label(:for => 'name'){text I18n.t(:name)}}
+        td{label(:for => 'name'){text _(:name)}}
         td{input :type => 'text', :id => 'name', :name => 'options[name]',  :size => '31', :class => 'text'}
       }
       tr{
-        td{label(:for => 'email'){text I18n.t(:email)}}
+        td{label(:for => 'email'){text _(:email)}}
         td{input :type => 'text', :id => 'email',:name => 'options[email]', :size => '31', :class => 'text'}
       }
       tr{
-        td(:id => 'content'){label(:for => 'options_body'){text I18n.t(:body)}}
-        td{textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]', :class => 'text'}
-        input :type => 'hidden', :name => 'view_mode', :value => 'new_comment'
-        input :type => 'hidden', :name => 'options[widget]', :value => 'comments'
-        input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
+        td(:id => 'content'){label(:for => 'options_body'){text _(:body)}}
+        td{
+          textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]', :class => 'text'
+          input :type => 'hidden', :name => 'view_mode', :value => 'new_comment'
+          input :type => 'hidden', :name => 'options[widget]', :value => 'comments'
+          input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
+        }
       }
         
         
@@ -114,9 +111,9 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   
   def write_trigger
     div(:id => 'closed_comment'){
-      img(:src => "/images/comment.gif", :alt => 'הוסף תגובה ')
+      img(:src => "/images/comment.gif", :alt => _(:add_comment))
       span(:class => 'link_comment'){
-        text 'הוסף תגובה '
+        text _(:add_comment)
       }
     }
   end
@@ -124,9 +121,9 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
   def write_previous_comments
     comment_list = Comment.list_all_comments_for_page(tree_node.id)
     counter_for_comments = comment_list.size
-    div(:class => 'comment_header'){text I18n.t(:reactions)} 
+    div(:class => 'comment_header'){text _(:comments)}
     if counter_for_comments == 0
-      div(:class => 'comment_empty'){text I18n.t(:there_are_no_reactions_so_far)}
+      div(:class => 'comment_empty'){text _(:there_are_no_comments_so_far)}
     end
     comment_list.each { |cl|
       cmcreated = parsedate cl.created_at.to_s
@@ -134,7 +131,7 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
         div(:class => 'comment_title'){
           if cl.body.blank?
             rawtext "#{counter_for_comments}. #{cl.title}"
-            rawtext ' (לת)' 
+            rawtext ' ' + _(:without_content) if session[:language]
           else
             span(:class => "comment_clickable"){rawtext "#{counter_for_comments}. #{cl.title}"}
           end
@@ -155,7 +152,5 @@ class Hebmain::Widgets::Comments < WidgetManager::Base
       counter_for_comments -=  1 
     }
   end
-  
 
-  
 end

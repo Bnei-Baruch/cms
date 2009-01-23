@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Shortcut < WidgetManager::Base
+class Mainsites::Widgets::Shortcut < WidgetManager::Base
     
   
   # provide a link using its short expression
@@ -13,7 +13,7 @@ class Hebmain::Widgets::Shortcut < WidgetManager::Base
     
     div(:class => 'permalink'){
       img :src => '/images/plus.jpg', :alt => ''
-      a(:href => full_url){text 'לינק ישיר לכתבה'}
+      a(:href => full_url){text _(:direct_link)}
     }
   end
 end

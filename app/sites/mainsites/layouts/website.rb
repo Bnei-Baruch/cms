@@ -29,9 +29,9 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         'jquery.hoverIntent.min.js', 'superfish',
         'flashembed.min.js', 'jq-helpers' #, :cache => 'cache/website'
         if presenter.node.can_edit?
-          stylesheet_link_tag 'base-min',
+          stylesheet_link_tag 'common/reset.css',
           '../ext/resources/css/ext-all',
-          'common/reset.css',
+          'rusmain/common.css',
           'rusmain/homepage.css',
           'rusmain/page_admin',
           'rusmain/jquery.tabs.css',
@@ -43,8 +43,8 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
           }
         else
-          stylesheet_link_tag 'base-min', 
-          'common/reset.css',
+          stylesheet_link_tag 'common/reset.css',
+          'rusmain/common.css',
           'rusmain/homepage.css',
           'rusmain/superfish.css',
           'rusmain/jquery.tabs.css'

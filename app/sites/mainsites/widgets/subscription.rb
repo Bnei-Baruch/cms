@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Subscription < WidgetManager::Base
+class Mainsites::Widgets::Subscription < WidgetManager::Base
   
   def render_full
     w_class('cms_actions').new(:tree_node => tree_node, 

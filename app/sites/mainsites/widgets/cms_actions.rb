@@ -53,7 +53,7 @@ class Mainsites::Widgets::CmsActions < WidgetManager::Base
         });
         CMS2
       }
-      self.send(func, :id => "#{element}", :class => 'span_admin')
+      self.send(func, :id => "#{element}", :class => 'span_admin', :style => @options[:style])
     end         
   end
 

@@ -62,28 +62,6 @@ strong{
 #nav a, #nav a:visited, #nav a:hover{
     color:#485458;
 }
-#body{
-    text-align:left;
-    position:relative;
-}
-#body-left{
-    float:left;
-    width:242px;
-    position:relative;
-}
-#body-right{
-    float:right;
-    width:224px;
-    position:relative;
-}
-#body-middle{
-    margin-left:252px; /* + 10px between columns */
-    margin-right:234px; /* + 10px between columns */
-    width:auto;
-}
-#body-middle #mid-content{
-    border:1px solid #e5e5eb;
-}
 #footer{
     height:20px;
     border:1px solid black;
@@ -140,11 +118,27 @@ strong{
     margin:10px 0 0;
     clear:both;
 }
-#body-left .roundtop, #body-right .roundtop{
-    margin: 8px 0 0;
+.side-box-top{
+    background:#2a6fab url(/images/rusmain/box-top-gradient.gif) repeat-x 0 0;
+    height:25px;
+    position:relative;
+    line-height:25px;
+    padding:0 6px;
+    color:white;
 }
-#body-left .roundbot, #body-right .roundbot{
-    margin: 0 0 18px;
+.side-box-top .left-ear, .side-box-top .right-ear{
+    position:absolute;
+    top:0;
+    width:6px;
+    height:25px;
+    background:#b1c385 url(/images/rusmain/box-top-ears.gif) no-repeat 0 0;
+}
+.side-box-top .left-ear{
+    left:0;
+}
+.side-box-top .right-ear{
+    background-position: -6px 0;
+    right:0;
 }
 .side-box h3{
     background-color:#979797;
@@ -160,15 +154,30 @@ strong{
 }
 #header #links{
     position:absolute;
-    right:137px;
+    right:39px;
     top:59px;
 }
-#header #divisor{
+#header #links ul.links_ext{
+}
+#header #links ul.links_int{
     border-left:1px solid #d9dbe0;
-    height:23px;
-    position:absolute;
-    right:120px;
-    top:60px;
+    padding-left:3px;
+}
+#header #links ul{
+    float:left;
+    margin:0;
+}
+#header #links li{
+    list-style-type:none;
+    list-style-position:inside;
+    display:inline;
+}
+#header #links a, #header #links a:visited{
+    float:left;
+    margin:0 6px;
+    font-size:11px;
+    text-align:center;
+    color:#979797;
 }
 #header #languages{
     height:18px;
@@ -179,11 +188,6 @@ strong{
     width:110px;
     border: 1px solid #e5e5eb;
     color:silver;
-}
-#header #rss{
-    position:absolute;
-    right:39px;
-    top:59px;
 }
 #header #search{
     position:absolute;
@@ -196,10 +200,7 @@ strong{
     border: 1px solid #e5e5eb;
     margin:0 4px 0 0;
 }
-#static-menu a{
-    display:block;
-}
-
+/********* ADMIN **********/
 #command-panel{
     position:fixed;
     top:0;
@@ -207,7 +208,7 @@ strong{
     border:2px solid #D57100;
     border-top:none;
     width:942px;
-    background-color:beige;
+    background-color:#F5F5DC;
     height:26px;
 }
 .under-command-panel{
@@ -219,3 +220,4 @@ strong{
 .clear {
     clear:both;
 }
+

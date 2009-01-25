@@ -1,4 +1,4 @@
-class Mainsites::Widgets::Sections < WidgetManager::Base
+class Global::Widgets::Sections < WidgetManager::Base
   
   def render_full
     ul(:class => 'sf-menu'){

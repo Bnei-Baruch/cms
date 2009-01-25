@@ -1,4 +1,4 @@
-class Mainsites::Widgets::CmsActions < WidgetManager::Base
+class Global::Widgets::CmsActions < WidgetManager::Base
   @@idx = 0  
   # tree_node - is the node object to which the operations will be performed. Editing will be for this object, New is a new child for this object, Delete is deleting this tree_node
   def render_full
@@ -68,7 +68,7 @@ class Mainsites::Widgets::CmsActions < WidgetManager::Base
     is_main = @options[:is_main] || true
     has_url = @options[:has_url]
     placeholder = @options[:placeholder] || ''
-    new_text = @options[:new_text] || 'חדש'
+    new_text = @options[:new_text] || _(:new)
     if parent_id && !resource_types.empty?
       if resource_types.size > 1
         new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text)
@@ -85,7 +85,7 @@ class Mainsites::Widgets::CmsActions < WidgetManager::Base
     href = edit_admin_resource_path(:id => tree_node.resource,
       :tree_id => tree_node.id,
       :slang => @presenter.site_settings[:short_language])
-    text = @options[:edit_text] || 'ערוך'
+    text = @options[:edit_text] || _(:edit)
     rawtext <<-EDIT
       {
         text: '#{text}',
@@ -97,7 +97,7 @@ class Mainsites::Widgets::CmsActions < WidgetManager::Base
 
   def delete_button(element)
     name = tree_node.resource.name.gsub(/'/,'&#39;')
-    text = @options[:delete_text] || 'מחק'
+    text = @options[:delete_text] || _(:delete)
     rawtext <<-DELETE
       {
         text: '#{text}',

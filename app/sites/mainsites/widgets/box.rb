@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Box < WidgetManager::Base
+class Mainsites::Widgets::Box < WidgetManager::Base
   
   def render_related_items
     show_background = get_add_background

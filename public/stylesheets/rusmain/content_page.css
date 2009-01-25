@@ -57,3 +57,11 @@
 .breadcrumbs a,.breadcrumbs a:visited{
     color:#186BE5;
 }
+#mid-content .related{
+    background-color:#FAFAFA;
+    border-left: 1px solid #E5E5EB;
+    float: right;
+    width: 190px;
+}
+
+

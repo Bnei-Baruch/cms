@@ -1,4 +1,4 @@
-class Mainsites::Widgets::Tree < WidgetManager::Base
+class Global::Widgets::Tree < WidgetManager::Base
   
   attr_accessor :counter
   

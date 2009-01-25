@@ -5,7 +5,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
   def initialize(*args, &block)
     super
-    @header_search = w_class('header').new(:view_mode => 'search')
+    @header_search = w_class('header').new(:view_mode => 'search', :options => {:id => ''})
     @header_top_links_ext = w_class('header').new(:view_mode => 'top_links_ext')
     @header_top_links_int = w_class('header').new(:view_mode => 'top_links_int')
     @header_top_languages = w_class('header').new(:view_mode => 'top_languages')

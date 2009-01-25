@@ -15,9 +15,5 @@ class Sites::Mainsites < Sites::Global
   def main_section
      main_sections.include?(node) ? node : node.ancestors.detect{ |e| main_sections.include?(e) }
   end
-  
-  def parents(tree_node = node) # by default it will use the current node
-    node.ancestors.select{ |e| e.resource.resource_type.hrid == 'content_page' }
-  end
 
 end

@@ -1,13 +1,14 @@
-class Mainsites::Widgets::Header < WidgetManager::Base
+class Global::Widgets::Header < WidgetManager::Base
 
   def render_search
     search_page = domain + '/' + presenter.controller.website.prefix + '/' + 'search'
+    id = options[:id] rescue '011301558357120452512:ulicov2mspu' # hebrew search
 
     form(:action => search_page, :id => 'cse-search-box'){
       div(:id => 'search'){
         input :type => 'text', :name => 'q', :size => '31', :class => 'text'
         input :type => 'image', :src => img_path('search.gif'), :name => 'sa', :class => 'submit'
-        input :type => 'hidden', :name => 'cx', :value => '011301558357120452512:ulicov2mspu'
+        input :type => 'hidden', :name => 'cx', :value => id
         input :type => 'hidden', :name => 'ie', :value => 'UTF-8'
         input :type => 'hidden', :name => 'cof', :value => 'FORID:11'
       }
@@ -62,7 +63,7 @@ $(document).ready(function(){
       :options => {
         :buttons => %W{ new_button },
         :resource_types => %W{ link },
-        :new_text => _(ext ? :new_external_link : :new_internal_link),
+        :new_text => _(ext == 'ext' ? :new_external_link : :new_internal_link),
         :has_url => false,
         :placeholder => "top_links_#{ext}",
         :mode => 'inline'}).render_to(self)
@@ -99,7 +100,8 @@ $(document).ready(function(){
   end
   
   def render_logo
-    a(:href => presenter.home){img(:id => 'logo', :src => img_path('logo.gif'), :alt => 'Международная Академия Каббалы')}
+    alt = _(@options[:alt]) rescue ''
+    a(:href => presenter.home){img(:id => 'logo', :src => img_path('logo.gif'), :alt => alt)}
   end
   
   def render_copyright

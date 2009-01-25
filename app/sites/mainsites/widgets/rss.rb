@@ -1,7 +1,7 @@
 require 'rss/1.0'
 require 'rss/2.0'
 
-class Hebmain::Widgets::Rss < WidgetManager::Base
+class Mainsites::Widgets::Rss < WidgetManager::Base
   
   def render_full
     items = get_all_items

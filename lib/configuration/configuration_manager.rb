@@ -16,7 +16,7 @@ class	Configuration::ConfigurationManager
   # Returns a unified hash with settings for the site.
   def site_settings(site = nil)
     site_sym = site.to_sym
-    @site_settings_cache[site_sym] if site && @site_settings_cache[site_sym]
+    return @site_settings_cache[site_sym] if site && @site_settings_cache[site_sym]
     
     if site && @general_settings[site_sym]
       site_obj =  @general_settings[site_sym]

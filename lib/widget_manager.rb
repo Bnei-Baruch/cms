@@ -82,7 +82,8 @@ module WidgetManager
 
     def resource
       #@resource ||= tree_node.resource rescue nil
-      @resource ||= Resource.find(:first, :conditions => [ "id = ?", tree_node.resource_id] , :include => [ :resource_properties ]) rescue nil
+      # @resource ||= Resource.find(:first, :conditions => [ "id = ?", tree_node.resource_id] , :include => [ :resource_properties ]) rescue nil
+      @resource ||= Resource.find(:first, :conditions => [ "id = ?", tree_node.resource_id]) rescue nil #**RAMI**
     end
 
   end

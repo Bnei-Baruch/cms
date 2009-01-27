@@ -11,7 +11,7 @@ class AddExternalToLink < ActiveRecord::Migration
       :hrid => 'external',
       :resource_type_id => resource_type.id,
       :position => 5,
-      :default_code => true,
+      :default_code => 'true',
       :is_required => false)
     raise 'Failed to create property \'external\'' unless property
     property.save!

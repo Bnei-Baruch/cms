@@ -1,0 +1,66 @@
+#content{
+    margin:0 0 0 300px;
+}
+#menu{
+    float:left;
+    background-color:#0698BC;
+    width:260px;
+}
+h1.red{
+    color: #A71E23;
+    font-size:28px;
+}
+.red_underline{
+    font-size:20px;
+    background:white url("/images/sok/dot_red.gif") repeat 0 0;
+    height:12px;
+    margin:5px 0;
+}
+#content h3, #content-full h3{
+    font-size:18px;
+    margin:15px 0;
+    color:#A71E23;
+}
+#content p, #content-full p{
+    font-size:12px;
+    margin-bottom:20px;
+    color:#485458;
+}
+#menu ul{
+    background-color:white;
+    border:1px solid #C8C8C8;
+    margin-top:11px;
+    padding:0px 15px 5px;
+}
+#menu ul li{
+    padding:7px 0;
+    font-size:12px;
+    border-bottom:1px dotted #C8C8C8;
+}
+#menu ul li a{
+    color:#485458;
+    text-decoration:none;
+    display:block;
+}
+#content-full h2{
+    color:#C1C1C1;
+    font-size:12px;
+    margin:0 0 5px;
+    width:500px;
+}
+#content-full td.text{
+    width:370px;
+}
+#content-full td.margin{
+    width:60px;
+}
+#content-full .widget{
+    display:block;
+    width:680px;
+    margin:0 auto 30px;
+}
+.dotted{
+    background:white url('/images/sok/dot_blueish.gif') repeat 0 0;
+}
+
+

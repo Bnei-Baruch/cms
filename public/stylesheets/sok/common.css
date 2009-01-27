@@ -1,0 +1,129 @@
+body{
+    font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+    width:800px;
+    height:100%;
+    margin:0 auto;
+}
+#header{
+    position:relative;
+    margin:0 0 40px;
+}
+#lang{
+    position:absolute;
+    top:0;
+    right:0;
+    font-size:10px;
+    color:#979797;
+}
+#lang a{
+    text-decoration:none;
+    color:#5099da;
+    margin:0 5px;
+}
+#header #logo {
+    margin:0 auto;
+    background:transparent url("/images/sok/logo.jpg") repeat scroll 0 0;
+    height:148px;
+    width:408px;
+}
+#header #logo a{	
+    display:block;
+    height:100%;
+    text-indent:-9999px;
+    width:100%;
+}
+#header #main_quote{
+    width:390px;
+    color:#c8c8c8;
+    margin:10px auto;
+    text-align:center;
+}
+#header #top_links_int{
+    text-align:center;
+    margin:10px auto;
+}
+#header #top_links_int a{
+    margin:0 10px;
+    color:#5a5a5a;
+    font-size:12px;
+    text-decoration: none;
+}
+#header #top_links_int a:hover{
+    text-decoration: underline;
+}
+.bullet_blue {
+    padding:0 0 0 9px;
+    background:white url('/images/sok/bullet.gif') no-repeat 0 80%;
+}  
+.hr_blue{
+    background:transparent url("/images/sok/dot_blue.gif") repeat scroll 0 0;
+    height:9px;
+}
+.top_border{
+    background:white url("/images/sok/top_border.gif") no-repeat scroll 0 0;
+    height:8px;
+}
+.mid_border{
+    background:white url("/images/sok/mid_border.gif") repeat-y scroll 0 0;
+    padding:20px 25px;
+}
+.bot_border{
+    background:white url("/images/sok/bot_border.gif") no-repeat scroll 0 0;
+    height:8px;
+}
+.body-left{
+    width:386px;
+    float:left;
+}
+.body-right{
+    width:386px;
+    float:right;
+}
+h1.grey{
+    color:#485458;
+    font-size:20px;
+}
+h1.red{
+    color:#ED1C26;
+    font-size:24px;
+    margin-bottom:10px;
+}
+h1.blue{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+.black_underline{
+    font-size:20px;
+    background:white url("/images/sok/dot_black.gif") repeat 0 0;
+    height:12px;
+    margin:5px 0;
+}
+.body-right p, .body-left p{
+    margin:0 0 10px;
+    font-size:14px;
+    color:#6a7477;
+}
+.blue_with_arrow{
+    color:#0698bc;
+    font-size:16px;
+    text-decoration:underline;
+    padding:0 15px 0 0;
+    background:white url("/images/sok/arrow.gif") no-repeat right center;
+}
+.bigger-font p{
+    font-size:16px !important;
+}
+a.button{
+    display:block;
+    margin:0 0 15px;
+}
+
+#footer{
+    clear:both;
+}
+.clear{
+    clear:both;
+    height:40px;
+}
+

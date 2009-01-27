@@ -41,13 +41,23 @@ $(document).ready(function(){
         :mode => 'inline',
         :style => 'float:right'
       }).render_to(self)
-    select(:id => 'languages',
-      :onchange => 'value=this.options[this.selectedIndex].value; if (value != 0) top.location=value;'){
-      option{rawtext _(:choose_your_language)}
-      languages.each{|l|
-        w_class('link').new(:tree_node => l, :view_mode => 'language').render_to(self)
+    if (@options[:simple])
+      div(:id => 'lang'){
+        rawtext _(:languages)
+        rawtext ':'
+        languages.each{|l|
+          w_class('link').new(:tree_node => l, :view_mode => 'language_link').render_to(self)
+        }
       }
-    } unless languages.blank?
+    else
+      select(:id => 'languages',
+        :onchange => 'value=this.options[this.selectedIndex].value; if (value != 0) top.location=value;'){
+        option{rawtext _(:choose_your_language)}
+        languages.each{|l|
+          w_class('link').new(:tree_node => l, :view_mode => 'language_option').render_to(self)
+        }
+      } unless languages.blank?
+    end
   end
 
   def render_top_links_ext
@@ -56,6 +66,30 @@ $(document).ready(function(){
 
   def render_top_links_int
     render_top_links(top_links_int, 'int')
+  end
+
+  def render_top_links_simple
+    links = top_links_int
+    div(:id => "top_links_int") {
+      w_class('cms_actions').new(:tree_node => presenter.website_node,
+        :options => {
+          :buttons => %W{ new_button },
+          :resource_types => %W{ link },
+          :new_text => _(:new_internal_link),
+          :has_url => false,
+          :placeholder => "top_links_int",
+          :mode => 'inline'}).render_to(self)
+      span(:class => 'bullet_blue')
+      links.each { |e|
+        span(:id => sort_id(e)) {
+          sort_handle
+          w_class('link').new(:tree_node => e).render_to(self)
+        }
+        span(:class => 'bullet_blue')
+      }
+    } unless links.blank?
+
+    links
   end
 
   def render_top_links(links, ext)
@@ -101,7 +135,14 @@ $(document).ready(function(){
   
   def render_logo
     alt = _(@options[:alt]) rescue ''
-    a(:href => presenter.home){img(:id => 'logo', :src => img_path('logo.gif'), :alt => alt)}
+    h1 = _(@options[:alt]) rescue false
+    if h1
+      h1(:id => 'logo') {
+        a(:href => presenter.home){rawtext alt}
+      }
+    else
+      a(:href => presenter.home){img(:id => 'logo', :src => img_path('logo.gif'), :alt => alt)}
+    end
   end
   
   def render_copyright

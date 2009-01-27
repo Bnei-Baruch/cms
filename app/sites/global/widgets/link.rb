@@ -1,4 +1,4 @@
-class Mainsites::Widgets::Link < WidgetManager::Base
+class Global::Widgets::Link < WidgetManager::Base
 
   def render_full
     w_class('cms_actions').new(:tree_node => @tree_node,
@@ -13,8 +13,12 @@ class Mainsites::Widgets::Link < WidgetManager::Base
     end
   end
 
-  def render_language
+  def render_language_option
     option(:value => get_url){rawtext get_title}
+  end
+
+  def render_language_link
+    a(:href => get_url){rawtext get_title}
   end
 
   def render_with_image

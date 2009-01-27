@@ -1,0 +1,57 @@
+/*----------  Action Buttons  ---------------*/
+.button-menu{
+    /*background:transparent url(/images/menu.gif) no-repeat scroll 0 0 !important;*/
+}
+.span_admin table{
+    display:inline;
+    margin:0;
+    padding:0;
+    z-index:1000;
+}
+.x-btn-icon .x-btn-center .x-btn-text{
+    width:100%;
+}
+.x-btn-with-menu .x-btn-center em {
+    padding:0;
+}
+.x-btn-right,.x-btn-center,.x-btn-left{
+    border:0 none;
+    background-image:url(../../images/default/button/btn-sprite.gif);
+}
+.x-menu a.x-menu-item{
+    padding:3px 3px 3px 0;
+}
+.x-menu-item-icon{
+    margin:0;
+    float:right;
+}
+.x-menu li {
+    text-align:left;
+}
+.x-btn-text-icon .x-btn-center .x-btn-text {
+    padding:3px 0 2px;
+}
+.highlight{
+    background-color:orange !important;
+}
+/*----------  Drop Zone  ---------------*/
+.drop-zone{
+    position:absolute;
+    top:0;
+    left:15px;
+    padding:0;
+    margin:0;
+    background-color:silver;
+    z-index:100;
+}
+.drop-zone .x-panel-body{
+    overflow:hidden !important;
+}
+/***************** xxx **************/
+#header #links>span{
+    float:left;
+}
+
+#header #links{
+    top:35px;
+}

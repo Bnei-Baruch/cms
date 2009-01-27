@@ -128,14 +128,19 @@ class Global::Widgets::Tree < WidgetManager::Base
         rp = TreeNode.find(node.id).resource.properties('acts_as_section')
         has_no_children = (rp && rp.get_value) ? false : true
       end
-      
+
+       name = "<span class='#{node.resource.status.downcase}'>#{node.resource.name}</span>"
       [
-        :id => node.id, :text => node.resource.name, :href => get_page_url(node),
-        :leaf => has_no_children, :parent_id => node.parent_id,
+        :id => node.id, :text => name, :href => get_page_url(node),
+        :leaf => has_no_children,
+        :resource_name => node.resource.name, :parent_id => node.parent_id,
         :cannot_edit => !node.can_edit?, :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
         :delTarget => tree_node_delete_admin_tree_node_path(node.id),
+        :publishStatus => update_state_admin_tree_node_path(:id => node.id, :status => 'PUBLISHED'),
+        :draftStatus => update_state_admin_tree_node_path(:id => node.id, :status => 'DRAFT'),
+        :archiveStatus => update_state_admin_tree_node_path(:id => node.id, :status => 'ARCHIVED'),
         :editTarget => edit_admin_resource_path(:id => node.resource,
           :tree_id => node.id,
           :slang => @presenter.site_settings[:short_language]
@@ -169,8 +174,7 @@ class Global::Widgets::Tree < WidgetManager::Base
   def draw_json_tree(node)
     item = node.shift
     leaf = item[:item]
-    name = leaf.resource.status == 'DRAFT' ? 
-      "<span class='draft'>#{leaf.resource.name}</span>" : leaf.resource.name
+    name = "<span class='#{leaf.resource.status.downcase}'>#{leaf.resource.name}</span>"
     id = leaf.id
     href = get_page_url(leaf)
     if item[:submenu]
@@ -181,11 +185,15 @@ class Global::Widgets::Tree < WidgetManager::Base
     [
       {
         :id => id, :text => name, :href => href, :leaf => false,
+        :resource_name => leaf.resource.name,
         :parent_id => leaf.parent_id,
         :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,
         :cannot_delete => !leaf.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
         :delTarget => tree_node_delete_admin_tree_node_path(leaf.id), #admin_tree_node_path(leaf),
+        :publishStatus => update_state_admin_tree_node_path(:id => leaf.id, :status => 'PUBLISHED'),
+        :draftStatus => update_state_admin_tree_node_path(:id => leaf.id, :status => 'DRAFT'),
+        :archiveStatus => update_state_admin_tree_node_path(:id => leaf.id, :status => 'ARCHIVED'),
         :editTarget => edit_admin_resource_path(:id => leaf.resource,
           :tree_id => leaf.id,
           :slang => @presenter.site_settings[:short_language]

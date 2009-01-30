@@ -16,6 +16,10 @@ class Attachment < ActiveRecord::Base
       :dependent => :delete,
       :conditions => "filename = 'myself'"
   end
+  
+  def Attachment.get_short_attachment(resource_property_id)
+    find(:first, {:select=>'id, filename', :conditions => ["resource_property_id = ?", resource_property_id]})
+  end
 
   def Attachment.get_image(image_id, image_name, format)
     split = image_name.split("_", 2)

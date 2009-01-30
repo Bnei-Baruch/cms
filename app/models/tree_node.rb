@@ -130,7 +130,13 @@ class TreeNode < ActiveRecord::Base
       end
       self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
     end
-    case self.resource.status
+    if self.resource_status.nil?
+       tstatus = self.resource.status
+    else
+       tstatus = self.resource_status
+    end
+    
+    case tstatus
     when 'DRAFT'
       self.ac_type = 0 if self.ac_type <= 1 
     when 'DELETED'
@@ -233,7 +239,8 @@ class TreeNode < ActiveRecord::Base
         end
         # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
 
-        sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes"}
+        sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource] }
+       # sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes"}
         additional_params = {}
         if args.has_key?(:limit) && args[:limit].to_i > 0
           additional_params.merge!({:limit => args[:limit].to_i})

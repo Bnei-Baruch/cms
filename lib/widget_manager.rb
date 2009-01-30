@@ -67,7 +67,8 @@ module WidgetManager
             end
           when 'RpFile'
             image_name = my_args[:image_name] || 'myself'
-            return get_file_html_url(:attachment => rp.attachment, :image_name => image_name) rescue ''
+           # return get_file_html_url(:attachment => rp.attachment, :image_name => image_name) rescue ''
+            return get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''
           when 'RpBoolean'
             return rp.get_value rescue ''
           end

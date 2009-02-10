@@ -82,7 +82,7 @@ class Sites::TemplatesController < ApplicationController
           # to
           #       Rails.env != 'development'
           # Do not forget to uncomment correspondent lines in development.rb
-          if Rails.env == 'development'
+          if Rails.env != 'development'
             render :widget => klass, :layout_class => layout_class
           else
             key = this_cache_key

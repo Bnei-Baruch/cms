@@ -1,4 +1,4 @@
-#content{
+.content{
     margin:0 0 0 300px;
 }
 #menu{
@@ -16,12 +16,12 @@ h1.red{
     height:12px;
     margin:5px 0;
 }
-#content h3, #content-full h3{
+.content h3, .content-full h3{
     font-size:18px;
     margin:15px 0;
     color:#A71E23;
 }
-#content p, #content-full p{
+.content p, .content-full p{
     font-size:12px;
     margin-bottom:20px;
     color:#485458;
@@ -42,19 +42,19 @@ h1.red{
     text-decoration:none;
     display:block;
 }
-#content-full h2{
+.content-full h2{
     color:#C1C1C1;
     font-size:12px;
     margin:0 0 5px;
     width:500px;
 }
-#content-full td.text{
+.content-full td.text{
     width:370px;
 }
-#content-full td.margin{
+.content-full td.margin{
     width:60px;
 }
-#content-full .widget{
+.content-full .widget{
     display:block;
     width:680px;
     margin:0 auto 30px;
@@ -69,3 +69,258 @@ table.scroll tbody td{
     white-space:normal;
     vertical-align:top;
 }
+
+/*----------  kab.tv ---------------*/
+#kabtv {
+    background-repeat:no-repeat;
+    width:680px;
+    height:400px;
+    margin: 0 auto;
+    padding:0;
+    position:relative;
+    font-size:12px;
+    padding:35px 0 0;
+}
+#kabtv #player-side{
+    width:380px;
+    padding:0;
+    margin:50px 0 0 10px;
+    float:left;
+}
+#kabtv #player_options{
+    font-size:10px;
+    line-height:13px;
+}
+#kabtv #player_options #separate-msg{
+    background:transparent url(/images/sok/kabtv/separate.gif) no-repeat 100% 0;
+    color:white;
+    float:left;
+    padding:0 20px 0 0;
+}
+#kabtv #player_options #separate-win{
+    display:none;
+    background:transparent url(/images/sok/kabtv/separate.gif) no-repeat 100% 0;
+    color:white;
+    margin-right:10px;
+    padding-right:20px;
+    float:left;
+}
+#kabtv #player_options #full-win{
+    display:none;
+    background:transparent url(/images/sok/kabtv/full.gif) no-repeat 100% 0;
+    color:white;
+    margin-right:10px;
+    padding-right:20px;
+    float:left;
+}
+#kabtv #tabs{
+    float:right;
+    margin:8px 15px 0 0;
+    width:262px;
+    height:330px;
+}
+#kabtv .ui-tabs-nav {
+    padding:0;
+    margin:0 -1px 0 0;
+}
+#kabtv .ui-tabs-nav li{
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    float:left;
+}
+#kabtv .ui-tabs-panel{
+    background:#f0f5fd url(/images/sok/jquery/tab-tv-bg.png) no-repeat scroll 0 0;
+    border:0 none;
+}
+#kabtv .clear, #home-kabtv .clear{
+    clear:both;
+    height:1px;
+    line-height:1px;
+    font-size:1px;
+}
+#kabtv #schedule, #kabtv #questions, #kabtv #sketch{
+    height:281px;
+    background:#F0F5FD none;
+}
+#kabtv #schedule .time{
+    background-color:#2B73B1;
+    color:white;
+    font-size:10px;
+    font-weight:bold;
+    line-height:14px;
+    margin:0 0 5px;
+    padding:0 5px;
+}
+#kabtv #schedule .item0,#kabtv #schedule .item1{
+    padding:5px;
+    background-color:#ececf2;
+    border-top:4px solid white;
+}
+#kabtv #schedule a{
+    display:inline;
+    background:0 none;
+}
+#kabtv .schedule_day{
+    height:252px;
+    padding: 10px 0 0;
+    overflow-y:scroll;
+    padding:0;
+    width:238px;
+}
+#kabtv #schedule_menu a, #kabtv #schedule_menu a:hover{
+    color:#1678ce;
+}
+#kabtv #schedule_menu a.schedule_selected, #kabtv #schedule_menu a.schedule_selected:hover{
+    color: red;
+}
+#kabtv #schedule_list{
+    position:relative;
+    display:inline-block;
+    border:4px solid white;
+    margin:10px 0 0;
+}
+#kabtv h3{
+    color:black;
+    padding:5px;
+    margin:0;
+    text-align:center;
+    font-size:12px;
+}
+#kabtv #sketch a{
+    display:inline;
+    padding:0 0 0 5px;
+}
+#kabtv #sketch a#last-sketch img{
+    height: 213px;
+    width:281px;
+    float:right;
+    display:block;
+    margin:0px 0 5px;
+}
+#kabtv #sketch #thumbnails a {
+    background:0 none;
+}
+#kabtv #sketch #thumbnails{
+    overflow-x:scroll;
+    overflow-y:hidden;
+    width:285px;
+    height:125px;
+}
+#kabtv a.highslide{
+    background:0 none !important;
+}
+a.highslide-full-expand {
+    background: url(/highslide/graphics/fullexpand.gif) no-repeat;
+    display: block;
+    margin: 0 10px 10px 0;
+    width: 44px;
+    height: 44px;
+}
+#kabtv div.question0,#kabtv div.question1{
+    margin: 3px 0px;
+    padding: 0 5px;
+}
+#kabtv div.question0{
+    background-color:white;
+}
+#kabtv div.who{
+    color: #3864b5;
+}
+#kabtv #ask .text{
+    border: 1px solid #b1c4e2;
+    width:230px;
+    float:left;
+    margin:10px 0;
+}
+#kabtv #ask .q{
+    width:280px;
+}
+#kabtv #ask .textarea{
+    width:280px;
+    border: 1px solid #b1c4e2;
+    margin:0 0 15px;
+}
+#kabtv #ask label{
+    color:#3864b5;
+    font-weight:bold;
+    float:right;
+    margin:10px 0;
+}
+#kabtv .ta-label{
+    margin:10px 0 0;
+}
+#kabtv .button {
+    background:transparent url(/images/sok/submit.png) no-repeat scroll 0 0;
+    border:medium none;
+    color:black;
+    height:17pt;
+    margin-bottom:5px;
+    padding-bottom:5px;
+}
+#kabtv .ui-tabs-nav .ui-tabs-selected a span, #kabtv .ui-tabs-nav a:hover span, #kabtv .ui-tabs-nav a:focus span, #kabtv .ui-tabs-nav a:active span {
+    background-position:0 -51px;
+}
+#kabtv .ui-tabs-nav .ui-tabs-selected a, #kabtv .ui-tabs-nav a:hover, #kabtv .ui-tabs-nav a:focus, #kabtv .ui-tabs-nav a:active {
+    background-position:100% -151px;
+}
+#kabtv .ui-tabs-nav .ui-tabs-selected a span, #kabtv .ui-tabs-nav a:hover span, #kabtv .ui-tabs-nav a:focus span, #kabtv .ui-tabs-nav a:active span,
+#kabtv .ui-tabs-nav .ui-tabs-selected a, #kabtv .ui-tabs-nav a:hover, #kabtv .ui-tabs-nav a:focus, #kabtv .ui-tabs-nav a:active {
+    background-image:url(/images/sok/jquery/tab-sel.gif);
+    color:white;
+}
+#kabtv .ui-tabs-nav a, #kabtv .ui-tabs-nav a span {
+    background-image:url(/images/sok/jquery/tab.gif);
+}
+#kabtv #questions #q{
+    display:block;
+    height:300px;
+    margin:10px 0;
+    overflow-x:hidden;
+    overflow-y:scroll;
+}
+#kabtv #ask_question{
+    position:relative;
+}
+#kabtv #kabtv-loading{
+    position:absolute;
+    left:0;
+    top:0;
+}
+#haverim{
+    background-repeat:no-repeat;
+    width:680px;
+    height:400px;
+    margin: 0 auto;
+    padding:0;
+    position:relative;
+    font-size:12px;
+    padding:35px 0 0;
+}
+#haverim h1{
+    font-size:24px;
+    font-weight:bold;
+    margin:-15px 0 0;
+    text-align:center;
+}
+#haverim #Publisher{
+    left:15px;
+    position:absolute;
+    top:87px;
+}
+#haverim #Viewer_16x9_6{
+    left:255px;
+    position:absolute;
+    top:85px;
+}
+#haverim p{
+    background-color:black;
+    color:white;
+    font-weight:bold;
+    left:18px;
+    position:absolute;
+    top:253px;
+    width:209px;
+}
+
+

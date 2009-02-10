@@ -31,33 +31,33 @@ $(document).ready(function(){
   end
 
   def render_top_languages
-    w_class('cms_actions').new(:tree_node => presenter.website_node,
-      :options => {
-        :buttons => %W{ new_button },
-        :resource_types => %W{ language },
-        :new_text => _(:new_language),
-        :has_url => false,
-        :placeholder => 'top_languages',
-        :mode => 'inline',
-        :style => 'float:right'
-      }).render_to(self)
-    if (@options[:simple])
-      div(:id => 'lang'){
+    div(:id => 'lang'){
+      w_class('cms_actions').new(:tree_node => presenter.website_node,
+        :options => {
+          :buttons => %W{ new_button },
+          :resource_types => %W{ language },
+          :new_text => _(:new_language),
+          :has_url => false,
+          :placeholder => 'top_languages',
+          :mode => 'inline',
+          :style => 'float:right'
+        }).render_to(self)
+      if (@options[:simple])
         rawtext _(:languages)
         rawtext ':'
         languages.each{|l|
           w_class('link').new(:tree_node => l, :view_mode => 'language_link').render_to(self)
         }
-      }
-    else
-      select(:id => 'languages',
-        :onchange => 'value=this.options[this.selectedIndex].value; if (value != 0) top.location=value;'){
-        option{rawtext _(:choose_your_language)}
-        languages.each{|l|
-          w_class('link').new(:tree_node => l, :view_mode => 'language_option').render_to(self)
-        }
-      } unless languages.blank?
-    end
+      else
+        select(:id => 'languages',
+          :onchange => 'value=this.options[this.selectedIndex].value; if (value != 0) top.location=value;'){
+          option{rawtext _(:choose_your_language)}
+          languages.each{|l|
+            w_class('link').new(:tree_node => l, :view_mode => 'language_option').render_to(self)
+          }
+        } unless languages.blank?
+      end
+    }
   end
 
   def render_top_links_ext

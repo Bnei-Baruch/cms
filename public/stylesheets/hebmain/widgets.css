@@ -957,36 +957,6 @@ img.thumbnails{
   width:285px;
   height:125px;
 }
-
-/* Controlbar for sketches */
-.controlbar {
-  background: url(/highslide/graphics/controlbar4.gif);
-  width: 167px;
-  height: 34px;
-}
-.controlbar a {
-  display: block;
-  float: left;
-  height: 27px;
-}
-.controlbar a:hover {
-  background-image: url(/highslide/graphics/controlbar4-hover.gif);
-}
-.controlbar .previous {
-  width: 50px;
-}
-.controlbar .next {
-  width: 40px;
-  background-position: -50px 0;
-}
-.controlbar .highslide-move {
-  width: 40px;
-  background-position: -90px 0;
-}
-.controlbar .close {
-  width: 36px;
-  background-position: -130px 0;
-}
 #kabtv a.highslide{
   background:0 none !important;
 }
@@ -1060,6 +1030,36 @@ a.highslide-full-expand {
   position:absolute;
   left:0;
   top:0;
+}
+
+/* Controlbar for sketches */
+.controlbar {
+  background: url(/highslide/graphics/controlbar4.gif);
+  width: 167px;
+  height: 34px;
+}
+.controlbar a {
+  display: block;
+  float: left;
+  height: 27px;
+}
+.controlbar a:hover {
+  background-image: url(/highslide/graphics/controlbar4-hover.gif);
+}
+.controlbar .previous {
+  width: 50px;
+}
+.controlbar .next {
+  width: 40px;
+  background-position: -50px 0;
+}
+.controlbar .highslide-move {
+  width: 40px;
+  background-position: -90px 0;
+}
+.controlbar .close {
+  width: 36px;
+  background-position: -130px 0;
 }
 
 /*----------  kab.tv on homepage  ---------------*/

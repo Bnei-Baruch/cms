@@ -94,7 +94,7 @@ module WidgetExtensions
     }
   end
   
-  def render_content_resource(tree_node, options = nil)
+  def render_content_resource(tree_node, options = {})
     return unless tree_node
     class_name = tree_node.resource.resource_type.hrid
     if options.is_a?(Hash)
@@ -104,7 +104,7 @@ module WidgetExtensions
       view_mode = options || 'full'
     end
     w_class(class_name).new(@helpers, :tree_node => tree_node, 
-      :view_mode => view_mode).render_to(self)
+      :view_mode => view_mode, :options => options).render_to(self)
   end
 
   def calculate_view_mode(options)

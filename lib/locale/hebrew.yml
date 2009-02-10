@@ -190,4 +190,63 @@ hebrew:
   new: חדש
   edit: ערוך
   delete: מחק
+
+  schedule: לוח שידורים
+  questions: שאלות
+  sketches: שרטוטים
+  students_questions: שאלות התלמידים
+  to_exit_full_screen_mode_press_ESC: ESC ליציאה ממצב "מסך מלא" לחץ על
+  to_watch_in_full_screen_mode_please_start_player_beforehand:   נא להפעיל נגנ ע"מ לצפותו במסך מלא
+  for_full_screen_mode_double_ckick_on_player: למסך מלא יש ללחוץ לחיצה כפולה על הנגן
+  in_separate_player: לצפייה בנגן מדיה
+  full_screen: למסך מלא
+  no_new_questions: אין שאלות חדשות.
+  from:   מ-
+  guest: אורח
+  current_sketch: השרטוט הנוכחי
+  no_sketches_yet: איו עוד שרטוטים
+  prev_picture: תמונה הקודמת (חץ שמאלה)
+  next_picture: תמונה הבאה (חץ ימינה)
+  click_and_drag: לחץ ומשוך להזזה
+  close: סגור (esc)
+  temporarily_impossible_to_ask_questions: לא ניתן כרגע לשאול שאלות
+  you_must_fill_field_question: שדה "שאלה" הינו שדה חובה
+  sunday: ראשון
+  monday: שני
+  tuesday: שלישי
+  wednesday: רביעי
+  thursday: חמישי
+  friday: שישי
+  saturday: שבת
+  sun: ראשון
+  mon: שני
+  tue: שלישי
+  wed: רביעי
+  thu: חמישי
+  fri: שישי
+  sat: שבת
+  ask_question: שאל שאלה
+  your_name: שמך
+  your_location: מקומך
+  question: שאלה
+  send: שלח
+  cancel: בטל
+  broadcasting_now: עכשיו בשידור
+  future_programs: התוכניות הבאות
+  january: לינואר
+  february: לפברואר
+  march: למרץ
+  april: לאפריל
+  may: למאי
+  june: ליוני
+  july: ליולי
+  august: לאוגוסט
+  september: לספטמבר
+  october: לאוקטובר
+  november: לנובמבר
+  december: לדצמבר
+  no_broadcast_on: אין שידורים ביום
+  broadcast_on: שידור ביום
+  edit_kabtv_widget: עריכת יחידת טלוויזיה
+  
   

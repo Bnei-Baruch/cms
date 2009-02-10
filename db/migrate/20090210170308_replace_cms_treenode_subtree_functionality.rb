@@ -443,9 +443,9 @@ class ReplaceCmsTreenodeSubtreeFunctionality < ActiveRecord::Migration
         SET default_tablespace = '';
         SET default_with_oids = false;
 
-        DELETE TRIGGER cms_cache_properties_trigger;
-        DELETE TRIGGER cms_cache_resource_properties_trigger;
-        DELETE TRIGGER cms_cache_resources_trigger;
+        DROP TRIGGER cms_cache_properties_trigger ON properties;
+        DROP TRIGGER cms_cache_resource_properties_trigger ON resource_properties;
+        DROP TRIGGER cms_cache_resources_trigger ON resources;
 
       CREATE OR REPLACE FUNCTION cms_treenode_subtree(
       	p_tn_id 	integer, 			-- required

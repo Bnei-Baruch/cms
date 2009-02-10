@@ -94,7 +94,12 @@ class CronManager
     end
     #    puts "RSS #{content}"
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
-    data = YAML.dump(RSS::Parser.parse(content, false).items[range])
+    begin
+      data = YAML.dump(RSS::Parser.parse(content, false).items[range])
+    rescue
+      puts 'Failed to parse rss from ' + url
+      return
+    end
     property = tree_node.resource.properties('items')
     unless property.text_value == data
       property.update_attributes(:text_value => data)
@@ -149,7 +154,12 @@ class CronManager
       end
     end
 
-    lessons = Hash.from_xml(content)
+    begin
+      lessons = Hash.from_xml(content)
+    rescue
+      puts 'Failed to parse xml from ' + url
+      return
+    end
     lessons['lessons']['lesson'].each do |lesson|
       lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y') 
     end

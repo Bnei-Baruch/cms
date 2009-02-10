@@ -85,7 +85,7 @@ class Global::Widgets::Tree < WidgetManager::Base
       @counter += 1
       label = "TREE_#{@counter}"
       div(:id => label, :class => 'dynamic_tree') {
-        name = @presenter.node.resource.name.gsub!(/\'/, '&#39;')
+        name = @presenter.node.resource.name.gsub(/\'/, '&#39;')
         javascript {
           rawtext <<-TREE_CODE
             Ext.onReady(function(){

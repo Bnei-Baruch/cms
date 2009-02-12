@@ -39,7 +39,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         rawtext "}"
       }
       div(:id => 'kabtv-bot'){
-        a(:href => get_target, :onclick => "javascript:pageTracker._trackPageview('/outbound/kabtv');") {
+        a(:href => get_target, :onclick => "javascript:urchinTracker('/homepage/widget/kabtv/go_to_tv');") {
           img(:id => 'yellow-button', :src => "/images/hebmain/kabtv/home-button.gif", :alt => "לכל תוכניות הטלוויזיה")
         }
       }

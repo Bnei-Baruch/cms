@@ -11,7 +11,7 @@ class Hebmain::Widgets::VideoGallery < WidgetManager::Base
       div(:id => "playlist-#{id}", :class => 'playlist'){
         ol{
           video_items.each { |video_item|
-            li {a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value, :onclick => "javascript:pageTracker._trackPageview('/outbound/homepage/video/"+video_item.resource.properties('title').get_value+"');" }
+            li {a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value, :onclick => "javascript:urchinTracker('/homepage/widget/video_gallery/"+video_item.resource.properties('title').get_value+"');" }
           }
         }
       }

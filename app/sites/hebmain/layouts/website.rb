@@ -27,19 +27,21 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers-hb',
-	'flashembed.min.js' #, :cache => 'cache/website'
+        'flashembed.min.js',
+        :cache => "cache_website-#{@presenter.website_hrid}"
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
-                              'base-min', 
-                              '../ext/resources/css/ext-all', 
-                              'hebmain/common',
-                              'hebmain/header', 
-                              'hebmain/home_page', 
-                              'hebmain/page_admin',
-                              'hebmain/widgets',
-                              :cache => false
+          'base-min',
+          '../ext/resources/css/ext-all',
+          'hebmain/common',
+          'hebmain/header',
+          'hebmain/home_page',
+          'hebmain/page_admin',
+          'hebmain/widgets'#,
+          #:cache => "cache_website_admin-#{@presenter.website_hrid}"
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
-          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
+          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',
+          :cache => "cache_website_admin-#{@presenter.website_hrid}"
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
           }
@@ -49,9 +51,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           'hebmain/common',
           'hebmain/header', 
           'hebmain/home_page', 
-          'hebmain/widgets'
-#,
-          #:cache => 'cache/website'
+          'hebmain/widgets'#,
+          #:cache => "cache_website-#{@presenter.website_hrid}"
         end
 
         rawtext <<-IE61
@@ -94,11 +95,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           :new_text => 'הוספת יחידת טלוויזיה',
                           :has_url => false,
                           :placeholder => 'home_kabtv'}).render_to(self)
-                        show_content_resources(:resources => kabtv_resources,
-                          :parent => :website,
-                          :placeholder => :home_kabtv,
-                          :sortable => false
-                        )
+                      show_content_resources(:resources => kabtv_resources,
+                        :parent => :website,
+                        :placeholder => :home_kabtv,
+                        :sortable => false
+                      )
                       
                       div(:class => 'downloads container'){
                         h3(:class => 'box_header') {
@@ -154,7 +155,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                       show_content_resources(:resources => middle_column_resources,
                         :parent => :website,
                         :placeholder => :middle,
-                          :sortable => true)
+                        :sortable => true)
                       
                       make_sortable(:selector => ".content") {
                         middle_column_resources

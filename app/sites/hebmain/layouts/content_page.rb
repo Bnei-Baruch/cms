@@ -35,11 +35,12 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         meta(:name => 'description', :content => ext_description)
         title @meta_title #ext_title
         javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
-        'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
+        'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
         '../highslide/highslide-full.packed.js',
-        'jquery.livequery.min.js', 'jq-helpers-hb' #,:cache => 'cache/content_page'
+        'jquery.livequery.min.js', 'jq-helpers-hb',
+        :cache => "cache_content_page-#{@presenter.website_hrid}"
 
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 
@@ -51,11 +52,11 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/page_admin',
           'hebmain/jquery.tabs.css',
           'hebmain/widgets',
-          '../highslide/highslide',
-          :cache => false
-          #:cache => 'cache/content_page_admin'
+          '../highslide/highslide'#,
+          #:cache => "cache_content_page_admin-#{@presenter.website_hrid}"
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
-          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
+          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',
+          :cache => "cache_content_page_admin-#{@presenter.website_hrid}"
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
@@ -71,7 +72,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
           'hebmain/widgets',
           '../highslide/highslide',
           'lightbox',
-          :cache => 'cache/content_page',
+          #:cache => "cache_content_page-#{@presenter.website_hrid}",
           :media => 'all'
           
           stylesheet_link_tag 'hebmain/print',

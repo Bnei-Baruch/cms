@@ -38,7 +38,7 @@
 	  </td>
       <td><%=h tree_node.resource.resource_type.name if tree_node.resource %></td>
       <td><%=h tree_node.resource.name %></td>
-      <td><%=h tree_node.resource.status.chars[0..2] %></td>
+      <td><%=h tree_node.resource.status.mb_chars[0..2] %></td>
       <td><%=h tree_node.is_main %></td>
       <td><%=h tree_node.permalink %></td>
       <td><%= link_to 'Show', admin_resource_path(tree_node.resource) %></td>

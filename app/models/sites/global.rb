@@ -17,7 +17,10 @@ class Sites::Global < Presenter::Base
   def domain
     @full_domain ||= @controller.website.domain + port
   end
-  
+
+  def website_hrid
+    @website.hrid
+  end
   def website_resource
     @website.website_resource
   end

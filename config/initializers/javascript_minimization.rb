@@ -27,7 +27,6 @@ module ActionView
             contents + ";\n\n"
           elsif asset_file_path =~ /\.js$/
             JSMin.minimize(contents) + ";\n\n"
-            contents + ";\n\n"
           elsif asset_file_path =~ /\.css$/
             contents = compress_css(contents, asset_file_path) + "\n\n"
           end

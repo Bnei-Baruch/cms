@@ -34,6 +34,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         meta(:name => 'node_id', :content => @tree_node.id)
         meta(:name => 'description', :content => ext_description)
         title @meta_title #ext_title
+
         javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
         'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
@@ -42,18 +43,21 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         'jquery.livequery.min.js', 'jq-helpers-hb',
         :cache => "cache_content_page-#{@presenter.website_hrid}"
 
+        stylesheet_link_tag 'reset-fonts-grids',
+        'base-min',
+        'hebmain/common',
+        'hebmain/header',
+        'hebmain/inner_page',
+        'hebmain/jquery.tabs.css',
+        'hebmain/widgets',
+        '../highslide/highslide',
+        'lightbox',
+        :cache => "cache_content_page-#{@presenter.website_hrid}",
+        :media => 'all'
+        stylesheet_link_tag 'hebmain/print', :media => 'print'
+
         if presenter.node.can_edit?
-          stylesheet_link_tag 'reset-fonts-grids', 
-          'base-min', 
-          '../ext/resources/css/ext-all', 
-          'hebmain/common',
-          'hebmain/header', 
-          'hebmain/inner_page', 
-          'hebmain/page_admin',
-          'hebmain/jquery.tabs.css',
-          'hebmain/widgets',
-          '../highslide/highslide'#,
-          #:cache => "cache_content_page_admin-#{@presenter.website_hrid}"
+          stylesheet_link_tag 'hebmain/page_admin', '../ext/resources/css/ext-all'
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',
           :cache => "cache_content_page_admin-#{@presenter.website_hrid}"
@@ -61,22 +65,6 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
           }
-        else
-          stylesheet_link_tag 'reset-fonts-grids', 
-          'base-min', 
-          '../ext/resources/css/ext-all', 
-          'hebmain/common',
-          'hebmain/header', 
-          'hebmain/inner_page', 
-          'hebmain/jquery.tabs.css',
-          'hebmain/widgets',
-          '../highslide/highslide',
-          'lightbox',
-          #:cache => "cache_content_page-#{@presenter.website_hrid}",
-          :media => 'all'
-          
-          stylesheet_link_tag 'hebmain/print',
-          :media => 'print'
         end
         
         rawtext "\n<!--[if IE 6]>\n"
@@ -133,10 +121,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       @archive.render_to(self) if archived_resources.size > 0 && !@presenter.page_params.has_key?('archive')
                       @previous_comments.render_to(self)
                       if ext_kabtv_exist
-                          div(:id => 'ft'){
-                            @header_bottom_links.render_to(self)
-                            @header_copyright.render_to(self)
-                          }
+                        div(:id => 'ft'){
+                          @header_bottom_links.render_to(self)
+                          @header_copyright.render_to(self)
+                        }
                       end
 
                     }
@@ -166,10 +154,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               @newsletter.render_to(self)
               
               global_site_updates.each{|e|
-                  render_content_resource(e)
+                render_content_resource(e)
               } 
             }
-        }
+          }
         
           div(:id => 'ft') {
             @sitemap.render_to(self)

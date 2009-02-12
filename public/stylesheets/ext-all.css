@@ -463,7 +463,7 @@ input.x-tree-node-cb{margin-left:1px;}
 .x-tree-no-lines .x-tree-elbow-end-plus{background-image:url(../images/default/tree/elbow-end-plus-nl.gif);}
 .x-tree-no-lines .x-tree-elbow-end-minus{background-image:url(../images/default/tree/elbow-end-minus-nl.gif);}
 .x-tree-no-lines .x-tree-elbow-line{background:transparent;}
-.x-tree-arrows .x-tree-elbow{background:transparent;}
+/*ZZZ .x-tree-arrows .x-tree-elbow{background:transparent;}*/
 .x-tree-arrows .x-tree-elbow-plus{background:transparent url(../images/default/tree/arrows.gif) no-repeat 0 0;}
 .x-tree-arrows .x-tree-elbow-minus{background:transparent url(../images/default/tree/arrows.gif) no-repeat -16px 0;}
 .x-tree-arrows .x-tree-elbow-end{background:transparent;}

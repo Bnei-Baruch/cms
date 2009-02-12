@@ -11,7 +11,7 @@ class TreeNode < ActiveRecord::Base
 
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache
-  
+
   #attribute_method_suffix '_changed?'     
   
   def permalink=(value)
@@ -289,12 +289,11 @@ class TreeNode < ActiveRecord::Base
         arg = arg.sub(/SELECT \* FROM "*tree_nodes"* +WHERE/, "SELECT *, get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2 FROM tree_nodes   WHERE")
       end
       
-      output = self.old_find_by_sql(arg)
+      output = super(arg)
       output.delete_if {|x| x.ac_type == 0 }
       output
     end
     
-    alias :old_find :find
     def find(*args)
       
       if args.last.is_a?(::Hash) 
@@ -311,7 +310,8 @@ class TreeNode < ActiveRecord::Base
         args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
       end
 
-      self.old_find(*args)
+      result = super(*args)
+      result
     end
 
     def find_as_admin(tree_node_id)

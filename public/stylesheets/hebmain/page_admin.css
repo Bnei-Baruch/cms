@@ -29,6 +29,10 @@
 .highlight{
     background-color:orange !important;
 }
+.dynamic_tree .x-tree-arrows .x-tree-elbow-plus{background-image:url(../../images/default/tree/arrows_rtl.gif);}
+.dynamic_tree .x-tree-arrows .x-tree-elbow-minus{background-image:url(../../images/default/tree/arrows_rtl.gif);}
+.dynamic_tree .x-tree-arrows .x-tree-elbow-end-plus{background-image:url(../../images/default/tree/arrows_rtl.gif);}
+.dynamic_tree .x-tree-arrows .x-tree-elbow-end-minus{background-image:url(../../images/default/tree/arrows_rtl.gif);}
 /*----------  Drop Zone  ---------------*/
 .drop-zone{
     position:absolute;

@@ -204,19 +204,19 @@ strong{
 .x-tree-node-icon {
     display:none;
 }
-.x-tree-arrows .x-tree-elbow-plus {
+.dynamic_tree .x-tree-arrows .x-tree-elbow-plus {
     background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt;
 }
-.x-tree-arrows .x-tree-elbow-minus {
+.dynamic_tree .x-tree-arrows .x-tree-elbow-minus {
     background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
 }
-.x-tree-arrows .x-tree-elbow-end-plus {
+.dynamic_tree .x-tree-arrows .x-tree-elbow-end-plus {
     background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll 0pt 50%;
 }
-.x-tree-arrows .x-tree-elbow-end-minus {
+.dynamic_tree .x-tree-arrows .x-tree-elbow-end-minus {
     background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -16px 0pt;
 }
-.x-tree-arrows .x-tree-elbow-end, .x-tree-arrows .x-tree-elbow {
+.dynamic_tree .x-tree-arrows .x-tree-elbow-end, .dynamic_tree .x-tree-arrows .x-tree-elbow {
     background:transparent url(/ext/resources/images/default/tree/arrows_rtl.gif) no-repeat scroll -64px 0pt;
 }
 .x-tree-node-loading .x-tree-node-icon{

@@ -23,22 +23,24 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_meta_title
         meta(:name => 'description', :content => ext_meta_description)
+
         javascript_include_tag 'jquery', 
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers-hb',
         'flashembed.min.js',
         :cache => "cache_website-#{@presenter.website_hrid}"
+
+        stylesheet_link_tag 'reset-fonts-grids',
+        'base-min',
+        'hebmain/common',
+        'hebmain/header',
+        'hebmain/home_page',
+        'hebmain/widgets',
+        :cache => "cache_website-#{@presenter.website_hrid}"
+
         if presenter.node.can_edit?
-          stylesheet_link_tag 'reset-fonts-grids', 
-          'base-min',
-          '../ext/resources/css/ext-all',
-          'hebmain/common',
-          'hebmain/header',
-          'hebmain/home_page',
-          'hebmain/page_admin',
-          'hebmain/widgets'#,
-          #:cache => "cache_website_admin-#{@presenter.website_hrid}"
+          stylesheet_link_tag '../ext/resources/css/ext-all', 'hebmain/page_admin'
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',
           :cache => "cache_website_admin-#{@presenter.website_hrid}"
@@ -46,22 +48,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
           }
         else
-          stylesheet_link_tag 'reset-fonts-grids', 
-          'base-min', 
-          'hebmain/common',
-          'hebmain/header', 
-          'hebmain/home_page', 
-          'hebmain/widgets'#,
-          #:cache => "cache_website-#{@presenter.website_hrid}"
         end
 
-        rawtext <<-IE61
-          <!--[if IE]>
-        IE61
-        stylesheet_link_tag 'hebmain/ie6'
-        rawtext <<-IE62
-          <![endif]-->        
-        IE62
+        rawtext "\n<!--[if IE 6]>\n"
+        stylesheet_link_tag 'hebmain/ie6', :media => 'all'
+        rawtext "\n<![endif]-->\n"
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {

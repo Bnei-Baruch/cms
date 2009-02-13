@@ -131,9 +131,9 @@ class TreeNode < ActiveRecord::Base
       self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
     end
     if self.resource_status.nil?
-       tstatus = self.resource.status
+      tstatus = self.resource.status
     else
-       tstatus = self.resource_status
+      tstatus = self.resource_status
     end
     
     case tstatus
@@ -198,7 +198,6 @@ class TreeNode < ActiveRecord::Base
       end
       req_is_main = args.has_key?(:is_main) ? args[:is_main] : 'null'                  
       req_has_url = args.has_key?(:has_url) ? args[:has_url] : 'null'
-      req_depth = args[:depth] || 'null'
       if args.has_key?(:properties) && args[:properties].is_a?(String) && !args[:properties].empty?
         req_properties = "'" + args[:properties] + "'"
       else
@@ -217,45 +216,44 @@ class TreeNode < ActiveRecord::Base
       else
         req_status = 'null'
       end
-      
-      
-      if req_parent
-        request = [
-          req_parent, 
-          AuthenticationModel.current_user, 
-          req_resource_type_hrids, 
-          req_is_main, 
-          req_has_url, 
-          req_depth,
-          req_properties,
-          req_current_page,
-          req_items_per_page,
-          req_return_parent,
-          req_placeholders,
-          req_status
-        ].join(',') 
-        if args[:test]
-          return "select * from cms_treenode_subtree(#{request})"
-        end
-        # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
 
-        sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource] }
-       # sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes"}
-        additional_params = {}
-        if args.has_key?(:limit) && args[:limit].to_i > 0
-          additional_params.merge!({:limit => args[:limit].to_i})
-        end                                                      
-        if args.has_key?(:order) && args[:order].is_a?(String)
-          additional_params.merge!({:order => args[:order]})
-        end                                                      
-        sql_params.merge!(additional_params)
-        find(:all, sql_params) rescue []
-
-        # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
-        # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue [] ###### Eager loading
-      else
-        []
+      request = [
+        req_parent,
+        AuthenticationModel.current_user,
+        req_resource_type_hrids,
+        req_is_main,
+        req_has_url,
+        if args[:depth]
+          args[:depth] unless args[:depth] == 1
+        else
+          'null'
+        end,
+        req_properties,
+        req_current_page,
+        req_items_per_page,
+        req_return_parent,
+        req_placeholders,
+        req_status
+      ].compact.join(',')
+      if args[:test]
+        return "select * from cms_treenode_subtree(#{request})"
       end
+      # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
+
+      sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource] }
+      # sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes"}
+      additional_params = {}
+      if args.has_key?(:limit) && args[:limit].to_i > 0
+        additional_params.merge!({:limit => args[:limit].to_i})
+      end
+      if args.has_key?(:order) && args[:order].is_a?(String)
+        additional_params.merge!({:order => args[:order]})
+      end
+      sql_params.merge!(additional_params)
+      find(:all, sql_params) rescue []
+
+      # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
+      # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue [] ###### Eager loading
     end
     
 
@@ -310,8 +308,7 @@ class TreeNode < ActiveRecord::Base
         args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
       end
 
-      result = super(*args)
-      result
+      super(*args)
     end
 
     def find_as_admin(tree_node_id)

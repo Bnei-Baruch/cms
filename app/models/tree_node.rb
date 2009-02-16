@@ -12,8 +12,17 @@ class TreeNode < ActiveRecord::Base
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache
 
-  #attribute_method_suffix '_changed?'     
+  class << self; attr_accessor :tree_nodes_list end
   
+  #attribute_method_suffix '_changed?'     
+
+  # This is because the observer doesn't add the after_find function
+  # unless you define it in your model first
+  def after_find
+  end
+
+  alias :this_cache_key :cache_key
+
   def permalink=(value)
     write_attribute('permalink', TreeNode.permalink_escape(value))
   end
@@ -114,43 +123,6 @@ class TreeNode < ActiveRecord::Base
     TreeNode.find(:all, 
       :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes") rescue []
     # select * from cms_treenode_ancestors(35, 1)
-  end
-
-  def after_find
-    #if user is admin set max permission
-    if AuthenticationModel.current_user_is_admin?
-      self.ac_type = 4 #"Administrating"
-    else
-      #set max access type by current user
-      if attribute_present?(:max_user_permission)
-        self.ac_type ||= self.max_user_permission.to_i
-      end
-      if attribute_present?(:max_user_permission_2)
-        self.ac_type ||= self.max_user_permission_2.to_i
-      end
-      self.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(self.id)
-    end
-    if self.resource_status.nil?
-      tstatus = self.resource.status
-    else
-      tstatus = self.resource_status
-    end
-    
-    case tstatus
-    when 'DRAFT'
-      self.ac_type = 0 if self.ac_type <= 1 
-    when 'DELETED'
-      self.ac_type = 0 if self.ac_type <= 2 
-    end 
-  end 
-  
-  # def before_save
-  #   max_user_permission = nil
-  # end
-  #  
-  def after_save
-    #copy parent permission to the new tree_node
-    AuthenticationModel.copy_parent_tree_node_permission(self)
   end
 
   class << self

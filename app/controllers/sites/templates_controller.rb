@@ -24,7 +24,9 @@ class Sites::TemplatesController < ApplicationController
   end
   
   # This is the action that renders the view and responds to client
-  def template 
+  def template
+    TreeNode.tree_nodes_list = []
+
     host = 'http://' + request.host
     prefix = params[:prefix]
     permalink = params[:id]
@@ -62,7 +64,7 @@ class Sites::TemplatesController < ApplicationController
       check_url_migration
       return
     end
-       
+
     session[:site_direction] = site_settings[:site_direction] rescue 'rtl'
     session[:language] = site_settings[:language] rescue 'default'
     set_translations
@@ -85,17 +87,20 @@ class Sites::TemplatesController < ApplicationController
           if Rails.env == 'development'
             render :widget => klass, :layout_class => layout_class
           else
-            key = this_cache_key
+            key = @presenter.node.this_cache_key
             if result = Rails.cache.fetch(key)
               render :text => result if stale?(:etag => result)
             else
               Rails.cache.write(key,
                 render(:widget => klass, :layout_class => layout_class))
+              # Store the list of tree nodes used to render the current page
+              logger.debug("List of tree nodes used to render page #{key}: #{TreeNode.tree_nodes_list}")
             end
           end
         else
           # Authenticated user ==> no cache
           render :widget => klass, :layout_class => layout_class
+          logger.debug("List of tree nodes used to render page #{@presenter.node.this_cache_key}: #{TreeNode.tree_nodes_list.uniq.join(',')}")
         end
       }
       format.json {
@@ -226,10 +231,6 @@ class Sites::TemplatesController < ApplicationController
 
   private     
 
-  def this_cache_key
-    @presenter.node.cache_key
-  end
-  
   def my_layout_path(resource)
     get_layout_path(site_name, group_name, resource)
   end

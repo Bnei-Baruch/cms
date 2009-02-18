@@ -47,15 +47,17 @@ class CmsSweeper < ActionController::Caching::Sweeper
       Logger.new(STDOUT).debug "############################     Its resource is #{record.resource.id}"
       #  1. Get its Resource and find out all TreeNodes with this Resource on them
       #  2. For each of these TreeNodes find in table their parent node (i.e. the node that is Page) and clean its cache
-      Logger.new(STDOUT).debug "############################     Cache key is #{record.this_cache_key}"
-      TreeNode.find_all_by_resource_id(record.resource.id).each{|node|
-        Logger.new(STDOUT).debug "############################     TN with this resource is #{node.id}"
+      nodes = CacheMap.find_all_by_child(TreeNode.find_all_by_resource_id(record.resource.id).map{|node| node.id}).map{|node| node.parent}
+      Logger.new(STDOUT).debug "############################     We have to clean nodes #{nodes.join(',')}"
+      nodes.each{|node|
+        FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node}-*"])
+
       }
     when /#{Attachment.to_s}/
       Logger.new(STDOUT).debug "############################ Sweep #{record.class} -- IGNORE for now..."
     else
       Logger.new(STDOUT).debug "############################ Sweep #{record.class} -- REMOVE ALL"
-      FileUtils.rm_rf(Dir['tmp/cache/[^.]*']) rescue Errno::ENOENT
+      FileUtils.rm_rf(Dir['tmp/cache/[^.]*'])
     end
   end
   

@@ -12,8 +12,6 @@ class TreeNode < ActiveRecord::Base
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache
 
-  class << self; attr_accessor :tree_nodes_list end
-  
   #attribute_method_suffix '_changed?'     
 
   # This is because the observer doesn't add the after_find function
@@ -290,84 +288,6 @@ class TreeNode < ActiveRecord::Base
       end
       nil
     end
-  end
-
-  def before_destroy
-    #check if has permission for destroy action
-    unless can_administrate?
-      if is_main || !can_delete?
-        logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-            "to destroy tree_node: #{id} resource: #{resource_id}")
-        raise "User #{AuthenticationModel.current_user} has no permission " + 
-          "to destroy tree_node: #{id} resource: #{resource_id}"
-      end
-    end
-    tree_node_ac_rights.destroy_all
-  end
-
-  def before_update
-    #check if has permission for edit action
-    if not can_edit?
-      logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-          "to edit tree_node: #{id} resource: #{resource_id}")
-      raise "User #{AuthenticationModel.current_user} has no permission " + 
-        "to edit tree_node: #{id} resource: #{resource_id}"
-    end
-    
-    #check if parent changed
-    #if Yes check if user has permission create child to parant tree_node
-    if not AuthenticationModel.current_user_is_admin?
-      orig_tree_node = TreeNode.find_as_admin(self.id)
-      if orig_tree_node
-        #check if parent changed
-        if orig_tree_node.parent_id != self.parent_id
-          if parent_id && parent_id > 0
-            if not TreeNode.find_as_admin(parent_id).can_move_child?
-              logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-                  "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied.")
-              raise "User #{AuthenticationModel.current_user} has no permission " + 
-                "to move a child of tree_node: #{parent_id}. Moving tree_node #{id} denied."
-            end
-          else
-            #if parent_id is nil or 0 (it is root tree_node)
-            #only Adinistrator group can create it
-            logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-                "to create root tree_node: #{id}. Moving tree_node denied. Only Administrator can do it.")
-            raise "User #{AuthenticationModel.current_user} has no permission " + 
-              "to create root tree_node: #{id}. Moving tree_node denied. Only Administrator can do it."
-          end
-        end
-      end
-    end
-    self.max_user_permission = nil
-  end
-
-  def before_create
-    #check if has permission for criating action
-    #the parant tree_node can_create_child?
-    if parent_id && parent_id > 0
-      if not TreeNode.find_as_admin(parent_id).can_create_child?
-        logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-            "to create a child of tree_node: #{parent_id}")
-        raise "User #{AuthenticationModel.current_user} has no permission " + 
-          "to create a child of tree_node: #{parent_id}"
-      end
-    else
-      #if parent_id is nil or 0 (it is root tree_node)
-      #only Adinistrator group can create it
-      if not AuthenticationModel.current_user_is_admin?
-        logger.error("User #{AuthenticationModel.current_user} has no permission " + 
-            "for creation root tree_node, only Adminitrator can create child tree_node.")
-        raise "User #{AuthenticationModel.current_user} has not permission " + 
-          "for creation root tree_node, only Adminitrator can create child tree_node."
-      end
-    end
-  end
-  
-  def after_destroy
-    #delete resource if exist
-    #used for recurcive delete of tree_nodes
-    resource.destroy if resource && is_main == true
   end
 
   #return min permission to child nodes by current user (recursive)

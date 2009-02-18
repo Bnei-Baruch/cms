@@ -25,7 +25,7 @@ class Sites::TemplatesController < ApplicationController
   
   # This is the action that renders the view and responds to client
   def template
-    TreeNode.tree_nodes_list = []
+    CacheMap.reset_tree_nodes_list
 
     host = 'http://' + request.host
     prefix = params[:prefix]
@@ -93,14 +93,15 @@ class Sites::TemplatesController < ApplicationController
             else
               Rails.cache.write(key,
                 render(:widget => klass, :layout_class => layout_class))
-              # Store the list of tree nodes used to render the current page
-              logger.debug("List of tree nodes used to render page #{key}: #{TreeNode.tree_nodes_list}")
             end
+            # Store the list of tree nodes used to render the current page
+            CacheMap.save_tree_nodes_list
           end
         else
           # Authenticated user ==> no cache
           render :widget => klass, :layout_class => layout_class
-          logger.debug("List of tree nodes used to render page #{@presenter.node.this_cache_key}: #{TreeNode.tree_nodes_list.uniq.join(',')}")
+          logger.debug("List of tree nodes used to render page #{@presenter.node.this_cache_key}: #{CacheMap.print_tree_nodes_list}")
+          CacheMap.save_tree_nodes_list
         end
       }
       format.json {

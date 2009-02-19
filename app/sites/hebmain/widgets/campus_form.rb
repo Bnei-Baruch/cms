@@ -38,6 +38,8 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
   end
 		
 	def create_student
+	  
+	  track_string = get_track_string
     mail_from = get_email_from
     mail_to = get_email_to
     mail_subject = get_text_email
@@ -56,11 +58,19 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		}
 		javascript{
     	rawtext 'alert("הפרטים נתקבלו בהצלחה.‬");'
-		}
-    unless get_track_string == ""
-      img :height => "1", :width => "1", :border => "0", :src => get_track_string  
-    end
-    
+		}                                                                                                                                   
+    track_string = get_track_string
+    unless track_string == ""
+      str_track = track_string.split('***')
+      str_track0 = str_track[0]
+      str_track1 = str_track[1]
+      javascript {
+        rawtext <<-track
+           javascript:urchinTracker('#{str_track1}');
+        track
+      }
+      img :height => "1", :width => "1", :border => "0", :src => str_track0
+    end    
 	end
 	
   def send_student_by_mail(name = '' , email = '', tel = '', mailfrom = 'campus@kab.co.il', mailto = 'info@kab.co.il', mail_list_name = 'campus')

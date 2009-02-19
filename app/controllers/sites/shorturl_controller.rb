@@ -16,10 +16,12 @@ class Sites::ShorturlController < ApplicationController
   
   
   # This is the action that renders the view and responds to client
-  def shorturl
+  def shorturl                          
     host = 'http://' + request.host
     prefix = params[:prefix]
     node = params[:id]
+    query_string = request.query_string
+    query_string = '?' + query_string unless query_string.empty?
         
     @node = TreeNode.find(:first, :conditions => ['id = ?', node])
     
@@ -34,7 +36,7 @@ class Sites::ShorturlController < ApplicationController
     namedurl = host + portinurl + '/' + prefix + '/' + @node.permalink
     
     if @node.has_url && @node.can_read?
-      redirect_301(URI.escape(namedurl))
+      redirect_301(URI.escape(namedurl + query_string))
     end
     
 

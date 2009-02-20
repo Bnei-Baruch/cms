@@ -103,15 +103,12 @@ class CronManager
     property = tree_node.resource.properties('items')
     unless property.text_value == data
       property.update_attributes(:text_value => data)
-      if system("rake tmp:cache:clear")
-        print "Cache was cleared\n"
-      else
-        print "Error to clear cache: #{$?}\n"
-      end
+      tree_node.resource.save
     else
       print "No changes\n"
     end
     puts 'OK'
+    data
   end
   
   def self.read_and_save_node_media_rss(tree_node, lang)
@@ -168,8 +165,9 @@ class CronManager
     property = tree_node.resource.properties('items')
     unless property.text_value == data
       property.update_attributes(:text_value => data) unless (data.nil? | data.empty?)
-      system("rake tmp:cache:clear")
+      tree_node.resource.save
     end
+    data
   end
   
   private

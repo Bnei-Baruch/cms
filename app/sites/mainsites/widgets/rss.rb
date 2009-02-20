@@ -62,10 +62,9 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
   def get_all_items
     content = get_items
     if content.empty?
-      CronManager.read_and_save_node_rss(tree_node)
+      content = CronManager.read_and_save_node_rss(tree_node)
     end
 
-    content = get_items
     return nil if content.empty?
     get_rss_items(content)
   end

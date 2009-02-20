@@ -130,9 +130,11 @@ class Global::Widgets::Tree < WidgetManager::Base
         has_no_children = (rp && rp.get_value) ? false : true
       end
 
-       name = "<span class='#{node.resource.status.downcase}'>#{node.resource.name}</span>"
+      name = "<span class='#{node.resource.status.downcase}'>#{node.resource.name}</span>"
       [
-        :id => node.id, :text => name, :href => get_page_url(node),
+        :id => node.id, 
+        :text => node.resource.status == 'PUBLISHED' ? node.resource.name : name,
+        :href => get_page_url(node),
         :leaf => has_no_children,
         :resource_name => node.resource.name, :parent_id => node.parent_id,
         :cannot_edit => !node.can_edit?, :cannot_create_child => !node.can_create_child?,
@@ -185,7 +187,9 @@ class Global::Widgets::Tree < WidgetManager::Base
     end
     [
       {
-        :id => id, :text => name, :href => href, :leaf => false,
+        :id => id, 
+        :text => leaf.resource.status == 'PUBLISHED' ? leaf.resource.name : name,
+        :href => href, :leaf => false,
         :resource_name => leaf.resource.name,
         :parent_id => leaf.parent_id,
         :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,

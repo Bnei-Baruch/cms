@@ -178,7 +178,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                                     method: 'post',
                                     callback: function (options, success, responce){
                                         if (success) {
-                                            node.setText("<span class='published'>" + node.attributes.resource_name + "</span>");
+                                            node.setText(node.attributes.resource_name);
                                             Ext.Msg.alert('Tree item Publish', 'The tree item <' + node.text + '> was successfully published');                                             
                                         } else {
                                             Ext.Msg.alert('Tree item Publish', 'FAILURE!!!');

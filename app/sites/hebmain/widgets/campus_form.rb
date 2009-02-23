@@ -66,7 +66,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
       str_track1 = str_track[1]
       javascript {
         rawtext <<-track
-           javascript:urchinTracker('#{str_track1}');
+           urchinTracker('#{str_track1}');
         track
       }
       img :height => "1", :width => "1", :border => "0", :src => str_track0

@@ -34,14 +34,18 @@ ActionController::Routing::Routes.draw do |map|
   # with a though about the future - 
   # :id is the tree node id
   map.tm ':prefix/mail/:id/' , :controller => 'email' , :action => 'send_node'
-  
+ 
   # Template controller - it is the main content controller for 90% of the site
   # :id is the permalink stuff (right, it is not consistent... so what ?!)
+  map.connect '/feed.:format', :controller => 'sites/templates', :action => 'template'
+  map.connect ':prefix/feed.:format' , :controller => 'sites/templates' , :action => 'template'
+  map.connect ':prefix/:id/feed.:format' , :controller => 'sites/templates' , :action => 'template'
   map.tm ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'
   
   # Mmm, I guess this one is for website homepage that do not make use of
   # prefix for the homepage - but not sure - should ask Rami
   # (anyway, he should have comment it on the firt place)
+  
   map.connect '/', :controller => 'sites/templates', :action => 'template'
   
                                            
@@ -73,7 +77,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
   
-
   map.connect ':prefix/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
   
   map.connect '/*path', :controller => 'sites/templates', :action => 'template'

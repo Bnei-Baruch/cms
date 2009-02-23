@@ -30,10 +30,12 @@ class CmsSweeper < ActionController::Caching::Sweeper
   #  Note: the table should include Page node as its child to reduce looking up overhead
 
   def after_save(record)
+    Feed.delete_all
     self.class::sweep(record)
   end
   
   def after_destroy(record)
+    Feed.delete_all
     self.class::sweep(record)
   end
 

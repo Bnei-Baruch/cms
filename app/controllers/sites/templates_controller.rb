@@ -108,10 +108,47 @@ class Sites::TemplatesController < ApplicationController
         render_json_widget
         return
       }
+      format.rss {
+        render_feed('rss')
+        return
+      }
+      format.atom {
+        render_feed('atom')
+        return
+      }
     end
 
   end
-  
+
+  def render_feed(feed_type)
+    node_id = @presenter.node.id
+    acts_as_section = @presenter.node.resource.properties('acts_as_section').get_value rescue false
+    if (@presenter.is_homepage? ||
+        (@presenter.node_resource_type.hrid == 'content_page' && acts_as_section))
+      feed = Feed.find(:first, :conditions => [ "section_id = ? AND feed_type = ?", node_id, feed_type]) rescue nil
+      if (feed)
+        @pages = TreeNode.get_subtree(
+                  :parent => node_id,
+                  :resource_type_hrids => ['content_page'],
+                  :has_url => true,
+                  :is_main => true,
+                  :limit => 10,
+                  :order => "created_at DESC",
+                  :status => ['PUBLISHED']
+                )
+        feed = Feed.new(:section_id => node_id,
+                        :feed_type => feed_type,
+                        :data => (render :layout => false))
+        feed.save
+      else
+        render :text => feed.data
+      end
+    else
+      head_status_404
+    end
+    return
+  end
+
   def render_json_widget
     options = params[:options]
     unless options && options.has_key?(:widget)
@@ -132,7 +169,7 @@ class Sites::TemplatesController < ApplicationController
     end
 
   end
-  
+
   def sitemap
     host = 'http://' + request.host
     @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, params[:prefix]]) rescue nil
@@ -335,5 +372,4 @@ class Sites::TemplatesController < ApplicationController
       end
     end
   end
-  
 end

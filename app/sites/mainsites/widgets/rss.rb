@@ -93,10 +93,12 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
         end
         div(:class => 'entry'){
           a(:href => url, :target => '_blank' ) {rawtext item[:title]}
-          div(:class => 'date'){
-            text item[:date].strftime('%d.%m.%y, %H:%m')
-          }
-          if (show_description)
+          if item[:date]
+            div(:class => 'date'){
+              text item[:date].strftime('%d.%m.%y, %H:%m')
+            }
+          end
+          if (show_description && item[:description])
             div(:class => 'description'){
               rawtext item[:description]
             }

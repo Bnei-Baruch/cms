@@ -5,6 +5,16 @@ install rails
 	gem install postgres-pr
 	gem install mongrel
 	gem install ruby-debug
+    gem install mini_magick
+    gem install ar-extensions
 	
 install tortoise - http://tortoisesvn.net/downloads
 imagemagick http://www.imagemagick.org/script/download.php
+
+run SQL script from C:\Program Files\PostgreSQL\8.3\share\contrib\tablefunc.sql
+
+Change Config file database.yml as database.yml.example
+
+For developing use Netbiens for Ruby
+
+

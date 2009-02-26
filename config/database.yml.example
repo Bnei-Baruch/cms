@@ -16,7 +16,7 @@ kabtv_development: # Really it is production!!!!!
   adapter: postgresql
   database: projects
   username: vod_production
-  password: 9HyxYsMFdqErfsaV
+  password: sod
   host: postgres.kabb1.com
 
 
@@ -24,7 +24,7 @@ kabtv_production: # Really it is production!!!!!
   adapter: postgresql
   database: projects
   username: vod_production
-  password: 9HyxYsMFdqErfsaV
+  password: sod
   host: postgres.kabb1.com
 
   # Connect on a TCP socket.  Omitted by default since the client uses a

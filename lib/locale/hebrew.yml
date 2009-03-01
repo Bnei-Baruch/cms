@@ -2,10 +2,10 @@ hebrew:
   preview_title: כותרת לתצוגה מקדימה 
   large_title: כותרת ראשית 
   permalink: לינק של הדף (לא לשנות) 
-  small_title: תת כותרת 
-  sub_title: כותרת משנה 
-  side_image: תמונה צדי 
-  main_image_alt: כותרת לתמונה ראשית (alt) 
+  small_title: תת כותרת
+  sub_title: כותרת משנה
+  side_image: תמונה צדית
+  main_image_alt: כותרת לתמונה צדית
   preview_image: תמונה לתצוגה מקדימה 
   preview_image_alt: כותרת התמונה לתצוגה מקדימה (alt) 
   writer: מאת 
@@ -45,8 +45,6 @@ hebrew:
   cancel: בטל 
 
   regular_text: טקסט רץ 
-  sub_title: תת כותרת 
-  
   first_name: שם פרטי 
   
  

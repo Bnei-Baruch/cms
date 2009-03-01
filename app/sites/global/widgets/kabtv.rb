@@ -52,6 +52,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
 //***************************************
 // KAB.TV Player
 //***************************************
+
 var sketchTimer;
 function startSketches(){
     sketchTimer = setInterval(reloadSketches, 30000)
@@ -119,6 +120,12 @@ $(function() {
             $("a.schedule_menu_item").removeClass('schedule_selected');
             $(this).toggleClass('schedule_selected');
             return false;
+        });
+        $("#kabtv  #schedule_list .title").livequery('click',function () {
+            var $this = $(this);
+            $this.next().toggle();
+            $(this).toggleClass('icon-plus');
+            $(this).toggleClass('icon-minus');
         });
     }
     if (typeof hs != "undefined") {
@@ -513,7 +520,7 @@ $(function() {
       descr.gsub!('<br>', '<br/>')
       descr.gsub!(/<font\s+color\s*=\s*["\'](\w+)["\']>/, '<span style="color:\1">')
       descr.gsub!('</font>', '</span>')
-      list += "<div class='item#{index % 2}'>#{time}<b>#{title}</b><br/>#{descr}</div>"
+      list += "<div class='item#{index % 2}'>#{time}<div class='title icon-plus'>#{title}</div><div style='display:none;' class='descr'>#{descr}</div></div>"
     }
     
     list

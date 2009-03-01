@@ -66,57 +66,63 @@ class Hebmain::Widgets::Video < WidgetManager::Base
     }
     
     div(:class => 'embed'){
-      # span(:class => 'text') {
-      #   text '  Embed'
-      # }
-      # input(:id => 'addr', 
-      #   :value =>'<object width="425" height=...',
-      #   :readonly => 'readonly',
-      #   :onclick => "javascript:document.getElementById('addr').focus();document.getElementById('addr').select()")
-      # span(:class => 'services'){
-      #   img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
-      #   a(:href => get_url, :title => 'arrow') {
-      #     img(:src => '/images/hebmain/player/arrow.gif', :alt => 'arrow')          
-      #   }
-      #   img(:src => '/images/hebmain/player/pipe.gif', :alt => '')
-      # 
-      #   a(:href => '#', :title => 'email', :alt => 'email') {
-      #     img(:src => '/images/hebmain/player/email.gif', :alt => 'email')          
-      #   }
-      # }
-    }
-  end
+      wmvpath = get_download_link
+      unless wmvpath.empty? #replace with empty? and check
+          img(:class => "elem", :src => "/images/download.png")
+          a(:href => wmvpath){text I18n.t(:download)}
+      end
+        #I18n.t(:download)
+        # span(:class => 'text') {
+        #   text '  Embed'
+        # }
+        # input(:id => 'addr', 
+        #   :value =>'<object width="425" height=...',
+        #   :readonly => 'readonly',
+        #   :onclick => "javascript:document.getElementById('addr').focus();document.getElementById('addr').select()")
+        # span(:class => 'services'){
+        #   img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
+        #   a(:href => get_url, :title => 'arrow') {
+        #     img(:src => '/images/hebmain/player/arrow.gif', :alt => 'arrow')          
+        #   }
+        #   img(:src => '/images/hebmain/player/pipe.gif', :alt => '')
+        # 
+        #   a(:href => '#', :title => 'email', :alt => 'email') {
+        #     img(:src => '/images/hebmain/player/email.gif', :alt => 'email')          
+        #   } 
+#         }
+      }
+    end
   
-  def render_video_list
-    video_admin
-    a(:href => get_flash_url) {
-      img(:src => get_image(:image_name => 'thumb'), :alt => '', :class => 'flashplayer')
-    }
-    a(:href => get_flash_url, :class => 'h1-play') {
-      text get_title
-    }
-    div(:class => 'descr-play') {text get_description}
-    div(:class => 'clear')
+    def render_video_list
+      video_admin
+      a(:href => get_flash_url) {
+        img(:src => get_image(:image_name => 'thumb'), :alt => '', :class => 'flashplayer')
+      }
+      a(:href => get_flash_url, :class => 'h1-play') {
+        text get_title
+      }
+      div(:class => 'descr-play') {text get_description}
+      div(:class => 'clear')
+    end
   end
-end
 
 
-#object="id = "MediaPlayer", width = '180', height = '200',
-#    classid = "CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95",
-#    codebase = "http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701",
-#    standby = "Loading MicrosoftÂ® WindowsÂ® Media Player components...",
-#    type = "application/x-oleobject", :align => "middle") {
-#      param(:name => "FileName", :value => get_url)
-#      param(:name => "ShowStatusBar", :value => 'true')
-#      param(:name => "DefaultFrame", :value => 'mainframe')
-#      param(:name => "autostart", :value => 'false')
-#      embed(:type => "application/x-mplayer2",
-#      pluginspage = "http://www.microsoft.com/Windows/MediaPlayer/",
-#      src = get_url,
-#      autostart = "false",
-#      align = "middle",
-#      width = "176",
-#      height = "144",
-#      defaultframe = "rightFrame",
-#      showstatusbar = "true") {}"
-# 
+  #object="id = "MediaPlayer", width = '180', height = '200',
+  #    classid = "CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95",
+  #    codebase = "http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701",
+  #    standby = "Loading MicrosoftÂ® WindowsÂ® Media Player components...",
+  #    type = "application/x-oleobject", :align => "middle") {
+  #      param(:name => "FileName", :value => get_url)
+  #      param(:name => "ShowStatusBar", :value => 'true')
+  #      param(:name => "DefaultFrame", :value => 'mainframe')
+  #      param(:name => "autostart", :value => 'false')
+  #      embed(:type => "application/x-mplayer2",
+  #      pluginspage = "http://www.microsoft.com/Windows/MediaPlayer/",
+  #      src = get_url,
+  #      autostart = "false",
+  #      align = "middle",
+  #      width = "176",
+  #      height = "144",
+  #      defaultframe = "rightFrame",
+  #      showstatusbar = "true") {}"
+  # 

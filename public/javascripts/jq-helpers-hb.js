@@ -254,7 +254,7 @@ $(document).ready(function() {
         $('.media_rss a').attr('target', '_blank');
     });
 
-     //************************************
+    //************************************
     // Media player(s) on inner page
     //************************************
 
@@ -267,62 +267,62 @@ $(document).ready(function() {
     //$('.mediacasting').last.css('border-bottom','0px none #E8E8E8')
     
     //$('.mediacasting').prev().css('border-bottom','0px none #E8E8E8');
-      var item = $('.mediacasting').prev();
-      item.css('border-bottom','0px none #E8E8E8');
-      $('.mediacasting:has(.media[href*=mp3])').addClass('audio');
-      $('.mediacasting:not(:has(.media[href*=mp3]))').addClass('video');
+    var item = $('.mediacasting').prev();
+    item.css('border-bottom','0px none #E8E8E8');
+    $('.mediacasting:has(.media[href*=mp3])').addClass('audio');
+    $('.mediacasting:not(:has(.media[href*=mp3]))').addClass('video');
 
-      $("a.hide-player").hide();
-      $("a.show-player").hide();
-      $("a.media-download").hide();
+    $("a.hide-player").hide();
+    $("a.show-player").hide();
+    $("a.media-download").hide();
 
-      $("a.media").click(function(event){
-          event.preventDefault();
-          $this = $(this);
-          $this.parents('.mediacasting').children("a.hide-player").toggle();
-          $this.parents('.mediacasting').children("a.media-download").toggle();
-          $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
-          $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
-          $this.removeClass('media');
-          $this.addClass('mediaplayer');
-          $this.media({
-              autoplay: true
-          });
+    $("a.media").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.parents('.mediacasting').children("a.hide-player").toggle();
+        $this.parents('.mediacasting').children("a.media-download").toggle();
+        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
+        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
+        $this.removeClass('media');
+        $this.addClass('mediaplayer');
+        $this.media({
+            autoplay: true
+        });
 
-      });
+    });
 
-      $("a.hide-player").click(function(event){
-          event.preventDefault();
-          $this = $(this);
-          $this.parents('.audio').css('background-image', 'url(/images/hebmain/audio.png)');
-          $this.parents('.video').css('background-image', 'url(/images/hebmain/video.png)');
-          $this.toggle();
-          $this.siblings().toggle();
-          var player = $this.parents('.mediacasting').find("object");
-          if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Stop')) {
-              player[0].controls.stop();
-          }
-          if (player && player[0]){
-              player[0].SetVariable('closePlayer', 1);
-          }
-      });
+    $("a.hide-player").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.parents('.audio').css('background-image', 'url(/images/hebmain/audio.png)');
+        $this.parents('.video').css('background-image', 'url(/images/hebmain/video.png)');
+        $this.toggle();
+        $this.siblings().toggle();
+        var player = $this.parents('.mediacasting').find("object");
+        if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Stop')) {
+            player[0].controls.stop();
+        }
+        if (player && player[0]){
+            player[0].SetVariable('closePlayer', 1);
+        }
+    });
 
-      $("a.show-player").click(function(event){
-          event.preventDefault();
-          $this = $(this);
-          $this.toggle();
-          $this.siblings().toggle();
-          $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
-          $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
+    $("a.show-player").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.toggle();
+        $this.siblings().toggle();
+        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
+        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
 
-          var player = $this.parents('.mediacasting').find("object");
-          if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {
-              player[0].controls.start();
-          }
-          if (player && player[0]){
-              player[0].SetVariable('closePlayer', 0);
-          }
-      });
+        var player = $this.parents('.mediacasting').find("object");
+        if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {
+            player[0].controls.start();
+        }
+        if (player && player[0]){
+            player[0].SetVariable('closePlayer', 0);
+        }
+    });
 
     
     
@@ -726,9 +726,17 @@ $(function() {
     $('a.target_blank').attr('target', '_blank');
 });
 
+
+
+
+
 //***************************************
 // KAB.TV Player
 //***************************************
+//
+// http://hebrew.localhost:3000/kabbalah/טלוויזיה
+// find out how to place a trigger on the link
+
 var sketchTimer;
 function startSketches(){
     sketchTimer = setInterval(reloadSketches, 30000)
@@ -766,21 +774,21 @@ function gofs(){
 }
 $(function() {
     if (typeof $("#tabs").tabs == "function") {
-      $("#tabs").tabs({
-        show:
-        // On switch between tabs...
-        function(event, ui){
-            stopSketches();
-            stopQuestions();
-            if (ui.tab.hash == "#sketch"){
-                reloadSketches();
-                startSketches();
-            } else if (ui.tab.hash == "#questions"){
-                reloadQuestions();
-                startQuestions();
+        $("#tabs").tabs({
+            show:
+            // On switch between tabs...
+            function(event, ui){
+                stopSketches();
+                stopQuestions();
+                if (ui.tab.hash == "#sketch"){
+                    reloadSketches();
+                    startSketches();
+                } else if (ui.tab.hash == "#questions"){
+                    reloadQuestions();
+                    startQuestions();
+                }
             }
-        }
-      });
+        });
     }
     if (typeof reloadSchedule == "function") {
         reloadSchedule();
@@ -798,83 +806,84 @@ $(function() {
             return false;
         });
     }
-    if (typeof hs != "undefined") {
-        hs.graphicsDir = '../highslide/graphics/';
-        hs.wrapperClassName = 'highslide-white';
-        hs.outlineType = 'rounded-white';
-        hs.showCredits = 0;
-        hs.useControls = true;
-        hs.fixedControls = true;
-        hs.fadeInOut = true;
-        hs.transitions = ['expand', 'crossfade'];
-        hs.targetX = 'kabtv';
-        hs.targetY = 'kabtv';
-        hs.lang = {
-            loadingText : 'טוען...',
-            loadingTitle : 'לחץ לביטול',
-            focusTitle : 'Click to bring to front',
-            fullExpandText : 'גודל מקסימלי',
-            fullExpandTitle : 'הגדל לגודל המקסימלי (f)',
-            creditsText : 'Powered by <i>Highslide JS</i>',
-            creditsTitle : 'Go to the Highslide JS homepage',
-            previousText : 'תמונה קודמת',
-            previousTitle : 'תמונה הקודמת (חץ שמאלה)',
-            nextText : 'תמונה הבאה',
-            nextTitle : 'תמונה הבאה (חץ ימינה)',
-            moveText : 'הזז',
-            moveTitle : 'לחץ ומשוך להזזה',
-            closeText : 'סגור',
-            closeTitle : 'סגור (esc)',
-            resizeTitle : 'שנה גודל',
-            playText : 'Play',
-            playTitle : 'Play slideshow (spacebar)',
-            pauseText : 'Pause',
-            pauseTitle : 'Pause slideshow (spacebar)',
-            number: 'תמונה %1 / %2',
-            restoreTitle : 'לחץ לסגירה. לחץ ומשוך להזזה. תשתמש בחצים לתמונה הבאה/קודמת.'
-        };
-        if (hs.registerOverlay) {
-            // The white controlbar overlay
-            hs.registerOverlay({
-                thumbnailId: null,
-                overlayId: 'controlbar',
-                position: 'top right',
-                hideOnMouseOut: false,
-                useControls: true
-            });
-        }
+}
+if (typeof hs != "undefined") {
+    hs.graphicsDir = '../highslide/graphics/';
+    hs.wrapperClassName = 'highslide-white';
+    hs.outlineType = 'rounded-white';
+    hs.showCredits = 0;
+    hs.useControls = true;
+    hs.fixedControls = true;
+    hs.fadeInOut = true;
+    hs.transitions = ['expand', 'crossfade'];
+    hs.targetX = 'kabtv';
+    hs.targetY = 'kabtv';
+    hs.lang = {
+    loadingText : 'טוען...',
+    loadingTitle : 'לחץ לביטול',
+    focusTitle : 'Click to bring to front',
+    fullExpandText : 'גודל מקסימלי',
+    fullExpandTitle : 'הגדל לגודל המקסימלי (f)',
+    creditsText : 'Powered by <i>Highslide JS</i>',
+    creditsTitle : 'Go to the Highslide JS homepage',
+    previousText : 'תמונה קודמת',
+    previousTitle : 'תמונה הקודמת (חץ שמאלה)',
+    nextText : 'תמונה הבאה',
+    nextTitle : 'תמונה הבאה (חץ ימינה)',
+    moveText : 'הזז',
+    moveTitle : 'לחץ ומשוך להזזה',
+    closeText : 'סגור',
+    closeTitle : 'סגור (esc)',
+    resizeTitle : 'שנה גודל',
+    playText : 'Play',
+    playTitle : 'Play slideshow (spacebar)',
+    pauseText : 'Pause',
+    pauseTitle : 'Pause slideshow (spacebar)',
+    number: 'תמונה %1 / %2',
+    restoreTitle : 'לחץ לסגירה. לחץ ומשוך להזזה. תשתמש בחצים לתמונה הבאה/קודמת.'
+    };
+    if (hs.registerOverlay) {
+    // The white controlbar overlay
+    hs.registerOverlay({
+        thumbnailId: null,
+        overlayId: 'controlbar',
+        position: 'top right',
+        hideOnMouseOut: false,
+        useControls: true
+        });
+    }
     }
     $("#kabtv #ask_btn").click(function() {
         $("#kabtv #q").hide();
         $("#kabtv #ask_btn").hide();
         $("#kabtv #ask_question").show();
-    });
+        });
     $("#kabtv #ask_cancel").click(function() {
         $("#kabtv #ask_question").hide();
         $("#kabtv #q").show();
         $("#kabtv #ask_btn").show();
-    });
+        });
     $("#kabtv #ask").submit(function() {
         var question = $.trim($("#kabtv #options_qquestion")[0].value);
         if (question == "") {
-          alert('נא לכתוב שאלה');
-          return false;
+        alert('נא לכתוב שאלה');
+        return false;
         }
         $("#kabtv #kabtv-loading").show();
         $(this).ajaxSubmit(function(responseText, statusCode){
             $("#kabtv #kabtv-loading").hide();
             alert(responseText);
             if (statusCode == "success") {
-              $("#kabtv #ask_question").hide();
-              $("#kabtv #q").show();
-              $("#kabtv #ask_btn").show();
+            $("#kabtv #ask_question").hide();
+            $("#kabtv #q").show();
+            $("#kabtv #ask_btn").show();
             }
-        });
+            });
         // always return false to prevent standard browser submit and page navigation
         return false;
-    });
+        });
 
-});
+    });
 $.getScript = function(url, callback, cache){
     $.ajax({ 
         type: "GET",

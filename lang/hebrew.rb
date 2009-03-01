@@ -32,8 +32,6 @@ Localization.define('hebrew') do |l|
   l.store 'Cancel', 'בטל'
 
   l.store 'Regular text', 'טקסט רץ'
-  l.store 'Sub title', 'תת כותרת'
-  
   l.store 'First Name', 'שם פרטי'
   
  

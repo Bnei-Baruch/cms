@@ -67,9 +67,15 @@ class Hebmain::Widgets::Video < WidgetManager::Base
     
     div(:class => 'embed'){
       wmvpath = get_download_link
-      unless wmvpath.empty? #replace with empty? and check
-          img(:class => "elem", :src => "/images/download.gif")
-          a(:href => wmvpath){text I18n.t(:download)}
+      unless wmvpath.empty?
+            span(:class => 'services'){
+              a(:href => wmvpath, :title => 'download') {
+                img(:src => '/images/download.gif', :alt => 'download')          
+                text I18n.t(:download)
+              }
+              # img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
+            }
+
       end
         #I18n.t(:download)
         # span(:class => 'text') {

@@ -770,7 +770,8 @@ img.thumbnails{
 
 
 
-/****Media casting****/
+/*----------  Media casting  ---------------*/
+
 
 .mediacasting{
     padding-right: 25px;
@@ -791,20 +792,6 @@ img.thumbnails{
     background-repeat: no-repeat;
     background-attachment:scroll;
     background-position: 100% 0%;
-}
-
-.content .item .embed {
-    direction: rtl;
-    text-align: right;
-}
-
-.content .item .embed .elem{
-    margin: 5px;
-}
-.content .item .embed a{
-    position: absolute;
-    margin-top:3px;
-    /* top:385px;*/
 }
 
 

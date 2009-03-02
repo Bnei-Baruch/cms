@@ -206,18 +206,18 @@
     *text-indent:0;
     *background: 0 none;
 }
-/**************/
+/*----------  Video  ---------------*/
 
 
 .content .item .embed{
     background: transparent url(/images/hebmain/player/bottom.png) no-repeat top right;
     padding:10px 8px 5px 0;
     margin:0;
-    text-align:left;
-    direction:ltr;
     float:right;
     height:39px;
     width:504px;
+    direction: rtl;
+    text-align: right;
 }
 .content .item .embed span.text{
     font-weight:bold;
@@ -235,6 +235,7 @@
     text-align:left;
     border:1px solid #b2c4e4;
 }
+
 .content .item .video {
     margin:25px 0 0;
     width:504px;

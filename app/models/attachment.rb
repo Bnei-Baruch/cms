@@ -157,9 +157,10 @@ class Attachment < ActiveRecord::Base
     self.thumbnails.size > 0
   end
 
-    def Attachment.remove_thumbnails_and_cache(resource_property)
-    return if ! (resource_property && resource_property.attachment) or ! resource_property.attachment.is_image?
-    
+  def Attachment.remove_thumbnails_and_cache(resource_property)
+    return unless resource_property && resource_property.attachment
+    return unless resource_property.attachment.is_image?
+
     attachment = resource_property.attachment
     ext = File.extname(attachment.filename)
     

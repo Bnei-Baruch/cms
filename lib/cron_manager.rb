@@ -23,18 +23,14 @@ class CronManager
     Logger.new(STDOUT).debug "############################     We have to refresh nodes #{nodes.join(',')}"
     Logger.new(STDOUT).debug "############################     Timestamp #{date}"
 
+    url = @appl_settings[:sweep_url]
     nodes.each{|node|
       FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node}-*"])
-      my_port = ':4000' #It should be hardcoded somewhere...
       node = TreeNode.find_by_id(node)
-      if node.resource.resource_type.hrid.eql?('website')
-#        root_node = node
-#        website = Website.find_by_entry_point_id(root_node.resource.id)
-        url = @appl_settings[:sweep_url]
-      else
+      unless node.resource.resource_type.hrid.eql?('website')
         root_node = TreeNode.find_first_parent_of_type_website(node.parent_id)
         website = Website.find_by_entry_point_id(root_node.resource.id)
-        url = "#{website.domain}#{my_port}/#{website.prefix}/#{node.permalink}"
+        url = "#{website.domain}/#{website.prefix}/#{node.permalink}"
       end
       url = URI.escape(url)
       Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh URL #{url}"

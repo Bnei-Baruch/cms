@@ -8,7 +8,7 @@ module	Configuration::Application
     :global_dir => 'global', 
  # define the interface language
     :language => 'english',
-    :sweep_url => 'hebrew.localhost:4000',
+    :sweep_url => 'http://hebrew.localhost:4000',
     # :default_site => {:domain => 'http://www.kab.co.il', :prefix => 'epaper_heb'},
 # List of all modules that will be registered on application init. 
 # if you want your site config to be used you should load it

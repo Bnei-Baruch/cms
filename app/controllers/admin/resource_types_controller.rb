@@ -1,8 +1,6 @@
 class Admin::ResourceTypesController < ApplicationController
   layout 'admin'
 
-  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
-
   before_filter {|c| c.admin_authorize(['System manager'])}
   
   # GET /resource_types GET /resource_types.xml

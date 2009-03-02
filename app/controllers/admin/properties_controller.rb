@@ -1,8 +1,6 @@
 class Admin::PropertiesController < ApplicationController
   layout 'admin'
 
-  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
-
   before_filter {|c| c.admin_authorize(['System manager'])}
   
   # GET /properties

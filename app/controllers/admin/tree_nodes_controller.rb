@@ -1,8 +1,6 @@
 class Admin::TreeNodesController < ApplicationController
   layout 'admin'
 
-  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
-
   before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights, :tree_node_delete ]
   before_filter {|controller| 
     unless ['destroy', 'tree_node_delete'].include?(controller.action_name)

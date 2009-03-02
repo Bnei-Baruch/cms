@@ -1,7 +1,6 @@
 class Admin::CommentsController < ApplicationController
   layout 'admin'
   before_filter {|c| c.admin_authorize(['System manager'])}
-  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
    
    def index
       @comments = Comment.list_all_comments

@@ -1,8 +1,6 @@
 class Admin::ResourcesController < ApplicationController
   before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy ]
   
-  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
-
   # This block sets layout for admin user and for all other.
   layout :set_layout
   def set_layout

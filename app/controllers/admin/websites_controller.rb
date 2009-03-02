@@ -1,8 +1,6 @@
 class Admin::WebsitesController < ApplicationController
   layout 'admin'
   
-  cache_sweeper :cms_sweeper, :only => [:create, :update, :destroy]
-
   #check security access
   before_filter {|c| c.admin_authorize(['System manager'])}
   

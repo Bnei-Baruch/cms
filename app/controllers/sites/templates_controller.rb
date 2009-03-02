@@ -100,8 +100,6 @@ class Sites::TemplatesController < ApplicationController
         else
           # Authenticated user ==> no cache
           render :widget => klass, :layout_class => layout_class
-          logger.debug("List of tree nodes used to render page #{@presenter.node.this_cache_key}: #{PageMap.print_tree_nodes_list}")
-          PageMap.save_tree_nodes_list # Grisha: TO REMOVE !!!!
         end
       }
       format.json {

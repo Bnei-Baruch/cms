@@ -21,7 +21,7 @@ Rails::Initializer.run do |config|
   # config.plugins = %W( exception_notification ssl_requirement )
 
   # Add additional load paths for your own custom dirs
-  config.load_paths += %W( #{RAILS_ROOT}/app/sites #{RAILS_ROOT}/app/sweepers )
+  config.load_paths += %W( #{RAILS_ROOT}/app/sites )
   config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache/"
 
   # Use the database for sessions instead of the file system

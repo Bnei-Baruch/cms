@@ -952,10 +952,10 @@ img.thumbnails{
     padding-right:15px;
 }
 .icon-plus{
-        background: transparent url(/images/closed.gif) no-repeat right center;
+        background: transparent url(/images/closed.gif) no-repeat 100% 70%;
 }
 .icon-minus{
-        background: transparent url(/images/open.gif) no-repeat right center;
+        background: transparent url(/images/open.gif) no-repeat 100% 70%;
 }
 #kabtv #schedule_list .title:hover{
     text-decoration: underline;

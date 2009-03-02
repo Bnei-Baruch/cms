@@ -13,6 +13,7 @@ class CronManager
 
   def self.sweep_cache
     cron_manager_user_login
+    
     pages = CmsCacheOutdatedPage.find_by_sql('select * from cms_get_outdated_pages()')
     Logger.new(STDOUT).debug "############################     We have to refresh pages: #{!pages.empty?}"
     return if pages.empty?
@@ -23,7 +24,7 @@ class CronManager
     Logger.new(STDOUT).debug "############################     We have to refresh nodes #{nodes.join(',')}"
     Logger.new(STDOUT).debug "############################     Timestamp #{date}"
 
-    url = @appl_settings[:sweep_url]
+    url = $config_manager.appl_settings[:sweep_url]
     nodes.each{|node|
       FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node}-*"])
       node = TreeNode.find_by_id(node)

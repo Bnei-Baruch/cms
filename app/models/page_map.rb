@@ -1,8 +1,4 @@
 class PageMap < ActiveRecord::Base
-  require 'ar-extensions'
-  require 'ar-extensions/adapters/postgresql'
-  require 'ar-extensions/import/postgresql'
-
   class << self;
 
     def reset_tree_nodes_list
@@ -22,9 +18,13 @@ class PageMap < ActiveRecord::Base
 
       # Mass update...
       parent = tree_nodes_list[0]
-      column_names = %W{ parent_id child_id }
-      values = @tree_nodes_list.uniq.map{|node| [parent, node]}
-      PageMap.import(column_names, values, :validate => false) if PageMap.count(:all, :conditions => ['parent_id = ?', parent]) == 0
+      if PageMap.count(:all, :conditions => ['parent_id = ?', parent]) == 0
+        PageMap.find_by_sql 'PREPARE update_PM (int, int) AS INSERT INTO page_maps(parent_id, child_id) VALUES($1, $2);' rescue ''
+        @tree_nodes_list.uniq.each {|node|
+          PageMap.find_by_sql "EXECUTE update_PM (#{parent},#{node});"
+        }
+        PageMap.find_by_sql 'DEALLOCATE update_PM;' rescue ''
+      end
 
       @tree_nodes_list = []
     end

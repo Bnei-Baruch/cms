@@ -14,7 +14,8 @@ class TreeNode < ActiveRecord::Base
 
   #attribute_method_suffix '_changed?'     
 
-  # This is because the observer doesn't add the after_find function
+  # DO NOT REMOVE !!!
+  #  This is because the observer doesn't add the after_find function
   # unless you define it in your model first
   def after_find
   end

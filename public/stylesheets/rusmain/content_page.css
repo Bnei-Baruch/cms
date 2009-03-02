@@ -46,6 +46,9 @@
 #static-menu a.selected{
     font-weight:bold;
 }
+#static-menu li.selected{
+    background-color:#eff1f6;
+}
 #static-menu a{
     display:block;
 }

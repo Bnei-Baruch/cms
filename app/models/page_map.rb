@@ -1,4 +1,4 @@
-class CacheMap < ActiveRecord::Base
+class PageMap < ActiveRecord::Base
   require 'ar-extensions'
   require 'ar-extensions/adapters/postgresql'
   require 'ar-extensions/import/postgresql'
@@ -22,9 +22,9 @@ class CacheMap < ActiveRecord::Base
 
       # Mass update...
       parent = tree_nodes_list[0]
-      column_names = %W{ parent child }
+      column_names = %W{ parent_id child_id }
       values = @tree_nodes_list.uniq.map{|node| [parent, node]}
-      CacheMap.import(column_names, values, :validate => false) if CacheMap.count(:all, :conditions => ['parent = ?', parent]) == 0
+      PageMap.import(column_names, values, :validate => false) if PageMap.count(:all, :conditions => ['parent_id = ?', parent]) == 0
 
       @tree_nodes_list = []
     end

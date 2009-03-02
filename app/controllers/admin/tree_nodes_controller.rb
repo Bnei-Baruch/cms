@@ -69,13 +69,15 @@ class Admin::TreeNodesController < ApplicationController
   end
  
   def update_state
-    
+
+    @controller = self
+
     tree_node = TreeNode.find(params[:id])
   
     if tree_node.nil?
-        flash[:notice] = "Tree node does not exist " + params[:id]
-        logger.error("Tree node does not exist " + params[:id])
-        return
+      flash[:notice] = "Tree node does not exist " + params[:id]
+      logger.error("Tree node does not exist " + params[:id])
+      return
     end
     
     #   ******************
@@ -95,7 +97,7 @@ class Admin::TreeNodesController < ApplicationController
     respond_to do |format|
       format.html {
         if request.xhr?
-            head(:ok).to_json
+          head(:ok).to_json
           return
         end
         redirect_to session[:referer]  
@@ -112,9 +114,9 @@ class Admin::TreeNodesController < ApplicationController
     @tree_node = TreeNode.find(params[:id])
     
     if @tree_node.nil?
-        flash[:notice] = "Tree node does not exist " + params[:id]
-        logger.error("Tree node does not exist " + params[:id])
-        return
+      flash[:notice] = "Tree node does not exist " + params[:id]
+      logger.error("Tree node does not exist " + params[:id])
+      return
     end
     
     #   ******************
@@ -129,11 +131,11 @@ class Admin::TreeNodesController < ApplicationController
 
     if success_flag
       if @tree_node.logical_delete
-          flash[:notice] = 'Resource was successfully deleted.'
+        flash[:notice] = 'Resource was successfully deleted.'
       else
-          success_flag = false
-          flash[:notice] = 'Resource was fail on delete.'
-          logger.error("Resource was fail on delete.")
+        success_flag = false
+        flash[:notice] = 'Resource was fail on delete.'
+        logger.error("Resource was fail on delete.")
       end
     end
     
@@ -144,7 +146,7 @@ class Admin::TreeNodesController < ApplicationController
     respond_to do |format|
       format.html {
         if request.xhr?
-            head(:ok).to_json
+          head(:ok).to_json
           return
         end
         redirect_to session[:referer] 

@@ -239,9 +239,13 @@ class Global::Widgets::Tree < WidgetManager::Base
     item = node.shift
     children = node
     if item[:submenu]
-      klass = item[:selected] ? 'minus selected' : 'plus'
-      li{
-        draw_link item[:item], klass
+      if item[:selected]
+        klass_link, li_link = 'minus selected', 'selected'
+      else
+        klass_link, li_link = 'plus', ''
+      end
+      li(:class => li_link){
+        draw_link item[:item], klass_link
         ul {
           children.each {|element| draw_ltr_tree element}
         }

@@ -42,7 +42,7 @@ $(document).ready(function(){
           :mode => 'inline',
           :style => 'float:right'
         }).render_to(self)
-      if (@options[:simple])
+      if (@options && @options[:simple])
         rawtext _(:languages)
         rawtext ':'
         languages.each{|l|

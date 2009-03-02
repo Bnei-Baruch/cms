@@ -124,7 +124,8 @@ strong{
     position:relative;
     line-height:25px;
     padding:0 6px;
-    color:white;
+    color:black;
+    font-weight:bold;
 }
 .side-box-top .left-ear, .side-box-top .right-ear{
     position:absolute;

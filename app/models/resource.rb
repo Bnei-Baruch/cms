@@ -203,7 +203,7 @@ class Resource < ActiveRecord::Base
 
   def save_resource_properties
     resource_properties.each do |rp|
-      rp.save(false)
+      rp.save(false) if rp.changed?
     end
   end
   

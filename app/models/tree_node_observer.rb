@@ -1,6 +1,6 @@
 class TreeNodeObserver < ActiveRecord::Observer
   def after_find(tree_node)
-    CacheMap.add_to_tree_nodes_list(tree_node.id)
+    PageMap.add_to_tree_nodes_list(tree_node.id)
 
     #if user is admin set max permission
     if AuthenticationModel.current_user_is_admin?

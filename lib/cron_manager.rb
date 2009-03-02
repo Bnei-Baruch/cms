@@ -1,15 +1,59 @@
 # This module is used by Cron 
 # Usage: ruby script/runner 'CronManager.read_and_save_rss' -e development
 #        ruby script/runner 'CronManager.read_and_save_media_rss' -e development
+#        ruby script/runner 'CronManager.sweep_cache' -e development
 
 require 'rss/1.0'
 require 'rss/2.0'
 require 'open-uri'
 require 'timeout'
+require 'cgi'
 
 class CronManager
-  
-  def self.read_and_save_rss 
+
+  def self.sweep_cache
+    cron_manager_user_login
+    pages = CmsCacheOutdatedPage.find_by_sql('select * from cms_get_outdated_pages()')
+    Logger.new(STDOUT).debug "############################     We have to refresh pages: #{!pages.empty?}"
+    return if pages.empty?
+
+    date = pages[0].date
+    nodes = pages.map{|p| p.page_id}
+
+    Logger.new(STDOUT).debug "############################     We have to refresh nodes #{nodes.join(',')}"
+    Logger.new(STDOUT).debug "############################     Timestamp #{date}"
+
+    nodes.each{|node|
+      FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node}-*"])
+      my_port = ':4000' #It should be hardcoded somewhere...
+      node = TreeNode.find_by_id(node)
+      if node.resource.resource_type.hrid.eql?('website')
+        root_node = node
+        website = Website.find_by_entry_point_id(root_node.resource.id)
+        url = "#{website.domain}#{my_port}/"
+      else
+        root_node = TreeNode.find_first_parent_of_type_website(node.parent_id)
+        website = Website.find_by_entry_point_id(root_node.resource.id)
+        url = "#{website.domain}#{my_port}/#{website.prefix}/#{node.permalink}"
+      end
+      url = URI.escape(url)
+      Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh URL #{url}"
+      begin
+        open(CGI.escapeHTML(url))
+      rescue Exception => ex
+        Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{ex}"
+        exit(1)
+      end
+    }
+
+    pages = CmsCacheOutdatedPage.find_by_sql("select * from cms_clean_outdated_pages('#{date}')")
+    Logger.new(STDOUT).debug "############################     Pages were cleaned up: #{pages.length == 1 ? 'yes' : 'no'}"
+
+    Feed.delete_all
+    Logger.new(STDOUT).debug "############################     Cleaned up all feeds"
+  end
+
+  def self.read_and_save_rss
    
     cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0])
@@ -18,11 +62,11 @@ class CronManager
       website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
 
       if (website_tree_node)
-	# Workaround:
-	# TreeNode.get_subtree doesn't work properly recursively
-	# so let's add content_pages and then filter them out
+        # Workaround:
+        # TreeNode.get_subtree doesn't work properly recursively
+        # so let's add content_pages and then filter them out
         tree_nodes = TreeNode.get_subtree(
-          :parent => website_tree_node.id, 
+          :parent => website_tree_node.id,
           :resource_type_hrids => ['rss', 'content_page']
         ).select{|node|
           node.resource.resource_type.hrid=='rss'}
@@ -38,7 +82,7 @@ class CronManager
     end
   end
   
-  def self.read_and_save_media_rss 
+  def self.read_and_save_media_rss
    
     cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0])
@@ -48,7 +92,7 @@ class CronManager
 
       if (website_tree_node)
         tree_nodes = TreeNode.get_subtree(
-          :parent => website_tree_node.id, 
+          :parent => website_tree_node.id,
           :resource_type_hrids => ['media_rss']
         )
 
@@ -74,14 +118,14 @@ class CronManager
     retries = 2
     begin
       Timeout::timeout(25){
-        begin        
+        begin
           open(url_encoded) { |f|
             content = f.read
           }
         rescue
           puts 'Failed to open url ' + url_encoded
-          return 
-        end    
+          return
+        end
       }
     
     rescue Timeout::Error
@@ -121,24 +165,24 @@ class CronManager
     tdate = (Date.today - days_num)
     
     cid = (tree_node.resource.properties('cid')).get_value
-    cid = 25 if !cid 
+    cid = 25 if !cid
     
-    url =  'http://kabbalahmedia.info/wsxml.php?CID=' + cid.to_s + 
+    url =  'http://kabbalahmedia.info/wsxml.php?CID=' + cid.to_s +
       '&DLANG=' + lang +
-      '&DF=' + (Date.today).to_s + 
+      '&DF=' + (Date.today).to_s +
       '&DT=' + tdate.to_s
     
     retries = 2
     begin
       Timeout::timeout(25){
-        begin        
+        begin
           open(url) { |f|
             content = f.read
           }
         rescue
           puts 'Failed to open url ' + url
-          return 
-        end    
+          return
+        end
         
       }
     
@@ -158,7 +202,7 @@ class CronManager
       return
     end
     lessons['lessons']['lesson'].each do |lesson|
-      lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y') 
+      lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y')
     end
     
     data = YAML.dump(lessons)

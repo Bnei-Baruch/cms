@@ -24,18 +24,24 @@ class CronManager
     Logger.new(STDOUT).debug "############################     We have to refresh nodes #{nodes.join(',')}"
     Logger.new(STDOUT).debug "############################     Timestamp #{date}"
 
-    url = $config_manager.appl_settings[:sweep_url]
-    nodes.each{|node|
-      FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node}-*"])
-      node = TreeNode.find_by_id(node)
-      unless node.resource.resource_type.hrid.eql?('website')
+    nodes.each{|node_id|
+      node = TreeNode.find_by_id(node_id)
+      base_url = $config_manager.appl_settings[:sweep_url]
+      permalink = node.permalink
+      if node.resource.resource_type.hrid.eql?('website')
+        website = Website.find_by_entry_point_id(node.resource.id)
+        prefix = website.use_homepage_without_prefix ? '' : website.prefix
+        url = "#{base_url}/#{prefix}"
+      else
         root_node = TreeNode.find_first_parent_of_type_website(node.parent_id)
         website = Website.find_by_entry_point_id(root_node.resource.id)
-        url = "#{website.domain}/#{website.prefix}/#{node.permalink}"
+        prefix = website.prefix
+        url = "#{base_url}/#{prefix}/#{node.permalink}"
       end
       url = URI.escape(url)
       Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh URL #{url}"
       begin
+        FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node_id}-*"])
         open(CGI.escapeHTML(url))
       rescue Exception => ex
         Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{ex}"

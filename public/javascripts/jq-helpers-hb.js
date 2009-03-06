@@ -792,10 +792,6 @@ $(function() {
         if (typeof reloadSchedule == "function") {
             reloadSchedule();
         }
-        if (typeof currentProgram == "function") {
-            currentProgram();
-            setInterval(currentProgram, 300000);
-        }
         if (typeof $.livequery == "function") {
             $("a.schedule_menu_item").livequery('click',function () {
                 $("div.schedule_day").hide();

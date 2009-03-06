@@ -174,8 +174,9 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                         function(e){
                             if(e == 'yes') {
                                 Ext.Ajax.request({
-                                    url: node.attributes.publishStatus,
+                                    url: node.attributes.updateStatus,
                                     method: 'post',
+                                    params: {'status': 'PUBLISHED'},
                                     callback: function (options, success, responce){
                                         if (success) {
                                             node.setText(node.attributes.resource_name);
@@ -198,8 +199,9 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                         function(e){
                             if(e == 'yes') {
                                 Ext.Ajax.request({
-                                    url: node.attributes.draftStatus,
+                                    url: node.attributes.updateStatus,
                                     method: 'post',
+                                    params: {'status': 'DRAFT'},
                                     callback: function (options, success, responce){
                                         if (success) {
                                             node.setText("<span class='draft'>" + node.attributes.resource_name + "</span>");
@@ -222,8 +224,9 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                         function(e){
                             if(e == 'yes') {
                                 Ext.Ajax.request({
-                                    url: node.attributes.archiveStatus,
+                                    url: node.attributes.updateStatus,
                                     method: 'post',
+                                    params: {'status': 'ARCHIVED'},
                                     callback: function (options, success, responce){
                                         if (success) {
                                             node.setText("<span class='archived'>" + node.attributes.resource_name + "</span>");

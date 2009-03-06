@@ -141,9 +141,7 @@ class Global::Widgets::Tree < WidgetManager::Base
         :cannot_delete => !node.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
         :delTarget => tree_node_delete_admin_tree_node_path(node.id),
-        :publishStatus => update_state_admin_tree_node_path(:id => node.id, :status => 'PUBLISHED'),
-        :draftStatus => update_state_admin_tree_node_path(:id => node.id, :status => 'DRAFT'),
-        :archiveStatus => update_state_admin_tree_node_path(:id => node.id, :status => 'ARCHIVED'),
+        :updateStatus => update_state_admin_tree_node_path(node.id),
         :editTarget => edit_admin_resource_path(:id => node.resource,
           :tree_id => node.id,
           :slang => @presenter.site_settings[:short_language]
@@ -196,9 +194,7 @@ class Global::Widgets::Tree < WidgetManager::Base
         :cannot_delete => !leaf.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
         :delTarget => tree_node_delete_admin_tree_node_path(leaf.id), #admin_tree_node_path(leaf),
-        :publishStatus => update_state_admin_tree_node_path(:id => leaf.id, :status => 'PUBLISHED'),
-        :draftStatus => update_state_admin_tree_node_path(:id => leaf.id, :status => 'DRAFT'),
-        :archiveStatus => update_state_admin_tree_node_path(:id => leaf.id, :status => 'ARCHIVED'),
+        :updateStatus => update_state_admin_tree_node_path(leaf.id),
         :editTarget => edit_admin_resource_path(:id => leaf.resource,
           :tree_id => leaf.id,
           :slang => @presenter.site_settings[:short_language]

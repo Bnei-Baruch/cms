@@ -167,7 +167,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                     }
                 }),
                 new Ext.menu.Item({
-                    text: 'Publish',
+                    text: 'פרסם באתר',
                     disabled: node.attributes.cannot_edit,
                     handler: function (item) {
                         Ext.Msg.confirm('Tree item Publish', 'Are you sure you want to publish ' + node.text + '?',
@@ -191,7 +191,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                     }
                 }),  
                 new Ext.menu.Item({
-                    text: 'Draft',
+                    text: 'העבר לטיוטה',
                     disabled: node.attributes.cannot_edit,
                     handler: function (item) {
                         Ext.Msg.confirm('Tree item Archive', 'Are you sure you want to draft ' + node.text + '?',
@@ -215,7 +215,7 @@ function create_tree(url, children, tree_label, title, expand_path, resource_typ
                     }
                 }), 
                 new Ext.menu.Item({
-                    text: 'Archive',
+                    text: 'העבר לארכיון',
                     disabled: node.attributes.cannot_edit,
                     handler: function (item) {
                         Ext.Msg.confirm('Tree item Archive', 'Are you sure you want to archive ' + node.text + '?',

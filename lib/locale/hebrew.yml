@@ -188,6 +188,7 @@ hebrew:
   new: חדש
   edit: ערוך
   delete: מחק
+  move_to_archive : העבר לארכיון
 
   schedule: לוח שידורים
   questions: שאלות

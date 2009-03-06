@@ -37,7 +37,7 @@ class CronManager
     clean_page_cache(nodes)
     clean_feed_cache(nodes)
     
-    # pages = CmsCacheOutdatedPage.find_by_sql("select * from cms_clean_outdated_pages('#{date}')")
+    pages = CmsCacheOutdatedPage.find_by_sql("select * from cms_clean_outdated_pages('#{date}')")
     Logger.new(STDOUT).debug "############################     Pages were cleaned up: #{pages.length == 1 ? 'yes' : 'no'}"
     
   end

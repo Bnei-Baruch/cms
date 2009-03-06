@@ -123,7 +123,7 @@ class Sites::Global < Presenter::Base
   end
     
   def parents(tree_node = node) # by default it will use the current node
-    node.ancestors.select{ |e| e.resource.resource_type.hrid == 'content_page' }
+    node.parents
   end
 
 end

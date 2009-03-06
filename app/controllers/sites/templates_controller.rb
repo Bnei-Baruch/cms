@@ -124,13 +124,14 @@ class Sites::TemplatesController < ApplicationController
     if (@presenter.is_homepage? ||
         (@presenter.node_resource_type.hrid == 'content_page' && acts_as_section))
       feed = Feed.find(:first, :conditions => [ "section_id = ? AND feed_type = ?", node_id, feed_type]) rescue nil
-      if (feed)
+      unless feed
+        limit = @presenter.site_settings[:rss_items_limit] || 10
         @pages = TreeNode.get_subtree(
                   :parent => node_id,
                   :resource_type_hrids => ['content_page'],
                   :has_url => true,
                   :is_main => true,
-                  :limit => 10,
+                  :limit => limit,
                   :order => "created_at DESC",
                   :status => ['PUBLISHED']
                 )

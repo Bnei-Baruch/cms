@@ -8,6 +8,7 @@ class TreeNode < ActiveRecord::Base
   acts_as_tree  :order => 'position', :counter_cache => true
   has_many :students, :dependent => :nullify
   has_many :comments, :dependent => :nullify 
+  has_many :feeds, :foreign_key => :section_id
 
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache
@@ -102,6 +103,10 @@ class TreeNode < ActiveRecord::Base
 
   def main
     TreeNode.find_by_resource_id_and_is_main(resource_id, true)
+  end
+
+  def parents
+    ancestors.select{ |e| e.resource.resource_type.hrid == 'content_page' }
   end
 
   # destroy tree_node if it is not main or mark resource as deleted if it is main

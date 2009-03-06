@@ -8,7 +8,8 @@ module	Configuration::Global
     :use_advanced_read_more => true,
     :comments => {
       :enable_site_wide => true
-    }
+    },
+    :rss_items_limit => 10  # Number of items to show in RSS
   }
  
 end

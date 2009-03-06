@@ -239,7 +239,7 @@ class CronManager
         open(CGI.escapeHTML(url))
       rescue Exception => ex
         Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{ex}"
-        exit(1)
+        # exit(1)
       end
     }
   end
@@ -262,7 +262,7 @@ class CronManager
         open(CGI.escapeHTML(url))
       rescue Exception => e
         Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{e} for feed #{url}"
-        exit(1)
+        # exit(1)
       end
     }
   end 

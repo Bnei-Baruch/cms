@@ -12,9 +12,6 @@
     margin-right:0;
     width:auto;
 }
-#body-middle #mid-content{
-    border:1px solid #e5e5eb;
-}
 #static-menu {
     background-color:#e0e2e7;
     padding:0 1px;
@@ -53,18 +50,116 @@
     display:block;
 }
 .breadcrumbs{
-    margin:0 10px;
+    margin:0 10px 20px 0;
     border-bottom:1px solid #e5e5eb;
-    color:#186BE5;
+    color:#1060A5;
 }
 .breadcrumbs a,.breadcrumbs a:visited{
     color:#186BE5;
 }
+
+#body-middle #mid-content{
+    border:1px solid #e5e5eb;
+    padding-left:14px;
+}
+#body-middle .bg{
+    background:transparent url(/images/rusmain/related-bg.gif) repeat-y scroll right top;
+}
 #mid-content .related{
-    background-color:#FAFAFA;
-    border-left: 1px solid #E5E5EB;
+    background:#FAFAFA url(/images/rusmain/related-bg.gif) repeat-y top right;
+    border-top: 1px solid #E5E5EB;
     float: right;
-    width: 190px;
+    width: 160px;
+    padding:15px;
+}
+#mid-content .related .image img{
+    border:1px solid #C9C9C9;
+    padding:1px;
+    width:160px;
+}
+#mid-content .related .image img{
+    font-weight:bold;
+    font-size:11px;
+}
+#mid-content .content{
+    margin-right:205px;
+}
+#mid-content .h1{
+    background:#999B9F url(/images/rusmain/main-title-grad.gif) repeat-x 0 0;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    height:27px;
+    line-height:27px;
+    text-align:center;
+}
+#mid-content .h1 .left-ear, #mid-content .h1 .right-ear{
+    width:4px;
+    height:27px;
+    background:#999B9F url(/images/rusmain/main-title-ears.gif) no-repeat 0 0;
+    float:left;
+}
+#mid-content .h1 .right-ear{
+    background-position:-4px 0;
+    float:right;
+}
+#mid-content h2{
+    background:#A4A6AC url(/images/rusmain/sub-title.gif) repeat-x 0 0;
+    color:white;
+    font-size:11px;
+    font-weight:bold;
+    height:19px;
+    line-height:19px;
+    text-align:center;
+}
+#mid-content .descr{
+    background:#f6f6fc url(/images/rusmain/descr-grad.gif) repeat-x bottom left;
+    color:#5A5A5A;
+    font-size:11px;
+    font-weight:bold;
+    text-align:center;
+    padding:10px;
+    border-top:1px solid #e5e5eb;
+    overflow:hidden;
+    position:relative;
+}
+#mid-content .descr .left-ear, #mid-content .descr .right-ear{
+    position:absolute;
+    bottom:0;
+    width:5px;
+    height:81px;
+    background:#999B9F url(/images/rusmain/descr-ears.gif) no-repeat 0 0;
+}
+#mid-content .descr .left-ear{
+    left:0;
+}
+#mid-content .descr .right-ear{
+    background-position:-5px 0;
+    right:0;
+}
+#mid-content .author{
+    height:30px;
+}
+#mid-content .author span{
+    margin: 7px 16px 0 0;
+    font-size:10px;
+    color:#979797;
+}
+#mid-content .author span img{
+    font-size:10px;
+    color:#979797;
+    margin:0 0 0 7px;
+    position:relative;
+    top:1px;
+}
+#mid-content .item{
+    margin:15px 0 0;
+}
+#mid-content .item h3{
+color:#A18A64;
+font-size:13px;
+font-weight:bold;
+margin-bottom:3px;
 }
 
 

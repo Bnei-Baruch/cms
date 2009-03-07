@@ -138,23 +138,27 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             }
             div(:id => 'mid-content'){
               @breadcrumbs.render_to(self)
-              div(:class => 'related') {
-                self.ext_main_image.render_to(self)
-                make_sortable(:selector => ".related", :axis => 'y') {
-                  self.ext_related_items.render_to(self)
+              div(:class => 'bg'){
+                div(:class => 'related') {
+                  self.ext_main_image.render_to(self)
+                  make_sortable(:selector => ".related", :axis => 'y') {
+                    self.ext_related_items.render_to(self)
+                  }
                 }
-              }
-              make_sortable(:selector => ".mid-content", :axis => 'y') {
-                self.ext_content.render_to(self)
-              }
-              @subscription.render_to(self)
-              div(:class => 'clear')
+                div(:class => 'content'){
+                  make_sortable(:selector => ".mid-content .bg", :axis => 'y') {
+                    self.ext_content.render_to(self)
+                  }
+                }
+                @subscription.render_to(self)
+                div(:class => 'clear')
 
-              @comments.render_to(self)
-              @send_to_friend.render_to(self)
-              @direct_link.render_to(self)
+                @comments.render_to(self)
+                @send_to_friend.render_to(self)
+                @direct_link.render_to(self)
 
-              @previous_comments.render_to(self)
+                @previous_comments.render_to(self)
+              }
             }
           }
         }

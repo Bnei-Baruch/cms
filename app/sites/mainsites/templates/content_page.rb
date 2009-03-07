@@ -53,26 +53,31 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
           :has_url => false, :placeholder => 'main_content'}).render_to(self)
 
       unless get_acts_as_section
-        h1 get_title
+        div(:class => 'h1') {
+          div(:class => 'left-ear')
+          div(:class => 'right-ear')
+          h1 get_title
+        }
         small_title = get_small_title
         h2 get_small_title unless small_title.empty?
         sub_title = get_sub_title
-        div(:class => 'descr') { text get_sub_title } unless sub_title.empty?
+        div(:class => 'descr') {
+          div(:class => 'left-ear')
+          div(:class => 'right-ear')
+          text get_sub_title
+        } unless sub_title.empty?
         my_date = get_date
         writer = get_writer
         unless my_date.empty? && writer.empty?
           div(:class => 'author') {
             span _(:date) + ': ' + my_date, :class => 'left' unless my_date.empty?
             unless writer.empty?
-              span(:class => 'right') {
-                text _('writer') + ': '
+              span(:class => 'left') {
+                text _('writer') + ': ' + writer
                 unless get_writer_email.empty?
                   a(:href => 'mailto:' + get_writer_email){
-                    img(:src => img_path('email.gif'), :alt => 'email')
-                    text ' ' + writer
+                    img(:src => img_path('email.gif'), :alt => 'Email to')
                   }
-                else
-                  text ' ' + writer
                 end
               }
             end

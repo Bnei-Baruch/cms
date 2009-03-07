@@ -54,6 +54,7 @@ ul.sf-menu li li li.sfHover ul {
 /*** SKIN ***/
 .sf-menu {
     float:			left;
+    padding-top:15px;
 }
 .sf-menu a {
     padding: 		0 5px;

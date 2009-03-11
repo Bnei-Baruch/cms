@@ -33,4 +33,35 @@
 #kabtv #player_options #separate-msg{
     display:none;
 }
-
+/****** Homepage kabtv ****/
+#home-kabtv{
+    display: inline-block;
+}
+#kabtv-bot a{
+    display: inline-block;
+}
+#kabtv-bot a .text-tv{
+    display: inline-block;
+}
+#kabtv-live a .text-live{
+    display: inline-block;
+    padding: 0px 5px 0px 70px !important;
+}
+.tv_news_container{
+    display: inline-block;
+}
+#kabtv-news{
+    display: inline-block;
+}
+.box_headersection_tv{
+    display: inline-block;
+}
+.box1_headersection_tv{
+    display: inline-block;
+}
+.futurprogram-plus{
+    display: inline-block;
+}
+.futurprogram-minus{
+    display: inline-block;
+}

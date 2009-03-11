@@ -35,8 +35,10 @@ hebrew:
   url: Url
   alt: Alt
   open_in_new_window: Open in new window
-  
 
+  clicktogolive: לחץ לצפיה בשידור חי
+  tothetvchannel: לערוץ הטלוויזיה
+  newsonthechannel: חדשות הארוץ
   publish_on_site: פרסם באתר 
   save_draft: שמור כטיוטה 
   update: עדכן 

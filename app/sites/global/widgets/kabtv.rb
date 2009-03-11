@@ -27,11 +27,35 @@ class Global::Widgets::Kabtv < WidgetManager::Base
                 document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" mute="1" />');
                 document.write('</object>');
             }
+                    if (typeof $.livequery == "function") {
+                      $("#kabtv-news .newstitle").livequery('click',function () {
+                      var $this = $(this);
+                      $this.next().toggle();
+                      $this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
+                    });
+                     $("#home-kabtv .box1_headersection_tv").livequery('click',function () {
+                      var $this = $(this);
+                      $this.next().toggle();
+                      $this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
+                     });
+                    }
           TV
         }
       }
+      div(:id => 'kabtv-bot'){
+        a(:href => get_target) {span(:class => 'text-tv'){ text I18n.t(:tothetvchannel)} }
+      }
+      div(:class => "clear")
+      if get_golive
+        div(:id => 'kabtv-live'){
+          div(:class => "live-event"){text get_golive_text}
+          a(:href => get_golive_link) {span(:class => 'text-live'){ text I18n.t(:clicktogolive)} }
+        }
+      end
+      div(:class => 'box1_headersection_tv'){span(:class => 'futurprogram-plus'){text I18n.t(:future_programs)}}
       div(:id => 'kabtv-mid'){
       }
+      div(:class => "clear")
       # display_current_program
       javascript {
         rawtext "function currentProgram(){"
@@ -42,9 +66,11 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         rawtext "  setInterval(currentProgram, 300000);"
         rawtext "})"
       }
-      div(:id => 'kabtv-bot'){
-        a(:href => get_target, :onclick => "javascript:urchinTracker('/homepage/widget/kabtv/go_to_tv');") {
-          img(:id => 'yellow-button', :src => "/images/hebmain/kabtv/home-button.gif", :alt => "לכל תוכניות הטלוויזיה")
+     
+      div(:id => 'kabtv-news'){
+        # display
+        javascript {
+          rawtext "$('#kabtv-news').load('#{@web_node_url}',{view_mode:'news','options[widget]':'kabtv','options[widget_node_id]':#{tree_node.id}})"
         }
       }
     }
@@ -126,6 +152,10 @@ $(function() {
             $this.next().toggle();
             $(this).toggleClass('icon-plus');
             $(this).toggleClass('icon-minus');
+        });
+       $("#kabtv-news .newstitle").livequery('click',function () {
+            var $this = $(this);
+            $this.next().toggle();
         });
     }
     if (typeof hs != "undefined") {
@@ -410,7 +440,35 @@ $(function() {
     }
   end
 
+  def render_news
+    w_class('cms_actions').new(:tree_node => tree_node,
+      :options => {:buttons => %W{ new_button },
+        :resource_types => %W{ site_updates },
+        :new_text => 'new news',
+        :has_url => false,
+        :placeholder => 'left'}).render_to(self)
+    show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true)
+  end
+  
   private
+  
+  def site_update_entries
+    TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['site_updates_entry'],
+      :depth => 1,
+      :status => ['PUBLISHED', 'DRAFT']
+    )
+  end
+
+  def news_resources
+    @news ||= TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['site_updates'],
+      :depth => 1,
+      :status => ['PUBLISHED', 'DRAFT']
+    )
+  end
 
   def ask_button_and_form
     input(:id => 'ask_btn', :type => "button", :value => _(:ask_question), :title => _(:ask_question),

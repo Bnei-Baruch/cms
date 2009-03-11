@@ -28,7 +28,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers-hb',
-        'flashembed.min.js',
+        'flashembed.min.js', 'jquery.livequery.min.js',
         :cache => "cache_website-#{@presenter.website_hrid}"
 
         stylesheet_link_tag 'reset-fonts-grids',
@@ -52,6 +52,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 
         rawtext "\n<!--[if IE 6]>\n"
         stylesheet_link_tag 'hebmain/ie6', :media => 'all'
+        rawtext "\n<![endif]-->\n"
+
+        rawtext "\n<!--[if IE 7]>\n"
+        stylesheet_link_tag 'hebmain/ie6', :media => 'all'
+        stylesheet_link_tag 'hebmain/ie7', :media => 'all'
         rawtext "\n<![endif]-->\n"
       }
       body {
@@ -135,19 +140,19 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                         div(:class =>'h1-right')
                         div(:class =>'h1-left')
                       }
-                      
+
                       w_class('cms_actions').new(:tree_node => @tree_node,
                         :options => {:buttons => %W{ new_button },
                           :resource_types => %W{content_preview title},
                           :new_text => 'הוסף תצוגה מקדימה',
                           :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
-                      
+
                       show_content_resources(:resources => middle_column_resources,
                         :parent => :website,
                         :placeholder => :middle,
                         :sortable => true)
-                      
+
                       make_sortable(:selector => ".content") {
                         middle_column_resources
                       }

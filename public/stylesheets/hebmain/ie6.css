@@ -1,46 +1,46 @@
 /*----------  Content  ---------------*/
 .index{
-  display:inline-block;
+    display:inline-block;
 }
 .index .element{
-  display:inline-block;
+    display:inline-block;
 }
 .content_preview{
-  display:inline-block;
+    display:inline-block;
 }
 .newsletter .check{
-  margin-top: 3px;
+    margin-top: 3px;
 }
 .sitemap{
-  zoom:1;
+    zoom:1;
 }
 .sitemap-inner{
-  zoom:1;
+    zoom:1;
 }
 
 .main_preview1{
-  display:inline-block;
+    display:inline-block;
 }
 .main_preview1 .element{
-  display:inline-block;
+    display:inline-block;
 }
 .main_preview2{
-  display:inline-block;
+    display:inline-block;
 }
 .main_preview2 .element{
-  display:inline-block;
+    display:inline-block;
 }
 .main_preview3{
-  display:inline-block;
+    display:inline-block;
 }
 .main_preview3 .element{
-  display:inline-block;
+    display:inline-block;
 }
 .main_preview3 .element ul.links li{
-  padding:0;
+    padding:0;
 }
 .section_preview{
-  display:inline-block;
+    display:inline-block;
 }
 
 /*----------  right-part  ---------------*/
@@ -74,12 +74,12 @@
 }
 /*----------  kab.tv  ---------------*/
 #kabtv #tabs{
-  width:302px;
+    width:302px;
 }
 #kabtv .schedule_day{
-  position:absolute;
-  top:0;
-  right:0;
+    position:absolute;
+    top:0;
+    right:0;
 }
 #kabtv .ui-tabs-nav a{ /* auto clear */
     display:inline-block;
@@ -115,3 +115,46 @@
 #kabtv #player_options #separate-msg{
     display:none;
 }
+/************/
+/**********/
+#home-kabtv{
+    display: inline-block;
+}
+
+#kabtv-bot a{
+    display: inline-block;
+}
+
+#kabtv-bot a .text-tv{
+    display: inline-block;
+}
+#kabtv-live a .text-live{
+    display: inline-block;
+    padding: 0px 5px 0px 70px !important;
+}
+.tv_news_container{
+    display: inline-block;
+}
+#kabtv-news{
+    display: inline-block;
+}
+.box_headersection_tv{
+    display: inline-block;
+}
+.box1_headersection_tv{
+    display: inline-block;
+}
+.futurprogram-plus{
+    display: inline-block;
+}
+.futurprogram-minus{
+    display: inline-block;
+}
+
+#kabtv-news .tvnewsiteplus{
+    height:20px !important;
+}
+#kabtv-news .tvnewsiteminus{
+    height:20px !important;
+}
+

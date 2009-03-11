@@ -84,22 +84,22 @@ module WidgetExtensions
       when 'ARCHIVED' 
         klass = AuthenticationModel.current_user_is_admin? ? ' archived' : ''
       else             
-       klass = ''
+        klass = ''
       end
       
       div(:id => sort_id(e), :class => klass) {
         sort_handle if options[:sortable]
-        render_content_resource(e, options)
+        render_content_resource(e,options,idx)
       }
     }
   end
   
-  def render_content_resource(tree_node, options = {})
+  def render_content_resource(tree_node, options = {},  idx = -1)
     return unless tree_node
     class_name = tree_node.resource.resource_type.hrid
     if options.is_a?(Hash)
       options.merge!(:widget => class_name.to_sym)
-      view_mode = calculate_view_mode(options)
+      view_mode = calculate_view_mode(idx, options)
     else
       view_mode = options || 'full'
     end
@@ -107,9 +107,15 @@ module WidgetExtensions
       :view_mode => view_mode, :options => options).render_to(self)
   end
 
-  def calculate_view_mode(options)
+  def calculate_view_mode(idx, options)
     return 'full' unless options
-    return options[:force_mode] if options.include?(:force_mode)
+    if (options.include?(:first_item_mode) && idx == 0) then
+      mode = options[:first_item_mode]
+      return mode
+    elsif options.include?(:force_mode)
+      mode = options[:force_mode]
+      return mode
+    end
     view_modes = @presenter.site_settings[:view_modes]
     return 'full' unless view_modes
     parent = view_modes[options[:parent]]

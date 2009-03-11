@@ -51,11 +51,70 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
       div(:class => 'link'){
         url = get_url
         unless url.empty?
-          a get_url_text, :href => url, :title => 'link'
+          a get_url_text, :href => url, :title => ''
         end
         div(:class => 'border'){rawtext('&nbsp;')}
       }
     }
   end
   
+  def render_tv
+    div(:class => 'item'){
+
+      w_class('cms_actions').new( :tree_node => tree_node,
+        :options => {:buttons => %W{ edit_button delete_button },
+          :resource_types => %W{ site_updates_entry },
+          :new_text => 'צור יחידת תוכן חדשה',
+          :has_url => false,
+          :position => 'bottom'}).render_to(self)
+      
+      div(:class => 'newstitle'){
+        h3(:class => 'tvnewsiteplus'){text get_title}
+      }
+      div(:class => 'newsdescription'){
+        image = get_picture
+        unless image.empty?
+          img(:class => 'newsimg', :alt => '', :src => image)
+        end
+        rawtext get_description
+        br
+        div(:class => 'link'){
+          url = get_url
+          unless url.empty?
+            a get_url_text, :href => url, :title => 'link'
+          end
+        }
+      }
+    }
+  end
+  
+  def render_tvopen
+    div(:class => 'itemopen'){
+
+      w_class('cms_actions').new(:tree_node => tree_node,
+        :options => {:buttons => %W{ edit_button delete_button },
+          :resource_types => %W{ site_updates_entry },
+          :new_text => 'צור יחידת תוכן חדשה',
+          :has_url => false,
+          :position => 'bottom'}).render_to(self)
+
+      div(:class => 'newstitleopen'){
+        h3 get_title
+      }
+      div(:class => 'newsdescription'){
+         image = get_picture
+        unless image.empty?
+          img(:class => 'newsimg', :alt => '', :src => image)
+        end
+        rawtext get_description
+        br
+        div(:class => 'link'){
+          url = get_url
+          unless url.empty?
+            a get_url_text, :href => url, :title => 'link'
+          end
+        }
+      }
+    }
+  end
 end

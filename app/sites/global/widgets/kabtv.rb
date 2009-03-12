@@ -66,7 +66,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         rawtext "  setInterval(currentProgram, 300000);"
         rawtext "})"
       }
-     
+     cms_action_for_site_updates
       div(:id => 'kabtv-news'){
         # display
         javascript {
@@ -603,5 +603,15 @@ $(function() {
         :button_text => _(:edit_kabtv_widget),
         :buttons => %W{ delete_button  edit_button }
       }).render_to(self)
+  end
+
+  def cms_action_for_site_updates
+    w_class('cms_actions').new(:tree_node => tree_node,
+      :options => {:buttons => %W{ new_button },
+        :resource_types => %W{ site_updates },
+        :button_text => _(:news_for_tv),
+        :new_text => _(:add_newsbox_for_tv),
+        :has_url => false,
+        :placeholder => 'home_kabtv'}).render_to(self)
   end
 end

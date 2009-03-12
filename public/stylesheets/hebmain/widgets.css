@@ -1048,13 +1048,16 @@ a.highslide-full-expand {
     top:0;
 }
 
+.kabtv-news-blueborder{
+    border:1px solid #90AEDE;
+}
+
 #kabtv-news{
     position: relative;
-    border:1px solid #90AEDE;
     text-align: right;
 }
 #kabtv-live{
-    background-color:#315BBC;
+    background-color:#1c4fb8;
     text-align:right;
     height:30px;
     padding-right:12px;
@@ -1190,11 +1193,11 @@ a.highslide-full-expand {
 }
 #home-kabtv #kabtv-top{
     height:309px;
-    background:#315bbc url(/images/hebmain/kabtv/home-top.jpg) no-repeat 0 0;
+    background:#1c4fb8 url(/images/hebmain/kabtv/home-top.gif) no-repeat 0 0;
     position:relative;
 }
 #home-kabtv #kabtv-mid{
-    background:#315bbc url(/images/hebmain/kabtv/home-mid.jpg) no-repeat 0 0;
+    background:#1c4fb8 url(/images/hebmain/kabtv/home-mid.jpg) no-repeat 0 0;
     padding-bottom:10px;
     display: none;
 }
@@ -1209,10 +1212,11 @@ display:block;
 }*/
 
 #home-kabtv #kabtv-bot{
-    background-color:#315BBC;
+    background-color:#1c4fb8;
     height:30px;
     padding-bottom:20px;
     padding-right:12px;
+    padding-top: 5px;
     text-align:right;
 }
 

@@ -1055,20 +1055,21 @@ a.highslide-full-expand {
 #kabtv-news{
     position: relative;
     text-align: right;
+	padding-top:1px;
 }
 #kabtv-live{
     background-color:#1c4fb8;
     text-align:right;
     height:30px;
     padding-right:12px;
-    padding-bottom:20px;
+    padding-bottom:30px;
 }
 #kabtv-live a{
     background:transparent url(/images/hebmain/kabtv/golive.gif) repeat-x 0 0;
     color: white;
     font-weight:bold;
     text-decoration:none;
-    padding: 3px 5px 7px 0px;
+    padding: 3px 9px 7px 0px;
 }
 #kabtv-live .text-live{
     background:transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 48%;
@@ -1081,21 +1082,23 @@ a.highslide-full-expand {
 }
 .futurprogram-plus{
    background:transparent url(/images/hebmain/kabtv/futurprogram-plus.gif) no-repeat scroll 100% 0%;
-   padding: 3px 55px 6px 0px;
+   padding: 5px 20px 6px 0px;
+   line-height:23px;
 }
 .futurprogram-minus{
    background:transparent url(/images/hebmain/kabtv/futurprogram-minus.gif) no-repeat scroll 100% 0%;
-   padding: 3px 55px 6px 0px;
+   padding: 5px 20px 6px 0px;
+   line-height:23px;
 }
 #kabtv-news .tv_news_container h3{
     padding: 0 5pt;
 }
 
 #kabtv-news .tv_news_container .newstitle .tvnewsiteminus{
-    background:transparent url(/images/hebmain/kabtv/tvnewsiteminus.gif) no-repeat scroll 100% -22%;
+    background:transparent url(/images/hebmain/kabtv/tvnewsiteminus.gif) no-repeat scroll 104% -22%;
 }
 #kabtv-news .tv_news_container .newstitle .tvnewsiteplus{
-    background:transparent url(/images/hebmain/kabtv/tvnewsiteplus.gif) no-repeat scroll 100% -22%;
+    background:transparent url(/images/hebmain/kabtv/tvnewsiteplus.gif) no-repeat scroll 104% -22%;
 }
 
 #kabtv-news .tv_news_container .newstitle{
@@ -1105,6 +1108,7 @@ a.highslide-full-expand {
     width:206px;
     padding: 0 5pt;
     font-weight:bold;
+	cursor:pointer;
 }
 #kabtv-news .link{
     background: transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 89%;
@@ -1113,13 +1117,13 @@ a.highslide-full-expand {
     margin: 3px;
 }
 #kabtv-news .itemopen h3{
-    padding: 0pt 5pt;
+    padding: 0pt 19px;
     font-weight:normal;
     color:#0D47B2;
     margin: 0pt;
 }
 #kabtv-news .item .newstitle h3{
-    padding: 3pt 25pt 0pt 0pt;
+    padding: 2pt 12pt 0pt 0pt;
     font-weight:normal;
     color:black;
     height:25px;
@@ -1127,35 +1131,33 @@ a.highslide-full-expand {
 
 }
 #kabtv-news .itemopen .newsdescription{
-    margin: 0pt 5pt 5pt 5pt;
+    margin: 4px 13px 5px 5px;
 }
 #kabtv-news .item .newsdescription{
     display: none;
-    margin: 0pt 5pt 5pt 5pt;
+    margin: 4px 13px 5px 5px;
 }
 #kabtv-news .newsimg{
     float: right;
-    margin: 3px 8px 3px 8px;
+    margin: 3px 0px 3px 8px;
 }
 .box1_headersection_tv{
-    background:#479bdc url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
-    width:222px;
-    padding-top:3px;
-    height:22px;
-    /*float:right;*/
+    background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
+/*    padding-top:1px;*/
+    height:26px;
     font-weight:bold;
     color:white;
     text-align:right;
+	cursor:pointer;
 }
 .box_headersection_tv{
-    background:#479bdc url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
-    width:220px;
-    padding-top:3px;
-    height:22px;
-    /*float:right;*/
+    background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
+    padding:3px 67px 0 0;
+    height:26px;
     font-weight:bold;
     color:white;
-    text-align:center;
+    text-align:right;
+	
 }
 /* Controlbar for sketches */
 .controlbar {
@@ -1225,7 +1227,7 @@ display:block;
     color: black;
     font-weight:bold;
     text-decoration:none;
-    padding: 0px 5px 9px 0px;
+    padding: 0px 9px 9px 0px;
 }
 #home-kabtv #kabtv-bot  .text-tv{
     background:transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 5%;

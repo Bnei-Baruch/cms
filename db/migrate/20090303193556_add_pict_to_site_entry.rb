@@ -8,7 +8,7 @@ class AddPictToSiteEntry < ActiveRecord::Migration
     picture_property = Property.new(:name => 'Picture',
       :field_type => 'File',
       :hrid => 'picture',
-      :geometry => 'thumb:90x90!;',
+      :geometry => 'thumb:70x70!;',
       :resource_type_id => resource_type.id)
     raise 'Failed to create Picture property' unless picture_property
     picture_property.save!

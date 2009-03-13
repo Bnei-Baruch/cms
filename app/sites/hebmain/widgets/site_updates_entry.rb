@@ -72,7 +72,7 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
         h3(:class => 'tvnewsiteplus'){text get_title}
       }
       div(:class => 'newsdescription'){
-        image = get_picture
+        image = get_picture(:image_name => 'thumb')
         unless image.empty?
           img(:class => 'newsimg', :alt => '', :src => image)
         end
@@ -102,7 +102,7 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
         h3 get_title
       }
       div(:class => 'newsdescription'){
-         image = get_picture
+         image = get_picture(:image_name => 'thumb')
         unless image.empty?
           img(:class => 'newsimg', :alt => '', :src => image)
         end

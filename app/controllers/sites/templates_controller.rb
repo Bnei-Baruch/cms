@@ -31,6 +31,7 @@ class Sites::TemplatesController < ApplicationController
     prefix = params[:prefix]
     permalink = params[:id]
     path = params[:path]
+    nocache = params[:nocache]
     
     logout = params.has_key?('logout') ? params[:logout] : false
     AuthenticationModel.logout_from_admin if logout
@@ -84,7 +85,7 @@ class Sites::TemplatesController < ApplicationController
           # to
           #       false
           # Do not forget to uncomment correspondent lines in development.rb
-          if Rails.env == 'development'
+          if Rails.env == 'development' || nocache
             render :widget => klass, :layout_class => layout_class
           else
             key = @presenter.node.this_cache_key

@@ -66,12 +66,25 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         rawtext "  setInterval(currentProgram, 300000);"
         rawtext "})"
       }
-     cms_action_for_site_updates
+      cms_action_for_site_updates
       div(:id => 'kabtv-news'){
         # display
-        javascript {
-          rawtext "$('#kabtv-news').load('#{@web_node_url}',{view_mode:'news','options[widget]':'kabtv','options[widget_node_id]':#{tree_node.id}})"
-        }
+        w_class('cms_actions').new(:tree_node => tree_node,
+          :options => {:buttons => %W{ new_button },
+            :resource_types => %W{ site_updates },
+            :new_text => 'new news',
+            :has_url => false,
+            :placeholder => 'left'}).render_to(self)
+        unless show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true).empty?
+          javascript{
+            rawtext <<-SCHED
+                $(window).load(function () {
+                  // run code
+                    $("#home-kabtv .box1_headersection_tv").next().toggle().prev().children().addClass('futurprogram-minus').removeClass('futurprogram-plus');
+                });
+            SCHED
+          }
+        end
       }
     }
   end
@@ -455,7 +468,7 @@ $(function() {
   def site_update_entries
     TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['site_updates_entry'],
+      :resource_type_hrids => ['video'],
       :depth => 1,
       :status => ['PUBLISHED', 'DRAFT']
     )

@@ -75,7 +75,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
             :new_text => 'new news',
             :has_url => false,
             :placeholder => 'left'}).render_to(self)
-        unless show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true).empty?
+        if show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true).empty?
           javascript{
             rawtext <<-SCHED
                 $(window).load(function () {

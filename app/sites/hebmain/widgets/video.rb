@@ -31,9 +31,10 @@ class Hebmain::Widgets::Video < WidgetManager::Base
         description = get_description
         p { rawtext description } if !description.empty?
       end
+
       autoplay = get_autoplay
 
-      if autoplay
+      if autoplay == true
         div(:id => "flashplayer-#{id}"){
         }
         javascript {

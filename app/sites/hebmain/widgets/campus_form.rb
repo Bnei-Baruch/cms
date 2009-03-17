@@ -1,33 +1,33 @@
 class Hebmain::Widgets::CampusForm < WidgetManager::Base
-	 require 'parsedate'
-   require 'net/smtp'
+  require 'parsedate'
+  require 'net/smtp'
 
-	 include ParseDate
+  include ParseDate
   
 	def render_full
     #@presenter.disable_cache
-		 w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
 		 
 		# make a form that is sending with get protocol info to itself & creating a new object
 		# if user -> msg to say bravo
 		# if admin -> show me all the users in the system
-      rawtext get_description
+    rawtext get_description
       
-	    if tree_node.can_edit?
-	    	campus_admin_mode
-    	else 
-				campus_user_mode
-    	end
+    if tree_node.can_edit?
+      campus_admin_mode
+    else
+      campus_user_mode
+    end
 	end
 	
 	def render_new_student
     #@presenter.disable_cache
 		if validate_captcha(@options[:captcha_value], @options[:captcha_index])
-		 create_student
+      create_student
 		else
-			 div(:class => 'error'){text '‫שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית'}
-			 br
-		   campus_user_mode(@options[:name], @options[:email], @options[:tel])
+      div(:class => 'error'){text '‫שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית'}
+      br
+      campus_user_mode(@options[:name], @options[:email], @options[:tel])
 		end
 	end
   
@@ -51,26 +51,29 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		new_student.save
     mail = Notifier.create_contact(mail_conf, mail_from, mail_subject, mail_body)
     mail.set_content_type("text/html")
-    Notifier.deliver(mail) unless mail_do_not_send 
+    Notifier.deliver(mail) unless mail_do_not_send
     send_student_by_mail(@options[:name],@options[:email],@options[:tel], mail_from, mail_to, mail_list_name)
 		div(:class => 'success'){
 		  text "הפרטים נתקבלו בהצלחה.‬"	
 		}
-		javascript{
-    	rawtext 'alert("הפרטים נתקבלו בהצלחה.‬");'
-		}                                                                                                                                   
     track_string = get_track_string
-    unless track_string == ""
-      str_track = track_string.split('***')
-      str_track0 = str_track[0]
-      str_track1 = str_track[1]
-      javascript {
-        rawtext <<-track
-           urchinTracker('#{str_track1}');
-        track
-      }
-      img :height => "1", :width => "1", :border => "0", :src => str_track0
-    end    
+#    unless track_string == ""
+#      str_track = track_string.split('***')
+#      str_track0 = str_track[0]
+#      str_track1 = str_track[1]
+#      javascript {
+#        rawtext <<-track
+#           urchinTracker('#{str_track1}');
+#        track
+#      }
+#      img :height => "1", :width => "1", :border => "0", :src => str_track0
+#    end
+		javascript{
+      rawtext <<-TEXT
+          alert("הפרטים נתקבלו בהצלחה.‬");'
+          urchinTracker(#{track_string});
+      TEXT
+    }
 	end
 	
   def send_student_by_mail(name = '' , email = '', tel = '', mailfrom = 'campus@kab.co.il', mailto = 'info@kab.co.il', mail_list_name = 'campus')
@@ -89,10 +92,10 @@ Tel: #{tel}
 EOF
     msg
     begin
-    #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
-    Net::SMTP.start("localhost", 25) { |smtp|
-      smtp.sendmail msg, mailfrom, [mailto]
-    }
+      #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
+      Net::SMTP.start("localhost", 25) { |smtp|
+        smtp.sendmail msg, mailfrom, [mailto]
+      }
     rescue 
       #the email have not been send, but student is in database
     end
@@ -101,36 +104,36 @@ EOF
  
 	def campus_admin_mode
 		div(:class => 'campus') {
-	    	#  text 'אדמין'
-        text I18n.t(:admin)
-	    	  br
-	    	  table{
-	    	  tr(:class => 'title'){
-	    	  	td{text I18n.t(:date)}
-	    	  	td{text I18n.t(:name)}
-	    	  	td{text I18n.t(:tel)}
-	    	  	td{text I18n.t(:email)}
-	    	  	td{text I18n.t(:campaign)}
-            td{text I18n.t(:list_name)}
-	    	  }
-          if get_list_name == "" 
-            students_list = Student.list_all_students	    	  
-          else
-            students_list = Student.list_all_students_for_list(get_list_name)
-          end
-	    	  students_list.each { |sl|
-	    	    stcreated = parsedate sl.created_at.to_s	  	
-	    	  	tr{
-	    	  		td {text "#{stcreated[0]}/#{stcreated[1]}/#{stcreated[2]}"}
-	    	  		td {text sl.name }
-	    	  		td {text sl.telephone}
-	    	  		td {text sl.email}
-	    	  		td {text sl.adwords}
-              td {text sl.listname}
-	    	  	} #end of table line	
+      #  text 'אדמין'
+      text I18n.t(:admin)
+      br
+      table{
+        tr(:class => 'title'){
+          td{text I18n.t(:date)}
+          td{text I18n.t(:name)}
+          td{text I18n.t(:tel)}
+          td{text I18n.t(:email)}
+          td{text I18n.t(:campaign)}
+          td{text I18n.t(:list_name)}
+        }
+        if get_list_name == ""
+          students_list = Student.list_all_students
+        else
+          students_list = Student.list_all_students_for_list(get_list_name)
+        end
+        students_list.each { |sl|
+          stcreated = parsedate sl.created_at.to_s
+          tr{
+            td {text "#{stcreated[0]}/#{stcreated[1]}/#{stcreated[2]}"}
+            td {text sl.name }
+            td {text sl.telephone}
+            td {text sl.email}
+            td {text sl.adwords}
+            td {text sl.listname}
+          } #end of table line
     	  } #end of list
-    	  }#end of table
-    	}
+      }#end of table
+    }
 	end
 	
 	def campus_user_mode(def_name = '', def_email='', def_tel='')
@@ -202,57 +205,57 @@ EOF
       id_centered = 'position_center'
     end
 		div(:class => 'campus', :id => id_centered){
-	    	 	div(:id => 'output2'){
-		 			form(:id => 'myForm2'){
-	    	 		   #user fields
-                p{
-                unless field_1_hide
-                  span(:class => 'label') {rawtext field_1_label+ " : "}
-                  input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
-                  br
-                end
+      div(:id => 'output2'){
+        form(:id => 'myForm2'){
+          #user fields
+          p{
+            unless field_1_hide
+              span(:class => 'label') {rawtext field_1_label+ " : "}
+              input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
+              br
+            end
 
-                unless field_2_hide
-                  span(:class => 'label') {rawtext field_2_label+" : "}
-                  input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
-                  br
-                end
+            unless field_2_hide
+              span(:class => 'label') {rawtext field_2_label+" : "}
+              input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
+              br
+            end
                 
-                unless field_3_hide
-                  span(:class => 'label') {text field_3_label+" : "}
-                  input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
-                end
+            unless field_3_hide
+              span(:class => 'label') {text field_3_label+" : "}
+              input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
+            end
                                             
-               div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
+            div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
                 
-                javascript{
-                  rawtext 'function loadCaptcha(){'
-                  rawtext "$('.campus_captcha').load('#{get_page_url(@presenter.node)}', {view_mode:'captcha', 'options[widget]':'campus_form','options[widget_node_id]':#{tree_node.id}})"
-                  rawtext '}'
+            javascript{
+              rawtext 'function loadCaptcha(){'
+              rawtext "$('.campus_captcha').load('#{get_page_url(@presenter.node)}', {view_mode:'captcha', 'options[widget]':'campus_form','options[widget_node_id]':#{tree_node.id}})"
+              rawtext '}'
               
-                }
+            }
             
             
-                div(:class => 'campus_captcha')
-                div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
-                input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
+            div(:class => 'campus_captcha')
+            div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
+            input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
                 
 
-                input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
-                input :type => 'hidden', :name => 'node', :value => tree_node.id
-                input :type => 'hidden', :name => 'options[tree_node_id]', :value => tree_node.id
-                input :type => 'hidden', :name => 'options[new_student]', :value => 'true'
-                input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
-                input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
-                input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
-                input :type => 'hidden', :name => 'options[listname]', :value => get_list_name
+            input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
+            input :type => 'hidden', :name => 'node', :value => tree_node.id
+            input :type => 'hidden', :name => 'options[tree_node_id]', :value => tree_node.id
+            input :type => 'hidden', :name => 'options[new_student]', :value => 'true'
+            input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
+            input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
+            input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
+            input :type => 'hidden', :name => 'options[listname]', :value => get_list_name
 
-                #submit
-                br
-                input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
-                br
+            #submit
+            br
+            input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
+            br
                 
-              }
+          }
 				}
 		  }
 	  }

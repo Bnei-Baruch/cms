@@ -1,7 +1,7 @@
 class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
   
   def render_full
-    unless ENV['RAILS_ENV'] == 'production'
+    if ENV['RAILS_ENV'] != 'production' || @presenter.node.can_edit?
       javascript {
         rawtext 'function urchinTracker(){}'
       }

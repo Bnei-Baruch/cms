@@ -3,7 +3,7 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
   def render_sidebar
 		div(:class => 'newsletter'){
 			h1 _(:newsletter_subscription)
-			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
+			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get", :onsubmit => "javacript:google_tracker('/homepage/widget/newsletter/hebrew');"){
 				p{
 					input :type => 'text', :id => 'ml_user_email', :name => 'email', :onfocus => "if(document.getElementById('ml_user_email').value == '#{_:enter_email}') { document.getElementById('ml_user_email').value = ''; }", :title => _(:email_address), :value => _(:enter_email)
 				  input :name => 'id', :type => 'hidden', :value => '175'

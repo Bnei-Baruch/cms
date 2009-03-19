@@ -27,13 +27,18 @@ class Global::Widgets::Kabtv < WidgetManager::Base
                 document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" mute="1" />');
                 document.write('</object>');
             }
+                    var firstclick = true;
                     if (typeof $.livequery == "function") {
                       $("#kabtv-news .newstitle").livequery('click',function () {
                       var $this = $(this);
-                      $this.next().toggle();
+                      $this.next().children().toggle();
                       $this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
                     });
                      $("#home-kabtv .box1_headersection_tv").livequery('click',function () {
+                      if (firstclick) {
+                          google_tracker('/homepage/widget/kabtv/open_schedule');
+                          firstclick = false;
+                      }
                       var $this = $(this);
                       $this.next().toggle();
                       $this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
@@ -43,7 +48,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         }
       }
       div(:id => 'kabtv-bot'){
-        a(:href => get_target) {span(:class => 'text-tv'){ text I18n.t(:tothetvchannel)} }
+        a(:href => get_target, :onclick => "google_tracker('/homepage/widget/kabtv/go_to_tv');") {span(:class => 'text-tv'){ text I18n.t(:tothetvchannel)} }
       }
       div(:class => "clear")
       if get_golive

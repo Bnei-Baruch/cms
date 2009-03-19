@@ -1,3 +1,9 @@
+//google analitic
+function google_tracker(pagename){
+    pagename = (typeof pagename == "undefined")? '':pagename;
+    urchinTracker(pagename);
+}
+
 //comment
 $(document).ready(function() { 
     function before_admin_comment_post(formData, jqForm, options) {

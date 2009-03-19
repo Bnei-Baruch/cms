@@ -67,24 +67,28 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
           :new_text => 'צור יחידת תוכן חדשה',
           :has_url => false,
           :position => 'bottom'}).render_to(self)
-      
+
+      url = get_url
+      title = get_title
+
       div(:class => 'newstitle'){
-        h3(:class => 'tvnewsiteplus'){text get_title}
+        h3(:class => 'tvnewsiteplus'){text title}
       }
-      div(:class => 'newsdescription'){
-        image = get_picture(:image_name => 'thumb')
-        unless image.empty?
-          img(:class => 'newsimg', :alt => '', :src => image)
-        end
-        rawtext get_description
-        br
-        div(:class => 'link'){
-          url = get_url
-          unless url.empty?
-            a get_url_text, :href => url, :title => 'link'
-          end
+      unless url.empty?
+        a(:href => url, :title => title){
+          div(:class => 'newsdescription'){
+            image = get_picture(:image_name => 'thumb')
+            unless image.empty?
+              img(:class => 'newsimg', :alt => '', :src => image)
+            end
+            rawtext get_description
+            br
+            div(:class => 'link'){
+              text get_url_text
+            }
+          }
         }
-      }
+      end
     }
   end
   
@@ -98,23 +102,28 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
           :has_url => false,
           :position => 'bottom'}).render_to(self)
 
-      div(:class => 'newstitleopen'){
-        h3 get_title
-      }
-      div(:class => 'newsdescription'){
-         image = get_picture(:image_name => 'thumb')
-        unless image.empty?
-          img(:class => 'newsimg', :alt => '', :src => image)
-        end
-        rawtext get_description
-        br
-        div(:class => 'link'){
-          url = get_url
-          unless url.empty?
-            a get_url_text, :href => url, :title => 'link'
-          end
+      url = get_url
+      title = get_title
+
+      unless url.empty?
+        a(:href => url, :title => title){
+          div(:class => 'newstitleopen'){
+            h3 title
+          }
+          div(:class => 'newsdescription'){
+            image = get_picture(:image_name => 'thumb')
+            unless image.empty?
+              img(:class => 'newsimg', :alt => '', :src => image)
+            end
+            rawtext get_description
+            br
+            div(:class => 'link'){
+              text get_url_text
+            }
+          }
         }
-      }
+      end
     }
   end
+
 end

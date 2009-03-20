@@ -203,6 +203,7 @@ hebrew:
   for_full_screen_mode_double_ckick_on_player: למסך מלא יש ללחוץ לחיצה כפולה על הנגן
   in_separate_player: לצפייה בנגן מדיה
   full_screen: למסך מלא
+  troubleshooting : נתקלת בבעיות במהלך הצפייה ?
   no_new_questions: אין שאלות חדשות.
   from:   מ-
   guest: אורח
@@ -251,5 +252,5 @@ hebrew:
   no_broadcast_on: אין שידורים ביום
   broadcast_on: שידור ביום
   edit_kabtv_widget: עריכת יחידת טלוויזיה
-  
+  click_here : לחץ כאן
   

@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def img_path(image_name)
+    "#{domain}/images/#{@presenter.site_name}/#{image_name}"
+  end
+
   def get_file_html_url(args_hash)
     attachment = args_hash[:attachment]
     image_name = args_hash.has_key?(:image_name) ? args_hash[:image_name] : 'myself'

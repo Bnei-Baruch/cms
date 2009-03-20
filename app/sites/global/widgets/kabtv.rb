@@ -315,6 +315,17 @@ $(function() {
           a(:id => 'full-win', :href => "", :title => "", :onclick => 'gofs();return false') {
             rawtext _(:full_screen)
           }
+
+          url = get_troubleshooting_url
+          if !url.empty?
+            div(:id => 'troubleshooting_str'){
+              rawtext _(:troubleshooting)
+              rawtext '&nbsp&nbsp&nbsp'
+              a(:id => 'troubleshooting_url', :target => 'blank', :title => "", :href => url) {
+                rawtext _(:click_here)
+              }
+            }
+          end
         }
       }
       div(:class => 'clear')

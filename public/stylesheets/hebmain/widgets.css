@@ -855,6 +855,11 @@ img.thumbnails{
     margin:64px 11px 36px 12px;
     float:left;
 }
+#kabtv #player_options{
+    height:28px;
+    width:385px;
+    position:relative;
+}
 #kabtv #player_options #separate-msg{
     background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat 100% 0;
     color:white;
@@ -878,6 +883,19 @@ img.thumbnails{
     padding-right:20px;
     float:left;
 }
+#kabtv #player_options #troubleshooting_str{
+    color:white;
+    height:10px;
+    position:absolute;
+    right:0;
+    text-align:right;
+    top:0;
+    width:123px;
+}
+#kabtv #player_options #troubleshooting_url{
+    color:#fde500;
+    font-weight:bold;
+}
 #kabtv #tabs{
     float:right;
     margin:8px 5px 22px 0;
@@ -896,7 +914,6 @@ img.thumbnails{
     background:#f0f5fd url(/images/hebmain/jquery/tab-tv-bg.png) no-repeat scroll 0 0;
     border:0 none;
 }
-
 #kabtv .clear, #home-kabtv .clear{
     clear:both;
 }

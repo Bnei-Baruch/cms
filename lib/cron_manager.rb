@@ -22,7 +22,7 @@ class CronManager
     date = pages[0].date
     node_ids = pages.map{|p| p.page_id}.sort
 
-    Logger.new(STDOUT).debug "############################     We have to refresh #{node_ids.length}nodes: #{node_ids.join(',')}"
+    Logger.new(STDOUT).debug "############################     We have to refresh #{node_ids.length} nodes: #{node_ids.join(',')}"
     Logger.new(STDOUT).debug "############################     Database Timestamp #{date}"
     Logger.new(STDOUT).debug "############################     Starting at        #{DateTime.now.strftime("%Y-%m-%d %H:%M")}"
     
@@ -237,8 +237,8 @@ class CronManager
   def self.clean_page_cache(nodes)
     debugger
     nodes.each{|node|
-      url, permalink = get_url_by_tree_node(node)
-      Logger.new(STDOUT).debug "Refresh Permalink #{permalink}, URL #{url}"
+      url, clean_url = get_url_by_tree_node(node)
+      Logger.new(STDOUT).debug "Refresh URL #{clean_url}"
       begin
         FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node.id}-*"])
         open(CGI.escapeHTML(url))
@@ -261,12 +261,12 @@ class CronManager
     return unless feeds
     feeds.each{ |feed| 
       begin
-        url = get_url_by_tree_node(feed.tree_node) + "/feed.#{feed.feed_type}"
-        Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{url}"
+        url, clean_url = get_url_by_tree_node(feed.tree_node) + "/feed.#{feed.feed_type}"
+        Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{clean_url}"
         feed.delete
         open(CGI.escapeHTML(url))
       rescue Exception => e
-        Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{e} for feed #{url}"
+        Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{e} for feed #{clean_url}"
         # exit(1)
       end
     }
@@ -274,7 +274,6 @@ class CronManager
 
   def self.get_url_by_tree_node(node)
     base_url = $config_manager.appl_settings[:sweep_url]
-    permalink = node.permalink
     if node.resource.resource_type.hrid.eql?('website')
       website = Website.find_by_entry_point_id(node.resource.id)
       prefix = website.use_homepage_without_prefix ? '' : '/' + website.prefix
@@ -285,7 +284,7 @@ class CronManager
       prefix = website.prefix
       url = "#{base_url}/#{prefix}/#{node.permalink}"
     end
-    [URI.escape(url), permalink]
+    [URI.escape(url), url]
   end
   
 end 

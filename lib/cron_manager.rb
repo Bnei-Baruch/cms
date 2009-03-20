@@ -236,9 +236,9 @@ class CronManager
 
   def self.clean_page_cache(nodes)
     debugger
-    nodes.each{|node|
+    nodes.each_with_index{|node, index|
       url, clean_url = get_url_by_tree_node(node)
-      Logger.new(STDOUT).debug "Refresh URL #{clean_url}"
+      Logger.new(STDOUT).debug "#{"%0d" % index} Refresh URL #{clean_url}"
       begin
         FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node.id}-*"])
         open(CGI.escapeHTML(url))
@@ -261,7 +261,9 @@ class CronManager
     return unless feeds
     feeds.each{ |feed| 
       begin
-        url, clean_url = get_url_by_tree_node(feed.tree_node) + "/feed.#{feed.feed_type}"
+        url, clean_url = get_url_by_tree_node(feed.tree_node)
+        url += "/feed.#{feed.feed_type}"
+        clean_url += "/feed.#{feed.feed_type}"
         Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{clean_url}"
         feed.delete
         open(CGI.escapeHTML(url))

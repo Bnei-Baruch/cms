@@ -16,15 +16,15 @@ class CronManager
     cron_manager_user_login
     
     pages = CmsCacheOutdatedPage.find_by_sql('select * from cms_get_outdated_pages()')
-    Logger.new(STDOUT).debug "############################     We have to refresh pages: #{!pages.empty?}"
+    Logger.new(STDOUT).debug "############################     Do we have to refresh pages: #{!pages.empty?}"
     return if pages.empty?
 
     date = pages[0].date
-    node_ids = pages.map{|p| p.page_id}
+    node_ids = pages.map{|p| p.page_id}.sort
 
-    Logger.new(STDOUT).debug "############################     We have to refresh nodes #{node_ids.join(',')}"
+    Logger.new(STDOUT).debug "############################     We have to refresh #{node_ids.length}nodes: #{node_ids.join(',')}"
     Logger.new(STDOUT).debug "############################     Database Timestamp #{date}"
-    Logger.new(STDOUT).debug "############################     Database Timestamp #{date}"
+    Logger.new(STDOUT).debug "############################     Starting at        #{DateTime.now.strftime("%Y-%m-%d %H:%M")}"
     
     nodes = []
     node_ids.each{|node_id|
@@ -39,11 +39,12 @@ class CronManager
       clean_page_cache(nodes)
       clean_feed_cache(nodes)
     }
-    Logger.new(STDOUT).debug "############################     Time to clean: #{benchmark.total} seconds"
+    Logger.new(STDOUT).debug "############################     Time to clean (in sec): #{benchmark.to_s}"
     
     pages = CmsCacheOutdatedPage.find_by_sql("select * from cms_clean_outdated_pages('#{date}')")
-    Logger.new(STDOUT).debug "############################     Pages were cleaned up: #{pages.length == 1 ? 'yes' : 'no'}"
+    Logger.new(STDOUT).debug "############################     Refreshed pages were removed from cms_cache_outdated_pages: #{pages.length == 1 ? 'yes' : 'no'}"
     
+    Logger.new(STDOUT).debug "############################     Finished at #{DateTime.now.strftime("%Y-%m-%d %H:%M")}"
   end
 
 
@@ -236,8 +237,8 @@ class CronManager
   def self.clean_page_cache(nodes)
     debugger
     nodes.each{|node|
-      url = get_url_by_tree_node(node)
-      Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh URL #{url}"
+      url, permalink = get_url_by_tree_node(node)
+      Logger.new(STDOUT).debug "Refresh Permalink #{permalink}, URL #{url}"
       begin
         FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node.id}-*"])
         open(CGI.escapeHTML(url))
@@ -284,7 +285,7 @@ class CronManager
       prefix = website.prefix
       url = "#{base_url}/#{prefix}/#{node.permalink}"
     end
-    result = URI.escape(url)
+    [URI.escape(url), permalink]
   end
   
 end 

@@ -238,7 +238,7 @@ class CronManager
     debugger
     nodes.each_with_index{|node, index|
       url, clean_url = get_url_by_tree_node(node)
-      Logger.new(STDOUT).debug "#{"%0d" % index} Refresh URL #{clean_url}"
+      Logger.new(STDOUT).debug "#{"%02d" % index} Refresh URL #{clean_url}"
       begin
         FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node.id}-*"])
         open(CGI.escapeHTML(url))

@@ -8,6 +8,7 @@ require 'rss/2.0'
 require 'open-uri'
 require 'timeout'
 require 'cgi'
+require 'benchmark'
 
 class CronManager
 
@@ -22,7 +23,8 @@ class CronManager
     node_ids = pages.map{|p| p.page_id}
 
     Logger.new(STDOUT).debug "############################     We have to refresh nodes #{node_ids.join(',')}"
-    Logger.new(STDOUT).debug "############################     Timestamp #{date}"
+    Logger.new(STDOUT).debug "############################     Database Timestamp #{date}"
+    Logger.new(STDOUT).debug "############################     Database Timestamp #{date}"
     
     nodes = []
     node_ids.each{|node_id|
@@ -32,10 +34,12 @@ class CronManager
         Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Node not found. Node_id: #{node_id}"
       end
     }
-    
 
-    clean_page_cache(nodes)
-    clean_feed_cache(nodes)
+    benchmark = Benchmark.measure {
+      clean_page_cache(nodes)
+      clean_feed_cache(nodes)
+    }
+    Logger.new(STDOUT).debug "############################     Time to clean: #{benchmark.total} seconds"
     
     pages = CmsCacheOutdatedPage.find_by_sql("select * from cms_clean_outdated_pages('#{date}')")
     Logger.new(STDOUT).debug "############################     Pages were cleaned up: #{pages.length == 1 ? 'yes' : 'no'}"

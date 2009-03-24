@@ -1,7 +1,7 @@
 class FixCacheWhenChangePageStatus < ActiveRecord::Migration
   def self.up
     sql = <<-my_code
-    CREATE OR REPLACE FUNCTION cms_prod.cms_cache_resources_alter()
+    CREATE OR REPLACE FUNCTION cms_cache_resources_alter()
       RETURNS trigger AS
     $BODY$
         DECLARE

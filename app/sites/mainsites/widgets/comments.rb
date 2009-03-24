@@ -131,7 +131,7 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
         div(:class => 'comment_title'){
           if cl.body.blank?
             rawtext "#{counter_for_comments}. #{cl.title}"
-            rawtext ' ' + _(:without_content) if session[:language]
+            rawtext ' ' + _(:without_content)
           else
             span(:class => "comment_clickable"){rawtext "#{counter_for_comments}. #{cl.title}"}
           end

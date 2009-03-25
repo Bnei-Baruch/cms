@@ -85,7 +85,7 @@ class Sites::TemplatesController < ApplicationController
           # to
           #       false
           # Do not forget to uncomment correspondent lines in development.rb
-          if Rails.env == 'development' || nocache
+          if Rails.env == 'development' || nocache || @presenter.site_settings[:cache][:disable_cache]
             render :widget => klass, :layout_class => layout_class
           else
             key = @presenter.node.this_cache_key

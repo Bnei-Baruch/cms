@@ -68,7 +68,8 @@ protected
       #UserInfo.user_is_admin=session[:user_is_admin]
   end
   
-  def save_refferer_to_session
+  def save_referrer_to_session
       session[:referer] = request.env["HTTP_REFERER"]
   end
+
 end

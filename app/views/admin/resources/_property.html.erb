@@ -11,13 +11,14 @@
     <%= f.hidden_field(:property_id, :index => nil) %>
     <%= f.hidden_field(:id, :index => nil) %>
   
-    <%= content_tag(:label,I18n.t(property.name.downcase.tr(' ','_').to_sym), label_options) %>
+    <%= content_tag(:label, _(property.name.downcase.tr(' ','_').to_sym), label_options) %>
     <%= errors %>
-    <% case data_type 
+
+    <% case data_type
     when 'number', 'string': %>
       <%= f.text_field(:value, :index => nil, :id => obj_id) %>
-    <% when 'boolean': %>                                          
-      <% checked = %w{ t true 1}.include?(property.value) %>
+    <% when 'boolean': %>
+      <% checked = [true, 1, 't'].include?(property.value) %>
       <%= check_box_tag :value_dummy, property.value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
     <% when 'date': %>
       Format of Date: yyyy-mm-dd<br/>

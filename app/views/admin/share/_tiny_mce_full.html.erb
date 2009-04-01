@@ -1,11 +1,10 @@
 <% content_for :header do %>
 <%= javascript_include_tag 'tiny_mce/tiny_mce' %>
-<%site_directoin = session[:site_direction] rescue 'rtl'%>
 <script type="text/javascript">
 //<![CDATA[
 tinyMCE.init({
 mode : 'textareas',
-directionality : "<%= site_directoin %>",
+directionality : "<%= @site_direction %>",
 theme : 'advanced',
 apply_source_formatting : true,
 browsers : "msie,gecko,opera,safari",
@@ -16,7 +15,7 @@ valid_elements : 'a[accesskey|charset|class|coords|dir<ltr?rtl|href|id|lang|onbl
 extended_valid_elements : 'a[name|rel|href|target|title|onclick|style],img[rel|alt|class|dir<ltr?rtl|height|id|longdesc|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|src|style|title|width],object[type|data|id|height|width],param[name|value],embed[type|*]',
 fix_list_elements : 'true',
 inline_styles : true,
-content_css : "/stylesheets/hebmain/tinymce.css,/stylesheets/hebmain/common.css",
+content_css : "/stylesheets/<%=@site_name%>/tinymce.css,/stylesheets/<%=@site_name%>/common.css",
 relative_urls : false,
 invalid_elements : 'u,font',
 paste_remove_styles: true,

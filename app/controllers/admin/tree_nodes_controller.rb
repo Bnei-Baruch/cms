@@ -1,7 +1,7 @@
 class Admin::TreeNodesController < ApplicationController
   layout 'admin'
 
-  before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights, :tree_node_delete ]
+  before_filter :save_referrer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights, :tree_node_delete ]
   before_filter {|controller| 
     unless ['destroy', 'tree_node_delete'].include?(controller.action_name)
       controller.admin_authorize(['System manager'])

@@ -66,8 +66,9 @@ class Sites::TemplatesController < ApplicationController
       return
     end
 
-    session[:site_direction] = site_settings[:site_direction] rescue 'rtl'
-    session[:language] = site_settings[:language] rescue 'default'
+    session[:site_direction] = site_settings[:site_direction] || 'ltr'
+    session[:language] = site_settings[:language] || 'default'
+    session[:site_name] = site_settings[:site_name] || 'global'
     set_translations
     
     respond_to do |format|

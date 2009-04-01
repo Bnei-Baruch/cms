@@ -3,7 +3,7 @@ class Admin::TreeNodePermissionsController < ApplicationController
   
   before_filter {|c| c.admin_authorize(['Nodes Access Rights'])}
   before_filter :find_tree_node
-  before_filter :save_refferer_to_session, :only => [ :index ]
+  before_filter :save_referrer_to_session, :only => [ :index ]
   
   # GET /tree_node_ac_rights
   # GET /tree_node_ac_rights.xml

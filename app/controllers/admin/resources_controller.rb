@@ -1,5 +1,6 @@
 class Admin::ResourcesController < ApplicationController
-  before_filter :save_refferer_to_session, :only => [ :new, :edit, :destroy ]
+  before_filter :save_referrer_to_session, :only => [ :new, :edit, :destroy ]
+  before_filter :preload_site_info, :only => [ :new, :edit ]
   
   # This block sets layout for admin user and for all other.
   layout :set_layout
@@ -196,5 +197,13 @@ class Admin::ResourcesController < ApplicationController
       format.xml  { head :ok }
     end
   end
- 
+
+  private
+
+  def preload_site_info
+    @site_direction = session[:site_direction] || 'ltr'
+    @language = session[:language] || 'default'
+    @site_name = session[:site_name] || 'global'
+  end
+
 end

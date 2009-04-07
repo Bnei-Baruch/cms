@@ -14,7 +14,7 @@ class PageMap < ActiveRecord::Base
     end
 
     def save_tree_nodes_list
-      logger.error "save_tree_nodes_list: #{@tree_nodes_list.length} items"
+      # logger.error "save_tree_nodes_list: #{@tree_nodes_list.length} items"
       return if @tree_nodes_list.empty?
 
       # Mass update...

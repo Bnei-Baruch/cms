@@ -20,7 +20,6 @@ class Global::Widgets::Tree < WidgetManager::Base
 
     target_node_parent = target_node.parent
     source_node_parent = source_node.parent
-    # debugger
     unless source_node_parent.eql?(target_node_parent)
       return rawtext(false) unless source_node_parent.can_move_child? && target_node_parent.can_move_child? # Check for moving permission
     else

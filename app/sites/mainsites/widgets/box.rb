@@ -15,7 +15,7 @@ class Mainsites::Widgets::Box < WidgetManager::Base
       end
     end
     
-    div(:class => 'box') {
+    div(:class => 'box all-box-background') {
       div(:class => 'box-top' + no_border + background){rawtext('&nbsp;')} 
       div(:class => 'box-mid' + no_border + background){
         

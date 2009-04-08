@@ -68,6 +68,42 @@
 .content_preview{
     position:relative;
 }
+.content_preview .h1{
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #e1ecfc;
+    background-image: none;
+    height:32px;
+    line-height:32px;
+    position:relative;
+    padding: 0 10px 0 0;
+}
+.content_preview .h1_gray{
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #f0f0f0;
+    background-image: none;
+    border-top: thin solid #cbcbcd;
+    height:22px;
+    line-height:22px;
+    position:relative;
+    padding: 0 10px 0 0;
+}
+.content_preview .h1 .cont{
+    font-size:12px;
+    padding:0 0 0 20px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.content_preview .h1 .cont img{
+    width:7px;
+    left:0;
+    position:absolute;
+    top:6px;
+}
 
 /************** Comment Admin **************************/
 
@@ -497,8 +533,10 @@ table.media_rss th{
 
 #closed_comment{
     color: #186BE5;
-    margin-right: 5px;
-    display: inline;
+    float:right;
+    background-position:100% -17px;
+    background-repeat:no-repeat;
+    padding:0 20px 0 0;
 }
 #closed_comment img{
     margin-left: 5px;
@@ -509,7 +547,7 @@ table.media_rss th{
     cursor: pointer;
     text-decoration: underline;
 }
-#create_comment_div td{
+#create_comment td{
     padding-top: 5px;
     padding-left: 5px;
     padding-right: 5px;
@@ -519,11 +557,11 @@ table.media_rss th{
     border-width:0;
 }
 
-#create_comment_div td#content{
+#create_comment td#content{
     vertical-align:top;
 }
 
-#create_comment_div textarea{
+#create_comment textarea{
     width:22em;
 }
 
@@ -547,7 +585,7 @@ table.media_rss th{
     background-color: yellow;
 }
 
-.create_comment .submit{
+#create_comment .submit{
     background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
     border: medium none;
     color: black;
@@ -555,16 +593,20 @@ table.media_rss th{
     margin-bottom: 5px;
     padding-bottom: 5px;
     width: 54pt;
+    text-align:center;
+    display:block;
+    float:right;
+    line-height:22px;
 }
 
-.create_comment label{
+#create_comment label{
     margin-left: 10px;
     vertical-align: top;
 }
-.create_comment input{
+#create_comment input{
     margin-bottom: 5px;
 }
-.create_comment textarea{
+#create_comment textarea{
     margin-bottom: 5px;
 }
 .comment_title {
@@ -591,22 +633,38 @@ table.media_rss th{
 /******* Permalink **************/
 
 .permalink{
-    display: inline;
-    margin: 0 5px;
+    background-position:100% 1px;
+    background-repeat:no-repeat;
+    height:17px;
+    padding:0 20px 0 0;
+    clear:both;
+    margin:25px 0 0;
 }
 
 .permalink img{
     margin-left: 5px;
 }
 
+.permalink input{
+    margin-right:4px;
+    width:390px;
+    text-align:left;
+}
 /***** Send to friend *****/
-
-.send_to_friend{
+#closed_friend{
+    padding: 0pt 20px 0pt 0pt;
+    background-repeat: no-repeat;
+    background-position:100% -34px;
+    margin:0 5px 0 0;
+    color: #186BE5;
+    float:right;
+}
+#send_to_friend{
     display: inline;
     margin-left: 5px;
     margin-right: 5px;
 }
-.send_to_friend img{
+#send_to_friend img{
     margin-left: 5px;
 }
 
@@ -663,6 +721,10 @@ table.media_rss th{
     margin-bottom: 5px;
     padding-bottom: 5px;
     width: 54pt;
+    text-align:center;
+    display:block;
+    float:right;
+    line-height:22px;
 }
 
 /******* Manpower ******/
@@ -1072,7 +1134,7 @@ a.highslide-full-expand {
 #kabtv-news{
     position: relative;
     text-align: right;
-	padding-top:1px;
+    padding-top:1px;
 }
 #kabtv-live{
     background-color:#1c4fb8;
@@ -1098,14 +1160,14 @@ a.highslide-full-expand {
     padding-bottom:5px;
 }
 .futurprogram-plus{
-   background:transparent url(/images/hebmain/kabtv/futurprogram-plus.gif) no-repeat scroll 100% 0%;
-   padding: 5px 20px 6px 0px;
-   line-height:23px;
+    background:transparent url(/images/hebmain/kabtv/futurprogram-plus.gif) no-repeat scroll 100% 0%;
+    padding: 5px 20px 6px 0px;
+    line-height:23px;
 }
 .futurprogram-minus{
-   background:transparent url(/images/hebmain/kabtv/futurprogram-minus.gif) no-repeat scroll 100% 0%;
-   padding: 5px 20px 6px 0px;
-   line-height:23px;
+    background:transparent url(/images/hebmain/kabtv/futurprogram-minus.gif) no-repeat scroll 100% 0%;
+    padding: 5px 20px 6px 0px;
+    line-height:23px;
 }
 #kabtv-news .tv_news_container h3{
     padding: 0 5pt;
@@ -1125,7 +1187,7 @@ a.highslide-full-expand {
     width:206px;
     padding: 0 5pt;
     font-weight:bold;
-	cursor:pointer;
+    cursor:pointer;
 }
 #kabtv-news a{
     color: black;
@@ -1165,12 +1227,12 @@ a.highslide-full-expand {
 }
 .box1_headersection_tv{
     background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
-/*    padding-top:1px;*/
+    /*    padding-top:1px;*/
     height:26px;
     font-weight:bold;
     color:white;
     text-align:right;
-	cursor:pointer;
+    cursor:pointer;
 }
 .box_headersection_tv{
     background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
@@ -1179,7 +1241,7 @@ a.highslide-full-expand {
     font-weight:bold;
     color:white;
     text-align:right;
-	
+
 }
 /* Controlbar for sketches */
 .controlbar {

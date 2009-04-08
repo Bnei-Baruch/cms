@@ -1,4 +1,4 @@
-class Hebmain::Widgets::ContentPreview < WidgetManager::Base
+class Mainsites::Widgets::ContentPreview < WidgetManager::Base
 
   attr_accessor :updatable
   
@@ -15,8 +15,8 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       div(:id => @updatable){
         w_class('cms_actions').new(:tree_node => tree_node, 
           :options => {:buttons => buttons,
-            :button_text => 'ניהול תצוגה מקדימה', 
-            :new_text => 'הוספת יחידה בצורה ידנית', 
+            :button_text => _(:manage_content_preview),
+            :new_text => _(:add_item_manually),
             :has_url => false,
             :resource_types => %W{ custom_preview }}).render_to(self)
         
@@ -53,7 +53,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       get_content_items
     end
 
-    if !show
+    unless show
       @items.last.move_to_top
       get_content_items
     end
@@ -91,7 +91,6 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
           show_item(item, view_mode)
         }
       }
-      div(:class => 'clear')
     }
     :horizontal # Sort direction
   end
@@ -106,19 +105,40 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
       view_mode = 'small'
     end
     div(:class => "main_preview#{@items_size} sortable") {
+      show_title = get_show_title
+      show_title = show_title.class == String ? false : show_title
+      if show_title
+        div(:class => 'h1') {
+          text get_title.empty? ? '' : get_title
+          a(:class => 'cont', :href => get_url) {
+            text get_url_string.empty? ? _(:to_all_articles) : get_url_string
+            img(:src => img_path('arrow-left.gif'), :alt => '')
+          }
+          div(:class =>'h1-right')
+          div(:class =>'h1-left')
+        }
+      end
       @items.each_with_index { |item, index|  
-        klass = (index + 1) == @items_size ? 'element last' : 'element'
+        klass = (index + 1) == @items_size ? 'element last' : 'element non-last'
         div(:class => klass, :id => sort_id(item)) {
           sort_handle
           show_item(item, view_mode)
         }
       }
-      div(:class => 'clear')
     }
     :horizontal # Sort direction
   end
 
   def show_index
+    div(:class => 'h1') {
+      text get_title.empty? ? '' : get_title
+      a(:class => 'cont', :href => get_url) {
+        text get_url_string.empty? ? _(:to_all_articles) : get_url_string
+        img(:src => img_path('arrow-left.gif'), :alt => '')
+      }
+      div(:class =>'h1-right')
+      div(:class =>'h1-left')
+    } if get_show_title
     div(:class => 'index sortable') {
       @items.each_with_index { |item, index|  
         klass = index.odd? ? 'element preview-even' : 'element preview-odd'
@@ -127,6 +147,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
           show_item(item, 'small')
         }
       }
+      div(:class => 'clear')
     }
     :vertical # Sort direction
   end
@@ -151,9 +172,7 @@ class Hebmain::Widgets::ContentPreview < WidgetManager::Base
     @widget_name = tree_node.resource.resource_type.hrid
     @is_main_format = get_is_main_format == '' ? false : get_is_main_format 
     @max_num = get_maximum_number_of_items.to_i
-    if get_maximum_number_of_items.to_i > 3 && !is_articles_index?
-      @max_num = 3
-    end
+    @max_num = 3 if @max_num > 3 && !is_articles_index?
   end
   
   def render_content_item(tree_node, view_mode)

@@ -35,6 +35,8 @@ hebrew:
   url: Url
   alt: Alt
   open_in_new_window: Open in new window
+  manage_content_preview: ניהול תצוגה מקדימה
+  add_item_manually: הוספת יחידה בצורה ידנית
 
   news_for_tv: ניהול חדשות
   add_newsbox_for_tv: הוספת יחידה חדשות
@@ -253,4 +255,7 @@ hebrew:
   broadcast_on: שידור ביום
   edit_kabtv_widget: עריכת יחידת טלוויזיה
   click_here : לחץ כאן
+  to_watch: לצפייה
+  to_listen: להאזנה
+  read_more: לכתבה המלאה
   

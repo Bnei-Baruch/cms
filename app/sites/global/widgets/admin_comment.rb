@@ -1,4 +1,4 @@
-class Hebmain::Widgets::AdminComment < WidgetManager::Base
+class Global::Widgets::AdminComment < WidgetManager::Base
   require 'parsedate'
   include ParseDate
 
@@ -72,8 +72,6 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       }
     }
   end  
-  
- 
 
   def write_inside_of_form
     cat =  @presenter.main_sections
@@ -83,14 +81,14 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       text ' Non Moderated'
       br
       
-      input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => 'שלח'
-      input :type => 'reset', :name => 'Cancel', :id => 'cancel', :class => 'submit', :value => 'בטל'
+      input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => _(:submit)
+      input :type => 'reset', :name => 'Cancel', :id => 'cancel', :class => 'submit', :value => _(:cancel)
       input :type => 'hidden', :name => 'view_mode', :value => 'moderate_comment'
       input :type => 'hidden', :name => 'options[widget]', :value => 'admin_comment'
       input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
       
       select(:name => 'options[filter]'){
-        option(:value => "nil"){text I18n.t(:all)}
+        option(:value => "nil"){text _(:all)}
         cat.each{|c|
           option(:value => c.id ){text c.resource.name}
         }
@@ -101,16 +99,16 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
       table{
         thead{
           tr{
-            th I18n.t(:page)
-            th I18n.t(:date)
-            th I18n.t(:valid)
-            th I18n.t(:spam)
-            th I18n.t(:name)
-            th I18n.t(:title)
-            th I18n.t(:body)
-            th I18n.t(:edit)
-            th(:colspan => '2'){text I18n.t(:valid)}
-            th I18n.t(:del)
+            th _(:page)
+            th _(:date)
+            th _(:valid)
+            th _(:spam)
+            th _(:name)
+            th _(:title)
+            th _(:body)
+            th _(:edit)
+            th(:colspan => '2'){text _(:valid)}
+            th _(:del)
           }
         }
         
@@ -206,11 +204,11 @@ class Hebmain::Widgets::AdminComment < WidgetManager::Base
   def single_comment(cid = 0)
     cm = Comment.find(cid)
     p(:class => 'right'){
-      text I18n.t(:title)+': '
+      text _(:title)+': '
       input  :type => 'text', :name => 'options[title]', :value => cm.title
       br
       br
-      text I18n.t(:body)+': '
+      text _(:body)+': '
       textarea(:cols => '10', :rows =>'15', :name => 'options[body]'){text cm.body}
       br
       br

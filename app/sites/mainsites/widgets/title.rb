@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Title < WidgetManager::Base
+class Mainsites::Widgets::Title < WidgetManager::Base
   
   def render_full
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(self)
@@ -7,14 +7,6 @@ class Hebmain::Widgets::Title < WidgetManager::Base
     url = get_url
     url_string = get_url_string
     style = get_gray_back ? 'h1_gray' : 'h1'
-    
-#    list_value_id = tree_node.resource.properties('title_style').get_value
-#    style = ''
-#    if list_value_id 
-#      color =  ListValue.find(:first, :conditions => ["id = ?", list_value_id]).string_value
-#      style = 'h1'
-#      style = (style + '_' + color) unless color == 'blue'
-#    end
     
     div(:class => 'section_preview') {
       div(:class => style) {

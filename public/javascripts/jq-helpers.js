@@ -1,5 +1,24 @@
 // Russian site
 $(document).ready(function() {
+    // Corrent length of main_preview[2,3]
+    $(".main_preview3").each(function(){
+        var $this = $(this);
+        var elements = $this.children(".element");
+        var maxH = Math.max($(elements[0]).height(), $(elements[1]).height());
+        maxH = Math.max(maxH, $(elements[2]).height());
+        $(elements[0]).css('height', maxH + 'px');
+        $(elements[1]).css('height', maxH + 'px');
+        $(elements[2]).css('height', maxH + 'px');
+    });
+    $(".main_preview2").each(function(){
+        var $this = $(this);
+        var elements = $this.children(".element");
+        var maxH = Math.max($(elements[0]).height(), $(elements[1]).height());
+        $(elements[0]).css('height', maxH + 'px');
+        $(elements[1]).css('height', maxH + 'px');
+    });
+});
+$(document).ready(function() {
     //Make it a menu
     $("ul.sf-menu").superfish();
     //Add pipes between menu elements
@@ -93,16 +112,21 @@ function after_manpower(responseText, statusText){
 
 // Send to friend form
 $(document).ready(function() { 
-    $("#friend_form").hide();
+    $("#send_to_friend").hide();
     $("#closed_friend").click(function(){
-        $("#friend_form").show();
+        $("#send_to_friend").slideDown();
         $("#closed_friend").hide();
     });
     $("#stf_cancel").click(function(){
-        $("#friend_form").hide();
+        $("#send_to_friend").slideUp();
         $("#closed_friend").show();
     });
   
+    $(".link_friend").hover(function(){
+        $(this).addClass('pretty-hover');
+    }, function(){
+        $(this).removeClass('pretty-hover');
+    });
   
     //toggler is toggling the state of the 'send to friend' form
     $("#friend_form").submit(function(event){
@@ -142,7 +166,7 @@ $(document).ready(function() {
 function after_send_to_friend(){
     $("#friend_form").resetForm();
     $("#friend_form #loader").remove();
-    $("#friend_form").hide();
+    $("#send_to_friend").hide();
     $("#closed_friend").show();
     alert('נשלח בהצלחה!');
 }
@@ -155,8 +179,8 @@ function after_send_to_friend(){
 
 $(document).ready(function(){
   
-    $("#comment_form").hide();
-    $("#comment_form").hover(function(){
+    $("#create_comment").hide();
+    $("#create_comment").hover(function(){
         $(this).addClass('pretty-hover');
     }, function(){
         $(this).removeClass('pretty-hover');
@@ -177,12 +201,12 @@ $(document).ready(function(){
   
     $("#comment_form #cancel").click(function(){
         $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
-        $("#comment_form").hide();
+        $("#create_comment").slideUp();
         $("#closed_comment").show();
     });
   
     $("#closed_comment").click(function(){
-        $("#comment_form").show();
+        $("#create_comment").slideDown();
         $("#closed_comment").hide();
     });
   
@@ -198,7 +222,10 @@ $(document).ready(function(){
         //   alert("כתובת הדואר האלקטרוני לא תקינה");
         //   return false;
         // }
-      
+        if (formData[0].value == "") {
+            alert("Please fill in title field");
+            return false;
+        }
         $('.create_comment #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
       
         return true;
@@ -218,15 +245,10 @@ $(document).ready(function(){
       
         $('#yellow_effect').fadeOut(10000, function(){
             $(this).remove();
-            $("#comment_form").hide();
+            $("#create_comment").hide();
             $("#closed_comment").show();
             $("#reactions").show();
         });
-      
-    //       $('#comment_form').submit(function() {
-    //        $(this).ajaxSubmit(options);
-    //        return false;
-    //        });
     } 
     
     var options = { 

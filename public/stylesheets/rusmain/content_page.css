@@ -3,9 +3,8 @@
     position:relative;
 }
 #body-left{
-    float:left;
     width:224px;
-    position:relative;
+    position:absolute;
 }
 #body-middle{
     margin-left:243px; /* + 10px between columns */
@@ -55,15 +54,15 @@
     color:#1060A5;
 }
 .breadcrumbs a,.breadcrumbs a:visited{
-    color:#186BE5;
+    color:#1060A5;
 }
-
 #body-middle #mid-content{
     border:1px solid #e5e5eb;
     padding-left:14px;
 }
 #body-middle .bg{
     background:transparent url(/images/rusmain/related-bg.gif) repeat-y scroll right top;
+    padding:0 0 10px;
 }
 #mid-content .related{
     background:#FAFAFA url(/images/rusmain/related-bg.gif) repeat-y top right;
@@ -71,6 +70,9 @@
     float: right;
     width: 160px;
     padding:15px;
+    color:#161616;
+    font-size:11px;
+    font-weight:bold;
 }
 #mid-content .related .image img{
     border:1px solid #C9C9C9;
@@ -83,25 +85,6 @@
 }
 #mid-content .content{
     margin-right:205px;
-}
-#mid-content .h1{
-    background:#999B9F url(/images/rusmain/main-title-grad.gif) repeat-x 0 0;
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    height:27px;
-    line-height:27px;
-    text-align:center;
-}
-#mid-content .h1 .left-ear, #mid-content .h1 .right-ear{
-    width:4px;
-    height:27px;
-    background:#999B9F url(/images/rusmain/main-title-ears.gif) no-repeat 0 0;
-    float:left;
-}
-#mid-content .h1 .right-ear{
-    background-position:-4px 0;
-    float:right;
 }
 #mid-content h2{
     background:#A4A6AC url(/images/rusmain/sub-title.gif) repeat-x 0 0;
@@ -153,13 +136,529 @@
     top:1px;
 }
 #mid-content .item{
-    margin:15px 0 0;
+    clear:left;
 }
 #mid-content .item h3{
-color:#A18A64;
-font-size:13px;
-font-weight:bold;
-margin-bottom:3px;
+    color:#A18A64;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:3px;
+}
+#mid-content .item p{
+    margin:0 0 15px;
+}
+#mid-content .services{
+    margin:40px 205px 15px 0;
+    border-top:1px solid #E5E5EB;
+    padding:5px 0;
+    font-size:11px;
+    line-height:17px;
+}
+#mid-content .services div{
+    float:left;
+    margin:0 10px 10px 0;
+    padding-left:23px;
+    background-repeat:no-repeat;
+    cursor:pointer;
+}
+#mid-content .services #closed_comment{
+    background-position:0 -17px;
+}
+#mid-content .services #closed_friend{
+    background-position:0 -34px;
+}
+#mid-content .services .permalink{
+    background-position:0 1px;
+    margin-top:20px;
+}
+#mid-content .services .permalink input{
+   margin-left: 5px;
+   border:1px solid #E5E5EB;
+   width:396px;
+   font-size:10px;
+   height:15px;
+}
+#mid-content .services div, #mid-content .services div a{
+    color:#A71E23;
+}
+#mid-content .services div:hover{
+    text-decoration:underline;
+}
+#mid-content #send_to_friend{
+    margin:0 0 10px;
+}
+#mid-content #send_to_friend table#friend{
+    border: 1px solid #E5E5EB;
+    width:460px;
+    font-size:11px;
+    line-height:17px;
+    background-color:#FAFAFA;
+    padding:0 0 10px;
+    color:#161616;
+}
+#mid-content #send_to_friend table#friend .input input{
+    width:40ex;
+    border:1px solid #E5E5EB;
+}
+#mid-content #send_to_friend table#friend a{
+    background-position:0 0;
+    background-repeat:no-repeat;
+    color:white;
+    display:block;
+    float:left;
+    height:22px;
+    margin:0 10px 0 0;
+    padding:2px 0 0;
+    text-align:center;
+    text-decoration:none;
+    width:59px;
+    cursor:pointer;
+}
+#mid-content #send_to_friend table#friend a:hover{
+    text-decoration:none;
+}
+#mid-content #send_to_friend table#friend .text{
+    width:150px;
+    text-align:right;
+    padding:0 10px 10px 0;
+}
+#mid-content #send_to_friend table#friend h1{
+    background-color:#979797;
+    color:white;
+    font-weight:bold;
+    padding:0 10px;
+    margin:0 0 10px;
+}
+#mid-content #comment_form{
+    margin:0 0 10px;
+}
+#mid-content #comment_form table#reactions{
+    border: 1px solid #E5E5EB;
+    width: 460px;
+    font-size:11px;
+    line-height:17px;
+    background-color:#FAFAFA;
+    padding:0 0 10px;
+    color:#161616;
+}
+#mid-content #comment_form table#reactions .input textarea{
+    width:46.5ex;
+    border:1px solid #E5E5EB;
+}
+#mid-content #comment_form table#reactions .input input{
+    width:40ex;
+    border:1px solid #E5E5EB;
+}
+#mid-content #comment_form table#reactions a{
+    background-position:0 0;
+    background-repeat:no-repeat;
+    color:white;
+    display:block;
+    float:left;
+    height:22px;
+    margin:0 10px 0 0;
+    padding:2px 0 0;
+    text-align:center;
+    text-decoration:none;
+    width:59px;
+    cursor:pointer;
+}
+#mid-content #comment_form table#reactions a:hover{
+    text-decoration:none;
+}
+#mid-content #comment_form table#reactions .text{
+    width:150px;
+    text-align:right;
+    padding:0 10px 10px 0;
+    vertical-align:top;
+}
+#mid-content #comment_form table#reactions h1{
+    background-color:#979797;
+    color:white;
+    font-weight:bold;
+    padding:0 10px;
+    margin:0 0 10px;
+}
+#yellow_effect{
+    background-color: yellow;
+    margin-right:205px;
 }
 
+.create_comment{
+    padding:0;
+}
+.create_comment .submit{
+    background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
+    border: medium none;
+    color: black;
+    height: 17pt;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    width: 54pt;
+}
+
+#create_comment_div{
+    float:left;
+    clear:left;
+}
+.create_comment label{
+    margin-left: 10px;
+    vertical-align: top;
+}
+.create_comment input{
+    margin-bottom: 5px;
+}
+.create_comment textarea{
+    margin-bottom: 5px;
+}
+.comment_title {
+    font-weight: bold;
+    display: inline;
+    cursor:pointer;
+}
+.comment_item br{
+    display:none;
+}
+.comment_item{
+    background-color: #f5f5f4;
+    padding: 5px 10px 0 10px;
+}
+#mid-content .comment_header{
+    font-weight: bold;
+    background-color:#979797;
+    color:white;
+    font-weight:bold;
+    padding:2px 10px;
+    clear:both;
+    margin-right:205px;
+}
+#mid-content .comment_date{
+    color:#979797;
+    margin-right:205px;
+}
+.comment_body{
+    display: none;
+    margin-right:205px;
+}
+#mid-content .prev_comments{
+    border: 1px solid #E5E5EB;
+    width: 480px;
+    font-size:11px;
+    line-height:17px;
+    background-color:#F5F5F4;
+    padding:0 0 10px;
+    color:#161616;
+}
+#mid-content .prev_comments .comment_empty{
+    padding:0 10px;
+}
+.side-box .box-content .update{
+    font-size:11px;
+}
+.side-box .box-content .update h4{
+    font-weight:bold;
+}
+.side-box .box-content .update a{
+    display:block;
+}
+.side-box .box-content hr{
+    height:0;
+    border:1px solid transparent;
+    border-top:1px solid #E5E5EB;
+}
+.side-box .box-content .newsletter h1{
+    color:#161616;
+    font-size:11px;
+}
+.side-box .box-content .newsletter input{
+    width:28.5ex;
+    border:1px solid #E5E5EB;
+}
+.side-box .box-content .newsletter #subscribe_form a:hover{
+    text-decoration:none;
+}
+.side-box .box-content .newsletter #subscribe_form a{
+    background-position:0 0;
+    background-repeat:no-repeat;
+    color:white;
+    display:block;
+    height:17px;
+    padding:4px 0 0;
+    text-align:center;
+    text-decoration:none;
+    width:59px;
+    font-size:11px;
+    cursor:pointer;
+}
+.related .box{
+    margin:10px 0 10px 5px;
+}
+.related .box .box-mid{
+    padding:0 10px;
+    background:transparent url(/images/rusmain/box-mid.gif) repeat-y top right;
+    width:136px;
+    margin:-7px 0 0;
+}
+.related .box .box-top{
+    background:transparent url(/images/rusmain/box-top.gif) no-repeat top right;
+    width:156px;
+    padding:0;
+    margin:0;
+}
+.related .box .box-bot{
+    background:transparent url(/images/rusmain/box-bot.gif) no-repeat bottom right;
+    width:156px;
+    padding:0;
+    margin:0;
+    height:3px;
+}
+.related .box .box-background{
+    background-color:#efeff5;
+}
+.related .all-box-background{
+    background:#efeff5 url(/images/rusmain/box-grad.gif) repeat-x left bottom;
+}
+.related .box .box-mid-no-border{
+    padding:0 10px;
+    width:140px;
+}
+.related .box .box-top-no-border{
+    width:165px;
+    padding:0;
+    margin:0;
+}
+.related .box .box-bot-no-border{
+    width:165px;
+    padding:0;
+    margin:0;
+}
+.related .box .box-mid h4{
+    padding: 10px 0;
+}
+.related .box .box-mid p, .related .box .box-mid ul{
+    padding: 0 0 10px;
+}
+.related .box ul{
+    list-style-image:url(/images/rusmain/doughnut.gif);
+    list-style-position:outside;
+    list-style-type:circle;
+    margin:0 0 0 15px;
+}
+#mid-content .content_preview{
+    position:relative;
+    margin:0 0 15px;
+}
+#mid-content .content_preview .main_preview1 .element{
+    background: #fefefe url(/images/rusmain/mp1-grad.gif) repeat-x left top;
+    border:1px solid #E5E5EB;
+    float:left;
+    position:relative;
+    padding:0 0 20px;
+    margin:0 0 15px;
+}
+#mid-content .content_preview .main_preview1 .img{
+    float:left;
+    padding:1px;
+    margin-right:10px;
+    width:195px;
+    height:132px;
+}
+#mid-content .content_preview .index{
+    border:1px solid #E5E5EB;
+}
+#mid-content .content_preview .index .element{
+    float:left;
+    position:relative;
+    padding:15px 15px 10px 10px;
+    margin:0;
+}
+#mid-content .content_preview .index .preview-odd{
+    background:#e5e5eb url(/images/rusmain/preview-odd.gif) repeat-x left top;
+}
+#mid-content .content_preview .index .preview-even{
+    background:white url(/images/rusmain/preview-even.gif) repeat-x left top;
+}
+#mid-content .content_preview .index .img{
+    float:left;
+    padding:1px;
+    margin-right:10px;
+    width:115px;
+    height:80px;
+}
+#mid-content .content_preview .index .more,
+#mid-content .content_preview .index .more_no_img{
+    font-size:10px;
+    text-decoration:underline;
+    position:absolute;
+    bottom:10px;
+    left:140px;
+}
+#mid-content .content_preview .main_preview1 h1 a:visited,
+#mid-content .content_preview .main_preview1 h1 a,
+#mid-content .content_preview .index h1 a:visited,
+#mid-content .content_preview .index h1 a{
+    color:#1060A5;
+    font-size:14px;
+    font-weight:bold;
+}
+#mid-content .content_preview .index .descr{
+    background-color:transparent;
+    background-image:none;
+    border:0 none;
+    color:#5A5A5A;
+    font-size:12px;
+    font-weight:normal;
+    overflow:hidden;
+    padding:10px 10px 20px 0;
+    position:relative;
+    text-align:left;
+}
+#mid-content .content_preview .main_preview1 .descr,
+#mid-content .content_preview .main_preview2 .descr,
+#mid-content .content_preview .main_preview3 .descr{
+    background-color:transparent;
+    background-image:none;
+    border:0 none;
+    color:#5A5A5A;
+    font-size:12px;
+    font-weight:normal;
+    overflow:hidden;
+    padding:10px 10px 10px 0;
+    position:relative;
+    text-align:left;
+}
+#mid-content .content_preview .main_preview2 .descr,
+#mid-content .content_preview .main_preview3 .descr{
+    padding:10px 10px 20px;
+    font-size:11px;
+}
+#mid-content .content_preview .main_preview1 .more,
+#mid-content .content_preview .main_preview1 .more_no_img{
+    font-size:10px;
+    text-decoration:underline;
+    position:absolute;
+    bottom:11px;
+    left:208px;
+}
+#mid-content .content_preview .main_preview2 .more_no_img,
+#mid-content .content_preview .main_preview3 .more_no_img,
+#mid-content .content_preview .main_preview2 .more,
+#mid-content .content_preview .main_preview3 .more{
+    font-size:10px;
+    position:absolute;
+    bottom:10px;
+    text-decoration:underline;
+    left:10px;
+}
+#mid-content .content_preview .more_no_img .empty-gif,
+#mid-content .content_preview .more .empty-gif{
+    display:none;
+}
+#mid-content .content_preview .more_no_img a,
+#mid-content .content_preview .more a{
+    color:#1060A5;
+}
+#mid-content .content_preview .more_no_img img,
+#mid-content .content_preview .more img{
+    margin-left:10px;
+}
+
+#mid-content .content_preview .main_preview2 .element{
+    background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
+    border:1px solid #E5E5EB;
+    float:left;
+    width:48%;
+    position:relative;
+    padding:0 0 20px;
+    margin:0 0 10px;
+}
+#mid-content .content_preview .main_preview2 .non-last{
+    margin-right:15px;
+}
+#mid-content .content_preview .main_preview2 .last{
+    margin-right:0;
+    margin-bottom:20px;
+}
+#mid-content .content_preview .main_preview2 .img{
+    height:157px;
+    padding:1px 1px 0;
+    width:229px;
+}
+#mid-content .content_preview .main_preview2 h1{
+    padding:0 10px;
+}
+#mid-content .content_preview .main_preview2 h1 a:visited,
+#mid-content .content_preview .main_preview2 h1 a{
+    color:#1060A5;
+    font-size:13px;
+    font-weight:bold;
+}
+
+#mid-content .content_preview .main_preview3 .element{
+    background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
+    border:1px solid #E5E5EB;
+    float:left;
+    width:31%;
+    position:relative;
+    padding:0 0 20px;
+    margin:0 0 10px;
+}
+#mid-content .content_preview .main_preview3 .non-last{
+    margin-right:13px;
+}
+#mid-content .content_preview .main_preview3 .last{
+    margin-left:1px;
+}
+#mid-content .content_preview .main_preview3 .img{
+    height:102px;
+    padding:1px 1px 0;
+    width:147px;
+}
+#mid-content .content_preview .main_preview3 h1{
+    padding:0 10px;
+}
+#mid-content .content_preview .main_preview3 h1 a:visited,
+#mid-content .content_preview .main_preview3 h1 a{
+    color:#1060A5;
+    font-size:13px;
+    font-weight:bold;
+}
+/*----------  h1  ---------------*/
+.h1{
+    background:#999B9F url(/images/rusmain/main-title-grad.gif) repeat-x 0 0;
+    color:white;
+    text-align:left;
+    font-size:16px;
+    font-weight:bold;
+    margin:0;
+    height:27px;
+    line-height:27px;
+    position:relative;
+    padding: 0 0 0 10px;
+}
+.h1 .h1-right,.h1 .h1-left{
+    position:absolute;
+    top:0;
+    width:6px;
+    height:27px;
+}
+.h1 .h1-right{
+    right:-2px;
+    background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 -27px;
+}
+.h1 .h1-left{
+    left:0;
+    background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 0;
+}
+.h1 a.cont{
+    color:white;
+    font-size:10px;
+    position:absolute;
+    right:20px;
+    text-decoration:underline;
+    top:-1px;
+}
+.h1 img{
+    display:none;
+}
 

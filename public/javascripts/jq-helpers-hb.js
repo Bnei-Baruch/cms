@@ -81,13 +81,13 @@ function after_manpower(responseText, statusText){
 
 // Send to friend form
 $(document).ready(function() { 
-    $("#friend_form").hide();
+    $("#send_to_friend").hide();
     $("#closed_friend").click(function(){
-        $("#friend_form").show();
+        $("#send_to_friend").show();
         $("#closed_friend").hide();
     });
     $("#stf_cancel").click(function(){
-        $("#friend_form").hide();
+        $("#send_to_friend").hide();
         $("#closed_friend").show();
     });
   
@@ -130,7 +130,7 @@ $(document).ready(function() {
 function after_send_to_friend(){
     $("#friend_form").resetForm();
     $("#friend_form #loader").remove();
-    $("#friend_form").hide();
+    $("#send_to_friend").hide();
     $("#closed_friend").show();
     alert('נשלח בהצלחה!');
 }
@@ -143,8 +143,8 @@ function after_send_to_friend(){
 
 $(document).ready(function(){
   
-    $("#comment_form").hide();
-    $("#comment_form").hover(function(){
+    $("#create_comment").hide();
+    $("#create_comment").hover(function(){
         $(this).addClass('pretty-hover');
     }, function(){
         $(this).removeClass('pretty-hover');
@@ -165,12 +165,12 @@ $(document).ready(function(){
   
     $("#comment_form #cancel").click(function(){
         $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
-        $("#comment_form").hide();
+        $("#create_comment").hide();
         $("#closed_comment").show();
     });
   
     $("#closed_comment").click(function(){
-        $("#comment_form").show();
+        $("#create_comment").show();
         $("#closed_comment").hide();
     });
   
@@ -206,7 +206,7 @@ $(document).ready(function(){
       
         $('#yellow_effect').fadeOut(10000, function(){
             $(this).remove();
-            $("#comment_form").hide();
+            $("#create_comment").hide();
             $("#closed_comment").show();
             $("#reactions").show();
         });

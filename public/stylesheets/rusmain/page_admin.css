@@ -38,7 +38,7 @@
 .drop-zone{
     position:absolute;
     top:0;
-    left:15px;
+    right:15px;
     padding:0;
     margin:0;
     background-color:silver;
@@ -54,4 +54,57 @@
 
 #header #links{
     top:35px;
+}
+/************** Comment Admin **************************/
+
+tr.notmod td{
+    background-color: Lavender;
+}
+tr.badmod td{
+    background-color: Bisque;
+}
+
+.admin_comment_main th{
+    padding:2px 3px;
+    text-align:center;
+}
+
+.admin_comment_main .funct{
+    padding: 3px;
+    text-align: center;
+}
+
+.admin_comment_main .right{
+    float: right;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+
+.admin_comment_main input[type="text"]{
+    width: 40em;
+}
+
+.admin_comment_main textarea{
+    width: 40em;
+}
+
+.admin_comment_main .title,  .admin_comment_main .spam, .admin_comment_main .valid{
+    padding: 3px;
+    text-align: center;
+    vertical-align: top;
+}
+.admin_comment_main .body{
+    padding: 3px;
+    text-align: justify;
+    vertical-align: top;
+}
+.admin_comment_main .red{
+    padding: 3px;
+    text-align: center;
+    background-color: red;
+}
+.admin_comment_main .green{
+    padding: 3px;
+    text-align: center;
+    background-color: green;
 }

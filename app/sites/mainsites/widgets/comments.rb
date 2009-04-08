@@ -7,11 +7,18 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
   end
   
   def render_full
-    write_trigger
+    div(:id => 'closed_comment',
+      :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/services.gif)"){
+      span(:class => 'link_comment'){
+        text _(:add_comment)
+      }
+    }
+    div(:id => 'create_comment'){
+      write_create_form
+    }
   end
   
   def render_previous
-    write_create_div
     write_previous_comments
   end
   
@@ -59,61 +66,53 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
     }
   end
 
-  def write_create_div
-    div(:class => 'create_comment'){
-      div(:id => 'create_comment_div'){
-        form(:id => 'comment_form', :method => 'post', :action => get_page_url(@presenter.node)){
-          write_create_form
-        }
-      }
-    }
-  end
-  
   def write_create_form
-    table(:id => 'reactions'){
-      tr{
-        td(:colspan => '2'){
-          h1{text _(:comments)}
+    form(:id => 'comment_form', :method => 'post', :action => get_page_url(@presenter.node)){
+      table(:id => 'reactions'){
+        tr{
+          td(:colspan => '2'){
+            h1{text _(:comments)}
+          }
         }
-      }
-      tr{
-        td{label(:for => 'title'){text _(:title)}}
-        td{input :type => 'text', :id => 'title', :name => 'options[title]',  :size => '31', :class => 'text'}
-      }    
-      tr{
-        td{label(:for => 'name'){text _(:name)}}
-        td{input :type => 'text', :id => 'name', :name => 'options[name]',  :size => '31', :class => 'text'}
-      }
-      tr{
-        td{label(:for => 'email'){text _(:email)}}
-        td{input :type => 'text', :id => 'email',:name => 'options[email]', :size => '31', :class => 'text'}
-      }
-      tr{
-        td(:id => 'content'){label(:for => 'options_body'){text _(:body)}}
-        td{
-          textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]', :class => 'text'
-          input :type => 'hidden', :name => 'view_mode', :value => 'new_comment'
-          input :type => 'hidden', :name => 'options[widget]', :value => 'comments'
-          input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
+        tr{
+          td(:class => 'text'){span _(:title)}
+          td(:class => 'input'){input :type => 'text', :id => 'title', :name => 'options[title]',  :size => '31'}
         }
-      }
+        tr{
+          td(:class => 'text'){span _(:name)}
+          td(:class => 'input'){input :type => 'text', :id => 'name', :name => 'options[name]',  :size => '31'}
+        }
+        tr{
+          td(:class => 'text'){span _(:email)}
+          td(:class => 'input'){input :type => 'text', :id => 'email',:name => 'options[email]', :size => '31'}
+        }
+        tr{
+          td(:id => 'content', :class => 'text'){span _(:body)}
+          td(:class => 'input'){
+            textarea :cols => '50', :rows => '6',:id => 'options_body', :name => 'options[body]'
+            input :type => 'hidden', :name => 'view_mode', :value => 'new_comment'
+            input :type => 'hidden', :name => 'options[widget]', :value => 'comments'
+            input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
+          }
+        }
         
         
-      tr{
-        td{text ' '}
-        td{
-          input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => 'שלח'
-          input :type => 'reset', :name => 'Cancel', :id => 'cancel', :class => 'submit', :value => 'בטל'
+        tr{
+          td{}
+          td{
+            a(:id => 'submit',
+              :class => 'submit',
+              :onclick => '$("#comment_form").submit();return false;',
+              :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/button.gif)") {
+              rawtext _(:send)
+            }
+            a(:id => 'cancel',
+              :class => 'submit',
+              :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/button.gif)") {
+              rawtext _(:cancel)
+            }
+          }
         }
-      }
-    }
-  end
-  
-  def write_trigger
-    div(:id => 'closed_comment'){
-      img(:src => "/images/comment.gif", :alt => _(:add_comment))
-      span(:class => 'link_comment'){
-        text _(:add_comment)
       }
     }
   end

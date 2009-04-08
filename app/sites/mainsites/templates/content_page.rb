@@ -64,7 +64,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         div(:class => 'descr') {
           div(:class => 'left-ear')
           div(:class => 'right-ear')
-          text get_sub_title
+          text sub_title
         } unless sub_title.empty?
         my_date = get_date
         writer = get_writer
@@ -89,12 +89,14 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
           rawtext get_body
         }
       end
-      content_resources.each{|e|
-        disable_bottom_border = @presenter.site_settings[:disable_bottom_border].include?(e.resource.resource_type.hrid)
-        div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}#{' no-bottom-border' if disable_bottom_border }") {
-          sort_handle
-          render_content_resource(e)
-          div(:class => 'clear')
+      div(:id => 'content_resources'){
+        content_resources.each{|e|
+          disable_bottom_border = @presenter.site_settings[:disable_bottom_border].include?(e.resource.resource_type.hrid)
+          div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}#{' no-bottom-border' if disable_bottom_border }") {
+            sort_handle
+            render_content_resource(e)
+            div(:class => 'clear')
+          }
         }
       }
       content_resources

@@ -1,4 +1,4 @@
-class Hebmain::Widgets::ContentPage < WidgetManager::Base
+class Mainsites::Widgets::ContentPage < WidgetManager::Base
 
   def render_large
     @image_src = get_preview_image(:image_name => 'large')
@@ -49,29 +49,32 @@ class Hebmain::Widgets::ContentPage < WidgetManager::Base
     
     klass = @image_src ? 'more' : 'more_no_img'
     unless presenter.site_settings[:use_advanced_read_more]
-      a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { text "לכתבה המלאה" }
+      a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { text _(:read_more) }
     else
       is_video, is_audio, is_article = is_video_audio_article
       if is_article
         a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { 
-          text "לכתבה המלאה"
+          text _(:read_more)
           img(:src => img_path('video.png'), :alt => '') if is_video
           img(:src => img_path('audio.png'), :alt => '') if is_audio
-          img(:src => img_path('empty.gif'), :alt => '') if !is_video && !is_audio
+          img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif') if !is_video && !is_audio
         }
       else # not article
         if is_video || is_audio
           a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { 
             if is_video
-              text = 'לצפייה'
+              text = _(:to_watch)
               image = 'video.png'
             else
-              text = 'להאזנה'
+              text = _(:to_listen)
               image = 'audio.png'
             end
             span{text text}
             img(:src => img_path(image), :alt => '')
           }
+        else
+          text _(:read_more)
+          img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif')
         end
       end
     end

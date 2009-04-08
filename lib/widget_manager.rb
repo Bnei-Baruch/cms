@@ -42,34 +42,74 @@ module WidgetManager
     #    end
     def method_missing(method_name, *args, &block)
       if tree_node && (method_name.to_s =~ /^get_(.+)/)
-        my_args = args.detect{|arg|arg.is_a?(Hash)} || {}
         name = $1
         if name == 'name'
-          metaclass.class_eval(
-            "def #{method_name.to_s}(*args, &block)\n" <<
-              "  resource.name rescue ''\n" <<
-              "end",
-            __FILE__,
-            __LINE__ - 4
-          )
+          self.class.class_eval{
+            def get_name(*args, &block)
+              resource.name rescue ''
+            end
+          }
           return resource.name rescue ''
         elsif rp = resource.properties(name)
           case rp.property_type
           when 'RpString', 'RpText', 'RpPlaintext'
+            self.class.class_eval(
+              "def #{method_name.to_s}(*args, &block)\n" <<
+              "  resource.properties('#{name}').get_value rescue ''\n" <<
+              "end",
+              __FILE__,
+              __LINE__ - 4
+            )
             return rp.get_value rescue ''
           when 'RpNumber'
+            self.class.class_eval(
+              "def #{method_name.to_s}(*args, &block)\n" <<
+              "  resource.properties('#{name}').get_value rescue nil\n" <<
+              "end",
+              __FILE__,
+              __LINE__ - 4
+            )
             return rp.get_value rescue nil
           when 'RpDate'
+            self.class.class_eval(
+              "def #{method_name.to_s}(*args, &block)\n" <<
+              "  rp = resource.properties('#{name}')\n" <<
+              "  if (rp && rp.get_value.is_a?(Date))\n" <<
+              "    return rp.get_value.strftime('%d.%m.%Y')\n" <<
+              "  else\n" <<
+              "    return ''\n" <<
+              "  end\n" <<
+              "end",
+              __FILE__,
+              __LINE__ - 4
+            )
             if (rp && rp.get_value.is_a?(Date))
               return rp.get_value.strftime('%d.%m.%Y')
             else
               return ''
             end
           when 'RpFile'
+            self.class.class_eval(
+              "def #{method_name.to_s}(*args, &block);" <<
+              "  rp = resource.properties('#{name}');" <<
+              "  my_args = args.detect{|arg|arg.is_a?(Hash)} || {};" <<
+              "  image_name = my_args[:image_name] || 'myself';" <<
+              "  return get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''\n" <<
+              "end",
+              __FILE__,
+              __LINE__ - 4
+            )
+            my_args = args.detect{|arg|arg.is_a?(Hash)} || {}
             image_name = my_args[:image_name] || 'myself'
-           # return get_file_html_url(:attachment => rp.attachment, :image_name => image_name) rescue ''
             return get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''
           when 'RpBoolean'
+            self.class.class_eval(
+              "def #{method_name.to_s}(*args, &block)\n" <<
+              "  resource.properties('#{name}').get_value rescue ''\n" <<
+              "end",
+              __FILE__,
+              __LINE__ - 4
+            )
             return rp.get_value rescue ''
           end
         else

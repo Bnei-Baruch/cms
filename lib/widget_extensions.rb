@@ -18,7 +18,7 @@ module WidgetExtensions
   end
 
   def get_page_url(tree_node, options = {})
-    args = {:prefix => presenter.controller.website.prefix, :id => tree_node.permalink}
+    args = {:prefix => presenter.controller.website.prefix, :permalink => tree_node.permalink}
     unless options.empty?
       ags.merge!({:options => options})
     end

@@ -27,37 +27,26 @@ class Sites::TemplatesController < ApplicationController
   def template
     PageMap.reset_tree_nodes_list
 
-    host = 'http://' + request.host
-    prefix = params[:prefix]
-    permalink = params[:id]
-    path = params[:path]
-    nocache = params[:nocache]
-    
-    logout = params.has_key?('logout') ? params[:logout] : false
-    AuthenticationModel.logout_from_admin if logout
+    if params[:logout]
+      AuthenticationModel.logout_from_admin
+
+      # Upon logout we'd like to press Back in browser and refresh the page
+      # So we need to remove the logout=true from URL.
+      redirect_to request.url.sub(/logout=true/,'').sub(/\?$/,'')
+      return
+    end
     
     @ip = request.remote_ip
-    if prefix || permalink
-      @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, prefix])
-      @website = nil if @website && @website.use_homepage_without_prefix && !(prefix && permalink)
-    elsif !path || (path && path.empty?)
-      @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', host, true])
-    end
     unless @website
       # External link
       check_url_migration(true)
       return
     end
 
-    args = {:permalink => permalink, :website=> @website, :controller => self}
-    begin
-      @presenter = get_presenter(site_name, group_name, args)
-    rescue Exception => e
+    unless @presenter
       head_status_404
       return
     end
-    @site_name = site_name
-    Thread.current[:presenter] = @presenter
 
     # in case the page is not found in the DB
     unless @presenter.node
@@ -66,11 +55,6 @@ class Sites::TemplatesController < ApplicationController
       return
     end
 
-    session[:site_direction] = site_settings[:site_direction] || 'ltr'
-    session[:language] = site_settings[:language] || 'default'
-    session[:site_name] = site_settings[:site_name] || 'global'
-    set_translations
-    
     respond_to do |format|
       format.html {
         if request.xhr?
@@ -86,6 +70,7 @@ class Sites::TemplatesController < ApplicationController
           # to
           #       false
           # Do not forget to uncomment correspondent lines in development.rb
+          nocache = params[:nocache]
           if Rails.env == 'development' || nocache || @presenter.site_settings[:cache][:disable_cache]
             render :widget => klass, :layout_class => layout_class
           else
@@ -172,17 +157,14 @@ class Sites::TemplatesController < ApplicationController
   end
 
   def sitemap
-    host = 'http://' + request.host
-    @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', host, params[:prefix]]) rescue nil
+
     if @website.nil?
       head_status_404
       return
     end
     
     @pages = []
-    args = {:website=> @website, :controller => self}
     begin
-      @presenter = get_presenter(site_name, group_name, args)
       website_node = @website.website_resource.tree_nodes.main
       if (website_node)
         @pages = TreeNode.get_subtree(
@@ -201,21 +183,12 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def stylesheet
-    website_id = params[:website_id]
     style_id = params[:css_id]
-    @website = Website.find(website_id)
-    @site_name = site_name
 
-    args = {:website=> @website, :controller => self}
-    begin
-      @presenter = get_presenter(site_name, group_name, args)
-    rescue Exception => e
+    unless @presenter || @website
       head_status_404
       return
     end
-
-    session[:language] = site_settings[:language] rescue 'english'
-    set_translations
 
     respond_to do |format|
       format.css { render :template => my_stylesheets_path(style_id)}
@@ -244,14 +217,6 @@ class Sites::TemplatesController < ApplicationController
   
   def status_410
     render :text => "Redirected back to the reverse proxy to show old site page.\r\n", :status => 410
-  end
-  
-  def site_name
-    site_settings[:site_name]
-  end
-  
-  def group_name
-    site_settings[:group_name]
   end
   
   def w_class(resource)
@@ -286,17 +251,6 @@ class Sites::TemplatesController < ApplicationController
     get_widget_path(site_name, group_name, resource)
   end
   
-  def get_presenter(sitename, groupname, args)
-    if File.exists?("#{RAILS_ROOT}/app/models/sites/#{sitename}.rb")
-      klass = 'sites/' + sitename
-    elsif File.exists?("#{RAILS_ROOT}/app/models/sites/#{groupname}.rb")
-      klass = 'sites/' + groupname
-    else
-      klass = 'sites/global'
-    end  
-    klass.camelize.constantize.new(args)
-  end
-
   def get_stylesheets_path(sitename, groupname, filename)
     get_my_path('stylesheets', sitename, groupname, filename, 'css.erb')
   end

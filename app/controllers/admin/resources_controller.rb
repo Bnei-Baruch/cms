@@ -1,6 +1,5 @@
 class Admin::ResourcesController < ApplicationController
   before_filter :save_referrer_to_session, :only => [ :new, :edit, :destroy ]
-  before_filter :preload_site_info, :only => [ :new, :edit ]
   
   # This block sets layout for admin user and for all other.
   layout :set_layout
@@ -120,7 +119,7 @@ class Admin::ResourcesController < ApplicationController
     end
 
     @tree_node = TreeNode.new(params[:resource][:tree_node])
-    Website.associate_website(@resource, session[:website])
+    Website.associate_website(@resource, session[:website]) # TODO OLD CODE - Check to remove (Rami only)
 
     respond_to do |format|
       if @resource.save
@@ -196,14 +195,6 @@ class Admin::ResourcesController < ApplicationController
       format.html { redirect_to session[:referer] }
       format.xml  { head :ok }
     end
-  end
-
-  private
-
-  def preload_site_info
-    @site_direction = session[:site_direction] || 'ltr'
-    @language = session[:language] || 'default'
-    @site_name = session[:site_name] || 'global'
   end
 
 end

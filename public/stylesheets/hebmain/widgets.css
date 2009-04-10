@@ -652,10 +652,10 @@ table.media_rss th{
 }
 /***** Send to friend *****/
 #closed_friend{
-    padding: 0pt 20px 0pt 0pt;
+    padding: 0 20px 0 0;
     background-repeat: no-repeat;
     background-position:100% -34px;
-    margin:0 5px 0 0;
+    margin:0 20px 0 0;
     color: #186BE5;
     float:right;
 }

@@ -10,7 +10,11 @@ module	Configuration::Hebmain
     :language => 'hebrew',
     :short_language => 'he',
     :site_direction => 'rtl',
-    :layout_map => { 'search' => 'content_page'},
+# Map specific resource to custom layuot 
+# <resource_type> => <layout_name>
+    :layout_map => { 
+      'search' => 'content_page'
+      },
  # define view modes per parent widget and placeholder.
     :view_modes => {
       # parent widget

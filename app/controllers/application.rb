@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
 	
-	before_filter :activate_global_parms, :set_translations 
+	before_filter :activate_global_parms, :set_website, :set_presenter, :set_translations 
   
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_cms_session_id'
@@ -14,22 +14,22 @@ class ApplicationController < ActionController::Base
 		else
 			website = Website.find(params[:website_id])
 			session[:website] = website.id if website
-        end
+    end
 	end
 
   def site_settings
-    $config_manager.site_settings(@website.hrid)
+    website = @website ? @website.hrid : 'global'
+    $config_manager.site_settings(website)
+  end
+
+  def site_name
+    site_settings[:site_name]
   end
   
-  def set_translations
-    locale = session.data[:language] rescue 'default'
-    I18n.locale = locale
-    I18n.load_path += Dir[ File.join(RAILS_ROOT, 'lib', 'locale', '*.{rb,yml}') ]
+  def group_name
+    site_settings[:group_name]
   end
-
-#  private
-#
-
+  
   def admin_authorize(groups=[])
     m_user = User.find_by_id(session[:user_id])
     unless m_user
@@ -49,6 +49,12 @@ class ApplicationController < ActionController::Base
     
 protected
 
+  def save_referrer_to_session
+      session[:referer] = request.env["HTTP_REFERER"]
+  end
+
+private
+
   def activate_global_parms
      if session[:user_id].nil?
       anonymous = AuthenticationModel.get_anonymous_user
@@ -63,13 +69,49 @@ protected
         end
       end
       Thread.current[:session] = session
-      # $session=session
-      #UserInfo.current_user=session[:user_id]
-      #UserInfo.user_is_admin=session[:user_is_admin]
-  end
-  
-  def save_referrer_to_session
-      session[:referer] = request.env["HTTP_REFERER"]
   end
 
+  def set_website
+    @host = 'http://' + request.host
+    @prefix = params[:prefix]
+    @permalink = params[:permalink]
+    @path = params[:path]
+    if @prefix || @permalink
+      @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', @host, @prefix])
+      @website = nil if @website && @website.use_homepage_without_prefix && !(@prefix && @permalink)
+    elsif !@path || (@path && @path.empty?)
+      @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', @host, true])
+    end
+  end
+
+  def set_translations
+    @site_direction = session[:site_direction] = site_settings[:site_direction] || 'ltr'
+    @site_name = session[:site_name] = site_settings[:site_name] || 'global'
+    @language = session[:language] = site_settings[:language] || 'default'
+    I18n.locale = @language
+    I18n.load_path += Dir[ File.join(RAILS_ROOT, 'lib', 'locale', '*.{rb,yml}') ]
+  end
+
+  def set_presenter
+    args = {:permalink => @permalink, :website=> @website, :controller => self}
+    begin
+      @presenter = get_presenter(site_name, group_name, args)
+    rescue Exception => e
+      @presenter = nil
+    end
+    Thread.current[:presenter] = @presenter
+  end
+
+
+  def get_presenter(sitename, groupname, args)
+    if File.exists?("#{RAILS_ROOT}/app/models/sites/#{sitename}.rb")
+      klass = 'sites/' + sitename
+    elsif File.exists?("#{RAILS_ROOT}/app/models/sites/#{groupname}.rb")
+      klass = 'sites/' + groupname
+    else
+      klass = 'sites/global'
+    end  
+    klass.camelize.constantize.new(args)
+  end
+  
 end

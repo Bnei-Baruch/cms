@@ -235,7 +235,6 @@ class CronManager
   end
 
   def self.clean_page_cache(nodes)
-    debugger
     nodes.each_with_index{|node, index|
       url, clean_url = get_url_by_tree_node(node)
       Logger.new(STDOUT).debug "#{"%02d" % index} Refresh URL #{clean_url}"

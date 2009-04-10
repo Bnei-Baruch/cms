@@ -12,6 +12,7 @@ config.cache_classes = true
 # config.log_level = Logger::ERROR
 config.logger = Logger.new(config.log_path, 10, 5242880)
 config.logger.level = Logger::WARN
+# config.logger.level = Logger::DEBUG
 
 # Full error reports are disabled and caching is turned on
 config.action_controller.consider_all_requests_local = false

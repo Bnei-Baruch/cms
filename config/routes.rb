@@ -39,8 +39,8 @@ ActionController::Routing::Routes.draw do |map|
   # :id is the permalink stuff (right, it is not consistent... so what ?!)
   map.connect '/feed.:format', :controller => 'sites/templates', :action => 'template'
   map.connect ':prefix/feed.:format' , :controller => 'sites/templates' , :action => 'template'
-  map.connect ':prefix/:id/feed.:format' , :controller => 'sites/templates' , :action => 'template'
-  map.tm ':prefix/:id' , :controller => 'sites/templates' , :action => 'template'
+  map.connect ':prefix/:permalink/feed.:format' , :controller => 'sites/templates' , :action => 'template'
+  map.tm ':prefix/:permalink' , :controller => 'sites/templates' , :action => 'template'
   
   # Mmm, I guess this one is for website homepage that do not make use of
   # prefix for the homepage - but not sure - should ask Rami
@@ -50,7 +50,10 @@ ActionController::Routing::Routes.draw do |map|
   
                                            
   map.js ':prefix/js/:id' , :controller => 'sites/javascripts' , :action => 'javascript'
-  map.css 'stylesheets/:website_id/:css_id.css',
+  map.css 'stylesheets/:prefix/:css_id.css',
+              :controller => 'sites/templates', 
+              :action => 'stylesheet'
+  map.css 'stylesheets/:css_id.css',
               :controller => 'sites/templates', 
               :action => 'stylesheet'
   map.image 'images/attachments/:image_id/:image_name.:format',
@@ -71,14 +74,18 @@ ActionController::Routing::Routes.draw do |map|
 
   # Allow downloading Web Service WSDL as a file with an extension instead of a file named
   # 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
+  # map.connect ':controller/service.wsdl', :action => 'wsdl'
 
   # Install the default route as the lowest priority.
-  map.connect ':controller/:action/:id.:format'
-  map.connect ':controller/:action/:id'
-  
+
+  # We have two cases: 1) When the site's main page doesn't have prefix 2) When it has a prefix
   map.connect ':prefix/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
+  map.connect '/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
   
+  
+  # Used mainly for URL migrations (Checking Legacy URLs)
   map.connect '/*path', :controller => 'sites/templates', :action => 'template'
   
+  map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
 end

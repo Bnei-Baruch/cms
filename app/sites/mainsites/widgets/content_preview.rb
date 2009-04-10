@@ -105,19 +105,7 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
       view_mode = 'small'
     end
     div(:class => "main_preview#{@items_size} sortable") {
-      show_title = get_show_title
-      show_title = show_title.class == String ? false : show_title
-      if show_title
-        div(:class => 'h1') {
-          text get_title.empty? ? '' : get_title
-          a(:class => 'cont', :href => get_url) {
-            text get_url_string.empty? ? _(:to_all_articles) : get_url_string
-            img(:src => img_path('arrow-left.gif'), :alt => '')
-          }
-          div(:class =>'h1-right')
-          div(:class =>'h1-left')
-        }
-      end
+      display_title
       @items.each_with_index { |item, index|  
         klass = (index + 1) == @items_size ? 'element last' : 'element non-last'
         div(:class => klass, :id => sort_id(item)) {
@@ -130,15 +118,7 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
   end
 
   def show_index
-    div(:class => 'h1') {
-      text get_title.empty? ? '' : get_title
-      a(:class => 'cont', :href => get_url) {
-        text get_url_string.empty? ? _(:to_all_articles) : get_url_string
-        img(:src => img_path('arrow-left.gif'), :alt => '')
-      }
-      div(:class =>'h1-right')
-      div(:class =>'h1-left')
-    } if get_show_title
+    display_title
     div(:class => 'index sortable') {
       @items.each_with_index { |item, index|  
         klass = index.odd? ? 'element preview-even' : 'element preview-odd'
@@ -205,5 +185,20 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
       render_content_item(item, view_mode)
     end
   end
-  
+
+  def display_title
+    show_title = get_show_title
+    show_title = show_title.class == String ? false : show_title
+    if show_title
+      div(:class => 'h1') {
+        text get_title.empty? ? '' : get_title
+        a(:class => 'cont', :href => get_url) {
+          text get_url_string.empty? ? _(:to_all_articles) : get_url_string
+          img(:src => img_path('arrow-left.gif'), :alt => '')
+        }
+        div(:class =>'h1-right')
+        div(:class =>'h1-left')
+      }
+    end
+  end
 end

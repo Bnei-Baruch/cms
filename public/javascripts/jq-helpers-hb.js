@@ -91,7 +91,12 @@ $(document).ready(function() {
         $("#closed_friend").show();
     });
   
-  
+    $(".link_friend").hover(function(){
+        $(this).addClass('pretty-hover');
+    }, function(){
+        $(this).removeClass('pretty-hover');
+    });
+
     //toggler is toggling the state of the 'send to friend' form
     $("#friend_form").submit(function(event){
         event.preventDefault();

@@ -28,12 +28,18 @@ class AddHeaderToContentPreview < ActiveRecord::Migration
       :field_type => 'Boolean',
       :hrid => 'show_title',
       :resource_type_id => resource_type.id,
-      :default_code => 'f',
+      :default_code => false,
       :is_required => false)
     raise 'Failed to create property \'Show Title\'' unless property
     property.save!
   end
 
   def self.down
+    migration_login
+
+    resource_type = ResourceType.find(:first, :conditions => {:hrid => 'content_preview'})
+    raise 'Failed to find content_preview resource type' unless resource_type
+
+    resource_type.properties.select{|v| v.hrid =~ /url|url_string|show_title/}.each{|v| v.destroy }
   end
 end

@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Video < WidgetManager::Base
+class Global::Widgets::Video < WidgetManager::Base
 
   def video_admin  
     w_class('cms_actions').new( :tree_node => tree_node, 

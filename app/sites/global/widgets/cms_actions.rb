@@ -184,7 +184,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
             '<b>Select a Resource to create</b>',
     NEW_LINK1
 
-    resource_types.each_with_index{ |e, idx|
+    resource_types.sort{ |a,b| a.name <=> b.name }.each_with_index{ |e, idx|
       href = new_admin_resource_path(
         :slang => @presenter.site_settings[:short_language],
         :resource => {

@@ -137,6 +137,7 @@
 }
 #mid-content .item{
     clear:left;
+    position:relative;
 }
 #mid-content .item h3{
     color:#A18A64;
@@ -170,13 +171,16 @@
 #mid-content .services .permalink{
     background-position:0 1px;
     margin-top:20px;
+    cursor:text;
+    color:black;
+    text-decoration:none;
 }
 #mid-content .services .permalink input{
-   margin-left: 5px;
-   border:1px solid #E5E5EB;
-   width:396px;
-   font-size:10px;
-   height:15px;
+    margin-left: 5px;
+    border:1px solid #E5E5EB;
+    width:396px;
+    font-size:10px;
+    height:15px;
 }
 #mid-content .services div, #mid-content .services div a{
     color:#A71E23;
@@ -622,6 +626,132 @@
     color:#1060A5;
     font-size:13px;
     font-weight:bold;
+}
+/*----------  Video Gallery ---------------*/
+#mid-content .inner-player{
+    background:#E5E5EB url(/images/rusmain/videogal-grad.gif) repeat-x 0 0;
+    margin:15px 0;
+}
+#mid-content .inner-player .play-title{
+    color:white;
+    font-weight:bold;
+    padding:5px 10px;
+    text-align:center;
+}
+#mid-content .inner-player .player-placeholder {
+    cursor:pointer;
+    height:362px;
+    width:482px;
+}
+#mid-content .inner-player .player-placeholder .play-serv{
+    border-bottom:1px solid #BFBFBF;
+    height:0;
+}
+#mid-content .inner-player .playlist {
+    border-top:1px solid white;
+    height:300px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    width:482px;
+    background-color:#d5d6dc;
+}
+#mid-content .inner-player .playlist .odd{
+    background:#e5e5eb url(/images/rusmain/videogal-odd-grad.gif) repeat-x left bottom;
+}
+#mid-content .inner-player .playlist ul li{
+    border-bottom:2px solid white;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+}
+#mid-content .inner-player .playlist ul li a.h1-img{
+    border:1px solid #c0c0c3;
+    float:left;
+    margin:10px;
+    height:62px;
+    width:82px;
+}
+#mid-content .inner-player .playlist ul li .h1-img img{
+    border:1px solid #e8e8ee;
+    height:60px;
+    width:80px;
+}
+#mid-content .inner-player .playlist ul li .h1-play{
+    color:#1060a5;
+    display:block;
+    font-weight:bold;
+    padding:10px 5px 0;
+    width:465px;
+}
+#mid-content .inner-player .playlist ul li .descr-play{
+    margin:5px 5px 5px 0;
+}
+#mid-content p.play-list-button {
+    top:170px;
+    cursor:pointer;
+    display:block;
+    font-size:15px;
+    font-weight:bold;
+    line-height:15px;
+    margin:0;
+    padding:0;
+    position:absolute;
+    left:160px;
+}
+#mid-content p.play-list-button span{
+    background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
+    color:white;
+    display:block;
+    float:left;
+    padding:18px 13px 17px 42px;
+}
+#mid-content p.play-list-button b{
+    background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
+    float:left;
+    height:50px;
+    text-indent:-9999px;
+    width:50px;
+}
+/*----------  Video  ---------------*/
+#mid-content .full-video{
+    background:#E5E5EB url(/images/rusmain/videogal-grad.gif) repeat-x 0 0;
+    margin:15px 0;
+}
+#mid-content .full-video{
+    cursor:pointer;
+    height:362px;
+    width:482px;
+    position:relative;
+}
+#mid-content .full-video .flashplayer{
+    height:362px;
+    width:482px;
+}
+#mid-content p.playbutton{
+    top:170px;
+    cursor:pointer;
+    display:block;
+    font-size:15px;
+    font-weight:bold;
+    line-height:15px;
+    margin:0;
+    padding:0;
+    position:absolute;
+    left:180px;
+}
+#mid-content p.playbutton span{
+    background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
+    color:white;
+    display:block;
+    float:left;
+    padding:18px 13px 17px 42px;
+}
+#mid-content p.playbutton b{
+    background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
+    float:left;
+    height:50px;
+    text-indent:-9999px;
+    width:50px;
 }
 /*----------  h1  ---------------*/
 .h1{

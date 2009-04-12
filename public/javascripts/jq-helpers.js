@@ -633,8 +633,8 @@ $(function() {
             {
                 src:"/flowplayer/FlowPlayerLight.swf",
                 bgcolor:'#F0F4FD',
-                width:503,
-                height:378
+                width:$player.width(),
+                height:$player.width()/1.33
             },
 
             {

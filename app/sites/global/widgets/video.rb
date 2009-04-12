@@ -4,7 +4,7 @@ class Global::Widgets::Video < WidgetManager::Base
     w_class('cms_actions').new( :tree_node => tree_node, 
       :options => {:buttons => %W{ edit_button delete_button }, 
         :resource_types => %W{ site_updates_entry },
-        :new_text => 'צור יחידת תוכן חדשה', 
+        :new_text => _(:create_new_content_item),
         :has_url => false
       }).render_to(self)
   end
@@ -29,7 +29,7 @@ class Global::Widgets::Video < WidgetManager::Base
       image = get_image
       if (show_title)
         description = get_description
-        p { rawtext description } if !description.empty?
+        p { rawtext description } unless description.empty?
       end
 
       autoplay = get_autoplay
@@ -54,7 +54,7 @@ class Global::Widgets::Video < WidgetManager::Base
           end
           p(:class => "playbutton"){
             a{
-              span 'לחצו לצפייה'
+              span _('play')
               b {rawtext '&nbsp;'}
             }
           }
@@ -86,7 +86,7 @@ class Global::Widgets::Video < WidgetManager::Base
         span(:class => 'services'){
           a(:href => wmvpath, :title => 'download') {
             img(:src => '/images/download.gif', :alt => 'download')
-            text I18n.t(:download)
+            text _(:download)
           }
           # img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
         }
@@ -115,10 +115,11 @@ class Global::Widgets::Video < WidgetManager::Base
   
   def render_video_list
     video_admin
-    a(:href => get_flash_url) {
+    href = get_flash_url
+    a(:href => href, :class => 'h1-img') {
       img(:src => get_image(:image_name => 'thumb'), :alt => '', :class => 'flashplayer')
     }
-    a(:href => get_flash_url, :class => 'h1-play') {
+    a(:href => href, :class => 'h1-play') {
       text get_title
     }
     div(:class => 'descr-play') {text get_description}

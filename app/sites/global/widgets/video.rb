@@ -40,13 +40,14 @@ class Global::Widgets::Video < WidgetManager::Base
         javascript {
           rawtext <<-Embedjs
           $(document).ready(function() {
-               flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:504, height:378},{config: playerConfig});
+               var $player = $('#flashplayer-#{id}');
+               flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig});
             });
           Embedjs
         }
       else
         div(:id => "flashplayer-#{id}",
-          :onclick => "flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:504, height:378},{config: playerConfig})") {
+          :onclick => "var $player = $('#flashplayer-#{id}');flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig})") {
           if image && !image.empty?
             img(:src => get_image, :alt => '', :class => 'flashplayer')
           else

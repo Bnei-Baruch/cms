@@ -1,4 +1,4 @@
-class Global::Widgets::VideoGallery < WidgetManager::Base
+class Hebmain::Widgets::VideoGallery < WidgetManager::Base
   
   def render_homepage
     video_admin

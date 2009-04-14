@@ -10,7 +10,10 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
 				  input :type => 'hidden', :name => 'name', :value => 'hebrew'
 				  br
 				  br
+          div :class => 'prebutton'
 					input :name => "subscribe", :class => "button", :value => _(:subscribe), :type => "submit", :title => _(:subscribe), :alt => _(:subscribe)
+          div :class => 'postbutton'
+          div :class => 'clear'
 					input :type => "hidden", :name => "list", :value => "kabbalah" 
 					input :type => "hidden", :name => "confirm", :value => "none" 
 				}

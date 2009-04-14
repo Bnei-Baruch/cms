@@ -7,7 +7,10 @@ class Global::Widgets::Header < WidgetManager::Base
     form(:action => search_page, :id => 'cse-search-box'){
       div(:id => 'search'){
         input :type => 'text', :name => 'q', :size => '31', :class => 'text'
-        input :type => 'image', :src => img_path('search.gif'), :name => 'sa', :class => 'submit'
+        div :class => 'prebutton'
+        input :name => "sa", :class => "submit button", :value => _(:search), :type => "submit", :title => _(:search), :alt => _(:search)
+        div :class => 'postbutton'
+        div :class => 'clear'
         input :type => 'hidden', :name => 'cx', :value => id
         input :type => 'hidden', :name => 'ie', :value => 'UTF-8'
         input :type => 'hidden', :name => 'cof', :value => 'FORID:11'

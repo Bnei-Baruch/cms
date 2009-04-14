@@ -509,8 +509,11 @@ $(function() {
   end
 
   def ask_button_and_form
+    div :class => 'prebutton'
     input(:id => 'ask_btn', :type => "button", :value => _(:ask_question), :title => _(:ask_question),
       :name => "subscribe", :class => "button", :alt => _(:ask_question))
+    div :class => 'postbutton'
+    div :class => 'clear'
     div(:id => 'ask_question', :style => 'display:none') {
       div(:id => 'ask_question-ie') {
         img(:id => 'kabtv-loading', :src => "/images/ajax-loader.gif", :alt => "", :style => 'display:none')
@@ -529,10 +532,15 @@ $(function() {
               label(:class => 'ta-label', :for => 'options_qquestion') {rawtext _(:question)}
               textarea :id => 'options_qquestion', :name => 'options[qquestion]', :class => 'textarea', :cols => 30, :rows => 10
             }
+            div :class => 'prebutton'
             input(:id => 'ask_submit', :type => "submit", :value => _(:send), :title => _(:send),
               :name => "ask", :class => "button", :alt => _(:send))
+            div :class => 'postbutton'
+            div :class => 'prebutton'
             input(:id => 'ask_cancel', :type => "button", :value => _(:cancel), :title => _(:cancel),
               :name => "cancel", :class => "button", :alt => _(:cancel))
+            div :class => 'postbutton'
+            div :class => 'clear'
             input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
             input :type => 'hidden', :name => 'options[widget]', :value => 'kabtv'
             input :type => 'hidden', :name => 'view_mode', :value => 'new_question'

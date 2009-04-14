@@ -183,6 +183,7 @@ strong{
     width:109px;
     border: 1px solid #e5e5eb;
     margin:0 4px 0 0;
+    float:left;
 }
 /********* ADMIN **********/
 #command-panel{

@@ -21,10 +21,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
     @sitemap = w_class('sitemap').new
     @send_to_friend = w_class('send_to_friend').new
+    @send_form = w_class('send_to_friend').new(:view_mode => 'form')
     @direct_link = w_class('shortcut').new
-    @subscription = w_class('header').new(:view_mode => 'subscription')
     @comments = w_class('comments').new
     @previous_comments = w_class('comments').new(:view_mode => 'previous')
+    kabtv_resources
   end
 
   def render
@@ -35,11 +36,14 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title @meta_title
         meta(:name => 'description', :content => ext_description)
-        javascript_include_tag 'jquery', 
-        'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
+        javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
+        'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.hoverIntent.min.js', 'superfish',
-        'flashembed.min.js', 'jq-helpers' #, :cache => 'cache/website'
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
+        '../highslide/highslide-full.packed.js',
+        'jquery.livequery.min.js', 'jq-helpers-hb',
+        :cache => "cache_content_page-#{@presenter.website_hrid}"
+
         if presenter.node.can_edit?
           stylesheet_link_tag 'common/reset.css',
           '../ext/resources/css/ext-all',
@@ -48,6 +52,8 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'rusmain/page_admin',
           'rusmain/jquery.tabs.css',
           'rusmain/superfish.css',
+          '../highslide/highslide',
+          'lightbox',
           :cache => false
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
@@ -59,7 +65,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           'rusmain/common.css',
           'rusmain/content_page.css',
           'rusmain/superfish.css',
-          'rusmain/jquery.tabs.css'
+          'rusmain/jquery.tabs.css',
+          '../highslide/highslide',
+          'lightbox'
           #,
           #:cache => 'cache/website'
         end
@@ -117,11 +125,17 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             div(:class => 'side-box'){
               h3 'Updates'
               div(:class => 'box-content'){
-                rawtext 'Bold headline'
-                br
-                rawtext 'A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text '
-                br
-                a(:href => ''){rawtext 'A link to something'}
+                div(:class => 'update'){
+                  h4 'Bold headline'
+                  rawtext 'A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text '
+                  a(:href => ''){rawtext 'A link to something'}
+                }
+                hr
+                div(:class => 'update'){
+                  h4 'Bold headline'
+                  rawtext 'A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text '
+                  a(:href => ''){rawtext 'A link to something'}
+                }
               }
             }
           }
@@ -138,6 +152,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             }
             div(:id => 'mid-content'){
               @breadcrumbs.render_to(self)
+              render_content_resource(@kabtv_node[0], :width => 378, :height => 288) unless @kabtv_node.empty?
               div(:class => 'bg'){
                 div(:class => 'related') {
                   self.ext_main_image.render_to(self)
@@ -146,31 +161,33 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                   }
                 }
                 div(:class => 'content'){
-                  make_sortable(:selector => ".mid-content .bg", :axis => 'y') {
+                  make_sortable(:selector => "#mid-content .bg #content_resources", :axis => 'y') {
                     self.ext_content.render_to(self)
                   }
                 }
-                @subscription.render_to(self)
-                div(:class => 'clear')
+                div(:class => 'services clear'){
+                  @direct_link.render_to(self)
+                  @comments.render_to(self)
+                  @send_to_friend.render_to(self)
+                  span(:class => 'clear')
+                }
 
-                @comments.render_to(self)
-                @send_to_friend.render_to(self)
-                @direct_link.render_to(self)
-
+                @send_form.render_to(self)
                 @previous_comments.render_to(self)
               }
             }
           }
+          div(:class => 'clear')
         }
-        div(:id => 'footer'){
-          @sitemap.render_to(self)
-          make_sortable(:selector => '#footer .links', :axis => 'x') {
-            @header_bottom_links.render_to(self)
-          }
-          @header_copyright.render_to(self)
-        } unless ext_kabtv_exist
-        #        @google_analytics.render_to(self)
       }
+      div(:id => 'footer'){
+        @sitemap.render_to(self)
+        make_sortable(:selector => '#footer .links', :axis => 'x') {
+          @header_bottom_links.render_to(self)
+        }
+        @header_copyright.render_to(self)
+      } unless ext_kabtv_exist
+      #        @google_analytics.render_to(self)
     }
   end
   
@@ -217,11 +234,10 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   end
 
   def kabtv_resources
-    @kabtv_nodes ||= TreeNode.get_subtree(
+    @kabtv_node ||= TreeNode.get_subtree(
       :parent => tree_node.id,
       :resource_type_hrids => ['kabtv'],
       :depth => 1,
-      :placeholders => ['home_kabtv'],
       :status => ['PUBLISHED', 'DRAFT']
     )
   end

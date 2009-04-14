@@ -753,6 +753,310 @@
     text-indent:-9999px;
     width:50px;
 }
+/*----------  kabtv  ---------------*/
+#mid-content #kabtv{
+    background-repeat:no-repeat;
+    position:relative;
+    width:673px;
+}
+#mid-content #kabtv #tabs {
+    float:right;
+    margin:10px 12px 22px 0;
+    width:260px;
+}
+#mid-content #kabtv #player-side {
+    float:left;
+    margin:76px 11px 36px 12px;
+    padding:0;
+    width:378px;
+    height:288px;
+}
+#mid-content #kabtv #player-side #separate-win, #mid-content #kabtv #player-side #full-win{
+    display:none;
+}
+#mid-content #kabtv #player_options{
+    position:relative;
+}
+#mid-content #kabtv .ui-tabs-nav {
+    margin:0 0 0 -1px;
+    padding:0;
+}
+#mid-content #kabtv .ui-tabs-nav, #mid-content #kabtv .ui-tabs-nav li {
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+}
+.content-header #kabtv .ui-tabs-nav li {
+    float:right;
+    margin:0 1px 0 0;
+    min-width:84px;
+}
+#mid-content #kabtv .ui-tabs-nav .ui-tabs-selected a span,
+#mid-content #kabtv .ui-tabs-nav a:hover span,
+#mid-content #kabtv .ui-tabs-nav a:focus span,
+#mid-content #kabtv .ui-tabs-nav a:active span,
+#mid-content #kabtv .ui-tabs-nav .ui-tabs-selected a,
+#mid-content #kabtv .ui-tabs-nav a:hover,
+#mid-content #kabtv .ui-tabs-nav a:focus,
+#mid-content #kabtv .ui-tabs-nav a:active {
+    background-image:url(/images/rusmain/jquery/tab-sel.gif);
+}
+#mid-content #kabtv .ui-tabs-nav a,
+#mid-content #kabtv .ui-tabs-nav a span {
+    background-image:url(/images/rusmain/jquery/tab.gif);
+    background-color:#2C72B0;
+}
+#mid-content .ui-tabs-nav .ui-tabs-selected a:link,
+#mid-content .ui-tabs-nav .ui-tabs-selected a:visited,
+#mid-content .ui-tabs-nav .ui-tabs-disabled a:link,
+#mid-content .ui-tabs-nav .ui-tabs-disabled a:visited {
+    cursor:text;
+}
+#mid-content .ui-tabs-nav .ui-tabs-selected a,
+#mid-content .ui-tabs-nav a:hover,
+#mid-content .ui-tabs-nav a:focus,
+#mid-content .ui-tabs-nav a:active {
+    background-position:100% -150px;
+    outline-style:none;
+    outline-width:0;
+}
+#mid-content .ui-tabs-nav .ui-tabs-selected a {
+    color:#000000;
+}
+#mid-content .ui-tabs-nav a,
+#mid-content .ui-tabs-nav .ui-tabs-disabled a:hover,
+#mid-content .ui-tabs-nav .ui-tabs-disabled a:focus,
+#mid-content .ui-tabs-nav .ui-tabs-disabled a:active {
+    background-position:100% -100px;
+}
+#mid-content .ui-tabs-nav .ui-tabs-selected a span {
+    padding-top:6px;
+}
+#mid-content .ui-tabs-nav a {
+    color:#1678ce;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1.2;
+    padding-left:0;
+    position:relative;
+    text-align:center;
+    text-decoration:none;
+    top:1px;
+    white-space:nowrap;
+    z-index:2;
+}
+#mid-content .ui-tabs-panel {
+    border:1px solid #E5E5E5;
+    padding:8px 8px 16px;
+}
+#mid-content .ui-tabs-nav a span{
+    min-width:none;
+    color:white;
+}
+#mid-content #kabtv #schedule,
+#mid-content #kabtv #questions,
+#mid-content #kabtv #sketch {
+    background:#e5e5eb none repeat scroll 0 0;
+    height:340px;
+    text-align:left;
+    margin-top:1px;
+    position:relative;
+}
+#mid-content #kabtv #schedule a {
+    background:transparent none repeat scroll 0 50%;
+    display:inline;
+}
+#mid-content #kabtv .schedule_selected {
+    text-decoration:underline;
+}
+#mid-content #kabtv #schedule_list {
+    display:inline-block;
+    position:relative;
+}
+#mid-content #kabtv .schedule_day {
+    height:320px;
+    margin:10px 0 0;
+    overflow-y:scroll;
+    width:240px;
+}
+#mid-content #kabtv #schedule h3 {
+    text-align:left;
+    color:black;
+    margin:0 0 6px;
+}
+#mid-content #kabtv #schedule .item0 a, #kabtv #schedule .item1 a{
+    text-decoration:underline;
+}
+#mid-content #kabtv #schedule .item0, #kabtv #schedule .item1 {
+    border-top:2px solid white;
+    border-left:2px solid white;
+    border-right:2px solid white;
+    padding:5px;
+}
+#mid-content #kabtv #schedule .item2{
+    border-top:2px solid white;
+    height:0;
+    font-size:0;
+    line-height:0;
+}
+#mid-content #kabtv #schedule .time {
+    color:white;
+    background-color:#2b73b1;
+    font-size:14px;
+    font-weight:bold;
+    padding:5px 10px;
+}
+#mid-content #kabtv #schedule_list .title {
+    font-weight:bold;
+    padding-left:15px;
+    margin-left:5px;
+    display:inline;
+}
+#mid-content #kabtv #schedule_list .descr {
+    background-color:#F6F6FC;
+    color:black;
+    font-size:11px;
+    overflow:hidden;
+    padding:2px 5px;
+    margin:2px 0 0;
+    text-align:left;
+}
+#mid-content .icon-minus {
+    background:transparent url(/images/open.gif) no-repeat scroll 0 70%;
+}
+#mid-content .icon-plus {
+    background:transparent url(/images/closed.gif) no-repeat scroll 0 70%;
+}
+#mid-content #kabtv #questions #q {
+    height:300px;
+    margin-top:10px;
+    overflow-y:scroll;
+    width:240px;
+}
+#mid-content #kabtv #questions h3 {
+    text-align:left;
+    color:black;
+    margin:0 0 6px;
+    font-weight:bold;
+}
+#mid-content #kabtv #questions .question0, #kabtv #questions .question1 {
+    border-top:2px solid white;
+    border-left:2px solid white;
+    border-right:2px solid white;
+    padding:5px;
+}
+#mid-content #kabtv #questions .question2{
+    border-top:2px solid white;
+    height:0;
+    font-size:0;
+    line-height:0;
+}
+#mid-content #kabtv #questions .who {
+    color:#A71E23;
+    font-weight:bold;
+}
+#mid-content #kabtv #questions .what {
+    padding:0 5px;
+}
+#mid-content #kabtv #questions #options_qquestion,
+#mid-content #kabtv #questions #options_qfrom,
+#mid-content #kabtv #questions #options_qname {
+    width:235px;
+}
+#mid-content #kabtv #questions #options_qquestion{
+    height:200px;
+    margin:0 0 10px;
+}
+#mid-content #kabtv #questions #ask_question {
+    position:absolute;
+    top:8px;
+    background-color:#E5E5EB;
+}
+#mid-content #kabtv #sketch a {
+    display:inline;
+    padding:0 0 0 5px;
+}
+#mid-content #kabtv a.highslide {
+    background:transparent none repeat scroll 0 50% !important;
+}
+#mid-content #kabtv #sketch h3 {
+    text-align:left;
+    color:black;
+    margin:0 0 6px;
+    font-weight:bold;
+}
+#mid-content #kabtv #sketch a#last-sketch img {
+    display:block;
+    float:right;
+    height:186px;
+    margin:0 0 5px;
+    width:240px;
+}
+#mid-content #kabtv .highslide img {
+    border:2px solid silver;
+    cursor:url(/highslide/graphics/zoomin.cur), pointer;
+}
+#mid-content #kabtv #sketch #thumbnails {
+    height:125px;
+    overflow-x:scroll;
+    overflow-y:hidden;
+    width:240px;
+}
+#mid-content #kabtv #kabtv-loader {
+    position:absolute;
+    top:0;
+    right:0;
+}
+#mid-content #kabtv #player_options #troubleshooting_str {
+    color:white;
+    position:absolute;
+    right:0;
+    text-align:right;
+    top:0;
+    width:123px;
+}
+#mid-content #kabtv #player_options #separate-msg {
+    background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat scroll 0 0;
+    color:white;
+    float:left;
+    margin-right:10px;
+    padding-left:20px;
+    width:150px;
+}
+#mid-content #kabtv #player_options #troubleshooting_url {
+    color:#FDE500;
+    font-weight:bold;
+    float:right;
+}
+/* Controlbar for sketches */
+#controlbar {
+    background: url(/highslide/graphics/controlbar4.gif);
+    width: 167px;
+    height: 34px;
+}
+#controlbar a {
+    display: block;
+    float: left;
+    height: 27px;
+}
+#controlbar a:hover {
+    background-image: url(/highslide/graphics/controlbar4-hover.gif);
+}
+#controlbar .previous {
+    width: 50px;
+}
+#controlbar .next {
+    width: 40px;
+    background-position: -50px 0;
+}
+#controlbar .highslide-move {
+    width: 40px;
+    background-position: -90px 0;
+}
+#controlbar .close {
+    width: 36px;
+    background-position: -130px 0;
+}
 /*----------  h1  ---------------*/
 .h1{
     background:#999B9F url(/images/rusmain/main-title-grad.gif) repeat-x 0 0;

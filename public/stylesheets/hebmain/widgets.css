@@ -957,6 +957,7 @@ img.thumbnails{
 #kabtv #player_options #troubleshooting_url{
     color:#fde500;
     font-weight:bold;
+    margin-right:10px;
 }
 #kabtv #tabs{
     float:right;
@@ -994,6 +995,11 @@ img.thumbnails{
 }
 #kabtv #schedule .item0{
     background-color:white;
+}
+#kabtv #schedule .item2{
+    height:0;
+    font-size:0;
+    line-height:0;
 }
 #kabtv #schedule a{
     display:inline;
@@ -1069,6 +1075,11 @@ a.highslide-full-expand {
 #kabtv div.question0{
     background-color:white;
 }
+#kabtv div.question2{
+    height:0;
+    font-size:0;
+    line-height:0;
+}
 #kabtv div.who{
     color: #3864b5;
 }
@@ -1113,13 +1124,17 @@ a.highslide-full-expand {
 }
 #kabtv #questions #q{
     display:block;
-    height:300px;
+    height:280px;
     margin:10px 0;
     overflow-x:hidden;
     overflow-y:scroll;
 }
 #kabtv #ask_question{
     position:relative;
+}
+#kabtv #ask_question-ie{
+    background-color:#F0F5FD;
+    margin-top:-40px;
 }
 #kabtv #kabtv-loading{
     position:absolute;

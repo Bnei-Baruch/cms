@@ -275,13 +275,17 @@ $(function() {
           li{a(:href => '#sketch'){span _(:sketches)}} unless @options[:no_sketches]
         }
         div(:id => 'schedule'){
+          img(:id => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_schedule]
         div(:id => 'questions'){
           h3 {rawtext _(:students_questions)}
-          div(:id => 'q')
+          div(:id => 'q') {
+            img(:id => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
+          }
           ask_button_and_form
         } unless @options[:no_questions]
         div(:id => 'sketch'){
+          img(:id => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_sketches]
       }
       height = @options[:height] || 336
@@ -307,7 +311,7 @@ $(function() {
         }
         div(:id => 'player_options'){
           div(:id => 'separate-msg'){
-            rawtext _(:for_full_screen_mode_double_ckick_on_player)
+            rawtext _(:for_full_screen_mode_double_click_on_player)
           }
           a(:id => 'separate-win', :href => "", :title => "", :onclick => 'detach();return false') {
             rawtext _(:in_separate_player)
@@ -320,7 +324,6 @@ $(function() {
           if !url.empty?
             div(:id => 'troubleshooting_str'){
               rawtext _(:troubleshooting)
-              rawtext '&nbsp&nbsp&nbsp'
               a(:id => 'troubleshooting_url', :target => 'blank', :title => "", :href => url) {
                 rawtext _(:click_here)
               }
@@ -335,7 +338,12 @@ $(function() {
   def render_questions
     question = Question.approved_questions
     if question.blank?
-      div(:class => 'question0') {rawtext _(:no_new_questions)}
+      div(:class => 'question0') {
+        div(:class => 'who') {
+          rawtext _(:no_new_questions)
+        }
+      }
+      div(:class => 'question2') { rawtext '&nbsp;' }
       return
     end
     question.each_with_index { |q, index|
@@ -362,6 +370,7 @@ $(function() {
         }
         div(:class => 'what') {rawtext h(q.qquestion)}
       }
+      div(:class => 'question2') { rawtext '&nbsp;' }
     }
   end
 
@@ -564,6 +573,7 @@ $(function() {
     title.gsub!('<br>', '<br/>')
     title.gsub!(/<font\s+color\s*=\s*["\'](\w+)["\']>/, '')
     title.gsub!('</font>', '')
+    title.gsub!(/\s+/, '&nbsp;')
     div(:class => 'item'){
       div(:class => 'time'){ rawtext time }
       div(:class => 'title'){ rawtext title }
@@ -606,11 +616,12 @@ $(function() {
       descr.gsub!('&main', '&amp;main')
       descr.gsub!('<br>', '<br/>')
       descr.gsub!(/<font\s+color\s*=\s*["\'](\w+)["\']>/, '<span style="color:\1">')
+      descr.gsub!(/<font\s+color\s*=\s*["\'](#[0-9A-Fa-f]+)["\']>/, '<span style="color:\1">')
       descr.gsub!('</font>', '</span>')
       list += "<div class='item#{index % 2}'>#{time}<div class='title icon-plus'>#{title}</div><div style='display:none;' class='descr'>#{descr}</div></div>"
     }
     
-    list
+    list + '<div class="item2">&nbsp;</div>'
   end
 
   def calc_end_time(start, dur)

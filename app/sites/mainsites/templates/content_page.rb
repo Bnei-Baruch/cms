@@ -159,7 +159,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
   def content_header_resources
     @content_header_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['kabtv', 'admin_comment'],
+      :resource_type_hrids => ['admin_comment'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content_header'],

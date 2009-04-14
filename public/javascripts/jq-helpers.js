@@ -821,9 +821,6 @@ $(function() {
         }
       });
     }
-    if (typeof reloadSchedule == "function") {
-        reloadSchedule();
-    }
     if (typeof currentProgram == "function") {
         currentProgram();
         setInterval(currentProgram, 300000);

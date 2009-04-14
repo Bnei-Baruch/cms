@@ -19,3 +19,14 @@
 .sf-shadow ul {
     background:	none no-repeat bottom right;
 }
+/* Video Gallery Scrollbar */
+.playlist{
+scroll-arrow-color:#e5e5eb;
+scroll-shadow-color:white;
+scroll-track-color:white;
+scroll-3dlight-color:#9b9da1;
+scroll-hilight-color:#9b9da1;
+scroll-face-color:#9b9da1;
+scroll-darkshadow-color:#9b9da1;
+background-color:red;
+}

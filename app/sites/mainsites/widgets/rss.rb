@@ -2,7 +2,13 @@ require 'rss/1.0'
 require 'rss/2.0'
 
 class Mainsites::Widgets::Rss < WidgetManager::Base
-  
+
+  def initialize(*args, &block)
+    super
+    @language = get_language
+    @web_node_url = get_page_url(@presenter.node)
+  end
+
   def render_full
     items = get_all_items
     div(:class => 'rss'){
@@ -25,8 +31,16 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
       display_entries items, true
     }    
   end
-  
+
   def render_preview
+    id = tree_node.id
+    div(:id => "rss#{id}"){}
+    javascript {
+        rawtext "$('#rss#{id}').load('#{@web_node_url}',{view_mode:'ajax','options[widget]':'rss','options[widget_node_id]':#{tree_node.id}})"
+    }
+  end
+
+  def render_ajax
     items = get_all_items
    
     div(:class => 'rss container'){
@@ -80,7 +94,7 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
 
   def display_entries(items, show_description = true)
     if items.nil? || items.empty?
-      text I18n.t(:no_entries_yet_check_url)
+      text _(:'no_entries_yet_check_url')
       return
     end
     div(:class => 'entries'){

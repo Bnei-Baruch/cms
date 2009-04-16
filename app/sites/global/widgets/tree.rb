@@ -92,7 +92,7 @@ class Global::Widgets::Tree < WidgetManager::Base
             });
             function tree() {
               children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
-              create_tree('#{get_page_url(tree_node)}', children, '#{label}', '#{_(:administration_tree)}   #{link}',
+              create_tree('#{get_page_url(tree_node)}', children, '#{label}', '#{_(:'administration_tree')}   #{link}',
                           '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
                           '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}');
             }

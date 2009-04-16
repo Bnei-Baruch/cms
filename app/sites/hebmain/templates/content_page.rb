@@ -8,6 +8,80 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     layout.ext_main_image = ext_main_image
     layout.ext_related_items = ext_related_items
     layout.ext_kabtv_exist = ext_kabtv_exist
+    layout.ext_abc_up =  ext_abc_up
+    layout.ext_abc_down = ext_abc_down
+  end
+
+
+  def ext_abc_up
+    WidgetManager::Base.new do
+      role = get_abc_role
+      if role == "a"
+        rawtext <<-JSA
+          <script>
+          //a up
+          function utmx_section(){}function utmx(){}
+          (function(){var k='#{get_abc_check_code}',d=document,l=d.location,c=d.cookie;function f(n){
+          if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.indexOf(';',i);return c.substring(i+n.
+          length+1,j<0?c.length:j)}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;
+          d.write('<sc'+'ript src="'+
+          'http'+(l.protocol=='https:'?'s://ssl':'://www')+'.google-analytics.com'
+          +'/siteopt.js?v=1&utmxkey='+k+'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='
+          +new Date().valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
+          '" type="text/javascript" charset="utf-8"></sc'+'ript>')})();
+          </script><script>utmx("url",'A/B');</script>
+      JSA
+      end
+    end
+  end
+
+  def ext_abc_down
+    WidgetManager::Base.new do
+       role = get_abc_role
+      case role
+      when "a"
+        rawtext <<-JSA
+          <script type="text/javascript">
+          //a down
+          if(typeof(_gat)!='object')document.write('<sc'+'ript src="http'+
+          (document.location.protocol=='https:'?'s://ssl':'://www')+
+          '.google-analytics.com/ga.js"></sc'+'ript>')</script>
+          <script type="text/javascript">
+          try {
+          var pageTracker=_gat._getTracker("#{get_abc_ua_tracker}");
+          pageTracker._trackPageview("/#{get_abc_check_code}/test");
+          }catch(err){}</script>
+        JSA
+      when "b"
+        rawtext <<-JSB
+          <script type="text/javascript">
+          //b down
+          if(typeof(_gat)!='object')document.write('<sc'+'ript src="http'+
+          (document.location.protocol=='https:'?'s://ssl':'://www')+
+          '.google-analytics.com/ga.js"></sc'+'ript>')</script>
+          <script type="text/javascript">
+          try {
+          var pageTracker=_gat._getTracker("#{get_abc_ua_tracker}");
+          pageTracker._trackPageview("/#{get_abc_check_code}/test");
+          }catch(err){}</script>
+        JSB
+      when "c"
+        rawtext <<-JSC
+          <script type="text/javascript"><!--
+          //c down
+          if(typeof(_gat)!='object')document.write('<sc'+'ript src="http'+
+          (document.location.protocol=='https:'?'s://ssl':'://www')+
+          '.google-analytics.com/ga.js"></sc'+'ript>')
+          // --></script>
+          <script type="text/javascript"><!--
+          try {
+          var pageTracker=_gat._getTracker("#{get_abc_ua_tracker}");
+          pageTracker._trackPageview("/#{get_abc_check_code}/goal");
+          }catch(err){}
+          // --></script>
+        JSC
+      end
+    end
   end
 
   def ext_kabtv_exist

@@ -5,9 +5,9 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
       div(:class => 'first')
       ul {
         li{
-          a({:href => presenter.home}.merge!(gg_analytics_tracking('ראשי'))){
+          a({:href => presenter.home}.merge!(gg_analytics_tracking(_(:'home')))){
             img(:src => img_path('home.gif'), :alt => 'home')
-            text ' ראשי'
+            text  _(:'home')     #' ראשי'
           }
         }
         main_sections.each{ |section|

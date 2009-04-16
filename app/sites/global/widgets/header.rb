@@ -39,14 +39,14 @@ $(document).ready(function(){
         :options => {
           :buttons => %W{ new_button },
           :resource_types => %W{ language },
-          :new_text => _(:new_language),
+          :new_text => _(:'new_language'),
           :has_url => false,
           :placeholder => 'top_languages',
           :mode => 'inline',
           :style => 'float:right'
         }).render_to(self)
       if (@options && @options[:simple])
-        rawtext _(:languages)
+        rawtext _(:'languages')
         rawtext ':'
         languages.each{|l|
           w_class('link').new(:tree_node => l, :view_mode => 'language_link').render_to(self)
@@ -54,7 +54,7 @@ $(document).ready(function(){
       else
         select(:id => 'languages',
           :onchange => 'value=this.options[this.selectedIndex].value; if (value != 0) top.location=value;'){
-          option{rawtext _(:choose_your_language)}
+          option{rawtext _(:'choose_your_language')}
           languages.each{|l|
             w_class('link').new(:tree_node => l, :view_mode => 'language_option').render_to(self)
           }
@@ -78,7 +78,7 @@ $(document).ready(function(){
         :options => {
           :buttons => %W{ new_button },
           :resource_types => %W{ link },
-          :new_text => _(:new_internal_link),
+          :new_text => _(:'new_internal_link'),
           :has_url => false,
           :placeholder => "top_links_int",
           :mode => 'inline'}).render_to(self)
@@ -100,7 +100,7 @@ $(document).ready(function(){
       :options => {
         :buttons => %W{ new_button },
         :resource_types => %W{ link },
-        :new_text => _(ext == 'ext' ? :new_external_link : :new_internal_link),
+        :new_text => _(ext == 'ext' ? :'header.new_external_link' : :'header.new_internal_link'),
         :has_url => false,
         :placeholder => "top_links_#{ext}",
         :mode => 'inline'}).render_to(self)
@@ -119,7 +119,7 @@ $(document).ready(function(){
   def render_bottom_links
     w_class('cms_actions').new(:tree_node => presenter.website_node, 
       :options => {:buttons => %W{ new_button }, 
-        :resource_types => %W{ link },:new_text => _(:new_bottom_link),
+        :resource_types => %W{ link },:new_text => _(:'new_bottom_link'),
         :has_url => false, 
         :placeholder => 'bottom_links'
       }).render_to(self)
@@ -137,8 +137,8 @@ $(document).ready(function(){
   end
   
   def render_logo
-    alt = _(@options[:alt]) rescue ''
-    h1 = _(@options[:alt]) rescue false
+    alt = _(:''+@options[:alt]) rescue ''
+    h1 = _(:''+@options[:alt]) rescue false
     if h1
       h1(:id => 'logo') {
         a(:href => presenter.home){rawtext alt}
@@ -158,8 +158,8 @@ $(document).ready(function(){
         w_class('cms_actions').new(:tree_node => presenter.website_node, 
           :options => {:buttons => %W{ new_button }, 
             :resource_types => %W{ copyright },
-            :new_text => _(:new_copyright),
-            :button_text => _(:add_copyright),
+            :new_text => _(:'new_copyright'),
+            :button_text => _(:'add_copyright'),
             :has_url => false
           }).render_to(self)
 
@@ -180,8 +180,8 @@ $(document).ready(function(){
         w_class('cms_actions').new(:tree_node => presenter.website_node, 
           :options => {:buttons => %W{ new_button }, 
             :resource_types => %W{ subscription },
-            :new_text => _(:new_subscription),
-            :button_text => _(:add_subscription),
+            :new_text => _(:'new_subscription'),
+            :button_text => _(:'add_subscription'),
             :has_url => false
           }).render_to(self)
 

@@ -1,7 +1,8 @@
 class Hebmain::Layouts::ContentPage < WidgetManager::Layout
 
   attr_accessor :ext_content, :ext_content_header, :ext_title, :ext_description,
-    :ext_main_image, :ext_related_items, :ext_kabtv_exist
+    :ext_main_image, :ext_related_items, :ext_kabtv_exist, 
+    :ext_abc_up, :ext_abc_down
 
   def initialize(*args, &block)
     super
@@ -34,6 +35,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         meta(:name => 'node_id', :content => @tree_node.id)
         meta(:name => 'description', :content => ext_description)
         title @meta_title #ext_title
+        text  ext_abc_up
 
         javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
         'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
@@ -167,6 +169,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
             @header_copyright.render_to(self)
           } unless ext_kabtv_exist
         }
+        text ext_abc_down
         @google_analytics.render_to(self)
       }
     }

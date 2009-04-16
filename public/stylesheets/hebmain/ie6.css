@@ -151,9 +151,11 @@
 }
 .futurprogram-plus{
     display: inline-block;
+    padding: 0px 20px 0px 0px;
 }
 .futurprogram-minus{
     display: inline-block;
+    padding: 0px 20px 0px 0px;
 }
 
 #kabtv-news .tvnewsiteplus{

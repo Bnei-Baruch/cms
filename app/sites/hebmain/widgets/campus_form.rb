@@ -25,7 +25,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		if validate_captcha(@options[:captcha_value], @options[:captcha_index])
       create_student
 		else
-      div(:class => 'error'){text '‫שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית'}
+      div(:class => 'error'){text _(:'error_mesg')}
       br
       campus_user_mode(@options[:name], @options[:email], @options[:tel])
 		end
@@ -62,10 +62,11 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
       str_track = track_string.split('***')
       str_track0 = str_track[0]
       str_track1 = str_track[1]
+      #todo : tikun tirgum le javascript
       javascript {
         rawtext <<-track
            google_tracker('#{str_track1}');
-           alert("הפרטים נתקבלו בהצלחה.‬");
+           alert("#{_(:'details_saved_successfully')}");
         track
       }
       img :height => "1", :width => "1", :border => "0", :src => str_track0
@@ -101,16 +102,16 @@ EOF
 	def campus_admin_mode
 		div(:class => 'campus') {
       #  text 'אדמין'
-      text I18n.t(:admin)
+      text _(:'admin')
       br
       table{
         tr(:class => 'title'){
-          td{text I18n.t(:date)}
-          td{text I18n.t(:name)}
-          td{text I18n.t(:tel)}
-          td{text I18n.t(:email)}
-          td{text I18n.t(:campaign)}
-          td{text I18n.t(:list_name)}
+          td{text _(:'date')}
+          td{text _(:'name')}
+          td{text _(:'tel')}
+          td{text _(:'email')}
+          td{text _(:'campaign')}
+          td{text _(:'list_name')}
         }
         if get_list_name == ""
           students_list = Student.list_all_students
@@ -167,15 +168,15 @@ EOF
     
     #if label are empty - keep original label the form was built for
     if field_1_label == ""
-      field_1_label = I18n.t(:name)
+      field_1_label = _(:'name')
     end
     
     if field_2_label == ""
-      field_2_label = I18n.t(:email)
+      field_2_label = _(:'email')
     end
     
     if field_3_label == ""
-      field_3_label = I18n.t(:tel)
+      field_3_label = _(:'tel')
     end
     
     #if label are mandatory - add a nice star next to it
@@ -222,7 +223,7 @@ EOF
               input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
             end
                                             
-            div(:class => 'label_captcha'){text "אבטחת הרשמה :"}
+            div(:class => 'label_captcha'){text _(:'label_captcha')+':'}
                 
             javascript{
               rawtext 'function loadCaptcha(){'
@@ -233,7 +234,7 @@ EOF
             
             
             div(:class => 'campus_captcha')
-            div(:class => 'label_captcha') {text "הקלידו את הכיתוב המופיע בתיבה: "}
+            div(:class => 'label_captcha') {text _(:'label_captcha2')+':'}
             input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
                 
 

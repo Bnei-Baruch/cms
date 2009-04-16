@@ -19,15 +19,15 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button },
           :resource_types => %W{ kabtv },
-          :button_text => _(:upper_part_admin),
-          :new_text => _(:create_new_content_item),
+          :button_text => _(:'upper_part_admin'),
+          :new_text => _(:'create_new_content_item'),
           :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       if AuthenticationModel.current_user_is_admin?
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
             :resource_types => %W{ admin_comment },
-            :button_text => _(:admin),
-            :new_text => _(:create_modul_comments_administration),
+            :button_text => _(:'admin'),
+            :new_text => _(:'create_modul_comments_administration'),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       end
       
@@ -47,9 +47,9 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
           :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form iframe title manpower_form picture_gallery audio_gallery newsletter},
-          :button_text => _(:content_page_management),
-          :new_text => _(:create_new_content_item),
-          :edit_text => _(:edit_content_page),
+          :button_text => _(:'content_page_management'),
+          :new_text => _(:'create_new_content_item'),
+          :edit_text => _(:'edit_content_page'),
           :has_url => false, :placeholder => 'main_content'}).render_to(self)
 
       unless get_acts_as_section
@@ -70,10 +70,10 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         writer = get_writer
         unless my_date.empty? && writer.empty?
           div(:class => 'author') {
-            span _(:date) + ': ' + my_date, :class => 'left' unless my_date.empty?
+            span _(:'date') + ': ' + my_date, :class => 'left' unless my_date.empty?
             unless writer.empty?
               span(:class => 'left') {
-                text _('writer') + ': ' + writer
+                text _(:'writer') + ': ' + writer
                 unless get_writer_email.empty?
                   a(:href => 'mailto:' + get_writer_email){
                     img(:src => img_path('email.gif'), :alt => 'Email to')
@@ -137,7 +137,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
   def ext_related_items
     resources = related_items
     WidgetManager::Base.new(helpers) do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss newsletter},:new_text => _(:create_new_box), :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss newsletter},:new_text => _(:'create_new_box'), :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
       show_content_resources(:parent => :content_page, :placeholder => :related_items, :resources => resources, :sortable => true)
       resources
     end

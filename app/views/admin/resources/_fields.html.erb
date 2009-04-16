@@ -6,7 +6,7 @@
   <% cms_fields_for "resource[tree_node]", @tree_node do |tree_fields| %>
     <%= tree_fields.hidden_field(:id) %>
     <% if @tree_node.has_url %>
-      <%= tree_fields.label('permalink', I18n.t(:permalink))%>
+      <%= tree_fields.label('permalink', _(:permalink))%>
       <%= tree_fields.text_field(:permalink) %>
     <% end %>
     <%= tree_fields.hidden_field(:parent_id) %>

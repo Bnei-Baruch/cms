@@ -2,8 +2,22 @@ require 'rss/1.0'
 require 'rss/2.0'
 
 class Hebmain::Widgets::MediaRss < WidgetManager::Base
-  
+
+  def initialize(*args, &block)
+    super
+    @language = get_language
+    @web_node_url = get_page_url(@presenter.node)
+  end
+
   def render_left
+    id = tree_node.id
+    div(:id => "rss_media#{id}"){}
+    javascript {
+      rawtext "$('#rss_media#{id}').load('#{@web_node_url}',{view_mode:'ajax','options[widget]':'media_rss','options[widget_node_id]':#{tree_node.id}})"
+    }
+  end
+
+  def render_ajax
     lessons = lesson_validation
     return rawtext('') if lessons.nil?
     
@@ -47,11 +61,11 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     table(:class => "media_rss") {
       thead {
         tr {
-          th(:class => 'top-right-corner'){ text 'תאריך'}
-          th 'שם'
-          th 'וידאו'
-          th 'אודיו'
-          th(:class => 'top-left-corner'){ text 'שרטוט'}
+          th(:class => 'top-right-corner'){ text _(:'date')}
+          th _(:'name')
+          th _(:'video')
+          th _(:'audio')
+          th(:class => 'top-left-corner'){ text _(:'picture')}
         }
       }
 	      
@@ -138,9 +152,9 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
             img(:class => 'x-', :src => '/images/hebmain/jquery/s.gif',:alt => '')
             text lesson['title']
             div(:class => 'services'){
-              a(:class => 'video', :href => video_href){span {text 'וידאו'} } unless video_href.empty? 
-              a(:class => 'audio', :href => audio_href){span {text 'אודיו'} } unless audio_href.empty?
-              a(:class => 'sketch', :href => sirtut_href){span {text 'שרטוט'} } unless sirtut_href.empty?
+              a(:class => 'video', :href => video_href){span {text _(:'video')} } unless video_href.empty?
+              a(:class => 'audio', :href => audio_href){span {text _(:'audio')} } unless audio_href.empty?
+              a(:class => 'sketch', :href => sirtut_href){span {text _(:'audio')} } unless sirtut_href.empty?
             }
           }
         end

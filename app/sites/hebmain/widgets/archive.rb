@@ -13,7 +13,7 @@ class Hebmain::Widgets::Archive < WidgetManager::Base
     
     div(:class => 'permalink'){
       img :src => '/images/plus.jpg', :alt => ''
-      a(:href => full_url + '?archive'){text 'ארכיון'}
+      a(:href => full_url + '?archive'){text _(:'archive')}
     }
   end
 end

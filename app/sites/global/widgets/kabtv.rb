@@ -48,16 +48,16 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         }
       }
       div(:id => 'kabtv-bot'){
-        a(:href => get_target, :onclick => "google_tracker('/homepage/widget/kabtv/go_to_tv');") {span(:class => 'text-tv'){ text I18n.t(:tothetvchannel)} }
+        a(:href => get_target, :onclick => "google_tracker('/homepage/widget/kabtv/go_to_tv');") {span(:class => 'text-tv'){ text _(:tothetvchannel)} }
       }
       div(:class => "clear")
       if get_golive
         div(:id => 'kabtv-live'){
           div(:class => "live-event"){text get_golive_text}
-          a(:href => get_golive_link) {span(:class => 'text-live'){ text I18n.t(:clicktogolive)} }
+          a(:href => get_golive_link) {span(:class => 'text-live'){ text _(:clicktogolive)} }
         }
       end
-      div(:class => 'box1_headersection_tv'){span(:class => 'futurprogram-plus'){text I18n.t(:future_programs)}}
+      div(:class => 'box1_headersection_tv'){span(:class => 'futurprogram-plus'){text _(:future_programs)}}
       div(:id => 'kabtv-mid'){
       }
       div(:class => "clear")

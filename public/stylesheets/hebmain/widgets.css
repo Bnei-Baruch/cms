@@ -640,6 +640,12 @@ table.media_rss th{
     clear:both;
     margin:25px 0 0;
 }
+.permalink-box{
+    display:none;
+}
+.permalink-box input{
+    width: 290px;
+}
 
 .permalink img{
     margin-left: 5px;

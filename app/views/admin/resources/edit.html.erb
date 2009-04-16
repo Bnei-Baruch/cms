@@ -1,26 +1,26 @@
 <% name = @resource.resource_type.name %>
-<% @title = I18n.t(:editing) + ' ' + I18n.t(name.downcase.tr(' ','_').to_sym) %>
+<% @title = _(:editing) + ' ' + _(name.downcase.tr(' ','_').to_sym) %>
 <%= render :partial => "admin/share/tiny_mce_full" %>
 
 <% cms_form_for(:resource, :url => admin_resource_path(@resource), :html => {:method => 'put', :multipart => true}) do |f| %>
-		<% update_name =  I18n.t(:update) + ' ' + I18n.t(name.downcase.tr(' ','_').to_sym) %>
+		<% update_name =  _(:update) + ' ' + _(name.downcase.tr(' ','_').to_sym) %>
 		<br />
-		<%= link_to I18n.t(:cancel), session[:referer], {:class => 'button'} %>
+		<%= link_to _(:cancel), session[:referer], {:class => 'button'} %>
 		<br />                                             
 		<br />                                             
 		<p class="submit"><input type="submit" value="<%= update_name %>" name="publish_button"/>
-		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/>
+		<input type="submit" value="<%= _(:save_draft) %>" name="draft_button"/>
         <% if @tree_node.has_url %>
-            <input type="submit" value="<%= I18n.t(:move_to_archive) %>" name="archive_button"/>
+            <input type="submit" value="<%= _(:move_to_archive) %>" name="archive_button"/>
         <% end %>
         </p>
 
 		<%= render :partial => 'fields', :locals => {:f => f} %>
 		<p class="submit"><input type="submit" value="<%= update_name %>" name="publish_button"/>
-		<input type="submit" value="<%= I18n.t(:save_draft) %>" name="draft_button"/>
+		<input type="submit" value="<%= _(:save_draft) %>" name="draft_button"/>
         <% if @tree_node.has_url %>
-            <input type="submit" value="<%= I18n.t(:move_to_archive) %>" name="archive_button"/>
+            <input type="submit" value="<%= _(:move_to_archive) %>" name="archive_button"/>
         <% end %>
         </p>
 <% end %>
-<%= link_to I18n.t(:cancel), session[:referer], {:class => 'button'} %>
+<%= link_to _(:cancel), session[:referer], {:class => 'button'} %>

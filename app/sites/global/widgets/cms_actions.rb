@@ -68,7 +68,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
     is_main = @options[:is_main] || true
     has_url = @options[:has_url]
     placeholder = @options[:placeholder] || ''
-    new_text = @options[:new_text] || _(:new)
+    new_text = @options[:new_text] || _(:'new')
     if parent_id && !resource_types.empty?
       if resource_types.size > 1
         new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text)
@@ -85,7 +85,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
     href = edit_admin_resource_path(:id => tree_node.resource,
       :tree_id => tree_node.id,
       :slang => @presenter.site_settings[:short_language])
-    text = @options[:edit_text] || _(:edit)
+    text = @options[:edit_text] || _(:'edit')
     rawtext <<-EDIT
       {
         text: '#{text}',
@@ -97,7 +97,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
 
   def delete_button(element)
     name = tree_node.resource.name.gsub(/'/,'&#39;')
-    text = @options[:delete_text] || _(:delete)
+    text = @options[:delete_text] || _(:'delete')
     rawtext <<-DELETE
       {
         text: '#{text}',

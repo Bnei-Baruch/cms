@@ -24,7 +24,7 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
         :has_url => false}).render_to(self)
     unless site_update_entries.empty?
       div(:class => 'tv_news_container kabtv-news-blueborder'){
-        div(:class => 'box_headersection_tv'){text I18n.t(:newsonthechannel)}
+        div(:class => 'box_headersection_tv'){text _(:'newsonthechannel')}
         div(:class => 'entries'){
           make_sortable(:selector => ".tv_news_container .entries", :axis => 'y') {
             show_content_resources(:resources => site_update_entries,:sortable => 'true', :force_mode => 'tv', :first_item_mode => 'tvopen')

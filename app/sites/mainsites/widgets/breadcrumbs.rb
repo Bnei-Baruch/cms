@@ -1,7 +1,7 @@
 class Mainsites::Widgets::Breadcrumbs < WidgetManager::Base
   def render_full
     div(:class => 'breadcrumbs') { 
-      a(:href => presenter.home ) {text _(:home_breadcrumb)}
+      a(:href => presenter.home ) {text _(:'home_breadcrumb')}
       span(:class => 'gt') {text ' > '}
       unless parents.empty?
         parents.reverse_each{ |e, i|

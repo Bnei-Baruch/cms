@@ -317,7 +317,7 @@ $.fn.media.mp3 = function(el, opts) {
     opts.src = opts.src + '?file=' + src;
     opts.width = width ;
     opts.height = height;
-    opts.flashvars = $.extend({}, { file: src, soundFile: src }, opts.flashvars );
+    opts.flashvars = $.extend({}, { file: src, soundFile: src , autostart : 'yes'}, opts.flashvars );
     return $.fn.media.swf(el, opts);
 };
 

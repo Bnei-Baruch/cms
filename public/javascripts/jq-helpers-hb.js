@@ -1,6 +1,18 @@
+//permalink show
+$(document).ready(function() {
+    $('.permalink').click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.next().toggle();
+    })
+});
+
+
 //google analitic
 function google_tracker(pagename){
-    pagename = (typeof pagename == "undefined")? '':pagename;
+    if (typeof pagename == "undefined"){
+        return ;
+    }
     urchinTracker(pagename);
 }
 
@@ -331,6 +343,7 @@ $(document).ready(function() {
             player[0].controls.start();
         }
         if (player && player[0]){
+            player[0].SetVariable('autostart','yes');
             player[0].SetVariable('closePlayer', 0);
         }
     });

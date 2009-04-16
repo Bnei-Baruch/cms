@@ -59,7 +59,7 @@ a.more img{
 .table-article{
     float:left;
     background-color:#F0F5FD;  
-    width:265px;
+    /*width:265px;*/
     margin:5px 5px 0pt 0pt;
 }
 .table-article .table-article-td{

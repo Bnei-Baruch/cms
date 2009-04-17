@@ -137,8 +137,8 @@ $(document).ready(function(){
   end
   
   def render_logo
-    alt = _(:''+@options[:alt]) rescue ''
-    h1 = _(:''+@options[:alt]) rescue false
+    alt = _(@options[:alt]) rescue ''
+    h1 = _(@options[:alt]) rescue false
     if h1
       h1(:id => 'logo') {
         a(:href => presenter.home){rawtext alt}

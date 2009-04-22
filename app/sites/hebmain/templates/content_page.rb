@@ -94,15 +94,15 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
             :resource_types => %W{ kabtv },
-            :button_text => 'ניהול אדמין',
-            :new_text => 'צור מודול ניהול תגובות',
+            :button_text => _(:admin_upper_part),
+            :new_text => _(:create_new_tv_unit),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
         if AuthenticationModel.current_user_is_admin?
           w_class('cms_actions').new(:tree_node => @tree_node,
             :options => {:buttons => %W{ new_button },
               :resource_types => %W{ admin_comment },
-              :button_text => 'ניהול חלק עליון',
-              :new_text => 'צור יחידת תוכן חדשה',
+              :button_text => _(:admin_management),
+              :new_text => _(:create_module_admin_comment),
               :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
         end
       end

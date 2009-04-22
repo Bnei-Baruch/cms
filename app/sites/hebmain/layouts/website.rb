@@ -147,7 +147,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           :new_text => 'הוסף תצוגה מקדימה',
                           :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
-
                       show_content_resources(:resources => middle_column_resources,
                         :parent => :website,
                         :placeholder => :middle,

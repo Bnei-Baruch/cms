@@ -46,7 +46,7 @@ $(document).ready(function(){
   def render_bottom_links
     w_class('cms_actions').new(:tree_node => presenter.website_node, 
       :options => {:buttons => %W{ new_button }, 
-        :resource_types => %W{ link },:new_text => 'לינק חדש לפוטר', 
+        :resource_types => %W{ link },:new_text => _(:new_bottom_link),
         :has_url => false, 
         :placeholder => 'bottom_links'
       }).render_to(self)
@@ -55,7 +55,7 @@ $(document).ready(function(){
         li {rawtext '|'} unless i.eql?(0)
         li(:id => sort_id(e)) {
           sort_handle
-          w_class('link').new(:tree_node => e).render_to(self)
+          w_class('link').new(:tree_node => e, :view_mode => 'new_window').render_to(self)
         }
       }
     } if bottom_links
@@ -65,8 +65,8 @@ $(document).ready(function(){
   
   def render_logo
     div(:class => 'logo') do
-      h1 'קבלה לעם'
-      a(:href => presenter.home){img(:src => img_path('logo.png'), :alt => 'קבלה לעם', :title => 'קבלה לעם')}
+      h1 _(:kabbalah_la_am)
+      a(:href => presenter.home){img(:src => img_path('logo.png'), :alt => _(:kabbalah_la_am), :title => _(:kabbalah_la_am))}
     end
   end
   
@@ -80,8 +80,8 @@ $(document).ready(function(){
         w_class('cms_actions').new(:tree_node => presenter.website_node, 
           :options => {:buttons => %W{ new_button }, 
             :resource_types => %W{ copyright },
-            :new_text => 'צור יחידת זכויות יוצרים', 
-            :button_text => 'הוספת זכויות יוצרים',
+            :new_text =>   _(:new_copyright),
+            :button_text => _(:add_copyright),
             :has_url => false
           }).render_to(self)
 
@@ -102,8 +102,8 @@ $(document).ready(function(){
         w_class('cms_actions').new(:tree_node => presenter.website_node, 
           :options => {:buttons => %W{ new_button }, 
             :resource_types => %W{ subscription },
-            :new_text => 'צור יחידת הרשמה', 
-            :button_text => 'הוספת הרשמה',
+            :new_text => _(:new_subscription),
+            :button_text => _(:add_subscription),
             :has_url => false
           }).render_to(self)
 

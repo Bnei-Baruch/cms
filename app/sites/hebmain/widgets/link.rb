@@ -13,6 +13,19 @@ class Hebmain::Widgets::Link < WidgetManager::Base
     end
   end
 
+  def render_new_window
+    w_class('cms_actions').new(:tree_node => @tree_node,
+      :options => {:buttons => %W{ edit_button delete_button },
+        :mode => 'inline',
+        :resource_types => %W{ link }}).render_to(self)
+
+    if resource
+      a({:href => get_url, :target =>'_blank' ,:title => get_alt}.merge!(gg_analytics_tracking(get_name))) {
+        text get_name
+      }
+    end
+  end
+
   def render_with_image
     if resource
       w_class('cms_actions').new(:tree_node => @tree_node,

@@ -11,7 +11,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
       div(:id => "playlist-#{id}", :class => 'playlist'){
         ol{
           video_items.each { |video_item|
-            li {a video_item.resource.properties('title').get_value, :href => video_item.resource.properties('flash_url').get_value, :onclick => "javascript:urchinTracker('/homepage/widget/video_gallery/"+video_item.resource.properties('title').get_value+"');" }
+            li {w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_gallery').render_to(self)}
           }
         }
       }
@@ -59,7 +59,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
     w_class('cms_actions').new( :tree_node => tree_node, 
       :options => {:buttons => %W{ new_button edit_button delete_button }, 
         :resource_types => %W{ video },
-        :new_text => _(:create_new_content_item),
+        :new_text => _(:create_new_video_item),
         :has_url => false
       }).render_to(self)
   end

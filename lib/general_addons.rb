@@ -18,10 +18,11 @@ end
 
 class Object
   def _(*args)
-    trans = (self.class.to_s+'.'+args[0].to_s.underscore.gsub(' ', '_')).to_sym
+    trans = "#{self.class}.#{args[0].to_s.underscore.gsub(' ', '_')}".to_sym
     I18n.translate(trans)
   end
 end
+
 
 class NilClass
   def empty?

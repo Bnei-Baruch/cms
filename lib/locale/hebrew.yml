@@ -82,8 +82,9 @@ hebrew:
 
   Global::Widgets::VideoGallery:
     play: לחצו לצפייה
+    create_new_video_item: יצירת וידיו חדש
 
-  Hebmain::Widgets::ContentPage:
+  Mainsites::Widgets::ContentPage:
     content_page:  דף תוכן
     date:  תאריך
     content_page_management: ניהול דף תוכן
@@ -94,7 +95,8 @@ hebrew:
     writer: מאת
     tofullpage: לכתבה המלאה
     toview: לצפייה
-    tolisten: להאזנה
+    to_watch: לצפייה
+    to_listen: להאזנה
     continue: להמשך
     new_language: שפה חדשה
     create_modul_comments_administration: צור מודול ניהול תגובות
@@ -104,6 +106,17 @@ hebrew:
     new_language: שפה חדשה
     languages: שפות
     choose_your_language: בחר שפה 
+    new_internal_link: new internal link
+    new_bottom_link: לינק חדש לפוטר
+    new_copyright: צור יחידת זכויות יוצרים
+    add_copyright:   הוספת זכויות יוצרים
+    new_subscription: צור יחידת הרשמה
+    add_subscription: הוספת הרשמה
+
+  Hebmain::Widgets::Header:
+    kabbalah_la_am: קבלה לעם
+    languages: שפות
+    choose_your_language: בחר שפה
     new_internal_link: new internal link
     new_bottom_link: לינק חדש לפוטר
     new_copyright: צור יחידת זכויות יוצרים
@@ -258,9 +271,15 @@ hebrew:
     address_of_sender: כתובת השולח/ת
     send_to_email_address: שלחו לכתובת דוא''ל
     send: שלח
-    everything_went_fine: תהליך הרישום עבר בהצלחה.
+    everything_went_fine: ת הליך הרישום עבר בהצלחה.
     stf_subject: שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה
     cancel:  בטל
+
+  Hebmain::Templates::ContentPage:
+    create_module_admin_comment: צור מודול ניהול תגובות
+    create_new_tv_unit: צור יחידת טיוי חדשה
+    admin_management:  ניהול אדמין
+    admin_upper_part: ניהול חלק עליון
 
   Mainsites::Widgets::Shortcut:
     direct_link: לינק ישיר לכתבה

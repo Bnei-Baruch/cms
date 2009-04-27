@@ -1,5 +1,6 @@
 class Language < Kabtv
     def self.get_url(language)
-        find_by_lang(language).video_url rescue ""
+        language = find_by_lang(language)
+        language.bitrate1_url || language.video_url rescue ""
     end
 end

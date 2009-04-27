@@ -18,15 +18,9 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         url = Language.get_url(@language)
         javascript {
           rawtext <<-TV
-            if (jQuery.browser.ie) {
-                document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="mute" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
-            } else if (jQuery.browser.firefox) {
-                document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" autosize="false" uimode="full" width="#{width}" height="#{height}"/>');
-            } else {
                 document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="mute" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />');
                 document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" mute="1" />');
                 document.write('</object>');
-            }
                     var firstclick = true;
                     if (typeof $.livequery == "function") {
                       $("#kabtv-news .newstitle").livequery('click',function () {
@@ -275,17 +269,17 @@ $(function() {
           li{a(:href => '#sketch'){span _(:sketches)}} unless @options[:no_sketches]
         }
         div(:id => 'schedule'){
-          img(:id => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
+          img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_schedule]
         div(:id => 'questions'){
           h3 {rawtext _(:students_questions)}
           div(:id => 'q') {
-            img(:id => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
+            img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
           }
           ask_button_and_form
         } unless @options[:no_questions]
         div(:id => 'sketch'){
-          img(:id => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
+          img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_sketches]
       }
       height = @options[:height] || 336

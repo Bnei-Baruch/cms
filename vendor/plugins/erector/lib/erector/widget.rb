@@ -58,7 +58,7 @@ module Erector
             superclass.after_initialize instance
           end
           after_initialize_parts.each do |part|
-            instance.instance_eval &part
+            instance.instance_eval(&part)
           end
         else
           raise ArgumentError, "You must provide either an instance or a block"

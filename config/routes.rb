@@ -47,7 +47,6 @@ ActionController::Routing::Routes.draw do |map|
   # (anyway, he should have comment it on the firt place)
   
   map.connect '/', :controller => 'sites/templates', :action => 'template'
-  
                                            
   map.js ':prefix/js/:id' , :controller => 'sites/javascripts' , :action => 'javascript'
   map.css 'stylesheets/:prefix/:css_id.css',
@@ -77,6 +76,8 @@ ActionController::Routing::Routes.draw do |map|
   # map.connect ':controller/service.wsdl', :action => 'wsdl'
 
   # Install the default route as the lowest priority.
+  map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
 
   # We have two cases: 1) When the site's main page doesn't have prefix 2) When it has a prefix
   map.connect ':prefix/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
@@ -86,6 +87,4 @@ ActionController::Routing::Routes.draw do |map|
   # Used mainly for URL migrations (Checking Legacy URLs)
   map.connect '/*path', :controller => 'sites/templates', :action => 'template'
   
-  map.connect ':controller/:action/:id.:format'
-  map.connect ':controller/:action/:id'
 end

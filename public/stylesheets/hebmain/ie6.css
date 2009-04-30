@@ -109,13 +109,8 @@
     width:114px;
     height:85px;
 }
-#kabtv #player_options{
-    height:28px;
-    width:377px;
-    position:relative;
-}
 #kabtv #player_options #separate-win,#kabtv #player_options #full-win{
-    display:block;
+    display:inline;
 }
 #kabtv #player_options #separate-msg{
     display:none;

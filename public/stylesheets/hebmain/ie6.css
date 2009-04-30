@@ -115,6 +115,9 @@
 #kabtv #player_options #separate-msg{
     display:none;
 }
+#kabtv #player_options #bitrates{
+    margin-right:5px;
+}
 /************/
 /**********/
 #home-kabtv{

@@ -49,17 +49,18 @@ class Global::Widgets::Tree < WidgetManager::Base
   def render_json_node
     id = @options[:node].to_i
     if id == 0
-      build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten
+      build_json_tree(false, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten
     else
       level_nodes(id, false)
     end
   end
 
   def render_static
-    unless presenter.main_section.nil? or all_nodes.blank?
+    nodes = all_nodes
+    unless presenter.main_section.nil? or nodes.blank?
       ul(:class => 'static') {
         # We're going to draw only those nodes that are on path
-        build_tree(presenter.main_section.id, all_nodes).each {|element| draw_tree element}
+        build_tree(true, nodes).each {|element| draw_tree element}
       }
     end
   end
@@ -68,7 +69,7 @@ class Global::Widgets::Tree < WidgetManager::Base
     nodes = all_nodes(true, @website_parent_node)
     unless nodes.blank?
       ul(:id => 'static-menu') {
-        build_tree(@website_parent_node, nodes).each {|element| draw_ltr_tree element}
+        build_tree(true, nodes).each {|element| draw_ltr_tree element}
       }
     end
   end
@@ -79,7 +80,7 @@ class Global::Widgets::Tree < WidgetManager::Base
       link = ''
       user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
       url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node)
-      link = '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">Logout from ' + user_name + '</a>'
+      link = '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
 
       @counter += 1
       label = "TREE_#{@counter}"
@@ -91,7 +92,7 @@ class Global::Widgets::Tree < WidgetManager::Base
               tree();
             });
             function tree() {
-              children = #{build_json_tree(@website_parent_node, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
+              children = #{build_json_tree(false, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
               create_tree('#{get_page_url(tree_node)}', children, '#{label}', '#{_(:'administration_tree')}   #{link}',
                           '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
                           '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}');
@@ -109,7 +110,7 @@ class Global::Widgets::Tree < WidgetManager::Base
     "/#{@website_parent_node}/" + @ancestors.join('/')
   end
   
-  # Fetch all specific node of website
+  # Fetch all subnodes of a specific node of website
   def level_nodes(node_id, regular_user = true)
     properties = regular_user ? 'b_hide_on_navigation = false' : ''
     nodes = TreeNode.get_subtree(
@@ -117,17 +118,11 @@ class Global::Widgets::Tree < WidgetManager::Base
       :resource_type_hrids => ['content_page'],
       :properties => properties,
       :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED'],
-      :depth => 2
+      :depth => 1,
+      :count_children => true
     )
-    json = nodes.select { |element| element.parent_id == node_id }.collect { |node|
-      has_no_children = nodes.select { |child|
-        child.parent_id == node.id
-      }.size == 0
-      if has_no_children
-        # Maybe there are no children _YET_?
-        rp = TreeNode.find(node.id).resource.properties('acts_as_section')
-        has_no_children = (rp && rp.get_value) ? false : true
-      end
+    json = nodes.collect { |node|
+      has_no_children = node.direct_child_count == 0
 
       name = "<span class='#{node.resource.status.downcase}'>#{node.resource.name}</span>"
       [
@@ -136,7 +131,8 @@ class Global::Widgets::Tree < WidgetManager::Base
         :href => get_page_url(node),
         :leaf => has_no_children,
         :resource_name => node.resource.name, :parent_id => node.parent_id,
-        :cannot_edit => !node.can_edit?, :cannot_create_child => !node.can_create_child?,
+        :cannot_edit => !node.can_edit?,
+        :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
         :delTarget => tree_node_delete_admin_tree_node_path(node.id),
@@ -161,12 +157,13 @@ class Global::Widgets::Tree < WidgetManager::Base
       parent ||= @website_parent_node
       status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
     end
-    @all_nodes ||= TreeNode.get_subtree(
+    TreeNode.get_subtree(
       :parent => parent,
       :resource_type_hrids => ['content_page'],
       :properties => properties,
       :status => status,
-      :depth => 2
+      :depth => 1,
+      :count_children => true
     )
     
   end
@@ -264,38 +261,35 @@ class Global::Widgets::Tree < WidgetManager::Base
   # :class => submenu -- has subitems,
   #           final   -- has no subtree
   # :selected => true -- is on the path to a currently displayed page
-  def build_tree(parent_node, nodes)
-    nodes.select { |node|
-      node.parent_id == parent_node
-    }.collect { |item|
-      subtree = build_tree(item.id, nodes)
-      if subtree.length == 0
+  def build_tree(regular_user, nodes)
+    nodes.collect { |node|
+      if node.direct_child_count == 0
         # No children -- final element
-        [{:item => item, :selected => @ancestors.include?(item.id)}]
+        [{:item => node, :selected => @ancestors.include?(node.id)}]
       else
         # Has children -- submenu
-        if @ancestors.include?(item.id)
+        if @ancestors.include?(node.id)
           # On path -- to show children
-          [{:item => item, :submenu => true, :selected => true}] + subtree
+          subtree = build_tree(regular_user, all_nodes(regular_user, node.id))
+          [{:item => node, :submenu => true, :selected => true}] + subtree
         else
           # Not on path -- to show only the element itself
-          [{:item => item, :submenu => true}]
+          [{:item => node, :submenu => true}]
         end
       end
     }
   end
 
-  def build_json_tree(parent_node, nodes)
-    nodes.select { |node|
-      node.parent_id == parent_node
-    }.collect { |item|
-      s = build_json_tree(item.id, nodes)
-      if s.length == 0
+  def build_json_tree(regular_user, nodes)
+    nodes.collect { |node|
+
+      if node.direct_child_count == 0
         # No children -- final element
-        [{:item => item}]
+        [{:item => node}]
       else
         # Has children -- submenu
-        [{:item => item, :submenu => true, :selected => true}] + s
+        s = build_json_tree(regular_user, all_nodes(regular_user, node.id))
+        [{:item => node, :submenu => true, :selected => true}] + s
       end
     }
   end

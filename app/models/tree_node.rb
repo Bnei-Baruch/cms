@@ -156,6 +156,9 @@ class TreeNode < ActiveRecord::Base
     #   avalilable Options: 'PUBLISHED', 'DELETED', 'DRAFT', 'ARCHIVED'
     # :limit => integer - optional - default: show all
     # :order => order string - optional - default: sort by position (exapmle: :order => "created_at DESC, name")
+    # :count_children => returns also number of direct children as 'direct_child_count' field
+    #           - null/false (no direct_children, default)
+    #           - true (direct children)
     # 
     # Examples: 
     # get_subtree(:parent => 17, :resource_type_hrids => ['website', 'content_page'], :depth => 3, :properties => {:description => 'yes sair', :title => 'good title'}, )
@@ -179,6 +182,7 @@ class TreeNode < ActiveRecord::Base
       else
         req_properties = 'null'
       end
+      req_count_children = args[:count_children] || 'null::boolean'
       req_current_page = args[:current_page] || 'null'
       req_items_per_page = args[:items_per_page] || 'null'
       req_return_parent = args.has_key?(:return_parent) ? args[:return_parent] : 'null'
@@ -209,7 +213,8 @@ class TreeNode < ActiveRecord::Base
         req_items_per_page,
         req_return_parent,
         req_placeholders,
-        req_status
+        req_status,
+        req_count_children
       ].compact.join(',')
       if args[:test]
         return "select * from cms_treenode_subtree(#{request})"

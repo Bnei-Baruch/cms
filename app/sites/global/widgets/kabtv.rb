@@ -15,7 +15,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
       div(:id => 'kabtv-top'){
         height = 214
         width = 199
-        url = Language.get_url(@language)
+        url = Language.get_url(@language, @presenter.get_cookies)
         javascript {
           rawtext <<-TV
                 document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="mute" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />');
@@ -89,7 +89,6 @@ class Global::Widgets::Kabtv < WidgetManager::Base
   end
   
   def render_full
-    url = Language.get_url(@language)
     javascript <<-KABTV
 //***************************************
 // KAB.TV Player
@@ -284,36 +283,35 @@ $(function() {
       }
       height = @options[:height] || 336
       width = @options[:width] || 378
+      url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
+
       div(:id => 'player-side') {
+        rawtext <<-TV
+          <div id="tvobj"><object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />
+          <embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" />
+          </object></div>
+        TV
         javascript {
-          #               This should be an Ajax
-          rawtext <<-TV
-                    if (jQuery.browser.ie) {
-                        document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" /></object>');
-                    } else if (jQuery.browser.firefox) {
-                        document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" autosize="false" uimode="full" width="#{width}" height="#{height}" />');
-                    } else {
-                        document.write('<object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />');
-                        document.write('<embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" />');
-                        document.write('</object>');
-                    }
-          TV
           rawtext <<-TV1
           fs_str='#{_(:to_exit_full_screen_mode_press_ESC)}';
           nofs_str='#{_(:to_watch_in_full_screen_mode_please_start_player_beforehand)}';
+          function switchChannel(url) {
+            var player = document.getElementById("player");
+            if (player && player.URL){
+                player.URL = url;
+              } else {
+                var player = document.getElementById("tvobj");
+                if (player){
+                    tv = "<object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' style='background-color:#000000' id='player' name='player' type='application/x-oleobject' width='#{width}' height='#{height}' standby='Loading Windows Media Player components...'><param name='URL' value='"+url+"' /><param name='AutoStart' value='1' /><param name='AutoPlay' value='1' /><param name='volume' value='50' /><param name='uiMode' value='full' /><param name='animationAtStart' value='1' /><param name='showDisplay' value='1' /><param name='transparentAtStart' value='0' /><param name='ShowControls' value='1' /><param name='ShowStatusBar' value='1' /><param name='ClickToPlay' value='0' /><param name='bgcolor' value='#000000' /><param name='windowlessVideo' value='1' /><param name='balance' value='0' />";
+                    tv += "<embed id='player' name='player' src='"+url+"' type='application/x-mplayer2' pluginspage='http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112' autostart='true' stretchToFit='false' uimode='full' width='#{width}' height='#{height}' />";
+                    tv += "</object>";
+                    player.innerHTML = tv
+                  }
+                }
+              }
           TV1
         }
         div(:id => 'player_options'){
-          div(:id => 'separate-msg'){
-            rawtext _(:for_full_screen_mode_double_click_on_player)
-          }
-          a(:id => 'separate-win', :href => "", :title => "", :onclick => 'detach();return false') {
-            rawtext _(:in_separate_player)
-          }
-          a(:id => 'full-win', :href => "", :title => "", :onclick => 'gofs();return false') {
-            rawtext _(:full_screen)
-          }
-
           url = get_troubleshooting_url
           if !url.empty?
             div(:id => 'troubleshooting_str'){
@@ -323,6 +321,39 @@ $(function() {
               }
             }
           end
+
+          div(:id => 'bitrates'){
+            #            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
+            rawtext _(:broadcast_quality) + ': '
+            title = _(:high)
+            klass = idx == 0 ? 'selected' : ''
+            label(:for => 'name0') {
+              input(:id => 'name0', :type => 'radio', :checked => idx == 0, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{high_url}')")
+              rawtext title
+            }
+            title = _(:medium)
+            klass = idx == 1 ? 'selected' : ''
+            label(:for => 'name1') {
+              input(:id => 'name1', :type => 'radio', :checked => idx == 1, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{med_url}')")
+              rawtext title
+            }
+            title = _(:low)
+            klass = idx == 2 ? 'selected' : ''
+            label(:for => 'name2') {
+              input(:id => 'name2', :type => 'radio', :checked => idx == 2, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{low_url}')")
+              rawtext title
+            }
+          }
+
+          div(:id => 'separate-msg'){
+            rawtext _(:for_full_screen_mode_double_click_on_player)
+          }
+          a(:id => 'separate-win', :href => "", :title => "", :onclick => 'detach();return false') {
+            rawtext _(:in_separate_player)
+          }
+          a(:id => 'full-win', :href => "", :title => "", :onclick => 'gofs();return false') {
+            rawtext _(:full_screen)
+          }
         }
       }
       div(:class => 'clear')

@@ -188,6 +188,10 @@ hebrew:
     broadcast_on: שידור ביום
     edit_kabtv_widget: עריכת יחידת טלוויזיה
     click_here : לחץ כאן
+    broadcast_quality: בחר איכות השידור
+    high: גבוהה
+    medium: בינונית
+    low: נמוכה
 
   Hebmain::Widgets::ManpowerForm:
     personnal_details: פרטים אישיים
@@ -292,6 +296,7 @@ hebrew:
 
   Global::Widgets::Tree:
     administration_tree:  עץ ניהול
+    logout_from: יציאה מ-
 
   Global::Widgets::Video:
     todownload:  להורדה

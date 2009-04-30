@@ -9,6 +9,10 @@ class Sites::Global < Presenter::Base
     )
   end
 
+  def get_cookies
+    @controller.request.cookies
+  end
+  
   def port
     my_port = @controller.request.server_port.to_s
     my_port == '80' ? '' : ':' + my_port

@@ -913,6 +913,7 @@ img.thumbnails{
 #kabtv {
     background-repeat:no-repeat;
     width:714px;
+    height:456px;
     margin: 0 0 0 22px;
     padding:0;
     position:relative;
@@ -925,15 +926,25 @@ img.thumbnails{
 }
 #kabtv #player_options{
     height:28px;
-    width:385px;
-    position:relative;
+    width:700px;
+    position:absolute;
+    bottom:-2px;
+    right:9px;
+    font-weight:bold;
+}
+#kabtv #player_options #bitrates{
+    float:right;
+    margin-right:15px;
+    color:white;
+}
+#kabtv #player_options #bitrates .selected{
+    color:#fde500;
+    font-weight:bold;
 }
 #kabtv #player_options #separate-msg{
-    background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat 100% 0;
     color:white;
-    margin-right:10px;
-    padding-right:20px;
-    float:left;
+    float:right;
+    margin-right:13px;
 }
 #kabtv #player_options #separate-win{
     display:none;
@@ -954,20 +965,15 @@ img.thumbnails{
 #kabtv #player_options #troubleshooting_str{
     color:white;
     height:10px;
-    position:absolute;
-    right:0;
-    text-align:right;
-    top:0;
-    width:123px;
+    float:right;
 }
 #kabtv #player_options #troubleshooting_url{
     color:#fde500;
-    font-weight:bold;
-    margin-right:10px;
+    margin-right:5px;
 }
 #kabtv #tabs{
     float:right;
-    margin:8px 5px 22px 0;
+    margin:8px 8px 22px 0;
     width:304px;
 }
 #kabtv .ui-tabs-nav {

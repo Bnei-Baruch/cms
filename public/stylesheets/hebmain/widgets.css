@@ -1307,23 +1307,12 @@ a.highslide-full-expand {
 #home-kabtv #kabtv-top{
     height:309px;
     background:#1c4fb8 url(/images/hebmain/kabtv/home-top.gif) no-repeat 0 0;
-    position:relative;
 }
 #home-kabtv #kabtv-mid{
     background:#1c4fb8 url(/images/hebmain/kabtv/home-mid.jpg) no-repeat 0 0;
     padding-bottom:10px;
     display: none;
 }
-/*#home-kabtv #kabtv-bot{
-height:54px;
-background-color: #315bbc;
-}
-#home-kabtv #kabtv-bot a{
-padding:14px 0 0;
-margin:0 0 0 9px;
-display:block;
-}*/
-
 #home-kabtv #kabtv-bot{
     background-color:#1c4fb8;
     height:30px;
@@ -1332,7 +1321,6 @@ display:block;
     padding-top: 5px;
     text-align:right;
 }
-
 #home-kabtv #kabtv-bot a{
     background:transparent url(/images/hebmain/kabtv/tvbutton.gif) repeat-x 0 0;
     color: black;
@@ -1372,9 +1360,9 @@ display:block;
     float:right;
     font-weight:bold;
 }
-#home-kabtv #player{
+#home-kabtv #tvobj{
     left:12px;
-    position:absolute;
+    position:relative;
     top:87px;
 }
 /***********************/

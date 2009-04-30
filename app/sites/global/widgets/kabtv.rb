@@ -24,6 +24,9 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         TV1
         javascript {
           rawtext <<-TV
+          $(document).ready(function() {
+            $("#tvobj").css('position', 'relative');
+          }
                     var firstclick = true;
                     if (typeof $.livequery == "function") {
                       $("#kabtv-news .newstitle").livequery('click',function () {

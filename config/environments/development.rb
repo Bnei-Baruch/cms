@@ -37,4 +37,4 @@ config.dependency_loading = false
 # config.gem "sqlite3-ruby", :lib => "sqlite3"
 # config.gem "aws-s3", :lib => "aws/s3"
 
-config.action_view.warn_cache_misses = true
+#config.action_view.warn_cache_misses = true

@@ -48,11 +48,7 @@ class Global::Widgets::Tree < WidgetManager::Base
   
   def render_json_node
     id = @options[:node].to_i
-    if id == 0
-      build_json_tree(false, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten
-    else
-      level_nodes(id, false)
-    end
+    rawtext level_nodes(id, false)
   end
 
   def render_static
@@ -77,23 +73,21 @@ class Global::Widgets::Tree < WidgetManager::Base
   def render_dynamic
     if tree_node.can_edit?
       
-      link = ''
       user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
       url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node)
-      link = '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
+      link = _(:'administration_tree') + '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
 
       @counter += 1
       label = "TREE_#{@counter}"
+      name = @presenter.website.hrid.gsub(/\'/, '&#39;')
       div(:id => label, :class => 'dynamic_tree') {
-        name = @presenter.node.resource.name.gsub(/\'/, '&#39;')
         javascript {
           rawtext <<-TREE_CODE
             Ext.onReady(function(){
               tree();
             });
             function tree() {
-              children = #{build_json_tree(false, all_nodes(false)).collect {|element| draw_json_tree(element)}.flatten.to_json};
-              create_tree('#{get_page_url(tree_node)}', children, '#{label}', '#{_(:'administration_tree')}   #{link}',
+              create_tree('#{get_page_url(tree_node)}', '#{label}', '#{link}',
                           '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
                           '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}');
             }
@@ -122,28 +116,29 @@ class Global::Widgets::Tree < WidgetManager::Base
       :count_children => true
     )
     json = nodes.collect { |node|
-      has_no_children = node.direct_child_count == 0
-
-      name = "<span class='#{node.resource.status.downcase}'>#{node.resource.name}</span>"
+      is_leaf = node.direct_child_count == 0
+      resource = node.resource
+      id = node.id
+      name = "<span class='#{resource.status.downcase}'>#{resource.name}</span>"
       [
-        :id => node.id, 
-        :text => node.resource.status == 'PUBLISHED' ? node.resource.name : name,
+        :id => id, 
+        :text => resource.status == 'PUBLISHED' ? resource.name : name,
         :href => get_page_url(node),
-        :leaf => has_no_children,
-        :resource_name => node.resource.name, :parent_id => node.parent_id,
+        :leaf => is_leaf,
+        :resource_name => resource.name, :parent_id => node.parent_id,
         :cannot_edit => !node.can_edit?,
         :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,
         :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
-        :delTarget => tree_node_delete_admin_tree_node_path(node.id),
-        :updateStatus => update_state_admin_tree_node_path(node.id),
-        :editTarget => edit_admin_resource_path(:id => node.resource,
-          :tree_id => node.id,
+        :delTarget => tree_node_delete_admin_tree_node_path(id),
+        :updateStatus => update_state_admin_tree_node_path(id),
+        :editTarget => edit_admin_resource_path(:id => resource,
+          :tree_id => id,
           :slang => @presenter.site_settings[:short_language]
         )
       ]
     }
-    rawtext json.flatten.to_json
+    json.flatten.to_json
   end
 
   # Fetch all sub-nodes of website 
@@ -166,37 +161,6 @@ class Global::Widgets::Tree < WidgetManager::Base
       :count_children => true
     )
     
-  end
-
-  def draw_json_tree(node)
-    item = node.shift
-    leaf = item[:item]
-    name = "<span class='#{leaf.resource.status.downcase}'>#{leaf.resource.name}</span>"
-    id = leaf.id
-    href = get_page_url(leaf)
-    if item[:submenu]
-      children = node.collect {|element| draw_json_tree element}.flatten
-    else
-      children = false
-    end
-    [
-      {
-        :id => id, 
-        :text => leaf.resource.status == 'PUBLISHED' ? leaf.resource.name : name,
-        :href => href, :leaf => false,
-        :resource_name => leaf.resource.name,
-        :parent_id => leaf.parent_id,
-        :cannot_edit => !leaf.can_edit?, :cannot_create_child => !leaf.can_create_child?,
-        :cannot_delete => !leaf.can_delete?,
-        :addTarget => new_admin_resource_path(:slang => @presenter.site_settings[:short_language]),
-        :delTarget => tree_node_delete_admin_tree_node_path(leaf.id), #admin_tree_node_path(leaf),
-        :updateStatus => update_state_admin_tree_node_path(leaf.id),
-        :editTarget => edit_admin_resource_path(:id => leaf.resource,
-          :tree_id => leaf.id,
-          :slang => @presenter.site_settings[:short_language]
-        )
-      }.merge(children ? {:children => children} : {} )
-    ]
   end
 
   def draw_tree(node)
@@ -280,19 +244,6 @@ class Global::Widgets::Tree < WidgetManager::Base
     }
   end
 
-  def build_json_tree(regular_user, nodes)
-    nodes.collect { |node|
-
-      if node.direct_child_count == 0
-        # No children -- final element
-        [{:item => node}]
-      else
-        # Has children -- submenu
-        s = build_json_tree(regular_user, all_nodes(regular_user, node.id))
-        [{:item => node, :submenu => true, :selected => true}] + s
-      end
-    }
-  end
 end
 
 # Example of a tree for Ext Tree

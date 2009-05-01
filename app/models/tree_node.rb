@@ -203,6 +203,9 @@ class TreeNode < ActiveRecord::Base
         req_resource_type_hrids,
         req_is_main,
         req_has_url,
+        # If depth == 1 we have to call different function in PL/SQL
+        # and the difference is in number of parameters.
+        # If depth != 1 then count_children will be ignored
         if args[:depth]
           args[:depth] unless args[:depth] == 1
         else

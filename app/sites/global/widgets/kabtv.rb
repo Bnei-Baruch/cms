@@ -24,26 +24,26 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         TV1
         javascript {
           rawtext <<-TV
-          $(document).ready(function() {
-            $("#tvobj").css('position', 'relative');
-          }
-                    var firstclick = true;
-                    if (typeof $.livequery == "function") {
-                      $("#kabtv-news .newstitle").livequery('click',function () {
-                      var $this = $(this);
-                      $this.next().children().toggle();
-                      $this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
-                    });
-                     $("#home-kabtv .box1_headersection_tv").livequery('click',function () {
-                      if (firstclick) {
-                          google_tracker('/homepage/widget/kabtv/open_schedule');
-                          firstclick = false;
-                      }
-                      var $this = $(this);
-                      $this.next().toggle();
-                      $this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
-                     });
-                    }
+            $(document).ready(function() {
+              $("#tvobj").css('position', 'relative');
+            }
+            var firstclick = true;
+            if (typeof $.livequery == "function") {
+              $("#kabtv-news .newstitle").livequery('click',function () {
+              var $this = $(this);
+              $this.next().children().toggle();
+              $this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
+            });
+             $("#home-kabtv .box1_headersection_tv").livequery('click',function () {
+              if (firstclick) {
+                  google_tracker('/homepage/widget/kabtv/open_schedule');
+                  firstclick = false;
+              }
+              var $this = $(this);
+              $this.next().toggle();
+              $this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
+             });
+            }
           TV
         }
       }
@@ -311,7 +311,7 @@ $(function() {
                     tv = "<object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' style='background-color:#000000' id='player' name='player' type='application/x-oleobject' width='#{width}' height='#{height}' standby='Loading Windows Media Player components...'><param name='URL' value='"+url+"' /><param name='AutoStart' value='1' /><param name='AutoPlay' value='1' /><param name='volume' value='50' /><param name='uiMode' value='full' /><param name='animationAtStart' value='1' /><param name='showDisplay' value='1' /><param name='transparentAtStart' value='0' /><param name='ShowControls' value='1' /><param name='ShowStatusBar' value='1' /><param name='ClickToPlay' value='0' /><param name='bgcolor' value='#000000' /><param name='windowlessVideo' value='1' /><param name='balance' value='0' />";
                     tv += "<embed id='player' name='player' src='"+url+"' type='application/x-mplayer2' pluginspage='http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112' autostart='true' stretchToFit='false' uimode='full' width='#{width}' height='#{height}' />";
                     tv += "</object>";
-                    player.innerHTML = tv
+                    player.innerHTML = tv;
                   }
                 }
               }
@@ -336,20 +336,20 @@ $(function() {
             label(:for => 'name0') {
               input(:id => 'name0', :type => 'radio', :checked => idx == 0, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{high_url}')")
               rawtext title
-            }
+            } if high_url
             title = _(:medium)
             klass = idx == 1 ? 'selected' : ''
             label(:for => 'name1') {
               input(:id => 'name1', :type => 'radio', :checked => idx == 1, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{med_url}')")
               rawtext title
-            }
+            } if med_url
             title = _(:low)
             klass = idx == 2 ? 'selected' : ''
             label(:for => 'name2') {
               input(:id => 'name2', :type => 'radio', :checked => idx == 2, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{low_url}')")
               rawtext title
-            }
-          }
+            } if low_url
+          } if high_url || med_url || low_url
 
           div(:id => 'separate-msg'){
             rawtext _(:for_full_screen_mode_double_click_on_player)

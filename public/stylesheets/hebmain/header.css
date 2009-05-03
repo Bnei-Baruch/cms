@@ -137,7 +137,8 @@ strong{
     list-style:none;
     list-style-position: inside;
     z-index:100;
-    float:right;
+    /*float:right;*/
+    display:inline;
 }
 /*----------  Menu  ---------------*/
 #bd .menu {

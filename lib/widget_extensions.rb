@@ -150,7 +150,6 @@ module WidgetExtensions
     else
       constraint = options[:axis] # :axis => "x|y"
     end
-
     sortable_element(selector, :scroll => true, :handle => 'handle',
       :opacity => 0.5,
       :ghosting => true, :dropOnEmpty => true, :cursor => '"move"',

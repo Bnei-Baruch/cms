@@ -91,6 +91,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           :new_text => 'הוספת יחידת טלוויזיה',
                           :has_url => false,
                           :placeholder => 'home_kabtv'}).render_to(self)
+
                       show_content_resources(:resources => kabtv_resources,
                         :parent => :website,
                         :placeholder => :home_kabtv,
@@ -170,7 +171,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                 }
                 w_class('cms_actions').new(:tree_node => tree_node, 
                   :options => {:buttons => %W{ new_button }, 
-                    :resource_types => %W{ video_gallery site_updates },
+                    :resource_types => %W{ video_gallery site_updates newsletter},
                     :new_text => 'צור יחידת תוכן חדשה', 
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
@@ -178,8 +179,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                 show_content_resources(:resources => right_column_resources,
                   :parent => :website,
                   :placeholder => :right,
-                  :sortable => true) { |idx|
-                  @newsletter.render_to(self) if (idx == 1)
+                  :sortable => true)  { |idx|
+                    @newsletter.render_to(self) if (idx == 1)
                 }
                 make_sortable(:selector => ".right-part") {
                   right_column_resources
@@ -204,7 +205,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['site_updates', 'video_gallery'], 
+      :resource_type_hrids => ['site_updates', 'video_gallery', 'newsletter'],
       :depth => 1,
       :placeholders => ['right'],
       :status => ['PUBLISHED', 'DRAFT']

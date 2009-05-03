@@ -13,6 +13,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
     WidgetManager::Base.new(helpers) do
     end
   end
+  
   def ext_content
     WidgetManager::Base.new(helpers) do
 

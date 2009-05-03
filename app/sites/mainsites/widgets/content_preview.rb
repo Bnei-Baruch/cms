@@ -146,13 +146,13 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
   end
   
   def get_content_items
-    @items = content_items(tree_node.id)
+    @max_num = get_maximum_number_of_items.to_i
+    @max_num = 3 if @max_num > 3 && !is_articles_index?
+    @items = content_items(tree_node.id, @max_num)
     @items_size = @items.size
     @widget_id = tree_node.id
     @widget_name = tree_node.resource.resource_type.hrid
-    @is_main_format = get_is_main_format == '' ? false : get_is_main_format 
-    @max_num = get_maximum_number_of_items.to_i
-    @max_num = 3 if @max_num > 3 && !is_articles_index?
+    @is_main_format = get_is_main_format == '' ? false : get_is_main_format
   end
   
   def render_content_item(tree_node, view_mode)
@@ -160,13 +160,14 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
     return w_class(klass).new(:tree_node => tree_node, :view_mode => view_mode).render_to(self)
   end
 
-  def content_items(node_id)
+  def content_items(node_id, max_num = 25)
     TreeNode.get_subtree(
       :parent => node_id, 
       :resource_type_hrids => ['content_page', 'custom_preview'], 
       :depth => 1,
       :has_url => false,
       #:is_main => false,
+      :items_per_page => max_num,
       :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED']
     )
   end

@@ -100,7 +100,7 @@ hebrew:
     continue: להמשך
     new_language: שפה חדשה
     create_modul_comments_administration: צור מודול ניהול תגובות
-    read_more: לכתבה המלאה
+    read_more: להמשך
     
   Global::Widgets::Header:
     new_language: שפה חדשה
@@ -296,6 +296,8 @@ hebrew:
 
   Global::Widgets::Tree:
     administration_tree:  עץ ניהול
+    url_bug_report: http://spreadsheets.google.com/viewform?formkey=cGtTM2pTY0xyVldONVBjTFp5cVdNYXc6MA..
+    bug_report: דיווח תקלות
     logout_from: יציאה מ-
 
   Global::Widgets::Video:
@@ -320,6 +322,10 @@ hebrew:
     acts_as_articles_index: Acts as articles index
     is_main_format: is main format
     link: link
+    items: אייטם
+    number_of_days: מספר ימים
+    category: קטגוריה
+    group_by_date: לקבץ לפי תאריך
     url: Url
     alt: Alt
     open_in_new_window: Open in new window

@@ -170,6 +170,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
             div(:class => klass, :id => sort_id(item)) {
               sort_handle
               render_content_item(item, 'small')
+               div(:class => 'clear')
             }
           }
         }

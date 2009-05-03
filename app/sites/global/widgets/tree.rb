@@ -72,10 +72,10 @@ class Global::Widgets::Tree < WidgetManager::Base
 
   def render_dynamic
     if tree_node.can_edit?
-      
       user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
       url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node)
-      link = _(:'administration_tree') + '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
+      link = _(:'administration_tree') + '&nbsp;&nbsp&nbsp;&nbsp;<a target="_blank" href='+_(:url_bug_report)+'>'+_(:bug_report)+'</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
+      #link = _(:'administration_tree') + '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
 
       @counter += 1
       label = "TREE_#{@counter}"

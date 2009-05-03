@@ -13,6 +13,11 @@ class EmailController < ApplicationController
     sendmode = params[:sendmode]
     sendsubject = params[:subject]
 
+    if sendmode == "manpower"
+      send_manpower(adresse_to, params)
+      return
+    end
+
     sendsubject = sendsubject.gsub('sender_name', sender_name)
     sendsubject = sendsubject.gsub('receiver_name', receiver_name)
     
@@ -26,10 +31,6 @@ class EmailController < ApplicationController
 
 
    
-    if sendmode == "manpower"
-      send_manpower(adresse_to, params)
-      return
-    end
     
     host = 'http://' + request.host
     prefix = params[:prefix]
@@ -153,7 +154,7 @@ Subject:Manpower
 EOF
     msg # end of rawtext 
     # Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','user','pass', :plain ) { |smtp|
-    Net::SMTP.start("localhost", 25) { |smtp|     
+    Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, 'manpowerform@kab.co.il', [adress_to]
     }
     

@@ -196,6 +196,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             td(:colspan => '3'){
               input :type => 'hidden', :name => 'sendmode', :value => 'manpower'
               input :type => 'hidden', :name => 'adresseto', :value => email
+              input :type => 'hidden', :name => 'subject', :value => email
               input :type => 'submit', :value => _(:'submit'), :class => 'button'
               div(:id => "success"){
                 text _(:'everything_went_fine')
@@ -211,7 +212,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
     ["Hebrew","English", "Russian", "Spanish", "French", "German", "Arabic", "Greek", "Georgian", 
     "Danish",  "Ukranian", "Turkish", "Lithunian", "Latvian", "Macedonian", "Nederlands", "Polish", "Portugese", "Romanian",
     "Vietnamian", "Chinese", "Yiddish"].each{ |e|
-      option(:value => e){text _(('manpower_form.'+e.downcase).to_sym)}
+      option(:value => e){text _((e.downcase).to_sym)}
     }
   end
   

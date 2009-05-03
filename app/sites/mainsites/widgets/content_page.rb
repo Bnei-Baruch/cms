@@ -59,6 +59,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
           img(:src => img_path('audio.png'), :alt => '') if is_audio
           img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif') if !is_video && !is_audio
         }
+        div(:class => "clear")
       else # not article
         if is_video || is_audio
           a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { 
@@ -71,11 +72,14 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
             end
             span{text text}
             img(:src => img_path(image), :alt => '')
-          }
+        }
         else
-          text _(:read_more)
-          img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif')
+          a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) {
+            text _(:read_more)
+            img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif')
+          }
         end
+        div(:class => 'clear')
       end
     end
   end
@@ -83,7 +87,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
   def is_video_audio_article
     tree_nodes = TreeNode.get_subtree(
       :parent => tree_node.main.id, 
-      :resource_type_hrids => ['video', 'article', 'audio', 'video_gallery'], 
+      :resource_type_hrids => ['video', 'article', 'audio', 'video_gallery', 'media_casting'],
       :depth => 1
     ) 
     is_article = !get_body.empty?
@@ -99,6 +103,8 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
         is_video = true
       when 'article'
         is_article = true
+      when 'media_casting'
+        is_audio = true
       end
       if is_video && is_audio && is_article
         return true, true, true

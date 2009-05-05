@@ -36,6 +36,12 @@ a/*----------  kab.tv  ---------------*/
 #kabtv #player_options #bitrates{
     margin:-3px 35px 0 0;
 }
+#kabtv #player-side{
+    position:absolute;
+    top:0;
+    left:20px;
+}
+
 /****** Homepage kabtv ****/
 #home-kabtv{
     display: inline-block;

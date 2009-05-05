@@ -1306,6 +1306,7 @@ a.highslide-full-expand {
 #home-kabtv #kabtv-top{
     height:309px;
     background:#1c4fb8 url(/images/hebmain/kabtv/home-top.gif) no-repeat 0 0;
+    position:relative;
 }
 #home-kabtv #kabtv-mid{
     background:#1c4fb8 url(/images/hebmain/kabtv/home-mid.jpg) no-repeat 0 0;

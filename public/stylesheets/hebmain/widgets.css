@@ -934,7 +934,7 @@ img.thumbnails{
 }
 #kabtv #player_options #bitrates{
     float:right;
-    margin-right:15px;
+    margin-right:35px;
     color:white;
 }
 #kabtv #player_options #bitrates .selected{

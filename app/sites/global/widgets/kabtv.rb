@@ -321,7 +321,6 @@ $(function() {
           url = get_troubleshooting_url
           if !url.empty?
             div(:id => 'troubleshooting_str'){
-              rawtext _(:troubleshooting)
               a(:id => 'troubleshooting_url', :target => 'blank', :title => "", :href => url) {
                 rawtext _(:click_here)
               }

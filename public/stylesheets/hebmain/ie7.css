@@ -1,4 +1,4 @@
-/*----------  kab.tv  ---------------*/
+a/*----------  kab.tv  ---------------*/
 #kabtv .ui-tabs-nav a{ /* auto clear */
     display:inline-block;
 }
@@ -32,6 +32,9 @@
 }
 #kabtv #player_options #separate-msg{
     display:none;
+}
+#kabtv #player_options #bitrates{
+    margin:-3px 35px 0 0;
 }
 /****** Homepage kabtv ****/
 #home-kabtv{

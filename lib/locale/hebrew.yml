@@ -138,7 +138,7 @@ hebrew:
     for_full_screen_mode_double_click_on_player: למסך מלא לחץ לחיצה כפולה על הנגן
     in_separate_player: לצפייה בנגן מדיה
     full_screen: למסך מלא
-    troubleshooting : נתקלת בבעיות במהלך הצפייה ?
+    click_here : לעזרה לחץ כאן
     no_new_questions: אין שאלות חדשות.
     from:   מ-
     guest: אורח
@@ -187,7 +187,6 @@ hebrew:
     no_broadcast_on: אין שידורים ביום
     broadcast_on: שידור ביום
     edit_kabtv_widget: עריכת יחידת טלוויזיה
-    click_here : לחץ כאן
     broadcast_quality: בחר איכות השידור
     high: גבוהה
     medium: בינונית

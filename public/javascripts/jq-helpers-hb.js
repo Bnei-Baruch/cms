@@ -1,13 +1,3 @@
-//permalink show
-$(document).ready(function() {
-    $('.permalink').click(function(event){
-        event.preventDefault();
-        $this = $(this);
-        $this.next().toggle();
-    })
-});
-
-
 //google analitic
 function google_tracker(pagename){
     if (typeof pagename == "undefined"){

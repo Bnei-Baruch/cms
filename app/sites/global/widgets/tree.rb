@@ -52,8 +52,7 @@ class Global::Widgets::Tree < WidgetManager::Base
   end
 
   def render_static
-    nodes = all_nodes
-    unless presenter.main_section.nil? or nodes.blank?
+    unless presenter.main_section.nil? or (nodes = all_nodes).blank?
       ul(:class => 'static') {
         # We're going to draw only those nodes that are on path
         build_tree(true, nodes).each {|element| draw_tree element}
@@ -145,7 +144,7 @@ class Global::Widgets::Tree < WidgetManager::Base
   def all_nodes(regular_user = true, parent = nil)
     if regular_user
       properties =  'b_hide_on_navigation = false'
-      parent ||= presenter.main_section.id
+      parent ||= presenter.main_section.id rescue nil
       status = ['PUBLISHED']
     else
       properties = nil

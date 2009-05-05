@@ -1,5 +1,4 @@
 class Global::Widgets::CmsActions < WidgetManager::Base
-  @@idx = 0  
   # tree_node - is the node object to which the operations will be performed. Editing will be for this object, New is a new child for this object, Delete is deleting this tree_node
   def render_full
     # return rawtext('') if AuthenticationModel.current_user_is_anonymous? || !tree_node.can_create_child?
@@ -17,9 +16,8 @@ class Global::Widgets::CmsActions < WidgetManager::Base
       end
     end
     unless buttons.empty?
-      @@idx += 1
       func = @options[:mode].eql?('inline') ? 'span' : 'div'
-      element = "#{func}_#{@@idx}"
+      element = "#{func}_#{self.object_id}"
       #      position = @options[:position] || 'top'
       javascript{
         rawtext <<-CMS1

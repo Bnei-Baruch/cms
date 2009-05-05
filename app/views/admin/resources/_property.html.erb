@@ -18,7 +18,7 @@
     when 'number', 'string': %>
       <%= f.text_field(:value, :index => nil, :id => obj_id) %>
     <% when 'boolean': %>
-      <% checked = [true, 1, 't'].include?(property.value) %>
+      <% checked = %w{ true 1 t }.include?(property.value) %>
       <%= check_box_tag :value_dummy, property.value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
     <% when 'date': %>
       Format of Date: yyyy-mm-dd<br/>

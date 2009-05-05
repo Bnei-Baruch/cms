@@ -73,6 +73,11 @@
     direction:ltr;
 }
 /*----------  kab.tv  ---------------*/
+#home-kabtv #tvobj{
+    left:20px;
+    position:absolute;
+    top:87px;
+}
 #kabtv #tabs{
     width:302px;
 }
@@ -115,8 +120,10 @@
 #kabtv #player_options #separate-msg{
     display:none;
 }
-#kabtv #player_options #bitrates{
-    margin-right:5px;
+#kabtv #player-side{
+    position:absolute;
+    top:0;
+    left:20px;
 }
 /************/
 /**********/

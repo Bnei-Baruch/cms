@@ -1362,10 +1362,7 @@ a.highslide-full-expand {
 }
 #home-kabtv #tvobj{
     left:12px;
-    position:relative;
+    position:absolute;
     top:87px;
-}
-#home-kabtv #tvobj #player{
-    position:relative;
 }
 /***********************/

@@ -5,9 +5,6 @@ class ApplicationController < ActionController::Base
 	
 	before_filter :activate_global_parms, :set_website, :set_presenter, :set_translations 
   
-  # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_cms_session_id'
-
 	def set_website_session(show_all_websites)
 		if show_all_websites
 			session[:website] = nil
@@ -40,35 +37,38 @@ class ApplicationController < ActionController::Base
       groups<<'Administrators'
       user_groups = m_user.groups.find(:all, :conditions => [ "groupname IN (?) and (Length(reason_of_ban)=0 or reason_of_ban is null)", groups])
       if (user_groups.length == 0)
-         session[:original_uri]=request.request_uri
-         flash[:notice] = "Access denied."
-         redirect_to(:controller => "login", :action => "login", :status => 401)
+        session[:original_uri]=request.request_uri
+        flash[:notice] = "Access denied."
+        redirect_to(:controller => "login", :action => "login", :status => 401)
       end
     end
   end
     
-protected
+  protected
 
   def save_referrer_to_session
-      session[:referer] = request.env["HTTP_REFERER"]
+    session[:referer] = request.env["HTTP_REFERER"]
   end
 
-private
+  private
 
   def activate_global_parms
-     if session[:user_id].nil?
+    # Pick a unique cookie name to distinguish our session data from others'
+    request.session_options[:session_key] = '_cms_session_id'
+
+    if session[:user_id].nil?
       anonymous = AuthenticationModel.get_anonymous_user
       user = User.authenticate(anonymous[:username], anonymous[:password])
-        if user
-          session[:user_id] = user.id
-          session[:current_user_is_admin] = 0
-          session[:current_user_is_anonymous] = 1
-        else
-          logger.error("Anonymous user is not defined or banned. Access denied.")
-          raise "Access denied for anonymous user."
-        end
+      if user
+        session[:user_id] = user.id
+        session[:current_user_is_admin] = 0
+        session[:current_user_is_anonymous] = 1
+      else
+        logger.error("Anonymous user is not defined or banned. Access denied.")
+        raise "Access denied for anonymous user."
       end
-      Thread.current[:session] = session
+    end
+    Thread.current[:session] = session
   end
 
   def set_website

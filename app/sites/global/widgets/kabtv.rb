@@ -601,14 +601,6 @@ $(function() {
       item.start_time / 100,
       item.start_time % 100)
     title = item.title.gsub '[\r\n]', ''
-    title.gsub!(/href=([^"])(\S+)/, 'href="\1\2" ')
-    title.gsub!('target=_blank', 'class="target_blank"')
-    title.gsub!('target="_blank"', 'class="target_blank"')
-    title.gsub!('&main', '&amp;main')
-    title.gsub!('<br>', '<br/>')
-    title.gsub!(/<font\s+color\s*=\s*["\'](\w+)["\']>/, '')
-    title.gsub!('</font>', '')
-    title.gsub!(/\s+/, '&nbsp;')
     div(:class => 'item'){
       div(:class => 'time'){ rawtext time }
       div(:class => 'title'){ rawtext title }

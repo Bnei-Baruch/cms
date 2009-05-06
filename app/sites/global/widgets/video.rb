@@ -12,7 +12,8 @@ class Global::Widgets::Video < WidgetManager::Base
   def render_homepage_gallery
     video_admin
     href = get_flash_url
-    a(:href => href, :onclick => "javascript:urchinTracker('/homepage/widget/video_gallery/#{get_title}'"){text get_title}
+    title = get_title
+    a(:href => href, :onclick => "javascript:urchinTracker('/homepage/widget/video_gallery/#{title}')"){text title}
   end
 
   def render_full

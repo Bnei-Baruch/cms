@@ -1,4 +1,4 @@
-a/*----------  kab.tv  ---------------*/
+/*----------  kab.tv  ---------------*/
 #kabtv .ui-tabs-nav a{ /* auto clear */
     display:inline-block;
 }
@@ -27,6 +27,10 @@ a/*----------  kab.tv  ---------------*/
     width:114px;
     height:85px;
 }
+#kabtv #player_options{
+    right:9px;
+    bottom:-2px;
+}
 #kabtv #player_options #separate-win,#kabtv #player_options #full-win{
     display:block;
 }
@@ -38,13 +42,19 @@ a/*----------  kab.tv  ---------------*/
 }
 
 /****** Homepage kabtv ****/
+#kabtv #player-side{
+position:static;
+}
+#home-kabtv #tvobj{
+left:12px;
+}
 #home-kabtv{
     display: inline-block;
 }
-#kabtv-bot a{
+#home-kabtv #kabtv-bot a{
     display: inline-block;
 }
-#kabtv-bot a .text-tv{
+#home-kabtv #kabtv-bot a .text-tv{
     display: inline-block;
 }
 #kabtv-live a .text-live{

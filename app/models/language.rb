@@ -4,21 +4,24 @@ class Language < Kabtv
     unless cookies["tvspeed_#{language}"].empty?
       names, locs, map = Language.map(lang)
       video_url = map[cookies["tvspeed_#{language}"]]
-    end
-    if video_url.nil?
-      video_url = lang.bitrate1_url
+    else
+		  video_url = lang.respond_to?(:bitrate1_url) ? lang.bitrate1_url : lang.video_url
     end
 
-    video_high_url = lang.bitrate1_url || nil
-    video_med_url = lang.bitrate2_url || nil
-    video_low_url = lang.bitrate3_url || nil
-    idx = [lang.bitrate1_url, lang.bitrate2_url, lang.bitrate3_url].index(video_url) || 0
+		video_high_url = lang.respond_to?(:bitrate1_url) ? lang.bitrate1_url : nil
+		video_med_url = lang.respond_to?(:bitrate2_url) ? lang.bitrate2_url : nil
+		video_low_url = lang.respond_to?(:bitrate3_url) ? lang.bitrate3_url : nil
+    idx = [video_high_url, video_med_url, video_low_url].index(video_url) || 0
     return video_url, video_high_url, video_med_url, video_low_url, idx
   end
 
   def self.map(lang)
 		names = []
 		locations = []
+		map = {}
+
+		return names, locations, map unless lang.respond_to?(:bitrate1_name)
+    
 		names << lang.bitrate1_name unless lang.bitrate1_name.blank?
 		names << lang.bitrate2_name unless lang.bitrate2_name.blank?
 		names << lang.bitrate3_name unless lang.bitrate3_name.blank?
@@ -34,7 +37,6 @@ class Language < Kabtv
 		names.uniq!
 		locations.uniq!
 
-		map = {}
 		names.each_with_index {|n, ni|
 			locations.each_with_index {|l, li|
 				case

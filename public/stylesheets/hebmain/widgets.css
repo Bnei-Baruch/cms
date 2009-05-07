@@ -937,6 +937,9 @@ img.thumbnails{
     margin-right:35px;
     color:white;
 }
+#kabtv #player_options #bitrates label{
+    margin-right:6px;
+}
 #kabtv #player_options #bitrates .selected{
     color:#fde500;
     font-weight:bold;

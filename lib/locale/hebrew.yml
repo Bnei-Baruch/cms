@@ -300,7 +300,8 @@ hebrew:
     logout_from: יציאה מ-
 
   Global::Widgets::Video:
-    todownload:  להורדה
+    todownload:  להורדה 
+    play:  לחצו לצפייה
     
 ## administration translation or unidentified string
   ActionView::Base:

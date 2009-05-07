@@ -182,7 +182,6 @@ class TreeNode < ActiveRecord::Base
       else
         req_properties = 'null'
       end
-      req_count_children = args[:count_children] || 'null::boolean'
       req_current_page = args[:current_page] || 'null'
       req_items_per_page = args[:items_per_page] || 'null'
       req_return_parent = args.has_key?(:return_parent) ? args[:return_parent] : 'null'
@@ -209,7 +208,7 @@ class TreeNode < ActiveRecord::Base
         if args[:depth]
           args[:depth] unless args[:depth] == 1
         else
-          'null'
+          'null::integer'
         end,
         req_properties,
         req_current_page,
@@ -217,7 +216,9 @@ class TreeNode < ActiveRecord::Base
         req_return_parent,
         req_placeholders,
         req_status,
-        req_count_children
+        if args[:depth] && args[:depth] == 1
+          args[:count_children] || 'null::boolean'
+        end
       ].compact.join(',')
       if args[:test]
         return "select * from cms_treenode_subtree(#{request})"

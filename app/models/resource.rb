@@ -47,18 +47,16 @@ class Resource < ActiveRecord::Base
       more_properties = {:position => i + 1, :resource_type_id => self.resource_type_id}
       p.merge!(more_properties)
       if p[:id].blank?  # new property
-        p = Attachment.store_rp_file(nil, p) if p[:property_type] == "RpFile"
+        p = Attachment.store_rp_file(nil, p) if p[:property_type] == 'RpFile'
         resource_property = self.send("#{p[:property_type].underscore}_properties").send(:build, p)
       else #existing property
         resource_property = resource_properties.detect{|rp|
           rp.id == p[:id].to_i
         }
-        if p[:property_type] == "RpFile" and p[:remove] == "f" and p[:value] == ""
-          Attachment.remove_thumbnails_and_cache(resource_property)
-        else          
-          p = Attachment.store_rp_file(resource_property, p) if p[:property_type] == "RpFile"
-          resource_property.attributes = p  
-        end          
+        if p[:property_type] == 'RpFile'
+          p = Attachment.store_rp_file(resource_property, p)
+        end
+        resource_property.attributes = p
       end
     end
   end
@@ -128,8 +126,8 @@ class Resource < ActiveRecord::Base
 
   #if the resource has link tree_nodes
   def has_links?
-      link_count = TreeNode.count_by_sql("Select count(*) from tree_nodes where is_main <> true and resource_id = #{id}")
-      return (link_count > 0)
+    link_count = TreeNode.count_by_sql("Select count(*) from tree_nodes where is_main <> true and resource_id = #{id}")
+    return (link_count > 0)
   end
   
   protected

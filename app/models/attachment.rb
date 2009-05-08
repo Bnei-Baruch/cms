@@ -54,6 +54,8 @@ class Attachment < ActiveRecord::Base
   end
 
   def Attachment.store_rp_file(resource_property, options)
+    return options if resource_property.nil?
+    
     # Should we first remove an old one?
     if (options.delete(:remove) != 'f')
       remove_thumbnails_and_cache(resource_property)
@@ -62,7 +64,9 @@ class Attachment < ActiveRecord::Base
     # Is file supplied?
     att = options[:value]
     if not file_provided?(att)
-      options[:value] = options[:attachment] = nil
+      #      options[:value] = options[:attachment] = nil
+      options[:attachment] = resource_property.attachment
+      options[:value] = nil
       return options
     end
 

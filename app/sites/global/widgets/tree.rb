@@ -104,13 +104,20 @@ class Global::Widgets::Tree < WidgetManager::Base
   end
   
   # Fetch all subnodes of a specific node of website
+  # used in dynamic tree
   def level_nodes(node_id, regular_user = true)
-    properties = regular_user ? 'b_hide_on_navigation = false' : ''
+    if regular_user
+      properties =  'b_hide_on_navigation = false'
+      status = ['PUBLISHED']
+    else
+      properties = nil
+      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
+    end
     nodes = TreeNode.get_subtree(
       :parent => node_id,
       :resource_type_hrids => ['content_page'],
       :properties => properties,
-      :status => ['PUBLISHED', 'DRAFT', 'ARCHIVED'],
+      :status => status,
       :depth => 1,
       :count_children => true
     )
@@ -124,7 +131,8 @@ class Global::Widgets::Tree < WidgetManager::Base
         :text => resource.status == 'PUBLISHED' ? resource.name : name,
         :href => get_page_url(node),
         :leaf => is_leaf,
-        :resource_name => resource.name, :parent_id => node.parent_id,
+        :resource_name => resource.name,
+        :parent_id => node.parent_id,
         :cannot_edit => !node.can_edit?,
         :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,
@@ -157,6 +165,7 @@ class Global::Widgets::Tree < WidgetManager::Base
       :properties => properties,
       :status => status,
       :depth => 1,
+      :has_url => true,
       :count_children => true
     )
     

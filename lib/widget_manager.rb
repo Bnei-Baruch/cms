@@ -51,6 +51,7 @@ module WidgetManager
           }
           return resource.name rescue ''
         elsif rp = resource.properties(name)
+          rp = rp[0] if rp.kind_of?(Array)
           case rp.property_type
           when 'RpString', 'RpText', 'RpPlaintext'
             self.class.class_eval(

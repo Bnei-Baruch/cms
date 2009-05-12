@@ -74,7 +74,6 @@ class Global::Widgets::Tree < WidgetManager::Base
       user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
       url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node)
       link = _(:'administration_tree') + '&nbsp;&nbsp&nbsp;&nbsp;<a target="_blank" href='+_(:url_bug_report)+'>'+_(:bug_report)+'</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
-      #link = _(:'administration_tree') + '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
 
       @counter += 1
       label = "TREE_#{@counter}"
@@ -119,6 +118,7 @@ class Global::Widgets::Tree < WidgetManager::Base
       :properties => properties,
       :status => status,
       :depth => 1,
+      :items_per_page => 1_000,
       :count_children => true
     )
     json = nodes.collect { |node|
@@ -148,7 +148,8 @@ class Global::Widgets::Tree < WidgetManager::Base
     json.flatten.to_json
   end
 
-  # Fetch all sub-nodes of website 
+  # Fetch all sub-nodes of website
+  # Used in static tree
   def all_nodes(regular_user = true, parent = nil)
     if regular_user
       properties =  'b_hide_on_navigation = false'
@@ -165,6 +166,7 @@ class Global::Widgets::Tree < WidgetManager::Base
       :properties => properties,
       :status => status,
       :depth => 1,
+      :items_per_page => 1_000,
       :has_url => true,
       :count_children => true
     )

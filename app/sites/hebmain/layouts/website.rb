@@ -13,6 +13,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @google_analytics = w_class('google_analytics').new
     @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
+    @languages = w_class('language_menu').new
   end
 
   def render
@@ -162,7 +163,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd-r') { @header_logo.render_to(self) } #Logo goes here
+              div(:id => 'hd-r') {
+                @header_logo.render_to(self)
+                @languages.render_to(self)
+                
+              } #Logo goes here
               div(:class => 'right-part') {
                 div(:class => 'h1') {
                   text 'קבלה למתחיל'
@@ -171,7 +176,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                 }
                 w_class('cms_actions').new(:tree_node => tree_node, 
                   :options => {:buttons => %W{ new_button }, 
-                    :resource_types => %W{ video_gallery site_updates newsletter},
+                    :resource_types => %W{ video_gallery site_updates newsletter banner},
                     :new_text => 'צור יחידת תוכן חדשה', 
                     :has_url => false, 
                     :placeholder => 'right'}).render_to(self)
@@ -205,7 +210,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['site_updates', 'video_gallery', 'newsletter'],
+      :resource_type_hrids => ['site_updates', 'video_gallery', 'newsletter', 'banner'],
       :depth => 1,
       :placeholders => ['right'],
       :status => ['PUBLISHED', 'DRAFT']

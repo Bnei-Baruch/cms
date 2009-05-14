@@ -24,6 +24,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
     @comments = w_class('comments').new
     @archive = w_class('archive').new
     @previous_comments = w_class('comments').new(:view_mode => 'previous')
+    @share = w_class('share_this').new(:view_mode => 'hebrew')
   end
 
   def render
@@ -119,6 +120,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       
                       @comments.render_to(self)
                       @send_to_friend.render_to(self)
+                      @share.render_to(self)
                       @direct_link.render_to(self) 
                       @archive.render_to(self) if archived_resources.size > 0 && !@presenter.page_params.has_key?('archive')
                       @previous_comments.render_to(self)

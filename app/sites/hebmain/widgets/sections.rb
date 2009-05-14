@@ -5,15 +5,16 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
       div(:class => 'first')
       ul {
         li{
-          a({:href => presenter.home}.merge!(gg_analytics_tracking(_(:home)))){
-            img(:src => img_path('home.gif'), :alt => 'home')
+          a({:title => _(:kabbalah_la_am), :href => presenter.home}.merge!(gg_analytics_tracking(_(:home)))){
+            img(:src => img_path('home.gif'), :alt => _(:home) )
+            rawtext "&nbsp;"
             text  _(:home)     #' ראשי'
           }
         }
         main_sections.each{ |section|
           li(:class => 'divider'){ rawtext '|'}
           li(section.eql?(presenter.main_section) ? {:class => 'selected'} : {}){
-            a({:href => get_page_url(section)}.merge!(gg_analytics_tracking(section.resource.name))) {
+            a({:title => section.resource.name, :href => get_page_url(section)}.merge!(gg_analytics_tracking(section.resource.name))) {
               text section.resource.name
             }
           }

@@ -242,7 +242,7 @@ tr.badmod td{
     background-color: #f4f9fd;
     border: 1px solid #e8e8e8;
     padding:8px;
-    font-size:11px;
+    font-size:9px;
 }
 .sitemap .title{
     font-weight: bold;
@@ -661,7 +661,7 @@ table.media_rss th{
     padding: 0 20px 0 0;
     background-repeat: no-repeat;
     background-position:100% -34px;
-    margin:0 20px 0 0;
+    margin:0 20px 0 15px;
     color: #186BE5;
     float:right;
 }
@@ -1369,3 +1369,19 @@ a.highslide-full-expand {
     top:87px;
 }
 /***********************/
+.share_this{
+    text-align: left;
+}
+#sharepic{
+    margin:0 0px 0 2px;
+}
+/*************************/
+#languagebar{
+    background-color:#F5F5F7;
+    border-color:#C9C9CE;
+    border-style:ridge;
+    margin:103px 0 0 142px;
+    padding:0 0;
+    font-size:12px;
+    color:gray;
+}

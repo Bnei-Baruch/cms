@@ -92,7 +92,7 @@ class Global::Widgets::Video < WidgetManager::Base
       wmvpath = get_download_link
       unless wmvpath.empty?
         span(:class => 'services'){
-          a(:href => wmvpath, :title => 'download') {
+          a(:href => wmvpath, :title => 'download', :target => "_blank") {
             img(:src => '/images/download.gif', :alt => 'download')
             text _(:download)
           }

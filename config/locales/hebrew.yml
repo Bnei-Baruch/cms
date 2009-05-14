@@ -30,6 +30,39 @@ hebrew:
   Mainsites::Widgets::Breadcrumbs:
     home_breadcrumb: ראשי
 
+  Hebmain::Widgets::LanguageMenu:
+    chooseyourlanguage: Choose your language
+    arabic: العربية
+    german: Deutsch
+    spanish: Español
+    french: Français
+    danish: Dansk
+    bulgar: Български
+    czech: Česky
+    greek: Ελληνικά
+    persian: فارسی
+    hebrew: עברית
+    hindi: हिन्दी
+    hungarian: Magyar
+    italian: Italiano
+    japanese: 日本語
+    georgian: ქართული
+    lithunian: Lietuvių
+    latvian: Latviešu
+    macedonian: Македонски
+    nederlands: Nederlands
+    polish: Polski
+    portugese: Português
+    romanian: Română
+    russian: Русский
+    turkish: Türkçe
+    ukranian: Українська
+    vietnamian: Tiếng Việt
+    chinese: 中文
+    chinese_classical: 文言
+    yiddish: ייִדיש
+    english: English
+
   Hebmain::Widgets::CampusForm:
     admin:  אדמין
     name: שם
@@ -138,7 +171,7 @@ hebrew:
     for_full_screen_mode_double_click_on_player: למסך מלא לחץ לחיצה כפולה על הנגן
     in_separate_player: לצפייה בנגן מדיה
     full_screen: למסך מלא
-    click_here : לעזרה לחץ כאן
+    click_here : לתמיכה טכנית - לחצו כאן
     no_new_questions: אין שאלות חדשות.
     from:   מ-
     guest: אורח
@@ -266,6 +299,7 @@ hebrew:
 
   Hebmain::Widgets::Sections:
     home: ראשי
+    kabbalah_la_am: קבלה לעם
 
   Mainsites::Widgets::SendToFriend:
     send_to_friend: שלח לחבר
@@ -300,7 +334,7 @@ hebrew:
     logout_from: יציאה מ-
 
   Global::Widgets::Video:
-    todownload:  להורדה
+    download:  להורדה
     create_new_content_item: צור יחידת תוכן חדשה
     
 ## administration translation or unidentified string
@@ -359,6 +393,10 @@ hebrew:
     abc_test_abc_check_code: ABC test - ABC checkcode
     abc_test_page_role_(a,b,c): Page Role (ABC)
     move_to_archive : העבר לארכיון
-    
+
+  Hebmain::Widgets::ShareThis:
+    share_this: לשתף
+
+
 
 

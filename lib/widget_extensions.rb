@@ -7,7 +7,7 @@ module WidgetExtensions
   end                  
   
   def w_class(name)
-    presenter.w_class(name) rescue nil
+    presenter.w_class(name) rescue ENV['RAILS_ENV'] == 'production' ? presenter.w_class('empty') : nil
   end
   
   # can pass optional :image_name => 'my_custom_name' to get a specific filtered image

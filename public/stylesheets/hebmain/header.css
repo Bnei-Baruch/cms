@@ -21,10 +21,17 @@ strong{
 }
 /***********  HEADER  ****************/
 .dynamic_tree {
-    right:0;
-    top:0;
     position:fixed;
+    top:0;
+    right:0;
+    background-color:#F5F5DC;
+    border:2px solid #D57100;
+    height:26px;
+    width:942px;
     z-index:1000;
+}
+.under-command-panel{
+    margin-top:30px !important;
 }
 #hd {
     position: relative;
@@ -63,7 +70,7 @@ strong{
 }
 .h1 .h1-left{
     left:0;
-    background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;  
+    background: transparent url(/images/hebmain/h1-ears.png) no-repeat 0 0;
 }
 /*----------  Logo  ---------------*/
 #hd-r .logo {
@@ -160,7 +167,7 @@ strong{
     width:100%;
     height:31px;
     line-height:21px;
-    padding: 3px 0 0; 
+    padding: 3px 0 0;
     margin: 0;
 }
 #bd .menu .first {

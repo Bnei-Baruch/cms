@@ -52,7 +52,7 @@ function tree_drop_zone(widget_node_id, url, widget, updatable, updatable_view_m
     });
 }
 
-function create_tree(url, tree_label, title, expand_path, resource_type_id, root_id, admin_url, root_title)
+function create_tree(url, tree_label, title, expand_path, resource_type_id, root_id, admin_url, root_title, width)
 {
     var myTreeLoader = new Ext.tree.TreeLoader({
         dataUrl: url,
@@ -83,7 +83,7 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
         autoHeight:false,
         lines:false,
         useArrows:true,
-        width:300,
+        width:width,
         height:480,
         autoScroll:true,
         enableDD:true,

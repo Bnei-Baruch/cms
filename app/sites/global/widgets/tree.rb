@@ -87,7 +87,7 @@ class Global::Widgets::Tree < WidgetManager::Base
             function tree() {
               create_tree('#{get_page_url(tree_node)}', '#{label}', '#{link}',
                           '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
-                          '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}');
+                          '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}', 400);
             }
           TREE_CODE
         }

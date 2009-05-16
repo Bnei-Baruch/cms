@@ -1,5 +1,7 @@
 class RpFile < ResourceProperty	
 
+  attr_accessor :remove
+
   validates_length_of :file, :as => :attachment, :maximum => 5.megabytes
 
   def original

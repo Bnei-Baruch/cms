@@ -1,6 +1,14 @@
 class PageMap < ActiveRecord::Base
   class << self;
 
+    # Remove dependent caches
+    def remove_dependent_caches(tree_node)
+      PageMap.find_all_by_child_id(tree_node.id).map {|map| TreeNode.find(map.parent_id) }.each{ |node|
+        key = node.this_cache_key
+        Rails.cache.delete(key)if Rails.cache.exist?(key)
+      }
+    end
+
     def reset_tree_nodes_list
       @tree_nodes_list = []
     end

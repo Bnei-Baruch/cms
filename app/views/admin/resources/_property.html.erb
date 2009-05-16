@@ -98,11 +98,13 @@
       <% end %>
       <%= f.file_field(:value, :index => nil) %>
     <% end %>
-    <% if data_type = 'file' && original %>
-      <br/>Remove:<br/>
-      <%= f.check_box :remove, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
-    <% else %>
-      <%= f.hidden_field(:remove, :index => nil) %>
+    <% if data_type == 'file' %>
+      <% if original %>
+        <br/>Remove:<br/>
+        <%= f.check_box :remove, {:index => nil, :class => 'property_checkbox'}, 't', 'f' %>
+      <% else%>
+        <%= f.hidden_field(:remove, :index => nil) %>
+      <% end%>
     <% end%>
   
   <% end %>

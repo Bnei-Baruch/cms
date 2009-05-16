@@ -7,10 +7,7 @@ class ResourceProperty < ActiveRecord::Base
   validate :match_pattern
   validate :required_properties_present
 
-  # Generally it is for File, but I have no idea how to pass it to file field only
-  attr_accessor :remove
   attr_accessor :resource_type_id   
-
 
   def self.inheritance_column
     'property_type'

@@ -53,18 +53,24 @@ class Attachment < ActiveRecord::Base
     }
   end
 
+  # We don't support both 'remove file' and 'new file' options
+  # 'Remove' always has precedence
+
+  # Returns: options
   def Attachment.store_rp_file(resource_property, options)
     return options if resource_property.nil?
     
     # Should we first remove an old one?
-    if (options.delete(:remove) != 'f')
+    remove = options.delete(:remove)
+    if (!remove.empty? && remove != 'f')
       remove_thumbnails_and_cache(resource_property)
+      options[:value] = options[:attachment] = nil
+      return options
     end
 
     # Is file supplied?
     att = options[:value]
     if not file_provided?(att)
-      #      options[:value] = options[:attachment] = nil
       options[:attachment] = resource_property.attachment
       options[:value] = nil
       return options
@@ -187,6 +193,7 @@ class Attachment < ActiveRecord::Base
       thumb.destroy
     }
     if resource_property.attachment.myself
+      Attachment.delete_file(attachment.id, 'myself' + ext)
       resource_property.attachment.myself.destroy
     end
   end

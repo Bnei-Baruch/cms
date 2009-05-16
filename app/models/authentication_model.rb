@@ -21,37 +21,23 @@ class AuthenticationModel
       :password => $config_manager.appl_settings[:anonymous_login_user][:password]} rescue {}
   end
   
-  def self.GET_NODE_AC_TYPES_FOR_EDIT
-    NODE_AC_TYPES.reject {| key, value | key == 4 }
-  end
-  
-  # def to_s
-  #   NODE_AC_TYPES[ac_type]
-  # end
-  
   #return min permission to child nodes by current user (recursive) 999 = no child
   def self.get_min_permission_to_child_tree_nodes_by_user(tree_node_id)
     if AuthenticationModel.current_user_is_admin?
       return 4 #"Administrating"
     end
-    result =999 #no child
-    chields =  TreeNode.old_find_by_sql("Select * from tree_nodes 
-        where parent_id =#{tree_node_id}")
-    chields.each{ |tn|
+    result = 999 #no child
+    children =  TreeNode.old_find_by_sql("Select * from tree_nodes where parent_id =#{tree_node_id}")
+    children.each { |tn|
       #get current node permission
-      if tn.ac_type < result
-        result = tn.ac_type
-      end
+      result = tn.ac_type if tn.ac_type < result
         
       #optimization (if it already minimal value)
-      if result == 0 #"Forbidden"
-        return result 
-      end
+      return result if result == 0 #"Forbidden"
+
       #get child permission
       tmp_res = tn.get_min_permission_to_child_tree_nodes_by_user()
-      if tmp_res < result
-        result = tmp_res
-      end
+      result = tmp_res if tmp_res < result
     }
     result #999 no child
   end

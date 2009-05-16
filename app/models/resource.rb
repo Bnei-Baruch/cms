@@ -56,6 +56,8 @@ class Resource < ActiveRecord::Base
         if p[:property_type] == 'RpFile'
           p = Attachment.store_rp_file(resource_property, p)
         end
+        # Remove protected attributes
+        ['id', resource_property.class.primary_key, resource_property.class.inheritance_column].each {|a| p.delete(a)}
         resource_property.attributes = p
       end
     end
@@ -208,7 +210,9 @@ class Resource < ActiveRecord::Base
   def update_tree_node
     if tree_node
       node = TreeNode.find_by_id(tree_node[:id])
+      id = tree_node.delete(:id)
       node.update_attributes(tree_node)
+      tree_node.merge!({:id => id})
     end
   end
 

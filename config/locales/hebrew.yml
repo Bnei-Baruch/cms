@@ -332,6 +332,9 @@ hebrew:
     url_bug_report: http://spreadsheets.google.com/viewform?formkey=cGtTM2pTY0xyVldONVBjTFp5cVdNYXc6MA..
     bug_report: דיווח תקלות
     logout_from: יציאה מ-
+    published: פורסם
+    draft: טיוטה
+    archived: בארכיון
 
   Global::Widgets::Video:
     download:  להורדה
@@ -339,6 +342,9 @@ hebrew:
     
 ## administration translation or unidentified string
   ActionView::Base:
+    published: פורסם
+    draft: טיוטה
+    archived: בארכיון
     publish_on_site: פרסם באתר
     save_draft: שמור כטיוטה
     update: עדכן

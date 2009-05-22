@@ -1,3 +1,6 @@
+body{
+    margin-top:26px !important;
+}
 /*----------  Action Buttons  ---------------*/
 .button-menu{
     /*background:transparent url(/images/menu.gif) no-repeat scroll 0 0 !important;*/

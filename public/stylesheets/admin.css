@@ -2,6 +2,7 @@ body {
     font-family:verdana,arial,helvetica,clean,sans-serif;
     text-align:left;
     background-color:white;
+    margin-top:26px;
 }
 table{
     border-collapse:separate;

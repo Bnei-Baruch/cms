@@ -52,6 +52,8 @@ function tree_drop_zone(widget_node_id, url, widget, updatable, updatable_view_m
     });
 }
 
+Ext.Ajax.timeout = 60000;
+
 function create_tree(url, tree_label, title, expand_path, resource_type_id, root_id, admin_url, root_title, width)
 {
     var myTreeLoader = new Ext.tree.TreeLoader({

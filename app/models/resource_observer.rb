@@ -3,10 +3,11 @@ class ResourceObserver < ActiveRecord::Observer
     # Find instances of RpFile, i.e. attachments
     # Create thumbnails for those which are images
     resource.resource_properties.select {|fld| fld.instance_of?(RpFile)}.each {|rp|
-#      next unless rp.changed? -- That doesn't work for images because we always remove it
+      #      next unless rp.changed? -- That doesn't work for images because we always remove it
       next if !( rp.attachment && rp.attachment.is_image?)
       Attachment.create_thumbnails_and_apply_geometry_and_cache(rp)
     }
+    PageMap.remove_dependent_caches_by_resource(resource)
   end
 
   def before_destroy(resource)
@@ -19,9 +20,9 @@ class ResourceObserver < ActiveRecord::Observer
       #We know tha.tree_nodes.main.t it come from main_tree_node destroy if it is nil
       if not main_tree_node.can_administrate? #check permission
         logger.error("User #{AuthenticationModel.current_user} has not permission " + 
-        "for destroy tree_node: #{main_tree_node.id} resource: #{resource.id}")
+            "for destroy tree_node: #{main_tree_node.id} resource: #{resource.id}")
         raise "User #{AuthenticationModel.current_user} has not permission " + 
-        "for destroy tree_node: #{main_tree_node.id} resource: #{resource.id}"
+          "for destroy tree_node: #{main_tree_node.id} resource: #{resource.id}"
         return
       end
     end
@@ -29,5 +30,6 @@ class ResourceObserver < ActiveRecord::Observer
     resource.resource_properties.select {|fld| fld.instance_of?(RpFile)}.each {|rp|
       Attachment.remove_thumbnails_and_cache(rp)
     }
+    PageMap.remove_dependent_caches_by_resource(resource)
   end
 end

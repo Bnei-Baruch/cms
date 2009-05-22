@@ -3,9 +3,30 @@ class PageMap < ActiveRecord::Base
 
     # Remove dependent caches
     def remove_dependent_caches(tree_node)
-      PageMap.find_all_by_child_id(tree_node.id).map {|map| TreeNode.find(map.parent_id) }.each{ |node|
+      # logger.error "save_tree_nodes_list will update DB"
+      PageMap.find_by_sql "START TRANSACTION"
+      PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1;' rescue ''
+      [
+        # This node is child of...
+        PageMap.find_all_by_child_id(tree_node.id) +
+          # This node is parent of...
+          PageMap.find_all_by_parent_id(tree_node.id) +
+            # This is a new node and it was attached to...
+          PageMap.find_all_by_parent_id(tree_node.parent.id)
+      ].compact.flatten.uniq.map {|map|
+        TreeNode.find(map.parent_id)
+      }.each{ |node|
         key = node.this_cache_key
-        Rails.cache.delete(key)if Rails.cache.exist?(key)
+        Rails.cache.delete(key) if Rails.cache.exist?(key)
+        PageMap.find_by_sql "EXECUTE delete_PM (#{node.id});"
+      }
+      PageMap.find_by_sql 'DEALLOCATE delete_PM;' rescue ''
+      PageMap.find_by_sql "COMMIT"
+    end
+
+    def remove_dependent_caches_by_resource(resource)
+      TreeNode.find_all_by_resource_id(resource.id).each{|node|
+        remove_dependent_caches(node)
       }
     end
 

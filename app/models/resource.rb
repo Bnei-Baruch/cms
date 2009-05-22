@@ -53,6 +53,7 @@ class Resource < ActiveRecord::Base
         resource_property = resource_properties.detect{|rp|
           rp.id == p[:id].to_i
         }
+        next if resource_property.nil? # Happens in production mode
         if p[:property_type] == 'RpFile'
           p = Attachment.store_rp_file(resource_property, p)
         end

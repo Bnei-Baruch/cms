@@ -13,6 +13,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     #    @google_analytics = w_class('google_analytics').new
     #    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
+    #    @sections = w_class('sections').new
   end
 
   def render
@@ -59,7 +60,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
       body {
         if presenter.node.can_edit?
           div(:id => 'command-panel'){
-            @dynamic_tree.render_to(self)
+            display @dynamic_tree
             div(:class => 'clear')
           }
           header_class = 'under-command-panel'
@@ -219,7 +220,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         div(:id => 'footer'){
           rawtext 'Footer'
         }
-        #        @google_analytics.render_to(self)
+        #        display @google_analytics
       }
     }
   end

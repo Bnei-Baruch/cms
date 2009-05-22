@@ -12,42 +12,6 @@ require 'benchmark'
 
 class CronManager
 
-  def self.sweep_cache
-    cron_manager_user_login
-    
-    pages = CmsCacheOutdatedPage.find_by_sql('select * from cms_get_outdated_pages()')
-    Logger.new(STDOUT).debug "############################     Do we have to refresh pages: #{!pages.empty?}"
-    return if pages.empty?
-
-    date = pages[0].date
-    node_ids = pages.map{|p| p.page_id}.sort
-
-    Logger.new(STDOUT).debug "############################     We have to refresh #{node_ids.length} nodes: #{node_ids.join(',')}"
-    Logger.new(STDOUT).debug "############################     Database Timestamp #{date}"
-    Logger.new(STDOUT).debug "############################     Starting at        #{DateTime.now.strftime("%Y-%m-%d %H:%M")}"
-    
-    nodes = []
-    node_ids.each{|node_id|
-      begin
-        nodes << TreeNode.find_by_id(node_id)
-      rescue Exception => e
-        Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Node not found. Node_id: #{node_id}"
-      end
-    }
-
-    benchmark = Benchmark.measure {
-      clean_page_cache(nodes)
-      clean_feed_cache(nodes)
-    }
-    Logger.new(STDOUT).debug "############################     Time to clean (in sec): #{benchmark.to_s}"
-    
-    pages = CmsCacheOutdatedPage.find_by_sql("select * from cms_clean_outdated_pages('#{date}')")
-    Logger.new(STDOUT).debug "############################     Refreshed pages were removed from cms_cache_outdated_pages: #{pages.length == 1 ? 'yes' : 'no'}"
-    
-    Logger.new(STDOUT).debug "############################     Finished at #{DateTime.now.strftime("%Y-%m-%d %H:%M")}"
-  end
-
-
   def self.read_and_save_rss
    
     cron_manager_user_login

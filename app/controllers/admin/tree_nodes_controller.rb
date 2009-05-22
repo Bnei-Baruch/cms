@@ -108,7 +108,6 @@ class Admin::TreeNodesController < ApplicationController
   
   # GET /tree_nodes/1/tree_node_delete
   def tree_node_delete
-    success_flag = true
     @tree_node = TreeNode.find(params[:id])
     
     if @tree_node.nil?
@@ -127,17 +126,11 @@ class Admin::TreeNodesController < ApplicationController
     end
     #   ******************
 
-    if success_flag
-      if @tree_node.logical_delete
-        flash[:notice] = 'Resource was successfully deleted.'
-      else
-        success_flag = false
-        flash[:notice] = 'Resource was fail on delete.'
-        logger.error("Resource was fail on delete.")
-      end
-    end
-    
-    if not success_flag
+    if @tree_node.logical_delete
+      flash[:notice] = 'Resource was successfully deleted.'
+    else
+      flash[:notice] = 'Resource was fail on delete.'
+      logger.error("Resource was fail on delete.")
       return
     end
     
@@ -147,13 +140,12 @@ class Admin::TreeNodesController < ApplicationController
           head(:ok).to_json
           return
         end
-        redirect_to session[:referer] 
-        
+        redirect_to session[:referer]
+        return
       }
       format.xml  { head :ok }
       format.json { head(:ok).to_json}
     end
-    return
   end
 
   # POST /tree_nodes

@@ -1,6 +1,9 @@
 class Mainsites::Widgets::Sitemap < WidgetManager::Base
+
+  skip_page_map
   
   def render_full
+
     div(:class => 'sitemap'){
       div(:class => 'sitemap-inner'){
   			
@@ -24,7 +27,9 @@ class Mainsites::Widgets::Sitemap < WidgetManager::Base
       }
     }
   end
-  
+
+  private
+
   def get_sub_section (tree_node)
     TreeNode.get_subtree(
       :parent => tree_node.id, 

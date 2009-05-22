@@ -1,6 +1,9 @@
 class TreeNodeObserver < ActiveRecord::Observer
   def after_find(tree_node)
-    PageMap.add_to_tree_nodes_list(tree_node.id)
+    # To skip recording of tree_nodes into page map (ex. for SiteMap widget)
+    # call skip_page_map in a class environment
+    # Note: This will turn cacheing off for ALL views of the class
+    PageMap.add_to_tree_nodes_list(tree_node.id) unless Thread.current[:skip_page_map]
 
     #if user is admin set max permission
     if AuthenticationModel.current_user_is_admin?
@@ -32,6 +35,7 @@ class TreeNodeObserver < ActiveRecord::Observer
   def after_save(tree_node)
     #copy parent permission to the new tree_node
     AuthenticationModel.copy_parent_tree_node_permission(tree_node)
+    PageMap.remove_dependent_caches(tree_node)
   end
 
   def before_destroy(tree_node)
@@ -45,6 +49,10 @@ class TreeNodeObserver < ActiveRecord::Observer
       end
     end
     tree_node.tree_node_ac_rights.destroy_all
+  end
+
+  def after_update(tree_node)
+    PageMap.remove_dependent_caches(tree_node)
   end
 
   def before_update(tree_node)
@@ -108,8 +116,9 @@ class TreeNodeObserver < ActiveRecord::Observer
 
   def after_destroy(tree_node)
     #delete resource if exist
-    #used for recurcive delete of tree_nodes
+    #used for recursive delete of tree_nodes
     tree_node.resource.destroy if tree_node.resource && tree_node.is_main == true
+    PageMap.remove_dependent_caches(tree_node)
   end
 
 end

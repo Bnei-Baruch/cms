@@ -25,6 +25,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @direct_link = w_class('shortcut').new
     @comments = w_class('comments').new
     @previous_comments = w_class('comments').new(:view_mode => 'previous')
+    @sections = w_class('sections').new
     kabtv_resources
   end
 
@@ -79,23 +80,23 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       body {
         if presenter.node.can_edit?
           div(:id => 'command-panel'){
-            @dynamic_tree.render_to(self)
+            display @dynamic_tree
             div(:class => 'clear')
           }
           header_class = 'under-command-panel'
         end
         div(:id => 'header', :class => header_class){
-          @header_logo.render_to(self)
-          @header_search.render_to(self)
+          display @header_logo
+          display @header_search
           div(:id => 'links'){
             make_sortable(:selector => '#header .links_ext', :axis => 'x') {
-              @header_top_links_ext.render_to(self)
+              display @header_top_links_ext
             }
             make_sortable(:selector => '#header .links_int', :axis => 'x') {
-              @header_top_links_int.render_to(self)
+              display @header_top_links_int
             }
           }
-          @header_top_languages.render_to(self)
+          display @header_top_languages
         }
         div(:id => 'nav-empty'){
           nbsp
@@ -104,7 +105,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           div(:class => 'left-ear')
           div(:class => 'right-ear')
 
-          w_class('sections').new.render_to(self)
+          display @sections
         }
         div(:id => 'body'){
           div(:id => 'body-left'){
@@ -114,12 +115,12 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
               div(:class => 'right-ear')
             }
             div(:class => 'box-content'){
-              @static_tree.render_to(self)
+              display @static_tree
             }
             div(:class => 'side-box'){
               h3 'Newsletter'
               div(:class => 'box-content'){
-                @newsletter.render_to(self)
+                display @newsletter
               }
             }
             div(:class => 'side-box'){
@@ -141,39 +142,39 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           }
           div(:id => 'body-middle'){
             div(:class => 'mid-box-top'){
-              @titles.render_to(self)
+              display @titles
               div(:class => 'left-ear')
               div(:class => 'right-ear')
             }
             div(:id => 'content-header'){
               make_sortable(:selector => ".content-header", :axis => 'y') {
-                self.ext_content_header.render_to(self)
+                display self.ext_content_header
               }
             }
             div(:id => 'mid-content'){
-              @breadcrumbs.render_to(self)
+              display @breadcrumbs
               render_content_resource(@kabtv_node[0], :width => 378, :height => 288) unless @kabtv_node.empty?
               div(:class => 'bg'){
                 div(:class => 'related') {
-                  self.ext_main_image.render_to(self)
+                  display self.ext_main_image
                   make_sortable(:selector => ".related", :axis => 'y') {
-                    self.ext_related_items.render_to(self)
+                    display self.ext_related_items
                   }
                 }
                 div(:class => 'content'){
                   make_sortable(:selector => "#mid-content .bg #content_resources", :axis => 'y') {
-                    self.ext_content.render_to(self)
+                    display self.ext_content
                   }
                 }
                 div(:class => 'services clear'){
-                  @direct_link.render_to(self)
-                  @comments.render_to(self)
-                  @send_to_friend.render_to(self)
+                  display @direct_link
+                  display @comments
+                  display @send_to_friend
                   span(:class => 'clear')
                 }
 
-                @send_form.render_to(self)
-                @previous_comments.render_to(self)
+                display @send_form
+                display @previous_comments
               }
             }
           }
@@ -181,13 +182,13 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         }
       }
       div(:id => 'footer'){
-        @sitemap.render_to(self)
+        display @sitemap
         make_sortable(:selector => '#footer .links', :axis => 'x') {
-          @header_bottom_links.render_to(self)
+          display @header_bottom_links
         }
-        @header_copyright.render_to(self)
+        display @header_copyright
       } unless ext_kabtv_exist
-      #        @google_analytics.render_to(self)
+      #        display @google_analytics
     }
   end
   

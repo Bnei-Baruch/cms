@@ -584,7 +584,9 @@ table.media_rss th{
 #yellow_effect{ 
     background-color: yellow;
 }
-
+#create_comment {
+    display:none;
+}
 #create_comment .submit{
     background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
     border: medium none;
@@ -666,7 +668,8 @@ table.media_rss th{
     float:right;
 }
 #send_to_friend{
-    display: inline;
+    display: none;
+    /*display: inline;*/
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -843,6 +846,15 @@ img.thumbnails{
 
 .mediacasting{
     padding-right: 25px;
+}
+.mediacasting a.hide-player{
+    display: none;
+}
+.mediacasting a.show-player{
+    display: none;
+}
+.mediacasting a.media-download{
+    display: none;
 }
 
 .media-download{

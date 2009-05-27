@@ -16,6 +16,10 @@ class AuthenticationModel
     4 => "Administrating"
   }
   
+  def self.GET_NODE_AC_TYPES_FOR_EDIT
+    NODE_AC_TYPES.reject {| key, value | key == 4 }
+  end
+
   def self.get_anonymous_user
     {:username => $config_manager.appl_settings[:anonymous_login_user][:username],
       :password => $config_manager.appl_settings[:anonymous_login_user][:password]} rescue {}

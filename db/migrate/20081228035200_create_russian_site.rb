@@ -31,23 +31,23 @@ class CreateRussianSite < ActiveRecord::Migration
           {:property_type => "RpString",
             :property_id => prt1.id, 
             :value => "russiansite",
-            :remove =>""}, 
+          }, 
           {:property_type => "RpPlaintext",
             :property_id => prt2.id,
             :value => "russiansite",
-            :remove =>""}, 
+          }, 
           {:property_type => "RpString",
             :property_id => prt3.id, 
             :value => "russiansite",
-            :remove =>""}, 
+          }, 
           {:property_type => "RpString",
             :property_id => prt4.id, 
             :value =>"russiansite",
-            :remove =>""},
+          },
           { :property_type => "RpString",
             :property_id => prt5.id, 
             :value =>"russiansite",
-            :remove =>""}
+          }
         ]},
       
       :action => "create",
@@ -62,7 +62,7 @@ class CreateRussianSite < ActiveRecord::Migration
     
     website = {
       :name =>"Russian",
-      :prefix =>"ruskab",
+      :prefix =>"rus",
       :use_homepage_without_prefix => false,
       :domain =>"http://russian.localhost",
       :hrid =>"rusmain",
@@ -73,15 +73,20 @@ class CreateRussianSite < ActiveRecord::Migration
     raise 'Failed to create website' unless rs_website
     rs_website.save!
 
+    puts 'Website created'
   end
 
   def self.down
     migration_login
     
     web_node = TreeNode.find(:first, :conditions => {:permalink => 'rusmain'})
-    rs_id = web_node.resource_id
-    web_node.delete
-    puts 'Website deleted - OK'
+    if web_node.nil?
+       puts 'Website does not exists'
+    else
+       rs_id = web_node.resource_id
+       web_node.delete
+       puts 'Website deleted - OK'
+    end
 
     rtp = ResourceType.find(:first, :conditions => ['hrid = ?', 'website'])
     raise 'Failed to find rtp' unless rtp
@@ -89,7 +94,7 @@ class CreateRussianSite < ActiveRecord::Migration
     web_resource = Resource.find(:first, :conditions => {:resource_type_id => rtp.id, :id => rs_id})
     raise 'Failed to find web_resource' unless web_resource
     
-    web_site = Website.find(:first, :conditions => {:prefix => 'ruskab', :hrid => 'rusmain'})
+    web_site = Website.find(:first, :conditions => {:prefix => 'rus', :hrid => 'rusmain'})
     raise 'Failed to find web_site' unless web_site
     
     prt = ResourceProperty.find(:all, :conditions => {:resource_id => rs_id})

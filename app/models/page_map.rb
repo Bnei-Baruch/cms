@@ -12,7 +12,7 @@ class PageMap < ActiveRecord::Base
           # This node is parent of...
           PageMap.find_all_by_parent_id(tree_node.id) +
             # This is a new node and it was attached to...
-          PageMap.find_all_by_parent_id(tree_node.parent.id)
+          (tree_node.parent ? PageMap.find_all_by_parent_id(tree_node.parent.id) : [])
       ].compact.flatten.uniq.map {|map|
         TreeNode.find(map.parent_id)
       }.each{ |node|

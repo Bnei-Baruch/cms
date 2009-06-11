@@ -14,7 +14,9 @@ module ApplicationHelper
   
   def get_page_url(tree_node)
     #only used when not in widget - widget use get_page_url from widget_extention
-    domain + tm_path(:prefix => @presenter.controller.website.prefix, :permalink => tree_node.permalink)
+    path = permalink.empty? ? prefix_only_path(:prefix => @presenter.controller.website.prefix) :
+                   prefx_permalink_path(:prefix => @presenter.controller.website.prefix, :permalink => tree_node.permalink) 
+    domain + path
   end
 
   def get_css_url(style_name)

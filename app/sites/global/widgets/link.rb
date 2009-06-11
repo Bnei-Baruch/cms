@@ -42,7 +42,7 @@ class Global::Widgets::Link < WidgetManager::Base
           :resource_types => %W{ link }}).render_to(self)
       image = get_icon
       a({:href => get_url, :title => get_alt, :class => get_open_in_new_window ? 'target_blank' : 'target_self' }.merge!(gg_analytics_tracking(get_name))) {
-        img(:src => image, :alt => '') unless image.blank?
+        img(:src => image, :class => 'link-img', :alt => '') unless image.blank?
         br
         text get_name
       }

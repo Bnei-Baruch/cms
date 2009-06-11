@@ -19,6 +19,7 @@
 #static-menu li{
     font:11px "Lucida Grande CY", Arial, sans-serif;
     color:#1060A5;
+    background-color:#e0e2e7;
 }
 #static-menu li a{
     padding:5px 10px 5px 17px;
@@ -42,7 +43,7 @@
 #static-menu a.selected{
     font-weight:bold;
 }
-#static-menu li.selected{
+#static-menu a.current_node{
     background-color:#eff1f6;
 }
 #static-menu a{
@@ -218,6 +219,14 @@
     width:59px;
     cursor:pointer;
 }
+#mid-content #send_to_friend table#friend a.button{
+    background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
+    margin:0;
+    line-height:18px;
+}
+#mid-content #send_to_friend #friend_form table#friend span.postbutton{
+    margin-right:10px;
+}
 #mid-content #send_to_friend table#friend a:hover{
     text-decoration:none;
 }
@@ -252,6 +261,14 @@
 #mid-content #comment_form table#reactions .input input{
     width:40ex;
     border:1px solid #E5E5EB;
+}
+#mid-content #comment_form table#reactions a.submit{
+    background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
+    margin:0;
+    line-height:18px;
+}
+#mid-content #comment_form table#reactions span.postbutton{
+    margin-right:10px;
 }
 #mid-content #comment_form table#reactions a{
     background-position:0 0;
@@ -370,9 +387,15 @@
     border:1px solid transparent;
     border-top:1px solid #E5E5EB;
 }
+.side-box .box-content .newsletter .clear{
+    display:block;
+}
 .side-box .box-content .newsletter h1{
     color:#161616;
     font-size:11px;
+}
+.side-box .box-content .newsletter input#ml_user_email{
+    margin-bottom:10px;
 }
 .side-box .box-content .newsletter input{
     width:28.5ex;
@@ -471,7 +494,6 @@
     border:1px solid #E5E5EB;
 }
 #mid-content .content_preview .index .element{
-    float:left;
     position:relative;
     padding:15px 15px 10px 10px;
     margin:0;
@@ -714,10 +736,10 @@
 }
 /*----------  Video  ---------------*/
 #mid-content .full-video{
-    background:#E5E5EB url(/images/rusmain/videogal-grad.gif) repeat-x 0 0;
     margin:15px 0;
+    position:relative;
 }
-#mid-content .full-video{
+#mid-content .full-video img{
     cursor:pointer;
     height:362px;
     width:482px;

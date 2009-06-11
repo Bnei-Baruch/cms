@@ -147,6 +147,10 @@ strong{
     border-left:1px solid #d9dbe0;
     padding-left:3px;
 }
+#header #links img.link-img{
+    width:15px;
+    height:15px;
+}
 #header #links ul{
     float:left;
     margin:0;
@@ -202,13 +206,20 @@ strong{
 .dynamic_tree{
     position:absolute;
 }
+.x-tree{
+float:left;
+}
+.page-status{
+float:right;
+margin:5px 10px;
+}
 .clear {
     clear:both;
 }
 
 /* Sortables */
 .handle{
-    z-index:2000 !important;
+    z-index:500 !important;
     height:13px !important;
     width:13px !important;
     cursor: move !important;
@@ -315,4 +326,7 @@ strong{
     background:#e5e5eb url(/images/rusmain/table/body-grad.gif) repeat-x scroll left bottom;
 }
 
-
+.x-tool{
+float:left;
+margin-right:5px;
+}

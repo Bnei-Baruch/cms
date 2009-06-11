@@ -8,12 +8,10 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
 					input :type => 'text', :id => 'ml_user_email', :name => 'email', :onfocus => "if(document.getElementById('ml_user_email').value == '#{_:enter_email}') { document.getElementById('ml_user_email').value = ''; }", :title => _(:email_address), :value => _(:enter_email)
 				  input :name => 'id', :type => 'hidden', :value => '175'
 				  input :type => 'hidden', :name => 'name', :value => 'hebrew'
-				  br
-				  br
-          div :class => 'prebutton'
+          span :class => 'prebutton'
 					input :name => "subscribe", :class => "button", :value => _(:subscribe), :type => "submit", :title => _(:subscribe), :alt => _(:subscribe)
-          div :class => 'postbutton'
-          div :class => 'clear'
+          span :class => 'postbutton'
+          span :class => 'clear'
 					input :type => "hidden", :name => "list", :value => "kabbalah" 
 					input :type => "hidden", :name => "confirm", :value => "none" 
 				}

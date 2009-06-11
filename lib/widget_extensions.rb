@@ -22,7 +22,8 @@ module WidgetExtensions
     unless options.empty?
       ags.merge!({:options => options})
     end
-    domain + tm_path(args)
+    path = args.include?(:permalink) ? prefx_permalink_path(args) : prefix_only_path(args)
+    domain + path
   end
 
   def get_css_url(style_name)

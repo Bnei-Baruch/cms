@@ -30,14 +30,12 @@ class Global::Widgets::Video < WidgetManager::Base
       h3(:class => 'video'){
         text get_title
       }
+      description = get_description
+      p { rawtext description } unless description.empty?
     end
     div(:class => 'full-video') {
       id = tree_node.object_id
       image = get_image
-      if (show_title)
-        description = get_description
-        p { rawtext description } unless description.empty?
-      end
 
       autoplay = get_autoplay
 

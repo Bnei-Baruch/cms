@@ -54,7 +54,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
       is_video, is_audio, is_article = is_video_audio_article
       if is_article
         a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { 
-          text _(:tofullpage)
+          text _(:to_full_page)
           img(:src => img_path('video.png'), :alt => '') if is_video
           img(:src => img_path('audio.png'), :alt => '') if is_audio
           img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif') if !is_video && !is_audio

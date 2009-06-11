@@ -8,7 +8,8 @@ class Mainsites::Widgets::SendToFriend < WidgetManager::Base
       }
     }
     div(:id => 'send_to_friend'){
-      form(:id => 'friend_form', :method => 'post', :action => '/'+@presenter.website.prefix+'/mail/'+@tree_node.id.to_s){
+      action = mail_path(:prefix => @presenter.website.prefix, :id => @tree_node.id)
+      form(:id => 'friend_form', :method => 'post', :action => action){
         table(:id => 'friend'){
           tr{
             td(:colspan => '2'){h1{text _(:send_to_friend)}}
@@ -32,18 +33,22 @@ class Mainsites::Widgets::SendToFriend < WidgetManager::Base
           tr{
             td{}
             td{
+              span :class => 'prebutton'
               a(:onclick => '$("#friend_form").submit();return false;',
                 :class => 'button',
                 :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/button.gif)") {
                 rawtext _(:send)
               }
+              span :class => 'postbutton'
+              span :class => 'prebutton'
               a(:id => 'stf_cancel',
                 :class => 'button',
                 :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/button.gif)") {
                 rawtext _(:cancel)
               }
+              span :class => 'postbutton'
+              input :type => 'hidden', :name => 'subject', :value => _(:stf_subject)
             }
-            input :type => 'hidden', :name => 'subject', :value => _(:stf_subject)
           }
         }
       }

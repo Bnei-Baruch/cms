@@ -100,17 +100,21 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
         tr{
           td{}
           td{
+            span :class => 'prebutton'
             a(:id => 'submit',
               :class => 'submit',
               :onclick => '$("#comment_form").submit();return false;',
               :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/button.gif)") {
               rawtext _(:send)
             }
+            span :class => 'postbutton'
+            span :class => 'prebutton'
             a(:id => 'cancel',
               :class => 'submit',
               :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/button.gif)") {
               rawtext _(:cancel)
             }
+            span :class => 'postbutton'
           }
         }
       }

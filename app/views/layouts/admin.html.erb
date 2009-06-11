@@ -19,7 +19,7 @@
   <body>
     <div id="doc3" class="yui-t2">
       <div id="hd">
-        <%= link_to(image_tag("/images/cms_logo_small.gif"), '/') %>
+        <%= link_to(image_tag("/images/cms_logo_small.gif"), :back) %>
         <h1><%= @title %></h1>
         <% if flash[:notice] %>
           <p class="notice"><%= flash[:notice] %></p>

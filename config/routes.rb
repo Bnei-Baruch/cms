@@ -28,19 +28,21 @@ ActionController::Routing::Routes.draw do |map|
   
   # shorturl controller : allow to make a link to a treenode based on tree node id
   # instead of permanlink (espacially useful for hebrew links)
-  map.tm ':prefix/short/:id', :controller => 'sites/shorturl', :action => 'shorturl'
+  map.short ':prefix/short/:id', :controller => 'sites/shorturl', :action => 'shorturl'
   
   # Email controller : initially build for 'send to your friend' function
   # with a though about the future - 
   # :id is the tree node id
-  map.tm ':prefix/mail/:id/' , :controller => 'email' , :action => 'send_node'
+  map.mail ':prefix/mail/:id/' , :controller => 'email' , :action => 'send_node'
  
   # Template controller - it is the main content controller for 90% of the site
   # :id is the permalink stuff (right, it is not consistent... so what ?!)
   map.connect '/feed.:format', :controller => 'sites/templates', :action => 'template'
   map.connect ':prefix/feed.:format' , :controller => 'sites/templates' , :action => 'template'
   map.connect ':prefix/:permalink/feed.:format' , :controller => 'sites/templates' , :action => 'template'
-  map.tm ':prefix/:permalink' , :controller => 'sites/templates' , :action => 'template'
+  map.prefx_permalink ':prefix/:permalink' , :controller => 'sites/templates' , :action => 'template'
+  map.prefix_only ':prefix' , :controller => 'sites/templates' , :action => 'template'
+
   
   # Mmm, I guess this one is for website homepage that do not make use of
   # prefix for the homepage - but not sure - should ask Rami
@@ -84,8 +86,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
   
   
-  map.tm ':prefix' , :controller => 'sites/templates' , :action => 'template'
-
   # Used mainly for URL migrations (Checking Legacy URLs)
   map.connect '/*path', :controller => 'sites/templates', :action => 'template'
   

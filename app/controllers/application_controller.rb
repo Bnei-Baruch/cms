@@ -76,11 +76,20 @@ class ApplicationController < ActionController::Base
     @prefix = params[:prefix]
     @permalink = params[:permalink]
     @path = params[:path]
+    tree_id = params[:tree_id]
+    resource = params[:resource][:tree_node][:parent_id] rescue nil
     if @prefix || @permalink
       @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', @host, @prefix])
       @website = nil if @website && @website.use_homepage_without_prefix && !(@prefix && @permalink)
     elsif !@path || (@path && @path.empty?)
-      @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', @host, true])
+      if tree_id
+        parent_id = TreeNode.find(tree_id).parent_id
+        @website = TreeNode.find_first_parent_of_type_website(parent_id).resource.website
+      elsif resource
+        @website = TreeNode.find_first_parent_of_type_website(resource).resource.website
+      else
+        @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', @host, true])
+      end
     end
   end
 

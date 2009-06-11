@@ -78,10 +78,10 @@ class Global::Widgets::Tree < WidgetManager::Base
       @counter += 1
       label = "TREE_#{@counter}"
       name = @presenter.website.hrid.gsub(/\'/, '&#39;')
+      div(:class => 'page-status'){
+        rawtext "Status: #{_(tree_node.resource.status.to_sym)}"
+      }
       div(:id => label, :class => 'dynamic_tree') {
-        div(:style => 'float:left'){
-          rawtext "Status: #{_(tree_node.resource.status.to_sym)}"
-        }
         javascript {
           rawtext <<-TREE_CODE
             Ext.onReady(function(){
@@ -210,6 +210,9 @@ class Global::Widgets::Tree < WidgetManager::Base
     if item[:submenu]
       if item[:selected]
         klass_link, li_link = 'minus selected', 'selected'
+        if item[:item].id == @tree_node.id
+          klass_link += ' current_node'
+        end
       else
         klass_link, li_link = 'plus', ''
       end
@@ -220,8 +223,16 @@ class Global::Widgets::Tree < WidgetManager::Base
         }
       }
     else # 'final' element
+      if item[:selected]
+        klass_link = 'selected'
+        if item[:item].id == @tree_node.id
+          klass_link += ' current_node'
+        end
+      else
+        klass_link = ''
+      end
       li{
-        draw_link item[:item], "#{item[:selected] ? ' selected' : ''}"
+        draw_link item[:item], "#{klass_link}"
       }
     end
   end

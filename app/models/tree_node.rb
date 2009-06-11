@@ -42,36 +42,6 @@ class TreeNode < ActiveRecord::Base
   #can logical delete (change status to deleted)
   def can_delete?
     @ac_type >= 3 #"Managing"
-    #        unless AuthenticationModel.current_user_is_anonymous?
-    #         # min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-    #          if (3 <= ac_type)# min_permission_to_child_tree_nodes_cache)
-    #            #can not delete if resource has link from other tree
-    #            output = TreeNode.get_subtree(:parent => id) #### TODO Dima M.
-    #            if output
-    #              output.each { |x| 
-    #                #check all sub tree_node if all all child tree_nodes has 
-    #                #minimal permissions for delete
-    #                if (x.ac_type < 3)
-    #                  return false
-    #                else
-    #                 if (x.is_main == true && !x.resource.nil? && x.resource.has_links?)
-    #                   #if resorse has links on him self we can't delete
-    #                   return false
-    #                 end 
-    #                end
-    #              }
-    ##              output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-    ##              if output.length > 0
-    ##                return false 
-    ##              end
-    #            end
-    #            return true
-    #          else
-    #            return false
-    #          end                                                
-    #        end
-    #    #for anonymous user return false
-    #    false
   end
   
   def can_move_child?
@@ -85,20 +55,6 @@ class TreeNode < ActiveRecord::Base
   #can delete in DB (destroy)
   def can_administrate? 
     @ac_type >= 4 #"Administrating"
-    #    unless AuthenticationModel.current_user_is_anonymous?
-    #      min_permission_to_child_tree_nodes_cache ||= get_min_permission_to_child_tree_nodes_by_user()
-    #      if (4 <= min_permission_to_child_tree_nodes_cache)
-    #        #can not delete if resource has link from other tree
-    #        output = TreeNode.get_subtree(:parent => id)
-    #        if output
-    #          output.delete_if {|x| x.is_main == false || (x.is_main == true && (x.resource.nil? || x.resource.has_links? == false))}
-    #          return false if output.length > 0
-    #        end
-    #        return true
-    #      end 
-    #      return false
-    #    end                                                    
-    #false
   end
 
   def main

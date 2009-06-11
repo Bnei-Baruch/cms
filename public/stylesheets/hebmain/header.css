@@ -30,6 +30,9 @@ strong{
     width:942px;
     z-index:1000;
 }
+.page-status{
+float:left;
+}
 .under-command-panel{
     margin-top:30px !important;
 }

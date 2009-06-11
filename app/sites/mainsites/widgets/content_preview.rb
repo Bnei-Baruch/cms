@@ -12,7 +12,6 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
       
       # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
       @updatable = 'up-' + tree_node.id.to_s
-      div(:id => @updatable){
         w_class('cms_actions').new(:tree_node => tree_node, 
           :options => {:buttons => buttons,
             :button_text => _(:manage_content_preview),
@@ -20,6 +19,7 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
             :has_url => false,
             :resource_types => %W{ custom_preview }}).render_to(self)
         
+      div(:id => @updatable){
         render_preview_update(true)
       }
       if !@is_main_format

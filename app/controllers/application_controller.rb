@@ -96,7 +96,8 @@ class ApplicationController < ActionController::Base
   def set_translations
     @site_direction = session[:site_direction] = site_settings[:site_direction] || 'ltr'
     @site_name = session[:site_name] = site_settings[:site_name] || 'global'
-    @language = session[:language] = site_settings[:language] || 'default'
+    @language = session[:language] = session[:interface] || site_settings[:language] || 'default'
+
     I18n.locale = @language
   end
 

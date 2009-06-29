@@ -11,7 +11,12 @@
         <label for="password">Password:</label>
         <%= password_field_tag :password, params[:password] %>
       </p>
-  
+
+      <p>
+        <label for="interface">Language:</label>
+        <%= select_tag :interface, options_for_select($config_manager.appl_settings[:interface], $config_manager.appl_settings[:language]) %>
+      </p>
+
       <p>
         <%= submit_tag "Login" %>
       </p>

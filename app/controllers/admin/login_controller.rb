@@ -31,22 +31,23 @@ class Admin::LoginController < ApplicationController
   private
   
   def authenticate
-     session[:user_id] = nil
-      user = User.authenticate(params[:login], params[:password])
-      if user
-        session[:user_id] = user.id
-        session[:current_user_is_admin] = user.groups.find(:all, :conditions => {:groupname=>'Administrators'}).length
-        session[:current_user_is_anonymous] = nil
+    session[:user_id] = nil
+    user = User.authenticate(params[:login], params[:password])
+    if user
+      session[:user_id] = user.id
+      session[:current_user_is_admin] = user.groups.find(:all, :conditions => {:groupname=>'Administrators'}).length
+      session[:current_user_is_anonymous] = nil
+      session[:interface] = params[:interface]
 
-        uri= session[:original_uri]
-        session[:original_uri]=nil
-        redirect_to(uri || user_home_page(user.website_id))
-      else
-        flash.now[:notice] = "Invalid user/password combination"
-        render :action => "login" 
-      end
+      uri = session[:original_uri]
+      session[:original_uri] = nil
+      redirect_to(uri || user_home_page(user.website_id))
+    else
+      flash.now[:notice] = "Invalid user/password combination"
+      render :action => "login"
+    end
   end
-  
+
   def user_home_page(user_website_id)
     if user_website_id
       website = Website.find(user_website_id)
@@ -63,5 +64,5 @@ class Admin::LoginController < ApplicationController
       admin_tree_nodes_path
     end
   end
-  
+
 end

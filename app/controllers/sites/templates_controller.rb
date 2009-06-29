@@ -43,7 +43,16 @@ class Sites::TemplatesController < ApplicationController
     
     @ip = request.remote_ip
     unless @website
-      # External link
+      # Maybe homepage of site _WITH_ prefix ?
+      website = Website.find(:first, :conditions => ['domain = ?', @host])
+      if website and (request.env['REQUEST_PATH'] == '/') and (not website.use_homepage_without_prefix)
+        my_port = request.server_port.to_s
+        my_port = my_port == '80' ? '' : ':' + my_port
+        redirect_to "#{website.domain + my_port}/#{website.prefix}"
+        return
+      end
+
+      # External link?
       check_url_migration(true)
       return
     end

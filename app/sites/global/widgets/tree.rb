@@ -70,20 +70,21 @@ class Global::Widgets::Tree < WidgetManager::Base
   end
 
   def render_dynamic
-    if tree_node.can_edit?
-      user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
-      url = tree_node.parent_id == 0 ? domain : get_page_url(tree_node)
-      link = _(:'administration_tree') + '&nbsp;&nbsp&nbsp;&nbsp;<a target="_blank" href='+_(:url_bug_report)+'>'+_(:bug_report)+'</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
+    return unless tree_node.can_edit?
 
-      @counter += 1
-      label = "TREE_#{@counter}"
-      name = @presenter.website.hrid.gsub(/\'/, '&#39;')
-      div(:class => 'page-status'){
-        rawtext "Status: #{_(tree_node.resource.status.to_sym)}"
-      }
-      div(:id => label, :class => 'dynamic_tree') {
-        javascript {
-          rawtext <<-TREE_CODE
+    user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
+    url = tree_node.parent_id == 0 ? @presenter.home : get_page_url(tree_node)
+    link = _(:'administration_tree') + '&nbsp;&nbsp&nbsp;&nbsp;<a target="_blank" href='+_(:url_bug_report)+'>'+_(:bug_report)+'</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
+
+    @counter += 1
+    label = "TREE_#{@counter}"
+    name = @presenter.website.hrid.gsub(/\'/, '&#39;')
+    div(:class => 'page-status'){
+      rawtext "Status: #{_(tree_node.resource.status.to_sym)}"
+    }
+    div(:id => label, :class => 'dynamic_tree') {
+      javascript {
+        rawtext <<-TREE_CODE
             Ext.onReady(function(){
               tree();
             });
@@ -92,10 +93,9 @@ class Global::Widgets::Tree < WidgetManager::Base
                           '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
                           '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}', 400);
             }
-          TREE_CODE
-        }
-      }                     
-    end
+        TREE_CODE
+      }
+    }
   end
 
   private

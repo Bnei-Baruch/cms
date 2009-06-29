@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <meta http-equiv="Content-language" content="utf8" /> 
+    <meta http-equiv="Content-language" content="utf8" />
     <title><%= @title %></title>
     <%= javascript_include_tag 'jquery', 'jquery.placement.below.js',
       'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/ui.sortable.min.js',
       'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js', 'ui/jquery.color.js',
       'ui/ui.datepicker.min.js', 'ui/ui.timepicker.js',
       'jrails', 'application'
-    %>
+  %>
     <%= javascript_include_tag "ui/i18n/ui.datepicker-#{params[:slang]}" if params[:slang] %>
     <%= stylesheet_link_tag 'reset-fonts-grids' %>
     <%= stylesheet_link_tag 'admin' %>
@@ -19,7 +19,7 @@
   <body>
     <div id="doc3" class="yui-t2">
       <div id="hd">
-        <%= link_to(image_tag("/images/cms_logo_small.gif"), :back) %>
+        <%= link_to(image_tag("/images/cms_logo_small.gif"), '/') %>
         <h1><%= @title %></h1>
         <% if flash[:notice] %>
           <p class="notice"><%= flash[:notice] %></p>
@@ -32,7 +32,7 @@
               <div class="<%= site_direction %>">
                 <div id="content">
                   <%= yield %>
-                </div>    
+                </div>
               </div>
             </div>
           </div>
@@ -42,10 +42,10 @@
             <%= yield :submenu %>
             <h2 class="menu">Main Menu</h2>
             <ul>
-              <li><%= link_to 'Websites', admin_websites_path %></li>	 
+              <li><%= link_to 'Websites', admin_websites_path %></li>
               <%#*<li><%= link_to 'Resources', admin_resources_path % ></li>%>
-              <li><%= link_to 'Resource Types', admin_resource_types_path %></li>	 
-              <li><%= link_to 'Lists', admin_lists_path %></li>	 
+              <li><%= link_to 'Resource Types', admin_resource_types_path %></li>
+              <li><%= link_to 'Lists', admin_lists_path %></li>
               <%#*<li><%= link_to 'Ext Tree Nodes', ext_admin_tree_nodes_path % ></li>%>
               <li><%= link_to 'Tree Nodes', admin_tree_nodes_path %></li>
               <li><%= link_to 'Comments', admin_comments_path %></li>
@@ -68,11 +68,11 @@
             <ul>
               <li><%= link_to "Logout", :controller => 'login', :action => 'logout' %></li>
             </ul>
-            
+
           </div>
-          
+
         </div>
-        
+
       </div>
       <div id="ft"></div>
     </div>

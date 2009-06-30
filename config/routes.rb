@@ -84,7 +84,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/sitemap.xml', :controller => 'sites/templates', :action => 'sitemap' 
   
   
-  map.tm ':prefix' , :controller => 'sites/templates' , :action => 'template'
+
+  #this line is in conflict with the map.tm up there - need to be solved
+  #map.tm ':prefix' , :controller => 'sites/templates' , :action => 'template'
 
   # Used mainly for URL migrations (Checking Legacy URLs)
   map.connect '/*path', :controller => 'sites/templates', :action => 'template'

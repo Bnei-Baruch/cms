@@ -149,6 +149,7 @@ russian:
     add_copyright: добавить авторские права
     new_subscription: צור יחידת הרשמה
     add_subscription: הוספת הרשמה
+    search: найти
 
   Rusmain::Widgets::Header:
     kabbalah_la_am: קבלה לעם

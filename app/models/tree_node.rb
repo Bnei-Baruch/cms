@@ -319,7 +319,7 @@ class TreeNode < ActiveRecord::Base
   protected
 
   def TreeNode.find_first_parent_of_type_website(parent_id)
-    node = TreeNode.find(:first, :conditions => ["parent_id = ?", parent_id])
+    node = TreeNode.find(:first, :conditions => ["parent_id = ? OR id = ?", parent_id, parent_id])
     while node && !node.resource.resource_type.hrid.eql?('website')
       node = node.parent 
     end

@@ -18,7 +18,6 @@ class Global::Widgets::CmsActions < WidgetManager::Base
     unless buttons.empty?
       func = @options[:mode].eql?('inline') ? 'span' : 'div'
       element = "#{func}_#{self.object_id}"
-      #      position = @options[:position] || 'top'
       javascript{
         rawtext <<-CMS1
         Ext.onReady(function(){
@@ -163,7 +162,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
         :slang => @presenter.site_settings[:short_language]
       }
     )
-    new_text ||= 'צור חדש'
+    new_text ||= _(:new)
     rawtext <<-NEW_LINK
       {
         text: '#{new_text}',
@@ -173,7 +172,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
   end
 
   def new_button_form(resource_types, parent_id, is_main, has_url, placeholder, new_text = nil)
-    new_text ||= 'צור חדש'
+    new_text ||= _(:new)
     rawtext <<-NEW_LINK1
       {
         text: '#{new_text}',

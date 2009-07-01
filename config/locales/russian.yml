@@ -1,157 +1,413 @@
+# Convention :
+# class name:
+#   token: translation
+# the token should be lower case and without space
+#
+
+
 russian:
-  preview_title: 
-  large_title: 
-  permalink: 
-  small_title: 
-  sub_title: 
-  side_image: 
-  main_image_alt: 
-  preview_image: 
-  preview_image_alt: 
-  writer: 
-  writer_email: 
-  date: 
-  hide_on_navigation: 
-  acts_as_section: 
-  reset_date: 
-  title: 
-  body: 
-  description: 
-  description_for_preview: 
-  title_and_description: 
+  Global::Widgets::AdminComment:
+    all: הכל
+    page:  דף
+    date:  תאריך
+    valid: valid
+    spam: spam
+    name: שם
+    title:  כותרת
+    body:  תוכן
+    edit: edit
+    del: מחק
+    send: שלח
+    cancel: בטל
 
-  content_page: 
-  article: 
-  box: 
-  content_preview: 
-  website: 
-  site_name: 
-  prefix: 
-  domain: 
-  maximum_number_of_items: 
-  acts_as_articles_index: 
-  is_main_format: 
-  link: 
-  url: 
-  alt: 
-  open_in_new_window: 
-  
+  Mainsites::Widgets::ContentPreview:
+    manage_content_preview: ניהול תצוגה מקדימה
+    add_item_manually: הוספת יחידה בצורה ידנית
 
-  publish_on_site: 
-  save_draft: 
-  update: 
-  creating: 
-  editing: 
-  cancel: 
+  Rusmain::Widgets::Archive:
+    archive: ארכיון
 
-  regular_text: 
-  sub_title: 
-  
-  first_name: 
-  
- 
-  personnal_details: 
-  last_name: 
-  year_of_birth: 
-  hometown: 
-  mobile_phone: 
-  main_phone: 
-  email: 
-  knowledge_of_languages: 
-  language_name: 
-  first_language: 
-  more_details: 
-  profession: 
-  free_time: 
-  where_do_you_want_to_help: 
-  
-  read: 
-  write: 
-  speak: 
-  less_than_1h: 
-  between_2h_up_to_4h: 
-  between_4h_to_6h: 
-  more_than_6h: 
-  submit: 
-  choose_language: 
-  response_text: 
-  
-  arabic: 
-  german: 
-  spanish: 
-  french: 
-  danish: 
-  bulgar: 
-  tshekh: 
-  greek: 
-  persian: 
-  hebrew: 
-  hindi: 
-  hungarian: 
-  italian: 
-  japanese: 
-  georgian: 
-  lithunian: 
-  latvian: 
-  macedonian: 
-  nederlands: 
-  polish: 
-  portugese: 
-  romanian: 
-  russian: 
-  turkish: 
-  ukranian: 
-  vietnamian: 
-  chinese: 
-  chinese_classical: 
-  yiddish: 
-  english: 
-  
-  send_to_friend: 
-  name_of_sender: 
-  name_of_receiver: 
-  address_of_sender: 
-  send_to_email_address: 
-  send: 
-  everything_went_fine: 
-  stf_subject: 
-  
-  email_from: 
-  email_to: 
-  email_subject: 
-  confirmation_text: 
-  do_not_send_confirmation_letter: 
-  list_name: 
-  campus_label_1: 
-  hide_campus_label_1: 
-  campus_label_1_mandatory: 
-  campus_Label_2: 
-  hide_Campus_Label_2: 
-  campus_Label_2_mandatory: 
-  campus_Label_3: 
-  hide_Campus_Label_3: 
-  campus_Label_3_mandatory: 
- 
-  Editing: 
-  
+  Mainsites::Widgets::Breadcrumbs:
+    home_breadcrumb: Главная
 
-  download: 
-  details_saved_successfully: 
-  admin: 
-  date: 
-  name: 
-  tel: 
-  email: 
-  campaign: 
-  list_name: 
-  spam: 
-  valid: 
-  page: 
-  edit: 
-  all: 
-  del: 
-  no_entries_yet_check_url: 
+  Rusmain::Widgets::LanguageMenu:
+    chooseyourlanguage: Choose your language
+    arabic: العربية
+    german: Deutsch
+    spanish: Español
+    french: Français
+    danish: Dansk
+    bulgar: Български
+    czech: Česky
+    greek: Ελληνικά
+    persian: فارسی
+    hebrew: עברית
+    hindi: हिन्दी
+    hungarian: Magyar
+    italian: Italiano
+    japanese: 日本語
+    georgian: ქართული
+    lithunian: Lietuvių
+    latvian: Latviešu
+    macedonian: Македонски
+    nederlands: Nederlands
+    polish: Polski
+    portugese: Português
+    romanian: Română
+    russian: Русский
+    turkish: Türkçe
+    ukranian: Українська
+    vietnamian: Tiếng Việt
+    chinese: 中文
+    chinese_classical: 文言
+    yiddish: ייִדיש
+    english: English
 
-  reactions: 
-  name: 
-  there_are_no_reactions_so_far: 
+  Rusmain::Widgets::CampusForm:
+    admin:  אדמין
+    name: שם
+    date:  תאריך
+    tel:  טלפון
+    email:   דוא''ל
+    campaign:  קמפיין
+    list_name:  שם הרשימה
+    error_mesg: שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית
+    label_captcha: אבטחת הרשמה
+    label_captcha2: הקלידו את הכיתוב המופיע בתיבה
+    details_saved_successfully:      הפרטים נתקבלו בהצלח
+    email_from:   הכתובת ממנה נשלח המייל
+    email_to: כתובת המייל של האדמיניסטרטור שיקבל הודעה על ההרשמה
+    email_subject: נושא המייל
+    confirmation_text: תוכן ההודעה שתשלח לנרשם
+    do_not_send_confirmation_letter: אל תשלח הודעה לנרשם
+    list_name: שם הרשימה (למלאות באנגלית)
+    campus_label_1: שם השדה הראשון
+    hide_campus_label_1:  הסתר שדה ראשון
+    campus_label_1_mandatory:   שדה חובה
+    campus_Label_2:  שם השדה השני
+    hide_Campus_Label_2: הסתר שדה שני
+    campus_Label_2_mandatory: שדה חובה
+    campus_Label_3:  שם השדה השלישי
+    hide_Campus_Label_3:  הסתר שדה שלישי
+    campus_Label_3_mandatory: שדה חובה
+
+  Global::Widgets::CmsActions:
+    create_new_box: создать новую коробочку
+    new: новый
+    edit: редактировать
+    delete: удалить
+    move_to_archive : заархивировать
+    select_a_resource_to_create: выберите элемент
+
+  Mainsites::Widgets::Comments:
+    thanks: תודה
+    send: שלח
+    cancel:  בטל
+    comment_received: תגובתך התקבלה
+    will_be_published: ותפורסם בקרוב, בהתאם לשיקולי המערכת.
+    add_comment: הוסף תגובה
+    without_content: (לת)
+    comments: תגובות
+    title:  כותרת
+    name:  שם
+    email:   דוא''ל
+    body:  תוכן
+    there_are_no_comments_so_far: אין כרגע תגובות
+
+  Global::Widgets::VideoGallery:
+    play: לחצו לצפייה
+    create_new_video_item: יצירת וידיו חדש
+
+  WidgetManager::Base:
+    content_page:  страница
+    date:  дата
+    content_page_management: управление страницей
+    upper_part_admin: управление верхней частью
+    edit_content_page: редактировать страницу
+    admin: администрирование
+    create_new_content_item: создать новый элемент
+    create_modul_comments_administration: создать модуль управления комментариями
+    
+  Mainsites::Widgets::ContentPage:
+    writer: автор
+    tofullpage: вся статья
+    toview: читать
+    to_watch: смотреть
+    to_listen: слушать
+    continue: продолжение
+    new_language: новый язык
+    read_more: продолжение
+
+  Global::Widgets::Header:
+    new_language: שפה חדשה
+    languages: שפות
+    choose_your_language: בחר שפה
+    new_external_link: новая внешнняя ссылка
+    new_internal_link: новая внутренняя ссылка
+    new_bottom_link: לינק חדש לפוטר
+    new_copyright: צור יחידת זכויות יוצרים
+    add_copyright: добавить авторские права
+    new_subscription: צור יחידת הרשמה
+    add_subscription: הוספת הרשמה
+
+  Rusmain::Widgets::Header:
+    kabbalah_la_am: קבלה לעם
+    languages: שפות
+    choose_your_language: בחר שפה
+    new_internal_link: new internal link
+    new_bottom_link: לינק חדש לפוטר
+    new_copyright: צור יחידת זכויות יוצרים
+    add_copyright: добавить авторские права
+    new_subscription: צור יחידת הרשמה
+    add_subscription: הוספת הרשמה
+
+  Global::Widgets::Kabtv:
+    news_for_tv: ניהול חדשות
+    add_newsbox_for_tv: הוספת יחידה חדשות
+    tothetvchannel: לערוץ הטלוויזיה
+    clicktogolive:  לחץ לצפיה בשידור חי
+    schedule: לוח שידורים
+    questions: שאלות
+    sketches: שרטוטים
+    students_questions: שאלות התלמידים
+    to_exit_full_screen_mode_press_ESC: ESC ליציאה ממצב "מסך מלא" לחץ על
+    to_watch_in_full_screen_mode_please_start_player_beforehand:   נא להפעיל נגנ ע"מ לצפותו במסך מלא
+    for_full_screen_mode_double_click_on_player: למסך מלא לחץ לחיצה כפולה על הנגן
+    in_separate_player: לצפייה בנגן מדיה
+    full_screen: למסך מלא
+    click_here : לתמיכה טכנית - לחצו כאן
+    no_new_questions: אין שאלות חדשות.
+    from:   מ-
+    guest: אורח
+    current_sketch: השרטוט הנוכחי
+    no_sketches_yet: איו עוד שרטוטים
+    prev_picture: תמונה הקודמת (חץ שמאלה)
+    next_picture: תמונה הבאה (חץ ימינה)
+    click_and_drag: לחץ ומשוך להזזה
+    close: סגור (esc)
+    temporarily_impossible_to_ask_questions: לא ניתן כרגע לשאול שאלות
+    you_must_fill_field_question: שדה "שאלה" הינו שדה חובה
+    sunday: ראשון
+    monday: שני
+    tuesday: שלישי
+    wednesday: רביעי
+    thursday: חמישי
+    friday: שישי
+    saturday: שבת
+    sun: ראשון
+    mon: שני
+    tue: שלישי
+    wed: רביעי
+    thu: חמישי
+    fri: שישי
+    sat: שבת
+    ask_question: שאל שאלה
+    your_name: שמך
+    your_location: מקומך
+    question: שאלה
+    send: שלח
+    cancel: בטל
+    broadcasting_now: עכשיו בשידור
+    future_programs: התוכניות הבאות
+    january: לינואר
+    february: לפברואר
+    march: למרץ
+    april: לאפריל
+    may: למאי
+    june: ליוני
+    july: ליולי
+    august: לאוגוסט
+    september: לספטמבר
+    october: לאוקטובר
+    november: לנובמבר
+    december: לדצמבר
+    no_broadcast_on: אין שידורים ביום
+    broadcast_on: שידור ביום
+    edit_kabtv_widget: עריכת יחידת טלוויזיה
+    broadcast_quality: בחר איכות השידור
+    high: גבוהה
+    medium: בינונית
+    low: נמוכה
+
+  Rusmain::Widgets::ManpowerForm:
+    personnal_details: פרטים אישיים
+    first_name: שם פרטי
+    email: דוא"ל
+    last_name: שם משפחה
+    mobile_phone: טלפון נייד
+    year_of_birth: ש. לידה
+    main_phone: טלפון עיקרי
+    hometown: עיר מגורים
+    first_language: שפת אם
+    knowledge_of_languages: שליטה בשפות
+    language_name:  שם השפה
+    read: קריאה
+    write: כתיבה
+    speak: דיבור
+    language_name:  שם השפה
+    more_details: פרטים נוספים
+    profession:  מקצוע
+    free_time: זמן שתקדישו לעניין
+    less_than_1h: פחות משעה בשבוע
+    between_2h_up_to_4h: משעתים עד 4 שעות בשבוע
+    between_4h_to_6h: 4-6 שעות בשבוע
+    more_than_6h: יותר מ-6 שעות בשבוע
+    submit: שלח
+    choose_language: בחר שפה
+    response_text: תהליך הרישום עבר בהצלחה
+    where_do_you_want_to_help: במה היית רוצה לעזור
+    everything_went_fine: תהליך הרישום עבר בהצלחה.
+    arabic: العربية
+    german: Deutsch
+    spanish: Español
+    french: Français
+    danish: Dansk
+    bulgar: Български
+    tshekh: Česky
+    greek: Ελληνικά
+    persian: فارسی
+    hebrew: עברית
+    hindi: हिन्दी
+    hungarian: Magyar
+    italian: Italiano
+    japanese: 日本語
+    georgian: ქართული
+    lithunian: Lietuvių
+    latvian: Latviešu
+    macedonian: Македонски
+    nederlands: Nederlands
+    polish: Polski
+    portugese: Português
+    romanian: Română
+    russian: Русский
+    turkish: Türkçe
+    ukranian: Українська
+    vietnamian: Tiếng Việt
+    chinese: 中文
+    chinese_classical: 文言
+    yiddish: ייִדיש
+    english: English
+
+  Rusmain::Widgets::MediaRss:
+    date:  תאריך
+    picture: שרטוט
+    video:  וידאו
+    audio: אודיו
+
+  Mainsites::Widgets::Newsletter:
+    subscribe: הרשם
+    newsletter_subscription: הרשמו לניוזלטר השבועי
+    email_address: כתובת e-mail
+    send: שלח
+    enter_email:  הזינו דואר אלקטרוני
+
+  Rusmain::Widgets::Sections:
+    home: Главная
+    kabbalah_la_am: קבלה לעם
+
+  Mainsites::Widgets::SendToFriend:
+    send_to_friend: שלח לחבר
+    name_of_sender: שם השולח/ת
+    name_of_receiver: שם החבר/ה
+    address_of_sender: כתובת השולח/ת
+    send_to_email_address: שלחו לכתובת דוא''ל
+    send: שלח
+    everything_went_fine: ת הליך הרישום עבר בהצלחה.
+    stf_subject: שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה
+    cancel:  בטל
+
+  Rusmain::Templates::ContentPage:
+    create_module_admin_comment: צור מודול ניהול תגובות
+    create_new_tv_unit: צור יחידת טיוי חדשה
+    admin_management:  ניהול אדמין
+    admin_upper_part: ניהול חלק עליון
+
+  Mainsites::Widgets::Shortcut:
+    direct_link: ссылка на страницу
+
+  Rusmain::Widgets::SiteUpdates:
+    newsonthechannel: חדשות הערוץ
+
+  Mainsites::Widgets::Rss:
+    no_entries_yet_check_url: No entries yet. Check url!
+
+  Global::Widgets::Tree:
+    administration_tree: дерево сайта
+    url_bug_report: http://spreadsheets.google.com/viewform?formkey=cGtTM2pTY0xyVldONVBjTFp5cVdNYXc6MA..
+    bug_report: сообщить об ошибке
+    logout_from: выход из
+    published: опубликовано
+    draft: черновик
+    archived: архив
+    status: состояние
+
+  Global::Widgets::Video:
+    download:  להורדה
+    create_new_content_item: צור יחידת תוכן חדשה
+
+## administration translation or unidentified string
+  ActionView::Base:
+    published: опубликовано
+    draft: черновик
+    archived: архив
+    publish_on_site: опубликовать
+    save_draft: сохранить черновик
+    update: обновление
+    creating: создание
+    editing: редактирование
+    cancel: отменить
+    box: коробочка
+    content_preview: Content preview
+    website: website
+    site_name: Site Name
+    prefix: prefix
+    domain: domain
+    meta_title: Meta title
+    maximum_number_of_items: Макс. количество элементов
+    acts_as_articles_index: Acts as articles index
+    is_main_format: is main format
+    link: link
+    items: אייטם
+    number_of_days: מספר ימים
+    category: קטגוריה
+    group_by_date: לקבץ לפי תאריך
+    url: Url
+    alt: Alt
+    open_in_new_window: Open in new window
+    news_for_tv: ניהול חדשות
+    add_newsbox_for_tv: הוספת יחידה חדשות
+    content_page: страницы
+    preview_title: заголовок для предварительного показа
+    large_title: כותרת ראשית
+    permalink: ссылка на страницу (не менять)
+    small_title: תת כותרת
+    sub_title: подзаголовок
+    side_image: боковая картинка
+    main_image_alt: כותרת לתמונה צדית
+    preview_image: תמונה לתצוגה מקדימה
+    preview_image_alt: כותרת התמונה לתצוגה מקדימה (alt)
+    writer: автор
+    writer_email: мейл автора
+    date: дата
+    hide_on_navigation: скрыть
+    acts_as_section: вести себя как раздел
+    reset_date: אפס תאריך
+    title: заголовок
+    body: содержание
+    description: описание страницы
+    description_for_preview: תאור לתצוגה מקדימה
+    title_and_description: כותרת ותאור
+    regular_text: טקסט רץ
+    first_name: שם פרטי
+    Editing: עריכה
+    abc_test_ua_tracker_code: ABC test - UA tracker code
+    abc_test_abc_check_code: ABC test - ABC checkcode
+    abc_test_page_role_(a,b,c): Page Role (ABC)
+    move_to_archive : העבר לארכיון
+
+  Rusmain::Widgets::ShareThis:
+    share_this: לשתף
+
+
+
+

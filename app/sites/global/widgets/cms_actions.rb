@@ -179,7 +179,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
         text: '#{new_text}',
         menu: {
           items: [
-            '<b>Select a Resource to create</b>',
+            '<b>#{_(:select_a_resource_to_create)}:</b>',
     NEW_LINK1
 
     resource_types.sort{ |a,b| a.name <=> b.name }.each_with_index{ |e, idx|

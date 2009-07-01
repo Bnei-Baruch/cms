@@ -56,7 +56,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           '../highslide/highslide',
           'lightbox',
           :cache => false
-          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers-ru',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'

@@ -80,7 +80,7 @@ class Global::Widgets::Tree < WidgetManager::Base
     label = "TREE_#{@counter}"
     name = @presenter.website.hrid.gsub(/\'/, '&#39;')
     div(:class => 'page-status'){
-      rawtext "Status: #{_(tree_node.resource.status.to_sym)}"
+      rawtext "#{_(:status)}: #{_(tree_node.resource.status.to_sym)}"
     }
     div(:id => label, :class => 'dynamic_tree') {
       javascript {

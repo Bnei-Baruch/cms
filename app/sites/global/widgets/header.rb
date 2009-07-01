@@ -100,7 +100,7 @@ $(document).ready(function(){
       :options => {
         :buttons => %W{ new_button },
         :resource_types => %W{ link },
-        :new_text => _(ext == 'ext' ? :'header.new_external_link' : :'header.new_internal_link'),
+        :new_text => _(ext == 'ext' ? :new_external_link : :new_internal_link),
         :has_url => false,
         :placeholder => "top_links_#{ext}",
         :mode => 'inline'}).render_to(self)

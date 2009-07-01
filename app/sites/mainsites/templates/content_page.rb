@@ -19,14 +19,14 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button },
           :resource_types => %W{ kabtv },
-          :button_text => _(:'upper_part_admin'),
+          :button_text => _(:upper_part_admin),
           :new_text => _(:'create_new_content_item'),
           :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       if AuthenticationModel.current_user_is_admin?
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
             :resource_types => %W{ admin_comment },
-            :button_text => _(:'admin'),
+            :button_text => _(:admin),
             :new_text => _(:'create_modul_comments_administration'),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       end

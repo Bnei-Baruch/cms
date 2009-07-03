@@ -398,7 +398,7 @@ russian:
     description: описание страницы
     description_for_preview: תאור לתצוגה מקדימה
     title_and_description: כותרת ותאור
-    regular_text: טקסט רץ
+    regular_text: обычный текст
     first_name: שם פרטי
     Editing: עריכה
     abc_test_ua_tracker_code: ABC test - UA tracker code

@@ -4,6 +4,16 @@
 //<![CDATA[
 tinyMCE.init({
 mode : 'textareas',
+language : "<%=
+    case @language
+    when 'hebrew'
+      'he'
+    when 'russian'
+      'ru'
+    else
+      'en'
+    end
+%>",
 directionality : "<%= @site_direction %>",
 theme : 'advanced',
 apply_source_formatting : true,

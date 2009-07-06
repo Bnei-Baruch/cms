@@ -19,8 +19,8 @@
 	$mcImageManagerConfig['general.allow_override'] = "*";
 
 	// Preview options
-	$mcImageManagerConfig['preview.wwwroot'] = '';//'/sites/rails/prod/cms/public/javascripts/tiny_mce/plugins/imagemanager'; // absolute or relative from this script path, try to leave blank system figures it out.
-	$mcImageManagerConfig['preview.urlprefix'] = "{proto}://{host}/"; // domain name
+	$mcImageManagerConfig['preview.wwwroot'] = '/sites/rails/prod/media';//'/sites/rails/prod/cms/public/javascripts/tiny_mce/plugins/imagemanager'; // absolute or relative from this script path, try to leave blank system figures it out.
+	$mcImageManagerConfig['preview.urlprefix'] = "{proto}://{host}/media"; // domain name
 	$mcImageManagerConfig['preview.urlsuffix'] = "";
 	$mcImageManagerConfig['preview.allow_export'] = "urlprefix,urlsuffix";
 	$mcImageManagerConfig['preview.allow_override'] = "*";
@@ -32,7 +32,7 @@
 
 	// General filesystem options
 	$mcImageManagerConfig['filesystem'] = "Moxiecode_LocalFileImpl";
-	$mcImageManagerConfig['filesystem.path'] = ''; // absolute or relative from this script path, optional.
+	$mcImageManagerConfig['filesystem.path'] = '/sites/rails/prod'; // absolute or relative from this script path, optional.
 	$mcImageManagerConfig['filesystem.rootpath'] = '/sites/rails/prod/cms/public/media'; // absolute or relative from this script path, required.
 	$mcImageManagerConfig['filesystem.datefmt'] = "Y-m-d H:i";
 	$mcImageManagerConfig['filesystem.include_directory_pattern'] = '';

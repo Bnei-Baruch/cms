@@ -7,28 +7,28 @@
 
 russian:
   Global::Widgets::AdminComment:
-    all: הכל
-    page:  דף
-    date:  תאריך
+    all: все
+    page:  страница
+    date:  дата
     valid: valid
-    spam: spam
-    name: שם
-    title:  כותרת
-    body:  תוכן
-    edit: edit
-    del: מחק
-    send: שלח
-    cancel: בטל
+    spam: спам
+    name: название
+    title:  заголовок
+    body:  содержание
+    edit: редактировать
+    del: стереть
+    send: послать
+    cancel: отменить
 
   Mainsites::Widgets::ContentPreview:
-    manage_content_preview: ניהול תצוגה מקדימה
-    add_item_manually: הוספת יחידה בצורה ידנית
+    manage_content_preview: управление предворительной экспозицией
+    add_item_manually: добавить вручную
 
   Rusmain::Widgets::Archive:
-    archive: ארכיון
+    archive: архив
 
   Mainsites::Widgets::Breadcrumbs:
-    home_breadcrumb: Главная
+    home_breadcrumb: главная
 
   Rusmain::Widgets::LanguageMenu:
     chooseyourlanguage: Choose your language
@@ -64,200 +64,201 @@ russian:
     english: English
 
   Rusmain::Widgets::CampusForm:
-    admin:  אדמין
-    name: שם
-    date:  תאריך
-    tel:  טלפון
-    email:   דוא''ל
-    campaign:  קמפיין
-    list_name:  שם הרשימה
-    error_mesg: שגיאה בהזנת הקוד המופיע בתמונה. אנא נסה שנית
+    admin:  админ
+    name: имя
+    date:  дата
+    tel:  телефон
+    email:   е-мейл
+    campaign:  кампания
+    list_name:  название списка
+    error_mesg: ошибка в коде картинки. попробуйте снова.
     label_captcha: אבטחת הרשמה
-    label_captcha2: הקלידו את הכיתוב המופיע בתיבה
-    details_saved_successfully:      הפרטים נתקבלו בהצלח
-    email_from:   הכתובת ממנה נשלח המייל
-    email_to: כתובת המייל של האדמיניסטרטור שיקבל הודעה על ההרשמה
-    email_subject: נושא המייל
-    confirmation_text: תוכן ההודעה שתשלח לנרשם
-    do_not_send_confirmation_letter: אל תשלח הודעה לנרשם
-    list_name: שם הרשימה (למלאות באנגלית)
-    campus_label_1: שם השדה הראשון
-    hide_campus_label_1:  הסתר שדה ראשון
-    campus_label_1_mandatory:   שדה חובה
-    campus_Label_2:  שם השדה השני
-    hide_Campus_Label_2: הסתר שדה שני
-    campus_Label_2_mandatory: שדה חובה
-    campus_Label_3:  שם השדה השלישי
-    hide_Campus_Label_3:  הסתר שדה שלישי
-    campus_Label_3_mandatory: שדה חובה
+    label_captcha2: наберите надпись написаную в строке
+    details_saved_successfully:      Ваши данные были приняты
+    email_from:   откуда был выслан е-мейл
+    email_to: е-мейл адрес администратора, который получит утверждение записи
+    email_subject: е-мейл адрес администратора, который получит утверждение записи
+    confirmation_text: текст посланого сообщения
+    do_not_send_confirmation_letter: не посылать сообщение
+    list_name: название списка (писать на английском языке)
+    campus_label_1: название первого поля
+    hide_campus_label_1:  скрыть первое поле
+    campus_label_1_mandatory:   обязательно заполнить
+    campus_Label_2:  название второго поля
+    hide_Campus_Label_2: скрыть второе поле
+    campus_Label_2_mandatory: обязательно заполнить
+    campus_Label_3:  название третьего поля
+    hide_Campus_Label_3:  скрыть третье поле
+    campus_Label_3_mandatory: обязательно заполнить
 
   Global::Widgets::CmsActions:
-    create_new_box: создать новую коробочку
-    new: новый
+    create_new_box: создать новую коробку
+    new: новое
     edit: редактировать
-    delete: удалить
-    move_to_archive : заархивировать
+    delete: стереть
+    move_to_archive : перевести в архив
     select_a_resource_to_create: выберите элемент
 
   Mainsites::Widgets::Comments:
-    thanks: תודה
-    send: שלח
-    cancel:  בטל
-    comment_received: תגובתך התקבלה
-    will_be_published: ותפורסם בקרוב, בהתאם לשיקולי המערכת.
-    add_comment: הוסף תגובה
-    without_content: (לת)
-    comments: תגובות
-    title:  כותרת
-    name:  שם
-    email:   דוא''ל
-    body:  תוכן
-    there_are_no_comments_so_far: אין כרגע תגובות
+    thanks: спасибо
+    send: послать
+    cancel:  отменить
+    comment_received: Ваш комментарий был принят
+    will_be_published: и будет опубликован по усмотрению редакции
+    add_comment: добавить комментарий
+    without_content: (без содержания)
+    comments: комментарии
+    title:  заголовок
+    name:  имя
+    email:   е-мейл
+    body:  содержание
+    there_are_no_comments_so_far: нет комментариев
 
   Global::Widgets::VideoGallery:
-    play: לחצו לצפייה
-    create_new_video_item: יצירת וידיו חדש
+    play: нажмите здесь для просмотра
+    create_new_video_item: создать новое видео
 
   WidgetManager::Base:
-    content_page:  страница
+    content_page:  страница содержания
     date:  дата
-    content_page_management: управление страницей
-    upper_part_admin: управление верхней частью
-    edit_content_page: редактировать страницу
-    admin: администрирование
-    create_new_content_item: создать новый элемент
-    create_modul_comments_administration: создать модуль управления комментариями
+    content_page_management: управление страницей содержания
+    upper_part_admin: администрация верхней части страницы
+    edit_content_page: редактировать страницу содержания
+    admin: админ
+    create_new_content_item: создать новую единицу содержания
+    create_modul_comments_administration: создать модуль администрации комментариев
     
   Mainsites::Widgets::ContentPage:
     writer: автор
-    tofullpage: вся статья
-    toview: читать
-    to_watch: смотреть
-    to_listen: слушать
-    continue: продолжение
+    tofullpage: полный текст
+    toview: просмотреть
+    to_watch: для просмотра
+    to_listen: для прослушивания
+    continue: продолжить
     new_language: новый язык
-    read_more: продолжение
+    read_more: продолжить
 
   Global::Widgets::Header:
-    new_language: שפה חדשה
-    languages: שפות
-    choose_your_language: בחר שפה
-    new_external_link: новая внешнняя ссылка
-    new_internal_link: новая внутренняя ссылка
-    new_bottom_link: לינק חדש לפוטר
-    new_copyright: צור יחידת זכויות יוצרים
-    add_copyright: добавить авторские права
-    new_subscription: צור יחידת הרשמה
-    add_subscription: הוספת הרשמה
+    new_language: новый язык
+    languages: языки
+    choose_your_language: выбрать язык
+    new_external_link: новый внешний линк
+    new_internal_link: новый внутренний линк
+    new_bottom_link: новый линк к нижней части страницы
+    new_copyright: создать копирайт
+    add_copyright: добавить копирайт
+    new_subscription: создать подписку
+    add_subscription: добавить подписку
     search: найти
 
   Rusmain::Widgets::Header:
-    kabbalah_la_am: קבלה לעם
-    languages: שפות
-    choose_your_language: בחר שפה
-    new_internal_link: new internal link
-    new_bottom_link: לינק חדש לפוטר
-    new_copyright: צור יחידת זכויות יוצרים
-    add_copyright: добавить авторские права
-    new_subscription: צור יחידת הרשמה
-    add_subscription: הוספת הרשמה
+    kabbalah_la_am: каббала ла-ам
+    languages: языки
+    choose_your_language: выбрать язык
+    new_external_link: новый внешний линк
+    new_internal_link: новый внутренний линк
+    new_bottom_link: новый линк к нижней части страницы
+    new_copyright: создать копирайт
+    add_copyright: добавить копирайт
+    new_subscription: создать подписку
+    add_subscription: добавить подписку
 
   Global::Widgets::Kabtv:
-    news_for_tv: ניהול חדשות
-    add_newsbox_for_tv: הוספת יחידה חדשות
-    tothetvchannel: לערוץ הטלוויזיה
-    clicktogolive:  לחץ לצפיה בשידור חי
-    schedule: לוח שידורים
-    questions: שאלות
-    sketches: שרטוטים
-    students_questions: שאלות התלמידים
-    to_exit_full_screen_mode_press_ESC: ESC ליציאה ממצב "מסך מלא" לחץ על
-    to_watch_in_full_screen_mode_please_start_player_beforehand:   נא להפעיל נגנ ע"מ לצפותו במסך מלא
-    for_full_screen_mode_double_click_on_player: למסך מלא לחץ לחיצה כפולה על הנגן
-    in_separate_player: לצפייה בנגן מדיה
-    full_screen: למסך מלא
-    click_here : לתמיכה טכנית - לחצו כאן
-    no_new_questions: אין שאלות חדשות.
-    from:   מ-
-    guest: אורח
-    current_sketch: השרטוט הנוכחי
-    no_sketches_yet: איו עוד שרטוטים
-    prev_picture: תמונה הקודמת (חץ שמאלה)
-    next_picture: תמונה הבאה (חץ ימינה)
-    click_and_drag: לחץ ומשוך להזזה
-    close: סגור (esc)
-    temporarily_impossible_to_ask_questions: לא ניתן כרגע לשאול שאלות
-    you_must_fill_field_question: שדה "שאלה" הינו שדה חובה
-    sunday: ראשון
-    monday: שני
-    tuesday: שלישי
-    wednesday: רביעי
-    thursday: חמישי
-    friday: שישי
-    saturday: שבת
-    sun: ראשון
-    mon: שני
-    tue: שלישי
-    wed: רביעי
-    thu: חמישי
-    fri: שישי
-    sat: שבת
-    ask_question: שאל שאלה
-    your_name: שמך
-    your_location: מקומך
-    question: שאלה
-    send: שלח
-    cancel: בטל
-    broadcasting_now: עכשיו בשידור
-    future_programs: התוכניות הבאות
-    january: לינואר
-    february: לפברואר
-    march: למרץ
-    april: לאפריל
-    may: למאי
-    june: ליוני
-    july: ליולי
-    august: לאוגוסט
-    september: לספטמבר
-    october: לאוקטובר
-    november: לנובמבר
-    december: לדצמבר
-    no_broadcast_on: אין שידורים ביום
-    broadcast_on: שידור ביום
-    edit_kabtv_widget: עריכת יחידת טלוויזיה
-    broadcast_quality: בחר איכות השידור
-    high: גבוהה
-    medium: בינונית
-    low: נמוכה
+    news_for_tv: администрация новостей для тв
+    add_newsbox_for_tv: добавить новость для тв
+    tothetvchannel: к тв каналу
+    clicktogolive:  нажми для просмотра прямого эфира
+    schedule: программа передач
+    questions: вопросы
+    sketches: чертежи
+    students_questions: вопросы учеников
+    to_exit_full_screen_mode_press_ESC: для выхода из режима полного экрана, нажмите Esc
+    to_watch_in_full_screen_mode_please_start_player_beforehand:   для просмотра на полном экране, включите плеер
+    for_full_screen_mode_double_click_on_player: для просмотра на полном экране, нажмите дважды на плеер
+    in_separate_player: для просмотра в медиа-плеере
+    full_screen: полный экран
+    click_here : для получения техподдержки - нажмите здесь
+    no_new_questions: нет новых вопросов
+    from:   из
+    guest: гость
+    current_sketch: чертеж
+    no_sketches_yet: нет больше чертежей
+    prev_picture: предыдущая картинка (стрелка влево)
+    next_picture: следующая картинка (стрелка вправо)
+    click_and_drag: нажми и передвинь
+    close: закрыть (esc)
+    temporarily_impossible_to_ask_questions: на данный момент нет возможности задавать вопросы
+    you_must_fill_field_question: содержание вопроса - обязательно для заполнения
+    sunday: воскресенье
+    monday: понедельник
+    tuesday: вторник
+    wednesday: среда
+    thursday: четверг
+    friday: пятница
+    saturday: суббота
+    sun: вск.
+    mon: пнд.
+    tue: втр.
+    wed: срд.
+    thu: чтв.
+    fri: птн.
+    sat: сбт.
+    ask_question: задать вопрос
+    your_name: Ваше имя
+    your_location: Ваше местонахождения
+    question: вопрос
+    send: послать
+    cancel: отменить
+    broadcasting_now: сейчас в эфире
+    future_programs: следующие программы
+    january: на январь
+    february: на февраль
+    march: на март
+    april: на апрель
+    may: на май
+    june: на июнь
+    july: на июль
+    august: на август
+    september: на сентябрь
+    october: на октябрь
+    november: на ноябрь
+    december: на декабрь
+    no_broadcast_on: нет трансляции в 
+    broadcast_on: трансляция в 
+    edit_kabtv_widget: редактировать компонент ТВ
+    broadcast_quality: выбрать качество трансляции
+    high: высокое
+    medium: среднее
+    low: низкое
 
   Rusmain::Widgets::ManpowerForm:
-    personnal_details: פרטים אישיים
-    first_name: שם פרטי
-    email: דוא"ל
-    last_name: שם משפחה
-    mobile_phone: טלפון נייד
-    year_of_birth: ש. לידה
-    main_phone: טלפון עיקרי
-    hometown: עיר מגורים
-    first_language: שפת אם
-    knowledge_of_languages: שליטה בשפות
-    language_name:  שם השפה
-    read: קריאה
-    write: כתיבה
-    speak: דיבור
-    language_name:  שם השפה
-    more_details: פרטים נוספים
-    profession:  מקצוע
-    free_time: זמן שתקדישו לעניין
-    less_than_1h: פחות משעה בשבוע
-    between_2h_up_to_4h: משעתים עד 4 שעות בשבוע
-    between_4h_to_6h: 4-6 שעות בשבוע
-    more_than_6h: יותר מ-6 שעות בשבוע
-    submit: שלח
-    choose_language: בחר שפה
-    response_text: תהליך הרישום עבר בהצלחה
-    where_do_you_want_to_help: במה היית רוצה לעזור
-    everything_went_fine: תהליך הרישום עבר בהצלחה.
+    personnal_details: личные данные
+    first_name: имя
+    email: е-мейл
+    last_name: фамилия
+    mobile_phone: номер сотового телефона
+    year_of_birth: год рождения 
+    main_phone: основной номер тел.
+    hometown: город проживания
+    first_language: родной язык
+    knowledge_of_languages: знание языков
+    language_name:  язык
+    read: читать
+    write: писать
+    speak: разговорный
+    language_name:  язык
+    more_details: дополнительные данные
+    profession:  профессия
+    free_time: кол-во свободного времени
+    less_than_1h: менее часа в неделю
+    between_2h_up_to_4h: от 2 до 4 часов в неделю
+    between_4h_to_6h: от 4 до 6 часов в неделю
+    more_than_6h: более 6 часов в неделю
+    submit: послать
+    choose_language: выбрать язык
+    response_text: процесс рагистрации прошел успешно
+    where_do_you_want_to_help: чем бы Вы хотели помочь 
+    everything_went_fine: процесс рагистрации прошел успешно
     arabic: العربية
     german: Deutsch
     spanish: Español
@@ -290,124 +291,124 @@ russian:
     english: English
 
   Rusmain::Widgets::MediaRss:
-    date:  תאריך
-    picture: שרטוט
-    video:  וידאו
-    audio: אודיו
+    date:  дата
+    picture: чертежи
+    video:  видео
+    audio: аудио
 
   Mainsites::Widgets::Newsletter:
-    subscribe: הרשם
-    newsletter_subscription: הרשמו לניוזלטר השבועי
-    email_address: כתובת e-mail
-    send: שלח
-    enter_email:  הזינו דואר אלקטרוני
+    subscribe: подписка
+    newsletter_subscription: подписка на еженедельный ньюзлетер
+    email_address: е-мейл адрес
+    send: послать
+    enter_email: наберите е-мейл адрес
 
   Rusmain::Widgets::Sections:
-    home: Главная
-    kabbalah_la_am: קבלה לעם
+    home: главная
+    kabbalah_la_am: Каббала ла-Ам
 
   Mainsites::Widgets::SendToFriend:
-    send_to_friend: שלח לחבר
-    name_of_sender: שם השולח/ת
-    name_of_receiver: שם החבר/ה
-    address_of_sender: כתובת השולח/ת
-    send_to_email_address: שלחו לכתובת דוא''ל
-    send: שלח
-    everything_went_fine: ת הליך הרישום עבר בהצלחה.
-    stf_subject: שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה
-    cancel:  בטל
+    send_to_friend: послать товарищу
+    name_of_sender: имя отправителя
+    name_of_receiver: имя товарища
+    address_of_sender: адрес отправителя
+    send_to_email_address: послать на е-мейл адрес
+    send: послать
+    everything_went_fine: запись прошла удачно
+    stf_subject: Привет receiver_name получатель sender_name рекомендовать этот линк
+    cancel:  отменить
 
   Rusmain::Templates::ContentPage:
-    create_module_admin_comment: צור מודול ניהול תגובות
-    create_new_tv_unit: צור יחידת טיוי חדשה
-    admin_management:  ניהול אדמין
-    admin_upper_part: ניהול חלק עליון
+    create_module_admin_comment: создать модуль администрации комментариев
+    create_new_tv_unit: создать новую единицу тв
+    admin_management:  управление админа
+    admin_upper_part: администрация верхней части страницы
 
   Mainsites::Widgets::Shortcut:
-    direct_link: ссылка на страницу
+    direct_link: прямой линк на статью
 
   Rusmain::Widgets::SiteUpdates:
-    newsonthechannel: חדשות הערוץ
+    newsonthechannel: новости канала
 
   Mainsites::Widgets::Rss:
     no_entries_yet_check_url: No entries yet. Check url!
 
   Global::Widgets::Tree:
-    administration_tree: дерево сайта
+    administration_tree: администрационная схема
     url_bug_report: http://spreadsheets.google.com/viewform?formkey=cGtTM2pTY0xyVldONVBjTFp5cVdNYXc6MA..
-    bug_report: сообщить об ошибке
-    logout_from: выход из
+    bug_report: отчет о неполадках
+    logout_from: выйти из 
     published: опубликовано
     draft: черновик
-    archived: архив
+    archived: в архив
     status: состояние
 
   Global::Widgets::Video:
-    download:  להורדה
-    create_new_content_item: צור יחידת תוכן חדשה
+    download:  скачать
+    create_new_content_item: создать новую единицу содержания
 
 ## administration translation or unidentified string
   ActionView::Base:
     published: опубликовано
     draft: черновик
-    archived: архив
-    publish_on_site: опубликовать
-    save_draft: сохранить черновик
-    update: обновление
+    archived: в архив
+    publish_on_site: публиковать на сайте
+    save_draft: сохранить как черновик
+    update: обновить
     creating: создание
-    editing: редактирование
+    editing: редактура
     cancel: отменить
-    box: коробочка
-    content_preview: Content preview
-    website: website
-    site_name: Site Name
-    prefix: prefix
-    domain: domain
+    box: коробка
+    content_preview: предворительный показ содержания
+    website: веб-сайт
+    site_name: название сайта
+    prefix: префикс
+    domain: домейн
     meta_title: Meta title
-    maximum_number_of_items: Макс. количество элементов
+    maximum_number_of_items:  максимально количество элементов
     acts_as_articles_index: Acts as articles index
-    is_main_format: is main format
+    is_main_format: в основном формате
     link: link
-    items: אייטם
-    number_of_days: מספר ימים
-    category: קטגוריה
-    group_by_date: לקבץ לפי תאריך
+    items: item
+    number_of_days: количество дней
+    category: категория
+    group_by_date: упорядочить по датам
     url: Url
     alt: Alt
-    open_in_new_window: Open in new window
-    news_for_tv: ניהול חדשות
-    add_newsbox_for_tv: הוספת יחידה חדשות
-    content_page: страницы
-    preview_title: заголовок для предварительного показа
-    large_title: כותרת ראשית
-    permalink: ссылка на страницу (не менять)
-    small_title: תת כותרת
+    open_in_new_window: открыть в новом окне
+    news_for_tv: администрация новостей
+    add_newsbox_for_tv: добавить новость для тв
+    content_page: страница содержания
+    preview_title: заголок для предворительного показа
+    large_title: главный заголовок
+    permalink: линк к странице (не менять)
+    small_title: уменьшеный заголовок
     sub_title: подзаголовок
     side_image: боковая картинка
-    main_image_alt: כותרת לתמונה צדית
-    preview_image: תמונה לתצוגה מקדימה
-    preview_image_alt: כותרת התמונה לתצוגה מקדימה (alt)
+    main_image_alt: заголовок боковой картинки
+    preview_image: картинка для предворительного показа
+    preview_image_alt: название картинки в предварительном показе (alt)
     writer: автор
-    writer_email: мейл автора
+    writer_email: е-мейл адрес автора
     date: дата
-    hide_on_navigation: скрыть
-    acts_as_section: вести себя как раздел
-    reset_date: אפס תאריך
+    hide_on_navigation: скрыть навигацию
+    acts_as_section: действуй в разделе
+    reset_date: убрать дату
     title: заголовок
     body: содержание
     description: описание страницы
-    description_for_preview: תאור לתצוגה מקדימה
-    title_and_description: כותרת ותאור
-    regular_text: обычный текст
-    first_name: שם פרטי
-    Editing: עריכה
+    description_for_preview: описание для предворительного показа
+    title_and_description: заголовок и описание
+    regular_text: бежащая строка
+    first_name: имя
+    Editing: редактировать
     abc_test_ua_tracker_code: ABC test - UA tracker code
     abc_test_abc_check_code: ABC test - ABC checkcode
     abc_test_page_role_(a,b,c): Page Role (ABC)
-    move_to_archive : העבר לארכיון
+    move_to_archive : передать в архив
 
   Rusmain::Widgets::ShareThis:
-    share_this: לשתף
+    share_this: поделиться
 
 
 

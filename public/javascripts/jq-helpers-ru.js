@@ -20,21 +20,44 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     //Make it a menu
-    $("ul.sf-menu").superfish();
+    if (typeof $("ul.sf-menu").superfish == "function") {
+        $("ul.sf-menu").superfish();
+    }
+
     //Add pipes between menu elements
     $("ul.sf-menu:first>li:not(:last)").css('border-right', '1px solid #94969a');
     $("ul.sf-menu:first>li:not(:first)").css('border-left', '1px solid #7d7f83');
-//    $('#nav>ul>li>a>span').each(function(){
-//        var $this = $(this);
-//        //        var text = '<span class="shadow">' + $this.contents()[0].data + '</span>';
-//        var $text = $this.clone().addClass('shadow');
-//        $this.append($text);
-//    });
+    //    $('#nav>ul>li>a>span').each(function(){
+    //        var $this = $(this);
+    //        //        var text = '<span class="shadow">' + $this.contents()[0].data + '</span>';
+    //        var $text = $this.clone().addClass('shadow');
+    //        $this.append($text);
+    //    });
     //Center menu
     var left = Math.round(($("ul.sf-menu").parent().innerWidth() - $("ul.sf-menu").outerWidth())/2) - 10;
     var top = Math.round(($("ul.sf-menu").parent().innerHeight() - $("ul.sf-menu").outerHeight())/2);
     $("ul.sf-menu").css('margin', top + "px " + left + "px");
 });
+$(document).ready(function() {
+    $("#languagebar").change(function () {
+        var str = "";
+        $("#languagebar option:selected").each(function () {
+            str += $(this).val() + " ";
+        });
+        if (str.length > 0){
+            window.location = str;
+        }
+    })
+});
+
+//google analitic
+function google_tracker(pagename){
+    if (typeof pagename == "undefined"){
+        return ;
+    }
+    urchinTracker(pagename);
+}
+
 //comment
 $(document).ready(function() { 
     function before_admin_comment_post(formData, jqForm, options) {
@@ -43,7 +66,7 @@ $(document).ready(function() {
         return true;
     }
     function after_admin_comment_post(responseText, statusText){
-    // null
+        // null
     }
     var options = {
         target:       '#admin_comment_form',   // target element(s) to be updated with server response
@@ -114,11 +137,11 @@ function after_manpower(responseText, statusText){
 $(document).ready(function() { 
     $("#send_to_friend").hide();
     $("#closed_friend").click(function(){
-        $("#send_to_friend").slideDown();
+        $("#send_to_friend").show();
         $("#closed_friend").hide();
     });
     $("#stf_cancel").click(function(){
-        $("#send_to_friend").slideUp();
+        $("#send_to_friend").hide();
         $("#closed_friend").show();
     });
   
@@ -127,7 +150,7 @@ $(document).ready(function() {
     }, function(){
         $(this).removeClass('pretty-hover');
     });
-  
+
     //toggler is toggling the state of the 'send to friend' form
     $("#friend_form").submit(function(event){
         event.preventDefault();
@@ -137,13 +160,13 @@ $(document).ready(function() {
             var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
             var field_name = $(this).attr('name');
             if (field_name == 'adresseto' && this.value.search(emailRegEx) == -1) {
-                alert("כתובת הדואר האלקטרוני לא תקינה");
+                alert("неверный адрес получателя");
                 is_ok = false;
                 return false;
             }
             if (!is_ok) return false;
             if (field_name == 'adressefrom' && this.value.search(emailRegEx) == -1) {
-                alert("כתובת השולח אינה תקינה");
+                alert("неверный адрес отправителя");
                 is_ok = false;
                 return false;
             }
@@ -168,7 +191,7 @@ function after_send_to_friend(){
     $("#friend_form #loader").remove();
     $("#send_to_friend").hide();
     $("#closed_friend").show();
-    alert('נשלח בהצלחה!');
+    alert('Сообщение успешно отправлено!');
 }
 
 
@@ -201,12 +224,12 @@ $(document).ready(function(){
   
     $("#comment_form #cancel").click(function(){
         $("#loader").replaceWith("<input type=\"submit\" value=\"שלח\" name=\"Submit\" id=\"submit\" class=\"submit\"/>");
-        $("#create_comment").slideUp();
+        $("#create_comment").hide();
         $("#closed_comment").show();
     });
   
     $("#closed_comment").click(function(){
-        $("#create_comment").slideDown();
+        $("#create_comment").show();
         $("#closed_comment").hide();
     });
   
@@ -223,7 +246,7 @@ $(document).ready(function(){
         //   return false;
         // }
         if (formData[0].value == "") {
-            alert("Please fill in title field");
+            alert("Пожалуйста заполните заголовок");
             return false;
         }
         $('.create_comment #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
@@ -283,19 +306,19 @@ $(document).ready(function() {
     //************************************
     $(function(){
         $(".mouse-grey-over").hover(
-            function(){
-                $(this).toggleClass("grey-over");
-            },
-            function(){
-                $(this).toggleClass("grey-over");
-            })
+        function(){
+            $(this).toggleClass("grey-over");
+        },
+        function(){
+            $(this).toggleClass("grey-over");
+        })
     });
     $(function() {
         $('.media_rss a').attr('target', '_blank');
     });
 
 
-     //************************************
+    //************************************
     // Media player(s) on inner page
     //************************************
 
@@ -308,62 +331,63 @@ $(document).ready(function() {
     //$('.mediacasting').last.css('border-bottom','0px none #E8E8E8')
     
     //$('.mediacasting').prev().css('border-bottom','0px none #E8E8E8');
-      var item = $('.mediacasting').prev();
-      item.css('border-bottom','0px none #E8E8E8');
-      $('.mediacasting:has(.media[href*=mp3])').addClass('audio');
-      $('.mediacasting:not(:has(.media[href*=mp3]))').addClass('video');
+    var item = $('.mediacasting').prev();
+    item.css('border-bottom','0px none #E8E8E8');
+    $('.mediacasting:has(.media[href*=mp3])').addClass('audio');
+    $('.mediacasting:not(:has(.media[href*=mp3]))').addClass('video');
 
-      $("a.hide-player").hide();
-      $("a.show-player").hide();
-      $("a.media-download").hide();
+    $("a.hide-player").hide();
+    $("a.show-player").hide();
+    $("a.media-download").hide();
 
-      $("a.media").click(function(event){
-          event.preventDefault();
-          $this = $(this);
-          $this.parents('.mediacasting').children("a.hide-player").toggle();
-          $this.parents('.mediacasting').children("a.media-download").toggle();
-          $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
-          $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
-          $this.removeClass('media');
-          $this.addClass('mediaplayer');
-          $this.media({
-              autoplay: true
-          });
+    $("a.media").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.parents('.mediacasting').children("a.hide-player").toggle();
+        $this.parents('.mediacasting').children("a.media-download").toggle();
+        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
+        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
+        $this.removeClass('media');
+        $this.addClass('mediaplayer');
+        $this.media({
+            autoplay: true
+        });
 
-      });
+    });
 
-      $("a.hide-player").click(function(event){
-          event.preventDefault();
-          $this = $(this);
-          $this.parents('.audio').css('background-image', 'url(/images/hebmain/audio.png)');
-          $this.parents('.video').css('background-image', 'url(/images/hebmain/video.png)');
-          $this.toggle();
-          $this.siblings().toggle();
-          var player = $this.parents('.mediacasting').find("object");
-          if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Stop')) {
-              player[0].controls.stop();
-          }
-          if (player && player[0]){
-              player[0].SetVariable('closePlayer', 1);
-          }
-      });
+    $("a.hide-player").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.parents('.audio').css('background-image', 'url(/images/hebmain/audio.png)');
+        $this.parents('.video').css('background-image', 'url(/images/hebmain/video.png)');
+        $this.toggle();
+        $this.siblings().toggle();
+        var player = $this.parents('.mediacasting').find("object");
+        if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Stop')) {
+            player[0].controls.stop();
+        }
+        if (player && player[0]){
+            player[0].SetVariable('closePlayer', 1);
+        }
+    });
 
-      $("a.show-player").click(function(event){
-          event.preventDefault();
-          $this = $(this);
-          $this.toggle();
-          $this.siblings().toggle();
-          $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
-          $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
+    $("a.show-player").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.toggle();
+        $this.siblings().toggle();
+        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
+        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
 
-          var player = $this.parents('.mediacasting').find("object");
-          if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {
-              player[0].controls.start();
-          }
-          if (player && player[0]){
-              player[0].SetVariable('closePlayer', 0);
-          }
-      });
+        var player = $this.parents('.mediacasting').find("object");
+        if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {
+            player[0].controls.start();
+        }
+        if (player && player[0]){
+            player[0].SetVariable('autostart','yes');
+            player[0].SetVariable('closePlayer', 0);
+        }
+    });
     
     //************************************
     // Campus Form
@@ -433,13 +457,13 @@ $(document).ready(function() {
         }
     });
     $(".toggle").hover(
-        function(){
-            $(this).toggleClass("x-over");
-        },
-        function(){
-            $(this).toggleClass("x-over");
-        }
-        );
+    function(){
+        $(this).toggleClass("x-over");
+    },
+    function(){
+        $(this).toggleClass("x-over");
+    }
+);
 });
 
 
@@ -532,7 +556,7 @@ $(function() {
             {
                 config: playerConfig_homepage
             }
-            );
+        );
         } else {
             flowplayer_homepage.setConfig(playerConfig_homepage);
         }
@@ -640,7 +664,7 @@ $(function() {
             {
                 config: playerConfig_innerpage
             }
-            );
+        );
         } else {
             flowplayer_innerpage.setConfig(playerConfig_innerpage);
         }
@@ -721,7 +745,7 @@ $(function() {
         {
             config: playerConfig_playlist
         }
-        );
+    );
         audio.push(player);
         var now_playing = null;
         var $links = $this.find("a").click(function(event){
@@ -751,13 +775,13 @@ $(function() {
         });
         $(".playlist-player ul li:nth-child(odd)").addClass("odd");
         $(".playlist-player ul li a").hover(
-            function () {
-                $(this).css("color", "#0D47B2");
-            },
-            function () {
-                $(this).css("color", "black");
-            }
-            );
+        function () {
+            $(this).css("color", "#0D47B2");
+        },
+        function () {
+            $(this).css("color", "black");
+        }
+    );
     })
 });
 
@@ -805,118 +829,121 @@ function gofs(){
 }
 $(function() {
     if (typeof $("#tabs").tabs == "function") {
-      $("#tabs").tabs({
-        show:
-        // On switch between tabs...
-        function(event, ui){
-            stopSketches();
-            stopQuestions();
-            if (ui.tab.hash == "#sketch"){
-                reloadSketches();
-                startSketches();
-            } else if (ui.tab.hash == "#questions"){
-                reloadQuestions();
-                startQuestions();
-            }
-        }
-      });
-    }
-    if (typeof currentProgram == "function") {
-        currentProgram();
-        setInterval(currentProgram, 300000);
-    }
-    if (typeof $.livequery == "function") {
-        $("a.schedule_menu_item").livequery('click',function () {
-            $("div.schedule_day").hide();
-            $("#schedule_list div#D_" + this.id).show();
-            $("a.schedule_menu_item").removeClass('schedule_selected');
-            $(this).toggleClass('schedule_selected');
-            return false;
-        });
-    }
-    if (typeof hs != "undefined") {
-        hs.graphicsDir = '../highslide/graphics/';
-        hs.wrapperClassName = 'highslide-white';
-        hs.outlineType = 'rounded-white';
-        hs.showCredits = 0;
-        hs.useControls = true;
-        hs.fixedControls = true;
-        hs.fadeInOut = true;
-        hs.transitions = ['expand', 'crossfade'];
-        hs.targetX = 'kabtv';
-        hs.targetY = 'kabtv';
-        hs.lang = {
-            loadingText : 'טוען...',
-            loadingTitle : 'לחץ לביטול',
-            focusTitle : 'Click to bring to front',
-            fullExpandText : 'גודל מקסימלי',
-            fullExpandTitle : 'הגדל לגודל המקסימלי (f)',
-            creditsText : 'Powered by <i>Highslide JS</i>',
-            creditsTitle : 'Go to the Highslide JS homepage',
-            previousText : 'תמונה קודמת',
-            previousTitle : 'תמונה הקודמת (חץ שמאלה)',
-            nextText : 'תמונה הבאה',
-            nextTitle : 'תמונה הבאה (חץ ימינה)',
-            moveText : 'הזז',
-            moveTitle : 'לחץ ומשוך להזזה',
-            closeText : 'סגור',
-            closeTitle : 'סגור (esc)',
-            resizeTitle : 'שנה גודל',
-            playText : 'Play',
-            playTitle : 'Play slideshow (spacebar)',
-            pauseText : 'Pause',
-            pauseTitle : 'Pause slideshow (spacebar)',
-            number: 'תמונה %1 / %2',
-            restoreTitle : 'לחץ לסגירה. לחץ ומשוך להזזה. תשתמש בחצים לתמונה הבאה/קודמת.'
-        };
-        if (hs.registerOverlay) {
-            // The white controlbar overlay
-            hs.registerOverlay({
-                thumbnailId: null,
-                overlayId: 'controlbar',
-                position: 'top right',
-                hideOnMouseOut: false,
-                useControls: true
-            });
-        }
-    }
-    $("#kabtv #ask_btn").click(function() {
-        $("#kabtv #q").hide();
-        $("#kabtv #ask_btn").hide();
-        $("#kabtv #ask_question").show();
-    });
-    $("#kabtv #ask_cancel").click(function() {
-        $("#kabtv #ask_question").hide();
-        $("#kabtv #q").show();
-        $("#kabtv #ask_btn").show();
-    });
-    $("#kabtv #ask").submit(function() {
-        var question = $.trim($("#kabtv #options_qquestion")[0].value);
-        if (question == "") {
-          alert('נא לכתוב שאלה');
-          return false;
-        }
-        $("#kabtv #kabtv-loading").show();
-        $(this).ajaxSubmit(function(responseText, statusCode){
-            $("#kabtv #kabtv-loading").hide();
-            alert(responseText);
-            if (statusCode == "success") {
-              $("#kabtv #ask_question").hide();
-              $("#kabtv #q").show();
-              $("#kabtv #ask_btn").show();
+        $("#tabs").tabs({
+            show:
+                // On switch between tabs...
+            function(event, ui){
+                stopSketches();
+                stopQuestions();
+                if (ui.tab.hash == "#sketch"){
+                    reloadSketches();
+                    startSketches();
+                } else if (ui.tab.hash == "#questions"){
+                    reloadQuestions();
+                    startQuestions();
+                }
             }
         });
-        // always return false to prevent standard browser submit and page navigation
+        if (typeof reloadSchedule == "function") {
+            reloadSchedule();
+        }
+    }
+});
+if (typeof currentProgram == "function") {
+    currentProgram();
+    setInterval(currentProgram, 300000);
+}
+if (typeof $.livequery == "function") {
+    $("a.schedule_menu_item").livequery('click',function () {
+        $("div.schedule_day").hide();
+        $("#schedule_list div#D_" + this.id).show();
+        $("a.schedule_menu_item").removeClass('schedule_selected');
+        $(this).toggleClass('schedule_selected');
         return false;
     });
-
+}
+if (typeof hs != "undefined") {
+    hs.graphicsDir = '../highslide/graphics/';
+    hs.wrapperClassName = 'highslide-white';
+    hs.outlineType = 'rounded-white';
+    hs.showCredits = 0;
+    hs.useControls = true;
+    hs.fixedControls = true;
+    hs.fadeInOut = true;
+    hs.transitions = ['expand', 'crossfade'];
+    hs.targetX = 'kabtv';
+    hs.targetY = 'kabtv';
+    hs.lang = {
+        loadingText : 'טוען...',
+        loadingTitle : 'לחץ לביטול',
+        focusTitle : 'Click to bring to front',
+        fullExpandText : 'גודל מקסימלי',
+        fullExpandTitle : 'הגדל לגודל המקסימלי (f)',
+        creditsText : 'Powered by <i>Highslide JS</i>',
+        creditsTitle : 'Go to the Highslide JS homepage',
+        previousText : 'תמונה קודמת',
+        previousTitle : 'תמונה הקודמת (חץ שמאלה)',
+        nextText : 'תמונה הבאה',
+        nextTitle : 'תמונה הבאה (חץ ימינה)',
+        moveText : 'הזז',
+        moveTitle : 'לחץ ומשוך להזזה',
+        closeText : 'סגור',
+        closeTitle : 'סגור (esc)',
+        resizeTitle : 'שנה גודל',
+        playText : 'Play',
+        playTitle : 'Play slideshow (spacebar)',
+        pauseText : 'Pause',
+        pauseTitle : 'Pause slideshow (spacebar)',
+        number: 'תמונה %1 / %2',
+        restoreTitle : 'לחץ לסגירה. לחץ ומשוך להזזה. תשתמש בחצים לתמונה הבאה/קודמת.'
+    };
+    if (hs.registerOverlay) {
+        // The white controlbar overlay
+        hs.registerOverlay({
+            thumbnailId: null,
+            overlayId: 'controlbar',
+            position: 'top right',
+            hideOnMouseOut: false,
+            useControls: true
+        });
+    }
+}
+$("#kabtv #ask_btn").click(function() {
+    $("#kabtv #q").hide();
+    $("#kabtv #ask_btn").hide();
+    $("#kabtv #ask_question").show();
 });
-$.getScript = function(url, callback, cache){
-    $.ajax({ 
-        type: "GET",
-        url: url,
-        success: callback,
-        dataType: "script",
-        cache: cache
+$("#kabtv #ask_cancel").click(function() {
+    $("#kabtv #ask_question").hide();
+    $("#kabtv #q").show();
+    $("#kabtv #ask_btn").show();
+});
+$("#kabtv #ask").submit(function() {
+    var question = $.trim($("#kabtv #options_qquestion")[0].value);
+    if (question == "") {
+        alert('נא לכתוב שאלה');
+        return false;
+    }
+    $("#kabtv #kabtv-loading").show();
+    $(this).ajaxSubmit(function(responseText, statusCode){
+        $("#kabtv #kabtv-loading").hide();
+        alert(responseText);
+        if (statusCode == "success") {
+            $("#kabtv #ask_question").hide();
+            $("#kabtv #q").show();
+            $("#kabtv #ask_btn").show();
+        }
     });
+    // always return false to prevent standard browser submit and page navigation
+    return false;
+});
+
+$.getScript = function(url, callback, cache){
+$.ajax({ 
+    type: "GET",
+    url: url,
+    success: callback,
+    dataType: "script",
+    cache: cache
+});
 };

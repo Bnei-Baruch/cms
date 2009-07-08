@@ -28,7 +28,7 @@ body {
 	color: black;
 	background: white;
 }
-ol, ul {
+ol, ul, ol li, ul li {
 	list-style: none;
 }
 /* tables still need 'cellspacing="0"' in the markup */

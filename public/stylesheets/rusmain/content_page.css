@@ -1,15 +1,5 @@
 #body{
     text-align:left;
-    position:relative;
-}
-#body-left{
-    width:224px;
-    position:absolute;
-}
-#body-middle{
-    margin-left:243px; /* + 10px between columns */
-    margin-right:0;
-    width:auto;
 }
 #static-menu {
     background-color:#e0e2e7;
@@ -50,23 +40,35 @@
     display:block;
 }
 .breadcrumbs{
-    margin:0 10px 20px 0;
+    margin:0 15px;
+    padding:2px 0;
     border-bottom:1px solid #e5e5eb;
     color:#1060A5;
 }
 .breadcrumbs a,.breadcrumbs a:visited{
     color:#1060A5;
 }
+.border, #content-header{
+    border-left:1px solid #e6e6ec;
+    border-right:1px solid #e6e6ec;
+}
+.empty{
+    height:20px;
+}
 #body-middle #mid-content{
     border:1px solid #e5e5eb;
     padding-left:14px;
 }
-#body-middle .bg{
-    background:transparent url(/images/rusmain/related-bg.gif) repeat-y scroll right top;
-    padding:0 0 10px;
+.yui-ge{
+    background:white url(/images/rusmain/related-bg.gif) repeat-y right top;
+    border-bottom:1px solid #e6e6ec;
+    border-left:1px solid #e6e6ec;
+    padding:0 0 10px 10px;
 }
-#mid-content .related{
-    background:#FAFAFA url(/images/rusmain/related-bg.gif) repeat-y top right;
+.yui-t7 #yui-main .yui-b{
+    margin-bottom:0;
+}
+.related{
     border-top: 1px solid #E5E5EB;
     float: right;
     width: 160px;
@@ -75,19 +77,16 @@
     font-size:11px;
     font-weight:bold;
 }
-#mid-content .related .image img{
+.related .image img{
     border:1px solid #C9C9C9;
     padding:1px;
     width:160px;
 }
-#mid-content .related .image img{
+.related .image img{
     font-weight:bold;
     font-size:11px;
 }
-#mid-content .content{
-    margin-right:205px;
-}
-#mid-content h2{
+h2{
     background:#A4A6AC url(/images/rusmain/sub-title.gif) repeat-x 0 0;
     color:white;
     font-size:11px;
@@ -96,7 +95,7 @@
     line-height:19px;
     text-align:center;
 }
-#mid-content .descr{
+.descr{
     background:#f6f6fc url(/images/rusmain/descr-grad.gif) repeat-x bottom left;
     color:#5A5A5A;
     font-size:11px;
@@ -107,92 +106,95 @@
     overflow:hidden;
     position:relative;
 }
-#mid-content .descr .left-ear, #mid-content .descr .right-ear{
+.descr .left-ear, .descr .right-ear{
     position:absolute;
     bottom:0;
     width:5px;
     height:81px;
     background:#999B9F url(/images/rusmain/descr-ears.gif) no-repeat 0 0;
 }
-#mid-content .descr .left-ear{
+.descr .left-ear{
     left:0;
 }
-#mid-content .descr .right-ear{
+.descr .right-ear{
     background-position:-5px 0;
     right:0;
 }
-#mid-content .author{
+.author{
     height:30px;
 }
-#mid-content .author span{
+.author span{
     margin: 7px 16px 0 0;
     font-size:10px;
     color:#979797;
 }
-#mid-content .author span img{
+.author span img{
     font-size:10px;
     color:#979797;
     margin:0 0 0 7px;
     position:relative;
     top:1px;
 }
-#mid-content .item{
+.item{
     clear:left;
     position:relative;
 }
-#mid-content .item h3{
+.item h3{
     color:#A18A64;
     font-size:13px;
     font-weight:bold;
     margin-bottom:3px;
 }
-#mid-content .item p{
+.item p{
     margin:0 0 15px;
 }
-#mid-content .services{
-    margin:40px 205px 15px 0;
+.services{
+    margin:40px 12px 15px 0;
     border-top:1px solid #E5E5EB;
     padding:5px 0;
     font-size:11px;
     line-height:17px;
 }
-#mid-content .services div{
+.services div{
     float:left;
     margin:0 10px 10px 0;
     padding-left:23px;
     background-repeat:no-repeat;
     cursor:pointer;
 }
-#mid-content .services #closed_comment{
+.services #create_comment{
+    margin-top:20px;
+}
+.services #closed_comment{
     background-position:0 -17px;
 }
-#mid-content .services #closed_friend{
+.services #closed_friend{
     background-position:0 -34px;
 }
-#mid-content .services .permalink{
+.services .permalink{
     background-position:0 1px;
-    margin-top:20px;
+    margin:20px 0 0;
     cursor:text;
     color:black;
     text-decoration:none;
 }
-#mid-content .services .permalink input{
+.services .permalink input{
     margin-left: 5px;
     border:1px solid #E5E5EB;
-    width:396px;
+    width:350px;
     font-size:10px;
     height:15px;
 }
-#mid-content .services div, #mid-content .services div a{
+.services div, .services div a{
     color:#A71E23;
 }
-#mid-content .services div:hover{
+.services div:hover{
     text-decoration:underline;
 }
-#mid-content #send_to_friend{
+#send_to_friend{
     margin:0 0 10px;
 }
-#mid-content #send_to_friend table#friend{
+#send_to_friend table#friend{
     border: 1px solid #E5E5EB;
     width:460px;
     font-size:11px;
@@ -201,11 +203,11 @@
     padding:0 0 10px;
     color:#161616;
 }
-#mid-content #send_to_friend table#friend .input input{
+#send_to_friend table#friend .input input{
     width:40ex;
     border:1px solid #E5E5EB;
 }
-#mid-content #send_to_friend table#friend a{
+#send_to_friend table#friend a{
     background-position:0 0;
     background-repeat:no-repeat;
     color:white;
@@ -219,33 +221,33 @@
     width:59px;
     cursor:pointer;
 }
-#mid-content #send_to_friend table#friend a.button{
+#send_to_friend table#friend a.button{
     background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
     margin:0;
     line-height:18px;
 }
-#mid-content #send_to_friend #friend_form table#friend span.postbutton{
+#send_to_friend #friend_form table#friend span.postbutton{
     margin-right:10px;
 }
-#mid-content #send_to_friend table#friend a:hover{
+#send_to_friend table#friend a:hover{
     text-decoration:none;
 }
-#mid-content #send_to_friend table#friend .text{
+#send_to_friend table#friend .text{
     width:150px;
     text-align:right;
     padding:0 10px 10px 0;
 }
-#mid-content #send_to_friend table#friend h1{
+#send_to_friend table#friend h1{
     background-color:#979797;
     color:white;
     font-weight:bold;
     padding:0 10px;
     margin:0 0 10px;
 }
-#mid-content #comment_form{
+#comment_form{
     margin:0 0 10px;
 }
-#mid-content #comment_form table#reactions{
+#comment_form table#reactions{
     border: 1px solid #E5E5EB;
     width: 460px;
     font-size:11px;
@@ -254,23 +256,23 @@
     padding:0 0 10px;
     color:#161616;
 }
-#mid-content #comment_form table#reactions .input textarea{
+#comment_form table#reactions .input textarea{
     width:46.5ex;
     border:1px solid #E5E5EB;
 }
-#mid-content #comment_form table#reactions .input input{
+#comment_form table#reactions .input input{
     width:40ex;
     border:1px solid #E5E5EB;
 }
-#mid-content #comment_form table#reactions a.submit{
+#comment_form table#reactions a.submit{
     background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
     margin:0;
     line-height:18px;
 }
-#mid-content #comment_form table#reactions span.postbutton{
+#comment_form table#reactions span.postbutton{
     margin-right:10px;
 }
-#mid-content #comment_form table#reactions a{
+#comment_form table#reactions a{
     background-position:0 0;
     background-repeat:no-repeat;
     color:white;
@@ -284,16 +286,16 @@
     width:59px;
     cursor:pointer;
 }
-#mid-content #comment_form table#reactions a:hover{
+#comment_form table#reactions a:hover{
     text-decoration:none;
 }
-#mid-content #comment_form table#reactions .text{
+#comment_form table#reactions .text{
     width:150px;
     text-align:right;
     padding:0 10px 10px 0;
     vertical-align:top;
 }
-#mid-content #comment_form table#reactions h1{
+#comment_form table#reactions h1{
     background-color:#979797;
     color:white;
     font-weight:bold;
@@ -344,16 +346,16 @@
     background-color: #f5f5f4;
     padding: 5px 10px 0 10px;
 }
-#mid-content .comment_header{
+.comment_header{
     font-weight: bold;
     background-color:#979797;
     color:white;
     font-weight:bold;
     padding:2px 10px;
     clear:both;
-    margin-right:205px;
+    margin-right:25px;
 }
-#mid-content .comment_date{
+.comment_date{
     color:#979797;
     margin-right:205px;
 }
@@ -361,7 +363,7 @@
     display: none;
     margin-right:205px;
 }
-#mid-content .prev_comments{
+.prev_comments{
     border: 1px solid #E5E5EB;
     width: 480px;
     font-size:11px;
@@ -370,41 +372,41 @@
     padding:0 0 10px;
     color:#161616;
 }
-#mid-content .prev_comments .comment_empty{
+.prev_comments .comment_empty{
     padding:0 10px;
 }
-.side-box .box-content .update{
+.box-content .update{
     font-size:11px;
 }
-.side-box .box-content .update h4{
+.box-content .update h4{
     font-weight:bold;
 }
-.side-box .box-content .update a{
+.box-content .update a{
     display:block;
 }
-.side-box .box-content hr{
+.box-content hr{
     height:0;
     border:1px solid transparent;
     border-top:1px solid #E5E5EB;
 }
-.side-box .box-content .newsletter .clear{
+.box-content .newsletter .clear{
     display:block;
 }
-.side-box .box-content .newsletter h1{
+.box-content .newsletter h1{
     color:#161616;
     font-size:11px;
 }
-.side-box .box-content .newsletter input#ml_user_email{
+.box-content .newsletter input#ml_user_email{
     margin-bottom:10px;
 }
-.side-box .box-content .newsletter input{
+.box-content .newsletter input{
     width:28.5ex;
     border:1px solid #E5E5EB;
 }
-.side-box .box-content .newsletter #subscribe_form a:hover{
+.box-content .newsletter #subscribe_form a:hover{
     text-decoration:none;
 }
-.side-box .box-content .newsletter #subscribe_form a{
+.box-content .newsletter #subscribe_form a{
     background-position:0 0;
     background-repeat:no-repeat;
     color:white;
@@ -471,11 +473,11 @@
     list-style-type:circle;
     margin:0 0 0 15px;
 }
-#mid-content .content_preview{
+.content_preview{
     position:relative;
     margin:0 0 15px;
 }
-#mid-content .content_preview .main_preview1 .element{
+.content_preview .main_preview1 .element{
     background: #fefefe url(/images/rusmain/mp1-grad.gif) repeat-x left top;
     border:1px solid #E5E5EB;
     float:left;
@@ -483,51 +485,51 @@
     padding:0 0 20px;
     margin:0 0 15px;
 }
-#mid-content .content_preview .main_preview1 .img{
+.content_preview .main_preview1 .img{
     float:left;
     padding:1px;
     margin-right:10px;
     width:195px;
     height:132px;
 }
-#mid-content .content_preview .index{
+.content_preview .index{
     border:1px solid #E5E5EB;
 }
-#mid-content .content_preview .index .element{
+.content_preview .index .element{
     position:relative;
     padding:15px 15px 10px 10px;
     margin:0;
 }
-#mid-content .content_preview .index .preview-odd{
+.content_preview .index .preview-odd{
     background:#e5e5eb url(/images/rusmain/preview-odd.gif) repeat-x left top;
 }
-#mid-content .content_preview .index .preview-even{
+.content_preview .index .preview-even{
     background:white url(/images/rusmain/preview-even.gif) repeat-x left top;
 }
-#mid-content .content_preview .index .img{
+.content_preview .index .img{
     float:left;
     padding:1px;
     margin-right:10px;
     width:115px;
     height:80px;
 }
-#mid-content .content_preview .index .more,
-#mid-content .content_preview .index .more_no_img{
+.content_preview .index .more,
+.content_preview .index .more_no_img{
     font-size:10px;
     text-decoration:underline;
     position:absolute;
     bottom:10px;
     left:140px;
 }
-#mid-content .content_preview .main_preview1 h1 a:visited,
-#mid-content .content_preview .main_preview1 h1 a,
-#mid-content .content_preview .index h1 a:visited,
-#mid-content .content_preview .index h1 a{
+.content_preview .main_preview1 h1 a:visited,
+.content_preview .main_preview1 h1 a,
+.content_preview .index h1 a:visited,
+.content_preview .index h1 a{
     color:#1060A5;
     font-size:14px;
     font-weight:bold;
 }
-#mid-content .content_preview .index .descr{
+.content_preview .index .descr{
     background-color:transparent;
     background-image:none;
     border:0 none;
@@ -539,9 +541,9 @@
     position:relative;
     text-align:left;
 }
-#mid-content .content_preview .main_preview1 .descr,
-#mid-content .content_preview .main_preview2 .descr,
-#mid-content .content_preview .main_preview3 .descr{
+.content_preview .main_preview1 .descr,
+.content_preview .main_preview2 .descr,
+.content_preview .main_preview3 .descr{
     background-color:transparent;
     background-image:none;
     border:0 none;
@@ -553,43 +555,43 @@
     position:relative;
     text-align:left;
 }
-#mid-content .content_preview .main_preview2 .descr,
-#mid-content .content_preview .main_preview3 .descr{
+.content_preview .main_preview2 .descr,
+.content_preview .main_preview3 .descr{
     padding:10px 10px 20px;
     font-size:11px;
 }
-#mid-content .content_preview .main_preview1 .more,
-#mid-content .content_preview .main_preview1 .more_no_img{
+.content_preview .main_preview1 .more,
+.content_preview .main_preview1 .more_no_img{
     font-size:10px;
     text-decoration:underline;
     position:absolute;
     bottom:11px;
     left:208px;
 }
-#mid-content .content_preview .main_preview2 .more_no_img,
-#mid-content .content_preview .main_preview3 .more_no_img,
-#mid-content .content_preview .main_preview2 .more,
-#mid-content .content_preview .main_preview3 .more{
+.content_preview .main_preview2 .more_no_img,
+.content_preview .main_preview3 .more_no_img,
+.content_preview .main_preview2 .more,
+.content_preview .main_preview3 .more{
     font-size:10px;
     position:absolute;
     bottom:10px;
     text-decoration:underline;
     left:10px;
 }
-#mid-content .content_preview .more_no_img .empty-gif,
-#mid-content .content_preview .more .empty-gif{
+.content_preview .more_no_img .empty-gif,
+.content_preview .more .empty-gif{
     display:none;
 }
-#mid-content .content_preview .more_no_img a,
-#mid-content .content_preview .more a{
+.content_preview .more_no_img a,
+.content_preview .more a{
     color:#1060A5;
 }
-#mid-content .content_preview .more_no_img img,
-#mid-content .content_preview .more img{
+.content_preview .more_no_img img,
+.content_preview .more img{
     margin-left:10px;
 }
 
-#mid-content .content_preview .main_preview2 .element{
+.content_preview .main_preview2 .element{
     background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
     border:1px solid #E5E5EB;
     float:left;
@@ -598,29 +600,29 @@
     padding:0 0 20px;
     margin:0 0 10px;
 }
-#mid-content .content_preview .main_preview2 .non-last{
+.content_preview .main_preview2 .non-last{
     margin-right:15px;
 }
-#mid-content .content_preview .main_preview2 .last{
+.content_preview .main_preview2 .last{
     margin-right:0;
     margin-bottom:20px;
 }
-#mid-content .content_preview .main_preview2 .img{
+.content_preview .main_preview2 .img{
     height:157px;
     padding:1px 1px 0;
     width:229px;
 }
-#mid-content .content_preview .main_preview2 h1{
+.content_preview .main_preview2 h1{
     padding:0 10px;
 }
-#mid-content .content_preview .main_preview2 h1 a:visited,
-#mid-content .content_preview .main_preview2 h1 a{
+.content_preview .main_preview2 h1 a:visited,
+.content_preview .main_preview2 h1 a{
     color:#1060A5;
     font-size:13px;
     font-weight:bold;
 }
 
-#mid-content .content_preview .main_preview3 .element{
+.content_preview .main_preview3 .element{
     background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
     border:1px solid #E5E5EB;
     float:left;
@@ -629,47 +631,47 @@
     padding:0 0 20px;
     margin:0 0 10px;
 }
-#mid-content .content_preview .main_preview3 .non-last{
+.content_preview .main_preview3 .non-last{
     margin-right:13px;
 }
-#mid-content .content_preview .main_preview3 .last{
+.content_preview .main_preview3 .last{
     margin-left:1px;
 }
-#mid-content .content_preview .main_preview3 .img{
+.content_preview .main_preview3 .img{
     height:102px;
     padding:1px 1px 0;
     width:147px;
 }
-#mid-content .content_preview .main_preview3 h1{
+.content_preview .main_preview3 h1{
     padding:0 10px;
 }
-#mid-content .content_preview .main_preview3 h1 a:visited,
-#mid-content .content_preview .main_preview3 h1 a{
+.content_preview .main_preview3 h1 a:visited,
+.content_preview .main_preview3 h1 a{
     color:#1060A5;
     font-size:13px;
     font-weight:bold;
 }
 /*----------  Video Gallery ---------------*/
-#mid-content .inner-player{
+.inner-player{
     background:#E5E5EB url(/images/rusmain/videogal-grad.gif) repeat-x 0 0;
     margin:15px 0;
 }
-#mid-content .inner-player .play-title{
+.inner-player .play-title{
     color:white;
     font-weight:bold;
     padding:5px 10px;
     text-align:center;
 }
-#mid-content .inner-player .player-placeholder {
+.inner-player .player-placeholder {
     cursor:pointer;
     height:362px;
     width:482px;
 }
-#mid-content .inner-player .player-placeholder .play-serv{
+.inner-player .player-placeholder .play-serv{
     border-bottom:1px solid #BFBFBF;
     height:0;
 }
-#mid-content .inner-player .playlist {
+.inner-player .playlist {
     border-top:1px solid white;
     height:300px;
     overflow-x:hidden;
@@ -677,38 +679,38 @@
     width:482px;
     background-color:#d5d6dc;
 }
-#mid-content .inner-player .playlist .odd{
+.inner-player .playlist .odd{
     background:#e5e5eb url(/images/rusmain/videogal-odd-grad.gif) repeat-x left bottom;
 }
-#mid-content .inner-player .playlist ul li{
+.inner-player .playlist ul li{
     border-bottom:2px solid white;
     list-style-image:none;
     list-style-position:outside;
     list-style-type:none;
 }
-#mid-content .inner-player .playlist ul li a.h1-img{
+.inner-player .playlist ul li a.h1-img{
     border:1px solid #c0c0c3;
     float:left;
     margin:10px;
     height:62px;
     width:82px;
 }
-#mid-content .inner-player .playlist ul li .h1-img img{
+.inner-player .playlist ul li .h1-img img{
     border:1px solid #e8e8ee;
     height:60px;
     width:80px;
 }
-#mid-content .inner-player .playlist ul li .h1-play{
+.inner-player .playlist ul li .h1-play{
     color:#1060a5;
     display:block;
     font-weight:bold;
     padding:10px 5px 0;
     width:465px;
 }
-#mid-content .inner-player .playlist ul li .descr-play{
+.inner-player .playlist ul li .descr-play{
     margin:5px 5px 5px 0;
 }
-#mid-content p.play-list-button {
+p.play-list-button {
     top:170px;
     cursor:pointer;
     display:block;
@@ -720,14 +722,14 @@
     position:absolute;
     left:160px;
 }
-#mid-content p.play-list-button span{
+p.play-list-button span{
     background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
     color:white;
     display:block;
     float:left;
     padding:18px 13px 17px 42px;
 }
-#mid-content p.play-list-button b{
+p.play-list-button b{
     background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
     float:left;
     height:50px;
@@ -735,21 +737,21 @@
     width:50px;
 }
 /*----------  Video  ---------------*/
-#mid-content .full-video{
+.full-video{
     margin:15px 0;
     position:relative;
 }
-#mid-content .full-video img{
+.full-video img{
     cursor:pointer;
     height:362px;
     width:482px;
     position:relative;
 }
-#mid-content .full-video .flashplayer{
+.full-video .flashplayer{
     height:362px;
     width:482px;
 }
-#mid-content p.playbutton{
+p.playbutton{
     top:170px;
     cursor:pointer;
     display:block;
@@ -761,14 +763,14 @@
     position:absolute;
     left:180px;
 }
-#mid-content p.playbutton span{
+p.playbutton span{
     background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
     color:white;
     display:block;
     float:left;
     padding:18px 13px 17px 42px;
 }
-#mid-content p.playbutton b{
+p.playbutton b{
     background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
     float:left;
     height:50px;
@@ -776,34 +778,34 @@
     width:50px;
 }
 /*----------  kabtv  ---------------*/
-#mid-content #kabtv{
+#kabtv{
     background-repeat:no-repeat;
     position:relative;
     width:673px;
 }
-#mid-content #kabtv #tabs {
+#kabtv #tabs {
     float:right;
     margin:10px 12px 22px 0;
     width:260px;
 }
-#mid-content #kabtv #player-side {
+#kabtv #player-side {
     float:left;
     margin:76px 11px 36px 12px;
     padding:0;
     width:378px;
     height:288px;
 }
-#mid-content #kabtv #player-side #separate-win, #mid-content #kabtv #player-side #full-win{
+#kabtv #player-side #separate-win, #kabtv #player-side #full-win{
     display:none;
 }
-#mid-content #kabtv #player_options{
+#kabtv #player_options{
     position:relative;
 }
-#mid-content #kabtv .ui-tabs-nav {
+#kabtv .ui-tabs-nav {
     margin:0 0 0 -1px;
     padding:0;
 }
-#mid-content #kabtv .ui-tabs-nav, #mid-content #kabtv .ui-tabs-nav li {
+#kabtv .ui-tabs-nav, #kabtv .ui-tabs-nav li {
     list-style-image:none;
     list-style-position:outside;
     list-style-type:none;
@@ -813,48 +815,48 @@
     margin:0 1px 0 0;
     min-width:84px;
 }
-#mid-content #kabtv .ui-tabs-nav .ui-tabs-selected a span,
-#mid-content #kabtv .ui-tabs-nav a:hover span,
-#mid-content #kabtv .ui-tabs-nav a:focus span,
-#mid-content #kabtv .ui-tabs-nav a:active span,
-#mid-content #kabtv .ui-tabs-nav .ui-tabs-selected a,
-#mid-content #kabtv .ui-tabs-nav a:hover,
-#mid-content #kabtv .ui-tabs-nav a:focus,
-#mid-content #kabtv .ui-tabs-nav a:active {
+#kabtv .ui-tabs-nav .ui-tabs-selected a span,
+#kabtv .ui-tabs-nav a:hover span,
+#kabtv .ui-tabs-nav a:focus span,
+#kabtv .ui-tabs-nav a:active span,
+#kabtv .ui-tabs-nav .ui-tabs-selected a,
+#kabtv .ui-tabs-nav a:hover,
+#kabtv .ui-tabs-nav a:focus,
+#kabtv .ui-tabs-nav a:active {
     background-image:url(/images/rusmain/jquery/tab-sel.gif);
 }
-#mid-content #kabtv .ui-tabs-nav a,
-#mid-content #kabtv .ui-tabs-nav a span {
+#kabtv .ui-tabs-nav a,
+#kabtv .ui-tabs-nav a span {
     background-image:url(/images/rusmain/jquery/tab.gif);
     background-color:#2C72B0;
 }
-#mid-content .ui-tabs-nav .ui-tabs-selected a:link,
-#mid-content .ui-tabs-nav .ui-tabs-selected a:visited,
-#mid-content .ui-tabs-nav .ui-tabs-disabled a:link,
-#mid-content .ui-tabs-nav .ui-tabs-disabled a:visited {
+.ui-tabs-nav .ui-tabs-selected a:link,
+.ui-tabs-nav .ui-tabs-selected a:visited,
+.ui-tabs-nav .ui-tabs-disabled a:link,
+.ui-tabs-nav .ui-tabs-disabled a:visited {
     cursor:text;
 }
-#mid-content .ui-tabs-nav .ui-tabs-selected a,
-#mid-content .ui-tabs-nav a:hover,
-#mid-content .ui-tabs-nav a:focus,
-#mid-content .ui-tabs-nav a:active {
+.ui-tabs-nav .ui-tabs-selected a,
+.ui-tabs-nav a:hover,
+.ui-tabs-nav a:focus,
+.ui-tabs-nav a:active {
     background-position:100% -150px;
     outline-style:none;
     outline-width:0;
 }
-#mid-content .ui-tabs-nav .ui-tabs-selected a {
+.ui-tabs-nav .ui-tabs-selected a {
     color:#000000;
 }
-#mid-content .ui-tabs-nav a,
-#mid-content .ui-tabs-nav .ui-tabs-disabled a:hover,
-#mid-content .ui-tabs-nav .ui-tabs-disabled a:focus,
-#mid-content .ui-tabs-nav .ui-tabs-disabled a:active {
+.ui-tabs-nav a,
+.ui-tabs-nav .ui-tabs-disabled a:hover,
+.ui-tabs-nav .ui-tabs-disabled a:focus,
+.ui-tabs-nav .ui-tabs-disabled a:active {
     background-position:100% -100px;
 }
-#mid-content .ui-tabs-nav .ui-tabs-selected a span {
+.ui-tabs-nav .ui-tabs-selected a span {
     padding-top:6px;
 }
-#mid-content .ui-tabs-nav a {
+.ui-tabs-nav a {
     color:#1678ce;
     font-size:12px;
     font-weight:bold;
@@ -867,74 +869,74 @@
     white-space:nowrap;
     z-index:2;
 }
-#mid-content .ui-tabs-panel {
+.ui-tabs-panel {
     border:1px solid #E5E5E5;
     padding:8px 8px 16px;
 }
-#mid-content .ui-tabs-nav a span{
+.ui-tabs-nav a span{
     min-width:none;
     color:white;
 }
-#mid-content #kabtv #schedule,
-#mid-content #kabtv #questions,
-#mid-content #kabtv #sketch {
+#kabtv #schedule,
+#kabtv #questions,
+#kabtv #sketch {
     background:#e5e5eb none repeat scroll 0 0;
     height:340px;
     text-align:left;
     margin-top:1px;
     position:relative;
 }
-#mid-content #kabtv #schedule a {
+#kabtv #schedule a {
     background:transparent none repeat scroll 0 50%;
     display:inline;
 }
-#mid-content #kabtv .schedule_selected {
+#kabtv .schedule_selected {
     text-decoration:underline;
 }
-#mid-content #kabtv #schedule_list {
+#kabtv #schedule_list {
     display:inline-block;
     position:relative;
 }
-#mid-content #kabtv .schedule_day {
+#kabtv .schedule_day {
     height:320px;
     margin:10px 0 0;
     overflow-y:scroll;
     width:240px;
 }
-#mid-content #kabtv #schedule h3 {
+#kabtv #schedule h3 {
     text-align:left;
     color:black;
     margin:0 0 6px;
 }
-#mid-content #kabtv #schedule .item0 a, #kabtv #schedule .item1 a{
+#kabtv #schedule .item0 a, #kabtv #schedule .item1 a{
     text-decoration:underline;
 }
-#mid-content #kabtv #schedule .item0, #kabtv #schedule .item1 {
+#kabtv #schedule .item0, #kabtv #schedule .item1 {
     border-top:2px solid white;
     border-left:2px solid white;
     border-right:2px solid white;
     padding:5px;
 }
-#mid-content #kabtv #schedule .item2{
+#kabtv #schedule .item2{
     border-top:2px solid white;
     height:0;
     font-size:0;
     line-height:0;
 }
-#mid-content #kabtv #schedule .time {
+#kabtv #schedule .time {
     color:white;
     background-color:#2b73b1;
     font-size:14px;
     font-weight:bold;
     padding:5px 10px;
 }
-#mid-content #kabtv #schedule_list .title {
+#kabtv #schedule_list .title {
     font-weight:bold;
     padding-left:15px;
     margin-left:5px;
     display:inline;
 }
-#mid-content #kabtv #schedule_list .descr {
+#kabtv #schedule_list .descr {
     background-color:#F6F6FC;
     color:black;
     font-size:11px;
@@ -943,93 +945,93 @@
     margin:2px 0 0;
     text-align:left;
 }
-#mid-content .icon-minus {
+.icon-minus {
     background:transparent url(/images/open.gif) no-repeat scroll 0 70%;
 }
-#mid-content .icon-plus {
+.icon-plus {
     background:transparent url(/images/closed.gif) no-repeat scroll 0 70%;
 }
-#mid-content #kabtv #questions #q {
+#kabtv #questions #q {
     height:300px;
     margin-top:10px;
     overflow-y:scroll;
     width:240px;
 }
-#mid-content #kabtv #questions h3 {
+#kabtv #questions h3 {
     text-align:left;
     color:black;
     margin:0 0 6px;
     font-weight:bold;
 }
-#mid-content #kabtv #questions .question0, #kabtv #questions .question1 {
+#kabtv #questions .question0, #kabtv #questions .question1 {
     border-top:2px solid white;
     border-left:2px solid white;
     border-right:2px solid white;
     padding:5px;
 }
-#mid-content #kabtv #questions .question2{
+#kabtv #questions .question2{
     border-top:2px solid white;
     height:0;
     font-size:0;
     line-height:0;
 }
-#mid-content #kabtv #questions .who {
+#kabtv #questions .who {
     color:#A71E23;
     font-weight:bold;
 }
-#mid-content #kabtv #questions .what {
+#kabtv #questions .what {
     padding:0 5px;
 }
-#mid-content #kabtv #questions #options_qquestion,
-#mid-content #kabtv #questions #options_qfrom,
-#mid-content #kabtv #questions #options_qname {
+#kabtv #questions #options_qquestion,
+#kabtv #questions #options_qfrom,
+#kabtv #questions #options_qname {
     width:235px;
 }
-#mid-content #kabtv #questions #options_qquestion{
+#kabtv #questions #options_qquestion{
     height:200px;
     margin:0 0 10px;
 }
-#mid-content #kabtv #questions #ask_question {
+#kabtv #questions #ask_question {
     position:absolute;
     top:8px;
     background-color:#E5E5EB;
 }
-#mid-content #kabtv #sketch a {
+#kabtv #sketch a {
     display:inline;
     padding:0 0 0 5px;
 }
-#mid-content #kabtv a.highslide {
+#kabtv a.highslide {
     background:transparent none repeat scroll 0 50% !important;
 }
-#mid-content #kabtv #sketch h3 {
+#kabtv #sketch h3 {
     text-align:left;
     color:black;
     margin:0 0 6px;
     font-weight:bold;
 }
-#mid-content #kabtv #sketch a#last-sketch img {
+#kabtv #sketch a#last-sketch img {
     display:block;
     float:right;
     height:186px;
     margin:0 0 5px;
     width:240px;
 }
-#mid-content #kabtv .highslide img {
+#kabtv .highslide img {
     border:2px solid silver;
     cursor:url(/highslide/graphics/zoomin.cur), pointer;
 }
-#mid-content #kabtv #sketch #thumbnails {
+#kabtv #sketch #thumbnails {
     height:125px;
     overflow-x:scroll;
     overflow-y:hidden;
     width:240px;
 }
-#mid-content #kabtv .kabtv-loader {
+#kabtv .kabtv-loader {
     position:absolute;
     top:0;
     right:0;
 }
-#mid-content #kabtv #player_options #troubleshooting_str {
+#kabtv #player_options #troubleshooting_str {
     color:white;
     position:absolute;
     right:0;
@@ -1037,7 +1039,7 @@
     top:0;
     width:123px;
 }
-#mid-content #kabtv #player_options #separate-msg {
+#kabtv #player_options #separate-msg {
     background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat scroll 0 0;
     color:white;
     float:left;
@@ -1045,7 +1047,7 @@
     padding-left:20px;
     width:150px;
 }
-#mid-content #kabtv #player_options #troubleshooting_url {
+#kabtv #player_options #troubleshooting_url {
     color:#FDE500;
     font-weight:bold;
     float:right;

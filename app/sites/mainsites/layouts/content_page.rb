@@ -42,11 +42,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
         '../highslide/highslide-full.packed.js',
-        'jquery.livequery.min.js', 'jq-helpers-hb',
+        'jquery.livequery.min.js', 'jq-helpers-ru',
         :cache => "cache_content_page-#{@presenter.website_hrid}"
 
         if presenter.node.can_edit?
-          stylesheet_link_tag 'common/reset.css',
+          stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'common/reset.css',
           '../ext/resources/css/ext-all',
           'rusmain/common.css',
           'rusmain/content_page.css',
@@ -62,7 +62,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
           }
         else
-          stylesheet_link_tag 'common/reset.css',
+          stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'common/reset.css',
           'rusmain/common.css',
           'rusmain/content_page.css',
           'rusmain/superfish.css',
@@ -78,117 +78,43 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         rawtext '<![endif]-->'
       }
       body {
-        if presenter.node.can_edit?
-          div(:id => 'command-panel'){
-            display @dynamic_tree
-            div(:class => 'clear')
+        div(:id => 'doc2', :class => 'yui-t7') { # Width 950 px, navigation 224px on left side
+          header_class = show_dynamic_tree # for admins
+          div(:id => 'hd'){ # Header
+            show_header(header_class)
           }
-          header_class = 'under-command-panel'
-        end
-        div(:id => 'header', :class => header_class){
-          display @header_logo
-          display @header_search
-          div(:id => 'links'){
-            make_sortable(:selector => '#header .links_ext', :axis => 'x') {
-              display @header_top_links_ext
-            }
-            make_sortable(:selector => '#header .links_int', :axis => 'x') {
-              display @header_top_links_int
-            }
-          }
-          display @header_top_languages
-        }
-        div(:id => 'nav-empty'){
-          nbsp
-        }
-        div(:id => 'nav'){
-          div(:class => 'left-ear')
-          div(:class => 'right-ear')
-
-          display @sections
-        }
-        div(:id => 'body'){
-          div(:id => 'body-left'){
-            div(:class => 'side-box-top'){
-              rawtext 'Kabbalah for Beginners'
-              div(:class => 'left-ear')
-              div(:class => 'right-ear')
-            }
-            div(:class => 'box-content'){
-              display @static_tree
-            }
-            div(:class => 'side-box'){
-              h3 'Newsletter'
-              div(:class => 'box-content'){
-                display @newsletter
+          div(:id => 'bd'){
+            div(:id => 'yui-main'){
+              div(:class => 'yui-b'){ # content header
+                show_content_header
               }
-            }
-            div(:class => 'side-box'){
-              h3 'Updates'
-              div(:class => 'box-content'){
-                div(:class => 'update'){
-                  h4 'Bold headline'
-                  rawtext 'A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text '
-                  a(:href => ''){rawtext 'A link to something'}
+              div(:class => 'yui-b'){ # Main part
+                div(:class => 'border') {
+                  display @breadcrumbs
                 }
-                hr
-                div(:class => 'update'){
-                  h4 'Bold headline'
-                  rawtext 'A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text '
-                  a(:href => ''){rawtext 'A link to something'}
+                div(:class => 'border empty') {
+                  nbsp
                 }
-              }
-            }
-          }
-          div(:id => 'body-middle'){
-            div(:class => 'mid-box-top'){
-              display @titles
-              div(:class => 'left-ear')
-              div(:class => 'right-ear')
-            }
-            div(:id => 'content-header'){
-              make_sortable(:selector => ".content-header", :axis => 'y') {
-                display self.ext_content_header
-              }
-            }
-            div(:id => 'mid-content'){
-              display @breadcrumbs
-              render_content_resource(@kabtv_node[0], :width => 378, :height => 288) unless @kabtv_node.empty?
-              div(:class => 'bg'){
-                div(:class => 'related') {
-                  display self.ext_main_image
-                  make_sortable(:selector => ".related", :axis => 'y') {
-                    display self.ext_related_items
+                div(:class => 'yui-ge'){ # 75/25
+                  div(:class => 'yui-u first'){ # content
+                    show_content
+                  }
+                  div(:class => 'yui-u'){ # related
+                    show_related
                   }
                 }
-                div(:class => 'content'){
-                  make_sortable(:selector => "#mid-content .bg #content_resources", :axis => 'y') {
-                    display self.ext_content
-                  }
-                }
-                div(:class => 'services clear'){
-                  display @direct_link
-                  display @comments
-                  display @send_to_friend
-                  span(:class => 'clear')
-                }
-
-                display @send_form
-                display @previous_comments
               }
             }
+            div(:class => 'yui-b'){ # Navigation
+              show_left_menu
+            }
           }
-          div(:class => 'clear')
+          div(:id => 'ft'){
+            show_footer
+          } unless ext_kabtv_exist
+          #        display @google_analytics
         }
       }
-      div(:id => 'footer'){
-        display @sitemap
-        make_sortable(:selector => '#footer .links', :axis => 'x') {
-          display @header_bottom_links
-        }
-        display @header_copyright
-      } unless ext_kabtv_exist
-      #        display @google_analytics
     }
   end
   
@@ -241,6 +167,120 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       :depth => 1,
       :status => ['PUBLISHED', 'DRAFT']
     )
+  end
+
+  def show_dynamic_tree
+    return '' unless presenter.node.can_edit?
+    div(:id => 'command-panel'){
+      display @dynamic_tree
+      div(:class => 'clear')
+    }
+    'under-command-panel'
+  end
+
+  def show_header(header_class)
+    div(:id => 'header', :class => header_class){
+      display @header_logo
+      display @header_search
+      div(:id => 'links'){
+        make_sortable(:selector => '#header .links_ext', :axis => 'x') {
+          display @header_top_links_ext
+        }
+        make_sortable(:selector => '#header .links_int', :axis => 'x') {
+          display @header_top_links_int
+        }
+      }
+      display @header_top_languages
+    }
+    div(:id => 'nav-empty'){nbsp}
+    div(:id => 'nav'){
+      div(:class => 'left-ear')
+      div(:class => 'right-ear')
+      display @sections
+    }
+  end
+
+  def show_footer
+    display @sitemap
+    make_sortable(:selector => '#footer .links', :axis => 'x') {
+      display @header_bottom_links
+    }
+    display @header_copyright
+  end
+
+  def show_left_menu
+    div(:class => 'side-box-top'){
+      rawtext 'Kabbalah for Beginners'
+      div(:class => 'left-ear')
+      div(:class => 'right-ear')
+    }
+    div(:class => 'box-content'){
+      display @static_tree
+    }
+    div(:class => 'side-box'){
+      h3 'Newsletter'
+      div(:class => 'box-content'){
+        display @newsletter
+      }
+    }
+    div(:class => 'side-box'){
+      h3 'Updates'
+      div(:class => 'box-content'){
+        div(:class => 'update'){
+          h4 'Bold headline'
+          rawtext 'A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text '
+          a(:href => ''){rawtext 'A link to something'}
+        }
+        hr
+        div(:class => 'update'){
+          h4 'Bold headline'
+          rawtext 'A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text A few lines of text '
+          a(:href => ''){rawtext 'A link to something'}
+        }
+      }
+    }
+  end
+
+  def show_content_header
+    div(:class => 'mid-box-top'){
+      display @titles
+      div(:class => 'left-ear')
+      div(:class => 'right-ear')
+    }
+    div(:id => 'content-header'){
+      make_sortable(:selector => ".content-header", :axis => 'y') {
+        display self.ext_content_header
+      }
+    }
+  end
+
+  def show_related
+    div(:class => 'related') {
+      display self.ext_main_image
+      make_sortable(:selector => ".related", :axis => 'y') {
+        display self.ext_related_items
+      }
+    }
+  end
+
+  def show_content
+    render_content_resource(@kabtv_node[0], :width => 378, :height => 288) unless @kabtv_node.empty?
+    div(:class => 'bg'){
+      div(:class => 'content'){
+        make_sortable(:selector => "#mid-content .bg #content_resources", :axis => 'y') {
+          display self.ext_content
+        }
+      }
+      div(:class => 'services clear'){
+        display @direct_link
+        display @comments
+        display @send_to_friend
+        span(:class => 'clear')
+      }
+
+      display @send_form
+      display @previous_comments
+    }
   end
 
 end 

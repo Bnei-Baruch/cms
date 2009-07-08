@@ -1,7 +1,20 @@
 /******** GENERAL *********************/
+.yui-t7 #yui-main .yui-b {
+    margin-left:18em;
+}
+.yui-t7 .yui-b {
+    float:left;
+    width:17.2em;
+}
+.yui-t7 #yui-main {
+    float:right;
+    margin-left:-25em;
+}
+.yui-t3 #yui-main .yui-b {
+    margin-left:24.0769em;
+}
 body {
     direction: ltr;
-    width:946px;
     margin:0 auto;
     font:normal normal 13px sans-serif;
 }
@@ -24,7 +37,7 @@ strong{
 #header{
     position:relative;
     height:99px;
-    width:946px;
+    width:100%;
     background-color:#f9f9f9;
 }
 #nav-empty{
@@ -62,7 +75,7 @@ strong{
 #nav a, #nav a:visited, #nav a:hover{
     color:#485458;
 }
-#footer{
+#ft{
     height:20px;
     border:1px solid black;
     clear:both;

@@ -208,7 +208,10 @@ $(document).ready(function(){
         //   alert("כתובת הדואר האלקטרוני לא תקינה");
         //   return false;
         // }
-      
+        if (formData[0].value == "") {
+            alert("נא למלא כותרת");
+            return false;
+        }
         $('.create_comment #submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
       
         return true;
@@ -232,11 +235,6 @@ $(document).ready(function(){
             $("#closed_comment").show();
             $("#reactions").show();
         });
-      
-        //       $('#comment_form').submit(function() {
-        //        $(this).ajaxSubmit(options);
-        //        return false;
-        //        });
     } 
     
     var options = { 
@@ -821,6 +819,12 @@ $(function() {
         if (typeof reloadSchedule == "function") {
             reloadSchedule();
         }
+      });
+    }
+    if (typeof currentProgram == "function") {
+        currentProgram();
+        setInterval(currentProgram, 300000);
+    }
         if (typeof $.livequery == "function") {
             $("a.schedule_menu_item").livequery('click',function () {
                 $("div.schedule_day").hide();
@@ -828,8 +832,7 @@ $(function() {
                 $("a.schedule_menu_item").removeClass('schedule_selected');
                 $(this).toggleClass('schedule_selected');
                 return false;
-            });
-        }
+        });
     }
     if (typeof hs != "undefined") {
         hs.graphicsDir = '../highslide/graphics/';

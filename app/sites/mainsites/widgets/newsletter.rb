@@ -28,50 +28,52 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
     box_text_button = get_text_button
     input_box_text = get_input_box_text
     
-    if box_text_button == ""
-      box_text_button = 'שלח'
-    end    
+    box_text_button = _(:send) if box_text_button == "" #'שלח'
     
     div(:class => 'newsletter', :id => 'newsletter_width'){
 			h1 box_title
 			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
 				p{
-          text input_box_text +" : "
+          text input_box_text + ' : '
 					input :type => 'text', :id => 'email', :name => 'email' #, :onfocus =>  "if(document.getElementById('email').value == 'הזן כתובת e-mail') { document.getElementById('email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
 					input :type => 'hidden', :name => 'id', :value => box_id
           input :type => 'hidden', :name => 'name', :value => box_name
 				  br
           br
-					input :name => "subscribe", :class => "button", :value => box_text_button , :type => "submit", :title => box_text_button, :alt => box_text_button  
+          span(:class => 'prebutton')
+					input :name => 'subscribe', :class => 'button', :value => box_text_button , :type => 'submit', :title => box_text_button, :alt => box_text_button
+          span(:class => 'postbutton')
+          span(:class => 'clear')
 				}
 			}
 		}
   end
   
-   def render_middle
+  def render_middle
     box_title = get_title
     box_name = get_name
     box_id = get_id
     box_text_button = get_text_button
     input_box_text = get_input_box_text
     
-    if box_text_button == ""
-      box_text_button = 'שלח'
-    end    
-    
+    box_text_button = _(:send) if box_text_button == "" #'שלח'
+
     div(:class => 'newsletter', :id => 'newsletter_width'){
-			h1 box_title
-			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
-				p{
-          text input_box_text +" : "
-					input :type => 'text', :id => 'email', :name => 'email' #, :onfocus =>  "if(document.getElementById('email').value == 'הזן כתובת e-mail') { document.getElementById('email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
-					input :type => 'hidden', :name => 'id', :value => box_id
+      h1 box_title
+      form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){
+        p{
+          text input_box_text + ' : '
+          input :type => 'text', :id => 'email', :name => 'email' #, :onfocus =>  "if(document.getElementById('email').value == 'הזן כתובת e-mail') { document.getElementById('email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
+          input :type => 'hidden', :name => 'id', :value => box_id
           input :type => 'hidden', :name => 'name', :value => box_name
-				  br
           br
-					input :name => "subscribe", :class => "button", :value => box_text_button , :type => "submit", :title => box_text_button, :alt => box_text_button  
-				}
-			}
-		}
+          br
+          span(:class => 'prebutton')
+          input :name => 'subscribe', :class => 'button', :value => box_text_button , :type => 'submit', :title => box_text_button, :alt => box_text_button
+          span(:class => 'postbutton')
+          span(:class => 'clear')
+        }
+      }
+    }
   end
 end

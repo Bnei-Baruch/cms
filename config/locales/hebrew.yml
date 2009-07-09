@@ -23,6 +23,7 @@ hebrew:
   Mainsites::Widgets::ContentPreview:
     manage_content_preview: ניהול תצוגה מקדימה
     add_item_manually: הוספת יחידה בצורה ידנית
+    to_all_articles: לכל המעמרים
 
   Hebmain::Widgets::Archive:
     archive: ארכיון
@@ -126,8 +127,7 @@ hebrew:
     admin: ניהול אדמין
     create_new_content_item: צור יחידת תוכן חדשה
     writer: מאת
-    tofullpage: לכתבה המלאה
-    toview: לצפייה
+    to_full_page: לכתבה המלאה
     to_watch: לצפייה
     to_listen: להאזנה
     continue: להמשך

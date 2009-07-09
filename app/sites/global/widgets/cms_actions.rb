@@ -99,7 +99,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
       {
         text: '#{text}',
         handler: function (item) {
-          Ext.Msg.confirm('#{name}', 'Are you sure you want to delete<br/><#{name}>?',
+          Ext.Msg.confirm('#{name}', '#{_(:are_you_sure_you_want_to_delete)}<br/><#{name}>?',
             function(e){
               if(e == 'yes') {
                 Ext.Ajax.request({

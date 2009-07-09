@@ -484,11 +484,13 @@ h2{
     position:relative;
     padding:0 0 20px;
     margin:0 0 15px;
+    width:96%;
 }
 .content_preview .main_preview1 .img{
     float:left;
     padding:1px;
     margin-right:10px;
+    margin-left:10px;
     width:195px;
     height:132px;
 }
@@ -595,13 +597,13 @@ h2{
     background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
     border:1px solid #E5E5EB;
     float:left;
-    width:48%;
+    width:46%;
     position:relative;
-    padding:0 0 20px;
+    padding:0 0 20px 1%;
     margin:0 0 10px;
 }
 .content_preview .main_preview2 .non-last{
-    margin-right:15px;
+    margin-right:9px;
 }
 .content_preview .main_preview2 .last{
     margin-right:0;
@@ -632,7 +634,7 @@ h2{
     margin:0 0 10px;
 }
 .content_preview .main_preview3 .non-last{
-    margin-right:13px;
+    margin-right:6px;
 }
 .content_preview .main_preview3 .last{
     margin-left:1px;
@@ -654,29 +656,35 @@ h2{
 /*----------  Video Gallery ---------------*/
 .inner-player{
     background:#E5E5EB url(/images/rusmain/videogal-grad.gif) repeat-x 0 0;
-    margin:15px 0;
+    margin:15px 2px;
+    width:500px;
 }
 .inner-player .play-title{
     color:white;
     font-weight:bold;
-    padding:5px 10px;
+    padding:5px 10px 5px 8px;
     text-align:center;
 }
 .inner-player .player-placeholder {
     cursor:pointer;
     height:362px;
     width:482px;
+    padding-left:8px;
 }
 .inner-player .player-placeholder .play-serv{
     border-bottom:1px solid #BFBFBF;
     height:0;
+}
+.inner-player .more {
+    margin-left:10px;
 }
 .inner-player .playlist {
     border-top:1px solid white;
     height:300px;
     overflow-x:hidden;
     overflow-y:auto;
-    width:482px;
+    margin-left:8px;
+    width:480px;
     background-color:#d5d6dc;
 }
 .inner-player .playlist .odd{
@@ -711,7 +719,7 @@ h2{
     margin:5px 5px 5px 0;
 }
 p.play-list-button {
-    top:170px;
+    top:215px;
     cursor:pointer;
     display:block;
     font-size:15px;
@@ -720,14 +728,14 @@ p.play-list-button {
     margin:0;
     padding:0;
     position:absolute;
-    left:160px;
+    left:100px;
 }
 p.play-list-button span{
     background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
     color:white;
     display:block;
     float:left;
-    padding:18px 13px 17px 42px;
+    padding:18px 4px 17px 32px;
 }
 p.play-list-button b{
     background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
@@ -1093,6 +1101,7 @@ p.playbutton b{
     line-height:27px;
     position:relative;
     padding: 0 0 0 10px;
+    width:495px;
 }
 .h1 .h1-right,.h1 .h1-left{
     position:absolute;

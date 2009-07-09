@@ -23,6 +23,7 @@ russian:
   Mainsites::Widgets::ContentPreview:
     manage_content_preview: управление предворительной экспозицией
     add_item_manually: добавить вручную
+    to_all_articles: все статьи
 
   Rusmain::Widgets::Archive:
     archive: архив
@@ -98,6 +99,7 @@ russian:
     delete: стереть
     move_to_archive : перевести в архив
     select_a_resource_to_create: выберите элемент
+    are_you_sure_you_want_to_delete: Вы уверены, что хотите удалить
 
   Mainsites::Widgets::Comments:
     thanks: спасибо
@@ -130,8 +132,7 @@ russian:
     
   Mainsites::Widgets::ContentPage:
     writer: автор
-    tofullpage: полный текст
-    toview: просмотреть
+    to_full_page: полный текст
     to_watch: для просмотра
     to_listen: для прослушивания
     continue: продолжить

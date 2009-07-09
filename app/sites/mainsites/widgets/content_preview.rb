@@ -12,12 +12,12 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
       
       # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
       @updatable = 'up-' + tree_node.id.to_s
-        w_class('cms_actions').new(:tree_node => tree_node, 
-          :options => {:buttons => buttons,
-            :button_text => _(:manage_content_preview),
-            :new_text => _(:add_item_manually),
-            :has_url => false,
-            :resource_types => %W{ custom_preview }}).render_to(self)
+      w_class('cms_actions').new(:tree_node => tree_node,
+        :options => {:buttons => buttons,
+          :button_text => _(:manage_content_preview),
+          :new_text => _(:add_item_manually),
+          :has_url => false,
+          :resource_types => %W{ custom_preview }}).render_to(self)
         
       div(:id => @updatable){
         render_preview_update(true)
@@ -104,8 +104,9 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
     when 3
       view_mode = 'small'
     end
+    
+    display_title
     div(:class => "main_preview#{@items_size} sortable") {
-      display_title
       @items.each_with_index { |item, index|  
         klass = (index + 1) == @items_size ? 'element last' : 'element non-last'
         div(:class => klass, :id => sort_id(item)) {

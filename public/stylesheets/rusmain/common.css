@@ -229,7 +229,12 @@ margin:5px 10px;
 .clear {
     clear:both;
 }
-
+.draft{
+    background-color:#FFF6CF !important;
+}
+.archived{
+    background-color:#00FF66 !important;
+}
 /* Sortables */
 .handle{
     z-index:500 !important;

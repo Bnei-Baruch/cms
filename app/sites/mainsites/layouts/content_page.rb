@@ -58,15 +58,16 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           :cache => false
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers-ru',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
+	  language = @presenter.site_settings[:short_language]
           javascript {
             rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
             rawtext 'var head = Ext.fly(document.getElementsByTagName("head")[0]);'
             rawtext 'Ext.DomHelper.append(head, {'
                 rawtext 'tag:"script"'
                 rawtext ',type:"text/javascript"'
-                rawtext ",src:'../ext/src/locale/ext-lang-' + #{@language == 'hebrew' ? 'he' : @language == 'russian' ? 'ru' : 'en'} + '.js'"
+                rawtext ",src:'/ext/source/locale/ext-lang-#{language}.js'"
               rawtext '});'
-            rawtext }
+            }
 
           else
             stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'common/reset.css',

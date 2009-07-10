@@ -73,7 +73,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
             span _(:'date') + ': ' + my_date, :class => 'left' unless my_date.empty?
             unless writer.empty?
               span(:class => 'left') {
-                text _(:'writer') + ': ' + writer
+                text _(:writer) + ': ' + writer
                 unless get_writer_email.empty?
                   a(:href => 'mailto:' + get_writer_email){
                     img(:src => img_path('email.gif'), :alt => 'Email to')

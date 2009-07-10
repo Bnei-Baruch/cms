@@ -48,6 +48,12 @@
 .breadcrumbs a,.breadcrumbs a:visited{
     color:#1060A5;
 }
+.content{
+    width: 500px;
+}
+#cse-search-results iframe{
+    width:500px !important;
+}
 .border, #content-header{
     border-left:1px solid #e6e6ec;
     border-right:1px solid #e6e6ec;
@@ -154,6 +160,7 @@ h2{
     padding:5px 0;
     font-size:11px;
     line-height:17px;
+    width: 500px;
 }
 .services div{
     float:left;
@@ -1101,7 +1108,7 @@ p.playbutton b{
     line-height:27px;
     position:relative;
     padding: 0 0 0 10px;
-    width:495px;
+    width:490px;
 }
 .h1 .h1-right,.h1 .h1-left{
     position:absolute;

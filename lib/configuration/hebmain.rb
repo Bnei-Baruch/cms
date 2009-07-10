@@ -42,7 +42,10 @@ module	Configuration::Hebmain
       }
     },
   # define widgets that should not have bottom border  
-    :disable_bottom_border => ['title']
+    :disable_bottom_border => ['title'],
+    # width of the result of the Google Search
+    :google_result_width => 520,
+    :search_id => '011301558357120452512:ulicov2mspu',
+    :forid => 'FORID:11',
   }
-
 end

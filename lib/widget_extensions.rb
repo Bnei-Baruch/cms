@@ -158,7 +158,7 @@ module WidgetExtensions
         :action => :update_positions,
         :id => "0",
         :key => selector,
-        :nodes => YAML.dump(block.call.map { |node|
+        :nodes => YAML.dump((block.call || []).map { |node|
             {
               :id => node.id,
               :pos => node.position

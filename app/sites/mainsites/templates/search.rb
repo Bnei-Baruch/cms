@@ -1,4 +1,4 @@
-class Hebmain::Templates::Search < WidgetManager::Template
+class Mainsites::Templates::Search < WidgetManager::Template
 
   def set_layout
     layout.ext_content = ext_content
@@ -25,7 +25,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
         rawtext <<-SCRIPT_CODE
           var googleSearchIframeName = "cse-search-results";
           var googleSearchFormName = "cse-search-box";
-          var googleSearchFrameWidth = 520;
+          var googleSearchFrameWidth = #{@presenter.site_settings[:google_result_width] || 520};
           var googleSearchDomain = "www.google.com";
           var googleSearchPath = "/cse";
         SCRIPT_CODE

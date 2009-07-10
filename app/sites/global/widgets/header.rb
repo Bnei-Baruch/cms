@@ -2,7 +2,6 @@ class Global::Widgets::Header < WidgetManager::Base
 
   def render_search
     search_page = domain + '/' + presenter.controller.website.prefix + '/' + 'search'
-    id = options[:id] rescue '011301558357120452512:ulicov2mspu' # hebrew search
 
     form(:action => search_page, :id => 'cse-search-box'){
       div(:id => 'search'){
@@ -11,9 +10,9 @@ class Global::Widgets::Header < WidgetManager::Base
         input :name => "sa", :class => "submit button", :value => _(:search), :type => "submit", :title => _(:search), :alt => _(:search)
         div :class => 'postbutton'
         div :class => 'clear'
-        input :type => 'hidden', :name => 'cx', :value => id
+        input :type => 'hidden', :name => 'cx', :value => @presenter.site_settings[:search_id]
         input :type => 'hidden', :name => 'ie', :value => 'UTF-8'
-        input :type => 'hidden', :name => 'cof', :value => 'FORID:11'
+        input :type => 'hidden', :name => 'cof', :value => @presenter.site_settings[:forid]
       }
       # Delay execution
       # <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=he"></script>
@@ -23,7 +22,7 @@ $(document).ready(function(){
   $.ajax({
      type: "GET",
      url: "http://www.google.com/coop/cse/brand",
-     data: {form:'cse-search-box', lang:'he'},
+     data: {form:'cse-search-box', lang:'#{@presenter.site_settings[:short_language]}'},
      dataType: "script",
      cache: true
   });

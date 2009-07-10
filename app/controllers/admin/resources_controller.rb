@@ -1,5 +1,5 @@
 class Admin::ResourcesController < ApplicationController
-  before_filter :save_referrer_to_session, :only => [ :new, :edit, :destroy, :create ]
+  before_filter :save_referrer_to_session, :only => [ :new, :edit, :destroy ]
   
   # This block sets layout for admin user and for all other.
   layout :set_layout
@@ -121,7 +121,7 @@ class Admin::ResourcesController < ApplicationController
     @tree_node = TreeNode.new(params[:resource][:tree_node])
     Website.associate_website(@resource, session[:website]) # TODO OLD CODE - Check to remove (Rami only)
 
-    redirect_target = session[:referrer] || session[:website] || admin_tree_nodes_url()
+    redirect_target = session[:referer] || session[:website] || admin_tree_nodes_url()
     respond_to do |format|
       if @resource.save
         flash[:notice] = "Resource was successfully created. ref: #{session[:referrer]} web: #{session[:website]}"

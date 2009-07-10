@@ -108,10 +108,10 @@ class Global::Widgets::CmsActions < WidgetManager::Base
                   params: {elem:'#{element}'},
                   callback: function (options, success, responce){
                     if (success) {
-                      Ext.Msg.alert('#{name}', 'The item was successfully deleted');
+                      Ext.Msg.alert('#{name}', '#{_(:the_item_was_successfully_deleted)}');
                       Ext.get('#{element}').parent().remove();
                     } else {
-                      Ext.Msg.alert('#{name}', 'FAILURE: ' + responce.status + ' ' + responce.statusText);
+                      Ext.Msg.alert('#{name}', '#{_(:FAILURE)}: ' + responce.status + ' ' + responce.statusText);
                     }
                   }
                 });

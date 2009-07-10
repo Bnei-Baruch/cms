@@ -100,6 +100,8 @@ russian:
     move_to_archive : перевести в архив
     select_a_resource_to_create: выберите элемент
     are_you_sure_you_want_to_delete: Вы уверены, что хотите удалить
+    the_item_was_successfully_deleted: элемент успешно удален
+    FAILURE: неудача
 
   Mainsites::Widgets::Comments:
     thanks: спасибо

@@ -318,7 +318,7 @@ russian:
     send_to_email_address: послать на е-мейл адрес
     send: послать
     everything_went_fine: запись прошла удачно
-    stf_subject: Привет receiver_name получатель sender_name рекомендовать этот линк
+    stf_subject: Привет receiver_name, ваш товарищ sender_name рекомендовал этот линк
     cancel:  отменить
 
   Rusmain::Templates::ContentPage:

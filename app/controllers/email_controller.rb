@@ -47,19 +47,16 @@ class EmailController < ApplicationController
     
   end
   
-  #def send_mail(email_dest = '', add_from = '', url = '')
-  #def send_mail(url = '')
   def send_mail(url = '', adresse_to ='', adresse_from ='', sender_name = '', receiver_name = '', sendsubject = ''  )
     msg = <<EOF
 From: #{adresse_from}
 Content-Type: text/plain; charset=utf-8
 Subject: #{sendsubject}
 
-שלום #{receiver_name} חברך #{sender_name} ממליץ לך על הלינק הזה
+#{sendsubject}
 #{url}
 
 EOF
-    msg # end of rawtext 
     #Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','user','pass', :plain ) { |smtp|
     Net::SMTP.start("localhost", 25) { |smtp|
       smtp.sendmail msg, adresse_from, [adresse_to]

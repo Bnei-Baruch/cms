@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "Access denied."
       redirect_to(:controller => "login", :action => "login")
     else
-      groups<<'Administrators'
+      groups << 'Administrators'
       user_groups = m_user.groups.find(:all, :conditions => [ "groupname IN (?) and (Length(reason_of_ban)=0 or reason_of_ban is null)", groups])
       if (user_groups.length == 0)
         session[:original_uri]=request.request_uri

@@ -125,6 +125,7 @@ russian:
   WidgetManager::Base:
     content_page:  страница содержания
     date:  дата
+    writer: автор
     content_page_management: управление страницей содержания
     upper_part_admin: администрация верхней части страницы
     edit_content_page: редактировать страницу содержания

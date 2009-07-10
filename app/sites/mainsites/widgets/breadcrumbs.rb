@@ -39,12 +39,7 @@ class Mainsites::Widgets::Breadcrumbs < WidgetManager::Base
   end
   
   def render_titles
-    unless calculated_titles.empty?
-      calculated_titles.reverse.each_with_index{ |e, i|
-        text e.resource.name
-        text ' | ' unless calculated_titles.size == (i + 1)
-      }
-    end
+    text calculated_titles.reverse.map{ |e| e.resource.name }.join(' | ')
   end
 
   private
@@ -53,7 +48,7 @@ class Mainsites::Widgets::Breadcrumbs < WidgetManager::Base
     return @calculated_titles if @calculated_titles
     rp = @tree_node.resource.properties('acts_as_section')
     last_item = rp && rp.get_value ?  [@tree_node] : []
-    @calculated_titles ||= last_item + parents.reject{|e| e.eql?(presenter.main_section)}
+    @calculated_titles = last_item + parents.reject{|e| e.eql?(presenter.main_section)}
   end
 
   def parents

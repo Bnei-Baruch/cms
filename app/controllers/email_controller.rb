@@ -2,8 +2,6 @@ class EmailController < ApplicationController
   require 'net/smtp'
   require "base64"
 
-
-  
   def send_node
     adresse_to = params[:adresseto]
     node_id = params[:id]
@@ -29,9 +27,6 @@ class EmailController < ApplicationController
      enc_test = enc_test + ' =?UTF-8?B?' + Base64.b64encode(str).chop + '?='
     }
 
-
-   
-    
     host = 'http://' + request.host
     prefix = params[:prefix]
     
@@ -40,20 +35,17 @@ class EmailController < ApplicationController
     
     url = host + portinurl + '/' + prefix + '/short/' + node_id
     
-    send_mail(url, adresse_to, adresse_from, sender_name, receiver_name, enc_test)
+    send_mail(url, adresse_to, adresse_from, sendsubject, enc_test)
     render :nothing => true, :status => 200 and return
-    #redirect_to url
-    
-    
   end
   
-  def send_mail(url = '', adresse_to ='', adresse_from ='', sender_name = '', receiver_name = '', sendsubject = ''  )
+  def send_mail(url, adresse_to, adresse_from, message, sendsubject)
     msg = <<EOF
 From: #{adresse_from}
 Content-Type: text/plain; charset=utf-8
 Subject: #{sendsubject}
 
-#{sendsubject}
+#{message}:
 #{url}
 
 EOF
@@ -149,12 +141,10 @@ Subject:Manpower
 
 
 EOF
-    msg # end of rawtext 
     # Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','user','pass', :plain ) { |smtp|
-    Net::SMTP.start("localhost", 25) { |smtp|
-      smtp.sendmail msg, 'manpowerform@kab.co.il', [adress_to]
-    }
-    
+   Net::SMTP.start("localhost", 25) { |smtp|
+     smtp.sendmail msg, 'manpowerform@kab.co.il', [adress_to]
+   }
     
    response_text = params[:response_text]
    

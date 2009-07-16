@@ -7,7 +7,7 @@ class Hebmain::Widgets::Header < WidgetManager::Base
     form(:action => search_page, :id => 'cse-search-box'){
       div(:class => 'search'){
         input :type => 'image', :src => img_path('search.gif'), :name => 'sa', :class => 'submit'
-        input :type => 'hidden', :name => 'cx', :value => '011301558357120452512:ulicov2mspu'
+        input :type => 'hidden', :name => 'cx', :value => '009476949152162131478:o0ig8hkyjku'
         input :type => 'hidden', :name => 'ie', :value => 'UTF-8'
         input :type => 'hidden', :name => 'cof', :value => 'FORID:11'
         input :type => 'text', :name => 'q', :size => '31', :class => 'text'

@@ -2,7 +2,7 @@ class Global::Widgets::Header < WidgetManager::Base
 
   def render_search
     search_page = domain + '/' + presenter.controller.website.prefix + '/' + 'search'
-    id = options[:id] rescue '011301558357120452512:ulicov2mspu' # hebrew search
+    id = options[:id] rescue '009476949152162131478:o0ig8hkyjku' # hebrew search
 
     form(:action => search_page, :id => 'cse-search-box'){
       div(:id => 'search'){

@@ -1,4 +1,4 @@
-class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
+class Mainsites::Widgets::SiteUpdatesEntry < WidgetManager::Base
   
   def render_full
     div(:class => 'update'){
@@ -6,7 +6,6 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
       w_class('cms_actions').new( :tree_node => tree_node, 
         :options => {:buttons => %W{ edit_button delete_button }, 
           :resource_types => %W{ site_updates_entry },
-          :new_text => 'צור יחידת תוכן חדשה', 
           :has_url => false,
           :position => 'bottom'}).render_to(self)
  
@@ -40,7 +39,6 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
       w_class('cms_actions').new( :tree_node => tree_node, 
         :options => {:buttons => %W{ edit_button delete_button }, 
           :resource_types => %W{ site_updates_entry },
-          :new_text => 'צור יחידת תוכן חדשה', 
           :has_url => false,
           :position => 'bottom'}).render_to(self)
  

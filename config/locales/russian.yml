@@ -133,6 +133,9 @@ russian:
     create_new_content_item: создать новую единицу содержания
     create_modul_comments_administration: создать модуль администрации комментариев
     
+  Mainsites::Layouts::ContentPage:
+    create_new_content_item: создать новую единицу содержания
+
   Mainsites::Widgets::ContentPage:
     writer: автор
     to_full_page: полный текст
@@ -330,6 +333,9 @@ russian:
 
   Mainsites::Widgets::Shortcut:
     direct_link: прямой линк на статью
+
+  Mainsites::Widgets::SiteUpdates:
+    add_update: добавить новость
 
   Rusmain::Widgets::SiteUpdates:
     newsonthechannel: новости канала

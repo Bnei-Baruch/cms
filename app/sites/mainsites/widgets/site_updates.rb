@@ -1,4 +1,4 @@
-class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
+class Mainsites::Widgets::SiteUpdates < WidgetManager::Base
   
   def render_right
     div(:class => 'updates container'){
@@ -16,6 +16,31 @@ class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
     }
   end
   
+  def render_sidebar
+    div(:class => 'box-content'){
+      w_class('cms_actions').new( :tree_node => tree_node,
+        :options => {:buttons => %W{ new_button edit_button delete_button },
+          :resource_types => %W{ site_updates_entry },
+          :new_text => _(:add_update),
+          :has_url => false}).render_to(self)
+
+      h3 get_title
+
+      div(:class => 'entries'){
+        make_sortable(:selector => ".box-content div", :axis => 'y') {
+          show_content_resources(:resources => site_update_entries, :sortable => true)
+        }
+      }
+    }
+    javascript {
+      rawtext <<-CORRECT_BORDER
+        $(document).ready(function() {
+          $('.update:last').css('border', 'none');
+        });
+      CORRECT_BORDER
+    }
+  end
+
   def render_kabtv
     w_class('cms_actions').new( :tree_node => tree_node,
       :options => {:buttons => %W{ new_button edit_button delete_button },

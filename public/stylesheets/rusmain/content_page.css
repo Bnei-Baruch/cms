@@ -383,13 +383,24 @@ h2{
     padding:0 10px;
 }
 .box-content .update{
+    border-bottom:1px solid #E5E5EB;
     font-size:11px;
+    margin:5px 15px;
+    padding:0 0 5px;
 }
 .box-content .update h4{
     font-weight:bold;
 }
 .box-content .update a{
     display:block;
+}
+.box-content .update .link{
+    text-align:right;
+}
+.box-content .update a img{
+    position:relative;
+    top:2px;
+    margin:0 0 0 2px;
 }
 .box-content hr{
     height:0;
@@ -399,32 +410,21 @@ h2{
 .box-content .newsletter .clear{
     display:block;
 }
-.box-content .newsletter h1{
-    color:#161616;
-    font-size:11px;
+.box-content h1, .box-content h3{
+    background-color:#979797;
+    color:white;
+    height:20px;
+    line-height:20px;
+    padding:0 6px;
+    font-weight:bold;
 }
-.box-content .newsletter input#ml_user_email{
-    margin-bottom:10px;
+.box-content .newsletter .inner{
+    padding:5px 10px;
 }
 .box-content .newsletter input{
     width:28.5ex;
     border:1px solid #E5E5EB;
-}
-.box-content .newsletter #subscribe_form a:hover{
-    text-decoration:none;
-}
-.box-content .newsletter #subscribe_form a{
-    background-position:0 0;
-    background-repeat:no-repeat;
-    color:white;
-    display:block;
-    height:17px;
-    padding:4px 0 0;
-    text-align:center;
-    text-decoration:none;
-    width:59px;
-    font-size:11px;
-    cursor:pointer;
+    margin:0 0 6px;
 }
 .related .box{
     margin:10px 0 10px 5px;
@@ -1163,6 +1163,17 @@ p.playbutton b{
     float: left;
 }
 
-
-
+#ft .links{
+    margin:15px 0;
+}
+#ft .links li{
+    display:inline;
+    padding-top:8px;
+}
+.sitemap {
+    background-color:#F4F9FD;
+    border:1px solid #E8E8E8;
+    font-size:9px;
+    padding:8px;
+}
 

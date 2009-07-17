@@ -1,20 +1,23 @@
 class Mainsites::Widgets::Newsletter < WidgetManager::Base
   
   def render_sidebar
-		div(:class => 'newsletter'){
-			h1 _(:newsletter_subscription)
-			form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get", :onsubmit => "javacript:google_tracker('/homepage/widget/newsletter/hebrew');"){
-				p{
-					input :type => 'text', :id => 'ml_user_email', :name => 'email', :onfocus => "if(document.getElementById('ml_user_email').value == '#{_:enter_email}') { document.getElementById('ml_user_email').value = ''; }", :title => _(:email_address), :value => _(:enter_email)
-				  input :name => 'id', :type => 'hidden', :value => '175'
-				  input :type => 'hidden', :name => 'name', :value => 'hebrew'
-          span :class => 'prebutton'
-					input :name => "subscribe", :class => "button", :value => _(:subscribe), :type => "submit", :title => _(:subscribe), :alt => _(:subscribe)
-          span :class => 'postbutton'
-          span :class => 'clear'
-					input :type => "hidden", :name => "list", :value => "kabbalah" 
-					input :type => "hidden", :name => "confirm", :value => "none" 
-				}
+    div(:class => 'box-content') {
+      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }, :position => 'bottom'}).render_to(self)
+      div(:class => 'newsletter side-box'){
+        h1 _(:newsletter_subscription)
+        form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get", :onsubmit => "javacript:google_tracker('/homepage/widget/newsletter/hebrew');"){
+          p{
+            input :type => 'text', :id => 'ml_user_email', :name => 'email', :onfocus => "if(document.getElementById('ml_user_email').value == '#{_:enter_email}') { document.getElementById('ml_user_email').value = ''; }", :title => _(:email_address), :value => _(:enter_email)
+            input :name => 'id', :type => 'hidden', :value => '175'
+            input :type => 'hidden', :name => 'name', :value => 'hebrew'
+            span :class => 'prebutton'
+            input :name => "subscribe", :class => "button", :value => _(:subscribe), :type => "submit", :title => _(:subscribe), :alt => _(:subscribe)
+            span :class => 'postbutton'
+            span :class => 'clear'
+            input :type => "hidden", :name => "list", :value => "kabbalah"
+            input :type => "hidden", :name => "confirm", :value => "none"
+          }
+        }
 			}
 		}
   end

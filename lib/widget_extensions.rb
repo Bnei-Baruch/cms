@@ -85,7 +85,7 @@ module WidgetExtensions
       when 'ARCHIVED' 
         klass = AuthenticationModel.current_user_is_admin? ? ' archived' : ''
       else             
-        klass = ''
+        klass = 'PUBLISHED'
       end
       
       div(:id => sort_id(e), :class => klass) {

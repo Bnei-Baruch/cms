@@ -17,6 +17,7 @@ class Global::Widgets::Sections < WidgetManager::Base
           tree[id][:children] = []
           parent_id = id
         end
+        parent_id
       }
       tree.compact.each{ |section|
         li{

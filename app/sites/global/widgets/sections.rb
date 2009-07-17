@@ -7,7 +7,7 @@ class Global::Widgets::Sections < WidgetManager::Base
           img(:src => img_path('home.gif'), :alt => 'Homepage')
         }
       }
-      tree = {}
+      tree = []
       main_sections.inject(0){ |parent_id, section|
         if section.parent_id == parent_id # i.e. this is child
           tree[parent_id][:children] << section
@@ -18,8 +18,7 @@ class Global::Widgets::Sections < WidgetManager::Base
           parent_id = id
         end
       }
-      tree.each{ |section|
-        section = section[1]
+      tree.compact.each{ |section|
         li{
           a({:href => get_page_url(section)}.merge!(gg_analytics_tracking('top-level', section.resource.name))) {
             span {rawtext section.resource.name}

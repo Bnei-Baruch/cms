@@ -21,7 +21,16 @@ $(document).ready(function() {
 $(document).ready(function() {
     //Make it a menu
     if (typeof $("ul.sf-menu").superfish == "function") {
-        $("ul.sf-menu").superfish();
+        $("ul.sf-menu").supersubs({
+            minWidth:    12,   // minimum width of sub-menus in em units
+            maxWidth:    27,   // maximum width of sub-menus in em units
+            extraWidth:  1     // extra width can ensure lines don't sometimes turn over
+                               // due to slight rounding differences and font-family
+        }).superfish({
+            autoArrows:    true,
+            dropShadows:   true,
+            hoverClass:    'sfHover'
+        });
     }
 
     //Add pipes between menu elements
@@ -602,8 +611,6 @@ $(function() {
         if ($.browser.versionNumber == 7) {
             $sitemap.parent().css("width", "100%");
         }
-    } else {
-        $sitemap.parent().css("float", "right");
     }
 });
 

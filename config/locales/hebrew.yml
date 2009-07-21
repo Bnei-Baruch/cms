@@ -399,6 +399,12 @@ hebrew:
     abc_test_abc_check_code: ABC test - ABC checkcode
     abc_test_page_role_(a,b,c): Page Role (ABC)
     move_to_archive : העבר לארכיון
+    the_page_you_were_looking_for_doesn_t_exist: הדף שחיפשת אינו קיים.
+    you_may_have_mistyped_the_address_or_the_page_may_have_moved: ייתכן שהכתובת שהקלדת שגויה, או שהדף הועבר.
+    dir: rtl
+    logopath: ../images/hebmain/logo.png
+    sitepath: http://www.kab.co.il
+
 
   Hebmain::Widgets::ShareThis:
     share_this: לשתף

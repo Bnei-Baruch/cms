@@ -9,9 +9,10 @@ class Hebmain::Widgets::ShareThis < WidgetManager::Base
     javascript(:src => "http://s7.addthis.com/js/200/addthis_widget.js")
     javascript{
       rawtext <<-code
+    addthis_pub = 'internetkab';
     addthis_language = 'he';
-    strurl = "#{full_url};"
-    strtitle = document.title;
+    strurl = "#{full_url}";
+    strtitle = "";
     addthis_options = 'facebook, favorites, digg, google,linkedin, live, myspace, stumbleupon, twitter, more';
       code
     }

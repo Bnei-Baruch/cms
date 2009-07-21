@@ -25,6 +25,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
     @archive = w_class('archive').new
     @previous_comments = w_class('comments').new(:view_mode => 'previous')
     @share = w_class('share_this').new(:view_mode => 'hebrew')
+    @languages = w_class('language_menu').new
   end
 
   def render
@@ -145,7 +146,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd-r') { @header_logo.render_to(self) } #Logo goes here
+              div(:id => 'hd-r') {
+                @header_logo.render_to(self)
+                @languages.render_to(self)
+              } #Logo goes here
               div(:class => 'nav') {
                 div(:class => 'h1') {
                   text presenter.main_section.resource.name if presenter.main_section

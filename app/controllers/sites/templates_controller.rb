@@ -220,7 +220,7 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def head_status_404
-    render :file => 'public/404.html', :status => 404
+    render :template => 'sites/templates/404.html.erb',:status => 404
   end
   
   def status_410

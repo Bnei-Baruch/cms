@@ -133,7 +133,7 @@ class CronManager
     
     retries = 2
     begin
-      Timeout::timeout(25){
+      Timeout::timeout(35){
         begin
           open(url) { |f|
             content = f.read

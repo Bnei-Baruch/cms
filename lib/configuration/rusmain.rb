@@ -39,10 +39,12 @@ module	Configuration::Rusmain
     },
     # define widgets that should not have bottom border
     :disable_bottom_border => ['title'],
-    # width of the result of the Google Search
+    # Google Search
     :google_result_width => 500,
     :search_id => '009476949152162131478:wnmluf-2cgm',
     :forid => 'FORID:10',
+    # Google analytics
+    :ua => 'UA-548326-62',
   }
 
 end

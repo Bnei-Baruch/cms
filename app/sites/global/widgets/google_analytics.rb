@@ -1,4 +1,4 @@
-class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
+class Global::Widgets::GoogleAnalytics < WidgetManager::Base
   
   def render_full
     if ENV['RAILS_ENV'] != 'production' || @presenter.node.can_edit?
@@ -13,7 +13,7 @@ class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
       rawtext <<-google
 $(document).ready(function(){
    $.getScript('http://www.google-analytics.com/urchin.js', function(){
-     _uacct = "UA-548326-62";
+     _uacct = "#{@presenter.site_settings[:ua]}";
      urchinTracker();
    }, true);
 });

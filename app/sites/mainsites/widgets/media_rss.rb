@@ -1,7 +1,7 @@
 require 'rss/1.0'
 require 'rss/2.0'
 
-class Hebmain::Widgets::MediaRss < WidgetManager::Base
+class Mainsites::Widgets::MediaRss < WidgetManager::Base
 
   def initialize(*args, &block)
     super
@@ -68,7 +68,8 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
           th(:class => 'top-left-corner'){ text _(:'picture')}
         }
       }
-	      
+
+      group_by_date = get_group_by_date
       30.times { |j|
         curr_date = (Date.today - j).strftime('%d.%m.%Y')
 	      
@@ -80,7 +81,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
         unless selected_lessons.empty?
           curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')
           if has_lesson_in_site_language(selected_lessons)
-            if (get_group_by_date)
+            if (group_by_date)
               lessons_show_in_table(selected_lessons, curr_date_to_show)
             else
               selected_lessons.each { |selected_lesson|
@@ -193,9 +194,9 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     content = get_items rescue nil
     if content.empty? || content.nil?
       CronManager.read_and_save_node_media_rss(tree_node, get_language)
+      content = get_items rescue nil
     end
     
-    content = get_items rescue nil
     return nil if content.empty? || content.nil?
     lessons = get_rss_items(content)
     if lessons.nil? || !lessons.is_a?(Hash) || lessons.empty?
@@ -207,16 +208,17 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
   end
   
   def lesson_links(lesson)
+    language = get_language
+    
     video_href = ''
     audio_href = ''    
     sirtut_href = ''
           
     audio_found = false
-    files_array = lesson['files']['file'].is_a?(Hash) ? Array.new(1,lesson['files']['file']) : lesson['files']['file']
-    files_array.each do |file| 
-      path = file['path'] rescue ''
-      unless path.empty?
-        if file['language'] && file['language'] == get_language
+    (lesson['files']['file'].is_a?(Hash) ? [lesson['files']['file']] : lesson['files']['file']).each do |file|
+      if (file.has_key?('language') && file['language'] == language) || file['type'] == 'graph'
+        path = file['path'] rescue ''
+        unless path.empty?
           if is_media_file(path, 'zip')
             sirtut_href = path
           else 

@@ -345,6 +345,7 @@ h2{
     font-weight: bold;
     display: inline;
     cursor:pointer;
+    padding-right:10px;
 }
 .comment_item br{
     display:none;
@@ -797,6 +798,11 @@ p.playbutton b{
     background-repeat:no-repeat;
     position:relative;
     width:673px;
+    background-color:#1E4E76;
+    margin: 0 auto;
+}
+.kabtv{
+    padding-bottom:30px;
 }
 #kabtv #tabs {
     float:right;
@@ -808,13 +814,16 @@ p.playbutton b{
     margin:76px 11px 36px 12px;
     padding:0;
     width:378px;
-    height:288px;
+    height:325px;
 }
 #kabtv #player-side #separate-win, #kabtv #player-side #full-win{
     display:none;
 }
 #kabtv #player_options{
     position:relative;
+    width:377px;
+    color:white;
+    top:3px;
 }
 #kabtv .ui-tabs-nav {
     margin:0 0 0 -1px;
@@ -825,10 +834,8 @@ p.playbutton b{
     list-style-position:outside;
     list-style-type:none;
 }
-.content-header #kabtv .ui-tabs-nav li {
-    float:right;
-    margin:0 1px 0 0;
-    min-width:84px;
+#kabtv .ui-tabs-nav li {
+    float:left;
 }
 #kabtv .ui-tabs-nav .ui-tabs-selected a span,
 #kabtv .ui-tabs-nav a:hover span,
@@ -1041,6 +1048,10 @@ p.playbutton b{
     overflow-y:hidden;
     width:240px;
 }
+#kabtv #kabtv-loading {
+    float:right;
+    margin-right:12px;
+}
 #kabtv .kabtv-loader {
     position:absolute;
     top:0;
@@ -1049,23 +1060,23 @@ p.playbutton b{
 #kabtv #player_options #troubleshooting_str {
     color:white;
     position:absolute;
-    right:0;
-    text-align:right;
-    top:0;
-    width:123px;
+    right:-290px;
+    text-align:left;
+    top:40px;
+    width:318px;
 }
 #kabtv #player_options #separate-msg {
     background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat scroll 0 0;
     color:white;
-    float:left;
+    position:relative;
+    top:15px;
     margin-right:10px;
     padding-left:20px;
-    width:150px;
+    width:210px;
 }
 #kabtv #player_options #troubleshooting_url {
     color:#FDE500;
     font-weight:bold;
-    float:right;
 }
 /* Controlbar for sketches */
 #controlbar {
@@ -1177,3 +1188,100 @@ p.playbutton b{
     padding:8px;
 }
 
+/*--- Media RSS ----*/
+table.media_rss{
+    border: 0 none;
+    width: 100%;
+}
+table.media_rss th{
+    background-color: #90AEDE;
+    color: white;
+    height: 31px;
+    line-height: 31px;
+    margin: 0;
+    padding: 0 5pt;
+    position: relative;
+    text-align: center;
+    border-width: 0;
+    font-weight: bold;
+}
+.date-rss{
+    color: #3764b9;
+}
+.icon-rss{
+    text-align:center;
+}
+.top-right-corner{
+    background: #90AEDE url(/images/rusmain/h1-ears.png) no-repeat 0px 0px;
+    width: 65px;
+}
+.top-left-corner{
+    background: #90AEDE url(/images/rusmain/h1-ears.png) no-repeat right -32px;
+}
+.right-cell, .icon-cell, .name-cell, .left-cell{
+    height: 20px;
+    line-height: 20px;
+    border-bottom: 1px solid #E5E5E5;
+    border-right: 1px none #E5E5E5;
+    border-left: 1px solid #E5E5E5;
+    padding: 5px 5px 3px 20px;
+}
+.icon-cell, .left-cell{
+    padding:5px 10px 3px;
+    vertical-align:middle;
+}
+.name-cell{
+    padding: 5px 20px 3px 5px;
+}
+.grey-over{
+    background-color: #F0F4FD;
+}
+
+/*----------  Media casting  ---------------*/
+.mediacasting{
+    padding-left: 25px;
+}
+.mediacasting a.hide-player{
+    display: none;
+}
+.mediacasting a.show-player{
+    display: none;
+}
+.mediacasting a.media-download{
+    display: none;
+}
+.media-download{
+    margin-left: 10px;
+}
+.audio{
+    background-image: url('/images/hebmain/audio.png');
+    background-repeat: no-repeat;
+    background-attachment:scroll;
+    background-position: left top;
+}
+
+.video{
+    background-image: url('/images/hebmain/video.png');
+    background-repeat: no-repeat;
+    background-attachment:scroll;
+    background-position: left top;
+}
+/*******  Picture gallery  ********/
+.picture_gallery{
+    display: block;
+}
+.picture_gallery h3{
+    margin:1em 0 0;
+    padding:7px 0 5px 10px;
+    color:#192862;
+    font-size:16px;
+    margin-bottom:3px;
+}
+.picture_gallery .pictures a{
+    cursor:url(/images/zoomin.cur), pointer;
+}
+img.thumbnails{
+    width: 90px;
+    height: 90px;
+    margin: 3px;
+}

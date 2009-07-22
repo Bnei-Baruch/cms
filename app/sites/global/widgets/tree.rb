@@ -220,7 +220,7 @@ class Global::Widgets::Tree < WidgetManager::Base
         draw_link item[:item], klass_link
         ul {
           children.each {|element| draw_ltr_tree element}
-        }
+        } unless children.empty?
       }
     else # 'final' element
       if item[:selected]

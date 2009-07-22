@@ -8,7 +8,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @header_search = w_class('header').new(:view_mode => 'search')
     @header_top_links_ext = w_class('header').new(:view_mode => 'top_links_ext')
     @header_top_links_int = w_class('header').new(:view_mode => 'top_links_int')
-    @header_top_languages = w_class('header').new(:view_mode => 'top_languages')
+    @header_top_languages = w_class('language_menu').new
     @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
     @header_copyright = w_class('header').new(:view_mode => 'copyright')
@@ -17,8 +17,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
-    #    @google_analytics = w_class('google_analytics').new
-#    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
+    @google_analytics = w_class('google_analytics').new
     @sitemap = w_class('sitemap').new
     @send_to_friend = w_class('send_to_friend').new
     @send_form = w_class('send_to_friend').new(:view_mode => 'form')
@@ -104,6 +103,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
                 div(:class => 'border empty') {
                   nbsp
                 }
+                unless @kabtv_node.empty?
+                  div(:class => 'border kabtv') {
+                    render_content_resource(@kabtv_node[0], :width => 378, :height => 288)
+                  }
+                end
                 div(:class => 'yui-ge'){ # 75/25
                   div(:class => 'yui-u first'){ # content
                     show_content
@@ -121,7 +125,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           div(:id => 'ft'){
             show_footer
           } unless ext_kabtv_exist
-          #        display @google_analytics
+          display @google_analytics
         }
       }
     }
@@ -271,7 +275,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   end
 
   def show_content
-    render_content_resource(@kabtv_node[0], :width => 378, :height => 288) unless @kabtv_node.empty?
     div(:class => 'bg'){
       div(:class => 'content'){
         make_sortable(:selector => "#mid-content .bg #content_resources", :axis => 'y') {

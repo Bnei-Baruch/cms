@@ -1,4 +1,4 @@
-class Hebmain::Widgets::AudioGallery < WidgetManager::Base
+class Mainsites::Widgets::AudioGallery < WidgetManager::Base
 
   def render_full
     audio_admin
@@ -28,10 +28,12 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
 
   def audio_admin
     w_class('cms_actions').new( :tree_node => tree_node, 
-      :options => {:buttons => %W{ new_button edit_button delete_button }, 
+      :options => {
+        :buttons => %W{ new_button edit_button delete_button },
         :resource_types => %W{ audio },
-        :new_text => 'צור יחידת תוכן חדשה', 
-        :has_url => false
+        :new_text => _(:create_new_content_item),
+        :has_url => false,
+        :style => 'height:100px;'
       }).render_to(self)
   end
   

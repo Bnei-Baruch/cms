@@ -184,28 +184,28 @@ $(function() {
         hs.targetX = 'kabtv';
         hs.targetY = 'kabtv';
         hs.lang = {
-            loadingText : 'טוען...',
-            loadingTitle : 'לחץ לביטול',
-            focusTitle : 'Click to bring to front',
-            fullExpandText : 'גודל מקסימלי',
-            fullExpandTitle : 'הגדל לגודל המקסימלי (f)',
-            creditsText : 'Powered by <i>Highslide JS</i>',
-            creditsTitle : 'Go to the Highslide JS homepage',
-            previousText : 'תמונה קודמת',
-            previousTitle : 'תמונה הקודמת (חץ שמאלה)',
-            nextText : 'תמונה הבאה',
-            nextTitle : 'תמונה הבאה (חץ ימינה)',
-            moveText : 'הזז',
-            moveTitle : 'לחץ ומשוך להזזה',
-            closeText : 'סגור',
-            closeTitle : 'סגור (esc)',
-            resizeTitle : 'שנה גודל',
-            playText : 'Play',
-            playTitle : 'Play slideshow (spacebar)',
-            pauseText : 'Pause',
-            pauseTitle : 'Pause slideshow (spacebar)',
-            number: 'תמונה %1 / %2',
-            restoreTitle : 'לחץ לסגירה. לחץ ומשוך להזזה. תשתמש בחצים לתמונה הבאה/קודמת.'
+          loadingText : 'загрузка...',
+          loadingTitle : 'отмена',
+          focusTitle : 'Click to bring to front',
+          fullExpandText : 'максимальный размер',
+          fullExpandTitle : 'максимальный размер (f)',
+          creditsText : 'Powered by <i>Highslide JS</i>',
+          creditsTitle : 'Go to the Highslide JS homepage',
+          previousText : 'предыдущая картинка',
+          previousTitle : 'предыдущая картинка (стрелка влево)',
+          nextText : 'следующая картинка',
+          nextTitle : 'следующая картинка (стрелка вправо)',
+          moveText : 'двигать',
+          moveTitle : 'нажми и потяни',
+          closeText : 'закрыть',
+          closeTitle : 'закрыть (esc)',
+          resizeTitle : 'изменить размер',
+          playText : 'Play',
+          playTitle : 'Play slideshow (spacebar)',
+          pauseText : 'Pause',
+          pauseTitle : 'Pause slideshow (spacebar)',
+          number: 'картинка %1 / %2',
+          restoreTitle : 'нажми для закрытия. нажми и потяни для изменения места. пользуйся стрелками для предhan/след картинки'
         };
         if (hs.registerOverlay) {
             // The white controlbar overlay
@@ -231,7 +231,7 @@ $(function() {
     $("#kabtv #ask").submit(function() {
         var question = $.trim($("#kabtv #options_qquestion")[0].value);
         if (question == "") {
-          alert('נא לכתוב שאלה');
+          alert('заполните поле "вопрос"');
           return false;
         }
         $("#kabtv #kabtv-loading").show();
@@ -325,26 +325,33 @@ $(function() {
           end
 
           div(:id => 'bitrates'){
-            #            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
+            titles = [_(:high), _(:medium), _(:low)]
+            urls = [high_url, med_url, low_url]
+            undefined = [high_url.empty?, med_url.empty?, low_url.empty?]
+            checked = [idx == 0, idx == 1, idx == 2]
+            case idx
+            when 0:
+                klasses = ['selected', '', '']
+            when 1:
+                klasses = ['', 'selected', '']
+            when 2:
+                klasses = ['', '', 'selected']
+            end
             rawtext _(:broadcast_quality) + ': '
-            title = _(:high)
-            klass = idx == 0 ? 'selected' : ''
-            label(:for => 'name0') {
-              input(:id => 'name0', :type => 'radio', :checked => idx == 0, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{high_url}')")
-              rawtext title
-            } if high_url
-            title = _(:medium)
-            klass = idx == 1 ? 'selected' : ''
-            label(:for => 'name1') {
-              input(:id => 'name1', :type => 'radio', :checked => idx == 1, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{med_url}')")
-              rawtext title
-            } if med_url
-            title = _(:low)
-            klass = idx == 2 ? 'selected' : ''
-            label(:for => 'name2') {
-              input(:id => 'name2', :type => 'radio', :checked => idx == 2, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{low_url}')")
-              rawtext title
-            } if low_url
+            (0..2).each {|idx|
+              next if undefined[idx]
+              id = "name#{idx}"
+              label(:for => id) {
+                if checked[idx] then
+                  input(:id => id, :type => 'radio', :checked => 'checked', :name => 'quality',
+                    :class => klasses[idx], :title => titles[idx], :onclick => "switchChannel('#{urls[idx]}')")
+                else
+                  input(:id => id, :type => 'radio', :name => 'quality',
+                    :class => klasses[idx], :title => titles[idx], :onclick => "switchChannel('#{urls[idx]}')")
+                end
+                rawtext titles[idx]
+              }
+            }
           } if high_url || med_url || low_url
 
           div(:id => 'separate-msg'){
@@ -469,7 +476,7 @@ $(function() {
       return
     end
 
-    rawtext 'Thank you for your question'
+    rawtext _(:thank_you_for_your_question)
   end
   
   def render_current_program

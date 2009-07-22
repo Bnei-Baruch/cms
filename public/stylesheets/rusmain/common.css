@@ -182,24 +182,24 @@ strong{
     text-align:center;
     color:#979797;
 }
-#header #languages{
+#header #languagebar{
     height:18px;
     line-height:18px;
     position:absolute;
     right:38px;
     top:20px;
-    width:110px;
+    width:160px;
     border: 1px solid #e5e5eb;
     color:silver;
 }
 #header #search{
     position:absolute;
-    right:167px;
+    right:215px;
     top:19px;
 }
 #header #search .text{
     vertical-align:super;
-    width:109px;
+    width:175px;
     border: 1px solid #e5e5eb;
     margin:0 4px 0 0;
     float:left;

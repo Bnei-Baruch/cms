@@ -367,8 +367,8 @@ $(document).ready(function() {
     $("a.hide-player").click(function(event){
         event.preventDefault();
         $this = $(this);
-        $this.parents('.audio').css('background-image', 'url(/images/hebmain/audio.png)');
-        $this.parents('.video').css('background-image', 'url(/images/hebmain/video.png)');
+        $this.parents('.audio').css('background-image', 'url(/images/rusmain/audio.png)');
+        $this.parents('.video').css('background-image', 'url(/images/rusmain/video.png)');
         $this.toggle();
         $this.siblings().toggle();
         var player = $this.parents('.mediacasting').find("object");
@@ -881,28 +881,28 @@ if (typeof hs != "undefined") {
     hs.targetX = 'kabtv';
     hs.targetY = 'kabtv';
     hs.lang = {
-        loadingText : 'טוען...',
-        loadingTitle : 'לחץ לביטול',
+        loadingText : 'загрузка...',
+        loadingTitle : 'отмена',
         focusTitle : 'Click to bring to front',
-        fullExpandText : 'גודל מקסימלי',
-        fullExpandTitle : 'הגדל לגודל המקסימלי (f)',
+        fullExpandText : 'максимальный размер',
+        fullExpandTitle : 'максимальный размер (f)',
         creditsText : 'Powered by <i>Highslide JS</i>',
         creditsTitle : 'Go to the Highslide JS homepage',
-        previousText : 'תמונה קודמת',
-        previousTitle : 'תמונה הקודמת (חץ שמאלה)',
-        nextText : 'תמונה הבאה',
-        nextTitle : 'תמונה הבאה (חץ ימינה)',
-        moveText : 'הזז',
-        moveTitle : 'לחץ ומשוך להזזה',
-        closeText : 'סגור',
-        closeTitle : 'סגור (esc)',
-        resizeTitle : 'שנה גודל',
+        previousText : 'предыдущая картинка',
+        previousTitle : 'предыдущая картинка (стрелка влево)',
+        nextText : 'следующая картинка',
+        nextTitle : 'следующая картинка (стрелка вправо)',
+        moveText : 'двигать',
+        moveTitle : 'нажми и потяни',
+        closeText : 'закрыть',
+        closeTitle : 'закрыть (esc)',
+        resizeTitle : 'изменить размер',
         playText : 'Play',
         playTitle : 'Play slideshow (spacebar)',
         pauseText : 'Pause',
         pauseTitle : 'Pause slideshow (spacebar)',
-        number: 'תמונה %1 / %2',
-        restoreTitle : 'לחץ לסגירה. לחץ ומשוך להזזה. תשתמש בחצים לתמונה הבאה/קודמת.'
+        number: 'картинка %1 / %2',
+        restoreTitle : 'нажми для закрытия. нажми и потяни для изменения места. пользуйся стрелками для предhan/след картинки'
     };
     if (hs.registerOverlay) {
         // The white controlbar overlay
@@ -928,7 +928,7 @@ $("#kabtv #ask_cancel").click(function() {
 $("#kabtv #ask").submit(function() {
     var question = $.trim($("#kabtv #options_qquestion")[0].value);
     if (question == "") {
-        alert('נא לכתוב שאלה');
+        alert('заполните поле "вопрос"');
         return false;
     }
     $("#kabtv #kabtv-loading").show();

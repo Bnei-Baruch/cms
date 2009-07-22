@@ -21,7 +21,7 @@ russian:
     cancel: отменить
 
   Mainsites::Widgets::ContentPreview:
-    manage_content_preview: управление предворительной экспозицией
+    manage_content_preview: управление предварительной экспозицией
     add_item_manually: добавить вручную
     to_all_articles: все статьи
 
@@ -31,7 +31,7 @@ russian:
   Mainsites::Widgets::Breadcrumbs:
     home_breadcrumb: главная
 
-  Rusmain::Widgets::LanguageMenu:
+  Mainsites::Widgets::LanguageMenu:
     chooseyourlanguage: Choose your language
     arabic: العربية
     german: Deutsch
@@ -131,9 +131,13 @@ russian:
     edit_content_page: редактировать страницу содержания
     admin: админ
     create_new_content_item: создать новую единицу содержания
+    create_new_tv_unit: создать модуль kabtv
     create_modul_comments_administration: создать модуль администрации комментариев
     
   Mainsites::Layouts::ContentPage:
+    create_new_content_item: создать новую единицу содержания
+
+  Mainsites::Widgets::AudioGallery:
     create_new_content_item: создать новую единицу содержания
 
   Mainsites::Widgets::ContentPage:
@@ -175,7 +179,7 @@ russian:
     add_newsbox_for_tv: добавить новость для тв
     tothetvchannel: к тв каналу
     clicktogolive:  нажми для просмотра прямого эфира
-    schedule: программа передач
+    schedule: программа
     questions: вопросы
     sketches: чертежи
     students_questions: вопросы учеников
@@ -184,11 +188,11 @@ russian:
     for_full_screen_mode_double_click_on_player: для просмотра на полном экране, нажмите дважды на плеер
     in_separate_player: для просмотра в медиа-плеере
     full_screen: полный экран
-    click_here : для получения техподдержки - нажмите здесь
+    click_here : для получения техподдержки нажмите здесь
     no_new_questions: нет новых вопросов
     from:   из
     guest: гость
-    current_sketch: чертеж
+    current_sketch: чертежи
     no_sketches_yet: нет больше чертежей
     prev_picture: предыдущая картинка (стрелка влево)
     next_picture: следующая картинка (стрелка вправо)
@@ -196,6 +200,7 @@ russian:
     close: закрыть (esc)
     temporarily_impossible_to_ask_questions: на данный момент нет возможности задавать вопросы
     you_must_fill_field_question: содержание вопроса - обязательно для заполнения
+    thank_you_for_your_question: спасибо за вопрос
     sunday: воскресенье
     monday: понедельник
     tuesday: вторник
@@ -203,36 +208,36 @@ russian:
     thursday: четверг
     friday: пятница
     saturday: суббота
-    sun: вск.
-    mon: пнд.
-    tue: втр.
-    wed: срд.
-    thu: чтв.
-    fri: птн.
-    sat: сбт.
+    sun: вск
+    mon: пнд
+    tue: втр
+    wed: срд
+    thu: чтв
+    fri: птн
+    sat: сбт
     ask_question: задать вопрос
-    your_name: Ваше имя
-    your_location: Ваше местонахождения
+    your_name: Имя
+    your_location: Местонахождение
     question: вопрос
     send: послать
     cancel: отменить
     broadcasting_now: сейчас в эфире
     future_programs: следующие программы
-    january: на январь
-    february: на февраль
-    march: на март
-    april: на апрель
-    may: на май
-    june: на июнь
-    july: на июль
-    august: на август
-    september: на сентябрь
-    october: на октябрь
-    november: на ноябрь
-    december: на декабрь
+    january: январь
+    february: февраль
+    march: март
+    april: апрель
+    may: май
+    june: июнь
+    july: июль
+    august: август
+    september: сентябрь
+    october: октябрь
+    november: ноябрь
+    december: декабрь
     no_broadcast_on: нет трансляции в 
     broadcast_on: трансляция в 
-    edit_kabtv_widget: редактировать компонент ТВ
+    edit_kabtv_widget: редактировать ТВ
     broadcast_quality: выбрать качество трансляции
     high: высокое
     medium: среднее
@@ -297,7 +302,14 @@ russian:
     yiddish: ייִדיש
     english: English
 
-  Rusmain::Widgets::MediaRss:
+  Mainsites::Widgets::PictureGallery:
+    add_picture: добавить картинку
+
+  Mainsites::Widgets::MediaCasting:
+    stop: остановить
+    download: скачать
+
+  Mainsites::Widgets::MediaRss:
     date:  дата
     picture: чертежи
     video:  видео
@@ -402,7 +414,7 @@ russian:
     writer_email: е-мейл адрес автора
     date: дата
     hide_on_navigation: скрыть навигацию
-    acts_as_section: действуй в разделе
+    acts_as_section: является разделом
     reset_date: убрать дату
     title: заголовок
     body: содержание

@@ -31,7 +31,7 @@ hebrew:
   Mainsites::Widgets::Breadcrumbs:
     home_breadcrumb: ראשי
 
-  Hebmain::Widgets::LanguageMenu:
+  Mainsites::Widgets::LanguageMenu:
     chooseyourlanguage: Choose your language
     arabic: العربية
     german: Deutsch
@@ -284,7 +284,14 @@ hebrew:
     yiddish: ייִדיש
     english: English
 
-  Hebmain::Widgets::MediaRss:
+  Mainsites::Widgets::PictureGallery:
+    add_picture: צור תמונה חדשה
+
+  Mainsites::Widgets::MediaCasting:
+    stop: הפסק
+    download: הורד
+
+  Mainsites::Widgets::MediaRss:
     date:  תאריך
     picture: שרטוט
     video:  וידאו

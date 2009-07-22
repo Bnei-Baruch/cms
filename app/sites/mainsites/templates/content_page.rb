@@ -20,7 +20,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         :options => {:buttons => %W{ new_button },
           :resource_types => %W{ kabtv },
           :button_text => _(:upper_part_admin),
-          :new_text => _(:'create_new_content_item'),
+          :new_text => _(:create_new_tv_unit),
           :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       if AuthenticationModel.current_user_is_admin?
         w_class('cms_actions').new(:tree_node => @tree_node,

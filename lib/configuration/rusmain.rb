@@ -44,7 +44,7 @@ module	Configuration::Rusmain
     :search_id => '009476949152162131478:wnmluf-2cgm',
     :forid => 'FORID:10',
     # Google analytics
-    :ua => 'UA-548326-62',
+    :ua => 'UA-548326-5',
   }
 
 end

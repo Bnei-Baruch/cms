@@ -452,7 +452,7 @@ $(document).ready(function() {
     //************************************
     // Download lessons
     //************************************
-    $(".toggle").click(function(event){
+    $(".toggle").livequery('click', function(event){
         event.preventDefault();
         $this = $(this);
         $ul = $("#lesson-" + $this.attr("tree_node"));

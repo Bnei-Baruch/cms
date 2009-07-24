@@ -58,7 +58,7 @@ class Attachment < ActiveRecord::Base
 
   # Returns: options
   def Attachment.store_rp_file(resource_property, options)
-    return options if resource_property.nil?
+#    return options if resource_property.nil? ZZZ What is it good for?
     
     # Should we first remove an old one?
     remove = options.delete(:remove)

@@ -1,12 +1,15 @@
 class ResourceObserver < ActiveRecord::Observer
   def after_save(resource)
-    # Find instances of RpFile, i.e. attachments
-    # Create thumbnails for those which are images
-    resource.resource_properties.select {|fld| fld.instance_of?(RpFile)}.each {|rp|
-      #      next unless rp.changed? -- That doesn't work for images because we always remove it
-      next if !( rp.attachment && rp.attachment.is_image?)
-      Attachment.create_thumbnails_and_apply_geometry_and_cache(rp)
-    }
+    unless resource.status == 'DELETED'
+      # Find instances of RpFile, i.e. attachments
+      # Create thumbnails for those which are images
+      properties = resource.resource_properties || resource.get_resource_properties
+      properties.select {|fld| fld.instance_of?(RpFile)}.each {|rp|
+        #      next unless rp.changed? -- That doesn't work for images because we always remove it
+        next if !( rp.attachment && rp.attachment.is_image?)
+        Attachment.create_thumbnails_and_apply_geometry_and_cache(rp)
+      }
+    end
     PageMap.remove_dependent_caches_by_resource(resource)
   end
 

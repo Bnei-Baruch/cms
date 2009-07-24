@@ -69,8 +69,7 @@ class TreeNode < ActiveRecord::Base
   # return true if success
   def logical_delete
     if is_main?
-      resource.status = 'DELETED'
-      resource.save
+      resource.update_attribute('status', 'DELETED')
     else
       destroy
     end

@@ -159,7 +159,7 @@ class Admin::ResourcesController < ApplicationController
 
     parent_id = params[:resource][:tree_node][:parent_id]
     unless parent_id == '0' && AuthenticationModel.current_user_is_admin?
-      parent_tree_node = TreeNode.find(parent_id)
+# ZZZ Don't know what is it for...     parent_tree_node = TreeNode.find(parent_id)
       if not (@tree_node && @tree_node.can_edit?)
         flash[:notice] = "Access denied. User can't create tree node"
         redirect_to session[:referer]

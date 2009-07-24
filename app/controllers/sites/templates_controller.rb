@@ -69,6 +69,12 @@ class Sites::TemplatesController < ApplicationController
       return
     end
 
+    # do not show deleted nodes
+    if @presenter.node.resource[:status] == 'DELETED'
+      head_status_404
+      return
+    end
+
     respond_to do |format|
       format.html {
         if request.xhr?

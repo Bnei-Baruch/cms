@@ -26,19 +26,19 @@ class Attachment < ActiveRecord::Base
     _image_id   = split[0]
     _image_name = split[1]
     attachment = find(:first, :conditions => ["id = ?", _image_id])
-    if !attachment 
-      return nil
-    end
+    return nil unless attachment
+
     case _image_name
     when 'original'
       attachment = attachment.resource_property.original
     when 'myself'
-      attachment = attachment.myself
+      attachment = attachment.myself || attachment.resource_property.original
     else
       if thumbnail = attachment.thumbnails.detect{|th| th.filename.eql?(_image_name)}
         attachment = thumbnail
       end
     end
+
     # We're here because of normal caching didn't work
     Attachment.save_as_file(attachment, _image_id, "#{_image_name}.#{format}")
     attachment

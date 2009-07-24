@@ -70,7 +70,7 @@ class Sites::TemplatesController < ApplicationController
     end
 
     # do not show deleted nodes
-    if @presenter.node.resource[:status] == 'DELETED'
+    if @presenter.node.resource[:status] == 'DELETED' && !@presenter.node.can_administrate?
       head_status_404
       return
     end

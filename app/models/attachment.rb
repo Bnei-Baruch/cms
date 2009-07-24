@@ -71,7 +71,7 @@ class Attachment < ActiveRecord::Base
     # Is file supplied?
     att = options[:value]
     if not file_provided?(att)
-      options[:attachment] = resource_property.attachment
+      options[:attachment] = resource_property ? resource_property.attachment : nil
       options[:value] = nil
       return options
     end

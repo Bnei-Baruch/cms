@@ -1,4 +1,4 @@
-# This module is used by the template_controller for additinal functionalaty 
+# This module is used by the template_controller for additinal functionality 
 # - some business logic used by the view
 module Presenter
 

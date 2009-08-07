@@ -193,8 +193,11 @@
     text-decoration:underline;
 }
 .custom_preview h1 a{
+    display:block;
     font-size:16px;
     font-weight:normal;
+    line-height:16px;
+    padding:0 0 4px;
 }
 .custom_preview p{
     font-size:12px;

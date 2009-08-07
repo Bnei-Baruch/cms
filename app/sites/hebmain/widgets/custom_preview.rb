@@ -27,6 +27,27 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
     img(:class => 'img', :src => @image_src, :alt => '') if @image_src
   end
   
+  def render_full
+    image_src = get_preview_image(:image_name => 'large')
+    url = get_url
+    url_name = url.split('/').reverse[0]
+
+    div(:class => 'custom_preview'){
+      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
+   
+      h1(:class => 'box_header'){
+        a(:href => url) {
+          img(:src => image_src, :alt => 'preview') if image_src
+	  text get_title if get_title
+        }
+      }
+    
+      rawtext get_description unless get_description.empty?
+      a({:class => 'more', :href => url}.merge!(gg_analytics_tracking(url_name))) { text _(:read_more) }
+      div(:class => 'clear')
+    }
+  end
+
   def render_large_main_format
     @image_src = get_preview_image(:image_name => 'large')
     show_content_page_main_format
@@ -51,6 +72,11 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
     }
     
     rawtext get_description unless get_description.empty?
+  end
+  
+  private
+  def gg_analytics_tracking (name_of_link = '')
+    {:onclick => "javascript:urchinTracker('/homepage/#{name_of_link}');"}
   end
   
 end

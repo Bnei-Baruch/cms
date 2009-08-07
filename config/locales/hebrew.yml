@@ -20,6 +20,9 @@ hebrew:
     send: שלח
     cancel: בטל
 
+  Hebmain::Widgets::CustomPreview:
+    read_more: להמשך
+
   Mainsites::Widgets::ContentPreview:
     manage_content_preview: ניהול תצוגה מקדימה
     add_item_manually: הוספת יחידה בצורה ידנית

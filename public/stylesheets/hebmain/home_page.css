@@ -185,6 +185,20 @@
     vertical-align: middle;
     padding:0 5px 0 0;
 }
+/*----------  custom preview  ---------------*/
+.custom_preview{
+    margin-top:10px;
+}
+.custom_preview a:hover{
+    text-decoration:underline;
+}
+.custom_preview p{
+    font-size:14px;
+}
+.custom_preview a img{
+    float: left;
+    margin:0 10px 0 0;
+}
 /*----------  left-part  ---------------*/
 .left-part{
     width:100%;

@@ -187,7 +187,7 @@
 }
 /*----------  custom preview  ---------------*/
 .custom_preview{
-    margin-top:10px;
+    margin:10px 0;
 }
 .custom_preview a:hover{
     text-decoration:underline;

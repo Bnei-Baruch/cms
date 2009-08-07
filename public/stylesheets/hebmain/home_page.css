@@ -192,12 +192,18 @@
 .custom_preview a:hover{
     text-decoration:underline;
 }
+.custom_preview h1 a{
+    font-size:16px;
+    font-weight:normal;
+}
 .custom_preview p{
-    font-size:14px;
+    font-size:12px;
 }
 .custom_preview a img{
-    float: left;
-    margin:0 10px 0 0;
+    float: right;
+    margin:0 0 0 10px;
+    width:138px;
+    height:94px;
 }
 /*----------  left-part  ---------------*/
 .left-part{

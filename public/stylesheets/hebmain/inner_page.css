@@ -130,6 +130,7 @@
 .content .item .full-video p{
     padding:10px 10px 15px;
     margin:0;
+    background-color: #E8E8E8;
 }
 .content .item .full-video .flashplayer{
     position:relative;

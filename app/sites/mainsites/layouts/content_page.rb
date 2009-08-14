@@ -277,7 +277,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   def show_content
     div(:class => 'bg'){
       div(:class => 'content'){
-        make_sortable(:selector => '#mid-content .bg #content_resources', :axis => 'y') {
+        make_sortable(:selector => '.bg .content #content_resources', :axis => 'y') {
           display self.ext_content
         }
       }

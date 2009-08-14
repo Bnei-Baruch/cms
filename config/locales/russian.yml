@@ -102,6 +102,23 @@ russian:
     are_you_sure_you_want_to_delete: Вы уверены, что хотите удалить
     the_item_was_successfully_deleted: элемент успешно удален
     FAILURE: неудача
+    box: коробка
+    rss: RSS
+    newsletter_form: подписка на рассылку новостей
+    site_updates: обновления сайта
+    article: статья
+    campus_form: учебный центр
+    audio_gallery: Аудио галерея
+    content_preview: предварительный показ содержания
+    iframe: фрейм
+    manpower_form: отдел кадров
+    media_casting: медиа-трансляция
+    media_rss: медиа-RSS
+    picture_gallery: галерея картинок
+    section_preview: предварительный показ раздела
+    title: заголовок
+    video: видео
+    video_gallery: видео галерея
 
   Mainsites::Widgets::Comments:
     thanks: спасибо
@@ -133,6 +150,7 @@ russian:
     create_new_content_item: создать новую единицу содержания
     create_new_tv_unit: создать модуль kabtv
     create_modul_comments_administration: создать модуль администрации комментариев
+    create_new_box: создать новую коробку
     
   Mainsites::Templates::Website:
     create_new_box_header: создать новый заголовок колонки

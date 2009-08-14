@@ -194,7 +194,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
         }
       )
       rawtext ',' unless idx.eql?(0)
-      rawtext "{text:'#{e.name}', href:'#{href}'}"
+      rawtext "{text:'#{_(e.name)}', href:'#{href}'}"
     }
 
     rawtext <<-NEW_LINK2

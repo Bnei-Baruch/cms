@@ -137,7 +137,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
   def ext_related_items
     resources = related_items
     WidgetManager::Base.new(helpers) do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss newsletter},:new_text => _(:'create_new_box'), :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss },:new_text => _(:'create_new_box'), :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
       show_content_resources(:parent => :content_page, :placeholder => :related_items, :resources => resources, :sortable => true)
       resources
     end

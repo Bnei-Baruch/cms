@@ -37,8 +37,8 @@
 /*----------  Drop Zone  ---------------*/
 .drop-zone{
     position:absolute;
-    top:0;
-    right:15px;
+    top:-10px;
+    left:15px;
     padding:0;
     margin:0;
     background-color:silver;
@@ -107,4 +107,9 @@ tr.badmod td{
     padding: 3px;
     text-align: center;
     background-color: green;
+}
+
+.downloads, .right-column{
+    border:1px dashed black;
+    margin:10px 0 0;
 }

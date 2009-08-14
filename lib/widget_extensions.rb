@@ -91,6 +91,7 @@ module WidgetExtensions
       div(:id => sort_id(e), :class => klass) {
         sort_handle if options[:sortable]
         render_content_resource(e,options,idx)
+        div(:class => 'clear')
       }
     }
   end
@@ -134,7 +135,13 @@ module WidgetExtensions
     @@sort_prefix_no += 1
     "el#{@@sort_prefix_no}_#{item.position}"
   end
-  
+
+  # To make group of elements sortable you have:
+  # - to put all of them into container with a distinctive id and to use this id as a :selector.
+  # - to use :id => sort_id(tree_node) on each sortable element
+  # - (optional) to add sort_handle to each element
+  # 
+  # For options see sortable_element
   def make_sortable(options, &block)
     unless tree_node.can_edit?
       block.call if block

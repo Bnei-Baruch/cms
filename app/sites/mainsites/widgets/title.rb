@@ -22,5 +22,18 @@ class Mainsites::Widgets::Title < WidgetManager::Base
       }
     }
   end
-  
+
+  def render_box_top
+    title = @options[:title][0] rescue return
+    klass = @options[:position] == 'middle-box' ? 'mid-box-top' : 'side-box-top'
+    div{
+      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(self)
+      div(:class => "#{klass}"){
+        text title.resource.properties('title').get_value
+        div(:class => 'left-ear')
+        div(:class => 'right-ear')
+      }
+    }
+    
+  end
 end

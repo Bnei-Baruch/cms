@@ -21,13 +21,17 @@ function tree_drop_zone(widget_node_id, url, widget, updatable, updatable_view_m
         lines:false,
         collapseFirst:true,
         loader: new Ext.tree.TreeLoader({
-        }),
+            }),
         containerScroll:false,
         enableDD:true,
-        dragData:{url:url,widget_node_id:widget_node_id,widget:widget}
+        dragData:{
+            url:url,
+            widget_node_id:widget_node_id,
+            widget:widget
+        }
     });
     dz.on('beforeload', function(){
-       return false; 
+        return false;
     });
     dz.on('beforenodedrop', function(dropEvent){
         url = dropEvent.tree.dragData.url;
@@ -76,7 +80,7 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
             loaded:true,
             leaf:false,
             addTarget:admin_url,
-            cannot_edit:true,
+            cannot_edit:false,
             cannot_edit_delete:true
         }),
         renderTo:tree_label,
@@ -126,27 +130,27 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
     tree.on('contextmenu', function(node, e){
         var menu = new Ext.menu.Menu({
             items: [
-                new Ext.menu.Item({
-                    text: 'новый',
-                    disabled: node.attributes.cannot_create_child,
-                    href: node.attributes.addTarget +
-                        encodeURI(
-                        '&resource[resource_type_id]='+ resource_type_id +
-                        '&resource[tree_node][has_url]=true' +
-                        '&resource[tree_node][is_main]=true' +
-                        '&resource[tree_node][parent_id]=' + node.id
-                )
-                }),
-                new Ext.menu.Item({
-                    text: 'редактировать',
-                    disabled: node.attributes.cannot_edit,
-                    href: node.attributes.editTarget
-                }),
-                new Ext.menu.Item({
-                    text: 'удалить',
-                    disabled: node.attributes.cannot_edit_delete,
-                    handler: function (item) {
-                        Ext.Msg.confirm('Удаление страницы', 'Вы уверены, что хотите удалить <' + node.text + '>?',
+            new Ext.menu.Item({
+                text: 'новый',
+                disabled: node.attributes.cannot_create_child,
+                href: node.attributes.addTarget +
+                encodeURI(
+                    '&resource[resource_type_id]='+ resource_type_id +
+                    '&resource[tree_node][has_url]=true' +
+                    '&resource[tree_node][is_main]=true' +
+                    '&resource[tree_node][parent_id]=' + node.id
+                    )
+            }),
+            new Ext.menu.Item({
+                text: 'редактировать',
+                disabled: node.attributes.cannot_edit,
+                href: node.attributes.editTarget
+            }),
+            new Ext.menu.Item({
+                text: 'удалить',
+                disabled: node.attributes.cannot_edit_delete,
+                handler: function (item) {
+                    Ext.Msg.confirm('Удаление страницы', 'Вы уверены, что хотите удалить <' + node.text + '>?',
                         function(e){
                             if(e == 'yes') {
                                 Ext.Ajax.request({
@@ -155,29 +159,34 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
                                     callback: function (options, success, responce){
                                         if (success) {
                                             Ext.Msg.alert('Удаление страницы', 'Страница <' + node.text + '> успешно удалена');
-                                            node.remove();
+                                            //                                            node.remove();
+                                            node.setText("<span class='deleted'>" + node.attributes.resource_name + "</span>");
                                         } else {
                                             Ext.Msg.alert('Удаление страницы', 'НЕУДАЧА!!!');
                                         }
                                     },
-                                    params: { 'stam': 'delete' }
+                                    params: { 
+                                        'stam': 'delete'
+                                    }
                                 });
                             }
                         }
-                    )
-                    }
-                }),
-                new Ext.menu.Item({
-                    text: 'опубликовать',
-                    disabled: node.attributes.cannot_edit,
-                    handler: function (item) {
-                        Ext.Msg.confirm('Публикация страницы', 'Вы уверены, что хотите опубликовать <' + node.text + '>?',
+                        )
+                }
+            }),
+            new Ext.menu.Item({
+                text: 'опубликовать',
+                disabled: node.attributes.cannot_edit,
+                handler: function (item) {
+                    Ext.Msg.confirm('Публикация страницы', 'Вы уверены, что хотите опубликовать <' + node.text + '>?',
                         function(e){
                             if(e == 'yes') {
                                 Ext.Ajax.request({
                                     url: node.attributes.updateStatus,
                                     method: 'post',
-                                    params: {'status': 'PUBLISHED'},
+                                    params: {
+                                        'status': 'PUBLISHED'
+                                    },
                                     callback: function (options, success, responce){
                                         if (success) {
                                             node.setText(node.attributes.resource_name);
@@ -189,20 +198,22 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
                                 });
                             }
                         }
-                    )
-                    }
-                }),  
-                new Ext.menu.Item({
-                    text: 'черновик',
-                    disabled: node.attributes.cannot_edit,
-                    handler: function (item) {
-                        Ext.Msg.confirm('Черновик', 'Вы уверены, что хотите сделать черновиком <' + node.text + '>?',
+                        )
+                }
+            }),
+            new Ext.menu.Item({
+                text: 'черновик',
+                disabled: node.attributes.cannot_edit,
+                handler: function (item) {
+                    Ext.Msg.confirm('Черновик', 'Вы уверены, что хотите сделать черновиком <' + node.text + '>?',
                         function(e){
                             if(e == 'yes') {
                                 Ext.Ajax.request({
                                     url: node.attributes.updateStatus,
                                     method: 'post',
-                                    params: {'status': 'DRAFT'},
+                                    params: {
+                                        'status': 'DRAFT'
+                                    },
                                     callback: function (options, success, responce){
                                         if (success) {
                                             node.setText("<span class='draft'>" + node.attributes.resource_name + "</span>");
@@ -214,20 +225,22 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
                                 });
                             }
                         }
-                    )
-                    }
-                }), 
-                new Ext.menu.Item({
-                    text: 'архив',
-                    disabled: node.attributes.cannot_edit,
-                    handler: function (item) {
-                        Ext.Msg.confirm('Архивация страницы', 'Вы уверены, что хотите заархивировать <' + node.text + '>?',
+                        )
+                }
+            }),
+            new Ext.menu.Item({
+                text: 'архив',
+                disabled: node.attributes.cannot_edit,
+                handler: function (item) {
+                    Ext.Msg.confirm('Архивация страницы', 'Вы уверены, что хотите заархивировать <' + node.text + '>?',
                         function(e){
                             if(e == 'yes') {
                                 Ext.Ajax.request({
                                     url: node.attributes.updateStatus,
                                     method: 'post',
-                                    params: {'status': 'ARCHIVED'},
+                                    params: {
+                                        'status': 'ARCHIVED'
+                                    },
                                     callback: function (options, success, responce){
                                         if (success) {
                                             node.setText("<span class='archived'>" + node.attributes.resource_name + "</span>");
@@ -239,9 +252,9 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
                                 });
                             }
                         }
-                    )
-                    }
-                }),                 
+                        )
+                }
+            }),
             ]
         });
         menu.showAt(e.getXY());

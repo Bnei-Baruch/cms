@@ -333,6 +333,8 @@ hebrew:
     
   Mainsites::Widgets::Rss:
     no_entries_yet_check_url: No entries yet. Check url!
+    admin_rss_channel: ניהול ה-
+    add_new_rss: צור RSS חדש
 
   Global::Widgets::Tree:
     administration_tree:  עץ ניהול

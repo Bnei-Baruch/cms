@@ -31,12 +31,13 @@ class Global::Widgets::CmsActions < WidgetManager::Base
           was_created = self.send(b, element)
         }
       
+        button_text = @options[:button_text] ? @options[:button_text].sub(/'/, '\\\'') : ''
         rawtext <<-CMS2
                       ]
                   });
             var button = new Ext.Button({
               renderTo: '#{element}',
-              text: '#{@options[:button_text]}',
+              text: '#{button_text}',
               tooltip:'#{@options[:tooltip]}',
               iconCls:'button-menu',
               menu:menu

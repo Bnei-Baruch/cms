@@ -12,7 +12,7 @@ require 'benchmark'
 
 class CronManager
 
-  def self.read_and_save_rss
+  def self.read_and_save_rss(force = false)
    
     cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0])
@@ -32,7 +32,7 @@ class CronManager
 
         tree_nodes.each do |tree_node|
           begin
-            read_and_save_node_rss(tree_node)
+            read_and_save_node_rss(tree_node, force)
           rescue
             puts 'FAILURE!!!'
           end
@@ -62,7 +62,7 @@ class CronManager
     end
   end
   
-  def self.read_and_save_node_rss(tree_node)
+  def self.read_and_save_node_rss(tree_node, force)
     content = ''
     
     url = (tree_node.resource.properties('url')).get_value
@@ -104,7 +104,7 @@ class CronManager
       return
     end
     property = tree_node.resource.properties('items')
-    unless property.text_value == data
+    if property.text_value != data || force
       property.update_attributes(:text_value => data)
       tree_node.resource.save
     else

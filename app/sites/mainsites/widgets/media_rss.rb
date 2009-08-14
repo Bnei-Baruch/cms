@@ -5,26 +5,27 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
 
   def initialize(*args, &block)
     super
-    @language = get_language
+    @language, @site_name = get_settings
     @web_node_url = get_page_url(@presenter.node)
   end
 
   def render_left
     id = tree_node.id
-    div(:id => "rss_media#{id}"){}
+    div(:id => "rss_media#{id}", :class => 'box-content'){}
     javascript {
       rawtext "$('#rss_media#{id}').load('#{@web_node_url}',{view_mode:'ajax','options[widget]':'media_rss','options[widget_node_id]':#{tree_node.id}})"
     }
   end
+  alias_method :render_preview, :render_left
 
   def render_ajax
+    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
+
     lessons = lesson_validation
     return rawtext('') if lessons.nil?
-    
-    w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
-    
+
     days_num = get_days_num rescue 1
-     
+
     30.times do |j|
       curr_date = (Date.today - j).strftime('%d.%m.%Y')
       
@@ -38,10 +39,10 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
         curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')
         if has_lesson_in_site_language(selected_lessons)
           if (get_group_by_date)
-            lesson_show(selected_lessons, curr_date_to_show)
+            lesson_show(selected_lessons, curr_date_to_show, j)
           else
-            selected_lessons.each_with_index { |selected_lesson, index|
-              lesson_show(Array.new(1,selected_lesson), curr_date_to_show, index) 
+            selected_lessons.each { |selected_lesson|
+              lesson_show(Array.new(1,selected_lesson), curr_date_to_show, j)
             }
           end
           days_num = days_num - 1
@@ -108,7 +109,7 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
       files_array.each { |file| 
         path = file['path'] rescue ''
         unless path.empty?
-          if file['language'] && file['language'] == get_language
+          if file['language'] && file['language'] == @language
             return true
           end
         end
@@ -117,9 +118,10 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
     return false
   end
 
-  def get_language
+  def get_settings
     lang = presenter.site_settings[:language] rescue 'english'
-    return (lang[0..2]).upcase
+    site = presenter.site_settings[:site_name] rescue 'english'
+    return (lang[0..2]).upcase, site
   end
   
   def is_media_file(path, extension)
@@ -136,9 +138,10 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
     end
   end
   
-  def lesson_show(selected_lessons, curr_date, index = 0)
+  def lesson_show(selected_lessons, curr_date, index)
+    empty_image = "/images/#{@site_name}/jquery/s.gif"
     div(:class => 'toggle', :tree_node => tree_node.id.to_s + index.to_s){
-      img(:class => 'x-plus', :src => '/images/hebmain/jquery/s.gif',:alt => '')
+      img(:class => 'x-plus', :src => empty_image, :alt => '')
       text get_title if get_title
       span(:class => 'date') {text ' ' + curr_date.to_s}
     }
@@ -150,7 +153,7 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
         
         if !video_href.empty? || !audio_href.empty? || !sirtut_href.empty?
           li(:class => 'item'){
-            img(:class => 'x-', :src => '/images/hebmain/jquery/s.gif',:alt => '')
+            img(:class => 'x-', :src => empty_image, :alt => '')
             text lesson['title']
             div(:class => 'services'){
               a(:class => 'video', :href => video_href){span {text _(:'video')} } unless video_href.empty?

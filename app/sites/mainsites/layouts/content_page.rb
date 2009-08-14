@@ -29,8 +29,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   end
 
   def render
-    rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
     edit_class = presenter.node.can_edit? ? 'admin' : ''
+    
+    rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
     html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en") {
       head {
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
@@ -232,7 +233,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
   def show_left_menu
     div(:class => 'side-box-top'){
-      rawtext 'Kabbalah for Beginners'
+      display @titles
       div(:class => 'left-ear')
       div(:class => 'right-ear')
     }
@@ -254,12 +255,11 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
 
   def show_content_header
     div(:class => 'mid-box-top'){
-      display @titles
       div(:class => 'left-ear')
       div(:class => 'right-ear')
     }
     div(:id => 'content-header'){
-      make_sortable(:selector => ".content-header", :axis => 'y') {
+      make_sortable(:selector => '#content-header', :axis => 'y') {
         display self.ext_content_header
       }
     }
@@ -268,7 +268,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   def show_related
     div(:class => 'related') {
       display self.ext_main_image
-      make_sortable(:selector => ".related", :axis => 'y') {
+      make_sortable(:selector => '.related', :axis => 'y') {
         display self.ext_related_items
       }
     }
@@ -277,7 +277,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   def show_content
     div(:class => 'bg'){
       div(:class => 'content'){
-        make_sortable(:selector => "#mid-content .bg #content_resources", :axis => 'y') {
+        make_sortable(:selector => '#mid-content .bg #content_resources', :axis => 'y') {
           display self.ext_content
         }
       }

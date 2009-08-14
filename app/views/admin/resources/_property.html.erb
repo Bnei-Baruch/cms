@@ -4,13 +4,13 @@
   obj_id = 'obj_' + property.object_id.to_s
   label_options = errors.empty? ? {:for => obj_id, :title => @property.name} : {:title => @property.name, :class => 'fieldWithErrors', :for => obj_id}
 %>
-  
+
   <% cms_fields_for "resource[my_properties][]", property do |f| %>
-  
+
     <%= f.hidden_field(:property_type, :index => nil) %>
     <%= f.hidden_field(:property_id, :index => nil) %>
     <%= f.hidden_field(:id, :index => nil) %>
-  
+
     <%= content_tag(:label, _(property.name.downcase.tr(' ','_').to_sym), label_options) %>
     <%= errors %>
 
@@ -23,53 +23,53 @@
     <% when 'date': %>
       Format of Date: yyyy-mm-dd<br/>
       <%= f.text_field(:value, :index => nil, :id => obj_id, :name => 'resource[my_properties][][value]') %>
-      <script type="text/javascript">  
+      <script type="text/javascript">
         $(function() {
           $('#<%= obj_id %>').datepicker({
-          gotoCurrent: true,
-          yearRange: '1900:2500',
-          showOn: 'button',
-          dateFormat: 'yy-mm-dd',
-          buttonText: '<% _(:Choose)%>',
-          buttonImage: '/images/calendar.gif'
-        });
-      })
-      </script>  
+            gotoCurrent: true,
+            yearRange: '1900:2500',
+            showOn: 'button',
+            dateFormat: 'yy-mm-dd',
+            buttonText: '<% _(:Choose)%>',
+            buttonImage: '/images/calendar.gif'
+          });
+        })
+      </script>
     <% when 'timestamp': %>
-        Format of Date: yyyy-mm-dd<br/>Format of Time: hh:mm<br/>
+      Format of Date: yyyy-mm-dd<br/>Format of Time: hh:mm<br/>
       <%= f.text_field(:value, :index => nil, :id => "date_#{obj_id}", :name => 'xxx', :class => 'datepick') %>
       <%= f.text_field(:value, :index => nil, :id => "time_#{obj_id}", :name => 'yyy', :class => 'timepick') %>
       <%= f.hidden_field(:value, :index => nil, :id => "#{obj_id}", :name => 'resource[my_properties][][value]') %>
       <script type="text/javascript">
-      $(function() {
+        $(function() {
           var date = new Date($('#<%= obj_id %>').val());
           $('#date_<%= obj_id %>')
           .val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate())
           .datepicker({
-              gotoCurrent: true,
-              yearRange: '1900:2500',
-              showOn: 'button',
-              dateFormat: 'yy-mm-dd',
-              buttonText: '<%=_(:choose)%>',
-              buttonImage: '/images/calendar.gif'
+            gotoCurrent: true,
+            yearRange: '1900:2500',
+            showOn: 'button',
+            dateFormat: 'yy-mm-dd',
+            buttonText: '<%=_(:choose)%>',
+            buttonImage: '/images/calendar.gif'
           })
           .change(function(){
-              var fdate = $('#date_<%= obj_id %>').val().split("-");
-              var ftime = $('#time_<%= obj_id %>').val().split(":");
-              var date = new Date(fdate[0], fdate[1] - 1, fdate[2], ftime[0], ftime[1], 0);
-              $('#<%= obj_id %>').val(date);
+            var fdate = $('#date_<%= obj_id %>').val().split("-");
+            var ftime = $('#time_<%= obj_id %>').val().split(":");
+            var date = new Date(fdate[0], fdate[1] - 1, fdate[2], ftime[0], ftime[1], 0);
+            $('#<%= obj_id %>').val(date);
           });
           $('#time_<%= obj_id %>')
           .val(date.getHours() + ":" + date.getMinutes())
           .timePicker({step:5,  startTime : "00:00", endTime : "24:00"})
           .change(function(){
-              var fdate = $('#date_<%= obj_id %>').val().split("-");
-              var ftime = $('#time_<%= obj_id %>').val().split(":");
-              var date = new Date(fdate[0], fdate[1] - 1, fdate[2], ftime[0], ftime[1], 0);
-              $('#<%= obj_id %>').val(date);
+            var fdate = $('#date_<%= obj_id %>').val().split("-");
+            var ftime = $('#time_<%= obj_id %>').val().split(":");
+            var date = new Date(fdate[0], fdate[1] - 1, fdate[2], ftime[0], ftime[1], 0);
+            $('#<%= obj_id %>').val(date);
           })
-      })
-      </script>  
+        })
+      </script>
     <% when 'list': %>
       <%= f.select(:value, @property.property.list.values_for_select, {}, :index => nil, :id => obj_id) %>
     <% when 'plaintext': %>
@@ -80,20 +80,23 @@
       <% original = @property.original %>
       <% if original %>
         Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/>
-        <% if original.is_image? %>
-          <%= image_tag	admin_attachment_url(original) %>
-          <br/>
-          <br/>
-          <% if myself = @property.myself %>
-            Self: <%= "#{myself.filename}: #{myself.mime_type.split('/').last} of #{myself.size} bytes" %><br/>
-            <%= image_tag	admin_attachment_url(myself) %>
+        <% begin %>
+          <% if original.is_image? %>
+            <%= image_tag	admin_attachment_url(original) %>
             <br/>
+            <br/>
+            <% if myself = @property.myself %>
+              Self: <%= "#{myself.filename}: #{myself.mime_type.split('/').last} of #{myself.size} bytes" %><br/>
+              <%= image_tag	admin_attachment_url(myself) %>
+              <br/>
+            <% end %>
+            <% @property.thumbnails.each {|img|%>
+              Attachment: <%= "#{img.filename}: #{img.mime_type.split('/').last} of #{img.size} bytes" %><br/>
+              <%= image_tag	admin_attachment_url(img) %>
+              <hr/>
+            <% } %>
           <% end %>
-          <% @property.thumbnails.each {|img|%>
-            Attachment: <%= "#{img.filename}: #{img.mime_type.split('/').last} of #{img.size} bytes" %><br/>
-            <%= image_tag	admin_attachment_url(img) %>
-            <hr/>
-          <% } %>
+        <% rescue %>
         <% end %>
       <% end %>
       <%= f.file_field(:value, :index => nil) %>
@@ -106,6 +109,6 @@
         <%= f.hidden_field(:remove, :index => nil) %>
       <% end%>
     <% end%>
-  
+
   <% end %>
 </div>

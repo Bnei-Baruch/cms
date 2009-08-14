@@ -134,6 +134,22 @@ russian:
     create_new_tv_unit: создать модуль kabtv
     create_modul_comments_administration: создать модуль администрации комментариев
     
+  Mainsites::Templates::Website:
+    create_new_box_header: создать новый заголовок колонки
+
+  Mainsites::Layouts::Website:
+    create_new_leftside_item: создать новую единицу содержания
+    lessons_to_download: уроки для скачивания
+    new_content_item: создать новую единицу содержания
+    new_download: новый источник
+    add_downloads: создать новый источник
+    new_rss: добавить новый RSS
+    add_new_rss: новый RSS
+    create_new_tv_unit: создать новый TV
+    new_tv_unit: новый TV
+    add_content_entry: создать новую единицу содержания
+    add_preview: добавить предварительный просмотр
+
   Mainsites::Layouts::ContentPage:
     create_new_content_item: создать новую единицу содержания
 
@@ -177,7 +193,7 @@ russian:
   Global::Widgets::Kabtv:
     news_for_tv: администрация новостей для тв
     add_newsbox_for_tv: добавить новость для тв
-    tothetvchannel: к тв каналу
+    tothetvchannel: на тв канал
     clicktogolive:  нажми для просмотра прямого эфира
     schedule: программа
     questions: вопросы
@@ -353,7 +369,9 @@ russian:
     newsonthechannel: новости канала
 
   Mainsites::Widgets::Rss:
-    no_entries_yet_check_url: No entries yet. Check url!
+    no_entries_yet_check_url: Нет данных. Проверьте url!
+    admin_rss_channel: rss-канал 
+    add_new_rss: добавить новый rss
 
   Global::Widgets::Tree:
     administration_tree: администрационная схема
@@ -381,7 +399,7 @@ russian:
     editing: редактура
     cancel: отменить
     box: коробка
-    content_preview: предворительный показ содержания
+    content_preview: предварительный показ содержания
     website: веб-сайт
     site_name: название сайта
     prefix: префикс
@@ -401,7 +419,7 @@ russian:
     news_for_tv: администрация новостей
     add_newsbox_for_tv: добавить новость для тв
     content_page: страница содержания
-    preview_title: заголок для предворительного показа
+    preview_title: заголок для предварительного показа
     large_title: главный заголовок
     permalink: линк к странице (не менять)
     small_title: уменьшеный заголовок
@@ -421,7 +439,7 @@ russian:
     description: описание страницы
     description_for_preview: описание для предворительного показа
     title_and_description: заголовок и описание
-    regular_text: бежащая строка
+    regular_text: бегущая строка
     first_name: имя
     Editing: редактировать
     abc_test_ua_tracker_code: ABC test - UA tracker code

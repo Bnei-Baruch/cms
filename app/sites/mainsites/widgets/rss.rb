@@ -34,9 +34,9 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
 
   def render_preview
     id = tree_node.id
-    div(:id => "rss#{id}"){}
+    div(:id => "rss#{id}", :class => 'box-content'){}
     javascript {
-        rawtext "$('#rss#{id}').load('#{@web_node_url}',{view_mode:'ajax','options[widget]':'rss','options[widget_node_id]':#{tree_node.id}})"
+      rawtext "$('#rss#{id}').load('#{@web_node_url}',{view_mode:'ajax','options[widget]':'rss','options[widget_node_id]':#{tree_node.id}})"
     }
   end
 
@@ -59,7 +59,7 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
   
   def get_rss_items (data)
     rss_items = YAML.load(data) rescue nil
-    if rss_items
+    unless rss_items.empty?
       rss_items.map do |rss_item|
         {:title => (rss_item.title rescue ''), 
           :url => (rss_item.guid.content rescue ''),
@@ -74,21 +74,21 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
   end
 
   def get_all_items
-    content = get_items
+    content = get_rss_items(get_items)
     if content.empty?
-      content = CronManager.read_and_save_node_rss(tree_node)
+      content = CronManager.read_and_save_node_rss(tree_node, true)
+      content = get_rss_items(content)
     end
 
-    return nil if content.empty?
-    get_rss_items(content)
+    content
   end
 
   def rss_admin
     w_class('cms_actions').new(:tree_node => tree_node, 
       :options => {:buttons => %W{ delete_button edit_button }, 
         :position => 'bottom',
-        :button_text => "ניהול ה-RSS: #{get_title}",
-        :new_text => 'הוסף RSS חדש'
+        :button_text => "#{_(:admin_rss_channel)} #{get_title}",
+        :new_text => _(:add_new_rss)
       }).render_to(self)
   end
 

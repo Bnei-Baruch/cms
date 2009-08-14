@@ -1146,47 +1146,6 @@ p.playbutton b{
 .h1 img{
     display:none;
 }
-/*----------  button  ---------------*/
-.prebutton{
-    background: transparent url(/images/rusmain/button.gif) no-repeat scroll 0pt 0px;
-    line-height: 22px;
-    height: 22px;
-    float: left;
-    width: 6px;
-}
-.button{
-    border: 0pt none !important;
-    padding: 0 0 5px;
-    background: transparent url(/images/rusmain/button.gif) repeat-x scroll 0pt -44px;
-    color: white;
-    width: auto !important;
-    height: 22px;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 22px;
-    float: left;
-}
-.postbutton{
-    background: transparent url(/images/rusmain/button.gif) no-repeat scroll 0pt -22px;
-    line-height: 22px;
-    height: 22px;
-    width: 6px;
-    float: left;
-}
-
-#ft .links{
-    margin:15px 0;
-}
-#ft .links li{
-    display:inline;
-    padding-top:8px;
-}
-.sitemap {
-    background-color:#F4F9FD;
-    border:1px solid #E8E8E8;
-    font-size:9px;
-    padding:8px;
-}
 
 /*--- Media RSS ----*/
 table.media_rss{

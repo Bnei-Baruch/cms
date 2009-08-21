@@ -18,11 +18,14 @@ class Global::Widgets::Tree < WidgetManager::Base
     target_node = TreeNode.find(target_node_id)
     source_node = TreeNode.find(source_node_id)
 
-    target_node_parent = target_node.parent
+    # In the case of the root of the site let's use it itself
+    target_node_parent = target_node.parent || @presenter.node
     source_node_parent = source_node.parent
     unless source_node_parent.eql?(target_node_parent)
+      # we're in moving node between different parents
       return rawtext(false) unless source_node_parent.can_move_child? && target_node_parent.can_move_child? # Check for moving permission
     else
+      # we're moving ndoe inside the same parent
       return rawtext(false) unless source_node_parent.can_sort? # Check for sorting permission
     end
 

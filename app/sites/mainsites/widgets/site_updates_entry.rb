@@ -6,6 +6,7 @@ class Mainsites::Widgets::SiteUpdatesEntry < WidgetManager::Base
       w_class('cms_actions').new( :tree_node => tree_node, 
         :options => {:buttons => %W{ edit_button delete_button }, 
           :resource_types => %W{ site_updates_entry },
+          :button_text => _(:update),
           :has_url => false,
           :position => 'bottom'}).render_to(self)
  

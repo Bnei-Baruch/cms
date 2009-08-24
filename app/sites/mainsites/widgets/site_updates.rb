@@ -22,6 +22,7 @@ class Mainsites::Widgets::SiteUpdates < WidgetManager::Base
         :options => {:buttons => %W{ new_button edit_button delete_button },
           :resource_types => %W{ site_updates_entry },
           :new_text => _(:add_update),
+          :button_text => _(:updates),
           :has_url => false}).render_to(self)
 
       h3 get_title

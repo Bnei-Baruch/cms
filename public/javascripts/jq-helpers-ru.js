@@ -587,7 +587,8 @@ $(function() {
     if ($sitemap.size() == 0) {
         return;
     }
-    $sitemap.corner({
+
+$sitemap.corner({
         tl:{
             radius: 8
         },
@@ -602,16 +603,6 @@ $(function() {
         },
         antiAlias:true
     });
-  
-    $sitemap = $('.sitemap-inner');
-    if ($sitemap.size() == 0) {
-        return;
-    }
-    if ($.browser.ie) {
-        if ($.browser.versionNumber == 7) {
-            $sitemap.parent().css("width", "100%");
-        }
-    }
 });
 
 //************************************

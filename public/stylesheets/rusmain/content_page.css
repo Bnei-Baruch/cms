@@ -51,6 +51,9 @@
 .content{
     width: 500px;
 }
+.ie7 .content, .ie6 .content, .safari .content{
+    width: 480px;
+}
 #cse-search-results iframe{
     width:500px !important;
 }
@@ -82,6 +85,9 @@
     color:#161616;
     font-size:11px;
     font-weight:bold;
+}
+.ie6 .related, .ie7 .related, .safari .related{
+    margin-left:-45px;
 }
 .related .image img{
     border:1px solid #C9C9C9;
@@ -161,6 +167,9 @@ h2{
     line-height:17px;
     width: 500px;
 }
+.ie6 .services, .ie7 .services, .safari .services{
+    width: 480px;
+}
 .services div{
     float:left;
     margin:0 10px 10px 0;
@@ -190,6 +199,9 @@ h2{
     width:350px;
     font-size:10px;
     height:15px;
+}
+.ie6 .services .permalink input, .ie7 .services .permalink input, .safari .services .permalink input{
+    width: 330px;
 }
 .services div, .services div a{
     color:#A71E23;
@@ -425,6 +437,10 @@ h2{
     width:28.5ex;
     border:1px solid #E5E5EB;
     margin:0 0 6px;
+    display:block;
+}
+.box-content .newsletter input[type="hidden"]{
+    display:none;
 }
 .related .box{
     margin:10px 0 10px 5px;
@@ -1119,6 +1135,9 @@ p.playbutton b{
     position:relative;
     padding: 0 0 0 10px;
     width:490px;
+}
+.ie7 .h1, .ie6 .h1, .safari .h1{
+    width:470px;
 }
 .h1 .h1-right,.h1 .h1-left{
     position:absolute;

@@ -84,6 +84,16 @@ class Global::Widgets::Tree < WidgetManager::Base
     name = @presenter.website.hrid.gsub(/\'/, '&#39;')
     div(:class => 'page-status'){
       rawtext "#{_(:status)}: #{_(tree_node.resource.status.to_sym)}"
+      a(:class => 'preview', :href => '#', :title => 'preview', :onclick => 'toggle_preview();return false;'){
+        javascript{
+          rawtext <<-TOGGLE_PREVIEW
+            function toggle_preview(){
+              $(".span_admin,.div_admin,.handle").toggle();
+            }
+          TOGGLE_PREVIEW
+        }
+        rawtext _(:preview)
+      }
     }
     div(:id => label, :class => 'dynamic_tree') {
       javascript {

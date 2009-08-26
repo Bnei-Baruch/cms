@@ -70,7 +70,10 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         writer = get_writer
         unless my_date.empty? && writer.empty?
           div(:class => 'author') {
-            span _(:'date') + ': ' + my_date, :class => 'left' unless my_date.empty?
+            unless my_date.empty?
+              date_string = @presenter.site_settings[:language] == 'russian' ? my_date : _(:date) + ': ' + my_date
+              span date_string, :class => 'left'
+            end
             unless writer.empty?
               span(:class => 'left') {
                 text _(:writer) + ': ' + writer

@@ -120,6 +120,9 @@ russian:
     video: видео
     video_gallery: видео галерея
 
+  Mainsites::Widgets::Banner:
+    banner: баннер
+
   Mainsites::Widgets::Comments:
     thanks: спасибо
     send: послать
@@ -350,6 +353,7 @@ russian:
     audio: аудио
 
   Mainsites::Widgets::Newsletter:
+    newsletter: рассылка
     subscribe: подписка
     newsletter_subscription: подписка на еженедельный ньюзлетер
     email_address: е-мейл адрес
@@ -380,7 +384,11 @@ russian:
   Mainsites::Widgets::Shortcut:
     direct_link: прямой линк на статью
 
+  Mainsites::Widgets::SiteUpdatesEntry:
+    update: новость
+
   Mainsites::Widgets::SiteUpdates:
+    updates: новости
     add_update: добавить новость
 
   Rusmain::Widgets::SiteUpdates:
@@ -400,6 +408,7 @@ russian:
     draft: черновик
     archived: в архив
     status: состояние
+    preview: предпросмотр
 
   Global::Widgets::Video:
     download:  скачать

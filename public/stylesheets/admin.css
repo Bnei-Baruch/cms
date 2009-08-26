@@ -268,3 +268,9 @@ a.button:link, a.button:visited{
     color:red;
     cursor:pointer;
 }
+.page-status .preview {
+    color:red;
+    font-weight:bold;
+    text-decoration:underline;
+    padding-left:10px;
+}

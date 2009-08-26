@@ -96,7 +96,26 @@ strong{
     font-size:9px;
     padding:8px;
 }
-
+.sitemap .box{
+    float:left;
+    margin:1em 20px 20px 10px;
+    text-align:left;
+}
+.sitemap .box li {
+    list-style-position:inside;
+    list-style-type:none;
+    white-space:nowrap;
+}
+.sitemap .title {
+    font-weight:bold;
+    padding-bottom:10px;
+}
+.sitemap .list {
+    color:#626264;
+}
+.sitemap .list a {
+    color:#626264;
+}
 .side-box-top{
     background:#b1c385 url(/images/rusmain/box-top-gradient.gif) repeat-x 0 0;
     height:25px;

@@ -153,6 +153,11 @@
     margin: 0 19px 0 0;
     color: #186BE5;
 }
+.right-part .player .playlist ul li{
+    margin: 0 19px 0 0;
+    color: #186BE5;
+    list-style-type:none;
+}
 .right-part .player a{
     display:block;
 }

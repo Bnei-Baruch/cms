@@ -8,7 +8,7 @@ class Mainsites::Widgets::MediaCasting < WidgetManager::Base
 	        
     div(:class => 'mediacasting'){
 	
-      a(:class => 'hide-player', :href => ''){
+      a(:class => 'hide-player', :href => '#'){
         img :src => '/images/delete.gif', :alt => '', :style => 'vertical-align:middle;'
         text _(:stop)
       }

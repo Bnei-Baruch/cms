@@ -1215,14 +1215,15 @@ table.media_rss th{
 }
 
 /*----------  Media casting  ---------------*/
-.mediacasting{
-    padding-left: 25px;
-}
 .mediacasting a.hide-player{
     display: none;
 }
 .mediacasting a.show-player{
     display: none;
+    padding-left: 25px;
+}
+.mediacasting a.media{
+    padding-left: 25px;
 }
 .mediacasting a.media-download{
     display: none;
@@ -1230,18 +1231,21 @@ table.media_rss th{
 .media-download{
     margin-left: 10px;
 }
-.audio{
+.audio .show-player, .audio .media{
     background-image: url('/images/hebmain/audio.png');
     background-repeat: no-repeat;
     background-attachment:scroll;
     background-position: left top;
 }
 
-.video{
+.video .show-player, .video .media{
     background-image: url('/images/hebmain/video.png');
     background-repeat: no-repeat;
     background-attachment:scroll;
     background-position: left top;
+}
+.mediaplayer div{
+    display:none;
 }
 /*******  Picture gallery  ********/
 .picture_gallery{

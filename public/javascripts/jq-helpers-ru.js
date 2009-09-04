@@ -331,15 +331,6 @@ $(document).ready(function() {
     // Media player(s) on inner page
     //************************************
 
-    // Previous form - please do not remove for now - thanks
-    //$('.mediacasting').filter(function(){
-    //  return ($(this).find('.media').attr('href')).search('mp3') == -1
-    //}).addClass('video');
-
-
-    //$('.mediacasting').last.css('border-bottom','0px none #E8E8E8')
-    
-    //$('.mediacasting').prev().css('border-bottom','0px none #E8E8E8');
     var item = $('.mediacasting').prev();
     item.css('border-bottom','0px none #E8E8E8');
     $('.mediacasting:has(.media[href*=mp3])').addClass('audio');
@@ -349,16 +340,28 @@ $(document).ready(function() {
     $("a.show-player").hide();
     $("a.media-download").hide();
 
-    $("a.media").click(function(event){
+    // In the middle column
+    $(".content a.media").click(function(event){
         event.preventDefault();
         $this = $(this);
         $this.parents('.mediacasting').children("a.hide-player").toggle();
         $this.parents('.mediacasting').children("a.media-download").toggle();
-        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
-        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
+        $this.removeClass('media');
+        $this.addClass('mediaplayer');
+        $this.media({autoplay: true});
+
+    });
+    // In the right column
+    $(".related a.media").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        $this.parents('.mediacasting').children("a.hide-player").toggle();
+        $this.parents('.mediacasting').children("a.media-download").toggle();
         $this.removeClass('media');
         $this.addClass('mediaplayer');
         $this.media({
+            width:170,
+            height:20,
             autoplay: true
         });
 
@@ -367,8 +370,6 @@ $(document).ready(function() {
     $("a.hide-player").click(function(event){
         event.preventDefault();
         $this = $(this);
-        $this.parents('.audio').css('background-image', 'url(/images/rusmain/audio.png)');
-        $this.parents('.video').css('background-image', 'url(/images/rusmain/video.png)');
         $this.toggle();
         $this.siblings().toggle();
         var player = $this.parents('.mediacasting').find("object");
@@ -385,8 +386,6 @@ $(document).ready(function() {
         $this = $(this);
         $this.toggle();
         $this.siblings().toggle();
-        $this.parents('.audio').css('background-image', 'url(../images/blank.gif)');
-        $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
 
         var player = $this.parents('.mediacasting').find("object");
         if (player && player[0] && player[0].controls && player[0].controls.isAvailable('Start')) {

@@ -88,7 +88,7 @@ class Global::Widgets::Tree < WidgetManager::Base
         javascript{
           rawtext <<-TOGGLE_PREVIEW
             function toggle_preview(){
-              $(".span_admin,.div_admin,.handle").toggle();
+              $(".span_admin,.div_admin,.handle,.drop-zone").toggle();
             }
           TOGGLE_PREVIEW
         }

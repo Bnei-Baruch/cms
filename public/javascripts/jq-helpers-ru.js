@@ -25,7 +25,7 @@ $(document).ready(function() {
             minWidth:    12,   // minimum width of sub-menus in em units
             maxWidth:    27,   // maximum width of sub-menus in em units
             extraWidth:  1     // extra width can ensure lines don't sometimes turn over
-                               // due to slight rounding differences and font-family
+        // due to slight rounding differences and font-family
         }).superfish({
             autoArrows:    true,
             dropShadows:   true,
@@ -75,7 +75,7 @@ $(document).ready(function() {
         return true;
     }
     function after_admin_comment_post(responseText, statusText){
-        // null
+    // null
     }
     var options = {
         target:       '#admin_comment_form',   // target element(s) to be updated with server response
@@ -315,12 +315,12 @@ $(document).ready(function() {
     //************************************
     $(function(){
         $(".mouse-grey-over").hover(
-        function(){
-            $(this).toggleClass("grey-over");
-        },
-        function(){
-            $(this).toggleClass("grey-over");
-        })
+            function(){
+                $(this).toggleClass("grey-over");
+            },
+            function(){
+                $(this).toggleClass("grey-over");
+            })
     });
     $(function() {
         $('.media_rss a').attr('target', '_blank');
@@ -340,31 +340,58 @@ $(document).ready(function() {
     $("a.show-player").hide();
     $("a.media-download").hide();
 
-    // In the middle column
-    $(".content a.media").click(function(event){
+    function media_cast_click(obj, klass) {
+        obj.parents('.mediacasting').children("a.hide-player").toggle();
+        obj.parents('.mediacasting').children("a.media-download").toggle();
+        obj.removeClass('media').addClass('mediaplayer');
+        switch (klass){
+            case 'audio-middle':
+                obj.media({
+                    height:20,
+                    width:500,
+                    autoplay: true
+                });
+                break;
+            case 'video-middle':
+                obj.media({ 
+                    autoplay: true
+                });
+                break;
+            case 'audio-right':
+                obj.media({ 
+                    width:170,
+                    height:20,
+                    autoplay: true
+                });
+                break;
+            case 'video-right':
+                obj.media({
+                    width:170,
+                    autoplay: true
+                });
+                break;
+            default:
+                obj.media({
+                    autoplay: true
+                });
+        }
+    }
+    $(".content .video a.media").click(function(event){
         event.preventDefault();
-        $this = $(this);
-        $this.parents('.mediacasting').children("a.hide-player").toggle();
-        $this.parents('.mediacasting').children("a.media-download").toggle();
-        $this.removeClass('media');
-        $this.addClass('mediaplayer');
-        $this.media({autoplay: true});
-
+        media_cast_click($(this), 'video-middle');
+    });
+    $(".content .audio a.media").click(function(event){
+        event.preventDefault();
+        media_cast_click($(this), 'audio-middle');
     });
     // In the right column
-    $(".related a.media").click(function(event){
+    $(".related .video a.media").click(function(event){
         event.preventDefault();
-        $this = $(this);
-        $this.parents('.mediacasting').children("a.hide-player").toggle();
-        $this.parents('.mediacasting').children("a.media-download").toggle();
-        $this.removeClass('media');
-        $this.addClass('mediaplayer');
-        $this.media({
-            width:170,
-            height:20,
-            autoplay: true
-        });
-
+        media_cast_click($(this), 'video-right');
+    });
+    $(".related .audio a.media").click(function(event){
+        event.preventDefault();
+        media_cast_click($(this), 'audio-right');
     });
 
     $("a.hide-player").click(function(event){
@@ -400,8 +427,8 @@ $(document).ready(function() {
     //************************************
     // Campus Form
     // ************************************
-    // pre-submit callback 
-    function showRequest(formData, jqForm, options) { 
+    // pre-submit callback
+    function showRequest(formData, jqForm, options) {
         var queryString = $.param(formData);
         var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
         if (formData[1].value.search(emailRegEx) == -1) {
@@ -412,10 +439,10 @@ $(document).ready(function() {
         $('.campus .submit').replaceWith("<div id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></div>");
       
         return true;
-    } 
+    }
     
-    // post-submit callback 
-    function showResponse(responseText, statusText)  { 
+    // post-submit callback
+    function showResponse(responseText, statusText)  {
         var options = {
             target:        '#output2',
             beforeSubmit:  showRequest,
@@ -429,9 +456,9 @@ $(document).ready(function() {
             return false;
         });
       
-    } 
+    }
     
-    var options = { 
+    var options = {
         target:        '#output2',   // target element(s) to be updated with server response
         beforeSubmit:  showRequest,  // pre-submit callback
         success:       showResponse,  // post-submit callback
@@ -440,13 +467,13 @@ $(document).ready(function() {
       
     };
     
-    $('#myForm2').submit(function() { 
+    $('#myForm2').submit(function() {
         $(this).ajaxSubmit(options);
       
         // !!! Important !!!
         // always return false to prevent standard browser submit and page navigation
         return false;
-    }); 
+    });
     
     //************************************
     // Download lessons
@@ -465,13 +492,13 @@ $(document).ready(function() {
         }
     });
     $(".toggle").hover(
-    function(){
-        $(this).toggleClass("x-over");
-    },
-    function(){
-        $(this).toggleClass("x-over");
-    }
-);
+        function(){
+            $(this).toggleClass("x-over");
+        },
+        function(){
+            $(this).toggleClass("x-over");
+        }
+        );
 });
 
 
@@ -529,7 +556,7 @@ function rppl(id){
 // Video gallery
 // Homepage
 //************************************
-var playerConfig_homepage = { 
+var playerConfig_homepage = {
     autoPlay: true,
     loop: false,
     initialScale:'scale',
@@ -564,7 +591,7 @@ $(function() {
             {
                 config: playerConfig_homepage
             }
-        );
+            );
         } else {
             flowplayer_homepage.setConfig(playerConfig_homepage);
         }
@@ -587,7 +614,7 @@ $(function() {
         return;
     }
 
-$sitemap.corner({
+    $sitemap.corner({
         tl:{
             radius: 8
         },
@@ -607,7 +634,7 @@ $sitemap.corner({
 //************************************
 // Inner page
 //************************************
-var playerConfig_innerpage = { 
+var playerConfig_innerpage = {
     autoPlay: true,
     loop: false,
     initialScale:'scale',
@@ -661,7 +688,7 @@ $(function() {
             {
                 config: playerConfig_innerpage
             }
-        );
+            );
         } else {
             flowplayer_innerpage.setConfig(playerConfig_innerpage);
         }
@@ -693,9 +720,9 @@ $(function() {
 
 
 //***************************************
-// Audio Player with a playlist 
+// Audio Player with a playlist
 //***************************************
-var playerConfig_playlist = { 
+var playerConfig_playlist = {
     autoPlay: true,
     videoHeight:0,
     loop: true,
@@ -742,7 +769,7 @@ $(function() {
         {
             config: playerConfig_playlist
         }
-    );
+        );
         audio.push(player);
         var now_playing = null;
         var $links = $this.find("a").click(function(event){
@@ -772,13 +799,13 @@ $(function() {
         });
         $(".playlist-player ul li:nth-child(odd)").addClass("odd");
         $(".playlist-player ul li a").hover(
-        function () {
-            $(this).css("color", "#0D47B2");
-        },
-        function () {
-            $(this).css("color", "black");
-        }
-    );
+            function () {
+                $(this).css("color", "#0D47B2");
+            },
+            function () {
+                $(this).css("color", "black");
+            }
+            );
     })
 });
 
@@ -828,7 +855,7 @@ $(function() {
     if (typeof $("#tabs").tabs == "function") {
         $("#tabs").tabs({
             show:
-                // On switch between tabs...
+            // On switch between tabs...
             function(event, ui){
                 stopSketches();
                 stopQuestions();
@@ -936,11 +963,11 @@ $("#kabtv #ask").submit(function() {
 });
 
 $.getScript = function(url, callback, cache){
-$.ajax({ 
-    type: "GET",
-    url: url,
-    success: callback,
-    dataType: "script",
-    cache: cache
-});
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: callback,
+        dataType: "script",
+        cache: cache
+    });
 };

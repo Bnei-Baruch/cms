@@ -46,7 +46,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
     WidgetManager::Base.new(helpers) do
       w_class('cms_actions').new(:tree_node => @tree_node,
         :options => {:buttons => %W{ new_button edit_button },
-          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form iframe title manpower_form picture_gallery audio_gallery newsletter},
+          :resource_types => %W{ article content_preview section_preview rss video media_rss video_gallery media_casting campus_form iframe title manpower_form picture_gallery audio_gallery newsletter cross_page_link},
           :button_text => _(:'content_page_management'),
           :new_text => _(:'create_new_content_item'),
           :edit_text => _(:'edit_content_page'),
@@ -145,6 +145,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         :options => {
           :buttons => %W{ new_button },
           :resource_types => %W{ box rss, media_casting },
+          :button_text => _(:related_items),
           :new_text => _(:'create_new_box'),
           :has_url => false,
           :placeholder => 'related_items',
@@ -161,7 +162,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
   def content_resources
     @content_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter'],
+      :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter', 'cross_page_link'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content'],

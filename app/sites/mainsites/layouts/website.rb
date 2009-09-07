@@ -39,13 +39,6 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_meta_title
         meta(:name => 'description', :content => ext_description)
-        javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
-        'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
-        'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-        '../highslide/highslide-full.packed.js', 'supersubs', 'superfish',
-        'jquery.livequery.min.js', 'jq-helpers-ru'
-        #       , :cache => "cache_content_page-#{@presenter.website_hrid}"
 
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'common/reset.css',
@@ -58,18 +51,6 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
           '../highslide/highslide',
           'lightbox',
           :cache => false
-          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers-ru',
-          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
-          language = @presenter.site_settings[:short_language]
-          javascript {
-            rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
-            rawtext 'var head = Ext.fly(document.getElementsByTagName("head")[0]);'
-            rawtext 'Ext.DomHelper.append(head, {'
-            rawtext 'tag:"script"'
-            rawtext ',type:"text/javascript"'
-            rawtext ",src:'/ext/source/locale/ext-lang-#{language}.js'"
-            rawtext '});'
-          }
         else
           stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'common/reset.css',
           'rusmain/common.css',
@@ -85,6 +66,28 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         rawtext '<!--[if IE]>'
         stylesheet_link_tag 'rusmain/ie6'
         rawtext '<![endif]-->'
+
+        javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
+        'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
+        'jquery.curvycorners.packed.js', 'jquery.browser.js',
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
+        '../highslide/highslide-full.packed.js', 'supersubs', 'superfish',
+        'jquery.livequery.min.js', 'jq-helpers-ru'
+        #       , :cache => "cache_content_page-#{@presenter.website_hrid}"
+        if presenter.node.can_edit?
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers-ru',
+          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
+          language = @presenter.site_settings[:short_language]
+          javascript {
+            rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
+            rawtext 'var head = Ext.fly(document.getElementsByTagName("head")[0]);'
+            rawtext 'Ext.DomHelper.append(head, {'
+            rawtext 'tag:"script"'
+            rawtext ',type:"text/javascript"'
+            rawtext ",src:'/ext/source/locale/ext-lang-#{language}.js'"
+            rawtext '});'
+          }
+        end
       }
       body(:class => edit_class) {
         div(:id => 'doc2', :class => 'yui-t7') { # Width 950 px, navigation 224px on left side

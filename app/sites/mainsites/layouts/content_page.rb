@@ -38,13 +38,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title @meta_title
         meta(:name => 'description', :content => ext_description)
-        javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
-        'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
-        'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-        '../highslide/highslide-full.packed.js', 'supersubs', 'superfish',
-        'jquery.livequery.min.js', 'jq-helpers-ru',
-        :cache => "cache_content_page-#{@presenter.website_hrid}"
 
         if presenter.node.can_edit?
           stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'common/reset.css',
@@ -57,19 +50,6 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
           '../highslide/highslide',
           'lightbox',
           :cache => false
-          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers-ru',
-          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
-          language = @presenter.site_settings[:short_language]
-          javascript {
-            rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
-            rawtext 'var head = Ext.fly(document.getElementsByTagName("head")[0]);'
-            rawtext 'Ext.DomHelper.append(head, {'
-            rawtext 'tag:"script"'
-            rawtext ',type:"text/javascript"'
-            rawtext ",src:'/ext/source/locale/ext-lang-#{language}.js'"
-            rawtext '});'
-          }
-
         else
           stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'common/reset.css',
           'rusmain/common.css',
@@ -85,6 +65,29 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         rawtext '<!--[if IE]>'
         stylesheet_link_tag 'rusmain/ie6'
         rawtext '<![endif]-->'
+
+        javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
+        'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
+        'jquery.curvycorners.packed.js', 'jquery.browser.js',
+        'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
+        '../highslide/highslide-full.packed.js', 'supersubs', 'superfish',
+        'jquery.livequery.min.js', 'jq-helpers-ru',
+        :cache => "cache_content_page-#{@presenter.website_hrid}"
+
+        if presenter.node.can_edit?
+          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers-ru',
+          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js'
+          language = @presenter.site_settings[:short_language]
+          javascript {
+            rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
+            rawtext 'var head = Ext.fly(document.getElementsByTagName("head")[0]);'
+            rawtext 'Ext.DomHelper.append(head, {'
+            rawtext 'tag:"script"'
+            rawtext ',type:"text/javascript"'
+            rawtext ",src:'/ext/source/locale/ext-lang-#{language}.js'"
+            rawtext '});'
+          }
+        end
       }
       body(:class => edit_class) {
         div(:id => 'doc2', :class => 'yui-t7') { # Width 950 px, navigation 224px on left side
@@ -137,58 +140,58 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['site_updates', 'video_gallery'],
-      :depth => 1,
-      :placeholders => ['right'],
-      :status => ['PUBLISHED', 'DRAFT']
+        :resource_type_hrids => ['site_updates', 'video_gallery'],
+        :depth => 1,
+        :placeholders => ['right'],
+        :status => ['PUBLISHED', 'DRAFT']
     )
   end
   
   def left_column_resources
     @tree_nodes_left ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['rss'],
-      :depth => 1,
-      :placeholders => ['left'],
-      :status => ['PUBLISHED', 'DRAFT']
+        :resource_type_hrids => ['rss'],
+        :depth => 1,
+        :placeholders => ['left'],
+        :status => ['PUBLISHED', 'DRAFT']
     )
   end
 
   def global_site_updates
     @site_updates ||= TreeNode.get_subtree(
       :parent => presenter.website_node.id,
-      :resource_type_hrids => ['site_updates', 'newsletter'],
-      :depth => 1,
-      :placeholders => ['left']
+        :resource_type_hrids => ['site_updates', 'newsletter'],
+        :depth => 1,
+        :placeholders => ['left']
     )
   end
 
   def middle_column_resources
     @tree_nodes_middle ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['content_preview', 'title'],
-      :depth => 1,
-      :placeholders => ['middle'],
-      :status => ['PUBLISHED', 'DRAFT']
+        :resource_type_hrids => ['content_preview', 'title'],
+        :depth => 1,
+        :placeholders => ['middle'],
+        :status => ['PUBLISHED', 'DRAFT']
     )
   end
   
   def kabbalah_media_resources
     @kabbalah_media_nodes ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['media_rss'],
-      :depth => 1,
-      :placeholders => ['lesson'],
-      :status => ['PUBLISHED', 'DRAFT']
+        :resource_type_hrids => ['media_rss'],
+        :depth => 1,
+        :placeholders => ['lesson'],
+        :status => ['PUBLISHED', 'DRAFT']
     )
   end
 
   def kabtv_resources
     @kabtv_node ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['kabtv'],
-      :depth => 1,
-      :status => ['PUBLISHED', 'DRAFT']
+        :resource_type_hrids => ['kabtv'],
+        :depth => 1,
+        :status => ['PUBLISHED', 'DRAFT']
     )
   end
 
@@ -242,8 +245,9 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     }
 
     w_class('cms_actions').new(:tree_node => presenter.website_node,
-      :options => {:buttons => %W{ new_button },
+        :options => {:buttons => %W{ new_button },
         :resource_types => %W{site_updates newsletter},
+        :button_text => _(:left_menu),
         :new_text => _(:create_new_content_item),
         :has_url => false,
         :placeholder => 'left'}).render_to(self)

@@ -110,6 +110,7 @@ russian:
     campus_form: учебный центр
     audio_gallery: Аудио галерея
     content_preview: предварительный показ содержания
+    cross_page_link: перекрестная ссылка
     iframe: фрейм
     manpower_form: отдел кадров
     media_casting: медиа-трансляция
@@ -154,6 +155,7 @@ russian:
     create_new_tv_unit: создать модуль kabtv
     create_modul_comments_administration: создать модуль администрации комментариев
     create_new_box: создать новую коробку
+    related_items: связанное
     
   Mainsites::Templates::Website:
     create_new_box_header: создать новый заголовок колонки
@@ -345,6 +347,7 @@ russian:
   Mainsites::Widgets::MediaCasting:
     stop: остановить
     download: скачать
+    media_casting: медиа-трансляция
 
   Mainsites::Widgets::MediaRss:
     date:  дата
@@ -380,6 +383,7 @@ russian:
     create_new_tv_unit: создать новую единицу тв
     admin_management:  управление админа
     admin_upper_part: администрация верхней части страницы
+    left_menu: левое меню
 
   Mainsites::Widgets::Shortcut:
     direct_link: прямой линк на статью
@@ -398,6 +402,9 @@ russian:
     no_entries_yet_check_url: Нет данных. Проверьте url!
     admin_rss_channel: rss-канал 
     add_new_rss: добавить новый rss
+
+  Global::Widgets::CrossPageLink:
+    cross_page_link: перекрестная ссылка
 
   Global::Widgets::Tree:
     administration_tree: администрационная схема
@@ -476,7 +483,4 @@ russian:
 
   Rusmain::Widgets::ShareThis:
     share_this: поделиться
-
-
-
 

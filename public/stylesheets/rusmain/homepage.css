@@ -526,8 +526,8 @@ h3.box-header{
     float:left;
     padding:1px;
     margin-right:10px;
-    width:115px;
-    height:80px;
+    width:138px;
+    height:94px;
 }
 .content_preview .index .more,
 .content_preview .index .more_no_img{
@@ -535,7 +535,7 @@ h3.box-header{
     text-decoration:underline;
     position:absolute;
     bottom:10px;
-    left:140px;
+    left:160px;
 }
 .content_preview .main_preview1 h1 a:visited,
 .content_preview .main_preview1 h1 a,

@@ -1266,3 +1266,7 @@ img.thumbnails{
     height: 90px;
     margin: 3px;
 }
+.cross_page_link{
+    position:relative;
+    float:right;
+}

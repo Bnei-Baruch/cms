@@ -59,7 +59,7 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
   
   def get_rss_items (data)
     rss_items = YAML.load(data) rescue nil
-    unless rss_items.empty?
+    unless rss_items.blank?
       rss_items.map do |rss_item|
         {:title => (rss_item.title rescue ''), 
           :url => (rss_item.guid.content rescue ''),

@@ -1,5 +1,13 @@
 class Mainsites::Widgets::Title < WidgetManager::Base
   
+  def render_inner_page
+    title = @options[:title][0] rescue return
+    div(:class => 'inner-title'){
+      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ edit_button }}).render_to(self)
+      text title.resource.properties('title').get_value
+    }
+  end
+  
   def render_full
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(self)
     

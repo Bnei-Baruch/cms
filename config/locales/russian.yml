@@ -10,7 +10,7 @@ russian:
     all: все
     page:  страница
     date:  дата
-    valid: valid
+    valid: корректно
     spam: спам
     name: название
     title:  заголовок
@@ -19,6 +19,7 @@ russian:
     del: стереть
     send: послать
     cancel: отменить
+    admin_comments: управление комментариями
 
   Mainsites::Widgets::ContentPreview:
     manage_content_preview: управление предварительной экспозицией
@@ -153,7 +154,7 @@ russian:
     admin: админ
     create_new_content_item: создать новую единицу содержания
     create_new_tv_unit: создать модуль kabtv
-    create_modul_comments_administration: создать модуль администрации комментариев
+    create_module_comments_administration: создать модуль администрации комментариев
     create_new_box: создать новую коробку
     related_items: связанное
     
@@ -378,12 +379,15 @@ russian:
     stf_subject: Привет receiver_name, ваш товарищ sender_name рекомендовал этот линк
     cancel:  отменить
 
+  Mainsites::Templates::ContentPage:
+    left_menu: левое меню
+    create_new_title: новый заголовок
+
   Rusmain::Templates::ContentPage:
     create_module_admin_comment: создать модуль администрации комментариев
     create_new_tv_unit: создать новую единицу тв
     admin_management:  управление админа
     admin_upper_part: администрация верхней части страницы
-    left_menu: левое меню
 
   Mainsites::Widgets::Shortcut:
     direct_link: прямой линк на статью

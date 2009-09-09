@@ -2,6 +2,11 @@
 .button-menu{
     /*background:transparent url(/images/menu.gif) no-repeat scroll 0 0 !important;*/
 }
+.inner-title .span_admin, .inner-title .span_admin table{
+    float:left;
+    margin:0;
+    padding:0;
+}
 .span_admin table{
     display:inline;
     margin:0;

@@ -3,11 +3,48 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
   def set_layout
     layout.ext_content = ext_content
     layout.ext_content_header = ext_content_header
-    layout.ext_title = ext_title
     layout.ext_description = ext_description
     layout.ext_main_image = ext_main_image
     layout.ext_related_items = ext_related_items
     layout.ext_kabtv_exist = ext_kabtv_exist
+    layout.ext_title_left = ext_title_left
+    layout.ext_title_middle = ext_title_middle
+  end
+
+  def titles_resources(side)
+    TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['title'],
+      :depth => 1,
+      :has_url => false,
+      :placeholders => [side]
+    )
+  end
+
+  def ext_title_left
+    ext_titles('left-box')
+  end
+
+  def ext_title_middle
+    ext_titles('middle-box')
+  end
+
+  def ext_titles(side)
+    title = titles_resources(side)
+    if title.empty?
+      w_class('cms_actions').new(:tree_node => @tree_node,
+        :options => {:buttons => %W{ new_button },
+          :resource_types => %W{title},
+          :button_text => _(:create_new_title),
+          :new_text => _(:create_new_title),
+          :has_url => false,
+          :mode => 'div',
+          :placeholder => side})
+    else
+      w_class('title').new(:view_mode => 'inner_page',
+        :options => {:title => title, :position => side}
+      )
+    end
   end
 
   def ext_kabtv_exist
@@ -27,7 +64,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
           :options => {:buttons => %W{ new_button },
             :resource_types => %W{ admin_comment },
             :button_text => _(:admin),
-            :new_text => _(:'create_modul_comments_administration'),
+            :new_text => _(:create_module_comments_administration),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       end
       
@@ -103,12 +140,6 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         }
       }
       content_resources
-    end
-  end
-
-  def ext_title
-    WidgetManager::Base.new do
-      text get_name
     end
   end
 

@@ -274,6 +274,7 @@ strong{
     background-color:#FFF6CF !important;
     border: 1px solid red !important;
     text-decoration:line-through !important;
+    display:none;
 }
 /* Sortables */
 .handle{

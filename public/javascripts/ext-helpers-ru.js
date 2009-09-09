@@ -58,7 +58,7 @@ function tree_drop_zone(widget_node_id, url, widget, updatable, updatable_view_m
 
 Ext.Ajax.timeout = 60000;
 
-function create_tree(url, tree_label, title, expand_path, resource_type_id, root_id, admin_url, root_title, width)
+function create_tree(url, tree_label, title, expand_path, resource_type_id, root_id, admin_url, root_title, root_url, width)
 {
     var myTreeLoader = new Ext.tree.TreeLoader({
         dataUrl: url,
@@ -76,6 +76,7 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
         // create initial root node
         root:new Ext.tree.AsyncTreeNode({
             text: root_title,
+            href: root_url,
             id:root_id,
             loaded:true,
             leaf:false,

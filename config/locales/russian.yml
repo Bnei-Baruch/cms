@@ -407,7 +407,7 @@ russian:
     cross_page_link: перекрестная ссылка
 
   Global::Widgets::Tree:
-    administration_tree: администрационная схема
+    administration_tree: администрация
     url_bug_report: http://spreadsheets.google.com/viewform?formkey=cGtTM2pTY0xyVldONVBjTFp5cVdNYXc6MA..
     bug_report: отчет о неполадках
     logout_from: выйти из 

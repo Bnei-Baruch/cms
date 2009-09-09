@@ -77,21 +77,22 @@ class Global::Widgets::Tree < WidgetManager::Base
 
     user_name = User.find(AuthenticationModel.current_user).username rescue 'Current user'
     url = tree_node.parent_id == 0 ? @presenter.home : get_page_url(tree_node)
+    root_url = @presenter.home
     link = _(:'administration_tree') + '&nbsp;&nbsp&nbsp;&nbsp;<a target="_blank" href='+_(:url_bug_report)+'>'+_(:bug_report)+'</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + url + '?logout=true">' + _(:logout_from) + ' ' + user_name + '</a>'
 
     @counter += 1
     label = "TREE_#{@counter}"
     name = @presenter.website.hrid.gsub(/\'/, '&#39;')
+    javascript{
+      rawtext <<-JS
+        function toggle_preview(){
+          $(".span_admin,.div_admin,.handle,.drop-zone").toggle();
+        }
+      JS
+    }
     div(:class => 'page-status'){
       rawtext "#{_(:status)}: #{_(tree_node.resource.status.to_sym)}"
-      a(:class => 'preview', :href => '#', :title => 'preview', :onclick => 'toggle_preview();return false;'){
-        javascript{
-          rawtext <<-TOGGLE_PREVIEW
-            function toggle_preview(){
-              $(".span_admin,.div_admin,.handle,.drop-zone").toggle();
-            }
-          TOGGLE_PREVIEW
-        }
+      a(:class => 'preview', :href => '#', :title => _(:preview), :onclick => 'toggle_preview();return false;'){
         rawtext _(:preview)
       }
     }
@@ -104,7 +105,7 @@ class Global::Widgets::Tree < WidgetManager::Base
             function tree() {
               create_tree('#{get_page_url(tree_node)}', '#{label}', '#{link}',
                           '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
-                          '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}', 500);
+                          '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}', '#{root_url}', 500);
             }
         TREE_CODE
       }
@@ -126,7 +127,7 @@ class Global::Widgets::Tree < WidgetManager::Base
       status = ['PUBLISHED']
     else
       properties = nil
-      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'DELETED']
+      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
     end
     nodes = TreeNode.get_subtree(
       :parent => node_id,

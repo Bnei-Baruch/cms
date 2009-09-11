@@ -107,7 +107,7 @@ h2{
     text-align:center;
 }
 .descr{
-    background:#f6f6fc url(/images/rusmain/descr-grad.gif) repeat-x bottom left;
+    background:#ededf3 url(/images/rusmain/descr-grad.gif) repeat-x left top;
     color:#5A5A5A;
     font-size:11px;
     font-weight:bold;
@@ -121,8 +121,7 @@ h2{
     position:absolute;
     bottom:0;
     width:5px;
-    height:81px;
-    background:#999B9F url(/images/rusmain/descr-ears.gif) no-repeat 0 0;
+    background:#ededf3 url(/images/rusmain/descr-ears.gif) no-repeat left top;
 }
 .descr .left-ear{
     left:0;

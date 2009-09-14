@@ -6,13 +6,17 @@ class PageMap < ActiveRecord::Base
       # logger.error "save_tree_nodes_list will update DB"
       PageMap.find_by_sql "START TRANSACTION"
       PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1;' rescue ''
+      tid = tree_node.id
       [
-        # This node is child of...
-        PageMap.find_all_by_child_id(tree_node.id) +
-          # This node is parent of...
-          PageMap.find_all_by_parent_id(tree_node.id) +
-            # This is a new node and it was attached to...
-          (tree_node.parent ? PageMap.find_all_by_parent_id(tree_node.parent.id) : [])
+        # This node is child of or parent of...
+        PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', tid, tid]) +
+        # This is a new node and it was attached to...
+        if (tree_node.parent) then
+          pid = tree_node.parent.id
+          PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', pid, pid])
+        else
+          []
+        end
       ].compact.flatten.uniq.map {|map|
         TreeNode.find(map.parent_id)
       }.each{ |node|

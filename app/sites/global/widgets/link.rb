@@ -20,7 +20,7 @@ class Global::Widgets::Link < WidgetManager::Base
         :resource_types => %W{ link }}).render_to(self)
 
     if resource
-      a({:href => get_url, :target =>'_blank' ,:title => get_alt}.merge!(gg_analytics_tracking(get_name))) {
+      a({:href => get_url, :class => get_open_in_new_window ? 'target_blank' : 'target_self', :title => get_alt}.merge!(gg_analytics_tracking(get_name))) {
         text get_name
       }
     end

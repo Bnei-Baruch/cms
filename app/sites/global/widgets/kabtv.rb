@@ -18,10 +18,13 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         url = Language.get_url(@language, @presenter.get_cookies)[0]
         rawtext <<-TV1
           <div id="tvobj">
-          <object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="mini" /><param name="mute" value="1" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="0" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />
-          <embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" mute="1" />
-          </object></div>
+          </div>
         TV1
+        javascript {
+          rawtext <<-TV
+					    $("#tvobj").html('<object classid=\"clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6\" style=\"background-color:#000000\" id=\"player\" name=\"player\" type=\"application/x-oleobject\" width=\"#{width}\" height=\"#{height}\" standby=\"Loading Windows Media Player components...\"><param name=\"URL\" value=\"#{url}\" /><param name=\"AutoStart\" value=\"1\" /><param name=\"AutoPlay\" value=\"1\" /><param name=\"volume\" value=\"50\" /><param name=\"uiMode\" value=\"mini\" /><param name=\"mute\" value=\"1\" /><param name=\"animationAtStart\" value=\"1\" /><param name=\"showDisplay\" value=\"1\" /><param name=\"transparentAtStart\" value=\"0\" /><param name=\"ShowControls\" value=\"1\" /><param name=\"ShowStatusBar\" value=\"0\" /><param name=\"ClickToPlay\" value=\"0\" /><param name=\"bgcolor\" value=\"#000000\" /><param name=\"windowlessVideo\" value=\"1\" /><param name=\"balance\" value=\"0\" /> <embed id=\"player\" name=\"player\" src=\"#{url}\" type=\"application/x-mplayer2\" pluginspage=\"http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112\" autostart=\"true\" stretchToFit=\"false\" uimode=\"full\" width=\"#{width}\" height=\"#{height}\" mute=\"1\" /> </object>');
+        TV
+        }
         javascript {
           rawtext <<-TV
             var firstclick = true;

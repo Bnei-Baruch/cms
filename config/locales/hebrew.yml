@@ -290,6 +290,7 @@ hebrew:
   Hebmain::Widgets::MediaRss:
     date:  תאריך
     picture: שרטוט
+    name:  תאור
     video:  וידאו
     audio: אודיו
 

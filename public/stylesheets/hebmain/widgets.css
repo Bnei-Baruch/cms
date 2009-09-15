@@ -1230,10 +1230,11 @@ a.highslide-full-expand {
     font-weight:bold;
     cursor:pointer;
 }
-#kabtv-news a{
+/*#kabtv-news a{
     color: black;
     text-decoration: none;
 }
+*/
 #kabtv-news .link{
     background: transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 89%;
     text-align: left;
@@ -1246,6 +1247,9 @@ a.highslide-full-expand {
     font-weight:normal;
     color:#0D47B2;
     margin: 0pt;
+}
+#kabtv-news .itemopen a.black_color{
+	color:black;
 }
 #kabtv-news .item .newstitle h3{
     padding: 2pt 12pt 0pt 0pt;

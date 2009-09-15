@@ -106,21 +106,29 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
       title = get_title
 
       unless url.empty?
-        a(:href => url, :title => title){
           div(:class => 'newstitleopen'){
-            h3 title
-          }
-          div(:class => 'newsdescription'){
-            image = get_picture(:image_name => 'thumb')
-            unless image.empty?
-              img(:class => 'newsimg', :alt => '', :src => image)
-            end
-            rawtext get_description
-            br
-            div(:class => 'link'){
-              text get_url_text
+            h3{
+              a(:href => url, :title => title){
+                text title
+              }
             }
-          }
+            div(:class => 'newsdescription'){
+              image = get_picture(:image_name => 'thumb')
+              unless image.empty?
+                a(:href => url, :title => title){
+                  img(:class => 'newsimg', :alt => '', :src => image)
+                }
+              end
+              a(:href => url, :title => title, :class => 'black_color'){
+                rawtext get_description
+              }
+              br
+              div(:class => 'link'){
+                a(:href => url, :title => title){
+                  text get_url_text
+                }
+              }
+            }
         }
       end
     }

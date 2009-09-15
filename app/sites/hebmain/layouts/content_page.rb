@@ -2,7 +2,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
 
   attr_accessor :ext_content, :ext_content_header, :ext_title, :ext_description,
     :ext_main_image, :ext_related_items, :ext_kabtv_exist, 
-    :ext_abc_up, :ext_abc_down
+    :ext_abc_up, :ext_abc_down, :ext_keywords
 
   def initialize(*args, &block)
     super
@@ -36,6 +36,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         meta(:name => 'node_id', :content => @tree_node.id)
         meta(:name => 'description', :content => ext_description)
+        meta(:name => 'keywords', :content => ext_keywords)
         title @meta_title #ext_title
         text  ext_abc_up
 

@@ -1382,9 +1382,24 @@ a.highslide-full-expand {
 }
 /***********************/
 .share_this{
-    text-align: left;
+    text-align: right;
+    display: inline;
 }
 #sharepic{
+    margin:0 0px 0 2px;
+}
+.hadashot{
+    text-align: right;
+    display: inline;
+}
+#hadashotpic{
+    margin:0 0px 0 2px;
+}
+.shavekria{
+    text-align: right;
+    display: inline;
+}
+#shavekriapic{
     margin:0 0px 0 2px;
 }
 /*************************/

@@ -38,7 +38,7 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
       h1(:class => 'box_header'){
         a(:href => url) {
           img(:src => image_src, :alt => 'preview') if image_src
-	  text get_title if get_title
+          text get_title if get_title
         }
       }
     

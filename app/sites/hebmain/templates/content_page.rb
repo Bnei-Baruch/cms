@@ -10,6 +10,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     layout.ext_kabtv_exist = ext_kabtv_exist
     layout.ext_abc_up =  ext_abc_up
     layout.ext_abc_down = ext_abc_down
+    layout.ext_keywords = ext_keywords
   end
 
 
@@ -197,6 +198,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_description
     WidgetManager::Base.new do
       text get_description
+    end
+  end
+
+  def ext_keywords
+    WidgetManager::Base.new do
+      text get_keywords
     end
   end
 

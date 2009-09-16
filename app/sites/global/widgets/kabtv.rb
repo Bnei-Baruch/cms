@@ -13,11 +13,42 @@ class Global::Widgets::Kabtv < WidgetManager::Base
       cms_action
       #      We don't want to use different backgrounds here
       div(:id => 'kabtv-top'){
-        height = 197
+        height = 214
         width = 199
         url = Language.get_url(@language, @presenter.get_cookies)[0]
         rawtext <<-TV1
           <div id="tvobj">
+          <!--[If IE]>
+          <object 
+            classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
+            type="application/x-oleobject"
+            id="player" 
+            name="player" 
+            data="#{url}" 
+            width="#{width}" 
+            height="#{height}">
+            <param name="url" value="#{url}" />
+            <param name="autostart" value="true" />
+            <param name="controller" value="true" />
+            <param name="volume" value="50" />
+            <param name="uiMode" value="mini" />
+            <param name="mute" value="true" />
+            <param name="animationAtStart" value="true" />
+            <param name="showDisplay" value="false" />   
+            <param name="ShowAudioControls" value="true" />
+            <param name="ShowPositionControls" value="false" />
+            <param name="transparentAtStart" value="false" / >
+            <param name="ShowControls" value="true" />
+            <param name="ShowStatusBar" value="true" />
+            <param name="ShowTracker" value="false" />
+            <param name="ClickToPlay" value="false" />
+            <param name="DisplayBackColor" value="#000000" />
+            <param name="DisplayForeColor" value="#ffffff" />
+            <param name="windowlessVideo" value="true" />
+            <param name="balance" value="false" />
+          </object>
+          <![endif]-->
+          <!--[if !IE]>-->
           <object 
             type="video/x-ms-wmv"
             id="player" 
@@ -35,8 +66,8 @@ class Global::Widgets::Kabtv < WidgetManager::Base
             <param name="showDisplay" value="false" />   
             <param name="ShowAudioControls" value="true" />
             <param name="ShowPositionControls" value="false" />
-            <param name="transparentAtStart" value="false" /
-            ><param name="ShowControls" value="true" />
+            <param name="transparentAtStart" value="false" />
+            <param name="ShowControls" value="true" />
             <param name="ShowStatusBar" value="true" />
             <param name="ShowTracker" value="false" />
             <param name="ClickToPlay" value="false" />
@@ -45,18 +76,9 @@ class Global::Widgets::Kabtv < WidgetManager::Base
             <param name="windowlessVideo" value="true" />
             <param name="balance" value="false" />
           </object>
+          <!--<![endif]-->
           </div>
         TV1
-        # javascript {
-        #   rawtext <<-TV
-        #               $("#tvobj").html('<object classid=\"clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6\" style=\"background-color:#000000\" id=\"player11\" name=\"player11\" type=\"application/x-oleobject\" width=\"#{width}px\" height=\"#{height}px\" standby=\"Loading Windows Media Player components...\"><param name=\"URL\" value=\"#{url}\" /><param name=\"AutoStart\" value=\"1\" /><param name=\"AutoPlay\" value=\"1\" /><param name=\"volume\" value=\"50\" /><param name=\"uiMode\" value=\"mini\" /><param name=\"mute\" value=\"1\" /><param name=\"animationAtStart\" value=\"1\" /><param name=\"showDisplay\" value=\"1\" /><param name=\"transparentAtStart\" value=\"0\" /><param name=\"ShowControls\" value=\"1\" /><param name=\"ShowStatusBar\" value=\"0\" /><param name=\"ClickToPlay\" value=\"0\" /><param name=\"bgcolor\" value=\"#000000\" /><param name=\"windowlessVideo\" value=\"1\" /><param name=\"balance\" value=\"0\" /> <embed id=\"player_embed\" name=\"player_embed\" src=\"#{url}\" type=\"application/x-mplayer2\" pluginspage=\"http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112\" autostart=\"true\" stretchToFit=\"false\" uimode=\"full\" width=\"#{width}px\" height=\"#{height}px\" mute=\"1\" /> </object>');
-        #       $('#player11').attr('width', '#{width}');
-        #       $('#player11').attr('height', '#{height}');
-        #       $('#player_embed').attr('width', '#{width}');
-        #       $('#player_embed').attr('height', '#{height}');
-        #       
-        # TV
-        # }
         javascript {
           rawtext <<-TV
             var firstclick = true;

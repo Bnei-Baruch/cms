@@ -44,7 +44,6 @@ class Global::Widgets::Kabtv < WidgetManager::Base
             <param name="ClickToPlay" value="false" />
             <param name="DisplayBackColor" value="#000000" />
             <param name="DisplayForeColor" value="#ffffff" />
-            <param name="windowlessVideo" value="true" />
             <param name="balance" value="false" />
           </object>
           <![endif]-->
@@ -73,7 +72,6 @@ class Global::Widgets::Kabtv < WidgetManager::Base
             <param name="ClickToPlay" value="false" />
             <param name="DisplayBackColor" value="#000000" />
             <param name="DisplayForeColor" value="#ffffff" />
-            <param name="windowlessVideo" value="true" />
             <param name="balance" value="false" />
           </object>
           <!--<![endif]-->

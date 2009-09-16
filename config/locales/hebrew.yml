@@ -34,7 +34,7 @@ hebrew:
     home_breadcrumb: ראשי
 
   Hebmain::Widgets::LanguageMenu:
-    chooseyourlanguage: Choose your language
+    chooseyourlanguage: בחר שפה
     arabic: العربية
     german: Deutsch
     spanish: Español

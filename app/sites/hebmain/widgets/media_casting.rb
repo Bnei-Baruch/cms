@@ -5,6 +5,7 @@ class Hebmain::Widgets::MediaCasting < WidgetManager::Base
   	
     title = get_title
     url = get_url
+    hide_download_link = get_hide_download_link
 	        
     div(:class => 'mediacasting'){
 	
@@ -12,10 +13,14 @@ class Hebmain::Widgets::MediaCasting < WidgetManager::Base
         img :src => '/images/delete.gif', :alt => '', :style => 'vertical-align:middle;'
         text 'הפסק'
       }
-      a(:class => 'media-download', :href => url){
-        img :src => '/images/download.jpg', :alt => '', :style => 'vertical-align:middle;'
-        text '  הורד'
-      }
+      unless hide_download_link
+        a(:class => 'media-download', :href => url){
+          img :src => '/images/download.jpg', 
+            :alt => '', 
+            :style => 'vertical-align:middle;'
+          text '  הורד'
+        }
+      end
 		 
       div(:class => 'toggle-media'){
         a(:href => url, :class => 'media'){

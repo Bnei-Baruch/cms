@@ -6,14 +6,13 @@ class Hebmain::Widgets::MediaCasting < WidgetManager::Base
     title = get_title
     url = get_url
     hide_download_link = get_hide_download_link
-	        
     div(:class => 'mediacasting'){
 	
       a(:class => 'hide-player', :href => ''){
         img :src => '/images/delete.gif', :alt => '', :style => 'vertical-align:middle;'
         text 'הפסק'
       }
-      unless hide_download_link
+      if (hide_download_link.is_a?(String) && hide_download_link.empty?) || (not hide_download_link)
         a(:class => 'media-download', :href => url){
           img :src => '/images/download.jpg', 
             :alt => '', 

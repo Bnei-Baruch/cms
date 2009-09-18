@@ -1,7 +1,7 @@
 # Convention :
 # class name:
 #   token: translation
-# the token should be lower case and without space
+# the token should be lower case; spaces must be replaced with underscores
 #
 
 
@@ -68,18 +68,18 @@ russian:
     english: English
 
   Rusmain::Widgets::CampusForm:
-    admin:  админ
+    admin: админ
     name: имя
-    date:  дата
-    tel:  телефон
-    email:   е-мейл
-    campaign:  кампания
-    list_name:  название списка
+    date: дата
+    tel: телефон
+    email: е-мейл
+    campaign: кампания
+    list_name: название списка
     error_mesg: ошибка в коде картинки. попробуйте снова.
-    label_captcha: אבטחת הרשמה
+    label_captcha: вы человек?
     label_captcha2: наберите надпись написаную в строке
-    details_saved_successfully:      Ваши данные были приняты
-    email_from:   откуда был выслан е-мейл
+    details_saved_successfully: Ваши данные были приняты
+    email_from: откуда был выслан е-мейл
     email_to: е-мейл адрес администратора, который получит утверждение записи
     email_subject: е-мейл адрес администратора, который получит утверждение записи
     confirmation_text: текст посланого сообщения
@@ -87,12 +87,12 @@ russian:
     list_name: название списка (писать на английском языке)
     campus_label_1: название первого поля
     hide_campus_label_1:  скрыть первое поле
-    campus_label_1_mandatory:   обязательно заполнить
-    campus_Label_2:  название второго поля
+    campus_label_1_mandatory: обязательно заполнить
+    campus_Label_2: название второго поля
     hide_Campus_Label_2: скрыть второе поле
     campus_Label_2_mandatory: обязательно заполнить
-    campus_Label_3:  название третьего поля
-    hide_Campus_Label_3:  скрыть третье поле
+    campus_Label_3: название третьего поля
+    hide_Campus_Label_3: скрыть третье поле
     campus_Label_3_mandatory: обязательно заполнить
 
   Global::Widgets::CmsActions:
@@ -221,7 +221,7 @@ russian:
     news_for_tv: администрация новостей для тв
     add_newsbox_for_tv: добавить новость для тв
     tothetvchannel: на тв канал
-    clicktogolive:  нажми для просмотра прямого эфира
+    clicktogolive: нажми для просмотра прямого эфира
     schedule: программа
     questions: вопросы
     sketches: чертежи
@@ -362,10 +362,10 @@ russian:
   Mainsites::Widgets::Newsletter:
     newsletter: рассылка
     subscribe: подписка
-    newsletter_subscription: подписка на еженедельный ньюзлетер
+    newsletter_subscription: подписка на еженедельную рассылку
     email_address: е-мейл адрес
     send: послать
-    enter_email: наберите е-мейл адрес
+    enter_email: введите е-мейл адрес
 
   Rusmain::Widgets::Sections:
     home: главная
@@ -444,17 +444,17 @@ russian:
     site_name: название сайта
     prefix: префикс
     domain: домейн
-    meta_title: Meta title
-    maximum_number_of_items:  максимально количество элементов
-    acts_as_articles_index: Acts as articles index
+    meta_title: Мета-заголовок
+    maximum_number_of_items:  максимальное количество элементов
+    acts_as_articles_index: показывать как список статей
     is_main_format: в основном формате
-    link: link
-    items: item
+    link: ссылка
+    items: элемент
     number_of_days: количество дней
     category: категория
     group_by_date: упорядочить по датам
     url: Url
-    alt: Alt
+    alt: альтернативный заголовок
     open_in_new_window: открыть в новом окне
     news_for_tv: администрация новостей
     add_newsbox_for_tv: добавить новость для тв

@@ -38,3 +38,5 @@ config.dependency_loading = false
 # config.gem "aws-s3", :lib => "aws/s3"
 
 #config.action_view.warn_cache_misses = true
+
+config.logger = Logger.new(config.log_path, 10, 5242880)

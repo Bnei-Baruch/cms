@@ -17,9 +17,11 @@ russian:
     body:  содержание
     edit: редактировать
     del: стереть
-    send: послать
-    cancel: отменить
+    submit: послать
+    submit: послать
+    reload: перегрузить
     admin_comments: управление комментариями
+    non_moderated: не модерированные
 
   Mainsites::Widgets::ContentPreview:
     manage_content_preview: управление предварительной экспозицией
@@ -176,6 +178,7 @@ russian:
 
   Mainsites::Layouts::ContentPage:
     create_new_content_item: создать новую единицу содержания
+    left_menu: левое меню
 
   Mainsites::Widgets::AudioGallery:
     create_new_content_item: создать новую единицу содержания
@@ -380,7 +383,6 @@ russian:
     cancel:  отменить
 
   Mainsites::Templates::ContentPage:
-    left_menu: левое меню
     create_new_title: новый заголовок
 
   Rusmain::Templates::ContentPage:

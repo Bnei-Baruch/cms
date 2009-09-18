@@ -70,7 +70,16 @@ module ActiveRecord
           nodes
         end
 
-        # Returns the root node of the tree.
+        # Returns a list of children, grandchildren, great-grandchildren, and so forth.
+        #
+        #   root.descendants # => [child1, subchild1]
+ 	      def descendants
+          descendants = []
+          self.children.each { |child| descendants += [child] + child.descendants } if self.children.length > 0
+ 	        descendants
+        end
+
+ 	      # Returns the root node of the tree.
         def root
           node = self
           node = node.parent while node.parent

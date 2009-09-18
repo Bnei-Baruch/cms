@@ -3,9 +3,7 @@ class Global::Widgets::AdminComment < WidgetManager::Base
   include ParseDate
 
   def render_full
-    if tree_node.can_edit?
-      create_main_div  
-    end
+    create_main_div if tree_node.can_edit?
   end
   
   def render_update_comment
@@ -25,10 +23,10 @@ class Global::Widgets::AdminComment < WidgetManager::Base
           page_id = op[0].split('action')[0]
           action_hash['cache'].push(page_id) unless action_hash['cache'].include?(page_id)
           action_value = op[1]
-          case action_value 
-          when 'validate' then 
+          case action_value
+          when 'validate' then
             action_hash[action_value].store(id, {'is_valid' => '200'})
-          when 'invalidate' then 
+          when 'invalidate' then
             action_hash['validate'].store(id, {'is_valid' => '500'})
           when 'delete' then
             action_hash[action_value].push(id)
@@ -41,44 +39,55 @@ class Global::Widgets::AdminComment < WidgetManager::Base
         FileUtils.rm(Dir['tmp/cache/tree_nodes/'+c+'-*']) rescue Errno::ENOENT
       }
     end
-    write_inside_of_form  
+    write_inside_of_form
   end
 
-  private 
+  private
 
 
-  def write_links_of_page(total=0,offset=1,cat='nil', mod='off')
+  def write_links_of_page(total = 0, offset = 1, cat = 'nil', mod = 'off')
     cat = 'nil' if cat.blank?
-    nb_page = (total/offset)
+    nb_page = (total / offset)
     index = 0
-    while nb_page >= index
-      a(:href => get_page_url(@presenter.node)+'?page_nb='+(index+1).to_s+'&cat='+cat+'&mod='+mod){text ' <'+(index+1).to_s+'> '}
+    while nb_page > index
       index += 1
+      a(:href => get_page_url(@presenter.node) + '?page_nb=' + index.to_s + '&cat=' + cat + '&mod=' + mod){
+        text ' <' + index.to_s + '> '
+      }
     end
-  end  
+  end
 
 
   def create_main_div
-    input :type=>"button", :value=>"Reload", 
-      :onClick=>"window.location.href=window.location.href.split('?')[0]"
-    br
-    div(:class => 'admin_comment_main'){
-      form(:id => 'admin_comment_form') {
-        if @presenter.page_params[:comment_id].blank?
-          write_inside_of_form
-        else
-          single_comment(@presenter.page_params[:comment_id])
-        end
+    div(:class => 'admin_comments'){
+      h3 get_name
+      w_class('cms_actions').new(:tree_node => tree_node, :options => {
+          :buttons => %W{ delete_button edit_button},
+          :button_text => _(:admin_comments)
+        }).render_to(self)
+
+      input :type=>"button", :value=>_(:reload),
+      :onclick=>"window.location.href=window.location.href.split('?')[0]"
+      br
+      div(:class => 'admin_comment_main'){
+        form(:id => 'admin_comment_form') {
+          if @presenter.page_params[:comment_id].blank?
+            write_inside_of_form
+          else
+            single_comment(@presenter.page_params[:comment_id])
+          end
+        }
       }
     }
-  end  
+  end
 
   def write_inside_of_form
     cat =  @presenter.main_sections
     p{
       br
       input :type => 'checkbox', :name => 'options[onlymoderated]'
-      text ' Non Moderated'
+      text ' '
+      text _(:non_moderated)
       br
       
       input :type => 'submit', :name => 'Submit', :id => 'submit', :class => 'submit', :value => _(:submit)
@@ -95,7 +104,6 @@ class Global::Widgets::AdminComment < WidgetManager::Base
       }
 
       
-      b{'Admin comment'}
       table{
         thead{
           tr{
@@ -114,47 +122,33 @@ class Global::Widgets::AdminComment < WidgetManager::Base
         
         
         if @presenter.page_params.include?('options')
-          cat = @options['filter'] 
-          mod = @options['onlymoderated'] 
+          cat = @options['filter']
+          mod = @options['onlymoderated']
           page = 1
         else
-          if @presenter.page_params[:page_nb].blank?
-            page = 1
-          else
-            page = @presenter.page_params[:page_nb].to_i
-          end
-        
-          if @presenter.page_params[:cat].blank?
-            cat = 'nil'
-          else
-            cat = @presenter.page_params[:cat]
-          end
-        
-          if @presenter.page_params[:mod].blank?
-            mod = 'off'
-          else
-            mod = @presenter.page_params[:mod]
-          end
+          page = @presenter.page_params[:page_nb].blank? ? 1 : @presenter.page_params[:page_nb].to_i
+          cat = @presenter.page_params[:cat].blank? ? 'nil' : @presenter.page_params[:cat]
+          mod = @presenter.page_params[:mod].blank? ? 'off' : @presenter.page_params[:mod]
         end
 
         mod = (mod.blank? || mod == 'off') ?  'off' : 'on'
 
         if mod == 'on'
           if cat == 'nil'
-            hash_comment = Comment.list_all_non_moderated_comments(page)
+            hash_comment = Comment.list_all_non_moderated_comments(page, @presenter.website_node)
           else
-            hash_comment = Comment.list_non_moderated_comments_for_category(cat, page)
+            hash_comment = Comment.list_non_moderated_comments_for_category(cat, page, @presenter.website_node)
           end
         else
           if cat  == 'nil'
-            hash_comment = Comment.list_all_comments(page)
+            hash_comment = Comment.list_all_comments(page, @presenter.website_node)
           else
-            hash_comment = Comment.list_all_comments_for_category(cat, page)
+            hash_comment = Comment.list_all_comments_for_category(cat, page, @presenter.website_node)
           end
         end
         
         comment_list = hash_comment['content_arrays']
-        comment_count = hash_comment['count_comments']  
+        comment_count = hash_comment['count_comments']
         comment_list.each_with_index { |cl,i|
           cmcreated = parsedate cl.created_at.to_s
           case cl.is_valid
@@ -193,7 +187,7 @@ class Global::Widgets::AdminComment < WidgetManager::Base
           break unless i < (page*Comment::NBCOMMENTPERPAGE)
         }
         tr{td(:colspan => 11 ){
-            write_links_of_page(comment_count, Comment::NBCOMMENTPERPAGE, cat, mod) 
+            write_links_of_page(comment_count, Comment::NBCOMMENTPERPAGE, cat, mod)
           }}
       }
     }

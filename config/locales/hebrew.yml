@@ -132,7 +132,7 @@ hebrew:
     to_listen: להאזנה
     continue: להמשך
     new_language: שפה חדשה
-    create_modul_comments_administration: צור מודול ניהול תגובות
+    create_module_comments_administration: צור מודול ניהול תגובות
     read_more: להמשך
     
   Global::Widgets::Header:

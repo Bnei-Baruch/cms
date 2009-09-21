@@ -3,7 +3,8 @@ class ResourceObserver < ActiveRecord::Observer
     unless resource.status == 'DELETED'
       # Find instances of RpFile, i.e. attachments
       # Create thumbnails for those which are images
-      properties = resource.resource_properties || resource.get_resource_properties
+
+      properties = resource.resource_properties.empty? ? resource.get_resource_properties : resource.resource_properties
       properties.select {|fld| fld.instance_of?(RpFile)}.each {|rp|
         #      next unless rp.changed? -- That doesn't work for images because we always remove it
         next if !( rp.attachment && rp.attachment.is_image?)

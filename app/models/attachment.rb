@@ -26,19 +26,19 @@ class Attachment < ActiveRecord::Base
     _image_id   = split[0]
     _image_name = split[1]
     attachment = find(:first, :conditions => ["id = ?", _image_id])
-    if !attachment 
-      return nil
-    end
+    return nil unless attachment
+
     case _image_name
     when 'original'
       attachment = attachment.resource_property.original
     when 'myself'
-      attachment = attachment.myself
+      attachment = attachment.myself || attachment.resource_property.original
     else
       if thumbnail = attachment.thumbnails.detect{|th| th.filename.eql?(_image_name)}
         attachment = thumbnail
       end
     end
+
     # We're here because of normal caching didn't work
     Attachment.save_as_file(attachment, _image_id, "#{_image_name}.#{format}")
     attachment
@@ -58,7 +58,7 @@ class Attachment < ActiveRecord::Base
 
   # Returns: options
   def Attachment.store_rp_file(resource_property, options)
-    return options if resource_property.nil?
+#    return options if resource_property.nil? ZZZ What is it good for?
     
     # Should we first remove an old one?
     remove = options.delete(:remove)
@@ -71,7 +71,7 @@ class Attachment < ActiveRecord::Base
     # Is file supplied?
     att = options[:value]
     if not file_provided?(att)
-      options[:attachment] = resource_property.attachment
+      options[:attachment] = resource_property ? resource_property.attachment : nil
       options[:value] = nil
       return options
     end

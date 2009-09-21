@@ -495,7 +495,7 @@ var playerConfig_homepage = {
     showStopButton:false,
     autoRewind:true,
     showVolumeSlider: false,
-    showFullScreenButton:false,
+    showFullScreenButton:true,
     controlsOverVideo: 'ease',
     controlBarBackgroundColor: -1,
     controlBarGloss: 'low',

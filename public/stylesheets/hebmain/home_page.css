@@ -167,6 +167,7 @@
 .right-part .player .more{
     margin:15px 2px 0 0;
     text-align: right;
+	font-weight:bold;
 }
 .right-part .flashplayer {
     cursor:pointer;

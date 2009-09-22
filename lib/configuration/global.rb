@@ -12,7 +12,8 @@ module	Configuration::Global
     :comments => {
       :enable_site_wide => true
     },
-    :rss_items_limit => 10  # Number of items to show in RSS
+    :rss_items_limit => 10,  # Number of items to show in RSS
+    :chain_meta_title => false  # This configuration determines whether to chain the whole path to root in meta title or not. 
   }
  
 end

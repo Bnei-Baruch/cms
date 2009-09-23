@@ -146,7 +146,7 @@
     text-align:center;
 }
 .right-part .player .playlist{
-    margin: 15px 2px 0;
+    margin: 0 2px 0;
     text-align: right;
 }
 .right-part .player .playlist ol{
@@ -165,7 +165,7 @@
     display:block;
 }
 .right-part .player .more{
-    margin:15px 2px 0 0;
+    margin:5px 2px 0 0;
     text-align: right;
 	font-weight:bold;
 }

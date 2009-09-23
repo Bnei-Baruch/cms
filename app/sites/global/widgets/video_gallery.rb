@@ -7,13 +7,15 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
       div(:id => "flashplayer-id-#{id}") {
         img(:src => get_image, :alt => '', :class => 'flashplayer') if get_image
       }
-      # div(:id => "playlist-#{id}", :class => 'playlist'){
-      #   ol{
-      #     video_items.each { |video_item|
-      #       li {w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_gallery').render_to(self)}
-      #     }
-      #   }
-      # }
+      if tree_node.can_edit?
+        div(:id => "playlist-#{id}", :class => 'playlist'){
+          ol{
+            video_items.each { |video_item|
+              li {w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_gallery').render_to(self)}
+            }
+          }
+        }                   
+      end
       a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url
     }
   end

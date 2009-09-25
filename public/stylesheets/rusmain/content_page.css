@@ -8,7 +8,6 @@
 }
 #static-menu li{
     font:11px "Lucida Grande CY", Arial, sans-serif;
-    color:#1060A5;
     background-color:#e0e2e7;
 }
 #static-menu li a{
@@ -36,7 +35,8 @@
 #static-menu a.current_node{
     background-color:#eff1f6;
 }
-#static-menu a{
+#static-menu a, #static-menu a:visited{
+    color:#1060A5;
     display:block;
 }
 .breadcrumbs{
@@ -110,7 +110,6 @@ h2{
     background:#ededf3 url(/images/rusmain/descr-grad.gif) repeat-x left top;
     color:#5A5A5A;
     font-size:11px;
-    font-weight:bold;
     text-align:center;
     padding:10px;
     border-top:1px solid #e5e5eb;

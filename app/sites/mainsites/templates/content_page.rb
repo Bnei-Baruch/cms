@@ -175,7 +175,7 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
         :tree_node => @tree_node,
         :options => {
           :buttons => %W{ new_button },
-          :resource_types => %W{ box rss, media_casting },
+          :resource_types => %W{ box rss media_casting },
           :button_text => _(:related_items),
           :new_text => _(:'create_new_box'),
           :has_url => false,

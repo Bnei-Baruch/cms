@@ -1,6 +1,8 @@
 class Language < Kabtv
   def self.get_url(language, cookies)
     lang = find_by_lang(language)
+    return '', nil, nil, nil, 0 if lang.nil?
+    
     unless cookies["tvspeed_#{language}"].empty?
       names, locs, map = Language.map(lang)
       video_url = map[cookies["tvspeed_#{language}"]]

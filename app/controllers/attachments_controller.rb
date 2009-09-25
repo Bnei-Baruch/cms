@@ -20,7 +20,7 @@ class AttachmentsController < ApplicationController
     # send file
     #    response.headers['Last-Modified'] = attachment.updated_at.httpdate
     if stale?(:last_modified => attachment.updated_at.utc, :etag => attachment)
-      send_data attachment.file,
+      send_data attachment.file_content,
         :filename => attachment.filename,
         :type => attachment.mime_type,
         :disposition => "inline"

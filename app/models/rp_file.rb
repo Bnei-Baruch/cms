@@ -2,7 +2,7 @@ class RpFile < ResourceProperty
 
   attr_accessor :remove
 
-  validates_length_of :file, :as => :attachment, :maximum => 5.megabytes
+  validates_length_of :file_content, :as => :attachment, :maximum => 5.megabytes
 
   def original
     attachment
@@ -20,8 +20,8 @@ class RpFile < ResourceProperty
     (attachment && attachment.mime_type) || ''
   end
 
-  def file
-    (attachment && attachment.file) || ''
+  def file_content
+    (attachment && attachment.file_content) || ''
   end
 
   def value

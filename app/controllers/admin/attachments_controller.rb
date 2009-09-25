@@ -9,6 +9,6 @@ class Admin::AttachmentsController < ApplicationController
 
     # send file
     response.headers['Last-Modified'] = attachment.updated_at.httpdate
-    send_data attachment.file, :filename => attachment.filename, :type => attachment.mime_type, :disposition => "inline"
+    send_data attachment.file_content, :filename => attachment.filename, :type => attachment.mime_type, :disposition => "inline"
   end
 end

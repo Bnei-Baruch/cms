@@ -3,9 +3,9 @@ require 'mini_magick'
 
 class Attachment < ActiveRecord::Base
 
-  attr_accessor :file
+  attr_accessor :file_content
 
-  validates_length_of :file, :as => :attachment, :maximum => 5.megabytes
+  validates_length_of :file_content, :as => :attachment, :maximum => 5.megabytes
 
   belongs_to  :resource_property
 
@@ -46,12 +46,13 @@ class Attachment < ActiveRecord::Base
     attachment
   end
   
-  def Attachment.save_as_file(attachment, original_image_id, name)
+  def Attachment.save_as_file(attachment, original_image_id, name, force = true, image = nil)
     path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (original_image_id.to_i % 100).to_s)
+    return if !force && File.exist?("#{path}/#{original_image_id}_#{name}")
     FileUtils.mkdir_p path 
     File.open("#{path}/#{original_image_id}_#{name}", "w") {|file|
       file.binmode
-      file.write attachment.file
+      file.write image ? image : attachment.file_content
     }
   end
 
@@ -83,9 +84,9 @@ class Attachment < ActiveRecord::Base
     attachment = (resource_property && resource_property.attachment) || Attachment.new
     attachment.size = att.length
     attachment.filename = sanitize_filename(att.original_filename)
-    attachment.file = att.read
+    attachment.file_content = att.read
     attachment.mime_type = att.content_type.chomp
-    attachment.md5 = Digest::MD5.hexdigest(attachment.file)
+    attachment.md5 = Digest::MD5.hexdigest(attachment.file_content)
     
     # Is it valid?
     if attachment.valid?
@@ -153,14 +154,14 @@ class Attachment < ActiveRecord::Base
   end
 
   def resize(geometry, name)
-    image = MiniMagick::Image.from_blob(self.file, self.mime_type.split('/').last)
+    image = MiniMagick::Image.from_blob(self.file_content, self.mime_type.split('/').last)
     image.resize geometry
     image.strip
     new_image = image.to_blob
     thumb = Attachment.new(:filename => name)
-    thumb.file = new_image
+    thumb.file_content = new_image
     thumb.size = new_image.size
-    thumb.md5 = Digest::MD5.hexdigest(thumb.file)
+    thumb.md5 = Digest::MD5.hexdigest(thumb.file_content)
     thumb.mime_type = self.mime_type
     thumb
   end

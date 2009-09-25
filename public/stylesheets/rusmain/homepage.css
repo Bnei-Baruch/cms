@@ -7,8 +7,6 @@
   margin:-2px 0 0;
 }
 #static-menu li{
-  font:11px "Lucida Grande CY", Arial, sans-serif;
-  color:#1060A5;
   background-color:#e0e2e7;
 }
 #static-menu li a{
@@ -37,6 +35,7 @@
   background-color:#eff1f6;
 }
 #static-menu a{
+  color:#1060A5;
   display:block;
 }
 .breadcrumbs{

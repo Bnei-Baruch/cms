@@ -1,5 +1,7 @@
 /******** GENERAL *********************/
-
+body{
+  font-family: "Lucida Grande CY", Arial, sans-serif !important;
+}
 .yui-t7 #yui-main .yui-b {
     margin-left:18em;
 }

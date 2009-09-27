@@ -5,8 +5,6 @@ class Attachment < ActiveRecord::Base
 
   attr_accessor :file_content
 
-  validates_length_of :file_content, :as => :attachment, :maximum => 5.megabytes
-
   belongs_to  :resource_property
 
   with_options :class_name => "Attachment", :foreign_key => "thumbnail_id" do |opt|
@@ -48,12 +46,13 @@ class Attachment < ActiveRecord::Base
   
   def Attachment.save_as_file(attachment, original_image_id, name, force = true, image = nil)
     path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (original_image_id.to_i % 100).to_s)
-    return if !force && File.exist?("#{path}/#{original_image_id}_#{name}")
+    return false if !force && File.exist?("#{path}/#{original_image_id}_#{name}")
     FileUtils.mkdir_p path 
     File.open("#{path}/#{original_image_id}_#{name}", "w") {|file|
       file.binmode
       file.write image ? image : attachment.file_content
     }
+    true
   end
 
   # We don't support both 'remove file' and 'new file' options
@@ -61,7 +60,7 @@ class Attachment < ActiveRecord::Base
 
   # Returns: options
   def Attachment.store_rp_file(resource_property, options)
-#    return options if resource_property.nil? ZZZ What is it good for?
+    #    return options if resource_property.nil? ZZZ What is it good for?
     
     # Should we first remove an old one?
     remove = options.delete(:remove)
@@ -114,14 +113,15 @@ class Attachment < ActiveRecord::Base
     end
     
     attachment = resource_property.attachment
-    Attachment.save_as_file(attachment, attachment.id, attachment.filename)
-    ext = File.extname(attachment.filename)
-    geometry.each { |name, geom|
-      th = attachment.resize(geom, name)
-      attachment.thumbnails << th
-      Attachment.save_as_file(th, attachment.id, th.filename + ext)
-    }
-    attachment.save!
+    if Attachment.save_as_file(attachment, attachment.id, attachment.filename, false)
+      ext = File.extname(attachment.filename)
+      geometry.each { |name, geom|
+        th = attachment.resize(geom, name)
+        attachment.thumbnails << th
+        Attachment.save_as_file(th, attachment.id, th.filename + ext)
+      }
+      attachment.save!
+    end
   end
 
   # Replace images upon geometry change

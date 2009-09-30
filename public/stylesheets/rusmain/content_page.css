@@ -1,854 +1,858 @@
 #body{
-    text-align:left;
+  text-align:left;
 }
 #static-menu {
-    background-color:#e0e2e7;
-    padding:0 1px;
-    margin:-2px 0 0;
+  background-color:#e0e2e7;
+  padding:0 1px;
+  margin:-2px 0 0;
 }
 #static-menu li{
-    font:11px "Lucida Grande CY", Arial, sans-serif;
-    background-color:#e0e2e7;
+  font:11px "Lucida Grande CY", Arial, sans-serif;
+  background-color:#e0e2e7;
 }
 #static-menu li a{
-    padding:5px 10px 5px 17px;
-    border-bottom:1px solid #c3c4cf;
-    border-top:1px solid #fafafa;
+  padding:5px 10px 5px 17px;
+  border-bottom:1px solid #c3c4cf;
+  border-top:1px solid #fafafa;
 }
 #static-menu li li a{
-    padding-left:34px;
-    background-position:20px 6px !important;
+  padding-left:34px;
+  background-position:20px 6px !important;
 }
 #static-menu li li li a{
-    padding-left:51px;
-    background-position:37px 6px !important;
+  padding-left:51px;
+  background-position:37px 6px !important;
 }
 #static-menu a.plus{
-    background:#e0e2e7 url(/images/rusmain/plus.gif) no-repeat 3px 6px;
+  background:#e0e2e7 url(/images/rusmain/plus.gif) no-repeat 3px 6px;
 }
 #static-menu a.minus{
-    background:#e0e2e7 url(/images/rusmain/minus.gif) no-repeat 3px 6px;
+  background:#e0e2e7 url(/images/rusmain/minus.gif) no-repeat 3px 6px;
 }
 #static-menu a.selected{
-    font-weight:bold;
+  font-weight:bold;
 }
 #static-menu a.current_node{
-    background-color:#eff1f6;
+  background-color:#eff1f6;
 }
 #static-menu a, #static-menu a:visited{
-    color:#1060A5;
-    display:block;
+  color:#1060A5;
+  display:block;
 }
 .breadcrumbs{
-    margin:0 15px;
-    padding:2px 0;
-    border-bottom:1px solid #e5e5eb;
-    color:#1060A5;
+  margin:0 15px;
+  padding:2px 0;
+  border-bottom:1px solid #e5e5eb;
+  color:#1060A5;
 }
 .breadcrumbs a,.breadcrumbs a:visited{
-    color:#1060A5;
+  color:#1060A5;
 }
 .content{
-    width: 500px;
+  width: 500px;
 }
 .ie7 .content, .ie6 .content, .safari .content{
-    width: 480px;
+  width: 480px;
 }
 #cse-search-results iframe{
-    width:500px !important;
+  width:500px !important;
 }
 .border, #content-header{
-    border-left:1px solid #e6e6ec;
-    border-right:1px solid #e6e6ec;
+  border-left:1px solid #e6e6ec;
+  border-right:1px solid #e6e6ec;
 }
 .empty{
-    height:20px;
+  height:20px;
 }
 #body-middle #mid-content{
-    border:1px solid #e5e5eb;
-    padding-left:14px;
+  border:1px solid #e5e5eb;
+  padding-left:14px;
 }
 .yui-ge{
-    background:white url(/images/rusmain/related-bg.gif) repeat-y right top;
-    border-bottom:1px solid #e6e6ec;
-    border-left:1px solid #e6e6ec;
-    padding:0 0 10px 10px;
+  background:white url(/images/rusmain/related-bg.gif) repeat-y right top;
+  border-bottom:1px solid #e6e6ec;
+  border-left:1px solid #e6e6ec;
+  padding:0 0 10px 10px;
 }
 .yui-t7 #yui-main .yui-b{
-    margin-bottom:0;
+  margin-bottom:0;
 }
 .related{
-    border-top: 1px solid #E5E5EB;
-    float: right;
-    width: 160px;
-    padding:15px;
-    color:#161616;
-    font-size:11px;
-    font-weight:bold;
+  border-top: 1px solid #E5E5EB;
+  float: right;
+  width: 160px;
+  padding:15px;
+  color:#161616;
+  font-size:11px;
+  font-weight:bold;
 }
 .ie6 .related, .ie7 .related, .safari .related{
-    margin-left:-45px;
+  margin-left:-45px;
 }
 .related .image img{
-    border:1px solid #C9C9C9;
-    padding:1px;
-    width:160px;
+  border:1px solid #C9C9C9;
+  padding:1px;
+  width:160px;
 }
 .related .image img{
-    font-weight:bold;
-    font-size:11px;
+  font-weight:bold;
+  font-size:11px;
 }
 h2{
-    background:#A4A6AC url(/images/rusmain/sub-title.gif) repeat-x 0 0;
-    color:white;
-    font-size:11px;
-    font-weight:bold;
-    line-height:19px;
-    text-align:center;
+  background:#A4A6AC url(/images/rusmain/sub-title.gif) repeat-x 0 0;
+  color:white;
+  font-size:11px;
+  font-weight:bold;
+  line-height:19px;
+  text-align:center;
 }
 .descr{
-    background:#ededf3 url(/images/rusmain/descr-grad.gif) repeat-x left top;
-    color:#5A5A5A;
-    font-size:11px;
-    text-align:center;
-    padding:10px;
-    border-top:1px solid #e5e5eb;
-    overflow:hidden;
-    position:relative;
+  background:#F6F6FC url(/images/rusmain/descr-grad.gif) repeat-x left bottom;
+  color:#5A5A5A;
+  font-size:11px;
+  text-align:center;
+  padding:10px;
+  border-top:1px solid #e5e5eb;
+  overflow:hidden;
+  position:relative;
+}
+.empty-descr{
+  font-size:11px;
 }
 .descr .left-ear, .descr .right-ear{
-    position:absolute;
-    bottom:0;
-    width:5px;
-    background:#ededf3 url(/images/rusmain/descr-ears.gif) no-repeat left top;
+  position:absolute;
+  bottom:0;
+  width:5px;
+  height:81px;
+  background:#ededf3 url(/images/rusmain/descr-ears.gif) no-repeat left bottom;
 }
 .descr .left-ear{
-    left:0;
+  left:0;
 }
 .descr .right-ear{
-    background-position:-5px 0;
-    right:0;
+  background-position:-5px 0;
+  right:0;
 }
 .author{
-    height:30px;
+  height:30px;
 }
 .author span{
-    margin: 7px 16px 0 0;
-    font-size:10px;
-    color:#979797;
+  margin: 7px 16px 0 0;
+  font-size:10px;
+  color:#979797;
 }
 .author span img{
-    font-size:10px;
-    color:#979797;
-    margin:0 0 0 7px;
-    position:relative;
-    top:1px;
+  font-size:10px;
+  color:#979797;
+  margin:0 0 0 7px;
+  position:relative;
+  top:1px;
 }
 .item{
-    clear:left;
-    position:relative;
+  clear:left;
+  position:relative;
 }
 .item h3{
-    color:#A18A64;
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:3px;
+  color:#A18A64;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:3px;
 }
 .item p{
-    margin:0 0 15px;
+  margin:0 0 15px;
 }
 .services{
-    margin:40px 12px 15px 0;
-    border-top:1px solid #E5E5EB;
-    padding:5px 0;
-    font-size:11px;
-    line-height:17px;
-    width: 500px;
+  margin:40px 12px 15px 0;
+  border-top:1px solid #E5E5EB;
+  padding:5px 0;
+  font-size:11px;
+  line-height:17px;
+  width: 500px;
 }
 .ie6 .services, .ie7 .services, .safari .services{
-    width: 480px;
+  width: 480px;
 }
 .services div{
-    float:left;
-    margin:0 10px 10px 0;
-    padding-left:23px;
-    background-repeat:no-repeat;
-    cursor:pointer;
+  float:left;
+  margin:0 10px 10px 0;
+  padding-left:23px;
+  background-repeat:no-repeat;
+  cursor:pointer;
 }
 .services #create_comment{
-    margin-top:20px;
+  margin-top:20px;
 }
 .services #closed_comment{
-    background-position:0 -17px;
+  background-position:0 -17px;
 }
 .services #closed_friend{
-    background-position:0 -34px;
+  background-position:0 -34px;
 }
 .services .permalink{
-    background-position:0 1px;
-    margin:20px 0 0;
-    cursor:text;
-    color:black;
-    text-decoration:none;
+  background-position:0 1px;
+  margin:20px 0 0;
+  cursor:text;
+  color:black;
+  text-decoration:none;
 }
 .services .permalink input{
-    margin-left: 5px;
-    border:1px solid #E5E5EB;
-    width:350px;
-    font-size:10px;
-    height:15px;
+  margin-left: 5px;
+  border:1px solid #E5E5EB;
+  width:350px;
+  font-size:10px;
+  height:15px;
 }
 .ie6 .services .permalink input, .ie7 .services .permalink input, .safari .services .permalink input{
-    width: 330px;
+  width: 330px;
 }
 .services div, .services div a{
-    color:#A71E23;
+  color:#A71E23;
 }
 .services div:hover{
-    text-decoration:underline;
+  text-decoration:underline;
 }
 #send_to_friend{
-    margin:0 0 10px;
+  margin:0 0 10px;
 }
 #send_to_friend table#friend{
-    border: 1px solid #E5E5EB;
-    width:460px;
-    font-size:11px;
-    line-height:17px;
-    background-color:#FAFAFA;
-    padding:0 0 10px;
-    color:#161616;
+  border: 1px solid #E5E5EB;
+  width:460px;
+  font-size:11px;
+  line-height:17px;
+  background-color:#FAFAFA;
+  padding:0 0 10px;
+  color:#161616;
 }
 #send_to_friend table#friend .input input{
-    width:40ex;
-    border:1px solid #E5E5EB;
+  width:40ex;
+  border:1px solid #E5E5EB;
 }
 #send_to_friend table#friend a{
-    background-position:0 0;
-    background-repeat:no-repeat;
-    color:white;
-    display:block;
-    float:left;
-    height:22px;
-    margin:0 10px 0 0;
-    padding:2px 0 0;
-    text-align:center;
-    text-decoration:none;
-    width:59px;
-    cursor:pointer;
+  background-position:0 0;
+  background-repeat:no-repeat;
+  color:white;
+  display:block;
+  float:left;
+  height:22px;
+  margin:0 10px 0 0;
+  padding:2px 0 0;
+  text-align:center;
+  text-decoration:none;
+  width:59px;
+  cursor:pointer;
 }
 #send_to_friend table#friend a.button{
-    background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
-    margin:0;
-    line-height:18px;
+  background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
+  margin:0;
+  line-height:18px;
 }
 #send_to_friend #friend_form table#friend span.postbutton{
-    margin-right:10px;
+  margin-right:10px;
 }
 #send_to_friend table#friend a:hover{
-    text-decoration:none;
+  text-decoration:none;
 }
 #send_to_friend table#friend .text{
-    width:150px;
-    text-align:right;
-    padding:0 10px 10px 0;
+  width:150px;
+  text-align:right;
+  padding:0 10px 10px 0;
 }
 #send_to_friend table#friend h1{
-    background-color:#979797;
-    color:white;
-    font-weight:bold;
-    padding:0 10px;
-    margin:0 0 10px;
+  background-color:#979797;
+  color:white;
+  font-weight:bold;
+  padding:0 10px;
+  margin:0 0 10px;
 }
 #comment_form{
-    margin:0 0 10px;
+  margin:0 0 10px;
 }
 #comment_form table#reactions{
-    border: 1px solid #E5E5EB;
-    width: 460px;
-    font-size:11px;
-    line-height:17px;
-    background-color:#FAFAFA;
-    padding:0 0 10px;
-    color:#161616;
+  border: 1px solid #E5E5EB;
+  width: 460px;
+  font-size:11px;
+  line-height:17px;
+  background-color:#FAFAFA;
+  padding:0 0 10px;
+  color:#161616;
 }
 #comment_form table#reactions .input textarea{
-    width:46.5ex;
-    border:1px solid #E5E5EB;
+  width:46.5ex;
+  border:1px solid #E5E5EB;
 }
 #comment_form table#reactions .input input{
-    width:40ex;
-    border:1px solid #E5E5EB;
+  width:40ex;
+  border:1px solid #E5E5EB;
 }
 #comment_form table#reactions a.submit{
-    background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
-    margin:0;
-    line-height:18px;
+  background:url(/images/rusmain/button.gif) repeat-x 0 -44px;
+  margin:0;
+  line-height:18px;
 }
 #comment_form table#reactions span.postbutton{
-    margin-right:10px;
+  margin-right:10px;
 }
 #comment_form table#reactions a{
-    background-position:0 0;
-    background-repeat:no-repeat;
-    color:white;
-    display:block;
-    float:left;
-    height:22px;
-    margin:0 10px 0 0;
-    padding:2px 0 0;
-    text-align:center;
-    text-decoration:none;
-    width:59px;
-    cursor:pointer;
+  background-position:0 0;
+  background-repeat:no-repeat;
+  color:white;
+  display:block;
+  float:left;
+  height:22px;
+  margin:0 10px 0 0;
+  padding:2px 0 0;
+  text-align:center;
+  text-decoration:none;
+  width:59px;
+  cursor:pointer;
 }
 #comment_form table#reactions a:hover{
-    text-decoration:none;
+  text-decoration:none;
 }
 #comment_form table#reactions .text{
-    width:150px;
-    text-align:right;
-    padding:0 10px 10px 0;
-    vertical-align:top;
+  width:150px;
+  text-align:right;
+  padding:0 10px 10px 0;
+  vertical-align:top;
 }
 #comment_form table#reactions h1{
-    background-color:#979797;
-    color:white;
-    font-weight:bold;
-    padding:0 10px;
-    margin:0 0 10px;
+  background-color:#979797;
+  color:white;
+  font-weight:bold;
+  padding:0 10px;
+  margin:0 0 10px;
 }
 #yellow_effect{
-    background-color: yellow;
-    margin-right:205px;
+  background-color: yellow;
+  margin-right:205px;
 }
 
 .create_comment{
-    padding:0;
+  padding:0;
 }
 .create_comment .submit{
-    background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
-    border: medium none;
-    color: black;
-    height: 17pt;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    width: 54pt;
+  background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
+  border: medium none;
+  color: black;
+  height: 17pt;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  width: 54pt;
 }
 
 #create_comment_div{
-    float:left;
-    clear:left;
+  float:left;
+  clear:left;
 }
 .create_comment label{
-    margin-left: 10px;
-    vertical-align: top;
+  margin-left: 10px;
+  vertical-align: top;
 }
 .create_comment input{
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 .create_comment textarea{
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 .comment_title {
-    font-weight: bold;
-    display: inline;
-    cursor:pointer;
-    padding-right:10px;
+  font-weight: bold;
+  display: inline;
+  cursor:pointer;
+  padding-right:10px;
 }
 .comment_item br{
-    display:none;
+  display:none;
 }
 .comment_item{
-    background-color: #f5f5f4;
-    padding: 5px 10px 0 10px;
+  background-color: #f5f5f4;
+  padding: 5px 10px 0 10px;
 }
 .comment_header{
-    font-weight: bold;
-    background-color:#979797;
-    color:white;
-    font-weight:bold;
-    padding:2px 10px;
-    clear:both;
-    margin-right:25px;
+  font-weight: bold;
+  background-color:#979797;
+  color:white;
+  font-weight:bold;
+  padding:2px 10px;
+  clear:both;
+  margin-right:25px;
 }
 .comment_date{
-    color:#979797;
-    margin-right:205px;
+  color:#979797;
+  margin-right:205px;
 }
 .comment_body{
-    display: none;
-    margin-right:205px;
+  display: none;
+  margin-right:205px;
 }
 .prev_comments{
-    border: 1px solid #E5E5EB;
-    width: 480px;
-    font-size:11px;
-    line-height:17px;
-    background-color:#F5F5F4;
-    padding:0 0 10px;
-    color:#161616;
+  border: 1px solid #E5E5EB;
+  width: 480px;
+  font-size:11px;
+  line-height:17px;
+  background-color:#F5F5F4;
+  padding:0 0 10px;
+  color:#161616;
 }
 .prev_comments .comment_empty{
-    padding:0 10px;
+  padding:0 10px;
 }
 .box-content .update{
-    border-bottom:1px solid #E5E5EB;
-    font-size:11px;
-    margin:5px 15px;
-    padding:0 0 5px;
+  border-bottom:1px solid #E5E5EB;
+  font-size:11px;
+  margin:5px 15px;
+  padding:0 0 5px;
 }
 .box-content .update h4{
-    font-weight:bold;
+  font-weight:bold;
 }
 .box-content .update a{
-    display:block;
+  display:block;
 }
 .box-content .update .link{
-    text-align:right;
+  text-align:right;
 }
 .box-content .update a img{
-    position:relative;
-    top:2px;
-    margin:0 0 0 2px;
+  position:relative;
+  top:2px;
+  margin:0 0 0 2px;
 }
 .box-content hr{
-    height:0;
-    border:1px solid transparent;
-    border-top:1px solid #E5E5EB;
+  height:0;
+  border:1px solid transparent;
+  border-top:1px solid #E5E5EB;
 }
 .box-content .newsletter .clear{
-    display:block;
+  display:block;
 }
 .box-content h1, .box-content h3{
-    background-color:#979797;
-    color:white;
-    height:20px;
-    line-height:20px;
-    padding:0 6px;
-    font-weight:bold;
+  background-color:#979797;
+  color:white;
+  height:20px;
+  line-height:20px;
+  padding:0 6px;
+  font-weight:bold;
 }
 .box-content .newsletter .inner{
-    padding:5px 10px;
+  padding:5px 10px;
 }
 .box-content .newsletter input{
-    width:28.5ex;
-    border:1px solid #E5E5EB;
-    margin:0 0 6px;
-    display:block;
+  width:28.5ex;
+  border:1px solid #E5E5EB;
+  margin:0 0 6px;
+  display:block;
 }
 .box-content .newsletter input[type="hidden"]{
-    display:none;
+  display:none;
 }
 .related .box{
-    margin:10px 0 10px 5px;
+  margin:10px 0 10px 5px;
 }
 .related .box .box-mid{
-    padding:0 10px;
-    background:transparent url(/images/rusmain/box-mid.gif) repeat-y top right;
-    width:136px;
-    margin:-7px 0 0;
+  padding:0 10px;
+  background:transparent url(/images/rusmain/box-mid.gif) repeat-y top right;
+  width:136px;
+  margin:-7px 0 0;
 }
 .related .box .box-top{
-    background:transparent url(/images/rusmain/box-top.gif) no-repeat top right;
-    width:156px;
-    padding:0;
-    margin:0;
+  background:transparent url(/images/rusmain/box-top.gif) no-repeat top right;
+  width:156px;
+  padding:0;
+  margin:0;
 }
 .related .box .box-bot{
-    background:transparent url(/images/rusmain/box-bot.gif) no-repeat bottom right;
-    width:156px;
-    padding:0;
-    margin:0;
-    height:3px;
+  background:transparent url(/images/rusmain/box-bot.gif) no-repeat bottom right;
+  width:156px;
+  padding:0;
+  margin:0;
+  height:3px;
 }
 .related .box .box-background{
-    background-color:#efeff5;
+  background-color:#efeff5;
 }
 .related .all-box-background{
-    background:#efeff5 url(/images/rusmain/box-grad.gif) repeat-x left bottom;
+  background:#efeff5 url(/images/rusmain/box-grad.gif) repeat-x left bottom;
 }
 .related .box .box-mid-no-border{
-    padding:0 10px;
-    width:140px;
+  padding:0 10px;
+  width:140px;
 }
 .related .box .box-top-no-border{
-    width:165px;
-    padding:0;
-    margin:0;
+  width:165px;
+  padding:0;
+  margin:0;
 }
 .related .box .box-bot-no-border{
-    width:165px;
-    padding:0;
-    margin:0;
+  width:165px;
+  padding:0;
+  margin:0;
 }
 .related .box .box-mid h4{
-    padding: 10px 0;
+  padding: 10px 0;
 }
 .related .box .box-mid p, .related .box .box-mid ul{
-    padding: 0 0 10px;
+  padding: 0 0 10px;
 }
 .related .box ul{
-    list-style-image:url(/images/rusmain/doughnut.gif);
-    list-style-position:outside;
-    list-style-type:circle;
-    margin:0 0 0 15px;
+  list-style-image:url(/images/rusmain/doughnut.gif);
+  list-style-position:outside;
+  list-style-type:circle;
+  margin:0 0 0 15px;
 }
 .content_preview{
-    position:relative;
-    margin:0 0 15px;
+  position:relative;
+  margin:0 0 15px;
 }
 .content_preview .main_preview1 .element{
-    background: #fefefe url(/images/rusmain/mp1-grad.gif) repeat-x left top;
-    border:1px solid #E5E5EB;
-    float:left;
-    position:relative;
-    padding:0 0 20px;
-    margin:0 0 15px;
-    width:96%;
+  background: #fefefe url(/images/rusmain/mp1-grad.gif) repeat-x left top;
+  border:1px solid #E5E5EB;
+  float:left;
+  position:relative;
+  padding:0 0 20px;
+  margin:0 0 15px;
+  width:96%;
 }
 .content_preview .main_preview1 .img{
-    float:left;
-    padding:1px;
-    margin-right:10px;
-    margin-left:10px;
-    width:195px;
-    height:132px;
+  float:left;
+  padding:1px;
+  margin-right:10px;
+  margin-left:10px;
+  width:195px;
+  height:132px;
 }
 .content_preview .index{
-    border:1px solid #E5E5EB;
+  border:1px solid #E5E5EB;
 }
 .content_preview .index .element{
-    position:relative;
-    padding:15px 15px 10px 10px;
-    margin:0;
+  position:relative;
+  padding:15px 15px 10px 10px;
+  margin:0;
 }
 .content_preview .index .preview-odd{
-    background:#e5e5eb url(/images/rusmain/preview-odd.gif) repeat-x left top;
+  background:#e5e5eb url(/images/rusmain/preview-odd.gif) repeat-x left top;
 }
 .content_preview .index .preview-even{
-    background:white url(/images/rusmain/preview-even.gif) repeat-x left top;
+  background:white url(/images/rusmain/preview-even.gif) repeat-x left top;
 }
 .content_preview .index .img{
-    float:left;
-    padding:1px;
-    margin-right:10px;
-    width:115px;
-    height:80px;
+  float:left;
+  padding:1px;
+  margin-right:10px;
+  width:115px;
+  height:80px;
 }
 .content_preview .index .more,
 .content_preview .index .more_no_img{
-    font-size:10px;
-    text-decoration:underline;
-    position:absolute;
-    bottom:10px;
-    left:140px;
+  font-size:10px;
+  text-decoration:underline;
+  position:absolute;
+  bottom:10px;
+  left:140px;
 }
 .content_preview .main_preview1 h1 a:visited,
 .content_preview .main_preview1 h1 a,
 .content_preview .index h1 a:visited,
 .content_preview .index h1 a{
-    color:#1060A5;
-    font-size:14px;
-    font-weight:bold;
+  color:#1060A5;
+  font-size:14px;
+  font-weight:bold;
 }
 .content_preview .index .descr{
-    background-color:transparent;
-    background-image:none;
-    border:0 none;
-    color:#5A5A5A;
-    font-size:12px;
-    font-weight:normal;
-    overflow:hidden;
-    padding:10px 10px 20px 0;
-    position:relative;
-    text-align:left;
+  background-color:transparent;
+  background-image:none;
+  border:0 none;
+  color:#5A5A5A;
+  font-size:12px;
+  font-weight:normal;
+  overflow:hidden;
+  padding:10px 10px 20px 0;
+  position:relative;
+  text-align:left;
 }
 .content_preview .main_preview1 .descr,
 .content_preview .main_preview2 .descr,
 .content_preview .main_preview3 .descr{
-    background-color:transparent;
-    background-image:none;
-    border:0 none;
-    color:#5A5A5A;
-    font-size:12px;
-    font-weight:normal;
-    overflow:hidden;
-    padding:10px 10px 10px 0;
-    position:relative;
-    text-align:left;
+  background-color:transparent;
+  background-image:none;
+  border:0 none;
+  color:#5A5A5A;
+  font-size:12px;
+  font-weight:normal;
+  overflow:hidden;
+  padding:10px 10px 10px 0;
+  position:relative;
+  text-align:left;
 }
 .content_preview .main_preview2 .descr,
 .content_preview .main_preview3 .descr{
-    padding:10px 10px 20px;
-    font-size:11px;
+  padding:10px 10px 20px;
+  font-size:11px;
 }
 .content_preview .main_preview1 .more,
 .content_preview .main_preview1 .more_no_img{
-    font-size:10px;
-    text-decoration:underline;
-    position:absolute;
-    bottom:11px;
-    left:208px;
+  font-size:10px;
+  text-decoration:underline;
+  position:absolute;
+  bottom:11px;
+  left:208px;
 }
 .content_preview .main_preview2 .more_no_img,
 .content_preview .main_preview3 .more_no_img,
 .content_preview .main_preview2 .more,
 .content_preview .main_preview3 .more{
-    font-size:10px;
-    position:absolute;
-    bottom:10px;
-    text-decoration:underline;
-    left:10px;
+  font-size:10px;
+  position:absolute;
+  bottom:10px;
+  text-decoration:underline;
+  left:10px;
 }
 .content_preview .more_no_img .empty-gif,
 .content_preview .more .empty-gif{
-    display:none;
+  display:none;
 }
 .content_preview .more_no_img a,
 .content_preview .more a{
-    color:#1060A5;
+  color:#1060A5;
 }
 .content_preview .more_no_img img,
 .content_preview .more img{
-    margin-left:10px;
+  margin-left:10px;
 }
 
 .content_preview .main_preview2 .element{
-    background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
-    border:1px solid #E5E5EB;
-    float:left;
-    width:46%;
-    position:relative;
-    padding:0 0 20px 1%;
-    margin:0 0 10px;
+  background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
+  border:1px solid #E5E5EB;
+  float:left;
+  width:46%;
+  position:relative;
+  padding:0 0 20px 1%;
+  margin:0 0 10px;
 }
 .content_preview .main_preview2 .non-last{
-    margin-right:9px;
+  margin-right:9px;
 }
 .content_preview .main_preview2 .last{
-    margin-right:0;
-    margin-bottom:20px;
+  margin-right:0;
+  margin-bottom:20px;
 }
 .content_preview .main_preview2 .img{
-    height:157px;
-    padding:1px 1px 0;
-    width:229px;
+  height:157px;
+  padding:1px 1px 0;
+  width:229px;
 }
 .content_preview .main_preview2 h1{
-    padding:0 10px;
+  padding:0 10px;
 }
 .content_preview .main_preview2 h1 a:visited,
 .content_preview .main_preview2 h1 a{
-    color:#1060A5;
-    font-size:13px;
-    font-weight:bold;
+  color:#1060A5;
+  font-size:13px;
+  font-weight:bold;
 }
 
 .content_preview .main_preview3 .element{
-    background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
-    border:1px solid #E5E5EB;
-    float:left;
-    width:31%;
-    position:relative;
-    padding:0 0 20px;
-    margin:0 0 10px;
+  background:white url(/images/rusmain/mp2-grad.gif) repeat-x left bottom;
+  border:1px solid #E5E5EB;
+  float:left;
+  width:31%;
+  position:relative;
+  padding:0 0 20px;
+  margin:0 0 10px;
 }
 .content_preview .main_preview3 .non-last{
-    margin-right:6px;
+  margin-right:6px;
 }
 .content_preview .main_preview3 .last{
-    margin-left:1px;
+  margin-left:1px;
 }
 .content_preview .main_preview3 .img{
-    height:102px;
-    padding:1px 1px 0;
-    width:147px;
+  height:102px;
+  padding:1px 1px 0;
+  width:147px;
 }
 .content_preview .main_preview3 h1{
-    padding:0 10px;
+  padding:0 10px;
 }
 .content_preview .main_preview3 h1 a:visited,
 .content_preview .main_preview3 h1 a{
-    color:#1060A5;
-    font-size:13px;
-    font-weight:bold;
+  color:#1060A5;
+  font-size:13px;
+  font-weight:bold;
 }
 /*----------  Video Gallery ---------------*/
 .inner-player{
-    background:#E5E5EB url(/images/rusmain/videogal-grad.gif) repeat-x 0 0;
-    margin:15px 2px;
-    width:500px;
+  background:#E5E5EB url(/images/rusmain/videogal-grad.gif) repeat-x 0 0;
+  margin:15px 2px;
+  width:500px;
 }
 .inner-player .play-title{
-    color:white;
-    font-weight:bold;
-    padding:5px 10px 5px 8px;
-    text-align:center;
+  color:white;
+  font-weight:bold;
+  padding:5px 10px 5px 8px;
+  text-align:center;
 }
 .inner-player .player-placeholder {
-    cursor:pointer;
-    height:362px;
-    width:482px;
-    padding-left:8px;
+  cursor:pointer;
+  height:362px;
+  width:482px;
+  padding-left:8px;
 }
 .inner-player .player-placeholder .play-serv{
-    border-bottom:1px solid #BFBFBF;
-    height:0;
+  border-bottom:1px solid #BFBFBF;
+  height:0;
 }
 .inner-player .more {
-    margin-left:10px;
+  margin-left:10px;
 }
 .inner-player .playlist {
-    border-top:1px solid white;
-    height:300px;
-    overflow-x:hidden;
-    overflow-y:auto;
-    margin-left:8px;
-    width:480px;
-    background-color:#d5d6dc;
+  border-top:1px solid white;
+  height:300px;
+  overflow-x:hidden;
+  overflow-y:auto;
+  margin-left:8px;
+  width:480px;
+  background-color:#d5d6dc;
 }
 .inner-player .playlist .odd{
-    background:#e5e5eb url(/images/rusmain/videogal-odd-grad.gif) repeat-x left bottom;
+  background:#e5e5eb url(/images/rusmain/videogal-odd-grad.gif) repeat-x left bottom;
 }
 .inner-player .playlist ul li{
-    border-bottom:2px solid white;
-    list-style-image:none;
-    list-style-position:outside;
-    list-style-type:none;
+  border-bottom:2px solid white;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
 }
 .inner-player .playlist ul li a.h1-img{
-    border:1px solid #c0c0c3;
-    float:left;
-    margin:10px;
-    height:62px;
-    width:82px;
+  border:1px solid #c0c0c3;
+  float:left;
+  margin:10px;
+  height:62px;
+  width:82px;
 }
 .inner-player .playlist ul li .h1-img img{
-    border:1px solid #e8e8ee;
-    height:60px;
-    width:80px;
+  border:1px solid #e8e8ee;
+  height:60px;
+  width:80px;
 }
 .inner-player .playlist ul li .h1-play{
-    color:#1060a5;
-    display:block;
-    font-weight:bold;
-    padding:10px 5px 0;
-    width:465px;
+  color:#1060a5;
+  display:block;
+  font-weight:bold;
+  padding:10px 5px 0;
+  width:465px;
 }
 .inner-player .playlist ul li .descr-play{
-    margin:5px 5px 5px 0;
+  margin:5px 5px 5px 0;
 }
 p.play-list-button {
-    top:215px;
-    cursor:pointer;
-    display:block;
-    font-size:15px;
-    font-weight:bold;
-    line-height:15px;
-    margin:0;
-    padding:0;
-    position:absolute;
-    left:100px;
+  top:215px;
+  cursor:pointer;
+  display:block;
+  font-size:15px;
+  font-weight:bold;
+  line-height:15px;
+  margin:0;
+  padding:0;
+  position:absolute;
+  left:100px;
 }
 p.play-list-button span{
-    background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
-    color:white;
-    display:block;
-    float:left;
-    padding:18px 4px 17px 32px;
+  background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
+  color:white;
+  display:block;
+  float:left;
+  padding:18px 4px 17px 32px;
 }
 p.play-list-button b{
-    background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
-    float:left;
-    height:50px;
-    text-indent:-9999px;
-    width:50px;
+  background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
+  float:left;
+  height:50px;
+  text-indent:-9999px;
+  width:50px;
 }
 /*----------  Video  ---------------*/
 .full-video{
-    margin:15px 0;
-    position:relative;
+  margin:15px 0;
+  position:relative;
 }
 .full-video img{
-    cursor:pointer;
-    height:362px;
-    width:482px;
-    position:relative;
+  cursor:pointer;
+  height:362px;
+  width:482px;
+  position:relative;
 }
 .full-video .flashplayer{
-    height:362px;
-    width:482px;
+  height:362px;
+  width:482px;
 }
 p.playbutton{
-    top:170px;
-    cursor:pointer;
-    display:block;
-    font-size:15px;
-    font-weight:bold;
-    line-height:15px;
-    margin:0;
-    padding:0;
-    position:absolute;
-    left:180px;
+  top:170px;
+  cursor:pointer;
+  display:block;
+  font-size:15px;
+  font-weight:bold;
+  line-height:15px;
+  margin:0;
+  padding:0;
+  position:absolute;
+  left:180px;
 }
 p.playbutton span{
-    background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
-    color:white;
-    display:block;
-    float:left;
-    padding:18px 13px 17px 42px;
+  background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0 50%;
+  color:white;
+  display:block;
+  float:left;
+  padding:18px 13px 17px 42px;
 }
 p.playbutton b{
-    background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
-    float:left;
-    height:50px;
-    text-indent:-9999px;
-    width:50px;
+  background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0 50%;
+  float:left;
+  height:50px;
+  text-indent:-9999px;
+  width:50px;
 }
 /*----------  kabtv  ---------------*/
 #kabtv{
-    background-repeat:no-repeat;
-    position:relative;
-    width:673px;
-    background-color:#1E4E76;
-    margin: 0 auto;
+  background-repeat:no-repeat;
+  position:relative;
+  width:673px;
+  background-color:#1E4E76;
+  margin: 0 auto;
 }
 .kabtv{
-    padding-bottom:30px;
+  padding-bottom:30px;
 }
 #kabtv #tabs {
-    float:right;
-    margin:10px 12px 22px 0;
-    width:260px;
+  float:right;
+  margin:10px 12px 22px 0;
+  width:260px;
 }
 #kabtv #player-side {
-    float:left;
-    margin:76px 11px 36px 12px;
-    padding:0;
-    width:378px;
-    height:325px;
+  float:left;
+  margin:76px 11px 36px 12px;
+  padding:0;
+  width:378px;
+  height:325px;
 }
 #kabtv #player-side #separate-win, #kabtv #player-side #full-win{
-    display:none;
+  display:none;
 }
 #kabtv #player_options{
-    position:relative;
-    width:377px;
-    color:white;
-    top:3px;
+  position:relative;
+  width:377px;
+  color:white;
+  top:3px;
 }
 #kabtv .ui-tabs-nav {
-    margin:0 0 0 -1px;
-    padding:0;
+  margin:0 0 0 -1px;
+  padding:0;
 }
 #kabtv .ui-tabs-nav, #kabtv .ui-tabs-nav li {
-    list-style-image:none;
-    list-style-position:outside;
-    list-style-type:none;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
 }
 #kabtv .ui-tabs-nav li {
-    float:left;
+  float:left;
 }
 #kabtv .ui-tabs-nav .ui-tabs-selected a span,
 #kabtv .ui-tabs-nav a:hover span,
@@ -858,413 +862,424 @@ p.playbutton b{
 #kabtv .ui-tabs-nav a:hover,
 #kabtv .ui-tabs-nav a:focus,
 #kabtv .ui-tabs-nav a:active {
-    background-image:url(/images/rusmain/jquery/tab-sel.gif);
+  background-image:url(/images/rusmain/jquery/tab-sel.gif);
 }
 #kabtv .ui-tabs-nav a,
 #kabtv .ui-tabs-nav a span {
-    background-image:url(/images/rusmain/jquery/tab.gif);
-    background-color:#2C72B0;
+  background-image:url(/images/rusmain/jquery/tab.gif);
+  background-color:#2C72B0;
 }
 .ui-tabs-nav .ui-tabs-selected a:link,
 .ui-tabs-nav .ui-tabs-selected a:visited,
 .ui-tabs-nav .ui-tabs-disabled a:link,
 .ui-tabs-nav .ui-tabs-disabled a:visited {
-    cursor:text;
+  cursor:text;
 }
 .ui-tabs-nav .ui-tabs-selected a,
 .ui-tabs-nav a:hover,
 .ui-tabs-nav a:focus,
 .ui-tabs-nav a:active {
-    background-position:100% -150px;
-    outline-style:none;
-    outline-width:0;
+  background-position:100% -150px;
+  outline-style:none;
+  outline-width:0;
 }
 .ui-tabs-nav .ui-tabs-selected a {
-    color:#000000;
+  color:#000000;
 }
 .ui-tabs-nav a,
 .ui-tabs-nav .ui-tabs-disabled a:hover,
 .ui-tabs-nav .ui-tabs-disabled a:focus,
 .ui-tabs-nav .ui-tabs-disabled a:active {
-    background-position:100% -100px;
+  background-position:100% -100px;
 }
 .ui-tabs-nav .ui-tabs-selected a span {
-    padding-top:6px;
+  padding-top:6px;
 }
 .ui-tabs-nav a {
-    color:#1678ce;
-    font-size:12px;
-    font-weight:bold;
-    line-height:1.2;
-    padding-left:0;
-    position:relative;
-    text-align:center;
-    text-decoration:none;
-    top:1px;
-    white-space:nowrap;
-    z-index:2;
+  color:#1678ce;
+  font-size:12px;
+  font-weight:bold;
+  line-height:1.2;
+  padding-left:0;
+  position:relative;
+  text-align:center;
+  text-decoration:none;
+  top:1px;
+  white-space:nowrap;
+  z-index:2;
 }
 .ui-tabs-panel {
-    border:1px solid #E5E5E5;
-    padding:8px 8px 16px;
+  border:1px solid #E5E5E5;
+  padding:8px 8px 16px;
 }
 .ui-tabs-nav a span{
-    min-width:none;
-    color:white;
+  min-width:none;
+  color:white;
 }
 #kabtv #schedule,
 #kabtv #questions,
 #kabtv #sketch {
-    background:#e5e5eb none repeat scroll 0 0;
-    height:340px;
-    text-align:left;
-    margin-top:1px;
-    position:relative;
+  background:#e5e5eb none repeat scroll 0 0;
+  height:340px;
+  text-align:left;
+  margin-top:1px;
+  position:relative;
 }
 #kabtv #schedule a {
-    background:transparent none repeat scroll 0 50%;
-    display:inline;
+  background:transparent none repeat scroll 0 50%;
+  display:inline;
 }
 #kabtv .schedule_selected {
-    text-decoration:underline;
+  text-decoration:underline;
 }
 #kabtv #schedule_list {
-    display:inline-block;
-    position:relative;
+  display:inline-block;
+  position:relative;
 }
 #kabtv .schedule_day {
-    height:320px;
-    margin:10px 0 0;
-    overflow-y:scroll;
-    width:240px;
+  height:320px;
+  margin:10px 0 0;
+  overflow-y:scroll;
+  width:240px;
 }
 #kabtv #schedule h3 {
-    text-align:left;
-    color:black;
-    margin:0 0 6px;
+  text-align:left;
+  color:black;
+  margin:0 0 6px;
 }
 #kabtv #schedule .item0 a, #kabtv #schedule .item1 a{
-    text-decoration:underline;
+  text-decoration:underline;
 }
 #kabtv #schedule .item0, #kabtv #schedule .item1 {
-    border-top:2px solid white;
-    border-left:2px solid white;
-    border-right:2px solid white;
-    padding:5px;
+  border-top:2px solid white;
+  border-left:2px solid white;
+  border-right:2px solid white;
+  padding:5px;
 }
 #kabtv #schedule .item2{
-    border-top:2px solid white;
-    height:0;
-    font-size:0;
-    line-height:0;
+  border-top:2px solid white;
+  height:0;
+  font-size:0;
+  line-height:0;
 }
 #kabtv #schedule .time {
-    color:white;
-    background-color:#2b73b1;
-    font-size:14px;
-    font-weight:bold;
-    padding:5px 10px;
+  color:white;
+  background-color:#2b73b1;
+  font-size:14px;
+  font-weight:bold;
+  padding:5px 10px;
 }
 #kabtv #schedule_list .title {
-    font-weight:bold;
-    padding-left:15px;
-    margin-left:5px;
-    display:inline;
+  font-weight:bold;
+  padding-left:15px;
+  margin-left:5px;
+  display:inline;
 }
 #kabtv #schedule_list .descr {
-    background-color:#F6F6FC;
-    color:black;
-    font-size:11px;
-    overflow:hidden;
-    padding:2px 5px;
-    margin:2px 0 0;
-    text-align:left;
+  background-color:#F6F6FC;
+  color:black;
+  font-size:11px;
+  overflow:hidden;
+  padding:2px 5px;
+  margin:2px 0 0;
+  text-align:left;
 }
 .icon-minus {
-    background:transparent url(/images/open.gif) no-repeat scroll 0 70%;
+  background:transparent url(/images/open.gif) no-repeat scroll 0 70%;
 }
 .icon-plus {
-    background:transparent url(/images/closed.gif) no-repeat scroll 0 70%;
+  background:transparent url(/images/closed.gif) no-repeat scroll 0 70%;
 }
 #kabtv #questions #q {
-    height:300px;
-    margin-top:10px;
-    overflow-y:scroll;
-    width:240px;
+  height:300px;
+  margin-top:10px;
+  overflow-y:scroll;
+  width:240px;
 }
 #kabtv #questions h3 {
-    text-align:left;
-    color:black;
-    margin:0 0 6px;
-    font-weight:bold;
+  text-align:left;
+  color:black;
+  margin:0 0 6px;
+  font-weight:bold;
 }
 #kabtv #questions .question0, #kabtv #questions .question1 {
-    border-top:2px solid white;
-    border-left:2px solid white;
-    border-right:2px solid white;
-    padding:5px;
+  border-top:2px solid white;
+  border-left:2px solid white;
+  border-right:2px solid white;
+  padding:5px;
 }
 #kabtv #questions .question2{
-    border-top:2px solid white;
-    height:0;
-    font-size:0;
-    line-height:0;
+  border-top:2px solid white;
+  height:0;
+  font-size:0;
+  line-height:0;
 }
 #kabtv #questions .who {
-    color:#A71E23;
-    font-weight:bold;
+  color:#A71E23;
+  font-weight:bold;
 }
 #kabtv #questions .what {
-    padding:0 5px;
+  padding:0 5px;
 }
 #kabtv #questions #options_qquestion,
 #kabtv #questions #options_qfrom,
 #kabtv #questions #options_qname {
-    width:235px;
+  width:235px;
 }
 #kabtv #questions #options_qquestion{
-    height:200px;
-    margin:0 0 10px;
+  height:200px;
+  margin:0 0 10px;
 }
 #kabtv #questions #ask_question {
-    position:absolute;
-    top:8px;
-    background-color:#E5E5EB;
+  position:absolute;
+  top:8px;
+  background-color:#E5E5EB;
 }
 #kabtv #sketch a {
-    display:inline;
-    padding:0 0 0 5px;
+  display:inline;
+  padding:0 0 0 5px;
 }
 #kabtv a.highslide {
-    background:transparent none repeat scroll 0 50% !important;
+  background:transparent none repeat scroll 0 50% !important;
 }
 #kabtv #sketch h3 {
-    text-align:left;
-    color:black;
-    margin:0 0 6px;
-    font-weight:bold;
+  text-align:left;
+  color:black;
+  margin:0 0 6px;
+  font-weight:bold;
 }
 #kabtv #sketch a#last-sketch img {
-    display:block;
-    float:right;
-    height:186px;
-    margin:0 0 5px;
-    width:240px;
+  display:block;
+  float:right;
+  height:186px;
+  margin:0 0 5px;
+  width:240px;
 }
 #kabtv .highslide img {
-    border:2px solid silver;
-    cursor:url(/highslide/graphics/zoomin.cur), pointer;
+  border:2px solid silver;
+  cursor:url(/highslide/graphics/zoomin.cur), pointer;
 }
 #kabtv #sketch #thumbnails {
-    height:125px;
-    overflow-x:scroll;
-    overflow-y:hidden;
-    width:240px;
+  height:125px;
+  overflow-x:scroll;
+  overflow-y:hidden;
+  width:240px;
 }
 #kabtv #kabtv-loading {
-    float:right;
-    margin-right:12px;
+  float:right;
+  margin-right:12px;
 }
 #kabtv .kabtv-loader {
-    position:absolute;
-    top:0;
-    right:0;
+  position:absolute;
+  top:0;
+  right:0;
 }
 #kabtv #player_options #troubleshooting_str {
-    color:white;
-    position:absolute;
-    right:-290px;
-    text-align:left;
-    top:40px;
-    width:318px;
+  color:white;
+  position:absolute;
+  right:-290px;
+  text-align:left;
+  top:40px;
+  width:318px;
 }
 #kabtv #player_options #separate-msg {
-    background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat scroll 0 0;
-    color:white;
-    position:relative;
-    top:15px;
-    margin-right:10px;
-    padding-left:20px;
-    width:210px;
+  background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat scroll 0 0;
+  color:white;
+  position:relative;
+  top:15px;
+  margin-right:10px;
+  padding-left:20px;
+  width:210px;
 }
 #kabtv #player_options #troubleshooting_url {
-    color:#FDE500;
-    font-weight:bold;
+  color:#FDE500;
+  font-weight:bold;
 }
 /* Controlbar for sketches */
 #controlbar {
-    background: url(/highslide/graphics/controlbar4.gif);
-    width: 167px;
-    height: 34px;
+  background: url(/highslide/graphics/controlbar4.gif);
+  width: 167px;
+  height: 34px;
 }
 #controlbar a {
-    display: block;
-    float: left;
-    height: 27px;
+  display: block;
+  float: left;
+  height: 27px;
 }
 #controlbar a:hover {
-    background-image: url(/highslide/graphics/controlbar4-hover.gif);
+  background-image: url(/highslide/graphics/controlbar4-hover.gif);
 }
 #controlbar .previous {
-    width: 50px;
+  width: 50px;
 }
 #controlbar .next {
-    width: 40px;
-    background-position: -50px 0;
+  width: 40px;
+  background-position: -50px 0;
 }
 #controlbar .highslide-move {
-    width: 40px;
-    background-position: -90px 0;
+  width: 40px;
+  background-position: -90px 0;
 }
 #controlbar .close {
-    width: 36px;
-    background-position: -130px 0;
+  width: 36px;
+  background-position: -130px 0;
 }
 /*----------  h1  ---------------*/
 .h1{
-    background:#999B9F url(/images/rusmain/main-title-grad.gif) repeat-x 0 0;
-    color:white;
-    text-align:left;
-    font-size:16px;
-    font-weight:bold;
-    margin:0;
-    height:27px;
-    line-height:27px;
-    position:relative;
-    padding: 0 0 0 10px;
-    width:490px;
+  background:#898a8f url(/images/rusmain/main-title-grad.gif) repeat-x 0 0;
+  color:white;
+  text-align:center;
+  font-size:16px;
+  font-weight:bold;
+  margin:0;
+  line-height:27px;
+  position:relative;
+  padding: 0 0 0 10px;
+  width:490px;
+}
+.h1-border{
+  border-bottom:1px solid #78797E;
 }
 .ie7 .h1, .ie6 .h1, .safari .h1{
-    width:470px;
+  width:470px;
 }
 .h1 .h1-right,.h1 .h1-left{
-    position:absolute;
-    top:0;
-    width:6px;
-    height:27px;
+  position:absolute;
+  top:0;
+  width:6px;
+  height:25px;
 }
 .h1 .h1-right{
-    right:-2px;
-    background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 -27px;
+  right:-2px;
+  background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 -27px;
 }
 .h1 .h1-left{
-    left:0;
-    background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 0;
+  left:0;
+  background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 0;
 }
 .h1 a.cont{
-    color:white;
-    font-size:10px;
-    position:absolute;
-    right:20px;
-    text-decoration:underline;
-    top:-1px;
+  color:white;
+  font-size:10px;
+  position:absolute;
+  right:20px;
+  text-decoration:underline;
+  top:-1px;
 }
 .h1 img{
-    display:none;
+  display:none;
 }
-
+.h1-h2{
+  background:#A4A6AC url(/images/rusmain/sub-title.gif) repeat-x scroll 0 0;
+  color:white;
+  font-size:11px;
+  font-weight:bold;
+  line-height:19px;
+  text-align:center;
+  border-bottom:1px solid #78797E;
+  border-top:1px solid #E5E5EB;
+}
 /*--- Media RSS ----*/
 table.media_rss{
-    border: 0 none;
-    width: 100%;
+  border: 0 none;
+  width: 100%;
 }
 table.media_rss th{
-    background-color: #90AEDE;
-    color: white;
-    height: 31px;
-    line-height: 31px;
-    margin: 0;
-    padding: 0 5pt;
-    position: relative;
-    text-align: center;
-    border-width: 0;
-    font-weight: bold;
+  background-color: #90AEDE;
+  color: white;
+  height: 31px;
+  line-height: 31px;
+  margin: 0;
+  padding: 0 5pt;
+  position: relative;
+  text-align: center;
+  border-width: 0;
+  font-weight: bold;
 }
 .date-rss{
-    color: #3764b9;
+  color: #3764b9;
 }
 .icon-rss{
-    text-align:center;
+  text-align:center;
 }
 .top-right-corner{
-    background: #90AEDE url(/images/rusmain/h1-ears.png) no-repeat 0px 0px;
-    width: 65px;
+  background: #90AEDE url(/images/rusmain/h1-ears.png) no-repeat 0px 0px;
+  width: 65px;
 }
 .top-left-corner{
-    background: #90AEDE url(/images/rusmain/h1-ears.png) no-repeat right -32px;
+  background: #90AEDE url(/images/rusmain/h1-ears.png) no-repeat right -32px;
 }
 .right-cell, .icon-cell, .name-cell, .left-cell{
-    height: 20px;
-    line-height: 20px;
-    border-bottom: 1px solid #E5E5E5;
-    border-right: 1px none #E5E5E5;
-    border-left: 1px solid #E5E5E5;
-    padding: 5px 5px 3px 20px;
+  height: 20px;
+  line-height: 20px;
+  border-bottom: 1px solid #E5E5E5;
+  border-right: 1px none #E5E5E5;
+  border-left: 1px solid #E5E5E5;
+  padding: 5px 5px 3px 20px;
 }
 .icon-cell, .left-cell{
-    padding:5px 10px 3px;
-    vertical-align:middle;
+  padding:5px 10px 3px;
+  vertical-align:middle;
 }
 .name-cell{
-    padding: 5px 20px 3px 5px;
+  padding: 5px 20px 3px 5px;
 }
 .grey-over{
-    background-color: #F0F4FD;
+  background-color: #F0F4FD;
 }
 
 /*----------  Media casting  ---------------*/
 .mediacasting a.hide-player{
-    display: none;
+  display: none;
 }
 .mediacasting a.show-player{
-    display: none;
-    padding-left: 25px;
+  display: none;
+  padding-left: 25px;
 }
 .mediacasting a.media{
-    padding-left: 25px;
+  padding-left: 25px;
 }
 .mediacasting a.media-download{
-    display: none;
+  display: none;
 }
 .media-download{
-    margin-left: 10px;
+  margin-left: 10px;
 }
 .audio .show-player, .audio .media{
-    background-image: url('/images/hebmain/audio.png');
-    background-repeat: no-repeat;
-    background-attachment:scroll;
-    background-position: left top;
+  background-image: url('/images/hebmain/audio.png');
+  background-repeat: no-repeat;
+  background-attachment:scroll;
+  background-position: left top;
 }
 
 .video .show-player, .video .media{
-    background-image: url('/images/hebmain/video.png');
-    background-repeat: no-repeat;
-    background-attachment:scroll;
-    background-position: left top;
+  background-image: url('/images/hebmain/video.png');
+  background-repeat: no-repeat;
+  background-attachment:scroll;
+  background-position: left top;
 }
 .mediaplayer div{
-    display:none;
+  display:none;
 }
 /*******  Picture gallery  ********/
 .picture_gallery{
-    display: block;
+  display: block;
 }
 .picture_gallery h3{
-    margin:1em 0 0;
-    padding:7px 0 5px 10px;
-    color:#192862;
-    font-size:16px;
-    margin-bottom:3px;
+  margin:1em 0 0;
+  padding:7px 0 5px 10px;
+  color:#192862;
+  font-size:16px;
+  margin-bottom:3px;
 }
 .picture_gallery .pictures a{
-    cursor:url(/images/zoomin.cur), pointer;
+  cursor:url(/images/zoomin.cur), pointer;
 }
 img.thumbnails{
-    width: 90px;
-    height: 90px;
-    margin: 3px;
+  width: 90px;
+  height: 90px;
+  margin: 3px;
 }
 .cross_page_link{
-    position:relative;
-    float:right;
+  position:relative;
+  float:right;
 }

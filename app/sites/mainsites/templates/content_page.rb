@@ -90,19 +90,30 @@ class Mainsites::Templates::ContentPage < WidgetManager::Template
           :has_url => false, :placeholder => 'main_content'}).render_to(self)
 
       unless get_acts_as_section
-        div(:class => 'h1') {
-          div(:class => 'left-ear')
-          div(:class => 'right-ear')
+        small_title = get_small_title
+        sub_title = get_sub_title
+
+        klass = small_title || sub_title ? 'h1 h1-border' : 'h1'
+        div(:class => klass) {
+          div(:class => 'h1-left')
+          div(:class => 'h1-right')
           h1 get_title
         }
-        small_title = get_small_title
-        h2 get_small_title unless small_title.empty?
-        sub_title = get_sub_title
-        div(:class => 'descr') {
-          div(:class => 'left-ear')
-          div(:class => 'right-ear')
-          text sub_title
-        } unless sub_title.empty?
+        unless small_title.empty?
+          div(:class => 'h1-h2') {
+            rawtext get_small_title
+          }
+        end
+        unless sub_title.empty?
+          div(:class => 'descr') {
+            div(:class => 'left-ear')
+            div(:class => 'right-ear')
+            text sub_title
+          }
+        end
+        div(:class => 'empty-descr') {
+          rawtext '&nbsp;'
+        }
         my_date = get_date
         writer = get_writer
         unless my_date.empty? && writer.empty?

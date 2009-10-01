@@ -274,6 +274,23 @@ tr.badmod td{
     height:20px;
 }
 /*Pagemap*/
+.pagemap table{
+    border-style:hidden;
+    border-width:0;
+    margin-right:30px;
+    margin:0;
+    *border-collapse: collapse;
+}
+.pagemap tr{
+    border-style:hidden;
+    vertical-align:top;
+    margin:0;
+}
+.pagemap td{
+    border-style:hidden;
+    margin:0;
+    *border-style:none;
+}
 
 .pagemap{
     margin-top:10px;
@@ -314,8 +331,8 @@ tr.badmod td{
     float: right;
     text-align: right;
     margin-top: 20px;
-    margin-right: 45px;
-    margin-left: 10px;
+   /* margin-right: 45px;
+    margin-left: 10px;*/
 }
 .pagemap .sitemap .box li{
     list-style-position:inside;
@@ -1290,8 +1307,8 @@ a.highslide-full-expand {
     cursor:pointer;
 }
 /*#kabtv-news a{
-    color: black;
-    text-decoration: none;
+color: black;
+text-decoration: none;
 }
 */
 #kabtv-news .link{
@@ -1308,7 +1325,7 @@ a.highslide-full-expand {
     margin: 0pt;
 }
 #kabtv-news .itemopen a.black_color{
-	color:black;
+    color:black;
 }
 #kabtv-news .item .newstitle h3{
     padding: 2pt 12pt 0pt 0pt;
@@ -1473,9 +1490,9 @@ a.highslide-full-expand {
     padding:0;
     font-size:12px;
     color:gray;
-	position:absolute;
-	right:0px;
-	top:103px;
+    position:absolute;
+    right:0px;
+    top:103px;
 }
 /*********************/
 .errormsg{
@@ -1512,14 +1529,14 @@ a.highslide-full-expand {
 .errormsg .title{
     color:white;
     font-size:26px;
-    left:280px;
+    right:110px;
     position:absolute;
     top:39px;
- }
+}
 .errormsg .errnum{
-  color:white;
-font-size:12px;
-left:568px;
-position:absolute;
-top:30px;
- }
+    color:white;
+    font-size:12px;
+    left:568px;
+    position:absolute;
+    top:30px;
+}

@@ -29,6 +29,12 @@ namespace :clean do
     log res, 'Cached JS'
     res = FileUtils.rm(Dir['public/stylesheets/cache_*.css'])
     log res, 'Cached CSS'
+    
+    # 4. clean DB properties and tree nodes ac rights cache
+    res = ActiveRecord::Base.connection.execute("select cms_cache_resource_properties_refresh(true) as cms_cache_resource_properties_refresh")
+    log res, 'cleaned resource properties cache'            
+    res = ActiveRecord::Base.connection.execute("select cms_cache_tree_node_ac_rights_refresh(true) as cms_cache_tree_node_ac_rights_refresh")
+    log res, 'cleaned tree nodes ac rights cache'
   end
 end
 
@@ -37,5 +43,5 @@ def log(res, title = '')
   return unless trace
 
   print "#{title}: "
-  res.empty? ? (print "--\n") : (pp res)
+  res ? (print "--\n") : (pp res)
 end

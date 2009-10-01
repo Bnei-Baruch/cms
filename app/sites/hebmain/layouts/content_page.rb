@@ -37,7 +37,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         meta(:name => 'node_id', :content => @tree_node.id)
         meta(:name => 'description', :content => ext_description)
         meta(:name => 'keywords', :content => ext_keywords)
-        title @meta_title #ext_title
+        title @meta_title
         text  ext_abc_up
 
         javascript_include_tag 'flashembed.min.js', 'embed', 'jquery',
@@ -115,7 +115,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                   div(:class => 'yui-u first') {
                     div(:class => 'content') {
                       make_sortable(:selector => ".content", :axis => 'y') {
-                        self.ext_content.render_to(self)
+                          self.ext_content.render_to(self)
                       }
                       @subscription.render_to(self)
                       div(:class => 'clear')

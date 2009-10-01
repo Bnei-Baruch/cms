@@ -23,6 +23,9 @@ hebrew:
   Hebmain::Widgets::CustomPreview:
     read_more: להמשך
 
+  Hebmain::Widgets::Errormsg:
+    error404: שגיאה 404
+
   Mainsites::Widgets::ContentPreview:
     manage_content_preview: ניהול תצוגה מקדימה
     add_item_manually: הוספת יחידה בצורה ידנית

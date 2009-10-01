@@ -46,6 +46,16 @@ class ApplicationController < ActionController::Base
     
   protected
 
+  def set_presenter(permalink = @permalink)
+    args = {:permalink => permalink, :website=> @website, :controller => self}
+    begin
+      @presenter = get_presenter(site_name, group_name, args)
+    rescue Exception => e
+      @presenter = nil
+    end
+    Thread.current[:presenter] = @presenter
+  end
+
   def save_referrer_to_session
     session[:referer] = request.env["HTTP_REFERER"]
   end
@@ -91,15 +101,6 @@ class ApplicationController < ActionController::Base
     I18n.locale = @language
   end
 
-  def set_presenter
-    args = {:permalink => @permalink, :website=> @website, :controller => self}
-    begin
-      @presenter = get_presenter(site_name, group_name, args)
-    rescue Exception => e
-      @presenter = nil
-    end
-    Thread.current[:presenter] = @presenter
-  end
 
 
   def get_presenter(sitename, groupname, args)

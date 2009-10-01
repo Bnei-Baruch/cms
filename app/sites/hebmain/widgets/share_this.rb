@@ -24,18 +24,6 @@ class Hebmain::Widgets::ShareThis < WidgetManager::Base
          text _(:share_this)
        }
     }
-    div(:class => 'hadashot'){
-        img :src=>"/image/hebmain/hadash.png" , :id => "hadashpic", :border=>"0", :alt => _(:hadashot)
-        a(:rel =>"nofollow", :href=>"http://www.hadash-hot.co.il/submit.php?url=#{full_url}&phase=1", :target=>"_blank"){
-        text _(:hadashot)
-      }
-    }
-    div(:class => 'shavekria'){
-        img :src=>"/image/hebmain/shaveh.png" , :id => "shavekriapic", :border=>"0", :alt => _(:shavekria)
-        a(:rel =>"nofollow", :href=>"http://shaveh.co.il/submit.php?url=#{full_url}", :target=>"_blank"){
-        text _(:shavekria)
-      }
-    }
   end
   
 end

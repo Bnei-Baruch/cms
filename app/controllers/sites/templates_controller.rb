@@ -220,7 +220,18 @@ class Sites::TemplatesController < ApplicationController
   end
   
   def head_status_404
-    render :template => 'sites/templates/404.html.erb',:status => 404
+  
+    permanlink = site_settings[:page404_permalink] rescue nil
+    if permanlink && (@presenter = set_presenter(permanlink)) && @presenter.node
+      resource = @presenter.node_resource_type.hrid
+      klass = t_class(resource)
+      layout_class = l_class(resource)
+      render :widget => klass, :layout_class => layout_class, :render_options => {:status => 404}
+      return
+    else
+      render :template => 'sites/templates/404.html.erb',:status => 404
+      return
+    end
   end
   
   def status_410

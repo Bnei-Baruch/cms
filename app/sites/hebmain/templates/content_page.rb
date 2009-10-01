@@ -94,7 +94,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       if @presenter.page_params.has_key?('archive') || !get_acts_as_section
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
-            :resource_types => %W{ kabtv },
+            :resource_types => %W{ kabtv errormsg map},
             :button_text => _(:admin_upper_part),
             :new_text => _(:create_new_tv_unit),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
@@ -203,14 +203,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_keywords
     WidgetManager::Base.new do
-      text get_keywords
-    end
-  end
-
-  def ext_meta_title
-    WidgetManager::Base.new do
-      #  text get_name# unless get_hide_name
-      w_class('breadcrumbs').new(:view_mode => 'meta_title')
+      text get_meta_keywords
     end
   end
 
@@ -266,7 +259,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_header_resources
     @content_header_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['kabtv', 'admin_comment'],
+      :resource_type_hrids => ['kabtv', 'admin_comment', 'map', 'errormsg'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content_header'],

@@ -19,6 +19,24 @@ class AuthenticationModel
   def self.GET_NODE_AC_TYPES_FOR_EDIT
     NODE_AC_TYPES.reject {| key, value | key == 4 }
   end
+  
+  # Used to login cron managers and delayed jobs
+  def self.cron_manager_user_login
+    username = $config_manager.appl_settings[:cron_manager_login_user][:username]
+    return if (current_user && current_user == 7)
+    msession = Hash.new
+    password = $config_manager.appl_settings[:cron_manager_login_user][:password]
+    user = User.authenticate(username, password)
+    if user
+      msession[:user_id] = user.id
+      msession[:current_user_is_admin] = user.groups.find(:all, :conditions => {:groupname=>'Administrators'}).length
+    else
+      logger.error("Rss Reader user is not defined or banned. Access denied.")
+      raise "Access denied for Rss Reader user."
+    end
+
+    Thread.current[:session] = msession
+  end
 
   def self.get_anonymous_user
     {:username => $config_manager.appl_settings[:anonymous_login_user][:username],
@@ -144,7 +162,7 @@ class AuthenticationModel
   end
   
   def self.current_user
-    Thread.current[:session][:user_id]
+    Thread.current[:session][:user_id] rescue nil
   end
   
   def self.current_user_is_admin?

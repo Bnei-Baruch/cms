@@ -2,6 +2,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def set_layout
     layout.ext_content = ext_content
+    layout.ext_breadcrumbs = ext_breadcrumbs
     layout.ext_content_header = ext_content_header
     layout.ext_title = ext_title
     layout.ext_description = ext_description
@@ -89,6 +90,22 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     !content_header_resources.blank?
   end
   
+  def ext_breadcrumbs
+    WidgetManager::Base.new(helpers) do
+      hide_breadcrumbs = get_hide_breadcrumbs
+      if (hide_breadcrumbs.is_a?(String) && hide_breadcrumbs.empty?) || (not hide_breadcrumbs)
+        div(:class => 'middle'){
+          div(:class => 'h1') {
+            w_class('breadcrumbs').new(:view_mode => 'titles').render_to(self)
+            div(:class =>'h1-right')
+            div(:class =>'h1-left')
+          }
+          w_class('breadcrumbs').new().render_to(self) 
+          div(:class => 'margin-25') {text ' '}
+        }
+      end     
+    end
+  end
   def ext_content_header
     WidgetManager::Base.new(helpers) do
       if @presenter.page_params.has_key?('archive') || !get_acts_as_section

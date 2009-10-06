@@ -275,11 +275,13 @@ tr.badmod td{
 }
 /*Pagemap*/
 .pagemap table{
+    direction:rtl;
     border-style:hidden;
     border-width:0;
     margin-right:30px;
     margin:0;
     *border-collapse: collapse;
+	text-align:right;
 }
 .pagemap tr{
     border-style:hidden;
@@ -293,63 +295,54 @@ tr.badmod td{
 }
 
 .pagemap{
-    margin-top:10px;
+    margin-top:19px;
 }
 .pagemap h3{
-    direction:rtl;
-    font-size:14px;
+    font-size:16px;
     font-weight:normal;
     text-align:right;
     margin:0px;
 }
-.pagemap .sitemap{
-    background-color: #f4f9fd;
-    border: 1px solid #e8e8e8;
-    padding:8px;
-    font-size:14px;
+.pagemap div.clear{
+	height:10px;
 }
-.pagemap .sitemap .sitemap-inner{
-    margin-right:20px;
+.pagemap div{
+	height:30px;
+	margin:0;
+	padding:0;
+	position:relative;
 }
-.pagemap .sitemap ul{
-    margin-right:0px;
+.pagemap div a{
+	color:white;
+	font-weight:bold;
+	font-size:15px;
+	position:absolute;
+	top: 5px;
+	right:13px;
 }
-.pagemap .sitemap .title{
-    font-weight: bold;
-    padding-bottom: 10px;
+.pagemap li{
+	list-style-type:none;
+	padding-bottom:1px;
+}             
+.pagemap li a{
+	color:#626162;
 }
-.pagemap .sitemap .title a{
-    color: #4b4b4b;
+.pagemap td{
+	padding:1px 1px 0 0;
+	width:1%;
+}             
+.pagemap tr.odd td.even, .pagemap tr.even td.odd{
+	background-color:#E0E8F8;
 }
-.pagemap .sitemap .list{
-    color: #626264;
+.pagemap tr.odd td.odd, .pagemap tr.even td.even{
+	background-color:#F0F3FD;
 }
-.pagemap .sitemap .list a{
-    color: #626264;
+.pagemap tr.odd td.even div, .pagemap tr.even td.odd div{
+	background-color:#3C60B8;
 }
-.pagemap .sitemap .box{
-    float: right;
-    text-align: right;
-    margin-top: 20px;
-   /* margin-right: 45px;
-    margin-left: 10px;*/
+.pagemap tr.odd td.odd div, .pagemap tr.even td.even div{
+	background-color:#92ADE0;
 }
-.pagemap .sitemap .box li{
-    list-style-position:inside;
-    list-style-type:none;
-    white-space:nowrap;
-}
-.pagemap .sitemap .clear{
-    clear: both;
-    height:20px;
-
-}
-.pagemap .sitemap .index3,
-.pagemap .sitemap .index6,
-.pagemap .sitemap .index9{
-    clear:both;
-}
-
 /*----------  Main Preview1  ---------------*/
 .main_preview1{
     margin:0;

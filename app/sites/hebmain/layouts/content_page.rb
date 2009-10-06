@@ -1,6 +1,6 @@
 class Hebmain::Layouts::ContentPage < WidgetManager::Layout
 
-  attr_accessor :ext_content, :ext_content_header, :ext_title, :ext_description,
+  attr_accessor :ext_content, :ext_breadcrumbs, :ext_content_header, :ext_title, :ext_description,
     :ext_main_image, :ext_related_items, :ext_kabtv_exist, 
     :ext_abc_up, :ext_abc_down, :ext_keywords
 
@@ -12,8 +12,6 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
     @header_copyright = w_class('header').new(:view_mode => 'copyright')
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
-    @breadcrumbs = w_class('breadcrumbs').new()
-    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
     @google_analytics = w_class('google_analytics').new
     @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
@@ -98,15 +96,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                     w_class('sections').new.render_to(self)
                   }
                   div(:class => 'margin-25') {text ' '}
-                  div(:class => 'middle'){
-                    div(:class => 'h1') {
-                      @titles.render_to(self)
-                      div(:class =>'h1-right')
-                      div(:class =>'h1-left')
-                    }
-                    @breadcrumbs.render_to(self) 
-                    div(:class => 'margin-25') {text ' '}
-                  }
+                  self.ext_breadcrumbs.render_to(self)
                   div(:class => 'content-header') {
                     make_sortable(:selector => ".content-header", :axis => 'y') {
                       self.ext_content_header.render_to(self)

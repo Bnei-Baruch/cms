@@ -5,13 +5,19 @@ class FixCmsGroupCreation < ActiveRecord::Migration
       RETURNS trigger AS
     $BODY$
         DECLARE
-    	l_i integer;
+    	l_i integer := 0;
         BEGIN
-    	if TG_OP = 'DELETE' or TG_OP = 'UPDATE' then
-    		if TG_OP = 'DELETE' or (TG_OP = 'UPDATE' and OLD.banned <> NEW.banned) then
-    			select cms_cache_tree_node_ac_rights_update_group(OLD.id) into l_i;
+    	if TG_OP = 'DELETE' then 
+    		l_i := 1;
+    	end if;
+    	if TG_OP = 'UPDATE' then
+    		if OLD.banned <> NEW.banned then
+    			l_i := 1;
     		end if;
     	end if;
+    	if l_i > 0 then
+    		select cms_cache_tree_node_ac_rights_update_group(OLD.id) into l_i;
+            end if;
             RETURN NEW;
         END;
     $BODY$

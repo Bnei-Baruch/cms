@@ -11,10 +11,10 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
             text  _(:home)     #' ראשי'
           }
         }
-        main_sections.each{ |section|
+        main_sections.each_with_index{ |section, index|
           li(:class => 'divider'){ rawtext '|'}
           li(section.eql?(presenter.main_section) ? {:class => 'selected'} : {}){
-            a({:title => section.resource.name, :href => get_page_url(section)}.merge!(gg_analytics_tracking(section.resource.name))) {
+            a({:class => "section_#{index}", :title => section.resource.name, :href => get_page_url(section)}.merge!(gg_analytics_tracking(section.resource.name))) {
               text section.resource.name
             }
           }

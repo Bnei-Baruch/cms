@@ -160,6 +160,11 @@ strong{
 #bd .menu a {
     color:black;
 }
+/* To make annotation to the tv66 link */
+#bd .menu a.section_0 {
+    color:#186BE5;
+}
+
 #bd .menu ul {
     position:absolute;
     top:0;

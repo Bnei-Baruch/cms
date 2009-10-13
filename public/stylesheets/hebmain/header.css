@@ -196,15 +196,18 @@ strong{
     list-style-type: none;
     list-style-position: inside;
     padding: 2px 0;
-    *padding: 2px 6px;
+    padding: 2px 3px\9;
+    *padding: 2px 3px;
     margin:0;
+	text-align:center;
 }
 #bd .menu ul li.divider{
     color:#838383;
     margin: 0;
     padding: 0;
 	width:9px;
-	*width:12px;
+	width:11px\9;
+	*width:11px;
 }
 #bd .menu ul li.selected{
     background-color:#EAF0FC;

@@ -38,36 +38,6 @@ class Global::Widgets::Video < WidgetManager::Base
         description = get_description
         p { rawtext description } unless description.empty?
       end
-
-      autoplay = get_autoplay
-
-      if autoplay == true
-        div(:id => "flashplayer-#{id}"){
-        }
-        javascript {
-          rawtext <<-Embedjs
-          $(document).ready(function() {
-               var $player = $('#flashplayer-#{id}');
-               flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig});
-            });
-          Embedjs
-        }
-      else
-        div(:id => "flashplayer-#{id}",
-          :onclick => "var $player = $('#flashplayer-#{id}');flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig})") {
-          if image && !image.empty?
-            img(:src => get_image, :alt => '', :class => 'flashplayer')
-          else
-            div(:class => 'flashplayer')
-          end
-          p(:class => "playbutton"){
-            a{
-              span _('play')
-              b {rawtext '&nbsp;'}
-            }
-          }
-        }
-      end
       javascript {
         rawtext <<-Player
           var playerConfig = {
@@ -86,6 +56,36 @@ class Global::Widgets::Video < WidgetManager::Base
           };
         Player
       }
+
+      autoplay = get_autoplay
+
+      if autoplay == true
+        div(:id => "flashplayer-#{id}"){
+        }
+        javascript {
+          rawtext <<-Embedjs
+         // $(document).ready(function() {
+               var $player = $('#flashplayer-#{id}');
+               flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig});
+         //   });
+          Embedjs
+        }
+      else
+        div(:id => "flashplayer-#{id}",
+          :onclick => "var $player = $('#flashplayer-#{id}');flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig})") {
+          if image && !image.empty?
+            img(:src => get_image, :alt => '', :class => 'flashplayer')
+          else
+            div(:class => 'flashplayer')
+          end
+          p(:class => "playbutton"){
+            a{
+              span _('play')
+              b {rawtext '&nbsp;'}
+            }
+          }
+        }
+      end
     }
     
     div(:class => 'embed'){

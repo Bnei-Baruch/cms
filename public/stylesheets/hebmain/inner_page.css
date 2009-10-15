@@ -126,6 +126,8 @@
 }
 .content .item .full-video {
     background: transparent url(/images/hebmain/player/bg.png) repeat-y top right;
+    width:504px;
+    height:378px;
 }
 .content .item .full-video p{
     padding:10px 10px 15px;

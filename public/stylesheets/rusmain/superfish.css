@@ -61,7 +61,6 @@ ul.sf-menu li li li.sfHover ul {
   text-decoration:none;
 }
 .sf-menu a span{
-  text-shadow: 1px 1px 1px black;
   position:       relative;
 }
 .sf-menu span.shadow{

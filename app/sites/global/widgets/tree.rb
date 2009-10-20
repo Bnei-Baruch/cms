@@ -127,7 +127,7 @@ class Global::Widgets::Tree < WidgetManager::Base
       status = ['PUBLISHED']
     else
       properties = nil
-      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
+      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'DELETED']
     end
     nodes = TreeNode.get_subtree(
       :parent => node_id,

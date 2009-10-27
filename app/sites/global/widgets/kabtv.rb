@@ -345,26 +345,74 @@ $(function() {
 
       div(:id => 'player-side') {
         rawtext <<-TV
-          <div id="tvobj"><object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" style="background-color:#000000" id="player" name="player" type="application/x-oleobject" width="#{width}" height="#{height}" standby="Loading Windows Media Player components..."><param name="URL" value="#{url}" /><param name="AutoStart" value="1" /><param name="AutoPlay" value="1" /><param name="volume" value="50" /><param name="uiMode" value="full" /><param name="animationAtStart" value="1" /><param name="showDisplay" value="1" /><param name="transparentAtStart" value="0" /><param name="ShowControls" value="1" /><param name="ShowStatusBar" value="1" /><param name="ClickToPlay" value="0" /><param name="bgcolor" value="#000000" /><param name="windowlessVideo" value="1" /><param name="balance" value="0" />
-          <embed id="player" name="player" src="#{url}" type="application/x-mplayer2" pluginspage="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" autostart="true" stretchToFit="false" uimode="full" width="#{width}" height="#{height}" />
-          </object></div>
+          <div id="tvobj">
+          <!--[If IE]>
+          <object 
+            classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
+            type="application/x-oleobject"
+            id="player" 
+            name="player" 
+            data="#{url}" 
+            width="#{width}" 
+            height="#{height}">
+            <param name="url" value="#{url}" />
+            <param name="autostart" value="true" />
+            <param name="controller" value="true" />
+            <param name="volume" value="50" />
+            <param name="uiMode" value="mini" />
+            <param name="animationAtStart" value="true" />
+            <param name="showDisplay" value="false" />   
+            <param name="ShowAudioControls" value="true" />
+            <param name="ShowPositionControls" value="false" />
+            <param name="transparentAtStart" value="false" / >
+            <param name="ShowControls" value="true" />
+            <param name="ShowStatusBar" value="true" />
+            <param name="ShowTracker" value="false" />
+            <param name="ClickToPlay" value="false" />
+            <param name="DisplayBackColor" value="#000000" />
+            <param name="DisplayForeColor" value="#ffffff" />
+            <param name="balance" value="false" />
+          </object>
+          <![endif]-->
+          <!--[if !IE]>-->
+          <object 
+            type="video/x-ms-wmv"
+            id="player" 
+            name="player" 
+            data="#{url}" 
+            width="#{width}" 
+            height="#{height}">
+            <param name="src" value="#{url}" />
+            <param name="autostart" value="true" />
+            <param name="controller" value="true" />
+            <param name="volume" value="50" />
+            <param name="uiMode" value="mini" />
+            <param name="animationAtStart" value="true" />
+            <param name="showDisplay" value="false" />   
+            <param name="ShowAudioControls" value="true" />
+            <param name="ShowPositionControls" value="false" />
+            <param name="transparentAtStart" value="false" />
+            <param name="ShowControls" value="true" />
+            <param name="ShowStatusBar" value="true" />
+            <param name="ShowTracker" value="false" />
+            <param name="ClickToPlay" value="false" />
+            <param name="DisplayBackColor" value="#000000" />
+            <param name="DisplayForeColor" value="#ffffff" />
+            <param name="balance" value="false" />
+          </object>
+          <!--<![endif]-->
+          </div>
+          
         TV
         javascript {
           rawtext <<-TV1
           fs_str='#{_(:to_exit_full_screen_mode_press_ESC)}';
           nofs_str='#{_(:to_watch_in_full_screen_mode_please_start_player_beforehand)}';
           function switchChannel(url) {
-            var player = document.getElementById("player");
-            if (player && player.URL){
-                player.URL = url;
-              } else {
-                var player = document.getElementById("tvobj");
-                if (player){
-                    tv = "<object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' style='background-color:#000000' id='player' name='player' type='application/x-oleobject' width='#{width}' height='#{height}' standby='Loading Windows Media Player components...'><param name='URL' value='"+url+"' /><param name='AutoStart' value='1' /><param name='AutoPlay' value='1' /><param name='volume' value='50' /><param name='uiMode' value='full' /><param name='animationAtStart' value='1' /><param name='showDisplay' value='1' /><param name='transparentAtStart' value='0' /><param name='ShowControls' value='1' /><param name='ShowStatusBar' value='1' /><param name='ClickToPlay' value='0' /><param name='bgcolor' value='#000000' /><param name='windowlessVideo' value='1' /><param name='balance' value='0' />";
-                    tv += "<embed id='player' name='player' src='"+url+"' type='application/x-mplayer2' pluginspage='http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112' autostart='true' stretchToFit='false' uimode='full' width='#{width}' height='#{height}' />";
-                    tv += "</object>";
-                    player.innerHTML = tv;
-                  }
+              var player = document.getElementById("tvobj");
+              if (player){
+                  tv = "<!--[If IE]> <object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' type='application/x-oleobject' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='url' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' / > <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <![endif]--> <!--[if !IE]>--> <object type='video/x-ms-wmv' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='src' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' /> <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <!--<![endif]-->";
+                player.innerHTML = tv;
                 }
               }
           TV1

@@ -117,7 +117,7 @@ module Delayed
       begin
         Job.create(:payload_object => object, :priority => priority.to_i, :run_at => run_at)
       rescue Exception  => e
-        log_exception(e)
+        RAILS_DEFAULT_LOGGER.error(e)
       end
     end
 

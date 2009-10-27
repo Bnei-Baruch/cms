@@ -165,7 +165,13 @@ class CronManager
       return
     end
     lessons['lessons']['lesson'].each do |lesson|
-      lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y')
+      begin
+        lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y')
+      rescue Exception  => e
+        RAILS_DEFAULT_LOGGER.error("error in cron_manager.rb(#{Time.now}):")
+        RAILS_DEFAULT_LOGGER.error(e)
+      end
+
     end
     
     data = YAML.dump(lessons)

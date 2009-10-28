@@ -266,7 +266,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
           :sortable => true
         )
       }
-      make_sortable(:selector => ".downloads .entries", :axis => 'y') {
+      make_sortable(:selector => ".downloads .entries", :direction => 'y') {
         kabbalah_media_resources
       }
     }
@@ -286,9 +286,9 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         :force_mode => 'preview',
         :sortable => true
       )
-    }
-    make_sortable(:selector => ".right-column") {
-      right_column_resources
+      make_sortable(:selector => ".right-column", :direction => 'y') {
+        right_column_resources
+      }
     }
   end
 

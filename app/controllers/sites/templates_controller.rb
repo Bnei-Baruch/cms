@@ -1,15 +1,10 @@
 class Sites::TemplatesController < ApplicationController
-
+  include TemplateExtensions
   attr_reader :website
   
   # Add the 'app/sites' path of sites which is used by the application instead of regular 'app/views' folder
   # custom_view_path = "#{RAILS_ROOT}/app/sites"
   # self.prepend_view_path(custom_view_path)
-  
-  def json(id = params[:node])
-    respond_to do |format|
-    end
-  end
   
   def update_positions
     nodes = YAML.load(params[:nodes]) rescue []
@@ -61,7 +56,7 @@ class Sites::TemplatesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {
+      format.html do
         if request.xhr?
           render_json_widget
           return
@@ -93,11 +88,11 @@ class Sites::TemplatesController < ApplicationController
           # Authenticated user ==> no cache
           render :widget => klass, :layout_class => layout_class
         end
-      }
-      format.json {
+      end
+      format.json do
         render_json_widget
         return
-      }
+      end
       format.rss {
         render_feed('rss')
         return
@@ -238,85 +233,6 @@ class Sites::TemplatesController < ApplicationController
     render :text => "Redirected back to the reverse proxy to show old site page.\r\n", :status => 410
   end
   
-  def w_class(resource)
-    my_widget_path(resource).camelize.constantize 
-  end
-  
-  def t_class(resource)
-    my_template_path(resource).camelize.constantize
-  end
-
-  def l_class(resource)
-    l_class_str = site_settings[:layout_map][resource]
-    l_class_str = resource if l_class_str.nil?
-    my_layout_path(l_class_str).camelize.constantize
-  end
-
-  private     
-
-  def my_layout_path(resource)
-    get_layout_path(site_name, group_name, resource)
-  end
-
-  def my_template_path(resource)
-    get_template_path(site_name, group_name, resource)
-  end
-
-  def my_stylesheets_path(style_name)
-    get_stylesheets_path(site_name, group_name, style_name)
-  end
-
-  def my_widget_path(resource)
-    get_widget_path(site_name, group_name, resource)
-  end
-  
-  def get_stylesheets_path(sitename, groupname, filename)
-    get_my_path('stylesheets', sitename, groupname, filename, 'css.erb')
-  end
-  
-  def get_layout_path(sitename, groupname, filename)
-    get_my_path('layouts', sitename, groupname, filename, 'rb')
-  end
-
-  def get_template_path(sitename, groupname, filename)
-    get_my_path('templates', sitename, groupname, filename, 'rb')
-  end
-    
-  def get_widget_path(sitename, groupname, filename)
-    get_my_path('widgets', sitename, groupname, filename, 'rb')
-  end
-  
-  $files_location = Array.new
-  
-  def get_my_path(type, sitename, groupname, filename, extention)
-    search_res = search_path(type, sitename, groupname, filename, extention)
-      
-    return search_res if search_res
-    
-    if File.exists?("#{RAILS_ROOT}/app/sites/#{sitename}/#{type}/#{filename}.#{extention}")
-      insert_path(type, sitename, filename, extention)
-      "#{sitename}/#{type}/#{filename}"
-    elsif File.exists?("#{RAILS_ROOT}/app/sites/#{groupname}/#{type}/#{filename}.#{extention}")
-      insert_path(type, groupname, filename, extention)
-      "#{groupname}/#{type}/#{filename}"
-    else 
-      insert_path(type, 'global', filename, extention)
-      "global/#{type}/#{filename}"
-    end
-  end
-  
-  def insert_path(type, name, filename, extention)
-    $files_location << {:type => type, :name => name, :filename => filename, :extention => extention}
-  end
-  
-  def search_path(type, sitename, groupname, filename, extention)
-    search_res = $files_location.index({:type => type, :name => (sitename || groupname || 'global'), :filename => filename, :extention => extention})
-    if search_res
-      "#{$files_location[search_res][:name]}/#{type}/#{filename}"
-    else
-      nil
-    end
-  end
   
   def check_url_migration(is_external = false)
     url = request.request_uri.dup

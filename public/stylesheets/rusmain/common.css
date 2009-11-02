@@ -3,438 +3,436 @@ body{
   font-family: "Lucida Grande CY", Arial, sans-serif !important;
 }
 .yui-t7 #yui-main .yui-b {
-  margin-left:18em;
+    margin-left:18em;
 }
 .yui-t7 .yui-b {
-  float:left;
-  width:17.2em;
+    float:left;
+    width:17.2em;
 }
 .yui-t7 #yui-main {
-  float:right;
-  margin-left:-25em;
+    float:right;
+    margin-left:-25em;
 }
 .yui-t3 #yui-main .yui-b {
-  margin-left:24.0769em;
+    margin-left:24.0769em;
 }
 body {
-  direction: ltr;
-  margin:0 auto;
-  font:normal normal 13px sans-serif;
+    direction: ltr;
+    margin:0 auto;
+    font:normal normal 13px sans-serif;
 }
 a, a:visited{
-  color:#186BE5;
-  text-decoration:none;
+    color:#186BE5;
+    text-decoration:none;
 }
 a:hover{
-  text-decoration:underline;
+    text-decoration:underline;
 }
 .left {
-  float:left;
+    float:left;
 }
 .right {
-  float:right;
+    float:right;
 }
 em{
-  font-style: italic;
+    font-style: italic;
 }
 strong{
-  font-weight:bold;
+    font-weight:bold;
 }
 strong em, em strong{
-  font-style: italic;
-  font-weight:bold;
+    font-style: italic;
+    font-weight:bold;
 }
 #header{
-  position:relative;
-  height:99px;
-  width:100%;
-  background-color:#f9f9f9;
+    position:relative;
+    height:99px;
+    width:100%;
+    background-color:#f9f9f9;
 }
 #nav-empty{
-  height:6px;
-  background-color:#c5c6cb;
-  font-size:1px;
-  line-height:1px;
-  width:100%;
+    height:6px;
+    background-color:#c5c6cb;
+    font-size:1px;
+    line-height:1px;
+    width:100%;
 }
 #nav{
-  height:51px;
-  line-height:51px;
-  margin:0 0 15px;
-  padding:0 6px;
-  text-align:center;
-  background:#787A7E url(/images/rusmain/nav-gradient.gif) repeat-x 0 0;
-  position:relative;
-  font-weight:bold;
-  z-index: 99;
+    height:51px;
+    line-height:51px;
+    margin:0 0 15px;
+    padding:0 6px;
+    text-align:center;
+    background:#787A7E url(/images/rusmain/nav-gradient.gif) repeat-x 0 0;
+    position:relative;
+    font-weight:bold;
+    z-index: 99;
 }
 #nav .left-ear, #nav .right-ear{
-  position:absolute;
-  top:0;
-  width:5px;
-  height:51px;
-  background:#c5c6cb url(/images/rusmain/nav-ears.gif) no-repeat 0 0;
+    position:absolute;
+    top:0;
+    width:5px;
+    height:51px;
+    background:#c5c6cb url(/images/rusmain/nav-ears.gif) no-repeat 0 0;
 }
 #nav .left-ear{
-  left:0;
+    left:0;
 }
 #nav .right-ear{
-  background-position: -5px 0;
-  right:0;
+    background-position: -5px 0;
+    right:0;
 }
 #nav a, #nav a:visited, #nav a:hover{
-  color:#485458;
+    color:#485458;
 }
 #ft{
-  padding-top:8px;
-  margin:10px 0;
-  text-align:center;
+    padding-top:8px;
+    margin:10px 0;
+    text-align:center;
 }
 .admin #ft{
-  border:1px dashed black;
+    border:1px dashed black;
 }
 #ft .links{
-  margin:15px 0;
+    margin:15px 0;
 }
 #ft .links li{
-  display:inline;
-  padding-top:8px;
+    display:inline;
+    padding-top:8px;
 }
 .sitemap {
-  background-color:#F4F9FD;
-  border:1px solid #E8E8E8;
-  font-size:9px;
-  padding:8px;
+    background-color:#F4F9FD;
+    border:1px solid #E8E8E8;
+    font-size:9px;
+    padding:8px;
 }
 .sitemap .box{
-  float:left;
-  margin:1em 20px 20px 10px;
-  text-align:left;
+    float:left;
+    margin:1em 20px 20px 10px;
+    text-align:left;
 }
 .sitemap .box li {
-  list-style-position:inside;
-  list-style-type:none;
-  white-space:nowrap;
+    list-style-position:inside;
+    list-style-type:none;
+    white-space:nowrap;
 }
 .sitemap .title {
-  font-weight:bold;
-  padding-bottom:10px;
+    font-weight:bold;
+    padding-bottom:10px;
 }
 .sitemap .list {
-  color:#626264;
+    color:#626264;
 }
 .sitemap .list a {
-  color:#626264;
+    color:#626264;
 }
 .side-box-top{
-  background:#b1c385 url(/images/rusmain/box-top-gradient.gif) repeat-x 0 0;
-  height:25px;
-  position:relative;
-  line-height:24px;
-  padding:0 6px;
-  color:black;
-  font-weight:bold;
-  overflow:hidden;
+    background:#b1c385 url(/images/rusmain/box-top-gradient.gif) repeat-x 0 0;
+    height:25px;
+    position:relative;
+    line-height:24px;
+    padding:0 6px;
+    color:black;
+    font-weight:bold;
 }
 .side-box-top .left-ear, .side-box-top .right-ear,
 .mid-box-top .left-ear, .mid-box-top .right-ear{
-  position:absolute;
-  top:0;
-  width:6px;
-  height:25px;
-  background:#b1c385 url(/images/rusmain/box-top-ears.gif) no-repeat 0 0;
+    position:absolute;
+    top:0;
+    width:6px;
+    height:25px;
+    background:#b1c385 url(/images/rusmain/box-top-ears.gif) no-repeat 0 0;
 }
 .side-box-top .left-ear{
-  left:0;
+    left:0;
 }
 .side-box-top .right-ear{
-  background-position: -6px 0;
-  right:0;
+    background-position: -6px 0;
+    right:0;
 }
 .mid-box-top{
-  background:#2a6fab url(/images/rusmain/box-top-gradient.gif) repeat-x 0 -25px;
-  height:25px;
-  position:relative;
-  line-height:24px;
-  padding:0 6px;
-  color:white;
+    background:#2a6fab url(/images/rusmain/box-top-gradient.gif) repeat-x 0 -25px;
+    height:25px;
+    position:relative;
+    line-height:24px;
+    padding:0 6px;
+    color:white;
 }
 .mid-box-top .left-ear, .mid-box-top .right-ear{
-  background-position: -12px 0;
+    background-position: -12px 0;
 }
 .mid-box-top .left-ear{
-  left:0;
+    left:0;
 }
 .mid-box-top .right-ear{
-  background-position: -18px 0;
-  right:0;
+    background-position: -18px 0;
+    right:0;
 }
 .box-content{
-  border:1px solid #e5e5eb;
-  background-color:#fafafa;
-  padding:0;
-  margin:0 0 15px;
+    border:1px solid #e5e5eb;
+    background-color:#fafafa;
+    padding:0;
+    margin:0 0 15px;
 }
 .side-box{
-  margin:0;
-  clear:both;
+    margin:0;
+    clear:both;
 }
 .side-box h3{
-  background-color:#979797;
-  color:white;
-  height:20px;
-  line-height:20px;
-  padding:0 6px;
-  font-weight:bold;
+    background-color:#979797;
+    color:white;
+    height:20px;
+    line-height:20px;
+    padding:0 6px;
+    font-weight:bold;
 }
 .side-box .box-content{
-  padding:10px;
+    padding:10px;
 }
 #header #logo{
-  position:absolute;
-  left:55px;
-  top:9px;
+    position:absolute;
+    left:55px;
+    top:9px;
 }
 #header #links{
-  position:absolute;
-  right:39px;
-  top:59px;
+    position:absolute;
+    right:39px;
+    top:59px;
 }
 #header #links ul.links_ext{
 }
 #header #links ul.links_int{
-  border-left:1px solid #d9dbe0;
-  padding-left:3px;
+    border-left:1px solid #d9dbe0;
+    padding-left:3px;
 }
 #header #links img.link-img{
-  width:15px;
-  height:15px;
+    width:15px;
+    height:15px;
 }
 #header #links ul{
-  float:left;
-  margin:0;
+    float:left;
+    margin:0;
 }
 #header #links li{
-  list-style-type:none;
-  list-style-position:inside;
-  display:inline;
+    list-style-type:none;
+    list-style-position:inside;
+    display:inline;
 }
 #header #links a, #header #links a:visited{
-  float:left;
-  margin:0 6px;
-  font-size:11px;
-  text-align:center;
-  color:#979797;
+    float:left;
+    margin:0 6px;
+    font-size:11px;
+    text-align:center;
+    color:#979797;
 }
 #header #languagebar{
-  height:18px;
-  line-height:18px;
-  position:absolute;
-  right:38px;
-  top:20px;
-  width:160px;
-  border: 1px solid #e5e5eb;
-  color:silver;
+    height:18px;
+    line-height:18px;
+    position:absolute;
+    right:38px;
+    top:20px;
+    width:160px;
+    border: 1px solid #e5e5eb;
+    color:silver;
 }
 #header #search{
-  position:absolute;
-  right:215px;
-  top:19px;
+    position:absolute;
+    right:215px;
+    top:19px;
 }
 #header #search .text{
-  vertical-align:super;
-  width:175px;
-  border: 1px solid #e5e5eb;
-  margin:0 4px 0 0;
-  float:left;
+    vertical-align:super;
+    width:175px;
+    border: 1px solid #e5e5eb;
+    margin:0 4px 0 0;
+    float:left;
 }
 /********* ADMIN **********/
 #command-panel{
-  position:fixed;
-  top:0;
-  z-index:1000;
-  border:2px solid #D57100;
-  border-top:none;
-  width:942px;
-  background-color:#F5F5DC;
-  height:26px;
+    position:fixed;
+    top:0;
+    z-index:1000;
+    border:2px solid #D57100;
+    border-top:none;
+    width:942px;
+    background-color:#F5F5DC;
+    height:26px;
 }
 .under-command-panel{
-  margin-top:30px;
+    margin-top:30px;
 }
 .dynamic_tree{
-  float:right;
+    float:right;
 }
 .x-tree{
-  float:left;
+    float:left;
 }
 .page-status{
-  float:left;
-  margin:5px 10px;
+    float:left;
+    margin:5px 10px;
 }
 .clear {
-  clear:both;
+    clear:both;
 }
 .draft{
-  background-color:#FFF6CF !important;
+    background-color:#FFF6CF !important;
 }
 .archived{
-  background-color:#00FF66 !important;
+    background-color:#00FF66 !important;
 }
 .deleted{
-  background-color:#FFF6CF !important;
-  border: 1px solid red !important;
-  text-decoration:line-through !important;
-  display:none;
+    background-color:#FFF6CF !important;
+    border: 1px solid red !important;
+    text-decoration:line-through !important;
 }
 /* Sortables */
 .handle{
-  z-index:500 !important;
-  height:13px !important;
-  width:13px !important;
-  cursor: move !important;
-  margin:0 !important;
-  padding:0 !important;
-  position:relative !important;
+    z-index:500 !important;
+    height:13px !important;
+    width:13px !important;
+    cursor: move !important;
+    margin:0 !important;
+    padding:0 !important;
+    position:relative !important;
 }
 .sort-area{
-  background-color:#86cb9c!important;
+    background-color:#86cb9c!important;
 }
 .placeholder{
-  background-color:olive;
+    background-color:olive;
 }
 .copyright{
-  color:#767676;
-  font-size:13px;
+    color:#767676;
+    font-size:13px;
 }
 
 .no-bottom-border{
-  border-bottom:none !important;
+    border-bottom:none !important;
 }
 
 /* Citation in articles */
 .table-article{
-  float:right;
-  background-color:white;
-  width:208px;
-  margin:5px 0 5px 5px;
+    float:right;
+    background-color:white;
+    width:208px;
+    margin:5px 0 5px 5px;
 }
 .table-article .table-middle-tr{
-  display:none;
+    display:none;
 }
 .table-article .table-article-td-top-middle{
-  width:100%;
-  height:4px;
-  line-height:4px;
-  background:white url(/images/rusmain/table/top-bot.gif) repeat-x 0 0;
-  border:0px;
-  font-size:1px;
+    width:100%;
+    height:4px;
+    line-height:4px;
+    background:white url(/images/rusmain/table/top-bot.gif) repeat-x 0 0;
+    border:0px;
+    font-size:1px;
 }
 .table-article .table-article-td-bottom-middle{
-  width:100%;
-  height:4px;
-  line-height:4px;
-  background:white url(/images/rusmain/table/top-bot.gif) repeat-x 0 -4px;
-  border:0px;
-  font-size:1px;
+    width:100%;
+    height:4px;
+    line-height:4px;
+    background:white url(/images/rusmain/table/top-bot.gif) repeat-x 0 -4px;
+    border:0px;
+    font-size:1px;
 }
 .table-article .table-article-td-left-middle,
 .table-article .table-article-td-right-middle{
-  width:2px;
-  height:100%;
-  background-color:#e5e5eb;
-  border:0px;
-  font-size:1px;
+    width:2px;
+    height:100%;
+    background-color:#e5e5eb;
+    border:0px;
+    font-size:1px;
 }
 .table-article .ear-top-right{
-  border:0px;
-  width:2px;
-  height:4px;
-  line-height:4px;
-  background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 1px;
-  font-size:1px;
+    border:0px;
+    width:2px;
+    height:4px;
+    line-height:4px;
+    background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 1px;
+    font-size:1px;
 }
 .table-article .ear-bottom-right{
-  border:0px;
-  width:2px;
-  height:4px;
-  line-height:4px;
-  background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 -8px;
-  font-size:1px;
+    border:0px;
+    width:2px;
+    height:4px;
+    line-height:4px;
+    background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 -8px;
+    font-size:1px;
 }
 .table-article .ear-top-left{
-  border:0px;
-  width:2px;
-  height:4px;
-  line-height:4px;
-  background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 -3px;
-  font-size:1px;
+    border:0px;
+    width:2px;
+    height:4px;
+    line-height:4px;
+    background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 -3px;
+    font-size:1px;
 }
 .table-article .ear-bottom-left{
-  border:0px;
-  width:2px;
-  height:4px;
-  line-height:4px;
-  background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 -16px;
-  font-size:1px;
+    border:0px;
+    width:2px;
+    height:4px;
+    line-height:4px;
+    background:white url(/images/rusmain/table/corners.gif) no-repeat scroll 0 -16px;
+    font-size:1px;
 }
 .table-article .table-article-title{
-  border:0px;
-  color:black;
-  font-weight:bold;
-  padding:5px;
+    border:0px;
+    color:black;
+    font-weight:bold;
+    padding:5px;
 }
 .table-article .table-article-body{
-  border:0px;
-  color:black;
-  padding:5px;
+    border:0px;
+    color:black;
+    padding:5px;
 }
 .table-article .table-title-tr{
-  background:#fcfcfd url(/images/rusmain/table/title-grad.gif) repeat-x scroll left top;
+    background:#fcfcfd url(/images/rusmain/table/title-grad.gif) repeat-x scroll left top;
 }
 .table-article .table-body-tr{
-  background:#e5e5eb url(/images/rusmain/table/body-grad.gif) repeat-x scroll left bottom;
+    background:#e5e5eb url(/images/rusmain/table/body-grad.gif) repeat-x scroll left bottom;
 }
 
 .x-tool{
-  float:right;
-  margin-left:5px;
+    float:right;
+    margin-left:5px;
 }
 .sf-menu li a{
-  text-align:left;
+    text-align:left;
 }
 .sf-menu li a:hover{
-  text-decoration:underline;
+    text-decoration:underline;
 }
 .sf-menu li ul li a:hover{/* submenu */
-                          text-decoration:none;
-                          background-color:#e5e5eb;
-                          color:#787a7e !important;
+    text-decoration:none;
+    background-color:#e5e5eb;
+    color:#787a7e !important;
 }
 /*----------  button  ---------------*/
 .prebutton{
-  background: transparent url(/images/rusmain/button.gif) no-repeat scroll 0pt 0px;
-  line-height: 22px;
-  height: 22px;
-  float: left;
-  width: 6px;
+    background: transparent url(/images/rusmain/button.gif) no-repeat scroll 0pt 0px;
+    line-height: 22px;
+    height: 22px;
+    float: left;
+    width: 6px;
 }
 .button{
-  border: 0pt none !important;
-  padding: 0 0 5px;
-  background: transparent url(/images/rusmain/button.gif) repeat-x scroll 0pt -44px;
-  color: white;
-  width: auto !important;
-  height: 22px;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 22px;
-  float: left;
+    border: 0pt none !important;
+    padding: 0 0 5px;
+    background: transparent url(/images/rusmain/button.gif) repeat-x scroll 0pt -44px;
+    color: white;
+    width: auto !important;
+    height: 22px;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 22px;
+    float: left;
 }
 .postbutton{
-  background: transparent url(/images/rusmain/button.gif) no-repeat scroll 0pt -22px;
-  line-height: 22px;
-  height: 22px;
-  width: 6px;
-  float: left;
+    background: transparent url(/images/rusmain/button.gif) no-repeat scroll 0pt -22px;
+    line-height: 22px;
+    height: 22px;
+    width: 6px;
+    float: left;
 }

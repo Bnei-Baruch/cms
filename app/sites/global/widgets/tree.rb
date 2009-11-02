@@ -175,7 +175,7 @@ class Global::Widgets::Tree < WidgetManager::Base
     else
       properties = nil
       parent ||= @website_parent_node
-      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
+      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'DELETED']
     end
     TreeNode.get_subtree(
       :parent => parent,

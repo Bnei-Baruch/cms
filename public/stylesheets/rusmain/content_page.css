@@ -492,10 +492,12 @@ h2{
 .related .box .box-mid p, .related .box .box-mid ul{
   padding: 0 0 10px;
 }
-.related .box ul{
+.related .box li{
   list-style-image:url(/images/rusmain/doughnut.gif);
   list-style-position:outside;
   list-style-type:circle;
+}
+.related .box ul{
   margin:0 0 0 15px;
 }
 .content_preview{

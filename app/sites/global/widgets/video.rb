@@ -1,3 +1,5 @@
+require 'uri'
+
 class Global::Widgets::Video < WidgetManager::Base
 
   def video_admin  
@@ -89,8 +91,13 @@ class Global::Widgets::Video < WidgetManager::Base
     div(:class => 'embed'){
       wmvpath = get_download_link
       unless wmvpath.empty?
+        uri = URI.parse(wmvpath)
+        unless uri.path =~ /download/
+          uri.path = "/download#{uri.path}"
+#          wmvpath = "#{uri.scheme}://#{uri.host}#{uri.port ? ':' + uri.port.to_s : ''}/download#{uri.path}"
+        end
         span(:class => 'services'){
-          a(:href => wmvpath, :title => 'download', :target => "_blank") {
+          a(:href => uri, :title => 'download', :target => "_blank") {
             img(:src => '/images/download.gif', :alt => 'download')
             text _(:download)
           }

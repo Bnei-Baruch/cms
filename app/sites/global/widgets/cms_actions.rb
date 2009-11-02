@@ -31,7 +31,7 @@ class Global::Widgets::CmsActions < WidgetManager::Base
           was_created = self.send(b, element)
         }
       
-        button_text = @options[:button_text] ? @options[:button_text].sub(/'/, '\\\'') : ''
+        button_text = @options[:button_text] ? @options[:button_text].sub(/'/, '\\\'') : _(tree_node.resource.resource_type.hrid.to_sym)
         rawtext <<-CMS2
                       ]
                   });

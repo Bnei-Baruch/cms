@@ -1,0 +1,1 @@
+pg_dump -i -F c -b -v -f cms_rus.backup -h postgres.local -U cms_test -W projects -n cms_test

@@ -142,16 +142,6 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
     )
   end
   
-  def kabbalah_media_resources
-    @kabbalah_media_nodes ||= TreeNode.get_subtree(
-      :parent => tree_node.id,
-      :resource_type_hrids => ['media_rss'],
-      :depth => 1,
-      :placeholders => ['lesson'],
-      :status => ['PUBLISHED', 'DRAFT']
-    )
-  end
-
   def kabtv_resources
     @kabtv_nodes ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -225,7 +215,6 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
   end
 
   def show_right_side
-    display ext_title_right unless ext_title_right.nil?
 
     #    It was decided not to put TV on homepage as the page gets overloaded
     #
@@ -246,47 +235,24 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
     #      )
     #    end
     
-    div(:class => 'downloads container'){
-      w_class('cms_actions').new(:tree_node => tree_node,
-        :options => {:buttons => %W{ new_button },
-          :resource_types => %W{ media_rss },
-          :new_text => _(:new_download),
-          :mode => 'inline',
-          :button_text => _(:add_downloads),
-          :has_url => false,
-          :placeholder => 'lesson'}).render_to(self)
-      h3(:class => 'box-header') {
-        text _(:lessons_to_download)
-      }
-      div(:class => 'entries'){
-        show_content_resources(:resources => kabbalah_media_resources,
-          :parent => :website,
-          :placeholder => :lesson,
-          :force_mode => 'preview',
-          :sortable => true
-        )
-      }
-      make_sortable(:selector => ".downloads .entries", :direction => 'y') {
-        kabbalah_media_resources
-      }
-    }
+    div(:class => 'right-part') {
+      display ext_title_right unless ext_title_right.nil?
 
-    div(:class => 'right-column'){
       w_class('cms_actions').new(:tree_node => tree_node,
         :options => {:buttons => %W{ new_button },
-          :resource_types => %W{ rss },
-          :button_text => _(:new_rss),
-          :new_text => _(:add_new_rss),
+          :resource_types => %W{ rss media_rss },
+          :button_text => _(:create_new_rightside_item),
+          :new_text => _(:create_new_rightside_item),
           :has_url => false,
           :placeholder => 'right'}).render_to(self)
 
       show_content_resources(:resources => right_column_resources,
         :parent => :website,
         :placeholder => :right,
-        :force_mode => 'preview',
-        :sortable => true
+        :sortable => true,
+        :force_mode => 'homepage'
       )
-      make_sortable(:selector => ".right-column", :direction => 'y') {
+      make_sortable(:selector => ".right-part") {
         right_column_resources
       }
     }
@@ -294,14 +260,12 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
 
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
-      :parent => tree_node.id,
-      :resource_type_hrids => ['rss'],
+      :parent => presenter.website_node.id,
+      :resource_type_hrids => ['rss', 'media_rss'],
       :depth => 1,
-      :placeholders => ['right'],
-      :status => ['PUBLISHED', 'DRAFT']
+      :placeholders => ['right']
     )
   end
-
 
   def show_content
     div(:class => 'content') {

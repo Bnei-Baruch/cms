@@ -107,6 +107,8 @@ russian:
     FAILURE: неудача
     box: коробка
     rss: RSS
+    link: ссылка
+    website: веб-сайт
     content_page:  страница содержания
     newsletter_form: подписка на рассылку новостей
     site_updates: обновления сайта
@@ -165,6 +167,7 @@ russian:
     create_new_box_header: создать новый заголовок колонки
 
   Mainsites::Layouts::Website:
+    create_new_rightside_item: создать новую единицу содержания
     create_new_leftside_item: создать новую единицу содержания
     lessons_to_download: уроки для скачивания
     new_content_item: создать новую единицу содержания

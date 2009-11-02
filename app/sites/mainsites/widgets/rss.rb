@@ -32,6 +32,36 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
     }    
   end
 
+  def render_homepage
+    resources = TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['rss'],
+      :depth => 1,
+      :has_url => false,
+      :status => ['PUBLISHED', 'DRAFT']
+    )
+
+    div(:class => 'right-column'){
+      w_class('cms_actions').new(:tree_node => tree_node,
+        :options => {:buttons => %W{ new_button },
+          :resource_types => %W{ rss },
+          :button_text => _(:new_rss),
+          :new_text => _(:add_new_rss),
+          :has_url => false,
+          :placeholder => 'right'}).render_to(self)
+
+      show_content_resources(:resources => resources,
+        :parent => :website,
+        :placeholder => :right,
+        :force_mode => 'homepage',
+        :sortable => true
+      )
+      make_sortable(:selector => ".right-column", :direction => 'y') {
+        resources
+      }
+    }
+  end
+
   def render_preview
     id = tree_node.id
     div(:id => "rss#{id}", :class => 'box-content'){}

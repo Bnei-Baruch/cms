@@ -18,6 +18,41 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
   end
   alias_method :render_preview, :render_left
 
+  def render_homepage
+    resources = TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['media_rss'],
+      :depth => 1,
+      :has_url => false,
+      :status => ['PUBLISHED', 'DRAFT']
+    )
+
+    div(:class => 'downloads container'){
+      w_class('cms_actions').new(:tree_node => tree_node,
+        :options => {:buttons => %W{ new_button },
+          :resource_types => %W{ media_rss },
+          :new_text => _(:new_download),
+          :mode => 'inline',
+          :button_text => _(:add_downloads),
+          :has_url => false,
+          :placeholder => 'lesson'}).render_to(self)
+      h3(:class => 'box-header') {
+        text _(:lessons_to_download)
+      }
+      div(:class => 'entries'){
+        show_content_resources(:resources => resources,
+          :parent => :website,
+          :placeholder => :lesson,
+          :force_mode => 'preview',
+          :sortable => true
+        )
+      }
+      make_sortable(:selector => ".downloads .entries", :direction => 'y') {
+        resources
+      }
+    }
+  end
+
   def render_ajax
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
 

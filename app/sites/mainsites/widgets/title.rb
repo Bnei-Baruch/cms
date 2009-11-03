@@ -32,16 +32,32 @@ class Mainsites::Widgets::Title < WidgetManager::Base
   end
 
   def render_box_top
-    title = @options[:title][0] rescue return
-    klass = @options[:position] == 'middle-box' ? 'mid-box-top' : 'side-box-top'
-    div{
-      w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button  edit_button }}).render_to(self)
-      div(:class => "#{klass}"){
-        text title.resource.properties('title').get_value
-        div(:class => 'left-ear')
-        div(:class => 'right-ear')
+    title = @options[:title]
+    if title.empty?
+      w_class('cms_actions').new(:tree_node => @tree_node,
+        :options => {:buttons => %W{ new_button },
+          :resource_types => %W{title},
+          :button_text => _(:create_new_box_header),
+          :new_text => _(:create_new_box_header),
+          :has_url => false,
+          :placeholder => @options[:position]})
+    else
+      title = title[0]
+      klass = @options[:position] == 'middle-box' ? 'mid-box-top' : 'side-box-top'
+      div{
+        w_class('cms_actions').new(:tree_node => title,
+          :options => {:buttons => %W{ delete_button edit_button },
+            :resource_types => %W{title},
+            :button_text => _(:box_header),
+            :has_url => false,
+            :placeholder => @options[:position]}).render_to(self)
+        div(:class => "#{klass}"){
+          text title.resource.properties('title').get_value
+          div(:class => 'left-ear')
+          div(:class => 'right-ear')
+        }
       }
-    }
-    
+    end
+
   end
 end

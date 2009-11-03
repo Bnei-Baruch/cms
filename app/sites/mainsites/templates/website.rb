@@ -139,19 +139,7 @@ class Mainsites::Templates::Website < WidgetManager::Template
 
   def ext_titles(side)
     title = titles_resources(side)
-    if title.empty?
-      w_class('cms_actions').new(:tree_node => @tree_node,
-        :options => {:buttons => %W{ new_button },
-          :resource_types => %W{title},
-          :button_text => _(:create_new_box_header),
-          :new_text => _(:create_new_box_header),
-          :has_url => false,
-          :placeholder => side})
-    else
-      w_class('title').new(:view_mode => 'box_top',
-        :options => {:title => title, :position => side}
-      )
-    end
+    w_class('title').new(:view_mode => 'box_top', :options => {:title => title, :position => side})
   end
 
   def content_header_resources

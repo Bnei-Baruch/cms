@@ -3,7 +3,8 @@
 
 class ApplicationController < ActionController::Base
 	
-	before_filter :activate_global_parms, :set_website, :set_presenter, :set_translations 
+	before_filter :activate_global_parms, :set_website, :set_presenter, :set_translations
+	attr_reader :website 
   
 	def set_website_session(show_all_websites)
 		if show_all_websites

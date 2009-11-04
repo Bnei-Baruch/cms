@@ -21,11 +21,11 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :url_migrations, :collection => {:import => :get, :export => :get, :merge => :get, :cleanup => :get}
   end	
 
-  # Path to the site
-  #  map.json 'json',
-  #  :controller => 'sites/templates', 
-  #  :action => 'json'
-  
+  # REST API for fetching cms data
+  map.connect '/api/categories.:format', :controller => 'sites/api' , :action => 'get_categories'
+  map.connect '/api/articles/:article_id.:format', :controller => 'sites/api' , :action => 'get_article'
+  map.connect '/api/articles.:format', :controller => 'sites/api' , :action => 'get_category_articles'
+  map.connect '/api', :controller  => 'sites/api', :action => 'documentation'
   # shorturl controller : allow to make a link to a treenode based on tree node id
   # instead of permanlink (espacially useful for hebrew links)
   map.tm ':prefix/short/:id', :controller => 'sites/shorturl', :action => 'shorturl'
@@ -41,6 +41,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':prefix/feed.:format' , :controller => 'sites/templates' , :action => 'template'
   map.connect ':prefix/:permalink/feed.:format' , :controller => 'sites/templates' , :action => 'template'
   map.tm ':prefix/:permalink' , :controller => 'sites/templates' , :action => 'template'
+
   
   # Mmm, I guess this one is for website homepage that do not make use of
   # prefix for the homepage - but not sure - should ask Rami

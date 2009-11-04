@@ -1,0 +1,47 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>documentation.html</title>
+</head>
+<body>
+	<h1 id="categories">Categories</h1>
+	<p>Returns a list of categories</p>
+	<h3>URL:</h3>
+	<p><%= @presenter.home + '/api' + '/categories.format' %></p>
+	<h3>Formats:</h3>
+	<p>xml</p>
+	<h3>HTTP Method:</h3>
+	<p>GET</p>
+	<h3>Requires Authentication:</h3>
+	<p>false</p>
+	<h3>Parameters:</h3>
+	<ul>
+		<li>
+			<b>filter_by.</b> Optional. Values: 'all', 'mobile'. Default: 'all'.  Returns all categories or dedicated categories for mobile devices
+			<br />
+			Example: <%= @presenter.home %>/api/categories.xml?filter_by=mobile
+		</li>
+	</ul> 
+	<h3>Response:</h3>
+	<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;categories&gt;
+		&lt;category&gt;
+			&lt;id&gt;43&lt;/id&gt;
+		    &lt;parent_id&gt;17&lt;/parent_id&gt;
+		    &lt;name&gt;קבלה היום&lt;/name&gt;
+		    &lt;description&gt;
+		מיהו מקובל, למי מותר ללמוד קבלה, מאיזה גיל אפשר להתחיל ומה זה נותן לי? תשובות לכל השאלות הנפוצות בנושא קבלה
+			&lt;/description&gt;
+
+		&lt;/category&gt;
+		... truncated ...
+	&lt;/categories&gt;
+	</pre>
+	
+	
+	
+	
+	
+</body>
+</html>

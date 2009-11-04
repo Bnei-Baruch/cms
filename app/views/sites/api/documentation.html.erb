@@ -4,15 +4,17 @@
 	<title>documentation.html</title>
 </head>
 <body>
-	<h1 id="categories">Categories</h1>
+	<h2>Categories</h1>
 	<p>Returns a list of categories</p>
 	<h3>URL:</h3>
-	<p><%= @presenter.home + '/api' + '/categories.format' %></p>
+
+	<p><%= @presenter.home %>/api/categories.format</p>
 	<h3>Formats:</h3>
 	<p>xml</p>
 	<h3>HTTP Method:</h3>
 	<p>GET</p>
 	<h3>Requires Authentication:</h3>
+
 	<p>false</p>
 	<h3>Parameters:</h3>
 	<ul>
@@ -21,27 +23,112 @@
 			<br />
 			Example: <%= @presenter.home %>/api/categories.xml?filter_by=mobile
 		</li>
+
 	</ul> 
 	<h3>Response:</h3>
 	<pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-	&lt;categories&gt;
-		&lt;category&gt;
-			&lt;id&gt;43&lt;/id&gt;
-		    &lt;parent_id&gt;17&lt;/parent_id&gt;
-		    &lt;name&gt;קבלה היום&lt;/name&gt;
-		    &lt;description&gt;
-		מיהו מקובל, למי מותר ללמוד קבלה, מאיזה גיל אפשר להתחיל ומה זה נותן לי? תשובות לכל השאלות הנפוצות בנושא קבלה
-			&lt;/description&gt;
+&lt;categories&gt;
+	&lt;category&gt;
+		&lt;category_id&gt;43&lt;/id&gt;
 
-		&lt;/category&gt;
+		&lt;parent_id&gt;17&lt;/parent_id&gt;
+		&lt;name&gt;קבלה היום&lt;/name&gt;
+		&lt;description&gt;
+		מיהו מקובל, למי מותר ללמוד קבלה, מאיזה גיל אפשר להתחיל ומה זה נותן לי? תשובות לכל השאלות הנפוצות בנושא קבלה
+		&lt;/description&gt;
+
+	&lt;/category&gt;
+	... truncated ...
+&lt;/categories&gt;
+	</pre>
+
+
+	<h2>Category articles</h1>
+	<p>Returns a list of articles for a specified category</p>
+
+	<h3>URL:</h3>
+	<p><%= @presenter.home %>/api/articles.format</p>
+	<h3>Formats:</h3>
+	<p>xml</p>
+	<h3>HTTP Method:</h3>
+	<p>GET</p>
+
+	<h3>Requires Authentication:</h3>
+	<p>false</p>
+	<h3>Parameters:</h3>
+	<ul>
+		<li>
+			<b>category_id.</b> Required. Articles of this category will be retrieved.
+			<br />
+
+			Example: <%= @presenter.home %>/api/articles.xml?category_id=25820
+		</li>
+		<li>
+			<b>per_page + page_num.</b> Optional. Number of articles per page + page number (starts from 1). This is used for pagination
+			<br />
+			Example: <%= @presenter.home %>/api/articles.xml?category_id=25820&per_page=3&page_num=2
+		</li>
+	</ul> 
+	<h3>Response:</h3>
+
+	<pre>
+	&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;articles&gt;
+		&lt;article&gt;
+			&lt;category_id&gt;25820&lt;/category_id&gt;
+			&lt;article_id&gt;3979&lt;/article_id&gt;
+
+			&lt;title&gt;מהי רוחניות?&lt;/title&gt;
+			&lt;description&gt;
+			רוחניות היא נתינה ואהבה - כל אחד יכול לפתח בתוכו את התכונה הרוחנית ולגלות בעזרתה מציאות חדשה
+			&lt;/description&gt;
+			&lt;image&gt;
+			<%= @presenter.home %>/images/attachments/37/13337_medium.jpg
+			&lt;/image&gt;
+
+		&lt;/article&gt;
 		... truncated ...
-	&lt;/categories&gt;
+	&lt;/articles&gt;		
 	</pre>
 	
+	<h2>Article</h1>
+	<p>Returns a specific article</p>
+	<h3>URL:</h3>
+
+	<p><%= @presenter.home %>/api/article.format</p>
+	<h3>Formats:</h3>
+	<p>xml</p>
+	<h3>HTTP Method:</h3>
+	<p>GET</p>
+	<h3>Requires Authentication:</h3>
+
+	<p>false</p>
+	<h3>Parameters:</h3>
+	<ul>
+		<li>
+			<b>article_id.</b> Required. Article will be retrieved by article_id .
+			<br />
+			Example: <%= @presenter.home %>/api/articles.xml?article_id=3979
+		</li>
+	</ul> 
+	<h3>Response:</h3>
+	<pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;article&gt;
+	&lt;short&gt;
+	רוחניות היא נתינה ואהבה - כל אחד יכול לפתח בתוכו את התכונה הרוחנית ולגלות בעזרתה מציאות חדשה
+	&lt;/short&gt;
+	&lt;body&gt;
+	&lt;p&gt;רבים בעולם תוהים &quot;מהי רוחניות?&quot; חלק מרגישים ש&lt;a href=&quot;/kabbalah/%D7%9E%D7%94%D7%99-%D7%A8%D7%95%D7%97%D7%A0%D7%99%D7%95%D7%AA&quot; title=&quot;המגזין - מהי רוחניות?&quot;&gt;רוחניות&lt;/a&gt; היא משהו נעלה, שנמצא מעבר למה שאנו חווים בחיים הרגילים שלנו. חלק חושבים שאין דבר כזה, אחרים חושבים שרוחניות קשורה לדת ויש כאלה שמבחינתם רוחניות קשורה לשירה וספרות גבוהה. אז מה זאת רוחניות?&lt;/p&gt;
+	&lt;p&gt;חכמת הקבלה מגדירה את המילה רוחניות כהשפעה ו&lt;a href=&quot;/kabbalah/%D7%A9%D7%9C%D7%91%D7%99-%D7%94%D7%A1%D7%95%D7%9C%D7%9D-%D7%A2%D7%9C-%D7%90%D7%94%D7%91%D7%94&quot; target=&quot;_blank&quot; title=&quot;שלבי הסולם - על אהבה&quot;&gt;אהבה&lt;/a&gt;, כלומר נתינת שפע ללא שום מחשבה לתועלת אישית. עוד היא קובעת כי על אף שאיננו יכולים להרגיש רוחניות דרך חמשת החושים, כל אחד יכול לפתח בתוכו את התכונה הרוחנית ולגלות בעזרתה מציאות חדשה&lt;/p&gt;
+	&lt;/body&gt;
+	&lt;num_of_comments&gt;2&lt;/num_of_comments&gt;
+	&lt;image&gt;
+	<%= @presenter.home %>/images/attachments/37/13337_medium.jpg
+	&lt;/image&gt;
+&lt;/article&gt;
 	
-	
-	
-	
-</body>
+	</body>
 </html>

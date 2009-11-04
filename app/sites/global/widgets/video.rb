@@ -48,13 +48,13 @@ class Global::Widgets::Video < WidgetManager::Base
           rawtext <<-Embedjs
           $(document).ready(function() {
                var $player = $('#flashplayer-#{id}');
-               flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig});
+               flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig#{id}});
             });
           Embedjs
         }
       else
         div(:id => "flashplayer-#{id}",
-          :onclick => "var $player = $('#flashplayer-#{id}');flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig})") {
+          :onclick => "var $player = $('#flashplayer-#{id}');flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig#{id}})") {
           if image && !image.empty?
             img(:src => get_image, :alt => '', :class => 'flashplayer')
           else
@@ -70,7 +70,7 @@ class Global::Widgets::Video < WidgetManager::Base
       end
       javascript {
         rawtext <<-Player
-          var playerConfig = {
+          var playerConfig#{id} = {
               autoPlay: true,
               loop: false,
               videoFile: '#{get_flash_url}',

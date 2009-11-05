@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def site_settings
     website = @website ? @website.hrid : 'global'
-    $config_manager.site_settings(website)
+    @site_settings = $config_manager.site_settings(website)
   end
 
   def site_name

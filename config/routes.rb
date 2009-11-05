@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # REST API for fetching cms data
   map.connect '/api/categories.:format', :controller => 'sites/api' , :action => 'get_categories'
-  map.connect '/api/articles/:article_id.:format', :controller => 'sites/api' , :action => 'get_article'
+  map.connect '/api/article.:format', :controller => 'sites/api' , :action => 'get_article'
   map.connect '/api/articles.:format', :controller => 'sites/api' , :action => 'get_category_articles'
   map.connect '/api', :controller  => 'sites/api', :action => 'documentation'
   # shorturl controller : allow to make a link to a treenode based on tree node id

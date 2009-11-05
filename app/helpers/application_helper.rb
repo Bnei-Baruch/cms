@@ -43,6 +43,14 @@ module ApplicationHelper
               :host => my_domain)
   end
   
+  def get_preview_image_url_by_resource_property(rp, image_name = 'original')
+    return nil unless rp
+    image_object = Attachment.get_short_attachment(rp.id) rescue nil
+    if image_object
+      image_url = get_file_url(image_object, image_name)
+    end
+  end
+ 
   # This code was taken from active_record_helper.rb
   def rp_error_messages_for(*params)
     options = params.extract_options!.symbolize_keys

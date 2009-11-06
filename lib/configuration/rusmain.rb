@@ -45,6 +45,8 @@ module	Configuration::Rusmain
     :forid => 'FORID:10',
     # Google analytics
     :ua => 'UA-548326-5',
+    # Don't show "to all articles" if no url in title of content preview
+    :hide_no_articles => true,
   }
 
 end

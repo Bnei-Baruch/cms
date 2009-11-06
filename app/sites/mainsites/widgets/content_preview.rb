@@ -192,12 +192,14 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
     show_title = get_show_title
     show_title = show_title.class == String ? false : show_title
     if show_title
-      div(:class => 'h1') {
+      div(:class => 'h1-content-preview') {
         text get_title.empty? ? '' : get_title
-        a(:class => 'cont', :href => get_url) {
+        unless @presenter.site_settings[:hide_no_articles] && (get_url.empty? || get_url_string.empty?)
+          a(:class => 'cont', :href => get_url) {
           text get_url_string.empty? ? _(:to_all_articles) : get_url_string
-          img(:src => img_path('arrow-left.gif'), :alt => '')
-        }
+            img(:src => img_path('arrow-left.gif'), :alt => '')
+          }
+        end
         div(:class =>'h1-right')
         div(:class =>'h1-left')
       }

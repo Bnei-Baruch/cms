@@ -1124,7 +1124,7 @@ p.playbutton b{
   background-position: -130px 0;
 }
 /*----------  h1  ---------------*/
-.h1{
+.h1, .h1-content-preview{
   background:#999B9F url(/images/rusmain/main-title-grad.gif) repeat-x 0 0;
   color:white;
   text-align:left;
@@ -1137,21 +1137,21 @@ p.playbutton b{
   padding: 0 0 0 10px;
   width:465px;
 }
-.h1 .h1-right,.h1 .h1-left{
+.h1 .h1-right,.h1 .h1-left,.h1-content-preview .h1-content-preview-right,.h1-content-preview .h1-content-preview-left{
   position:absolute;
   top:0;
   width:6px;
   height:27px;
 }
-.h1 .h1-right{
+.h1 .h1-right,.h1-content-preview .h1-content-preview-right{
   right:-2px;
   background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 -27px;
 }
-.h1 .h1-left{
+.h1 .h1-left,.h1-content-preview .h1-content-preview-left{
   left:0;
   background: transparent url(/images/rusmain/h1-ears.gif) no-repeat 0 0;
 }
-.h1 a.cont{
+.h1 a.cont,.h1-content-preview a.cont{
   color:white;
   font-size:10px;
   position:absolute;
@@ -1159,7 +1159,7 @@ p.playbutton b{
   text-decoration:underline;
   top:-1px;
 }
-.h1 img{
+.h1 img,.h1-content-preview img{
   display:none;
 }
 
@@ -1238,7 +1238,6 @@ table.media_rss th{
   background-attachment:scroll;
   background-position: left top;
 }
-
 .video{
   background-image: url('/images/rusmain/video.png');
   background-repeat: no-repeat;

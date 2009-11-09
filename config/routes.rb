@@ -22,10 +22,14 @@ ActionController::Routing::Routes.draw do |map|
   end	
 
   # REST API for fetching cms data
-  map.connect '/api/categories.:format', :controller => 'sites/api' , :action => 'get_categories'
-  map.connect '/api/article.:format', :controller => 'sites/api' , :action => 'get_article'
-  map.connect '/api/articles.:format', :controller => 'sites/api' , :action => 'get_category_articles'
+  map.connect '/api/categories.:format', :controller => 'sites/api' , :action => 'get_categories', :conditions => { :method => :get }
+  map.connect '/api/article.:format', :controller => 'sites/api' , :action => 'get_article', :conditions => { :method => :get }
+  map.connect '/api/articles.:format', :controller => 'sites/api' , :action => 'get_category_articles', :conditions => { :method => :get }
+  map.connect '/api/article_comment.:format', :controller => 'sites/api' , :action => 'add_comment_to_article', :conditions => { :method => :post }
+  map.connect '/api/article_comment.:format', :controller => 'sites/api' , :action => 'get_article_comment', :conditions => { :method => :get }
+  map.connect '/api/article_comments.:format', :controller => 'sites/api' , :action => 'get_article_comments', :conditions => { :method => :get }
   map.connect '/api', :controller  => 'sites/api', :action => 'documentation'
+  
   # shorturl controller : allow to make a link to a treenode based on tree node id
   # instead of permanlink (espacially useful for hebrew links)
   map.tm ':prefix/short/:id', :controller => 'sites/shorturl', :action => 'shorturl'

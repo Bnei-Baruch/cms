@@ -1,32 +1,32 @@
 <html>
-<head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>documentation.html</title>
-</head>
-<body>
-	<h2>Categories</h1>
-	<p>Returns a list of categories</p>
-	<h3>URL:</h3>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>documentation.html</title>
+	</head>
+	<body>
+		<h2>List Categories</h1>
+		<p>Returns a list of categories</p>
+		<h3>URL:</h3>
 
-	<p><%= @presenter.home %>/api/categories.format</p>
-	<h3>Formats:</h3>
-	<p>xml</p>
-	<h3>HTTP Method:</h3>
-	<p>GET</p>
-	<h3>Requires Authentication:</h3>
+		<p><%= @presenter.home %>/api/categories.format</p>
+		<h3>Formats:</h3>
+		<p>xml</p>
+		<h3>HTTP Method:</h3>
+		<p>GET</p>
+		<h3>Requires Authentication:</h3>
 
-	<p>false</p>
-	<h3>Parameters:</h3>
-	<ul>
-		<li>
-			<b>filter_by.</b> Optional. Values: 'all', 'mobile'. Default: 'all'.  Returns all categories or dedicated categories for mobile devices
-			<br />
-			Example: <%= @presenter.home %>/api/categories.xml?filter_by=mobile
-		</li>
+		<p>false</p>
+		<h3>Parameters:</h3>
+		<ul>
+			<li>
+				<b>filter_by.</b> Optional. Values: 'all', 'mobile'. Default: 'all'.  Returns all categories or dedicated categories for mobile devices
+				<br />
+				Example: <%= @presenter.home %>/api/categories.xml?filter_by=mobile
+			</li>
 
-	</ul> 
-	<h3>Response:</h3>
-	<pre>
+		</ul> 
+		<h3>Response:</h3>
+		<pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;categories&gt;
 	&lt;category&gt;
@@ -41,38 +41,38 @@
 	&lt;/category&gt;
 	... truncated ...
 &lt;/categories&gt;
-	</pre>
+		</pre>
 
 
-	<h2>Category articles</h1>
-	<p>Returns a list of articles for a specified category</p>
+		<h2>List Category articles</h1>
+		<p>Returns a list of articles for a specified category</p>
 
-	<h3>URL:</h3>
-	<p><%= @presenter.home %>/api/articles.format</p>
-	<h3>Formats:</h3>
-	<p>xml</p>
-	<h3>HTTP Method:</h3>
-	<p>GET</p>
+		<h3>URL:</h3>
+		<p><%= @presenter.home %>/api/articles.format</p>
+		<h3>Formats:</h3>
+		<p>xml</p>
+		<h3>HTTP Method:</h3>
+		<p>GET</p>
 
-	<h3>Requires Authentication:</h3>
-	<p>false</p>
-	<h3>Parameters:</h3>
-	<ul>
-		<li>
-			<b>category_id.</b> Required. Articles of this category will be retrieved.
-			<br />
+		<h3>Requires Authentication:</h3>
+		<p>false</p>
+		<h3>Parameters:</h3>
+		<ul>
+			<li>
+				<b>category_id.</b> Required. Articles of this category will be retrieved.
+				<br />
 
-			Example: <%= @presenter.home %>/api/articles.xml?category_id=25820
-		</li>
-		<li>
-			<b>per_page + page_num.</b> Optional. Number of articles per page + page number (starts from 1). This is used for pagination
-			<br />
-			Example: <%= @presenter.home %>/api/articles.xml?category_id=25820&per_page=3&page_num=2
-		</li>
-	</ul> 
-	<h3>Response:</h3>
+				Example: <%= @presenter.home %>/api/articles.xml?category_id=25820
+			</li>
+			<li>
+				<b>per_page + page_num.</b> Optional. Number of articles per page + page number (starts from 1). This is used for pagination
+				<br />
+				Example: <%= @presenter.home %>/api/articles.xml?category_id=25820&per_page=3&page_num=2
+			</li>
+		</ul> 
+		<h3>Response:</h3>
 
-	<pre>
+		<pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;articles&gt;
 	&lt;article&gt;
@@ -90,30 +90,30 @@
 	&lt;/article&gt;
 	... truncated ...
 &lt;/articles&gt;		
-	</pre>
+		</pre>
 	
-	<h2>Article</h1>
-	<p>Returns a specific article</p>
-	<h3>URL:</h3>
+		<h2>Show Article</h1>
+		<p>Returns a specific article</p>
+		<h3>URL:</h3>
 
-	<p><%= @presenter.home %>/api/article.format</p>
-	<h3>Formats:</h3>
-	<p>xml</p>
-	<h3>HTTP Method:</h3>
-	<p>GET</p>
-	<h3>Requires Authentication:</h3>
+		<p><%= @presenter.home %>/api/article.format</p>
+		<h3>Formats:</h3>
+		<p>xml</p>
+		<h3>HTTP Method:</h3>
+		<p>GET</p>
+		<h3>Requires Authentication:</h3>
 
-	<p>false</p>
-	<h3>Parameters:</h3>
-	<ul>
-		<li>
-			<b>article_id.</b> Required. Article will be retrieved by article_id .
-			<br />
-			Example: <%= @presenter.home %>/api/article.xml?article_id=3979
-		</li>
-	</ul> 
-	<h3>Response:</h3>
-	<pre>
+		<p>false</p>
+		<h3>Parameters:</h3>
+		<ul>
+			<li>
+				<b>article_id.</b> Required. Article will be retrieved by article_id .
+				<br />
+				Example: <%= @presenter.home %>/api/article.xml?article_id=3979
+			</li>
+		</ul> 
+		<h3>Response:</h3>
+		<pre>
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;article&gt;
@@ -129,6 +129,101 @@
 	<%= @presenter.home %>/images/attachments/37/13337_medium.jpg
 	&lt;/image&gt;
 &lt;/article&gt;
-	
+		</pre>
+		<h2>List Article Comments</h1>
+		<p>Returns a list of comments of an article</p>
+		<h3>URL:</h3>
+		<p><%= @presenter.home %>/api/article_comments.format</p>
+		<h3>Formats:</h3>
+		<p>xml</p>
+		<h3>HTTP Method:</h3>
+		<p>GET</p>
+		<h3>Requires Authentication:</h3>
+
+		<p>false</p>
+		<h3>Parameters:</h3>
+		<ul>
+			<li>
+				<b>article_id.</b> Required. Article comments will be retrieved by article_id .
+				<br />
+				Example: <%= @presenter.home %>/api/article_comments.xml?article_id=3979
+			</li>
+			<li>
+				<b>per_page + page_num.</b> Optional. Number of comments per page + page number (starts from 1). This is used for pagination
+				<br />
+				Example: <%= @presenter.home %>/api/article_comments.xml?article_id=3979&per_page=2&page_num=2
+			</li>
+		</ul> 
+		<h3>Response:</h3>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;comments&gt;
+	&lt;comment&gt;
+		&lt;comment_id&gt;2159&lt;/comment_id&gt;
+		&lt;title&gt;אלוהים הוא הטבע&lt;/title&gt;
+		&lt;author&gt;מאיה&lt;/author&gt;
+		&lt;publish_time&gt;Mon Sep 07 13:46:22 +0300 2009&lt;/publish_time&gt;
+	&lt;/comment&gt;
+	... truncated ...
+&lt;/comments&gt;           
+		</pre>
+		<h2>Show Article Comment</h1>
+		<p>Returns a specific comment</p>
+		<h3>URL:</h3>
+		<p><%= @presenter.home %>/api/article_comment.format</p>
+		<h3>Formats:</h3>
+		<p>xml</p>
+		<h3>HTTP Method:</h3>
+		<p>GET</p>
+		<h3>Requires Authentication:</h3>
+
+		<p>false</p>
+		<h3>Parameters:</h3>
+		<ul>
+			<li>
+				<b>comment_id.</b> Required. Article comment will be retrieved by comment_id .
+				<br />
+				Example: <%= @presenter.home %>/api/article_comment.xml?comment_id=375
+			</li>
+		</ul> 
+		<h3>Response:</h3>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;comment&gt;
+	&lt;body&gt;אהבתי!!!!!!!!!!!!&lt;/body&gt;
+&lt;/comment&gt;
+		</pre>
+		<h2>New article comment</h1>
+		<p>Add new comment to an article</p>
+		<h3>URL:</h3>
+		<p><%= @presenter.home %>/api/article_comment.format</p>
+		<h3>Formats:</h3>
+		<p>xml</p>
+		<h3>HTTP Method:</h3>
+		<p>POST</p>
+		<h3>Requires Authentication:</h3>
+
+		<p>false</p>
+		<h3>Parameters:</h3>
+		<ul>
+			<li>
+				<b>article_id.</b> Required. The article that the comment will be added.
+			</li>
+			<li>
+				<b>title.</b> Required. The title of the comment.
+			</li>
+			<li>
+				<b>name.</b> Optional. The name of the author.
+			</li>
+			<li>
+				<b>email.</b> Optional. The email of the author.
+			</li>
+			<li>
+				<b>body.</b> Optional. The body of the comment.
+			</li>
+			<li>
+				<b>is_valid.</b> Optional. If value = 1 than skip validation (For testing. It will be removed on production!).
+			</li>
+		</ul> 
 	</body>
 </html>

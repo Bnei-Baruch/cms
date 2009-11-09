@@ -52,3 +52,9 @@ module ActiveRecord
     end
   end
 end
+
+class String
+  def is_integer?
+    self =~ /\A\d+\Z/
+  end
+end

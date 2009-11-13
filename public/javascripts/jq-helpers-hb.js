@@ -511,16 +511,13 @@ $(function() {
         event.preventDefault();
         playerConfig_homepage.videoFile = $(this).attr("href");
         if (flowplayer_homepage == null) {
-            flowplayer_homepage = flashembed("flashplayer-"+id,
+            flowplayer_homepage = flashembed("flashplayer-"+id, "flowplayer/flowplayer.commercial-3.1.5.swf",
             {
-                src:"/flowplayer/FlowPlayerLight.swf",
-                bgcolor:'#F0F4FD',
-                width:226,
-                height:169
+                buffering: true
             },
 
             {
-                config: playerConfig_homepage
+                clip: playerConfig_homepage
             }
         );
         } else {

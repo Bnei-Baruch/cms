@@ -51,6 +51,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
                   // show stop button so we can see stop events too
                   plugins: {
                       controls: {
+                          url: '/flowplayer/flowplayer.controls-3.1.5.swf',
                           time: false
                       }
                   }

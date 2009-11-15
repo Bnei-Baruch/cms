@@ -600,6 +600,7 @@ $(function() {
   
     var $links = $player.find("a").not(".more").click(function(event){
         var $this = $(this);
+        $(".play-list-button").hide();
         event.preventDefault();
         playerConfig_innerpage.videoFile = $this.attr("href");
         if (flowplayer_innerpage == null) {
@@ -635,6 +636,7 @@ $(function() {
         return false;
     });
     $("#flashplayer-"+id+" img").click(function(){
+        $(".play-list-button").hide();
         $($links[0]).trigger('click');
     });
     $(".play-list-button").click(function(){

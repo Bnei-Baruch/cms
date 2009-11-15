@@ -16,6 +16,10 @@ class Global::Widgets::Video < WidgetManager::Base
     a(:href => href, :onclick => "javascript:urchinTracker('/homepage/widget/video_gallery/#{title}')"){text title}
   end
 
+  def render_homepage_one_video
+    "'#{get_flash_url}'"
+  end
+
   def render_full
     video_admin
     # flowplayer
@@ -33,59 +37,69 @@ class Global::Widgets::Video < WidgetManager::Base
     end
     div(:class => 'full-video') {
       id = tree_node.object_id
-      image = get_image
       if (show_title)
         description = get_description
         p { rawtext description } unless description.empty?
       end
-      javascript {
-        rawtext <<-Player
-          var playerConfig = {
-              autoPlay: true,
-              loop: false,
-              videoFile: '#{get_flash_url}',
-              initialScale: 'scale', 
-              useNativeFullScreen: true,
-              showStopButton:true,
-              autoRewind:true,
-              showVolumeSlider: true,
-              controlsOverVideo: 'ease',
-              controlBarBackgroundColor: -1,
-              controlBarGloss: 'low',
-              showMenu:false
-          };
-        Player
-      }
 
       autoplay = get_autoplay
-
-      if autoplay == true
-        div(:id => "flashplayer-#{id}"){
-        }
-        javascript {
-          rawtext <<-Embedjs
-         // $(document).ready(function() {
-               var $player = $('#flashplayer-#{id}');
-               flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig});
-         //   });
-          Embedjs
-        }
+      image = get_image
+      if image && !image.empty? and !autoplay
+        image = "{url:'#{image}',autoPlay:true},"
       else
-        div(:id => "flashplayer-#{id}",
-          :onclick => "var $player = $('#flashplayer-#{id}');flashembed('flashplayer-#{id}',{src:'/flowplayer/FlowPlayerLight.swf', bgcolor:'#E5E5E4',width:$player.width(), height:$player.width()/1.33},{config: playerConfig})") {
-          if image && !image.empty?
-            img(:src => get_image, :alt => '', :class => 'flashplayer')
-          else
-            div(:class => 'flashplayer')
-          end
-          p(:class => "playbutton"){
-            a{
-              span _('play')
-              b {rawtext '&nbsp;'}
-            }
-          }
-        }
+        image = ''
       end
+      div(:id => "flashplayer-#{id}", :style => 'height:378px;width:504px;'){}
+      javascript {
+#                  logo: {
+#                    url: '/images/hebmain/logo-flv.png',
+#                    fullscreenOnly: false,
+#                    top:2,
+#                    right:2,
+#                    opacity: 0.4
+#                  },
+        rawtext <<-Embedjs
+          $(document).ready(function() {
+               flowplayer('flashplayer-#{id}','/flowplayer/flowplayer.commercial-3.1.5.swf',{
+                  key:'#\@932a7f91ab5747d7f90',
+                  clip:{
+                    scaling: 'scale',
+
+                    // track start event for this clip
+                    onStart: function(clip) {
+                        _tracker._trackEvent("Videos", "Play", clip.url);
+                    },
+
+                    // track pause event for this clip. time (in seconds) is also tracked
+                    onPause: function(clip) {
+                        _tracker._trackEvent("Videos", "Pause", clip.url, parseInt(this.getTime()));
+                    },
+
+                    // track stop event for this clip. time is also tracked
+                    onStop: function(clip) {
+                        _tracker._trackEvent("Videos", "Stop", clip.url, parseInt(this.getTime()));
+                    },
+
+                    // track finish event for this clip
+                    onFinish: function(clip) {
+                        _tracker._trackEvent("Videos", "Finish", clip.url);
+                    }
+                  },
+                  playlist:[
+                    #{image}
+                    {url:'#{get_flash_url}',autoPlay: #{autoplay.to_s}}
+
+                  ],
+                  // show stop button so we can see stop events too
+                  plugins: {
+                      controls: {
+                          stop: true
+                      }
+                  }
+               });
+        });
+        Embedjs
+      }
     }
     
     div(:class => 'embed'){
@@ -96,28 +110,8 @@ class Global::Widgets::Video < WidgetManager::Base
             img(:src => '/images/download.gif', :alt => 'download')
             text _(:download)
           }
-          # img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
         }
       end
-      #I18n.t(:download)
-      # span(:class => 'text') {
-      #   text '  Embed'
-      # }
-      # input(:id => 'addr',
-      #   :value =>'<object width="425" height=...',
-      #   :readonly => 'readonly',
-      #   :onclick => "javascript:document.getElementById('addr').focus();document.getElementById('addr').select()")
-      # span(:class => 'services'){
-      #   img(:src => "/images/hebmain/player/pipe.gif", :alt => "")
-      #   a(:href => get_url, :title => 'arrow') {
-      #     img(:src => '/images/hebmain/player/arrow.gif', :alt => 'arrow')
-      #   }
-      #   img(:src => '/images/hebmain/player/pipe.gif', :alt => '')
-      #
-      #   a(:href => '#', :title => 'email', :alt => 'email') {
-      #     img(:src => '/images/hebmain/player/email.gif', :alt => 'email')
-      #   }
-      #         }
     }
   end
   

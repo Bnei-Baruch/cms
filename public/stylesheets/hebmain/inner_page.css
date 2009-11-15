@@ -140,40 +140,6 @@
     width:504px;
     height:378px;
 }
-.content .item .full-video p.playbutton {
-    cursor:pointer;
-    display:block;
-    font-size:15px;
-    font-weight:bold;
-    line-height:15px;
-    position:absolute;
-    bottom:225px;
-    right:180px;
-    margin:0;
-    padding:0;
-}
-.content .item .full-video p.playbutton a{
-    text-decoration:none;
-}
-.content .item .full-video .playbutton span{
-    background:transparent url(/images/hebmain/player/play-left.png) no-repeat scroll 0% 50%;
-    padding: 18px 3px 17px 22px;
-    display:block;
-    color:white;
-    float:left;
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-left-ie.png');
-    *background: 0 none;
-}
-.content .item .full-video p.playbutton b{
-    background:transparent url(/images/hebmain/player/play-right.png) no-repeat scroll 0pt;
-    text-indent:-9999px;
-    float:left;
-    height:50px;
-    width:50px;
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/hebmain/player/play-right.png');
-    *text-indent:0;
-    *background: 0 none;
-}
 
 /*****************/
 

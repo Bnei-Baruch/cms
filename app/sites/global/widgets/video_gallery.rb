@@ -4,16 +4,71 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
     video_admin
     id = tree_node.object_id
     div(:class => 'player', :id => "id-#{id}") {
-      div(:id => "flashplayer-id-#{id}") {
-        img(:src => get_image, :alt => '', :class => 'flashplayer') if get_image
+      image = get_image
+      if image && !image.empty?
+        image = "{url:'#{image}',autoPlay:true},"
+      else
+        image = ''
+      end
+      videos = video_items.collect { |video_item|
+        w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_one_video').render_to(self)
+      }.join(',')
+
+      div(:id => "flashplayer-#{id}", :style => 'height:169px;width:226px;'){}
+      javascript {
+        rawtext <<-Embedjs
+          $(document).ready(function() {
+               flowplayer('flashplayer-#{id}','/flowplayer/flowplayer.commercial-3.1.5.swf',{
+                  key:'#\@932a7f91ab5747d7f90',
+                  clip:{
+                    scaling: 'scale',
+                    autoPlay: false,
+
+                    // track start event for this clip
+                    onStart: function(clip) {
+                        _tracker._trackEvent("Videos", "Play", clip.url);
+                    },
+
+                    // track pause event for this clip. time (in seconds) is also tracked
+                    onPause: function(clip) {
+                        _tracker._trackEvent("Videos", "Pause", clip.url, parseInt(this.getTime()));
+                    },
+
+                    // track stop event for this clip. time is also tracked
+                    onStop: function(clip) {
+                        _tracker._trackEvent("Videos", "Stop", clip.url, parseInt(this.getTime()));
+                    },
+
+                    // track finish event for this clip
+                    onFinish: function(clip) {
+                        _tracker._trackEvent("Videos", "Finish", clip.url);
+                    }
+                  },
+                  playlist:[
+                    #{image}
+                    #{videos}
+                  ],
+                  // show stop button so we can see stop events too
+                  plugins: {
+                      controls: {
+                          time: false
+                      }
+                  }
+               });
+        });
+        Embedjs
       }
-      div(:id => "playlist-#{id}", :class => 'playlist'){
-        ol{
-          video_items.each { |video_item|
-            li {w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_gallery').render_to(self)}
-          }
-        }
-      }                   
+
+#      TODO: to restore option to play more than one video
+#      if video_items.size > 1 || !AuthenticationModel.current_user_is_anonymous?
+#        div(:id => "playlist-#{id}", :class => 'playlist'){
+#          ol{
+#            video_items.each { |video_item|
+#              li {w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_gallery').render_to(self)}
+#            }
+#          }
+#        }
+#      end
       a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url
     }
   end
@@ -45,11 +100,11 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
       a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url != ""
     }
     p(:class => "play-list-button"){
-        a{
-          span _(:play)
-          b {rawtext '&nbsp;'}
-        }
+      a{
+        span _(:play)
+        b {rawtext '&nbsp;'}
       }
+    }
   end
 
   private

@@ -50,7 +50,7 @@ class Global::Widgets::Video < WidgetManager::Base
       else
         image = ''
       end
-      div(:id => "flashplayer-#{id}", :style => 'height:378px;width:504px;'){}
+      div(:id => "flashplayer-#{id}", :style => 'height:403px;width:504px;'){}
       javascript {
         #                  logo: {
         #                    url: '/images/hebmain/logo-flv.png',

@@ -14,7 +14,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
         w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_one_video').render_to(self)
       }.join(',')
 
-      div(:id => "flashplayer-#{id}", :style => 'height:169px;width:226px;'){}
+      div(:id => "flashplayer-#{id}", :style => 'height:195px;width:226px;'){}
       javascript {
         rawtext <<-Embedjs
           $(document).ready(function() {
@@ -89,7 +89,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
         rawtext title if title
       }
 
-      div(:style => "height:378px;width:504px;cursor:pointer;", :id => "flashplayer-#{id}"){
+      div(:style => "height:403px;width:504px;cursor:pointer;", :id => "flashplayer-#{id}"){
         img(:src => image) if image && !image.empty?
       }
 

@@ -43,6 +43,7 @@ class Global::Widgets::Video < WidgetManager::Base
       end
 
       autoplay = get_autoplay
+      autoplay = autoplay.kind_of?(String) ? true : autoplay
       image = get_image
       if image && !image.empty? and !autoplay
         image = "{url:'#{image}',autoPlay:true},"
@@ -51,13 +52,13 @@ class Global::Widgets::Video < WidgetManager::Base
       end
       div(:id => "flashplayer-#{id}", :style => 'height:378px;width:504px;'){}
       javascript {
-#                  logo: {
-#                    url: '/images/hebmain/logo-flv.png',
-#                    fullscreenOnly: false,
-#                    top:2,
-#                    right:2,
-#                    opacity: 0.4
-#                  },
+        #                  logo: {
+        #                    url: '/images/hebmain/logo-flv.png',
+        #                    fullscreenOnly: false,
+        #                    top:2,
+        #                    right:2,
+        #                    opacity: 0.4
+        #                  },
         rawtext <<-Embedjs
           $(document).ready(function() {
                flowplayer('flashplayer-#{id}','/flowplayer/flowplayer.commercial-3.1.5.swf',{

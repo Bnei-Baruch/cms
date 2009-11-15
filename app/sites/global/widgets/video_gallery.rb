@@ -60,16 +60,17 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
         Embedjs
       }
 
-#      TODO: to restore option to play more than one video
-#      if video_items.size > 1 || !AuthenticationModel.current_user_is_anonymous?
-#        div(:id => "playlist-#{id}", :class => 'playlist'){
-#          ol{
-#            video_items.each { |video_item|
-#              li {w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_gallery').render_to(self)}
-#            }
-#          }
-#        }
-#      end
+      #      TODO: to restore option to play more than one video
+      #      http://static.flowplayer.org/forum/4/23865
+      #      if video_items.size > 1 || !AuthenticationModel.current_user_is_anonymous?
+      #        div(:id => "playlist-#{id}", :class => 'playlist'){
+      #          ol{
+      #            video_items.each { |video_item|
+      #              li {w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_gallery').render_to(self)}
+      #            }
+      #          }
+      #        }
+      #      end
       a get_url_text, :href => get_url, :title => 'link', :class => 'more' if get_url
     }
   end
@@ -82,14 +83,16 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
     first_with_image = video_items.detect { |item| item.resource.properties('image') } unless image
     image ||= get_file_html_url(:attachment => first_with_image.resource.properties('image').attachment, :image_name => 'myself') if first_with_image
     title ||= first_with_image.resource.properties('title').get_value if first_with_image
+
     div(:class => 'inner-player', :id => "id-#{id}") {
       div(:class => 'play-title') {
         rawtext title if title
       }
-      div(:id => "flashplayer-#{id}") {
-        img(:src => image,
-          :alt => '', :class => 'player-placeholder') if image
+
+      div(:style => "height:378px;width:504px;cursor:pointer;", :id => "flashplayer-#{id}"){
+        img(:src => image) if image && !image.empty?
       }
+
       div(:class => 'play-serv'){}
       div(:id => "playlist-#{id}", :class => 'playlist'){
         ul{

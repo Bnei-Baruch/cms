@@ -509,20 +509,7 @@ $(function() {
     if (id == 0) return;
     var $links = $player.find("a").not(".more").click(function(event){
         event.preventDefault();
-        playerConfig_homepage.videoFile = $(this).attr("href");
-        if (flowplayer_homepage == null) {
-            flowplayer_homepage = flashembed("flashplayer-"+id, "flowplayer/flowplayer.commercial-3.1.5.swf",
-            {
-                buffering: true
-            },
-
-            {
-                clip: playerConfig_homepage
-            }
-        );
-        } else {
-            flowplayer_homepage.setConfig(playerConfig_homepage);
-        }
+        $f(0).getClip().originalUrl = $(this).attr("href");
     });
     $("#flashplayer-"+id+" img").click(function(){
         $($links[0]).trigger('click');

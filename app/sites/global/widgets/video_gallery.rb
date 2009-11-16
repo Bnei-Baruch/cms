@@ -44,6 +44,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
                         _tracker._trackEvent("Videos", "Finish", clip.url);
                     }
                   },
+                  #{'play: null,' if tree_node.can_edit?}
                   playlist:[
                     #{image}
                     #{videos}

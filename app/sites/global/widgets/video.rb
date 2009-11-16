@@ -87,6 +87,7 @@ class Global::Widgets::Video < WidgetManager::Base
                         _tracker._trackEvent("Videos", "Finish", clip.url);
                     }
                   },
+                  #{'play: null,' if tree_node.can_edit?}
                   playlist:[
                     #{image}
                     {url:'#{get_flash_url}',autoPlay: #{autoplay.to_s}}

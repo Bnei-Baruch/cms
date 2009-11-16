@@ -17,6 +17,7 @@ class Global::Widgets::Video < WidgetManager::Base
   end
 
   def render_homepage_one_video
+    video_admin
     "'#{get_flash_url}'"
   end
 

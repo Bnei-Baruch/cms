@@ -632,6 +632,7 @@ $(function() {
         // Find out and replace title
         var hdr = $($this.parent().children('.h1-play')[0]).text();
         $this.parents('.inner-player').find('.play-title').text(hdr);
+        $(".play-list-button").hide();
         return false;
     });
     $("#flashplayer-"+id+" img").click(function(){

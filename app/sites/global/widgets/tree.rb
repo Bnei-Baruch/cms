@@ -15,6 +15,9 @@ class Global::Widgets::Tree < WidgetManager::Base
   def render_tree_nodes_exchange
     target_node_id = @options[:target_node_id]
     source_node_id = @options[:source_node_id]
+
+    return rawtext(false) if source_node_id.to_i == -1 # Dummy node
+
     target_node = TreeNode.find(target_node_id)
     source_node = TreeNode.find(source_node_id)
 
@@ -125,8 +128,10 @@ class Global::Widgets::Tree < WidgetManager::Base
       :count_children => true
     )
     json = nodes.collect { |node|
-      is_leaf = node.direct_child_count == 0
+      # If node has no direct children, but is section - it is not leaf
       resource = node.resource
+      acts_as_section = resource.properties('acts_as_section').get_value rescue false
+      is_leaf = node.direct_child_count == 0 && !acts_as_section
       id = node.id
       name = "<span class='#{resource.status.downcase}'>#{resource.name}</span>"
       [
@@ -148,6 +153,7 @@ class Global::Widgets::Tree < WidgetManager::Base
         )
       ]
     }
+    json.empty? && json = [:id => -1, :text => 'Do not move!', :leaf => true]
     json.flatten.to_json
   end
 

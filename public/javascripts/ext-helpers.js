@@ -103,6 +103,10 @@ function create_tree(url, tree_label, title, expand_path, resource_type_id, root
         var nodeNextSibling = node.nextSibling;
         var src = node.attributes.id;
         var trg = dropEvent.target.attributes.id;
+        if (src == -1) {
+          alert("Do not move this node!");
+          return false;
+        }
         var point = dropEvent.point;  
         Ext.Ajax.request({
             url: url,

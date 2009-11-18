@@ -13,12 +13,13 @@ $(document).ready(function() {
 
 
 
-//google analitic
+//google analytics
 function google_tracker(pagename){
     if (typeof pagename == "undefined"){
-        return ;
+      pageTracker._trackPageview();
+    }else{
+      pageTracker._trackPageview(pagename);
     }
-    urchinTracker(pagename);
 }
 
 //comment

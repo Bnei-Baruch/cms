@@ -28,7 +28,7 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
   
   def gg_analytics_tracking (name_of_link = '')
     if presenter.is_homepage? 
-      {:onclick => "javascript:urchinTracker('/homepage/news/#{name_of_link}');"}
+      {:onclick => "javascript:google_tracker('/homepage/news/#{name_of_link}');"}
     else
       {}
     end

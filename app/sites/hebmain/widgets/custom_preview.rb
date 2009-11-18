@@ -76,7 +76,7 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
   
   private
   def gg_analytics_tracking (name_of_link = '')
-    {:onclick => "javascript:urchinTracker('/homepage/#{name_of_link}');"}
+    {:onclick => "javascript:google_tracker('/homepage/#{name_of_link}');"}
   end
   
 end

@@ -44,8 +44,8 @@ class Global::Widgets::Sections < WidgetManager::Base
   end
   
   def gg_analytics_tracking (level, name_of_link = '')
-    if presenter.is_homepage? 
-      {:onclick => "javascript:urchinTracker('/homepage/sections/#{level}/#{name_of_link}');"}
+    if presenter.is_homepage?
+      {:onclick => "javascript:google_tracker('/homepage/sections/#{level}/#{name_of_link}');"}
     else
       {}
     end

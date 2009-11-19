@@ -106,7 +106,7 @@ class Sites::ApiController < ApplicationController
     
   end
   
-  # GET http://mydomain.com/api/first_article.format
+  # GET http://mydomain.com/api/first_page_article.format
   def get_first_page_article
     @tree_node = first_article.first
     respond_to do |format| 

@@ -49,8 +49,8 @@ class Sites::ApiController < ApplicationController
       render :text  => "Invalid input syntax #{article_id}: \'article_id\' must be integer"
       return
     end
-    limit = params[:per_page] || 1000
-    page_num = params[:page_num] || 1
+    limit = (params[:per_page] || 1000).to_i
+    page_num = (params[:page_num] || 1).to_i
     page_num -= 1
     offset = limit * page_num
     

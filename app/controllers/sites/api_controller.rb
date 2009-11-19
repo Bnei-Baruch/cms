@@ -8,7 +8,7 @@ class Sites::ApiController < ApplicationController
 
   # GET http://mydomain.com/api/categories.format
   def get_categories
-     @categories = @presenter.main_sections(2)
+     @categories = categories(2)
      respond_to do |format| 
        format.xml 
        format.html { render :text  => 'html content is not supported. Please try the same url with .xml extension' } 
@@ -106,8 +106,13 @@ class Sites::ApiController < ApplicationController
     
   end
   
-  # GET http://mydomain.com/api/article_comment.format
+  # GET http://mydomain.com/api/first_article.format
   def get_first_page_article
+    @tree_node = first_article.first
+    respond_to do |format| 
+      format.xml 
+      format.html { render :text  => 'html content is not supported. Please try the same url with .xml extension' } 
+    end 
     
   end
   
@@ -121,7 +126,7 @@ class Sites::ApiController < ApplicationController
     :resource_type_hrids => ['content_page'], 
     :depth => 1,
     :has_url => true,
-    :properties => 'b_acts_as_section = false'
+    :properties => 'b_acts_as_section = false AND b_mobile_content = true'
     }
     args
     if page_num
@@ -131,6 +136,25 @@ class Sites::ApiController < ApplicationController
       end
     end
     TreeNode.get_subtree(args)
+  end
+
+  def categories(depth = 1)
+    TreeNode.get_subtree(
+    :parent => @presenter.website_node.id, 
+    :resource_type_hrids => ['content_page'], 
+    :depth => depth,
+    :has_url => true,
+    :properties => 'b_hide_on_navigation = false AND b_mobile_content = true'
+    )               
+  end
+  def first_article
+    TreeNode.get_subtree(
+      :parent => @presenter.website_node.id,
+      :resource_type_hrids => ['content_page'], 
+      :has_url => true,
+      :depth => 4,
+      :properties => 'b_acts_as_section = false AND b_mobile_first_page = true'
+    )               
   end
   
 end

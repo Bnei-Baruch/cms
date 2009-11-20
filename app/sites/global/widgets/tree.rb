@@ -88,13 +88,18 @@ class Global::Widgets::Tree < WidgetManager::Base
         javascript {
           rawtext <<-TREE_CODE
             Ext.onReady(function(){
-              tree();
+              create_tree({
+                url:'#{get_page_url(tree_node)}',
+                tree_label:'#{label}',
+                title:'#{link}',
+                expand_path:'#{expand_path}',
+                resource_type_id:'#{ResourceType.get_resource_type_by_hrid('content_page').id}',
+                root_id:'#{@website_parent_node}',
+                admin_url:'#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}',
+                root_title:'#{name}',
+                width:400
+              });
             });
-            function tree() {
-              create_tree('#{get_page_url(tree_node)}', '#{label}', '#{link}',
-                          '#{expand_path}', '#{ResourceType.get_resource_type_by_hrid('content_page').id}', '#{@website_parent_node}',
-                          '#{new_admin_resource_path(:slang => @presenter.site_settings[:short_language])}', '#{name}', 400);
-            }
           TREE_CODE
         }
       }                     
@@ -133,14 +138,25 @@ class Global::Widgets::Tree < WidgetManager::Base
       acts_as_section = resource.properties('acts_as_section').get_value rescue false
       is_leaf = node.direct_child_count == 0 && !acts_as_section
       id = node.id
-      name = "<span class='#{resource.status.downcase}'>#{resource.name}</span>"
+      klass = resource.status == 'PUBLISHED' ? '' : resource.status.downcase
+      begin
+        is_mobile = resource.properties('mobile_content').get_value
+        klass += is_mobile ? ' mobile ' : ' '
+        is_mobile_first_page = resource.properties('mobile_first_page').get_value
+        klass += is_mobile_first_page ? ' mobile_first ' : ' '
+      rescue
+        
+      end
+      name = "<span class='#{klass}'>#{resource.name}</span>"
       [
         :id => id, 
-        :text => resource.status == 'PUBLISHED' ? resource.name : name,
+        :text => name,
         :href => get_page_url(node),
         :leaf => is_leaf,
         :resource_name => resource.name,
         :parent_id => node.parent_id,
+        :is_mobile => is_mobile,
+        :is_mobile_first_page => is_mobile_first_page,
         :cannot_edit => !node.can_edit?,
         :cannot_create_child => !node.can_create_child?,
         :cannot_delete => !node.can_delete?,

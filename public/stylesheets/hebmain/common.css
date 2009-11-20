@@ -36,6 +36,10 @@ a.more img{
 .archived{
     background-color:#00FF66 !important;
 }
+.mobile{
+    background:transparent url(/images/hebmain/mobile.png) no-repeat right top;
+    padding-right:20px !important;
+}
 /* Sortables */
 .handle{
     z-index:500 !important;

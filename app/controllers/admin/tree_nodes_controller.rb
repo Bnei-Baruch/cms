@@ -75,6 +75,17 @@ class Admin::TreeNodesController < ApplicationController
     if tree_node.nil?
       flash[:notice] = "Tree node does not exist " + params[:id]
       logger.error("Tree node does not exist " + params[:id])
+      respond_to do |format|
+        format.html {
+          if request.xhr?
+            head(:bad_request).to_json
+          else
+            head(:bad_request)
+          end
+        }
+        format.xml  { head :bad_request }
+        format.json { head(:bad_request).to_json}
+      end
       return
     end
     
@@ -84,14 +95,32 @@ class Admin::TreeNodesController < ApplicationController
       flash[:notice] = "Access denied. User can't edit tree node"
       logger.error("User #{AuthenticationModel.current_user} has no permission " + 
           "to edit tree_node: #{tree_node.id} resource: #{tree_node.resource_id}")
+      respond_to do |format|
+        format.html {
+          if request.xhr?
+            head(:bad_request).to_json
+          else
+            head(:bad_request)
+          end
+        }
+        format.xml  { head :bad_request }
+        format.json { head(:bad_request).to_json}
+      end
       return
     end
     #   ******************
-    
-    @resource = Resource.find(tree_node.resource)
-    @resource.status = params[:status]
-    @resource.save
-    
+
+    case
+    when params.has_key?(:status)
+      @resource = Resource.find(tree_node.resource)
+      @resource.status = params[:status]
+      @resource.save
+    when params.has_key?(:set_mobile)
+      set_boolean(tree_node, 'mobile_content')
+    when params.has_key?(:set_mobile_first_page)
+      set_boolean(tree_node, 'mobile_first_page')
+    end
+
     respond_to do |format|
       format.html {
         if request.xhr?
@@ -105,7 +134,7 @@ class Admin::TreeNodesController < ApplicationController
     end
     return
   end
-  
+
   # GET /tree_nodes/1/tree_node_delete
   def tree_node_delete
     @tree_node = TreeNode.find(params[:id])
@@ -248,4 +277,24 @@ class Admin::TreeNodesController < ApplicationController
       format.json { render :json => @new_tree_nodes.to_json }
     end
   end
+
+  private
+  def set_boolean(node, hrid)
+    @resource = Resource.find(node.resource)
+    rp = @resource.properties(hrid)
+    if rp
+      value = rp.get_value
+      value ^= true
+      rp.value = value ? 't' : 'f'
+      rp.save
+    else
+      rp = RpBoolean.new()
+      rp.property_id = Property.get_property_by_hrid(hrid).id
+      rp.resource = @resource
+      rp.save!
+      rp.value = 't'
+      rp.save!
+    end
+  end
+
 end

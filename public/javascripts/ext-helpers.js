@@ -200,11 +200,11 @@ function create_tree(options)
           disabled: node.attributes.cannot_edit,
           handler: function(item){mobile_handler_func(node)}
         }),
-//        new Ext.menu.Item({
-//          text: 'Set as first mobile page',
-//          disabled: node.attributes.cannot_edit,
-//          handler: function(item){mobile_first_page_handler_func(node)}
-//        }),
+        new Ext.menu.Item({
+          text: 'Set as first mobile page',
+          disabled: node.attributes.cannot_edit,
+          handler: function(item){mobile_first_page_handler_func(node)}
+        }),
       ]
     });
     menu.showAt(e.getXY());
@@ -228,7 +228,7 @@ function create_tree(options)
               if (node.is_mobile_first_page) {
                 node.text = node.text.replace(/class=\'/, "class='mobile_first ");
               } else {
-                node.text = node.text.replace(/class=\' mobile_first /, "");
+                node.text = node.text.replace(/mobile_first/gi, "");
               }
               node.setText(node.text);
               Ext.Msg.alert('Set as first mobile page',

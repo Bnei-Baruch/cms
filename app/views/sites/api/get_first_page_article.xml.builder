@@ -12,8 +12,12 @@ comments = @tree_node.comments
 comments_size = comments ? comments.size : 0
 xml.article {
   # xml.created_at(resource.created_at)
-  xml.short(description)
-  xml.body(body)
+  xml.category_id(@tree_node.parent_id)
+  xml.article_id(@tree_node.id)
+  xml.updated_at(resource.updated_at)
+  xml.title(resource.name)
+
+  xml.description(description)
   xml.num_of_comments(comments_size)
   xml.image(image)
 }

@@ -10,9 +10,7 @@ description = resource.get_resource_property_by_property_hrid('description')
 body = resource.get_resource_property_by_property_hrid('body')
 comments = @tree_node.comments
 comments_size = comments ? comments.size : 0
-# debugger
 xml.article {
-  # xml.created_at(resource.created_at)
   xml.short(description)
   xml.body(body)
   xml.num_of_comments(comments_size)

@@ -164,7 +164,8 @@ class Admin::ResourcesController < ApplicationController
         redirect_to session[:referer]
       end
     end
-
+    
+    params[:resource].merge!(:updated_at => Time.now)
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
         flash[:notice] = 'Resource was successfully updated.'

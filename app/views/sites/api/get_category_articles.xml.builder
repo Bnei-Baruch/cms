@@ -15,6 +15,7 @@ xml.articles{
       # xml.created_at(resource.created_at)
       xml.category_id(article.parent_id)
       xml.article_id(article.id)
+      xml.updated_at(resource.updated_at)
       xml.title(resource.name)
       xml.description(description)
       xml.image(image)

@@ -116,9 +116,25 @@ class Admin::TreeNodesController < ApplicationController
       @resource.status = params[:status]
       @resource.save
     when params.has_key?(:set_mobile)
-      set_boolean(tree_node, 'mobile_content')
+      is_mobile = toggle_boolean(tree_node, 'mobile_content')
+      first = get_boolean(tree_node, 'mobile_first_page')
+      toggle_boolean(tree_node, 'mobile_first_page', true) if !is_mobile && first
     when params.has_key?(:set_mobile_first_page)
-      set_boolean(tree_node, 'mobile_first_page')
+      # Find current 'mobile_first_page' and force it to be false
+      TreeNode.get_subtree(
+        :parent => @presenter.website_node.id,
+        :resource_type_hrids => ['content_page'],
+        :has_url => true,
+        :depth => 4,
+        :properties => 'b_acts_as_section = false AND b_mobile_first_page = true'
+      ).each{|node|
+        toggle_boolean(node, 'mobile_first_page', true)
+      }
+
+      # Set a new node to be first mobile page
+      is_mobile = get_boolean(tree_node, 'mobile_content')
+      toggle_boolean(tree_node, 'mobile_first_page')
+      toggle_boolean(tree_node, 'mobile_content') unless is_mobile
     end
 
     respond_to do |format|
@@ -279,22 +295,37 @@ class Admin::TreeNodesController < ApplicationController
   end
 
   private
-  def set_boolean(node, hrid)
+  def get_boolean(node, hrid)
+    @resource = Resource.find(node.resource)
+    rp = @resource.properties(hrid)
+    return false unless rp
+    rp.get_value
+  end
+
+  # Toggle boolean property with name 'hrid' for node 'node'
+  # Create property if it doesn't exist
+  # If 'reset' is true then set the property to be FALSE
+  def toggle_boolean(node, hrid, reset = false)
     @resource = Resource.find(node.resource)
     rp = @resource.properties(hrid)
     if rp
-      value = rp.get_value
-      value ^= true
+      if reset
+        value = false
+      else
+        value = rp.get_value ^ true
+      end
       rp.value = value ? 't' : 'f'
-      rp.save
+      rp.save!
     else
       rp = RpBoolean.new()
       rp.property_id = Property.get_property_by_hrid(hrid).id
       rp.resource = @resource
       rp.save!
-      rp.value = 't'
+      rp.value = reset ? 'f' : 't'
       rp.save!
     end
+
+    rp.get_value
   end
 
 end

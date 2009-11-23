@@ -11,7 +11,6 @@ xml.categories{
     end
     description = resource.get_resource_property_by_property_hrid('description')
     xml.category {
-      # xml.created_at(resource.created_at)
       xml.category_id(category.id)
       xml.parent_id(category.parent_id)
       xml.name(resource.name)

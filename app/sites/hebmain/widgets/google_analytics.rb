@@ -27,11 +27,12 @@ class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
         
     javascript {
       rawtext <<-google
+      var pageTracker = null;
         $(document).ready(function(){
           var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
           $.getScript(gaJsHost + 'google-analytics.com/ga.js', function(){
             try{
-              var pageTracker = _gat._getTracker("UA-548326-62");
+              pageTracker = _gat._getTracker("UA-548326-62");
               pageTracker._trackPageview();
             } catch(err) {};
           }, true);

@@ -54,6 +54,7 @@ class Sites::ApiController < ApplicationController
     page_num -= 1
     offset = limit * page_num
     
+    @total_comments = Comment.count_comments(article_id)
     @comments = Comment.list_all_comments_for_page(article_id, limit, offset)
 
     respond_to do |format| 

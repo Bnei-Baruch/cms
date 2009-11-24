@@ -1,6 +1,6 @@
 xml.instruct!
 xml.comments do
-  xml.total_items(@comments.size)
+  xml.total_items(@total_comments)
   for comment in @comments
     has_content = !(comment.body.empty?) rescue false
     xml.comment do

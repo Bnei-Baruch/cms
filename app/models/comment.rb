@@ -15,6 +15,11 @@ class Comment < ActiveRecord::Base
 		find(:all, args)
 	end
 	
+	def self.count_comments(node_id)
+    count(:conditions => "tree_node_id = #{node_id} AND is_valid = 200")
+	  
+	end
+	
 	def self.get_comment(comment_id)
 	  Comment.find(:first, :conditions => [ "id = ? AND is_valid = ?", comment_id, 200])
 	end

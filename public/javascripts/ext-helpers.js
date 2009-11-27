@@ -57,6 +57,7 @@ function tree_drop_zone(widget_node_id, url, widget, updatable, updatable_view_m
 }
 
 Ext.Ajax.timeout = 60000;
+var tree;
 
 //    Known options:
 //    url, tree_label, title, expand_path, resource_type_id,
@@ -201,7 +202,7 @@ function create_tree(options)
           handler: function(item){mobile_handler_func(node)}
         }),
         new Ext.menu.Item({
-          text: 'Set as first mobile page',
+          text: 'Toggle as first mobile page',
           disabled: node.attributes.cannot_edit,
           handler: function(item){mobile_first_page_handler_func(node)}
         }),
@@ -211,7 +212,10 @@ function create_tree(options)
   });
 
   function mobile_first_page_handler_func(node) {
-    var is_first_page = node.is_mobile_first_page ? 'unset' : 'set';
+    var is_first_page;
+    if (typeof node.is_mobile_first_page == "undefined")
+      node.is_mobile_first_page = false;
+    is_first_page = node.is_mobile_first_page ? 'set' : 'unset';
     Ext.Msg.confirm('Set as first mobile page',
     'Are you sure you want to ' + is_first_page + ' the page as first mobile one?',
     function(e){
@@ -224,13 +228,19 @@ function create_tree(options)
           },
           callback: function (options, success, responce){
             if (success) {
+              // First we have to unset a prev node
+              var root = tree.root;
+              root.eachChild(function(node){
+                node.setText(node.text.replace(/mobile_first/gi, ""));
+                return true;
+              });
+              // Now we can set a new one
               node.is_mobile_first_page ^= true;
               if (node.is_mobile_first_page) {
-                node.text = node.text.replace(/class=\'/, "class='mobile_first ");
-              } else {
-                node.text = node.text.replace(/mobile_first/gi, "");
+                node.is_mobile = true;
+                node.text = node.text.replace(/class=\'/, "class='mobile mobile_first ");
+                node.setText(node.text);
               }
-              node.setText(node.text);
               Ext.Msg.alert('Set as first mobile page',
               'The tree item <' + node.text + '> was successfully ' + (node.is_mobile_first_page ? 'set' : 'unset') + ' as first mobile one');
             } else {
@@ -244,6 +254,8 @@ function create_tree(options)
   }
 
   function mobile_handler_func(node) {
+    if (typeof node.is_mobile == "undefined")
+      node.is_mobile = false;
     var is_mobile = node.is_mobile ? 'off' : 'on';
     Ext.Msg.confirm('Turn mobile ' + is_mobile,
     'Are you sure you want to turn mobile ' + is_mobile + '?',
@@ -257,10 +269,14 @@ function create_tree(options)
           },
           callback: function (options, success, responce){
             if (success) {
+              if (node.is_mobile_first_page) {
+                mobile_first_page_handler_func(node);
+              }
               node.is_mobile ^= true;
               if (node.is_mobile) {
                 node.text = node.text.replace(/class=\'/, "class='mobile ");
               } else {
+                node.text = node.text.replace(/mobile_first/gi, "");
                 node.text = node.text.replace(/mobile/gi, "");
               }
               node.setText(node.text);

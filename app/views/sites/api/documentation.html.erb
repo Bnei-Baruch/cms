@@ -65,6 +65,11 @@
 				Example: <%= @presenter.home %>/api/articles.xml?category_id=25820
 			</li>
 			<li>
+				<b>filter_by.</b> Optional. Values: 'all', 'mobile'. Default: 'all'.  Returns all categories or dedicated categories for mobile devices
+				<br />
+				Example: <%= @presenter.home %>/api/articles.xml?category_id=25820&filter_by=mobile
+			</li>
+			<li>
 				<b>per_page + page_num.</b> Optional. Number of articles per page + page number (starts from 1). This is used for pagination
 				<br />
 				Example: <%= @presenter.home %>/api/articles.xml?category_id=25820&per_page=3&page_num=2

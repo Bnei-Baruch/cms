@@ -123,11 +123,12 @@ class Sites::ApiController < ApplicationController
   
   def articles(parent_id, per_page = nil, page_num = nil)
     return nil unless parent_id
+    properties = show_only_mobile_content? ? 'b_acts_as_section = false AND b_mobile_content = true' : 'b_acts_as_section = false'
     args = {:parent => parent_id, 
     :resource_type_hrids => ['content_page'], 
     :depth => 1,
     :has_url => true,
-    :properties => 'b_acts_as_section = false AND b_mobile_content = true'
+    :properties => properties
     }
     args
     if page_num
@@ -140,22 +141,28 @@ class Sites::ApiController < ApplicationController
   end
 
   def categories(depth = 1)
+    properties = show_only_mobile_content? ? 'b_hide_on_navigation = false AND b_acts_as_section = true AND b_mobile_content = true' : 'b_acts_as_section = true AND b_hide_on_navigation = false'
     TreeNode.get_subtree(
     :parent => @presenter.website_node.id, 
     :resource_type_hrids => ['content_page'], 
     :depth => depth,
     :has_url => true,
-    :properties => 'b_hide_on_navigation = false AND b_mobile_content = true'
+    :properties => properties
     )               
   end
   def first_article
+    properties = show_only_mobile_content? ? 'b_acts_as_section = false AND b_mobile_first_page = true' : 'b_acts_as_section = false' 
     TreeNode.get_subtree(
       :parent => @presenter.website_node.id,
       :resource_type_hrids => ['content_page'], 
       :has_url => true,
       :depth => 4,
-      :properties => 'b_acts_as_section = false AND b_mobile_first_page = true'
+      :properties => properties
     )               
+  end
+  
+  def show_only_mobile_content?
+    params[:filter_by] && params[:filter_by] == 'mobile'
   end
   
 end

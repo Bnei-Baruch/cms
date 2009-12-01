@@ -14,8 +14,12 @@ module	Configuration::Hebmain
 # <resource_type> => <layout_name>
     :layout_map => { 
       'search' => 'content_page'
-      },
+    },
  # define view modes per parent widget and placeholder.
+    :google_analytics => {
+        :profile_key => "UA-548326-62",
+        :new_version => false
+    },
     :view_modes => {
       # parent widget
       :website => {
@@ -32,10 +36,6 @@ module	Configuration::Hebmain
           :render_right => 'right'
         }
       },  
-      :google_analytics => {
-          :profile_key => "UA-548326-62",
-          :new_version => false
-        },
       # parent widget
       :content_page => {
         # placeholder

@@ -148,7 +148,8 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
             :has_url => false, :placeholder => 'main_content'}).render_to(self)
       end
       
-      unless get_acts_as_section
+      hide_title = get_hide_title
+      if (hide_title.is_a?(String) && hide_title.empty?) || (not hide_title)
         h1 get_title
         small_title = get_small_title
         h2 get_small_title unless small_title.empty?

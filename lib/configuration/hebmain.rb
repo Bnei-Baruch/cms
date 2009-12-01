@@ -31,7 +31,11 @@ module	Configuration::Hebmain
           :video_gallery => 'homepage',
           :render_right => 'right'
         }
-      },
+      },  
+      :google_analytics => {
+          :profile_key => "UA-548326-62",
+          :new_version => false
+        },
       # parent widget
       :content_page => {
         # placeholder

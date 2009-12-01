@@ -14,8 +14,8 @@ class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
       # Delay loading until the last second
       javascript {
         rawtext <<-google
+        var google_analytics_new_version = false
         $(document).ready(function(){
-          var google_analytics_new_version = false
           $.getScript('http://www.google-analytics.com/urchin.js', function(){
            _uacct = "UA-548326-62";
            urchinTracker();

@@ -299,7 +299,6 @@ hebrew:
 
   Mainsites::Widgets::Newsletter:
     subscribe: הרשם
-    newsletter_subscription: הרשמו לניוזלטר השבועי
     email_address: כתובת e-mail
     send: שלח
     enter_email:  הזינו דואר אלקטרוני

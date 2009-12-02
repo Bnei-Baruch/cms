@@ -127,7 +127,7 @@ class Sites::Global < Presenter::Base
   end
     
   def parents(tree_node = node) # by default it will use the current node
-    node.parents
+    tree_node.parents
   end
 
 end

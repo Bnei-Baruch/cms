@@ -99,30 +99,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                         :sortable => false
                       )
                       
-                      div(:class => 'downloads container'){
-                        h3(:class => 'box_header') {
-                          text 'שיעורים להורדה'
-                          w_class('cms_actions').new(:tree_node => tree_node, 
-                            :options => {:buttons => %W{ new_button }, 
-                              :resource_types => %W{ media_rss },
-                              :new_text => 'צור יחידת תוכן חדשה',
-                              :mode => 'inline',
-                              :button_text => 'הוספת הורדות',
-                              :has_url => false, 
-                              :placeholder => 'lesson'}).render_to(self)
-                        }
-                        div(:class => 'entries'){
-                          show_content_resources(:resources => kabbalah_media_resources,
-                            :parent => :website,
-                            :placeholder => :left,
-                            :sortable => true
-                          )
-                        }
-                        make_sortable(:selector => ".downloads .entries", :axis => 'y') {
-                          kabbalah_media_resources
-                        }
-                      }
-                      
                       div(:class => 'left-column'){
                         show_content_resources(:resources => left_column_resources,
                           :parent => :website,
@@ -174,22 +150,12 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                   div(:class =>'h1-right')
                   div(:class =>'h1-left')
                 }
-                w_class('cms_actions').new(:tree_node => tree_node, 
-                  :options => {:buttons => %W{ new_button }, 
-                    :resource_types => %W{ video_gallery site_updates newsletter banner},
-                    :new_text => 'צור יחידת תוכן חדשה', 
-                    :has_url => false, 
-                    :placeholder => 'right'}).render_to(self)
-            	
-                show_content_resources(:resources => right_column_resources,
-                  :parent => :website,
-                  :placeholder => :right,
-                  :sortable => true)  { |idx|
-                    @newsletter.render_to(self) if (idx == 1)
-                }
-                make_sortable(:selector => ".right-part") {
-                  right_column_resources
-                }
+
+                video_gallery
+
+                downloads
+
+                right_column
               }
             }
           }
@@ -210,13 +176,23 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['site_updates', 'video_gallery', 'newsletter', 'banner'],
+      :resource_type_hrids => ['site_updates', 'newsletter', 'banner'],
       :depth => 1,
       :placeholders => ['right'],
       :status => ['PUBLISHED', 'DRAFT']
     ) 
   end
   
+  def right_column_video_gallery_resources
+    @tree_nodes_right_video_gallery ||= TreeNode.get_subtree(
+      :parent => tree_node.id,
+      :resource_type_hrids => ['video_gallery'],
+      :depth => 1,
+      :placeholders => ['right'],
+      :status => ['PUBLISHED', 'DRAFT']
+    )
+  end
+
   def left_column_resources
     @tree_nodes_left ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
@@ -257,4 +233,67 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     )
   end
 
+  def downloads
+    div(:class => 'downloads container'){
+      h3(:class => 'box_header') {
+        text 'שיעורים להורדה'
+        w_class('cms_actions').new(:tree_node => tree_node,
+          :options => {:buttons => %W{ new_button },
+            :resource_types => %W{ media_rss },
+            :new_text => 'צור יחידת תוכן חדשה',
+            :mode => 'inline',
+            :button_text => 'הוספת הורדות',
+            :has_url => false,
+            :placeholder => 'lesson'}).render_to(self)
+      }
+      div(:class => 'entries'){
+        show_content_resources(:resources => kabbalah_media_resources,
+          :parent => :website,
+          :placeholder => :left,
+          :sortable => true
+        )
+      }
+      make_sortable(:selector => ".downloads .entries", :axis => 'y') {
+        kabbalah_media_resources
+      }
+    }
+  end
+
+  def video_gallery
+    w_class('cms_actions').new(:tree_node => tree_node,
+      :options => {:buttons => %W{ new_button },
+        :resource_types => %W{ video_gallery },
+        :new_text => 'צור יחידת תוכן חדשה',
+        :has_url => false,
+        :placeholder => 'right'}).render_to(self)
+
+    show_content_resources(:resources => right_column_video_gallery_resources,
+      :parent => :website,
+      :placeholder => :right,
+      :sortable => true)  { |idx|
+      @newsletter.render_to(self) if (idx == 1)
+    }
+    make_sortable(:selector => ".right-part") {
+      right_column_video_gallery_resources
+    }
+  end
+
+  def right_column
+    w_class('cms_actions').new(:tree_node => tree_node,
+      :options => {:buttons => %W{ new_button },
+        :resource_types => %W{ site_updates newsletter banner},
+        :new_text => 'צור יחידת תוכן חדשה',
+        :has_url => false,
+        :placeholder => 'right'}).render_to(self)
+
+    show_content_resources(:resources => right_column_resources,
+      :parent => :website,
+      :placeholder => :right,
+      :sortable => true)  { |idx|
+      @newsletter.render_to(self) if (idx == 0)
+    }
+    make_sortable(:selector => ".right-part") {
+      right_column_resources
+    }
+  end
 end 

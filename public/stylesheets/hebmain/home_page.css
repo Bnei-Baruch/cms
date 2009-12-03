@@ -194,6 +194,75 @@
     vertical-align: middle;
     padding:0 5px 0 0;
 }
+.right-part .downloads{
+}
+.right-part .downloads ul {
+    margin:0 10px 0 0;
+    padding:10px 0 0;
+}
+.right-part .downloads li.item {
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    padding:5px 0 10px;
+    border-bottom:1px dashed #e8e8e8;
+}
+.right-part .downloads .services {
+    margin:10px 5px 0;
+}
+.right-part .downloads .services a:hover{
+    text-decoration:underline;
+}
+.right-part .downloads .services a{
+    display:-moz-inline-box;
+    padding:0 22px 0 0;
+    cursor:pointer;
+    background: transparent url(/images/services.gif) no-repeat 90% 1px;
+}
+.right-part .downloads .services a.video{
+    background-position:90% -23px;
+}
+.right-part .downloads .services a.sketch{
+    background-position:90% -44px;
+}
+.right-part .downloads .date{
+    color:#767676;
+    font-size:11px;
+}
+.right-part .downloads .toggle{
+    font-weight:normal;
+    cursor:pointer;
+}
+.right-part .downloads img{
+    height:18px;
+    width:16px;
+    background-repeat:no-repeat;
+    border:0pt none;
+    margin:0pt;
+    padding:0pt;
+    vertical-align:top;
+}
+.right-part .downloads .x-plus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll 0pt;
+}
+.right-part .downloads .x-minus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+}
+.right-part .downloads .x-end-plus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll 0pt 50%;
+}
+.right-part .downloads .x-end-minus {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -16px 0pt;
+}
+.right-part .downloads .x-end, .right-part .downloads .x- {
+background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -64px 0pt;
+}
+.right-part .downloads .x-over .x-plus {
+background-position:-32px 0pt;
+}
+.right-part .downloads .x-over .x-minus {
+background-position:-48px 0pt;
+}
 /*----------  custom preview  ---------------*/
 .custom_preview{
     margin:10px 0;
@@ -359,73 +428,4 @@
     height:27px;
     border-top:1px dashed #bbbbbb;
     display:block;
-}
-.left-part .downloads{
-}
-.left-part .downloads ul {
-    margin:0 10px 0 0;
-    padding:10px 0 0;
-}
-.left-part .downloads li.item {
-    list-style-image:none;
-    list-style-position:outside;
-    list-style-type:none;
-    padding:5px 0 10px;
-    border-bottom:1px dashed #e8e8e8;
-}
-.left-part .downloads .services {
-    margin:10px 5px 0;
-}
-.left-part .downloads .services a:hover{
-    text-decoration:underline;
-}
-.left-part .downloads .services a{
-    display:-moz-inline-box;
-    padding:0 22px 0 0;
-    cursor:pointer;
-    background: transparent url(/images/services.gif) no-repeat 90% 1px;
-}
-.left-part .downloads .services a.video{
-    background-position:90% -23px;
-}
-.left-part .downloads .services a.sketch{
-    background-position:90% -44px;
-}
-.left-part .downloads .date{
-    color:#767676;
-    font-size:11px;
-}
-.left-part .downloads .toggle{
-    font-weight:normal;
-    cursor:pointer;
-}
-.left-part .downloads img{
-    height:18px;
-    width:16px;
-    background-repeat:no-repeat;
-    border:0pt none;
-    margin:0pt;
-    padding:0pt;
-    vertical-align:top;
-}
-.left-part .downloads .x-plus {
-background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll 0pt;
-}
-.left-part .downloads .x-minus {
-background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -16px 0pt;
-}
-.left-part .downloads .x-end-plus {
-background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll 0pt 50%;
-}
-.left-part .downloads .x-end-minus {
-background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -16px 0pt;
-}
-.left-part .downloads .x-end, .left-part .downloads .x- {
-background:transparent url(/images/hebmain/jquery/arrows_rtl.gif) no-repeat scroll -64px 0pt;
-}
-.left-part .downloads .x-over .x-plus {
-background-position:-32px 0pt;
-}
-.left-part .downloads .x-over .x-minus {
-background-position:-48px 0pt;
 }

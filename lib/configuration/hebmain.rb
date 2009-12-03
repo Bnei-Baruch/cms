@@ -54,7 +54,7 @@ module	Configuration::Hebmain
       :tracker => '/homepage/widget/newsletter/hebrew',
       :box_text_button => 'שלח',
       :input_box_text => ' הזינו דואר אלקטרוני',
-      :style => 'height:40px;left:5px;position:absolute;top:-6px;width:32px;z-index:2;',
+      :style => 'height:34px;left:3px;position:absolute;top:-6px;width:27px;z-index:2;',
       17 => {
         :tracker => '/homepage/widget/newsletter/hebrew_homepage',
         :style => 'left:10px;position:absolute;top:1px;z-index:2;',

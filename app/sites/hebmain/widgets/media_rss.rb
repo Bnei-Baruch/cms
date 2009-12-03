@@ -61,11 +61,11 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     table(:class => "media_rss") {
       thead {
         tr {
-          th(:class => 'top-right-corner'){ text _(:'date')}
-          th _(:'name')
-          th _(:'video')
-          th _(:'audio')
-          th(:class => 'top-left-corner'){ text _(:'picture')}
+          th(:class => 'top-right-corner'){ text _(:date)}
+          th _(:name)
+          th _(:video)
+          th _(:audio)
+          th(:class => 'top-left-corner'){ text _(:picture)}
         }
       }
 	      
@@ -152,9 +152,9 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
             img(:class => 'x-', :src => '/images/hebmain/jquery/s.gif',:alt => '')
             text lesson['title']
             div(:class => 'services'){
-              a(:class => 'video', :href => video_href){span {text _(:'video')} } unless video_href.empty?
-              a(:class => 'audio', :href => audio_href){span {text _(:'audio')} } unless audio_href.empty?
-              a(:class => 'sketch', :href => sirtut_href){span {text _(:'audio')} } unless sirtut_href.empty?
+              a(:class => 'video', :href => video_href){span {text _(:video)} } unless video_href.empty?
+              a(:class => 'audio', :href => audio_href){span {text _(:audio)} } unless audio_href.empty?
+              a(:class => 'sketch', :href => sirtut_href){span {text _(:picture)} } unless sirtut_href.empty?
             }
           }
         end

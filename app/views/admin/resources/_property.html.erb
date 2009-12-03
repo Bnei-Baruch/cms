@@ -18,7 +18,7 @@
     when 'number', 'string': %>
       <%= f.text_field(:value, :index => nil, :id => obj_id) %>
     <% when 'boolean': %>
-      <% checked = %w{ true 1 t }.include?(property.value) %>
+      <% checked = [true, 1, 't'].include?(property.value) %>
       <%= check_box_tag :value_dummy, property.value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
     <% when 'date': %>
       Format of Date: yyyy-mm-dd<br/>
@@ -79,7 +79,8 @@
     <% when 'file': %>
       <% original = @property.original %>
       <% if original %>
-        Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/>
+        Original: <%= "#{original.filename}: #{original.mime_type.split('/').last} of #{original.size} bytes" %><br/> 
+		<% begin %>
         <% if original.is_image? %>
           <%= image_tag	admin_attachment_url(original) %>
           <br/>
@@ -95,6 +96,8 @@
             <hr/>
           <% } %>
         <% end %>
+		<% rescue %>
+      	<% end %>  
       <% end %>
       <%= f.file_field(:value, :index => nil) %>
     <% end %>

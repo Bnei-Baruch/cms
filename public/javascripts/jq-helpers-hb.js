@@ -322,7 +322,7 @@ $(document).ready(function() {
         $this.addClass('mediaplayer');
 
         var src = $this.siblings('img').attr("href");
-        alert(src);
+        
         $this.media({
             src: src,
             autoplay: true

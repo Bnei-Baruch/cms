@@ -940,7 +940,6 @@ img.thumbnails{
 .mediacasting a.media-download{
   display: none;
 }
-
 .media-download{
   margin-right: 10px;
 }
@@ -950,14 +949,17 @@ img.thumbnails{
   background-attachment:scroll;
   background-position: 100% 0%;
 }
-
 .video{
   background-image: url('/images/hebmain/video.png');
   background-repeat: no-repeat;
   background-attachment:scroll;
   background-position: 100% 0%;
 }
-
+.media{
+  color:#186BE5;
+  cursor:pointer;
+  text-decoration:underline;
+}
 
 /*----------  Section Preview  ---------------*/
 .section_preview{

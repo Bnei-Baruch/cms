@@ -311,7 +311,7 @@ $(document).ready(function() {
     $("a.show-player").hide();
     $("a.media-download").hide();
 
-    $("a.media").click(function(event){
+    $(".media").click(function(event){
         event.preventDefault();
         $this = $(this);
         $this.parents('.mediacasting').children("a.hide-player").toggle();
@@ -320,7 +320,11 @@ $(document).ready(function() {
         $this.parents('.video').css('background-image', 'url(../images/blank.gif)');
         $this.removeClass('media');
         $this.addClass('mediaplayer');
+
+        var src = $this.siblings('img').attr("href");
+        alert(src);
         $this.media({
+            src: src,
             autoplay: true
         });
 

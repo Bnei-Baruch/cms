@@ -15,16 +15,21 @@ class Hebmain::Widgets::MediaCasting < WidgetManager::Base
       if (hide_download_link.is_a?(String) && hide_download_link.empty?) || (not hide_download_link)
         a(:class => 'media-download', :href => url){
           img :src => '/images/download.jpg', 
-            :alt => '', 
-            :style => 'vertical-align:middle;'
+          :alt => '',
+          :style => 'vertical-align:middle;'
           text '  הורד'
         }
       end
 		 
       div(:class => 'toggle-media'){
-        a(:href => url, :class => 'media'){
-          text title
-        }
+        if (hide_download_link.is_a?(String) && hide_download_link.empty?) || (not hide_download_link)
+          a(:href => url, :class => 'media'){
+            text title
+          }
+        else
+          div(:class => 'media'){text title}
+          img(:href => url, :class => 'media_img', :style => 'display:none')
+        end
       }
 	  	 
       a(:class => 'show-player', :href => ''){

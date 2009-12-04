@@ -177,9 +177,15 @@ tr.badmod td{
 .newsletter .h1_div{
   position:relative;
 }
-.newsletter h1{
+.newsletter .subtitle{
+  color:#3864B5;
+  font-size:16px;
+  font-weight:bold;
+  margin:-12px 1em 12px 0;
+}
+.newsletter .h1{
   background-color: #F0F5FD;
-  font-size: 110%;
+  font-size: 103%;
   font-weight: normal;
   color:black;
   margin: 2px 2px 22px;

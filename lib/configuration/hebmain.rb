@@ -46,9 +46,19 @@ module	Configuration::Hebmain
       }
     },
     :newsletters => {
+      # Possible options:
+      # icon - icon for header
+      # style - style for the icon
+      # box_title - text on top of a box (with blueish background)
+      # subtitle - blue text beneath the box_title
+      # action - url to post the subscription form
+      # method - get/post
+      # tracker - usl to use for Google Analytics
+      # box_text_button - text on "Send" button
+      # input_box_text - text inside input box
+
       :icon => 'newsletter_default.gif',
       :box_title => 'הרשמו לניוזלטר השבועי',
-      :box_name => '',
       :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgeh',
       :method => 'post',
       :tracker => '/homepage/widget/newsletter/hebrew',
@@ -57,7 +67,6 @@ module	Configuration::Hebmain
       :style => 'height:34px;left:3px;position:absolute;top:-6px;width:27px;z-index:2;',
       17 => {
         :tracker => '/homepage/widget/newsletter/hebrew_homepage',
-        :style => 'left:10px;position:absolute;top:1px;z-index:2;',
       },
       3040 => {
         :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgee',

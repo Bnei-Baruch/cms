@@ -21,20 +21,21 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
 
     icon = nl[:icon] || site_settings[:icon]
     box_title = nl[:box_title] || site_settings[:box_title]
-#    box_name = nl[:box_name] || site_settings[:box_name]
     action = nl[:action] || site_settings[:action]
     method = nl[:method] || site_settings[:method]
     tracker = nl[:tracker] || site_settings[:tracker]
-#    box_text_button = nl[:box_text_button] || site_settings[:box_text_button]
+    box_text_button = nl[:box_text_button] || site_settings[:box_text_button]
     input_box_text = nl[:input_box_text] || site_settings[:input_box_text]
     style = nl[:style] || site_settings[:style]
+    subtitle = nl[:subtitle] || site_settings[:subtitle]
 
 		div(:class => 'newsletter'){
       #      image = get_image
       icon = "/images/#{@presenter.website.hrid}/#{icon}"
       div(:class => 'h1_div'){
-        img(:src => icon, :style => style)
-        h1 box_title
+        img(:src => icon, :style => style, :alt => '')
+        div(:class => 'h1'){text box_title }
+        div(:class => 'subtitle'){ text subtitle }if subtitle
       }
 
 			form(:class => 'inner', :action => action, :method => method,
@@ -47,7 +48,7 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
 				  br
 				  br
           span :class => 'prebutton', :style => 'display:block'
-					input :name => "subscribe", :class => "button", :value => _(:subscribe), :type => "submit", :title => _(:subscribe), :alt => _(:subscribe)
+					input :name => "subscribe", :class => "button", :value => box_text_button, :type => "submit", :title => box_text_button, :alt => box_text_button
           span :class => 'postbutton', :style => 'display:block'
           span :class => 'clear', :style => 'display:block'
 				}

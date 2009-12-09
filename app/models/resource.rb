@@ -73,8 +73,8 @@ class Resource < ActiveRecord::Base
       elements = elements.select{ |rp| rp.property_id == property.id } unless elements.empty?
       if elements.empty?
         new_element = eval "Rp#{property.field_type.camelize}.new"
-        new_element.resource = self
-        new_element.property = property
+#        new_element.resource = self
+#        new_element.property = property
         elements << new_element
       end
       elements.each do |rp|

@@ -18,8 +18,9 @@
     when 'number', 'string': %>
       <%= f.text_field(:value, :index => nil, :id => obj_id) %>
     <% when 'boolean': %>
-      <% checked = [true, 1, 't'].include?(property.value) %>
-      <%= check_box_tag :value_dummy, property.value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
+      <% value = property.value.to_s %>
+      <% checked = %w{ true 1 t }.include?(value) %>
+      <%= check_box_tag :value_dummy, value, checked, {:id => nil, :class => 'property_checkbox'} %><%= f.hidden_field :value, :index => nil%>
     <% when 'date': %>
       Format of Date: yyyy-mm-dd<br/>
       <%= f.text_field(:value, :index => nil, :id => obj_id, :name => 'resource[my_properties][][value]') %>

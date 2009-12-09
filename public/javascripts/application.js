@@ -11,7 +11,7 @@ function mark_for_destroy(element) {
 to be passed to the model as the checkbox value*/
 var CheckboxBehavior = function() {
     var val = $(this).next().val();
-    $(this).next().val(val == 't' ? 'f' : 't');
+    $(this).next().val((val == 't') || (val == 'true') ? 'f' : 't');
 };
 $(function() {
     $('input.property_checkbox').click(CheckboxBehavior);

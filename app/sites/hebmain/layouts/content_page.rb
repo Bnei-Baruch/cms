@@ -187,7 +187,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
   def global_site_updates
     @site_updates ||= TreeNode.get_subtree(
       :parent => presenter.website_node.id, 
-      :resource_type_hrids => ['site_updates'], 
+      :resource_type_hrids => ['site_updates', 'banner'], 
       :depth => 1,
       :placeholders => ['right']
     )

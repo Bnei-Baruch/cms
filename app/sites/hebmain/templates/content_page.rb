@@ -215,7 +215,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_description
     WidgetManager::Base.new do
-      text get_description
+      meta_description = get_meta_description
+      if meta_description.empty?
+        text get_description
+      else
+        text meta_description
+      end
     end
   end
 

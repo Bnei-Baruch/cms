@@ -40,6 +40,7 @@ class PageMap < ActiveRecord::Base
   end
 
   def self.remove_dependent_caches_by_resource(resource)
+    time = Time.new
     logger.debug "#{time} START remove_dependent_caches_by_resource"
     TreeNode.find_all_by_resource_id(resource.id).each{|node|
       remove_dependent_caches(node)

@@ -1,6 +1,7 @@
 class Admin::AttachmentsController < ApplicationController
   
-  before_filter {|c| c.admin_authorize(['System manager'])}
+  # No authorization required to see pictures
+  #  before_filter {|c| c.admin_authorize(['System manager'])}
   
   # GET /attachment/1
   # GET /attachment/1.xml

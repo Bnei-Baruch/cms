@@ -4,6 +4,11 @@ class PageMap < ActiveRecord::Base
     @logger ||= Logger.new("#{RAILS_ROOT}/log/cache_clean.log", 10, 5242880)
   end
 
+  def self.remove_single_cache(tree_node)
+    key = tree_node.parent.this_cache_key
+    Rails.cache.delete(key) if Rails.cache.exist?(key)
+  end
+
   # Remove dependent caches
   def self.remove_dependent_caches(tree_node)
     time = Time.new

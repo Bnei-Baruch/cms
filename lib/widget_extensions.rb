@@ -65,6 +65,7 @@ module WidgetExtensions
     )
     new_tree_node.resource = resource
     new_tree_node.save!
+    new_tree_node
   end
 
   def remove_link_from_resource(tree_node)

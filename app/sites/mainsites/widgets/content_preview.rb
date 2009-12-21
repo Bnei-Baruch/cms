@@ -140,7 +140,11 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
     begin
       target_node_id = @args_hash[:options][:target_node_id]
       resource = TreeNode.find(target_node_id).resource
-      add_node_link_to_resource(tree_node, resource)
+      new_node = add_node_link_to_resource(tree_node, resource)
+      # This call was made via Ajax, hence there is not PageMap
+      # We have to clean up by ourselves
+      PageMap.remove_single_cache(new_node)
+      PageMap.remove_single_cache(TreeNode.find(target_node_id))
     rescue Exception => e
     end
   end

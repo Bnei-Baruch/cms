@@ -1,8 +1,8 @@
 class PageMap < ActiveRecord::Base
 
-  def self.logger
-    @logger ||= Logger.new("#{RAILS_ROOT}/log/cache_clean.log", 10, 5242880)
-  end
+#  def self.logger
+#    @logger ||= Logger.new("#{RAILS_ROOT}/log/cache_clean.log", 10, 5242880)
+#  end
 
   def self.remove_single_cache(tree_node)
     key = tree_node.parent.this_cache_key
@@ -12,11 +12,11 @@ class PageMap < ActiveRecord::Base
   # Remove dependent caches
   def self.remove_dependent_caches(tree_node)
     time = Time.new
-    logger.debug "#{time} START remove_dependent_caches"
+#    logger.debug "#{time} START remove_dependent_caches"
     PageMap.find_by_sql "START TRANSACTION"
     PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1;' rescue ''
     tid = tree_node.id
-    logger.debug "#{time} ACT TreeNode.id = #{tid}"
+#    logger.debug "#{time} ACT TreeNode.id = #{tid}"
     [
       # This node is child of or parent of...
       PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', tid, tid]) +
@@ -31,7 +31,7 @@ class PageMap < ActiveRecord::Base
       TreeNode.find(map.parent_id)
     }.each{ |node|
       key = node.this_cache_key
-      logger.debug "#{time} ACT KEY = #{key}, #{Rails.cache.exist?(key) ? 'EXISTS' : 'NOT EXISTS'}"
+#      logger.debug "#{time} ACT KEY = #{key}, #{Rails.cache.exist?(key) ? 'EXISTS' : 'NOT EXISTS'}"
       Rails.cache.delete(key) if Rails.cache.exist?(key)
       PageMap.find_by_sql "EXECUTE delete_PM (#{node.id});"
     }
@@ -41,16 +41,16 @@ class PageMap < ActiveRecord::Base
     #Will clean the rss cache of the tree node in delayed job - add it to the queue
     Delayed::Job.enqueue(CacheCleaner::RSSCacheJob.new(tree_node))
     # CacheCleaner::Base.clean_feed_cache(tree_node)
-    logger.debug "#{time} FINISH remove_dependent_caches"
+#    logger.debug "#{time} FINISH remove_dependent_caches"
   end
 
   def self.remove_dependent_caches_by_resource(resource)
     time = Time.new
-    logger.debug "#{time} START remove_dependent_caches_by_resource"
+#    logger.debug "#{time} START remove_dependent_caches_by_resource"
     TreeNode.find_all_by_resource_id(resource.id).each{|node|
       remove_dependent_caches(node)
     }
-    logger.debug "#{time} FINISH remove_dependent_caches_by_resource"
+#    logger.debug "#{time} FINISH remove_dependent_caches_by_resource"
   end
 
   def self.reset_tree_nodes_list

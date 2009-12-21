@@ -203,7 +203,7 @@ function create_tree(options)
         }),
         new Ext.menu.Item({
           text: 'Toggle as first mobile page',
-          disabled: node.attributes.cannot_edit,
+          disabled: node.attributes.cannot_edit || !node.attributes.may_be_mobile_first_page,
           handler: function(item){mobile_first_page_handler_func(node)}
         }),
       ]
@@ -213,9 +213,7 @@ function create_tree(options)
 
   function mobile_first_page_handler_func(node) {
     var is_first_page;
-    if (typeof node.is_mobile_first_page == "undefined")
-      node.is_mobile_first_page = false;
-    is_first_page = node.is_mobile_first_page ? 'set' : 'unset';
+    is_first_page = node.attributes.is_mobile_first_page ? 'unset' : 'set';
     Ext.Msg.confirm('Set as first mobile page',
     'Are you sure you want to ' + is_first_page + ' the page as first mobile one?',
     function(e){
@@ -224,10 +222,18 @@ function create_tree(options)
           url: node.attributes.updateStatus,
           method: 'post',
           params: {
-            'set_mobile_first_page': !node.is_mobile_first_page
+            'set_mobile_first_page': !node.attributes.is_mobile_first_page
           },
           callback: function (options, success, responce){
             if (success) {
+              if (node.attributes.is_mobile_first_page) {
+                // No switch, just toggle the current node
+                node.attributes.is_mobile_first_page ^= true;
+                node.setText(node.text.replace(/mobile_first/gi, ""));
+                Ext.Msg.alert('Set as first mobile page',
+                  'The tree item <' + node.text + '> was successfully unset as first mobile one');
+                return true;
+              }
               // First we have to unset a prev node
               var root = tree.root;
               root.eachChild(function(node){
@@ -235,14 +241,14 @@ function create_tree(options)
                 return true;
               });
               // Now we can set a new one
-              node.is_mobile_first_page ^= true;
-              if (node.is_mobile_first_page) {
-                node.is_mobile = true;
+              node.attributes.is_mobile_first_page ^= true;
+              if (node.attributes.is_mobile_first_page) {
+                node.attributes.is_mobile = true;
                 node.text = node.text.replace(/class=\'/, "class='mobile mobile_first ");
                 node.setText(node.text);
               }
               Ext.Msg.alert('Set as first mobile page',
-              'The tree item <' + node.text + '> was successfully ' + (node.is_mobile_first_page ? 'set' : 'unset') + ' as first mobile one');
+              'The tree item <' + node.text + '> was successfully ' + (node.attributes.is_mobile_first_page ? 'set' : 'unset') + ' as first mobile one');
             } else {
               Ext.Msg.alert('Turn mobile ...', 'FAILURE!!!');
             }
@@ -254,9 +260,7 @@ function create_tree(options)
   }
 
   function mobile_handler_func(node) {
-    if (typeof node.is_mobile == "undefined")
-      node.is_mobile = false;
-    var is_mobile = node.is_mobile ? 'off' : 'on';
+    var is_mobile = node.attributes.is_mobile ? 'off' : 'on';
     Ext.Msg.confirm('Turn mobile ' + is_mobile,
     'Are you sure you want to turn mobile ' + is_mobile + '?',
     function(e){
@@ -269,11 +273,11 @@ function create_tree(options)
           },
           callback: function (options, success, responce){
             if (success) {
-              if (node.is_mobile_first_page) {
+              if (node.attributes.is_mobile_first_page) {
                 mobile_first_page_handler_func(node);
               }
-              node.is_mobile ^= true;
-              if (node.is_mobile) {
+              node.attributes.is_mobile ^= true;
+              if (node.attributes.is_mobile) {
                 node.text = node.text.replace(/class=\'/, "class='mobile ");
               } else {
                 node.text = node.text.replace(/mobile_first/gi, "");
@@ -281,7 +285,7 @@ function create_tree(options)
               }
               node.setText(node.text);
               Ext.Msg.alert('Turn mobile ...',
-              'The tree item <' + node.text + '> was successfully turned ' + (node.is_mobile ? 'on' : 'off'));
+              'The tree item <' + node.text + '> was successfully turned ' + (node.attributes.is_mobile ? 'on' : 'off'));
             } else {
               Ext.Msg.alert('Turn mobile ...', 'FAILURE!!!');
             }

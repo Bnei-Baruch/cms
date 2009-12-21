@@ -121,6 +121,8 @@ class Admin::TreeNodesController < ApplicationController
       toggle_boolean(tree_node, 'mobile_first_page', true) if !is_mobile && first
     when params.has_key?(:set_mobile_first_page)
       # Find current 'mobile_first_page' and force it to be false
+      # Find out whether we're toggling the current 'mobile_first_page'
+      is_current = false
       TreeNode.get_subtree(
         :parent => @presenter.website_node.id,
         :resource_type_hrids => ['content_page'],
@@ -129,12 +131,17 @@ class Admin::TreeNodesController < ApplicationController
         :properties => 'b_acts_as_section = false AND b_mobile_first_page = true'
       ).each{|node|
         toggle_boolean(node, 'mobile_first_page', true)
+        node.save
+        is_current ||= node == tree_node
       }
 
-      # Set a new node to be first mobile page
-      is_mobile = get_boolean(tree_node, 'mobile_content')
-      toggle_boolean(tree_node, 'mobile_first_page')
-      toggle_boolean(tree_node, 'mobile_content') unless is_mobile
+      unless is_current
+        # Set a new node to be first mobile page
+        is_mobile = get_boolean(tree_node, 'mobile_content')
+        toggle_boolean(tree_node, 'mobile_first_page')
+        toggle_boolean(tree_node, 'mobile_content') unless is_mobile
+        tree_node.save
+      end
     end
 
     respond_to do |format|

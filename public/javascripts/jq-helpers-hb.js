@@ -22,7 +22,6 @@ function ga(ev, url, tm){
   // Filename of clip
   var obj = url.split("/").pop();
   if (typeof tm == "undefined") {
-    alert(ev + "/" + obj);
     urchinTracker(ev + "/" + obj);
   } else {
     urchinTracker(ev + "/" + obj + "/" + tm);

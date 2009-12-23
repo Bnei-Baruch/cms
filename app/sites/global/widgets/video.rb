@@ -53,9 +53,11 @@ class Global::Widgets::Video < WidgetManager::Base
       end
 
       if @presenter.is_homepage?
-        link = "/homepage/video"
+        link = "/homepage/widget/video"
+        page = ''
       else
-        link = "/homepage/video/#{@presenter.node.permalink}"
+        link = "/inner_page/widget/video/"
+        page = @presenter.node.permalink
       end
 
       div(:id => "flashplayer-#{id}", :style => 'height:403px;width:504px;'){}
@@ -76,25 +78,25 @@ class Global::Widgets::Video < WidgetManager::Base
 
                     // track start event for this clip
                     onStart: function(clip) {
-                        ga('#{link}/start', clip.url);
+                        ga('#{link}/start/#{page}', clip.url);
                         _tracker._trackEvent("Videos", "Play", clip.url);
                     },
 
                     // track pause event for this clip. time (in seconds) is also tracked
                     onPause: function(clip) {
-                        ga('#{link}/pause', clip.url, parseInt(this.getTime()));
+                        ga('#{link}/pause/#{page}', clip.url, parseInt(this.getTime()));
                         _tracker._trackEvent("Videos", "Pause", clip.url, parseInt(this.getTime()));
                     },
 
                     // track stop event for this clip. time is also tracked
                     onStop: function(clip) {
-                        ga('#{link}/stop', clip.url, parseInt(this.getTime()));
+                        ga('#{link}/stop/#{page}', clip.url, parseInt(this.getTime()));
                         _tracker._trackEvent("Videos", "Stop", clip.url, parseInt(this.getTime()));
                     },
 
                     // track finish event for this clip
                     onFinish: function(clip) {
-                        ga('#{link}/finish', clip.url);
+                        ga('#{link}/finish/#{page}', clip.url);
                         _tracker._trackEvent("Videos", "Finish", clip.url);
                     }
                   },

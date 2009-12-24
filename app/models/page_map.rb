@@ -11,7 +11,7 @@ class PageMap < ActiveRecord::Base
 
   # Remove dependent caches
   def self.remove_dependent_caches(tree_node)
-    time = Time.new
+#    time = Time.new
 #    logger.debug "#{time} START remove_dependent_caches"
     PageMap.find_by_sql "START TRANSACTION"
     PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1;' rescue ''
@@ -45,7 +45,7 @@ class PageMap < ActiveRecord::Base
   end
 
   def self.remove_dependent_caches_by_resource(resource)
-    time = Time.new
+#    time = Time.new
 #    logger.debug "#{time} START remove_dependent_caches_by_resource"
     TreeNode.find_all_by_resource_id(resource.id).each{|node|
       remove_dependent_caches(node)

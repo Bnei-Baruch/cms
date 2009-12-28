@@ -505,7 +505,8 @@ tr.badmod td{
 
 }
 .item .rss .description .preview{
-  display:none;
+  float:right;
+margin:0 0 10px 10px;
 }
 
 /********** Campus form *******/

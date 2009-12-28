@@ -8,6 +8,9 @@
 .content_preview{
     display:inline-block;
 }
+.newsletter {
+zoom:1;
+}
 .newsletter .check{
     margin-top: 3px;
 }

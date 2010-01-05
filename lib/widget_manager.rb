@@ -70,6 +70,7 @@ module WidgetManager
             self.class.class_eval(
               "def #{method_name.to_s}(*args, &block)\n" <<
                 "  rp = resource.properties('#{name}')\n" <<
+		"  rp = rp[0] if rp.kind_of?(Array)\n" <<
                 "  if (rp && rp.get_value.is_a?(Date))\n" <<
                 "    return rp.get_value.strftime('%d.%m.%Y')\n" <<
                 "  else\n" <<

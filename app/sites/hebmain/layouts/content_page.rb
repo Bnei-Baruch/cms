@@ -84,6 +84,9 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
+            a(:href => 'http://www.kab.co.il/events/', :title => 'אתר כנס זוהר לעם 2010', :onclick => "javascript:google_tracker('/inner_page/banner/top_banner/congress');"){
+              img(:src => '/images/hebmain/banner_kab_co_il.jpg', :alt => 'אתר כנס זוהר לעם 2010')
+             }
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {

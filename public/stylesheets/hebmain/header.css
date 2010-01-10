@@ -75,7 +75,7 @@ strong{
 /*----------  Logo  ---------------*/
 #hd-r .logo {
     position: absolute;
-    top:-15px;
+    top:0;
     right:0;
 }
 #hd-r .logo h1{
@@ -196,7 +196,9 @@ strong{
     list-style-type: none;
     list-style-position: inside;
     padding: 2px 0;
+/*For ie8*/
     padding: 2px 3px\9;
+/*For ie6-7*/
     *padding: 2px 3px;
     margin:0;
 	text-align:center;

@@ -13,91 +13,11 @@ class Global::Widgets::Kabtv < WidgetManager::Base
       cms_action
       #      We don't want to use different backgrounds here
       div(:id => 'kabtv-top'){
-        height = 214
-        width = 199
-        url = Language.get_url(@language, @presenter.get_cookies)[0]
-        rawtext <<-TV1
-          <div id="tvobj">
-          <!--[If IE]>
-          <object 
-            classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
-            type="application/x-oleobject"
-            id="player" 
-            name="player" 
-            data="#{url}" 
-            width="#{width}" 
-            height="#{height}">
-            <param name="url" value="#{url}" />
-            <param name="autostart" value="true" />
-            <param name="controller" value="true" />
-            <param name="volume" value="50" />
-            <param name="uiMode" value="mini" />
-            <param name="mute" value="true" />
-            <param name="animationAtStart" value="true" />
-            <param name="showDisplay" value="false" />   
-            <param name="ShowAudioControls" value="true" />
-            <param name="ShowPositionControls" value="false" />
-            <param name="transparentAtStart" value="false" / >
-            <param name="ShowControls" value="true" />
-            <param name="ShowStatusBar" value="true" />
-            <param name="ShowTracker" value="false" />
-            <param name="ClickToPlay" value="false" />
-            <param name="DisplayBackColor" value="#000000" />
-            <param name="DisplayForeColor" value="#ffffff" />
-            <param name="balance" value="false" />
-          </object>
-          <![endif]-->
-          <!--[if !IE]>-->
-          <object 
-            type="video/x-ms-wmv"
-            id="player" 
-            name="player" 
-            data="#{url}" 
-            width="#{width}" 
-            height="#{height}">
-            <param name="src" value="#{url}" />
-            <param name="autostart" value="true" />
-            <param name="controller" value="true" />
-            <param name="volume" value="50" />
-            <param name="uiMode" value="mini" />
-            <param name="mute" value="true" />
-            <param name="animationAtStart" value="true" />
-            <param name="showDisplay" value="false" />   
-            <param name="ShowAudioControls" value="true" />
-            <param name="ShowPositionControls" value="false" />
-            <param name="transparentAtStart" value="false" />
-            <param name="ShowControls" value="true" />
-            <param name="ShowStatusBar" value="true" />
-            <param name="ShowTracker" value="false" />
-            <param name="ClickToPlay" value="false" />
-            <param name="DisplayBackColor" value="#000000" />
-            <param name="DisplayForeColor" value="#ffffff" />
-            <param name="balance" value="false" />
-          </object>
-          <!--<![endif]-->
-          </div>
-        TV1
-        javascript {
-          rawtext <<-TV
-            var firstclick = true;
-            if (typeof $.livequery == "function") {
-              $("#kabtv-news .newstitle").livequery('click',function () {
-              var $this = $(this);
-              $this.next().children().toggle();
-              $this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
-            });
-             $("#home-kabtv .box1_headersection_tv").livequery('click',function () {
-              if (firstclick) {
-                  google_tracker('/homepage/widget/kabtv/open_schedule');
-                  firstclick = false;
-              }
-              var $this = $(this);
-              $this.next().toggle();
-              $this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
-             });
-            }
-          TV
-        }
+        if get_prefer_flash == true
+          render_homepage_flash
+        else
+          render_homepage_wmv
+				end
       }
       div(:id => 'kabtv-bot'){
         a(:href => get_target, :onclick => "google_tracker('/homepage/widget/kabtv/go_to_tv');") {span(:class => 'text-tv'){ text _(:tothetvchannel)} }
@@ -339,85 +259,18 @@ $(function() {
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_sketches]
       }
-      height = @options[:height] || 336
-      width = @options[:width] || 378
-      url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
 
       div(:id => 'player-side') {
-        rawtext <<-TV
-          <div id="tvobj">
-          <!--[If IE]>
-          <object 
-            classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
-            type="application/x-oleobject"
-            id="player" 
-            name="player" 
-            data="#{url}" 
-            width="#{width}" 
-            height="#{height}">
-            <param name="url" value="#{url}" />
-            <param name="autostart" value="true" />
-            <param name="controller" value="true" />
-            <param name="volume" value="50" />
-            <param name="uiMode" value="mini" />
-            <param name="animationAtStart" value="true" />
-            <param name="showDisplay" value="false" />   
-            <param name="ShowAudioControls" value="true" />
-            <param name="ShowPositionControls" value="false" />
-            <param name="transparentAtStart" value="false" / >
-            <param name="ShowControls" value="true" />
-            <param name="ShowStatusBar" value="true" />
-            <param name="ShowTracker" value="false" />
-            <param name="ClickToPlay" value="false" />
-            <param name="DisplayBackColor" value="#000000" />
-            <param name="DisplayForeColor" value="#ffffff" />
-            <param name="balance" value="false" />
-          </object>
-          <![endif]-->
-          <!--[if !IE]>-->
-          <object 
-            type="video/x-ms-wmv"
-            id="player" 
-            name="player" 
-            data="#{url}" 
-            width="#{width}" 
-            height="#{height}">
-            <param name="src" value="#{url}" />
-            <param name="autostart" value="true" />
-            <param name="controller" value="true" />
-            <param name="volume" value="50" />
-            <param name="uiMode" value="mini" />
-            <param name="animationAtStart" value="true" />
-            <param name="showDisplay" value="false" />   
-            <param name="ShowAudioControls" value="true" />
-            <param name="ShowPositionControls" value="false" />
-            <param name="transparentAtStart" value="false" />
-            <param name="ShowControls" value="true" />
-            <param name="ShowStatusBar" value="true" />
-            <param name="ShowTracker" value="false" />
-            <param name="ClickToPlay" value="false" />
-            <param name="DisplayBackColor" value="#000000" />
-            <param name="DisplayForeColor" value="#ffffff" />
-            <param name="balance" value="false" />
-          </object>
-          <!--<![endif]-->
-          </div>
-          
-        TV
-        javascript {
-          rawtext <<-TV1
-          fs_str='#{_(:to_exit_full_screen_mode_press_ESC)}';
-          nofs_str='#{_(:to_watch_in_full_screen_mode_please_start_player_beforehand)}';
-          function switchChannel(url) {
-              var player = document.getElementById("tvobj");
-              if (player){
-                  tv = "<!--[If IE]> <object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' type='application/x-oleobject' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='url' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' / > <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <![endif]--> <!--[if !IE]>--> <object type='video/x-ms-wmv' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='src' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' /> <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <!--<![endif]-->";
-                player.innerHTML = tv;
-                }
-              }
-          TV1
-        }
-        div(:id => 'player_options'){
+				height = @options[:height] || 336
+				width = @options[:width] || 378
+				url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
+
+        if get_prefer_flash == true
+          render_full_flash
+        else
+          render_full_wmv(url, width, height)
+				end
+				div(:id => 'player_options'){
           url = get_troubleshooting_url
           if !url.empty?
             div(:id => 'troubleshooting_str'){
@@ -427,28 +280,30 @@ $(function() {
             }
           end
 
-          div(:id => 'bitrates'){
-            #            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
-            rawtext _(:broadcast_quality) + ': '
-            title = _(:high)
-            klass = idx == 0 ? 'selected' : ''
-            label(:for => 'name0') {
-              input(:id => 'name0', :type => 'radio', :checked => idx == 0, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{high_url}')")
-              rawtext title
-            } if high_url
-            title = _(:medium)
-            klass = idx == 1 ? 'selected' : ''
-            label(:for => 'name1') {
-              input(:id => 'name1', :type => 'radio', :checked => idx == 1, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{med_url}')")
-              rawtext title
-            } if med_url
-            title = _(:low)
-            klass = idx == 2 ? 'selected' : ''
-            label(:for => 'name2') {
-              input(:id => 'name2', :type => 'radio', :checked => idx == 2, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{low_url}')")
-              rawtext title
-            } if low_url
-          } if high_url || med_url || low_url
+					if get_prefer_flash != true
+						div(:id => 'bitrates'){
+							#            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
+							rawtext _(:broadcast_quality) + ': '
+							title = _(:high)
+							klass = idx == 0 ? 'selected' : ''
+							label(:for => 'name0') {
+								input(:id => 'name0', :type => 'radio', :checked => idx == 0, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{high_url}')")
+								rawtext title
+							} if high_url
+							title = _(:medium)
+							klass = idx == 1 ? 'selected' : ''
+							label(:for => 'name1') {
+								input(:id => 'name1', :type => 'radio', :checked => idx == 1, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{med_url}')")
+								rawtext title
+							} if med_url
+							title = _(:low)
+							klass = idx == 2 ? 'selected' : ''
+							label(:for => 'name2') {
+								input(:id => 'name2', :type => 'radio', :checked => idx == 2, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{low_url}')")
+								rawtext title
+							} if low_url
+						} if high_url || med_url || low_url
+					end
 
           div(:id => 'separate-msg'){
             rawtext _(:for_full_screen_mode_double_click_on_player)
@@ -620,6 +475,271 @@ $(function() {
   
   private
   
+	def render_full_wmv(url, width, height)
+		rawtext <<-TV
+			<div id="tvobj">
+			<!--[If IE]>
+			<object 
+				classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
+				type="application/x-oleobject"
+				id="player" 
+				name="player" 
+				data="#{url}" 
+				width="#{width}" 
+				height="#{height}">
+				<param name="url" value="#{url}" />
+				<param name="autostart" value="true" />
+				<param name="controller" value="true" />
+				<param name="volume" value="50" />
+				<param name="uiMode" value="mini" />
+				<param name="animationAtStart" value="true" />
+				<param name="showDisplay" value="false" />   
+				<param name="ShowAudioControls" value="true" />
+				<param name="ShowPositionControls" value="false" />
+				<param name="transparentAtStart" value="false" / >
+				<param name="ShowControls" value="true" />
+				<param name="ShowStatusBar" value="true" />
+				<param name="ShowTracker" value="false" />
+				<param name="ClickToPlay" value="false" />
+				<param name="DisplayBackColor" value="#000000" />
+				<param name="DisplayForeColor" value="#ffffff" />
+				<param name="balance" value="false" />
+			</object>
+			<![endif]-->
+			<!--[if !IE]>-->
+			<object 
+				type="video/x-ms-wmv"
+				id="player" 
+				name="player" 
+				data="#{url}" 
+				width="#{width}" 
+				height="#{height}">
+				<param name="src" value="#{url}" />
+				<param name="autostart" value="true" />
+				<param name="controller" value="true" />
+				<param name="volume" value="50" />
+				<param name="uiMode" value="mini" />
+				<param name="animationAtStart" value="true" />
+				<param name="showDisplay" value="false" />   
+				<param name="ShowAudioControls" value="true" />
+				<param name="ShowPositionControls" value="false" />
+				<param name="transparentAtStart" value="false" />
+				<param name="ShowControls" value="true" />
+				<param name="ShowStatusBar" value="true" />
+				<param name="ShowTracker" value="false" />
+				<param name="ClickToPlay" value="false" />
+				<param name="DisplayBackColor" value="#000000" />
+				<param name="DisplayForeColor" value="#ffffff" />
+				<param name="balance" value="false" />
+			</object>
+			<!--<![endif]-->
+			</div>
+			
+		TV
+		javascript {
+			rawtext <<-TV1
+			fs_str='#{_(:to_exit_full_screen_mode_press_ESC)}';
+			nofs_str='#{_(:to_watch_in_full_screen_mode_please_start_player_beforehand)}';
+			function switchChannel(url) {
+					var player = document.getElementById("tvobj");
+					if (player){
+							tv = "<!--[If IE]> <object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' type='application/x-oleobject' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='url' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' / > <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <![endif]--> <!--[if !IE]>--> <object type='video/x-ms-wmv' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='src' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' /> <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <!--<![endif]-->";
+						player.innerHTML = tv;
+						}
+					}
+			TV1
+		}
+	end
+
+	def render_full_flash
+		height = 304
+		width = 378
+		div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:relative;top:15px;"){}
+		rawtext <<-cdn
+<!-- load script for creating Flowplayer -->
+<script type="text/javascript" src="/flowplayer/3dcdn.loader.js"></script>
+
+<!-- load script for Analyzer -->
+<script type="text/javascript" src="/flowplayer/3dcdn.analyzer.kabala.js"></script>
+		cdn
+		javascript {
+			rawtext <<-Embedjs
+				$(document).ready(function() {
+						var varAnalyzerID = "32";
+						var cdn_ClipURL =  "http://locator.3dcdn.com/nyg9284/kb8329/main.smil";
+						$('#home-kabtv #kabtv-top').height(270);
+						 objPlayer = $f('flashplayer-#{object_id}',{src:'/flowplayer/flowplayer.commercial-3.1.4.swf', version: [10, 0]},{
+								key:'#\@932a7f91ab5747d7f90',
+								clip:{
+									autoBuffering: 'true',
+									autoPlay: 'true',
+									provider: 'cdn'
+									},
+								onBeforePause: function() { 
+										return false; 
+								},
+								plugins: {
+									controls: {
+										all: false,
+										volume: true,
+										fullscreen: true,
+										mute: true
+									},
+									cdn: {
+										url: "/flowplayer/3dcdn.analyzer.swf",
+										host: varPostURL,
+										playerId: varPlayerID,
+										ownerId: varAnalyzerID,
+										smilUrl: cdn_ClipURL,
+										eventTarget: varIvivoPostURL
+									}
+								}
+						 });
+			});
+			addOnBeforeunloadEvent(sendLogoffEvent);
+			Embedjs
+		}
+	end
+
+	def render_homepage_wmv
+		height = 214
+		width = 199
+		url = Language.get_url(@language, @presenter.get_cookies)[0]
+		rawtext <<-TV1
+			<div id="tvobj">
+			<!--[If IE]>
+			<object 
+				classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
+				type="application/x-oleobject"
+				id="player" 
+				name="player" 
+				data="#{url}" 
+				width="#{width}" 
+				height="#{height}">
+				<param name="url" value="#{url}" />
+				<param name="autostart" value="true" />
+				<param name="controller" value="true" />
+				<param name="volume" value="50" />
+				<param name="uiMode" value="mini" />
+				<param name="mute" value="true" />
+				<param name="animationAtStart" value="true" />
+				<param name="showDisplay" value="false" />   
+				<param name="ShowAudioControls" value="true" />
+				<param name="ShowPositionControls" value="false" />
+				<param name="transparentAtStart" value="false" / >
+				<param name="ShowControls" value="true" />
+				<param name="ShowStatusBar" value="true" />
+				<param name="ShowTracker" value="false" />
+				<param name="ClickToPlay" value="false" />
+				<param name="DisplayBackColor" value="#000000" />
+				<param name="DisplayForeColor" value="#ffffff" />
+				<param name="balance" value="false" />
+			</object>
+			<![endif]-->
+			<!--[if !IE]>-->
+			<object 
+				type="video/x-ms-wmv"
+				id="player" 
+				name="player" 
+				data="#{url}" 
+				width="#{width}" 
+				height="#{height}">
+				<param name="src" value="#{url}" />
+				<param name="autostart" value="true" />
+				<param name="controller" value="true" />
+				<param name="volume" value="50" />
+				<param name="uiMode" value="mini" />
+				<param name="mute" value="true" />
+				<param name="animationAtStart" value="true" />
+				<param name="showDisplay" value="false" />   
+				<param name="ShowAudioControls" value="true" />
+				<param name="ShowPositionControls" value="false" />
+				<param name="transparentAtStart" value="false" />
+				<param name="ShowControls" value="true" />
+				<param name="ShowStatusBar" value="true" />
+				<param name="ShowTracker" value="false" />
+				<param name="ClickToPlay" value="false" />
+				<param name="DisplayBackColor" value="#000000" />
+				<param name="DisplayForeColor" value="#ffffff" />
+				<param name="balance" value="false" />
+			</object>
+			<!--<![endif]-->
+			</div>
+		TV1
+		javascript {
+			rawtext <<-TV
+				var firstclick = true;
+				if (typeof $.livequery == "function") {
+					$("#kabtv-news .newstitle").livequery('click',function () {
+					var $this = $(this);
+					$this.next().children().toggle();
+					$this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
+				});
+				 $("#home-kabtv .box1_headersection_tv").livequery('click',function () {
+					if (firstclick) {
+							google_tracker('/homepage/widget/kabtv/open_schedule');
+							firstclick = false;
+					}
+					var $this = $(this);
+					$this.next().toggle();
+					$this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
+				 });
+				}
+			TV
+		}
+	end
+
+	def render_homepage_flash
+		height = 166
+		width = 197
+		div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:absolute;top:90px;left:12px;"){}
+		rawtext <<-cdn
+<!-- load script for creating Flowplayer -->
+<script type="text/javascript" src="/flowplayer/3dcdn.loader.js"></script>
+
+<!-- load script for Analyzer -->
+<script type="text/javascript" src="/flowplayer/3dcdn.analyzer.kabala.js"></script>
+	cdn
+		javascript {
+			rawtext <<-Embedjs
+				$(document).ready(function() {
+						$('#home-kabtv #kabtv-top').height(270);
+						var varAnalyzerID = "32";
+						var cdn_ClipURL =  "http://locator.3dcdn.com/nyg9284/kb8329/main.smil";
+						$('#home-kabtv #kabtv-top').height(270);
+						 objPlayer = $f('flashplayer-#{object_id}',{src:'/flowplayer/flowplayer.commercial-3.1.4.swf', version: [10, 0]},{
+								key:'#\@932a7f91ab5747d7f90',
+								clip:{
+									autoBuffering: 'true',
+									autoPlay: 'true',
+									provider: 'cdn'
+									},
+								onBeforePause: function() { 
+										return false; 
+								},
+								plugins: {
+									controls: {
+										all: false,
+										volume: true,
+										fullscreen: true,
+										mute: true,
+									},
+									cdn: {
+										url: "/flowplayer/3dcdn.analyzer.swf",
+										host: varPostURL,
+										playerId: varPlayerID,
+										ownerId: varAnalyzerID,
+										smilUrl: cdn_ClipURL,
+										eventTarget: varIvivoPostURL
+									}
+								}
+						 });
+			});
+			addOnBeforeunloadEvent(sendLogoffEvent);
+			Embedjs
+		}
+	end
+
   def site_update_entries
     TreeNode.get_subtree(
       :parent => tree_node.id,

@@ -30,18 +30,17 @@ function ga(ev, url, tm){
 
 //google analytics
 function google_tracker(pagename){
-  if (google_analytics_new_version == true){
-    if (typeof pagename == "undefined"){
-      pageTracker._trackPageview();
-    }else{
-      pageTracker._trackPageview(pagename);
-    }
-    }else{
-    if (typeof pagename == "undefined"){
-      return ;
-    }
-    urchinTracker(pagename);
-  }
+	if (typeof google_analytics_new_version != "undefined" && google_analytics_new_version == true){
+		if (typeof pagename == "undefined"){
+			pageTracker._trackPageview();
+		}else{
+			pageTracker._trackPageview(pagename);
+	}}else{
+		if (typeof pagename == "undefined"){
+			return ;
+		}
+		urchinTracker(pagename);
+	}
 }
 
 //comment

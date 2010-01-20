@@ -725,7 +725,7 @@ $(function() {
 										all: false,
 										volume: true,
 										fullscreen: true,
-										mute: true,
+										mute: true
 									},
 									cdn: {
 										url: "/flowplayer/3dcdn.analyzer.swf",

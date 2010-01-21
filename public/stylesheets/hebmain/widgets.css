@@ -1254,6 +1254,30 @@ a.highslide-full-expand {
   left:0;
   top:0;
 }
+#kabtv #cdn_logo_castup{
+	bottom:37px;
+	left:0;
+	height:23px;
+	position:absolute;
+	width:73px;
+	background-image:url(/images/hebmain/castup.jpg);
+}
+#kabtv #cdn_logo_3dcdn{
+	bottom:37px;
+	left:0;
+	height:23px;
+	position:absolute;
+	width:73px;
+	background-image:url(/images/hebmain/3dCDN.jpg);
+}
+#kabtv #cdn_logo_3dcdn a{
+	bottom:0;
+	display:block;
+	height:24px;
+	left:4px;
+	position:absolute;
+	width:49px;
+}
 
 .kabtv-news-blueborder{
   border:1px solid #90AEDE;

@@ -259,7 +259,13 @@ $(function() {
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_sketches]
       }
-
+      if get_prefer_flash == true
+        div(:id => 'cdn_logo_3dcdn'){
+          a(:href => 'http://3dcdn.com/', :alt => '', :target => '_blank')
+        }
+      else
+        div(:id => 'cdn_logo_castup')
+			end
       div(:id => 'player-side') {
 				height = @options[:height] || 336
 				width = @options[:width] || 378

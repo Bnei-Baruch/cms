@@ -73,9 +73,11 @@ class Global::Widgets::Video < WidgetManager::Base
           $(document).ready(function() {
                flowplayer('flashplayer-#{id}',{src: '/flowplayer/flowplayer.commercial-3.1.4.swf', wmode: 'transparent'},{
                   key:'#\@932a7f91ab5747d7f90',
+								    onLoad: function() { 
+								        this.unmute(); 
+												},
                   clip:{
                     scaling: 'scale',
-
                     // track start event for this clip
                     onStart: function(clip) {
                         ga('#{link}/start/#{page}', clip.url);
@@ -86,7 +88,6 @@ class Global::Widgets::Video < WidgetManager::Base
                     onPause: function(clip) {
                         ga('#{link}/pause/#{page}', clip.url, parseInt(this.getTime()));
                         _tracker._trackEvent("Videos", "Pause", clip.url, parseInt(this.getTime()));
-alert(clip.url)
                     },
 
                     // track stop event for this clip. time is also tracked

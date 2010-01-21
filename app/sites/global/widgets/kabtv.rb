@@ -261,7 +261,7 @@ $(function() {
       }
       if get_prefer_flash == true
         div(:id => 'cdn_logo_3dcdn'){
-          a(:href => 'http://3dcdn.com/', :alt => '', :target => '_blank')
+          a(:href => 'http://3dcdn.com/', :alt => '', :target => '_blank', :rel => 'nofollow')
         }
       else
         div(:id => 'cdn_logo_castup')

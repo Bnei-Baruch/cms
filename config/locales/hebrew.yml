@@ -67,6 +67,7 @@ hebrew:
     chinese: 中文
     chinese_classical: 文言
     yiddish: ייִדיש
+    farsi: فارسی
     english: English
 
   Hebmain::Widgets::CampusForm:

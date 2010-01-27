@@ -32,7 +32,8 @@ class Hebmain::Widgets::LanguageMenu < WidgetManager::Base
      20 => ["Filipino" , "http://www.kabbalah.info/tagalog"],
      21 => ["Czech" , "http://www.kabbalah.info/czech"],
      22 => ["Serbian" , "http://www.kabbalah.info/serbian"],
-     23 => ["Yiddish" , "http://www.kabbalah.info/yidishkab/index_yidish.htm"]}
+     23 => ["Farsi" , "http://www.kabbalah.info/farsikab/index.htm"],
+     24 => ["Yiddish" , "http://www.kabbalah.info/yidishkab/index_yidish.htm"]}
       llg.sort.each{ |e|
         option(:value => e[1][1]){ text _((e[1][0].downcase).gsub(" ", "").to_sym)}}
   end

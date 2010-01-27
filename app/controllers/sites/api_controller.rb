@@ -19,7 +19,7 @@ class Sites::ApiController < ApplicationController
   def get_category_articles
     category_id = params[:category_id]
     unless category_id
-      render :text  => 'Missing parameter: \'category_id\' is required'
+      render :text  => '<error>Missing parameter: \'category_id\' is required</error>'
       return
     end
 
@@ -137,6 +137,7 @@ class Sites::ApiController < ApplicationController
         args.merge!({:items_per_page => per_page})
       end
     end
+    args.merge!(:order => "updated_at DESC")
     TreeNode.get_subtree(args)
   end
 
@@ -150,6 +151,7 @@ class Sites::ApiController < ApplicationController
     :properties => properties
     )               
   end
+
   def first_article
     properties = show_only_mobile_content? ? 'b_acts_as_section = false AND b_mobile_first_page = true' : 'b_acts_as_section = false' 
     TreeNode.get_subtree(

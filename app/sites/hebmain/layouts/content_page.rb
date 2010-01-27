@@ -80,13 +80,28 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         stylesheet_link_tag 'hebmain/ie6', :media => 'all'
         stylesheet_link_tag 'hebmain/ie7', :media => 'all'
         rawtext "\n<![endif]-->\n"
+				rawtext <<-GCA
+								<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+								<script type="text/javascript">
+												GS_googleAddAdSenseService("ca-pub-9068547212525872");
+												GS_googleEnableAllServices();
+								</script> 
+								<script type="text/javascript">
+												GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
+								</script> 
+								<script type="text/javascript">
+												GA_googleFetchAds();
+								</script> 
+				GCA
       }
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
-            a(:href => 'http://www.kab.co.il/events/', :title => 'אתר כנס זוהר לעם 2010', :onclick => "javascript:google_tracker('/inner_page/banner/top_banner/congress');"){
-              img(:src => '/images/hebmain/banner_kab_co_il.jpg', :alt => 'אתר כנס זוהר לעם 2010')
-             }
+					rawtext <<-GCA
+						<script type="text/javascript">
+							GA_googleFillSlot("kab-co-il_top-banner_950x65");
+						</script> 
+					GCA
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {

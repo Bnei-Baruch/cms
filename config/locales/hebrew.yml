@@ -68,6 +68,13 @@ hebrew:
     chinese_classical: 文言
     yiddish: ייִדיש
     farsi: فارسی
+    bulgarian: Български
+    finnish: Suomi
+    estonian: Eesti
+    amharic: Amharic
+    swedish: Swedish
+    croatian: Hrvatski
+    norwegian: Norsk
     english: English
 
   Hebmain::Widgets::CampusForm:

@@ -33,9 +33,21 @@ class Hebmain::Widgets::LanguageMenu < WidgetManager::Base
      21 => ["Czech" , "http://www.kabbalah.info/czech"],
      22 => ["Serbian" , "http://www.kabbalah.info/serbian"],
      23 => ["Farsi" , "http://www.kabbalah.info/farsikab/index.htm"],
-     24 => ["Yiddish" , "http://www.kabbalah.info/yidishkab/index_yidish.htm"]}
-      llg.sort.each{ |e|
-        option(:value => e[1][1]){ text _((e[1][0].downcase).gsub(" ", "").to_sym)}}
+     24 => ["Yiddish" , "http://www.kabbalah.info/yidishkab/index_yidish.htm"],
+     25 => ["Italian" , "http://www.kabbalah.info/italykab/index_italy.htm"],
+     26 => ["Bulgarian" , "http://www.kabbalah.info/bulg/index.htm"],
+     27 => ["Hungarian" , "http://www.kabbalah.info/hung/index.htm"],
+     28 => ["Finnish" , "http://www.kabbalah.info/finkab/index_fi.htm"],
+     29 => ["Estonian" , "http://www.kabbalah.info/estonkab/index_eston.htm"],
+     30 => ["Japanese" , "http://www.kabbalah.info/japanese/indexj.htm"],
+     31 => ["Amharic" , "http://www.kabbalah.info/amharickab/index_amharic.htm"],
+     32 => ["Swedish" , "http://www.kabbalah.info/se/"],
+     33 => ["Croatian" , "http://www.kabbalah.info/croatian/index.htm"],
+     34 => ["Norwegian" , "http://www.kabbalah.info/norwegian/"],
+     35 => ["Hindi" , "http://www.kabbalah.info/hindi/"],
+    }
+		llg.sort.each{ |e|
+			option(:value => e[1][1]){ text _((e[1][0].downcase).gsub(" ", "").to_sym)}}
   end
 
 end

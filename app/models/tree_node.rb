@@ -150,6 +150,9 @@ class TreeNode < ActiveRecord::Base
     # the difference is that fieldnames are properties.hrids and values are resource_properties. - optional - default: show all
     # :current_page => 3 - integer - optional - default: paging is disabled
     # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
+		# :sort_field => 'field_name' - string - works only together with pagination
+		# :sort_order => boolean - true - ascending, false - descending
+		# NOTE: sort_field and sort_order works ONLY with 1 level subtree and only with numeric, timestamp and boolean columns
     # :return_parent => true - boolean - optional - default: false
     # :placeholders => ['related_items', 'main_content'] - array of strings - optional - default: show all
     # :status => ['PUBLISHED', 'DRAFT'] - array of strings - optional - default - will return only PUBLISHED. 
@@ -218,6 +221,13 @@ class TreeNode < ActiveRecord::Base
         req_status,
         if args[:depth] && args[:depth] == 1
           args[:count_children] || 'null::boolean'
+				end,
+				# We have to make a better test, but ...
+				if args.has_key?(:sort_field) && args[:sort_field].is_a?(String)
+					"'#{args[:sort_field]}'"
+        end,
+				if args.has_key?(:sort_order) && args[:sort_order].is_a?(String)
+					args[:sort_order] == "ASC" ? 'true::boolean' : 'false::boolean'
         end
       ].compact.join(',')
       if args[:test]
@@ -231,9 +241,11 @@ class TreeNode < ActiveRecord::Base
       if args.has_key?(:limit) && args[:limit].to_i > 0
         additional_params.merge!({:limit => args[:limit].to_i})
       end
-      if args.has_key?(:order) && args[:order].is_a?(String)
-        additional_params.merge!({:order => args[:order]})
-      end
+
+			# Ordered by Valdas
+      #if args.has_key?(:order) && args[:order].is_a?(String)
+        #additional_params.merge!({:order => args[:order]})
+      #end
       sql_params.merge!(additional_params)
       find(:all, sql_params) rescue []
 

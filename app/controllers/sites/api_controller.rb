@@ -8,7 +8,7 @@ class Sites::ApiController < ApplicationController
 
   # GET http://mydomain.com/api/categories.format
   def get_categories
-     @categories = categories(2)
+     @categories = categories(3)
      respond_to do |format| 
        format.xml 
        format.html { render :text  => 'html content is not supported. Please try the same url with .xml extension' } 
@@ -128,7 +128,9 @@ class Sites::ApiController < ApplicationController
     :resource_type_hrids => ['content_page'], 
     :depth => 1,
     :has_url => true,
-    :properties => properties
+    :properties => properties,
+    :sort_field => 'updated_at',
+    :sort_order => 'DESC'
     }
     args
     if page_num
@@ -137,7 +139,6 @@ class Sites::ApiController < ApplicationController
         args.merge!({:items_per_page => per_page})
       end
     end
-    args.merge!(:order => "updated_at DESC")
     TreeNode.get_subtree(args)
   end
 

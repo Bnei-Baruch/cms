@@ -16,15 +16,28 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
   end
 
   def show_content_page
+    url = get_url
+    url_name = url.split('/').reverse[0]
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
-    h1 get_title unless get_title.empty?
+    if @image_src
+      a({:href => url}.merge!(gg_analytics_tracking(url_name))){
+        img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt) 
+      }
+    end
+		unless get_title.empty?
+      h1{
+        a({:href => url}.merge!(gg_analytics_tracking(url_name))) {
+					text get_title 
+				}
+			}
+		end
     div(:class => 'descr') { rawtext get_description } unless get_description.empty?
     div(:class => 'author') {
-      a(:class => 'left', :href => get_url) { 
+      a(:class => 'more', :href => url) { 
         text get_url_text unless get_url_text.empty?  
       }
     }
-    img(:class => 'img', :src => @image_src, :alt => '') if @image_src
+    div(:class => "clear")
   end
   
   def render_full

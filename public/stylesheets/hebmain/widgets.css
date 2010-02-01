@@ -68,6 +68,12 @@
 .content_preview{
   position:relative;
 }
+.content_preview strong{
+  font-weight:bold;
+}
+.content_preview em{
+  font-style:italic;
+}
 .content_preview .h1{
   color:black;
   text-align:right;

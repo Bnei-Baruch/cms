@@ -5,10 +5,7 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
   def render_full
     get_content_items
     div(:class => 'content_preview'){
-      buttons = %W{edit_button delete_button}
-      if @items_size < @max_num
-        buttons = %W{new_button} + buttons
-      end
+      buttons = %W{new_button edit_button delete_button}
       
       # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
       @updatable = 'up-' + tree_node.id.to_s

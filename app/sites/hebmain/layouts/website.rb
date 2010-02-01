@@ -139,7 +139,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 
                       w_class('cms_actions').new(:tree_node => @tree_node,
                         :options => {:buttons => %W{ new_button },
-                          :resource_types => %W{content_preview custom_preview title},
+                          :resource_types => %W{content_preview title},
                           :new_text => 'הוסף תצוגה מקדימה',
                           :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
                           :has_url => false, :placeholder => 'middle'}).render_to(self)
@@ -222,6 +222,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   end
   
   def middle_column_resources
+	  # ZZZ custom_preview must be removed (HEB-309)
     @tree_nodes_middle ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
       :resource_type_hrids => ['content_preview', 'custom_preview', 'title'], 

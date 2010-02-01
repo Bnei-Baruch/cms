@@ -143,7 +143,7 @@ class Sites::ApiController < ApplicationController
   end
 
   def categories(depth = 1)
-    properties = show_only_mobile_content? ? 'b_hide_on_navigation = false AND b_acts_as_section = true AND b_mobile_content = true' : 'b_acts_as_section = true AND b_hide_on_navigation = false'
+    properties = show_only_mobile_content? ? 'b_acts_as_section = true AND b_mobile_content = true' : 'b_acts_as_section = true'
     TreeNode.get_subtree(
     :parent => @presenter.website_node.id, 
     :resource_type_hrids => ['content_page'], 

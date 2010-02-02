@@ -222,10 +222,9 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   end
   
   def middle_column_resources
-	  # ZZZ custom_preview must be removed (HEB-309)
     @tree_nodes_middle ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['content_preview', 'custom_preview', 'title'], 
+      :resource_type_hrids => ['content_preview', 'title'], 
       :depth => 1,
       :placeholders => ['middle'],
       :status => ['PUBLISHED', 'DRAFT']

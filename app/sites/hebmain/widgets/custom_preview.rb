@@ -32,10 +32,8 @@ class Hebmain::Widgets::CustomPreview < WidgetManager::Base
 			}
 		end
     div(:class => 'descr') { rawtext get_description } unless get_description.empty?
-    div(:class => 'author') {
-      a(:class => 'more', :href => url) { 
-        text get_url_text unless get_url_text.empty?  
-      }
+    a(:class => 'more', :href => url) { 
+      text get_url_text unless get_url_text.empty?  
     }
     div(:class => "clear")
   end

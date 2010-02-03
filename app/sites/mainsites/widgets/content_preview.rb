@@ -22,6 +22,7 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
       if !@is_main_format
         w_class('cms_actions').new(:tree_node => tree_node, :view_mode => 'tree_drop_zone', :options => {:page_url => get_page_url(presenter.node), :updatable => updatable, :updatable_view_mode => 'preview_update'}).render_to(self)
       end
+      div(:class => "clear")
     }
   end
 

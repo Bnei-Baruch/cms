@@ -102,7 +102,9 @@ module WidgetManager
           when 'RpBoolean'
             self.class.class_eval(
               "def #{method_name.to_s}(*args, &block)\n" <<
-                "  resource.properties('#{name}').get_value rescue ''\n" <<
+                "  prop = resource.properties('#{name}');" <<
+                "  prop = prop[0] if (prop.is_a?(Array));" <<
+                "  prop.get_value rescue ''\n" <<
                 "end",
               __FILE__,
               __LINE__ - 4

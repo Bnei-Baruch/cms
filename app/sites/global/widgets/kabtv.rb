@@ -563,18 +563,20 @@ $(function() {
 		div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:relative;top:15px;"){}
 		rawtext <<-cdn
 <!-- load script for creating Flowplayer -->
-<script type="text/javascript" src="/flowplayer/3dcdn.loader.js"></script>
+<script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.loader.js"></script>
 
 <!-- load script for Analyzer -->
-<script type="text/javascript" src="/flowplayer/3dcdn.analyzer.kabala.js"></script>
+<script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.analyzer.kabala.js"></script>
 		cdn
 		javascript {
 			rawtext <<-Embedjs
 				$(document).ready(function() {
-						var varAnalyzerID = "32";
-						var cdn_ClipURL =  "http://locator.3dcdn.com/nyg9284/kb8329/main.smil";
+						var varAnalyzerID = "#{get_analyzer_id}";
+						var cdn_ClipURL =  "#{get_smil_url}";
 						$('#home-kabtv #kabtv-top').height(270);
-						 objPlayer = $f('flashplayer-#{object_id}',{src:'/flowplayer/flowplayer.commercial-3.1.4.swf', version: [10, 0]},{
+						 objPlayer = $f('flashplayer-#{object_id}',
+                {src:'/flowplayer/3dcdn/3Dcdn.player.swf', version: [10, 0], cachebusting: $.browser.msie},
+                {
 								key:'#\@932a7f91ab5747d7f90',
 								clip:{
 									autoBuffering: 'true',
@@ -592,7 +594,6 @@ $(function() {
 										mute: true
 									},
 									cdn: {
-										url: "/flowplayer/3dcdn.analyzer.swf",
 										host: varPostURL,
 										playerId: varPlayerID,
 										ownerId: varAnalyzerID,
@@ -701,19 +702,21 @@ $(function() {
 		div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:absolute;top:90px;left:12px;"){}
 		rawtext <<-cdn
 <!-- load script for creating Flowplayer -->
-<script type="text/javascript" src="/flowplayer/3dcdn.loader.js"></script>
+<script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.loader.js"></script>
 
 <!-- load script for Analyzer -->
-<script type="text/javascript" src="/flowplayer/3dcdn.analyzer.kabala.js"></script>
+<script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.analyzer.kabala.js"></script>
 	cdn
 		javascript {
 			rawtext <<-Embedjs
 				$(document).ready(function() {
 						$('#home-kabtv #kabtv-top').height(270);
-						var varAnalyzerID = "32";
-						var cdn_ClipURL =  "http://locator.3dcdn.com/nyg9284/kb8329/main.smil";
+						var varAnalyzerID = "#{get_analyzer_id}";
+						var cdn_ClipURL =  "#{get_smil_url}";
 						$('#home-kabtv #kabtv-top').height(270);
-						 objPlayer = $f('flashplayer-#{object_id}',{src:'/flowplayer/flowplayer.commercial-3.1.4.swf', version: [10, 0]},{
+						 objPlayer = $f('flashplayer-#{object_id}',
+                {src:'/flowplayer/3dcdn/3Dcdn.player.swf', version: [10, 0], cachebusting: $.browser.msie},
+                {
 								key:'#\@932a7f91ab5747d7f90',
 								clip:{
 									autoBuffering: 'true',
@@ -734,7 +737,6 @@ $(function() {
 										mute: true
 									},
 									cdn: {
-										url: "/flowplayer/3dcdn.analyzer.swf",
 										host: varPostURL,
 										playerId: varPlayerID,
 										ownerId: varAnalyzerID,

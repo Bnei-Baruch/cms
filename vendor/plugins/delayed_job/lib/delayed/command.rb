@@ -61,7 +61,6 @@ module Delayed
       end
       
       Delayed::Worker.logger = Rails.logger
-      Delayed::Worker.logger.auto_flushing = true
       ActiveRecord::Base.connection.reconnect!
       
       worker = Delayed::Worker.new(@options)

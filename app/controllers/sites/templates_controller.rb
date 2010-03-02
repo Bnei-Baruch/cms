@@ -137,7 +137,7 @@ class Sites::TemplatesController < ApplicationController
   end
 
   def render_json_widget
-    Thread.current[:skip_page_map] = true
+    #    Thread.current[:skip_page_map] = true
     options = params[:options]
     unless options && options.has_key?(:widget)
       status_404
@@ -148,15 +148,15 @@ class Sites::TemplatesController < ApplicationController
     tree_node = TreeNode.find(options[:widget_node_id]) rescue nil
 
     begin
+      PageMap.reset_tree_nodes_list
       result = render_to_string(:widget => w_class(widget), :tree_node => tree_node,
         :view_mode => params[:view_mode], :options => options, :layout => false)
-      render :json => result
-      #      render :json => w_class(widget).new(:tree_node => tree_node, :view_mode => params[:view_mode], :options => options).to_s
     rescue Exception => ex
-      render :text => ex, :status => 500
+      render :json => ex, :status => 500
     end
 
-    Thread.current[:skip_page_map] = false
+     render :json => result
+    #    Thread.current[:skip_page_map] = false
   end
 
   def sitemap

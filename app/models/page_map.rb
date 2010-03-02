@@ -4,12 +4,7 @@ class PageMap < ActiveRecord::Base
 #    @logger ||= Logger.new("#{RAILS_ROOT}/log/cache_clean.log", 10, 5242880)
 #  end
 
-  def self.remove_single_cache(tree_node)
-    key = tree_node.parent.this_cache_key
-    Rails.cache.delete(key) if Rails.cache.exist?(key)
-  end
-
-  # Remove dependent caches
+ # Remove dependent caches
   def self.remove_dependent_caches(tree_node)
 #    time = Time.new
 #    logger.debug "#{time} START remove_dependent_caches"
@@ -89,6 +84,7 @@ class PageMap < ActiveRecord::Base
     # logger.error "save_tree_nodes_list hopefully updated DB"
     @tree_nodes_list = []
   end
+  
   class << self
     private
     attr_accessor :tree_nodes_list

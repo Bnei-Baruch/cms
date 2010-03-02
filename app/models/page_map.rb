@@ -1,8 +1,8 @@
 class PageMap < ActiveRecord::Base
 
-#  def self.logger
-#    @logger ||= Logger.new("#{RAILS_ROOT}/log/cache_clean.log", 10, 5242880)
-#  end
+  def self.logger
+    @logger ||= Logger.new("#{RAILS_ROOT}/log/cache_clean.log", 10, 5242880)
+  end
 
  # Remove dependent caches
   def self.remove_dependent_caches(tree_node)

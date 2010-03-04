@@ -34,7 +34,8 @@ class PageMap < ActiveRecord::Base
     PageMap.find_by_sql "COMMIT"
     
     #Will clean the rss cache of the tree node in delayed job - add it to the queue
-    Delayed::Job.enqueue(CacheCleaner::RSSCacheJob.new(tree_node))
+    Delayed::Job.enqueue CacheCleaner::RSSCacheCleanJob.new(tree_node)
+    Delayed::Job.enqueue CacheCleaner::RSSCacheCreateJob.new(tree_node), 0, 20.seconds.from_now
     # CacheCleaner::Base.clean_feed_cache(tree_node)
 #    logger.debug "#{time} FINISH remove_dependent_caches"
   end

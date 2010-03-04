@@ -1,9 +1,16 @@
 module CacheCleaner
   
-  class RSSCacheJob < Struct.new(:nodes)
+  class RSSCacheCleanJob < Struct.new(:nodes)
     def perform
       AuthenticationModel.cron_manager_user_login
       Base.clean_feed_cache(nodes)
+    end
+  end
+
+  class RSSCacheCreateJob < Struct.new(:nodes)
+    def perform
+      AuthenticationModel.cron_manager_user_login
+      Base.create_feed_cache(nodes)
     end
   end
 
@@ -36,22 +43,48 @@ module CacheCleaner
         ([nodes] + nodes.inject([]){ |list, element|  
           list << element.ancestors
         }).flatten.map{|e| e.id}.uniq
+      Logger.new(STDOUT).debug "############################ nodes to check:#{nodes_to_check.join(',')}"
       feeds = Feed.find(:all, :select => 'id, section_id, feed_type', :conditions => {:section_id => nodes_to_check})
       Logger.new(STDOUT).debug "############################ feeds to clean:#{feeds.map{|e|e.id}.join(',')}"
-      return unless feeds
       feeds.each{ |feed| 
         begin
           url, clean_url = get_url_by_tree_node(feed.tree_node)
-          url += "/feed.#{feed.feed_type}"
           clean_url += "/feed.#{feed.feed_type}"
-          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{clean_url}"
+          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Removing feed #{clean_url}"
           feed.delete
-          open(CGI.escapeHTML(url))
         rescue Exception => e
           Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{e} for feed #{clean_url}"
           # exit(1)
         end
       }
+      Logger.new(STDOUT).debug "############################ feeds cleaned:#{feeds.map{|e|e.id}.join(',')}"
+    end
+
+    def self.create_feed_cache(nodes)
+      Logger.new(STDOUT).debug "############################ enter function create_feed_cache. nodes=#{nodes}"
+      return unless nodes
+      unless nodes.is_a?(Array)
+        nodes = [nodes]
+      end
+      nodes_to_check = 
+        ([nodes] + nodes.inject([]){ |list, element|  
+          list << element.ancestors
+        }).flatten.map{|e| e.id}.uniq
+      Logger.new(STDOUT).debug "############################ Feeds to create:#{nodes_to_check.join(',')}"
+      nodes_to_check.each{ |node_id| 
+        begin
+	  node = TreeNode.find(node_id)
+          url, clean_url = get_url_by_tree_node(node)
+          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{clean_url}/feed.rss, .atom"
+          url = CGI.escapeHTML(url)
+          open(url + "/feed.rss")
+          open(url + "/feed.atom")
+        rescue Exception => e
+          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{e} for feed #{clean_url}/feed.rss, .atom"
+          # exit(1)
+        end
+      }
+      Logger.new(STDOUT).debug "############################ Feeds created:#{nodes_to_check.join(',')}"
     end
    
     def self.get_url_by_tree_node(node)

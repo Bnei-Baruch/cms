@@ -124,7 +124,7 @@ class Admin::ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.save
         flash[:notice] = 'Resource was successfully created.'
-        format.html { redirect_to session[:referer]}
+        format.html { redirect_to session[:referer] || :back}
         format.xml  { head :created, :location => admin_resource_url(@resource) }
       else
         format.html { render :action => "new" }

@@ -253,6 +253,103 @@ class TreeNode < ActiveRecord::Base
       # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue [] ###### Eager loading
     end
     
+    # Get ALL CHILDREN tree nodes of a given one according to the parameters
+    # Hash of params:
+    # :tree_node_id => 10 - integer - required
+    # :resource_type_hrids => ['website', 'content_page'] - array of strings - optional - default: show all
+    # :is_main => true - boolean - optional - default: show all
+    # :has_url => false - boolean - optional - default: show all
+    # :depth => 3 - integer - optional - default: get all the subtree
+    # :properties => where clause for properties on hrids:
+    # field type: each hrid must contain a prefix of its field type. t_ b_ d_ n_ when  t_ is for string, text, plaintext, file(the file name); b_ is for boolean; d_ is for dates and timestamps; n_ is for numbers. For eaxmple - my hrid is num_of_items and its a number so I will use: n_num_of_items = 4; Or can_edit is boolean so I'll write: b_can_write = true OR n_num_of_items = 4
+    # prefix_hrid = value [and or] hrid ~ value, i.e. '(t_name ~ ''arvut'' or in_group) and (d_date > now() or d_date < now() + 15)'
+    # NOTE: keep in mind that you are writing a normal query according field type and all other rules!
+    # the difference is that fieldnames are properties.hrids and values are resource_properties. - optional - default: show all
+    # :current_page => 3 - integer - optional - default: paging is disabled
+    # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
+		# :sort_field => 'field_name' - string - works only together with pagination
+		# :sort_order => boolean - true - ascending, false - descending
+		# NOTE: sort_field and sort_order works ONLY with 1 level subtree and only with numeric, timestamp and boolean columns
+    # :return_parent => true - boolean - optional - default: false
+    # :placeholders => ['related_items', 'main_content'] - array of strings - optional - default: show all
+    # :status => ['PUBLISHED', 'DRAFT'] - array of strings - optional - default - will return only PUBLISHED. 
+    #   avalilable Options: 'PUBLISHED', 'DELETED', 'DRAFT', 'ARCHIVED'
+    # :limit => integer - optional - default: show all
+    # :order => order string - optional - default: sort by position (exapmle: :order => "created_at DESC, name")
+    # :count_children => returns also number of direct children as 'direct_child_count' field
+    #           - null/false (no direct_children, default)
+    #           - true (direct children)
+    # 
+    # Examples: 
+    # get_subtree(:parent => 17, :resource_type_hrids => ['website', 'content_page'], :depth => 3, :properties => {:description => 'yes sair', :title => 'good title'}, )
+    # get_subtree(:parent => 17)
+    # get_subtree(:parent => 17, :depth => 1)
+    # get_subtree(:parent => 17, :depth => 1, :is_main => true, :has_url => true)
+    def get_treenode_subtree(args)
+      req_tree_node_id = args[:tree_node_id] || nil
+      unless args.is_a?(Hash) && req_tree_node_id
+        return []
+      end
+      if args.has_key?(:resource_type_hrids)
+        req_resource_type_hrids = 'ARRAY[' + args[:resource_type_hrids].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
+      else
+        req_resource_type_hrids = 'null'
+      end
+      req_is_main = args.has_key?(:is_main) ? args[:is_main] : 'null'                  
+      req_has_url = args.has_key?(:has_url) ? args[:has_url] : 'null'
+
+      if args.has_key?(:properties) && args[:properties].is_a?(String) && !args[:properties].empty?
+        req_properties = "'" + args[:properties] + "'"
+      else
+        req_properties = 'null'
+      end
+      req_current_page = args[:current_page] || 'null'
+      req_items_per_page = args[:items_per_page] || '200'
+      req_return_parent = args.has_key?(:return_parent) ? args[:return_parent] : 'null'
+      if args.has_key?(:placeholders)
+        req_placeholders = 'ARRAY[' + args[:placeholders].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
+      else
+        req_placeholders = 'null'
+      end
+      if args.has_key?(:status)
+        req_status = 'ARRAY[' + args[:status].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
+      else
+        req_status = 'null'
+      end
+
+      request = [
+        req_tree_node_id,
+        AuthenticationModel.current_user,
+        req_resource_type_hrids,
+        req_is_main,
+        req_has_url,
+        if args[:depth]
+          args[:depth]
+        else
+          'null::integer'
+        end,
+        req_properties,
+        req_current_page,
+        req_items_per_page,
+        req_return_parent,
+        req_placeholders,
+        req_status,
+	# We have to make a better test, but ...
+	if args.has_key?(:sort_field) && args[:sort_field].is_a?(String)
+		"'#{args[:sort_field]}'"
+        end,
+	if args.has_key?(:sort_order) && args[:sort_order].is_a?(String)
+		args[:sort_order] == "ASC" ? 'true::boolean' : 'false::boolean'
+        end
+      ].compact.join(',')
+      if args[:test]
+        return "select * from cms_treenode_subtree(#{request})"
+      end
+
+      sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource] }
+      find(:all, sql_params) rescue []
+    end
+    
 
     # call the DB function 'cms_resource_subtree' to retrieve all the website subtree as tree_node records
     def get_website_subtree(website_tree_node_id)

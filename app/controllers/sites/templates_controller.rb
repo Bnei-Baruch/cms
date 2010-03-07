@@ -114,15 +114,17 @@ class Sites::TemplatesController < ApplicationController
       feed = Feed.find(:first, :conditions => [ "section_id = ? AND feed_type = ?", node_id, feed_type]) rescue nil
       unless feed
         limit = @presenter.site_settings[:rss_items_limit] || 10
-        @pages = TreeNode.get_subtree(
-          :parent => node_id,
+        @pages = TreeNode.get_treenode_subtree(
+          :tree_node_id => node_id,
           :resource_type_hrids => ['content_page'],
           :has_url => true,
           :is_main => true,
-          :limit => limit,
-          :order => "created_at DESC",
+          :order_by => "created_at",
+	  :order_asc => "DESC",
           :status => ['PUBLISHED']
         )
+	@pages = @pages.sort{|a, b| b.created_at <=> a.created_at } # DESC
+	@pages = @pages[0, limit]
         feed = Feed.new(:section_id => node_id,
           :feed_type => feed_type,
           :data => (render :layout => false))

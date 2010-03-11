@@ -48,7 +48,6 @@ class Admin::ResourcesController < ApplicationController
   def new
     @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
-    
     #   ******************
     #   Check permissions!
     #    parent_tree_node = TreeNode.find(params[:resource][:tree_node][:parent_id])
@@ -66,7 +65,6 @@ class Admin::ResourcesController < ApplicationController
       end
     end
     
-  
     @tree_node = TreeNode.new(params[:resource][:tree_node])
   end
 
@@ -96,8 +94,9 @@ class Admin::ResourcesController < ApplicationController
     params[:resource][:status] = 'DRAFT' if params[:draft_button]
     params[:resource][:status] = 'ARCHIVED' if params[:archive_button]
 
-    @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
+    @resource_type = ResourceType.find(params[:resource][:resource_type_attributes][:id])
+    @resource.resource_type = @resource_type
 
     #   ******************
     #   Check permissions!
@@ -108,21 +107,24 @@ class Admin::ResourcesController < ApplicationController
     #    end
     #   ******************
     
-    parent_id = params[:resource][:tree_node][:parent_id]
+    tree_node = params[:resource][:tree_nodes_attributes]['0']
+    parent_id = tree_node[:parent_id]
     unless parent_id == '0' && AuthenticationModel.current_user_is_admin?
       parent_tree_node = TreeNode.find(parent_id)
       if not (parent_tree_node && parent_tree_node.can_create_child?)
         flash[:notice] = "Access denied. User can't create tree node"
         redirect_to session[:referer]
-        return
       end
     end
 
-    @tree_node = TreeNode.new(params[:resource][:tree_node])
+    @tree_node = @resource.tree_nodes[0]
+    @tree_node.is_main = true
+    @tree_node.ac_type = parent_tree_node.ac_type
+    @resource.tree_nodes[0] = @tree_node
     Website.associate_website(@resource, session[:website]) # TODO OLD CODE - Check to remove (Rami only)
 
     respond_to do |format|
-      if @resource.save
+      if @resource.save && @tree_node.save
         flash[:notice] = 'Resource was successfully created.'
         format.html { redirect_to session[:referer] || :back}
         format.xml  { head :created, :location => admin_resource_url(@resource) }
@@ -143,7 +145,7 @@ class Admin::ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
     @resource_type = @resource.resource_type
     Website.associate_website(@resource, session[:website])
-    tree_node = params[:resource][:tree_node]
+    tree_node = params[:resource][:tree_nodes_attributes]['0']
     if tree_node
       @tree_node = TreeNode.find_by_id_and_resource_id(tree_node[:id],params[:id])
     end
@@ -156,9 +158,9 @@ class Admin::ResourcesController < ApplicationController
     #    end
     #    #   ******************
 
-    parent_id = params[:resource][:tree_node][:parent_id]
+    parent_id = tree_node[:parent_id]
     unless parent_id == '0' && AuthenticationModel.current_user_is_admin?
-      parent_tree_node = TreeNode.find(parent_id)
+      #      parent_tree_node = TreeNode.find(parent_id)
       if not (@tree_node && @tree_node.can_edit?)
         flash[:notice] = "Access denied. User can't create tree node"
         redirect_to session[:referer]
@@ -169,7 +171,7 @@ class Admin::ResourcesController < ApplicationController
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
         flash[:notice] = 'Resource was successfully updated.'
-        format.html { redirect_to session[:referer] }
+        format.html { redirect_to session[:referer] || :back}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" } #:text => params.inspect } #  }

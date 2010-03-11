@@ -57,7 +57,7 @@ class TreeNodeObserver < ActiveRecord::Observer
 
   def before_update(tree_node)
     #check if has permission for edit action
-    if not tree_node.can_edit?
+    if tree_node && ! tree_node.can_edit?
       logger.error("User #{AuthenticationModel.current_user} has no permission " +
           "to edit tree_node: #{tree_node.id} resource: #{tree_node.resource_id}")
       raise "User #{AuthenticationModel.current_user} has no permission " +

@@ -7,7 +7,7 @@ class ResourceProperty < ActiveRecord::Base
   validate :match_pattern
   validate :required_properties_present
 
-  attr_accessor :resource_type_id   
+  attr_accessor :resource_type_id
 
   def self.inheritance_column
     'property_type'
@@ -16,6 +16,7 @@ class ResourceProperty < ActiveRecord::Base
   def to_param
     self.id.to_s
   end
+  
   # This method is used for editing. For reading only use 'get_value' method.
   def value(klass = 'number_value')
     v = @attributes[klass]      
@@ -55,7 +56,7 @@ class ResourceProperty < ActiveRecord::Base
     #check permission for edit
     #should be call for all child classes
     main_tree_node = resource.tree_nodes.main
-    if not main_tree_node.can_edit?
+    if main_tree_node && !main_tree_node.can_edit?
       logger.error("User #{AuthenticationModel.current_user} has not permission " + 
       "for edit tree_node: #{main_tree_node.id} resource: #{resource_id}")
       raise "User #{AuthenticationModel.current_user} has not permission " + 

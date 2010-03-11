@@ -16,7 +16,7 @@ class Hebmain::Widgets::Errormsg < WidgetManager::Base
       span(:class => "errnum"){text _(:error404)}
       javascript{
         rawtext <<-GA
-          pageTracker._trackPageview("/Error404");
+          google_tracker("/Error404");
         GA
       }
     }

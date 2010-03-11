@@ -244,7 +244,7 @@ class TreeNode < ActiveRecord::Base
 
 			# Ordered by Valdas
       #if args.has_key?(:order) && args[:order].is_a?(String)
-        #additional_params.merge!({:order => args[:order]})
+      #additional_params.merge!({:order => args[:order]})
       #end
       sql_params.merge!(additional_params)
       find(:all, sql_params) rescue []
@@ -334,12 +334,12 @@ class TreeNode < ActiveRecord::Base
         req_return_parent,
         req_placeholders,
         req_status,
-	# We have to make a better test, but ...
-	if args.has_key?(:sort_field) && args[:sort_field].is_a?(String)
-		"'#{args[:sort_field]}'"
+        # We have to make a better test, but ...
+        if args.has_key?(:sort_field) && args[:sort_field].is_a?(String)
+          "'#{args[:sort_field]}'"
         end,
-	if args.has_key?(:sort_order) && args[:sort_order].is_a?(String)
-		args[:sort_order] == "ASC" ? 'true::boolean' : 'false::boolean'
+        if args.has_key?(:sort_order) && args[:sort_order].is_a?(String)
+          args[:sort_order] == "ASC" ? 'true::boolean' : 'false::boolean'
         end
       ].compact.join(',')
       if args[:test]

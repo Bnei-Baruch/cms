@@ -1,25 +1,45 @@
 <% name = @resource.resource_type.name %>
 <% @title = _(:Creating) + ' ' + _(name) %>
 <%= render :partial => "admin/share/tiny_mce_full" %>
-<% cms_form_for(:resource, :url => admin_resources_path, :html => {:multipart => true}) do |f| %>
-<%= link_to _(:cancel), session[:referer], {:class => 'button'} %>
-<br />
-<br />
-<br />
-<br />
-	<div class="submit">
-		<%#= submit_tag _"Save draft", :id => 'draft_button' %>
-		<%#= submit_tag _"Publish on site", :class => 'sw2111' %>
-		<input type="submit" value="<%= _"Publish on site" %>" name="publish_button"/>
-		<input type="submit" value="<%= _"Save draft" %>" name="draft_button"/>
-	</div>
-	<%= render :partial => 'fields', :locals => {:f => f} %>
-	<div class="submit">
-		<%#= submit_tag _"Save draft", :id => 'draft_button' %>
-		<%#= submit_tag _"Publish on site", :class => 'sw2111' %>
-		<input type="submit" value="<%= _"Publish on site" %>" name="publish_button"/>
-		<input type="submit" value="<%= _"Save draft" %>" name="draft_button"/>
-	</div>
+
+<% form_for @resource, :url => admin_resources_path, :html => {:multipart => true} do |f| %>
+  <%= link_to _(:cancel), session[:referer], {:class => 'button'} %>
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="submit">
+    <input type="submit" value="<%= _"Publish on site" %>" name="publish_button"/>
+    <input type="submit" value="<%= _"Save draft" %>" name="draft_button"/>
+  </div>
+  <%  f.fields_for :resource_type, @resource_type do |rt| %>
+    <%= rt.hidden_field(:name) %>
+    <%= rt.hidden_field(:id) %>
+    <%= rt.hidden_field(:name_code) %>
+    <%= rt.hidden_field(:hrid) %>
+    <%= rt.hidden_field(:created_at) %>
+    <%= rt.hidden_field(:updated_at) %>
+  <% end %>
+
+  <% if @tree_node
+    f.fields_for :tree_nodes, @tree_node do |tf|
+      if @tree_node.has_url %>
+        <%= tf.label('permalink', _(:permalink))%>
+        <%= tf.text_field(:permalink) %>
+      <% end %>
+      <%= tf.hidden_field(:parent_id) %>
+      <%= tf.hidden_field(:is_main) %>
+      <%= tf.hidden_field(:has_url) %>
+      <%= tf.hidden_field(:placeholder) %>
+    <% end
+  end %>
+
+  <%= render 'fields', :f => f %>
+
+  <div class="submit">
+    <input type="submit" value="<%= _"Publish on site" %>" name="publish_button"/>
+    <input type="submit" value="<%= _"Save draft" %>" name="draft_button"/>
+  </div>
 <% end %>
 <br />
 <%= link_to _(:cancel), session[:referer], {:class => 'button'} %>

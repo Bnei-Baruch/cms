@@ -31,7 +31,7 @@ class PageMap < ActiveRecord::Base
       PageMap.find_by_sql "EXECUTE delete_PM (#{node.id});"
     }
     PageMap.find_by_sql 'DEALLOCATE delete_PM;' rescue ''
-    PageMap.find_by_sql "COMMIT"
+#ZZZ This disables Rails to ROLLBACK...    PageMap.find_by_sql "COMMIT"
     
     #Will clean the rss cache of the tree node in delayed job - add it to the queue
 begin

@@ -119,8 +119,8 @@ class Sites::TemplatesController < ApplicationController
           :resource_type_hrids => ['content_page'],
           :has_url => true,
           :is_main => true,
-          :order_by => "created_at",
-	  :order_asc => "DESC",
+          :sort_field => "created_at",
+          :sort_order => "DESC",
           :status => ['PUBLISHED']
         )
 	@pages = @pages.sort{|a, b| b.created_at <=> a.created_at } # DESC

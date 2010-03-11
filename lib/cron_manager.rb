@@ -1,3 +1,4 @@
+require 'pp'
 # This module is used by Cron 
 # Usage: ruby script/runner 'CronManager.read_and_save_rss' -e development
 #        ruby script/runner 'CronManager.read_and_save_media_rss' -e development
@@ -12,8 +13,101 @@ require 'benchmark'
 
 class CronManager
 
-# This methos is responsible to update all rss resources 
-# which aggregate content from external rss feeds.
+  module Array
+    def self.dups
+      inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
+    end
+  end
+
+  # For each Resource type properties must have ordered position
+  def self.renumerate_properties
+    AuthenticationModel.cron_manager_user_login
+
+    ResourceType.find_in_batches(:include => :properties) {|rtypes|
+      rtypes.each {|rt|
+        rt.properties.sort {|a, b| a.position.to_i <=> b.position.to_i}.each_with_index { |prop, idx|
+          prop.position = idx + 1
+          prop.save
+        }
+      }
+    }
+  end
+
+  # For each resource look for resource_properties such that have the same property ID
+  # Attachments
+  def self.look_4_doubled_properties
+
+    AuthenticationModel.cron_manager_user_login
+
+    counter = 0
+    Resource.find_in_batches(:include => 'resource_properties') {|resources|
+      counter += resources.size
+      $stderr.puts counter
+      resources.each {|resource|
+        # Multiple fields
+        dups = resource.properties.map{|p| [p.property.id, p.property.name]}.inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
+        next if dups.empty?
+        # Report
+        tn = TreeNode.find(:first, :conditions => ['resource_id = ?', resource.id])
+        if tn
+          print "Page #{tn.id} (#{resource.status}) #{tn.permalink}\n"
+        else
+          print "Unknown page for the resource\n"
+        end
+        print "Resource #{resource.id}\n"
+        dups.each{|d|
+          print "Property #{d[0]} '#{d[1]}' values:\n"
+          resource.properties.select {|r| r.property.id == d[0]}.each{|p|
+            print "#{p.id}: '"
+            case p.property_type
+            when 'RpString'
+              print p.string_value
+            when 'RpNumber'
+              print p.number_value
+            when 'RpPlaintext'
+              print p.text_value
+            when 'RpTimestamp'
+              print p.timestamp_value
+            when 'RpBoolean'
+              print p.boolean_value ? 'true': 'false'
+            when 'RpList'
+              print 'LIST'
+            when 'RpDate'
+              print p.timestamp_value
+            when 'RpFile'
+              print 'Duplicated PROPERTY, not attachments'
+            when nil
+              print "nil"
+            else
+              print "Unknown property type %%#{p.property_type}%%"
+            end
+            puts "'"
+          }
+        
+          # Look for duplicated attachments
+          resource.properties.select {|r| r.property_type == 'RpFile'}.each{|f|
+            dups = f.thumbnails.inject({}) {|h, v| h[v.filename] = h[v.filename].to_i + 1; h }.reject{|k,v| v==1}.keys
+            next if dups.empty?
+
+            tn = TreeNode.find(:first, :conditions => ['resource_id = ?', f.resource.id])
+            if tn
+              print "Page #{tn.id} (#{f.resource.status}) #{tn.permalink}\n"
+            else
+              print "Unknown page for the resource\n"
+            end
+            print "Resource #{f.resource.id}\n"
+          
+            f.thumbnails.select {|t1| dups.include?(t1.filename)}. sort_by {|a| a.filename }.each {|t|
+              print "#{t.id} #{t.filename} #{t.mime_type} #{t.md5}\n"
+            }
+          }
+        }
+      }
+    }
+  end
+
+  # This methos is responsible to update all rss resources
+  # which aggregate content from external rss feeds.
   def self.read_and_save_rss
    
     AuthenticationModel.cron_manager_user_login
@@ -43,8 +137,8 @@ class CronManager
     end
   end
 
-# This method is responsible to update all media_rss resources 
-# which aggregate content from our kabbalahmedia website according to category ID
+  # This method is responsible to update all media_rss resources
+  # which aggregate content from our kabbalahmedia website according to category ID
   def self.read_and_save_media_rss
    
     AuthenticationModel.cron_manager_user_login
@@ -192,6 +286,6 @@ class CronManager
     return (lang[0..2]).upcase
   end
   
-end 
+end
 
 

@@ -53,12 +53,26 @@ class Attachment < ActiveRecord::Base
     }
   end
 
+  def Attachment.store_new_file(resource_property, file)
+    # Prepare new or replace an existing attachment
+    attachment = Attachment.new
+    attachment.size = file.length
+    attachment.filename = sanitize_filename(file.original_filename)
+    attachment.file = file.read
+    attachment.mime_type = file.content_type.chomp
+    attachment.md5 = Digest::MD5.hexdigest(attachment.file)
+    attachment.save!
+
+    # Is it valid?
+    resource_property.attachment = attachment if attachment.valid?
+  end
+
   # We don't support both 'remove file' and 'new file' options
   # 'Remove' always has precedence
 
   # Returns: options
   def Attachment.store_rp_file(resource_property, options)
-#    return options if resource_property.nil? ZZZ What is it good for?
+    #    return options if resource_property.nil? ZZZ What is it good for?
     
     # Should we first remove an old one?
     remove = options.delete(:remove)
@@ -97,6 +111,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def Attachment.create_thumbnails_and_apply_geometry_and_cache(resource_property)
+
     # Format of geometry string:
     # myself:geom;thumb1:geom;...
     geometry = {}
@@ -118,7 +133,7 @@ class Attachment < ActiveRecord::Base
       attachment.thumbnails << th
       Attachment.save_as_file(th, attachment.id, th.filename + ext)
     }
-    attachment.save!
+    #    attachment.save!
   end
 
   # Replace images upon geometry change
@@ -196,6 +211,9 @@ class Attachment < ActiveRecord::Base
       Attachment.delete_file(attachment.id, 'myself' + ext)
       resource_property.attachment.myself.destroy
     end
+    
+    resource_property.attachment.destroy
+    resource_property.save
   end
   
   private

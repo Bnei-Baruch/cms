@@ -5,12 +5,13 @@ class Smil4tv < ActiveRecord::Migration
     resource_type = ResourceType.find(:first, :conditions => {:hrid => 'kabtv'})
     raise 'Failed to find kabtv resource type' unless resource_type
 
+    rid = resource_type.id
     property = Property.new(
     :name => 'SMIL URL',
     :field_type => 'String',
     :hrid => 'smil_url',
-    :resource_type_id => resource_type.id,
-    :position => 30,
+    :resource_type_id => rid,
+    :position => generate_position(rid),
     :is_required => false)
     raise 'Failed to create property \'SMIL URL\'' unless property
     property.save!
@@ -19,11 +20,13 @@ class Smil4tv < ActiveRecord::Migration
     :name => 'ID of Analyzer',
     :field_type => 'String',
     :hrid => 'analyzer_id',
-    :resource_type_id => resource_type.id,
-    :position => 30,
+    :resource_type_id => rid,
+    :position => generate_position(rid),
     :is_required => false)
     raise 'Failed to create property \'Analyzer ID\'' unless property
     property.save!
+
+    update_resource_properties(rid)
   end
 
   def self.down

@@ -2,7 +2,9 @@ class Resource < ActiveRecord::Base
 
   has_and_belongs_to_many :websites
   belongs_to :resource_type
-  has_many :resource_properties, :dependent => :destroy # **RAMI**, :include => :property
+  accepts_nested_attributes_for :resource_type
+
+  has_many :resource_properties, :order => 'position ASC', :dependent => :destroy # **RAMI**, :include => :property
   has_many :rp_number_properties, :class_name => 'RpNumber', :dependent => :destroy
   has_many :rp_string_properties, :class_name => 'RpString', :dependent => :destroy
   has_many :rp_text_properties, :class_name => 'RpText', :dependent => :destroy
@@ -13,11 +15,23 @@ class Resource < ActiveRecord::Base
   has_many :rp_file_properties, :class_name => 'RpFile', :dependent => :destroy
   has_many :rp_list_properties, :class_name => 'RpList', :dependent => :destroy
 
+  accepts_nested_attributes_for :resource_properties
+  accepts_nested_attributes_for :rp_number_properties
+  accepts_nested_attributes_for :rp_string_properties
+  accepts_nested_attributes_for :rp_text_properties
+  accepts_nested_attributes_for :rp_plaintext_properties
+  accepts_nested_attributes_for :rp_timestamp_properties
+  accepts_nested_attributes_for :rp_date_properties
+  accepts_nested_attributes_for :rp_boolean_properties
+  accepts_nested_attributes_for :rp_file_properties
+  accepts_nested_attributes_for :rp_list_properties
+
   has_many :tree_nodes, :dependent => :destroy do
     def main
       find :first, :conditions => 'is_main = true'
     end
   end
+  accepts_nested_attributes_for :tree_nodes
 
   attr_accessor :tree_node
   attr_accessor :slang
@@ -25,7 +39,8 @@ class Resource < ActiveRecord::Base
   #only associate resources of the type 'website'
   has_one :website, :foreign_key => 'entry_point_id'
 
-  after_update :save_resource_properties, :update_tree_node
+#  after_update :save_resource_properties, :update_tree_node
+  after_update :update_tree_node
   after_create :create_tree_node
   before_destroy :nullify_website_if_exists
 
@@ -35,40 +50,16 @@ class Resource < ActiveRecord::Base
   # validate :required_properties_present
   validate :uniqueness_of_permalink
 
-  
-  
   def name
     name_code_calc = eval calculate_name_code(resource_type.name_code)
     un_escape_string_for_code name_code_calc
   end
 
-  def my_properties=(my_properties)
-    my_properties.each_with_index do |p, i|
-      more_properties = {:position => i + 1, :resource_type_id => self.resource_type_id}
-      p.merge!(more_properties)
-      if p[:id].blank?  # new property
-        p = Attachment.store_rp_file(nil, p) if p[:property_type] == 'RpFile'
-        resource_property = self.send("#{p[:property_type].underscore}_properties").send(:build, p)
-      else #existing property
-        resource_property = resource_properties.detect{|rp|
-          rp.id == p[:id].to_i
-        }
-        next if resource_property.nil? # Happens in production mode
-        if p[:property_type] == 'RpFile'
-          p = Attachment.store_rp_file(resource_property, p)
-        end
-        # Remove protected attributes
-        ['id', resource_property.class.primary_key, resource_property.class.inheritance_column].each {|a| p.delete(a)}
-        resource_property.attributes = p
-      end
-    end
-  end
-  
   # Used in the new/edit of a resource, when creating the form
   def get_resource_properties
     result = []
     resource_type.properties.each do |property|
-      
+
       elements = eval("rp_#{property.field_type.downcase}_properties") || []
       elements = elements.select{ |rp| rp.property_id == property.id } unless elements.empty?
       if elements.empty?
@@ -85,7 +76,27 @@ class Resource < ActiveRecord::Base
     end
     result
   end
-  
+
+  # Used in the new/edit of a resource, when creating the form
+  def get_empty_resource_properties
+    return [] if resource_type == nil
+
+    result = []
+    resource_type.properties.each do |property|
+
+      elements = eval("rp_#{property.field_type.downcase}_properties") || []
+      elements = elements.select{ |rp| rp.property_id == property.id } unless elements.empty?
+      if elements.empty?
+        new_element = eval "Rp#{property.field_type.camelize}.new"
+        new_element.resource = self
+        new_element.property = property
+        elements << new_element
+        result += elements
+      end
+    end
+    result
+  end
+
   # Old Version - now using: get_resource_properties function instead (Saved for anycase) 
   def get_resource_property_by_property(property) 
     resource_property_array = eval("rp_#{property.field_type.downcase}_properties") || []
@@ -202,12 +213,6 @@ class Resource < ActiveRecord::Base
     s.to_s.gsub(/\&quot;/, "\"").gsub(/\&#39;/, "\'")
   end  
 
-  def save_resource_properties
-    resource_properties.each do |rp|
-      rp.save(false) if rp.changed?
-    end
-  end
-  
   def update_tree_node
     if tree_node
       node = TreeNode.find_by_id(tree_node[:id])

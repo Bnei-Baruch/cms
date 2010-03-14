@@ -32,14 +32,14 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           +new Date().valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
           '" type="text/javascript" charset="utf-8"></sc'+'ript>')})();
           </script><script>utmx("url",'A/B');</script>
-      JSA
+        JSA
       end
     end
   end
 
   def ext_abc_down
     WidgetManager::Base.new do
-       role = get_abc_role
+      role = get_abc_role
       case role
       when "a"
         rawtext <<-JSA
@@ -123,6 +123,13 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
               :new_text => _(:create_module_admin_comment),
               :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
         end
+      elsif get_acts_as_section
+        w_class('cms_actions').new(:tree_node => @tree_node,
+          :options => {:buttons => %W{ new_button },
+            :resource_types => %W{ article },
+            :button_text => _(:admin_upper_part),
+            :new_text => _(:create_new_wide_unit),
+            :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       end
       
       content_header_resources.each{|e|
@@ -189,12 +196,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
             div(:class => klass, :id => sort_id(item)) {
               sort_handle
               render_content_item(item, 'small')
-               div(:class => 'clear')
+              div(:class => 'clear')
             }
           }
         }
       else
-         content_resources.each{|e|
+        content_resources.each{|e|
           disable_bottom_border = @presenter.site_settings[:disable_bottom_border].include?(e.resource.resource_type.hrid)
           div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}#{' no-bottom-border' if disable_bottom_border }") {
             sort_handle

@@ -30,17 +30,18 @@ function ga(ev, url, tm){
 
 //google analytics
 function google_tracker(pagename){
-	if (typeof google_analytics_new_version != "undefined" && google_analytics_new_version == true){
-		if (typeof pagename == "undefined"){
-			pageTracker._trackPageview();
-		}else{
-			pageTracker._trackPageview(pagename);
-	}}else{
-		if (typeof pagename == "undefined"){
-			return ;
-		}
-		urchinTracker(pagename);
-	}
+  if (typeof google_analytics_new_version != "undefined" && google_analytics_new_version == true){
+    if (typeof pagename == "undefined"){
+      pageTracker._trackPageview();
+    }else{
+      pageTracker._trackPageview(pagename);
+    }
+  }else{
+    if (typeof pagename == "undefined"){
+      return ;
+    }
+    urchinTracker(pagename);
+  }
 }
 
 //comment
@@ -918,14 +919,36 @@ $(function() {
     // always return false to prevent standard browser submit and page navigation
     return false;
   });
-
 });
-$.getScript = function(url, callback, cache){
-  $.ajax({
-    type: "GET",
-    url: url,
-    success: callback,
-    dataType: "script",
-    cache: cache
+
+// Ads serving...
+$('div.banner').each(function() {
+  var id = $(this).attr('id').replace(/_hidden/, '');
+  var pos = $("#" + id).position();
+
+  if (pos) {
+    // Show the banner directly over the placeholder
+    $(this).css({
+      "left": pos.left +"px",
+      "top":  pos.top  +"px"
+    });
+    $("#" + id).height($(this).height() + 5);
+    $("#" + id).width($(this).width());
+  }
+});
+
+// Repositioning the ads divs
+$(window).scroll(function(){
+  $('div.banner').each(function(){
+    var id = $(this).attr('id').replace(/_hidden/, '');
+    var pos = $("#" + id).position();
+
+    if (pos){
+      // Show the banner directly over the placeholder
+      $(this).css({
+        "left": pos.left +"px",
+        "top":  pos.top  +"px"
+      });
+    }
   });
-};
+});

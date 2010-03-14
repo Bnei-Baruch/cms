@@ -50,8 +50,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
       javascript {
         rawtext <<-google
 $(document).ready(function(){
-   $.getScript('http://www.google.com/afsonline/show_afs_search.js', function(){
-   }, true);
+   $.getScript('http://www.google.com/afsonline/show_afs_search.js');
 });
         google
       }

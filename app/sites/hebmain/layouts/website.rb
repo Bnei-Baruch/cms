@@ -59,28 +59,13 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         stylesheet_link_tag 'hebmain/ie6', :media => 'all'
         stylesheet_link_tag 'hebmain/ie7', :media => 'all'
         rawtext "\n<![endif]-->\n"
-				rawtext <<-GCA
-								<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
-								<script type="text/javascript">
-												GS_googleAddAdSenseService("ca-pub-9068547212525872");
-												GS_googleEnableAllServices();
-								</script> 
-								<script type="text/javascript">
-												GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
-								</script> 
-								<script type="text/javascript">
-												GA_googleFetchAds();
-								</script> 
-				GCA
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
           div(:id => 'bd') {
-					rawtext <<-GCA
-						<script type="text/javascript">
-							GA_googleFillSlot("kab-co-il_top-banner_950x65");
-						</script> 
-					GCA
+            div(:id => 'banner_top', :style => 'width:950px;height:65px;line-height:65px;border:1px solid red;'){
+              rawtext '&nbsp;'
+            }
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-gd') {
@@ -185,6 +170,24 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           }
         }
         @google_analytics.render_to(self)
+				rawtext <<-GCA
+					<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+					<script type="text/javascript">
+            GS_googleAddAdSenseService("ca-pub-9068547212525872");
+            GS_googleEnableAllServices();
+          </script>
+					<script type="text/javascript">
+            GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
+          </script>
+					<script type="text/javascript">
+            GA_googleFetchAds();
+          </script>
+          <div id="banner_top_hidden" class="banner">
+            <script type="text/javascript">
+              GA_googleFillSlot("kab-co-il_top-banner_950x65");
+            </script>
+          </div>
+        GCA
       }
     }
   end     
@@ -306,7 +309,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 				:parent => :website,
 				:placeholder => :right,
 				:sortable => true)  { |idx|
-					@newsletter.render_to(self) if (idx == 0)
+        @newsletter.render_to(self) if (idx == 0)
 			}
     }
     make_sortable(:selector => ".right-part") {

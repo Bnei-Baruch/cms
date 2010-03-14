@@ -921,34 +921,20 @@ $(function() {
   });
 });
 
-// Ads serving...
-$('div.banner').each(function() {
-  var id = $(this).attr('id').replace(/_hidden/, '');
-  var pos = $("#" + id).position();
+$(function() {
+	// Ads serving...
+	$('div.banner').each(function() {
+		var id = $(this).attr('id').replace(/_hidden/, '');
+		var pos = $("#" + id).position();
 
-  if (pos) {
-    // Show the banner directly over the placeholder
-    $(this).css({
-      "left": pos.left +"px",
-      "top":  pos.top  +"px"
-    });
-    $("#" + id).height($(this).height() + 5);
-    $("#" + id).width($(this).width());
-  }
-});
-
-// Repositioning the ads divs
-$(window).scroll(function(){
-  $('div.banner').each(function(){
-    var id = $(this).attr('id').replace(/_hidden/, '');
-    var pos = $("#" + id).position();
-
-    if (pos){
-      // Show the banner directly over the placeholder
-      $(this).css({
-        "left": pos.left +"px",
-        "top":  pos.top  +"px"
-      });
-    }
-  });
+		if (pos) {
+			// Show the banner directly over the placeholder
+			$(this).css({
+				"left": pos.left +"px",
+				"top":  pos.top  +"px"
+			});
+			$("#" + id).height($(this).height() + 5);
+			$("#" + id).width($(this).width());
+		}
+	});
 });

@@ -63,7 +63,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
           div(:id => 'bd') {
-            div(:id => 'banner_top', :style => 'width:950px;height:65px;line-height:65px;border:1px solid red;'){
+            div(:id => 'banner_top', :style => 'width:950px;height:65px;line-height:65px;position:relative;'){
               rawtext '&nbsp;'
             }
             div(:id => 'yui-main') {
@@ -182,7 +182,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 					<script type="text/javascript">
             GA_googleFetchAds();
           </script>
-          <div id="banner_top_hidden" class="banner">
+          <div id="banner_top_hidden" class="banner" style="position: absolute; top: -1000px; left: -1000px;">
             <script type="text/javascript">
               GA_googleFillSlot("kab-co-il_top-banner_950x65");
             </script>

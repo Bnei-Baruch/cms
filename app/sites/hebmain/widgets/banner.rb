@@ -17,7 +17,7 @@ class Hebmain::Widgets::Banner < WidgetManager::Base
   end
 
   def target
-      get_internal_target ? '_self' : '_blank'
+      get_internal_link ? '_self' : '_blank'
   end
 
   def name

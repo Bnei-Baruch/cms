@@ -291,9 +291,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
       :sortable => true)  { |idx|
       @newsletter.render_to(self) if (idx == 1)
     }
-    make_sortable(:selector => ".right-part") {
-      right_column_video_gallery_resources
-    }
   end
 
   def right_column
@@ -304,11 +301,13 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         :has_url => false,
         :placeholder => 'right'}).render_to(self)
 
-    show_content_resources(:resources => right_column_resources,
-      :parent => :website,
-      :placeholder => :right,
-      :sortable => true)  { |idx|
-      @newsletter.render_to(self) if (idx == 0)
+		div(:class => 'right-part') {
+			show_content_resources(:resources => right_column_resources,
+				:parent => :website,
+				:placeholder => :right,
+				:sortable => true)  { |idx|
+					@newsletter.render_to(self) if (idx == 0)
+			}
     }
     make_sortable(:selector => ".right-part") {
       right_column_resources

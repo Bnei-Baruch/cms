@@ -326,9 +326,9 @@ hebrew:
     stf_subject: שלום receiver_name חברך sender_name ממליץ לך על הלינק הזה
     cancel:  בטל
 
-  Hebmain::Templates::ContentPage:
+  WidgetManager::Base:
     create_module_admin_comment: צור מודול ניהול תגובות
-    create_new_tv_unit: צור יחידת טיוי חדשה
+    create_new_wide_unit: צור יחידה רחבה חדשה
     admin_management:  ניהול אדמין
     admin_upper_part: ניהול חלק עליון
 

@@ -7,13 +7,13 @@ class BannerLinkMayBeExternal < ActiveRecord::Migration
 
     rid = resource_type.id
     property = Property.new(
-      :name => 'Internal Link',
+      :name => 'Open on the same page',
       :field_type => 'Boolean',
       :hrid => 'internal_link',
       :resource_type_id => rid,
       :position => generate_position(rid),
       :is_required => false)
-    raise 'Failed to create property \'Internal Link\'' unless property
+    raise 'Failed to create property \'Open on the same page\'' unless property
     property.save!
 
     update_resource_properties(rid)

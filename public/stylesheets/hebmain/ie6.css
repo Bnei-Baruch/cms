@@ -177,4 +177,6 @@ zoom:1;
 #kabtv-news .tvnewsiteminus{
     height:20px !important;
 }
-
+.related .box .flash-only{
+    display: inline-block;
+}

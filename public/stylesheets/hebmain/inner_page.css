@@ -457,6 +457,10 @@
     padding:0;
     margin:0;
 }
+.related .box .flash-only{
+margin-top:-52px;
+position:relative;
+}
 /*----------  Navigation  ---------------*/
 .nav {
     text-align: center;

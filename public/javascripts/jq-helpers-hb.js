@@ -928,6 +928,9 @@ $(function() {
 		var pos = $("#" + id).position();
 
 		if (pos) {
+			if (jQuery.browser.ie && jQuery.browser.version < 8) {
+				pos.left = pos.left - 1000;
+			}
 			// Show the banner directly over the placeholder
 			$(this).css({
 				"left": pos.left +"px",

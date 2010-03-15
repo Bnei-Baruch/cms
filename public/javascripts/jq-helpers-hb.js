@@ -320,8 +320,6 @@ $(document).ready(function() {
   //$('.mediacasting').prev().css('border-bottom','0px none #E8E8E8');
   var item = $('.mediacasting').prev();
   item.css('border-bottom','0px none #E8E8E8');
-  $('.mediacasting:has(.media[href*=mp3])').addClass('audio');
-  $('.mediacasting:not(:has(.media[href*=mp3]))').addClass('video');
 
   $("a.hide-player").hide();
   $("a.show-player").hide();

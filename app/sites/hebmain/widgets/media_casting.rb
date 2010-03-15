@@ -6,7 +6,8 @@ class Hebmain::Widgets::MediaCasting < WidgetManager::Base
     title = get_title
     url = get_url
     hide_download_link = get_hide_download_link
-    div(:class => 'mediacasting'){
+    addclass = url[/\.mp3$/] ? ' audio' : ' video'
+    div(:class => "mediacasting#{addclass}"){
 	
       a(:class => 'hide-player', :href => ''){
         img :src => '/images/delete.gif', :alt => '', :style => 'vertical-align:middle;'

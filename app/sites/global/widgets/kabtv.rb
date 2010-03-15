@@ -193,31 +193,30 @@ $(function() {
             });
         }
     }
-    $("#kabtv #ask_btn").click(function() {
+    $("#kabtv #ask_btn1, #kabtv #ask_btn2").click(function() {
         $("#kabtv #q").hide();
-        $("#kabtv #ask_btn").hide();
+        $("#kabtv #ask_btn1").hide();
+        $("#kabtv #ask_btn2").hide();
         $("#kabtv #ask_question").show();
     });
     $("#kabtv #ask_cancel").click(function() {
         $("#kabtv #ask_question").hide();
         $("#kabtv #q").show();
-        $("#kabtv #ask_btn").show();
+        $("#kabtv #ask_btn1").show();
+        $("#kabtv #ask_btn2").show();
     });
     $("#kabtv #ask").submit(function() {
         var question = $.trim($("#kabtv #options_qquestion")[0].value);
         if (question == "") {
-          alert('נא לכתוב שאלה');
+          alert('נא למלא את השדות הריקים');
           return false;
         }
-        $("#kabtv #kabtv-loading").show();
+        alert("תודה על שאלתך/תגובתך!");
+        $("#kabtv #q").show();
+        $("#kabtv #ask_question").hide();
+        $("#kabtv #ask_btn2").show();
+        $("#kabtv #ask_btn1").show();
         $(this).ajaxSubmit(function(responseText, statusCode){
-            $("#kabtv #kabtv-loading").hide();
-            alert(responseText);
-            if (statusCode == "success") {
-              $("#kabtv #ask_question").hide();
-              $("#kabtv #q").show();
-              $("#kabtv #ask_btn").show();
-            }
         });
         // always return false to prevent standard browser submit and page navigation
         return false;
@@ -249,11 +248,12 @@ $(function() {
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_schedule]
         div(:id => 'questions'){
-          h3 {rawtext _(:students_questions)}
+          #h3 {rawtext _(:students_questions)}
+          ask_button_and_form
           div(:id => 'q') {
             img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
           }
-          ask_button_and_form
+					ask_button_only
         } unless @options[:no_questions]
         div(:id => 'sketch'){
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
@@ -769,11 +769,20 @@ $(function() {
     )
   end
 
+  def ask_button_only
+    div(:class => 'button_l') {
+			input(:id => 'ask_btn2', :type => "button", :value => _(:ask_question),
+						:title => _(:ask_question), :name => "subscribe", :class => "button",
+						:alt => _(:ask_question))
+		}
+	end
+
   def ask_button_and_form
-    div :class => 'prebutton'
-    input(:id => 'ask_btn', :type => "button", :value => _(:ask_question), :title => _(:ask_question),
-      :name => "subscribe", :class => "button", :alt => _(:ask_question))
-    div :class => 'postbutton'
+    div(:class => 'button_c') {
+			input(:id => 'ask_btn1', :type => "button", :value => _(:ask_question),
+						:title => _(:ask_question), :name => "subscribe", :class => "button",
+						:alt => _(:ask_question))
+		}
     div :class => 'clear'
     div(:id => 'ask_question', :style => 'display:none') {
       div(:id => 'ask_question-ie') {
@@ -790,7 +799,10 @@ $(function() {
               input :id => 'options_qfrom', :type => 'text', :name => 'options[qfrom]', :value => '', :size => '31', :class => 'text'
             }
             div(:class => 'q') {
-              label(:class => 'ta-label', :for => 'options_qquestion') {rawtext _(:question)}
+              label(:class => 'ta-label', :for => 'options_qquestion') {
+								rawtext _(:questions)
+								rawtext ':'
+							}
               textarea :id => 'options_qquestion', :name => 'options[qquestion]', :class => 'textarea', :cols => 30, :rows => 10
             }
             div :class => 'prebutton'

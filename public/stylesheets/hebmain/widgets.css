@@ -1156,6 +1156,7 @@ img.thumbnails{
 }
 #kabtv h3{
   text-align:center;
+	margin:0;
 }
 #kabtv #sketch a{
   display:inline;
@@ -1225,7 +1226,13 @@ a.highslide-full-expand {
 #kabtv .ta-label{
   margin:10px 0 0;
 }
-#kabtv  .button {
+#kabtv .button_l {
+	text-align:left;
+}
+#kabtv .button_c {
+	text-align:center;
+}
+#kabtv .button {
   background:transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
   border:medium none;
   color:black;
@@ -1233,6 +1240,15 @@ a.highslide-full-expand {
   margin-bottom:5px;
   padding-bottom:5px;
   width:54pt;
+}
+#kabtv #ask_submit,
+#kabtv #ask_cancel{
+	float:right;
+}
+#kabtv #ask_btn1,
+#kabtv #ask_btn2 {
+  background:transparent url(/images/hebmain/ask_btn.png) no-repeat scroll 0 0;
+  width:128px;
 }
 #kabtv .ui-tabs-nav .ui-tabs-selected a span, #kabtv .ui-tabs-nav a:hover span, #kabtv .ui-tabs-nav a:focus span, #kabtv .ui-tabs-nav a:active span,
 #kabtv .ui-tabs-nav .ui-tabs-selected a, #kabtv .ui-tabs-nav a:hover, #kabtv .ui-tabs-nav a:focus, #kabtv .ui-tabs-nav a:active {
@@ -1247,13 +1263,14 @@ a.highslide-full-expand {
   margin:10px 0;
   overflow-x:hidden;
   overflow-y:scroll;
+	border:1px solid #ddd;
 }
 #kabtv #ask_question{
   position:relative;
 }
 #kabtv #ask_question-ie{
   background-color:#F0F5FD;
-  margin-top:-40px;
+  /*margin-top:-40px;*/
 }
 #kabtv #kabtv-loading{
   position:absolute;

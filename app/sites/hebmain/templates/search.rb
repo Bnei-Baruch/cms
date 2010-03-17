@@ -46,14 +46,9 @@ class Hebmain::Templates::Search < WidgetManager::Template
           var googleSearchPath = "/cse";
         SCRIPT_CODE
       }
-      #        <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
-      javascript {
-        rawtext <<-google
-$(document).ready(function(){
-   $.getScript('http://www.google.com/afsonline/show_afs_search.js');
-});
-        google
-      }
+      rawtext <<-google
+				<script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
+      google
 
     end
   end

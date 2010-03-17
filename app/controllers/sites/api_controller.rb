@@ -110,7 +110,7 @@ class Sites::ApiController < ApplicationController
   # GET http://mydomain.com/api/first_page_article.format
   def get_first_page_article
     @tree_node = first_article.first
-    @tree_node = random_article if @tree_node.empty? || @tree_node.resource.empty?
+    @tree_node = random_article unless @tree_node && @tree_node.resource
     unless @tree_node
       render :text => 'No one node is marked as a mobile one'
       return

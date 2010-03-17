@@ -8,11 +8,11 @@ class Sites::ApiController < ApplicationController
 
   # GET http://mydomain.com/api/categories.format
   def get_categories
-     @categories = categories(3)
-     respond_to do |format| 
-       format.xml 
-       format.html { render :text  => 'html content is not supported. Please try the same url with .xml extension' } 
-     end 
+    @categories = categories(3)
+    respond_to do |format|
+      format.xml
+      format.html { render :text  => 'html content is not supported. Please try the same url with .xml extension' }
+    end
   end
   
   # GET http://mydomain.com/api/articles.format
@@ -110,29 +110,46 @@ class Sites::ApiController < ApplicationController
   # GET http://mydomain.com/api/first_page_article.format
   def get_first_page_article
     @tree_node = first_article.first
+    @tree_node = random_article if @tree_node.empty? || @tree_node.resource.empty?
+    unless @tree_node
+      render :text => 'No one node is marked as a mobile one'
+      return
+    end
     respond_to do |format| 
       format.xml 
       format.html { render :text  => 'html content is not supported. Please try the same url with .xml extension' } 
     end 
-    
   end
   
   private
   # :current_page => 3 - integer - optional - default: paging is disabled
   # :items_per_page => 10 - integer - optional - default: 25 items per page(if current page key presents)
-  
+
+  def random_article
+    args = {:parent => @presenter.website_node.id,
+      :resource_type_hrids => ['content_page'],
+      :depth => 10,
+      :has_url => true,
+      :properties => 'b_acts_as_section = false AND b_mobile_content = true',
+      :sort_field => 'updated_at',
+      :sort_order => 'DESC',
+    }
+    nodes = TreeNode.get_subtree(args)
+    return nil unless nodes
+    nodes[rand(nodes.size)]
+  end
+
   def articles(parent_id, per_page = nil, page_num = nil)
     return nil unless parent_id
     properties = show_only_mobile_content? ? 'b_acts_as_section = false AND b_mobile_content = true' : 'b_acts_as_section = false'
     args = {:parent => parent_id, 
-    :resource_type_hrids => ['content_page'], 
-    :depth => 1,
-    :has_url => true,
-    :properties => properties,
-    :sort_field => 'updated_at',
-    :sort_order => 'DESC'
+      :resource_type_hrids => ['content_page'],
+      :depth => 1,
+      :has_url => true,
+      :properties => properties,
+      :sort_field => 'updated_at',
+      :sort_order => 'DESC'
     }
-    args
     if page_num
       args.merge!({:current_page => page_num})
       if per_page
@@ -145,11 +162,11 @@ class Sites::ApiController < ApplicationController
   def categories(depth = 1)
     properties = show_only_mobile_content? ? 'b_acts_as_section = true AND b_mobile_content = true' : 'b_acts_as_section = true'
     TreeNode.get_subtree(
-    :parent => @presenter.website_node.id, 
-    :resource_type_hrids => ['content_page'], 
-    :depth => depth,
-    :has_url => true,
-    :properties => properties
+      :parent => @presenter.website_node.id,
+      :resource_type_hrids => ['content_page'],
+      :depth => depth,
+      :has_url => true,
+      :properties => properties
     )               
   end
 
@@ -160,7 +177,7 @@ class Sites::ApiController < ApplicationController
       :has_url => true,
       :depth => 4,
       :properties => 'b_acts_as_section = false AND b_mobile_first_page = true'
-    )               
+    )
   end
   
   def show_only_mobile_content?

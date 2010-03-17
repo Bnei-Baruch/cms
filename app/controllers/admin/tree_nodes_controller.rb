@@ -127,8 +127,9 @@ class Admin::TreeNodesController < ApplicationController
         :parent => @presenter.website_node.id,
         :resource_type_hrids => ['content_page'],
         :has_url => true,
-        :depth => 4,
-        :properties => 'b_acts_as_section = false AND b_mobile_first_page = true'
+        :depth => 10,
+        :status => ['PUBLISHED', 'DELETED', 'DRAFT', 'ARCHIVED'],
+        :properties => 'b_mobile_first_page = true'
       ).each{|node|
         toggle_boolean(node, 'mobile_first_page', true)
         node.save
@@ -305,6 +306,7 @@ class Admin::TreeNodesController < ApplicationController
   def get_boolean(node, hrid)
     @resource = Resource.find(node.resource)
     rp = @resource.properties(hrid)
+    rp = rp[0] if rp.is_a?(Array)
     return false unless rp
     rp.get_value
   end
@@ -315,6 +317,7 @@ class Admin::TreeNodesController < ApplicationController
   def toggle_boolean(node, hrid, reset = false)
     @resource = Resource.find(node.resource)
     rp = @resource.properties(hrid)
+    rp = rp[0] if rp.is_a?(Array)
     if rp
       if reset
         value = false

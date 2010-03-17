@@ -154,13 +154,12 @@ class Sites::ApiController < ApplicationController
   end
 
   def first_article
-    properties = show_only_mobile_content? ? 'b_acts_as_section = false AND b_mobile_first_page = true' : 'b_acts_as_section = false' 
     TreeNode.get_subtree(
       :parent => @presenter.website_node.id,
       :resource_type_hrids => ['content_page'], 
       :has_url => true,
       :depth => 4,
-      :properties => properties
+      :properties => 'b_acts_as_section = false AND b_mobile_first_page = true'
     )               
   end
   

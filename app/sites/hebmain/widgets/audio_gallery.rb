@@ -118,7 +118,7 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
       
     script(:type => "text/javascript"){
       rawtext <<-ini_script
-        AudioPlayer.setup("http://hebrew.localhost:3000/javascripts/wpaudioplayer/player.swf", {
+        AudioPlayer.setup("#{@presenter.domain}/javascripts/wpaudioplayer/player.swf", {
           width: 255,
           transparentpagebg:'yes',
           rtl: 'yes',

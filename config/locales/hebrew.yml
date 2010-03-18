@@ -20,6 +20,14 @@ hebrew:
     send: שלח
     cancel: בטל
 
+  Hebmain::Widgets::AudioGallery:
+    song_title:  	שם השיר
+    song_author: מבצע
+    song_download: הורדה
+    show_words: הצג מילים
+    hide_words: הסתר מילים
+    download: הורדה
+
   Hebmain::Widgets::CustomPreview:
     read_more: להמשך
 

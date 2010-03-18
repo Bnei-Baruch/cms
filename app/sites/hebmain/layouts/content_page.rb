@@ -45,6 +45,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
         '../highslide/highslide-full.packed.js',
         'jquery.livequery.min.js', 'jq-helpers-hb',
+        'wpaudioplayer/audio-player.js',
         :cache => "cache_content_page-#{@presenter.website_hrid}"
 
         stylesheet_link_tag 'reset-fonts-grids',
@@ -80,6 +81,11 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         stylesheet_link_tag 'hebmain/ie6', :media => 'all'
         stylesheet_link_tag 'hebmain/ie7', :media => 'all'
         rawtext "\n<![endif]-->\n"
+
+        rawtext "\n<!--[if IE 8]>\n"
+        stylesheet_link_tag 'hebmain/ie8', :media => 'all'
+        rawtext "\n<![endif]-->\n"
+
 				rawtext <<-GCA
 								<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
 								<script type="text/javascript">

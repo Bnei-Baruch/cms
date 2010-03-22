@@ -35,6 +35,9 @@ class CronManager
 
   # For each resource look for resource_properties such that have the same property ID
   # Attachments
+  # One of the identical records must be removed; others - to be discussed with content manager
+  # properties - from resource_properties
+  # attachments - from ...
   def self.look_4_doubled_properties
 
     AuthenticationModel.cron_manager_user_login
@@ -42,6 +45,7 @@ class CronManager
     counter = 0
     Resource.find_in_batches(:include => 'resource_properties') {|resources|
       counter += resources.size
+      prev_value = ''
       $stderr.puts counter
       resources.each {|resource|
         # Multiple fields
@@ -55,6 +59,7 @@ class CronManager
           print "Unknown page for the resource\n"
         end
         print "Resource #{resource.id}\n"
+        prev_prop = prev_val = nil
         dups.each{|d|
           print "Property #{d[0]} '#{d[1]}' values:\n"
           resource.properties.select {|r| r.property.id == d[0]}.each{|p|
@@ -62,18 +67,30 @@ class CronManager
             case p.property_type
             when 'RpString'
               print p.string_value
+              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.string_value == prev_val
+              prev_val = p.string_value
             when 'RpNumber'
               print p.number_value
+              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.number_value == prev_val
+              prev_val = p.number_value
             when 'RpPlaintext'
               print p.text_value
+              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.text_value == prev_val
+              prev_val = p.text_value
             when 'RpTimestamp'
               print p.timestamp_value
+              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.timestamp_value == prev_val
+              prev_val = p.timestamp_value
             when 'RpBoolean'
               print p.boolean_value ? 'true': 'false'
+              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.boolean_value == prev_val
+              prev_val = p.boolean_value
             when 'RpList'
               print 'LIST'
             when 'RpDate'
               print p.timestamp_value
+              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.timestamp_value == prev_val
+              prev_val = p.timestamp_value
             when 'RpFile'
               print 'Duplicated PROPERTY, not attachments'
             when nil
@@ -82,6 +99,7 @@ class CronManager
               print "Unknown property type %%#{p.property_type}%%"
             end
             puts "'"
+            prev_prop = d[0]
           }
         
           # Look for duplicated attachments

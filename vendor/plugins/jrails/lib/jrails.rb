@@ -374,7 +374,7 @@ module ActionView
           options[:method] = "post"
           expression = options[:expression] ? ",expression:'#{options[:expression]}'" : ''
           options.delete(:expression) if options[:expression]
-          options[:with] ||= "#{JQUERY_VAR}(this).sortable('serialize',{key:'#{element_id}'#{expression}})"
+          options[:with] ||= "#{JQUERY_VAR}(this).sortable('serialize',{key:'#{element_id}[]'#{expression}})"
           options[:onUpdate] ||= "function(){" + remote_function(options) + "}"
         end
 				

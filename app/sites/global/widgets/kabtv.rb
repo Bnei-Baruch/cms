@@ -270,6 +270,7 @@ $(function() {
 				height = @options[:height] || 336
 				width = @options[:width] || 378
 				url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
+        return if url.empty?
 
         if get_prefer_flash == true
           render_full_flash

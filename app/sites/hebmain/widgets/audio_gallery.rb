@@ -5,76 +5,76 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
     
     player_ini
     audio_gallery_admin
-    ul(:class => 'audio_gallery'){
-      audio_items.each_with_index { |audio_item, index|
-        url = audio_item.resource.properties('url').get_value
-        title = audio_item.resource.properties('title').get_value
-        lyrics = audio_item.resource.properties('lyrics').get_value
-        artist = audio_item.resource.properties('artist').get_value
-        enable_download = audio_item.resource.properties('enable_download').get_value
-        li(:id => sort_id(audio_item)){
-          audio_admin audio_item
-          sort_handle
-          table{
-            unless header_initialized
-              header_initialized = true
-              tr{
-                th(:class => 'number')  {rawtext '&nbsp;'}
-                th(:class => 'title')   {rawtext _(:song_title)}
-                th(:class => 'artist')  {rawtext _(:song_author)}
-                th(:class => 'download'){rawtext _(:song_download)}
-              }
-            end
-            tr(:class => (index % 2) == 0 ? 'one' : 'two'){
-              td(:class => 'number') {
-                rawtext "#{index+1}."
-              }
-              td(:class => 'title') {
-                rawtext title
-                br
-                div(:class => 'audioplayer_container', :id => "audioplayer_#{audio_item.object_id}"){
-                  rawtext <<-message
+    make_sortable(:selector => '.audio_gallery', :axis => 'y') {
+      ul(:class => 'audio_gallery'){
+        audio_items.each_with_index { |audio_item, index|
+          url = audio_item.resource.properties('url').get_value
+          title = audio_item.resource.properties('title').get_value
+          lyrics = audio_item.resource.properties('lyrics').get_value
+          artist = audio_item.resource.properties('artist').get_value
+          enable_download = audio_item.resource.properties('enable_download').get_value
+          li(:id => sort_id(audio_item)){
+            audio_admin audio_item
+            sort_handle
+            table{
+              unless header_initialized
+                header_initialized = true
+                tr{
+                  th(:class => 'number')  {rawtext '&nbsp;'}
+                  th(:class => 'title')   {rawtext _(:song_title)}
+                  th(:class => 'artist')  {rawtext _(:song_author)}
+                  th(:class => 'download'){rawtext _(:song_download)}
+                }
+              end
+              tr(:class => (index % 2) == 0 ? 'one' : 'two'){
+                td(:class => 'number') {
+                  rawtext "#{index+1}."
+                }
+                td(:class => 'title') {
+                  rawtext title
+                  br
+                  div(:class => 'audioplayer_container', :id => "audioplayer_#{audio_item.object_id}"){
+                    rawtext <<-message
                 Audio clip: Adobe Flash Player (version 9 or above) is required to play this audio clip.
                 Download the latest version <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash&amp;promoid=BIOW" title="Download Adobe Flash Player">here</a>.
                 You also need to have JavaScript enabled in your browser.
-                  message
-                }
-                if lyrics != ''
-                  a(:href => '#', :class =>'show_words'){
-                    rawtext _(:show_words)
+                    message
                   }
-                end
-                script{
-                  rawtext <<-player
+                  if lyrics != ''
+                    a(:href => '#', :class =>'show_words'){
+                      rawtext _(:show_words)
+                    }
+                  end
+                  script{
+                    rawtext <<-player
               AudioPlayer.embed("audioplayer_#{audio_item.object_id}", {
                 soundFile: "#{url}",
                 titles: " ",
                 artists: " "
               });
-                  player
+                    player
+                  }
+                }
+                td(:class => 'artist')  { rawtext artist }
+                td(:class => 'download'){
+                  if enable_download
+                    a(:href => url) { rawtext _(:download)}
+                  else
+                    rawtext('&nbsp;')
+                  end
                 }
               }
-              td(:class => 'artist')  { rawtext artist }
-              td(:class => 'download'){
-                if enable_download
-                  a(:href => url) { rawtext _(:download)}
-                else
-                  rawtext('&nbsp;')
-                end
-              }
-            }
-            tr(:class => 'lyrics', :style => 'display:none;'){
-              td
-              td(:colspan => '3', :class => 'lyrics_data'){
-                rawtext lyrics
+              tr(:class => 'lyrics', :style => 'display:none;'){
+                td
+                td(:colspan => '3', :class => 'lyrics_data'){
+                  rawtext lyrics
+                }
               }
             }
           }
         }
       }
-    }
 
-    make_sortable(:selector => '.audio_gallery', :axis => 'y') {
       audio_items
     }
 

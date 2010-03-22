@@ -1123,6 +1123,7 @@ img.thumbnails{
 #kabtv #schedule a{
   display:inline;
   background:0 none;
+  padding:0 5px;
 }
 #kabtv .schedule_day{
   height:320px;

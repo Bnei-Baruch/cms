@@ -115,8 +115,11 @@ class CronManager
             end
             print "Resource #{f.resource.id}\n"
           
+            last_fname = ''
             f.thumbnails.select {|t1| dups.include?(t1.filename)}. sort_by {|a| a.filename }.each {|t|
               print "#{t.id} #{t.filename} #{t.mime_type} #{t.md5}\n"
+              print "DELETE FROM attachments WHERE ID = #{t.id}\n" if last_fname == t.filename
+              last_fname = t.filename
             }
           }
         }

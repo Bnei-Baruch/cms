@@ -52,7 +52,7 @@ class CronManager
         dups = resource.properties.map{|p| [p.property.id, p.property.name]}.inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
         next if dups.empty?
         # Report
-        tn = TreeNode.find(:first, :conditions => ['resource_id = ?', resource.id])
+        tn = TreeNode.find(:first, :conditions => ['resource_id = ? and is_main=true', resource.id])
         if tn
           print "Page #{tn.id} (#{resource.status}) #{tn.permalink}\n"
         else
@@ -63,33 +63,33 @@ class CronManager
         dups.each{|d|
           print "Property #{d[0]} '#{d[1]}' values:\n"
           resource.properties.select {|r| r.property.id == d[0]}.each{|p|
-            print "#{p.id}: '"
+            print "#{p.id}: "
             case p.property_type
             when 'RpString'
               print p.string_value
-              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.string_value == prev_val
+              print "\nDELETE FROM resource_properties WHERE ID = #{p.id};" if d[0] == prev_prop && p.string_value == prev_val
               prev_val = p.string_value
             when 'RpNumber'
               print p.number_value
-              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.number_value == prev_val
+              print "\nDELETE FROM resource_properties WHERE ID = #{p.id};" if d[0] == prev_prop && p.number_value == prev_val
               prev_val = p.number_value
             when 'RpPlaintext'
               print p.text_value
-              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.text_value == prev_val
+              print "\nDELETE FROM resource_properties WHERE ID = #{p.id};" if d[0] == prev_prop && p.text_value == prev_val
               prev_val = p.text_value
             when 'RpTimestamp'
               print p.timestamp_value
-              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.timestamp_value == prev_val
+              print "\nDELETE FROM resource_properties WHERE ID = #{p.id};" if d[0] == prev_prop && p.timestamp_value == prev_val
               prev_val = p.timestamp_value
             when 'RpBoolean'
               print p.boolean_value ? 'true': 'false'
-              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.boolean_value == prev_val
+              print "\nDELETE FROM resource_properties WHERE ID = #{p.id};" if d[0] == prev_prop && p.boolean_value == prev_val
               prev_val = p.boolean_value
             when 'RpList'
               print 'LIST'
             when 'RpDate'
               print p.timestamp_value
-              print "DELETE FROM resource_properties WHERE ID = #{p.id}" if d[0] == prev_prop && p.timestamp_value == prev_val
+              print "\nDELETE FROM resource_properties WHERE ID = #{p.id};" if d[0] == prev_prop && p.timestamp_value == prev_val
               prev_val = p.timestamp_value
             when 'RpFile'
               print 'Duplicated PROPERTY, not attachments'
@@ -98,7 +98,7 @@ class CronManager
             else
               print "Unknown property type %%#{p.property_type}%%"
             end
-            puts "'"
+            puts ""
             prev_prop = d[0]
           }
         
@@ -118,7 +118,7 @@ class CronManager
             last_fname = ''
             f.thumbnails.select {|t1| dups.include?(t1.filename)}. sort_by {|a| a.filename }.each {|t|
               print "#{t.id} #{t.filename} #{t.mime_type} #{t.md5}\n"
-              print "DELETE FROM attachments WHERE ID = #{t.id}\n" if last_fname == t.filename
+              print "DELETE FROM attachments WHERE ID = #{t.id};\n" if last_fname == t.filename
               last_fname = t.filename
             }
           }

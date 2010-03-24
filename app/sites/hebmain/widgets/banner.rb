@@ -3,7 +3,9 @@ class Hebmain::Widgets::Banner < WidgetManager::Base
 
   def render_full
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
-    a(:href=> get_link, :onclick => tracker, :target => target){img :src => get_picture(:image_name => image_name), :alt => get_description}
+    a_options = {:href => get_link, :onclick => tracker}
+    a_options[:class] = 'target_blank' unless get_internal_link
+    a(a_options){img :src => get_picture(:image_name => image_name), :alt => get_description}
   end
   
   
@@ -14,10 +16,6 @@ class Hebmain::Widgets::Banner < WidgetManager::Base
   # thumb:240>;thumb_inner:178>;
   def image_name
     @presenter.is_homepage? ? 'thumb' : 'thumb_inner'
-  end
-
-  def target
-      get_internal_link ? '_self' : '_blank'
   end
 
   def name

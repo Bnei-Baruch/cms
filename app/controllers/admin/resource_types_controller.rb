@@ -65,6 +65,7 @@ class Admin::ResourceTypesController < ApplicationController
 
     respond_to do |format|
       if @resource_type.update_attributes(params[:resource_type])
+        ActiveRecord::Migration::update_resource_properties @resource_type
         flash[:notice] = 'ResourceType was successfully updated.'
         format.html { redirect_to admin_resource_types_url }
         format.xml  { head :ok }

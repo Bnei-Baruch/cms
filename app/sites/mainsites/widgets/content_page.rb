@@ -1,17 +1,17 @@
 class Mainsites::Widgets::ContentPage < WidgetManager::Base
 
   def render_large
-    @image_src = get_preview_image(:image_name => 'large')
+    @image_src, @image_dims = get_preview_image(:image_name => 'large', :with_dimensions => true)
     show_content_page(false)  #### - disabled by Dudi's request
   end
 
   def render_medium
-    @image_src = get_preview_image(:image_name => 'medium')
+    @image_src, @image_dims = get_preview_image(:image_name => 'medium', :with_dimensions => true)
     show_content_page(false)  #### - disabled by Dudi's request
   end
 
   def render_small
-    @image_src = get_preview_image(:image_name => 'small')
+    @image_src, @image_dims = get_preview_image(:image_name => 'small', :with_dimensions => true)
     show_content_page(false)
   end
 
@@ -30,7 +30,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
     if @image_src
       a({:href => url}.merge!(gg_analytics_tracking(url_name))){
-        img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt) 
+        img(:class => 'img', :src => @image_src, :style => "width:#{@image_dims[0]}px;height:#{@image_dims[1]}px;", :alt => get_preview_image_alt, :title => get_preview_image_alt)
       }
     end
     preview_title = get_preview_title rescue ''

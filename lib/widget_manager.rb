@@ -91,14 +91,22 @@ module WidgetManager
                 "  rp = resource.properties('#{name}');" <<
                 "  my_args = args.detect{|arg|arg.is_a?(Hash)} || {};" <<
                 "  image_name = my_args[:image_name] || 'myself';" <<
-                "  return get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''\n" <<
+                "  dimensions = my_args[:with_dimensions];" <<
+                "  path = get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''\n" <<
+                "  return path unless dimensions\n" <<
+                "  dims = Attachment.get_dims_attachment(rp.id)\n" <<
+                "  return path, dims\n" <<
                 "end",
               __FILE__,
               __LINE__ - 4
             )
             my_args = args.detect{|arg|arg.is_a?(Hash)} || {}
             image_name = my_args[:image_name] || 'myself'
-            return get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''
+            dimensions = my_args[:with_dimensions]
+            path = get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''
+            return path unless dimensions
+            dims = Attachment.get_dims_attachment(rp.id)
+            return path, dims
           when 'RpBoolean'
             self.class.class_eval(
               "def #{method_name.to_s}(*args, &block)\n" <<

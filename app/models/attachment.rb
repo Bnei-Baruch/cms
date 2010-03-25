@@ -21,6 +21,12 @@ class Attachment < ActiveRecord::Base
     find(:first, {:select=>'id, filename', :conditions => ["resource_property_id = ?", resource_property_id]})
   end
 
+  def Attachment.get_dims_attachment(resource_property_id)
+    image = find(:first, {:conditions => ["resource_property_id = ?", resource_property_id]})
+    img = MiniMagick::Image.from_blob(image.file)
+    img[:dimensions]
+  end
+
   def Attachment.get_image(image_id, image_name, format)
     split = image_name.split("_", 2)
     _image_id   = split[0]

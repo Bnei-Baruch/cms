@@ -5,7 +5,8 @@ class Hebmain::Widgets::Banner < WidgetManager::Base
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
     a_options = {:href => get_link, :onclick => tracker}
     a_options[:class] = 'target_blank' unless get_internal_link
-    a(a_options){img :src => get_picture(:image_name => image_name), :alt => get_description}
+    image, dims = get_picture(:image_name => image_name, :with_dimensions => true)
+    a(a_options){img :src => image, :alt => get_description, :style => "width:#{dims[0]}px; height:#{dims[1]}px;"}
   end
   
   

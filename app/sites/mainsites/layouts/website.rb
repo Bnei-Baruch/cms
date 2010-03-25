@@ -94,7 +94,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
 
           ul(:class => 'sf-menu'){
             li{
-              a(:id => 'homepage', :href => '#'){img(:src => img_path('home.gif'), :alt => 'Homepage')}
+              a(:id => 'homepage', :href => '#'){img(:src => img_path('home.gif'), :alt => 'Homepage', :style => 'width:14px;height:12px;')}
             }
             li {
               a(:href => '#'){

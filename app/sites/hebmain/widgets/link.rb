@@ -20,7 +20,7 @@ class Hebmain::Widgets::Link < Global::Widgets::Link #WidgetManager::Base
           :mode => 'inline',
           :resource_types => %W{ link }}).render_to(self)
       a({:href => get_url, :title => get_alt, :class => get_open_in_new_window ? 'target_blank' : 'target_self' }.merge!(gg_analytics_tracking(get_name))) {
-        img(:src => img_path('link.gif'), :alt => '') 
+        img(:src => img_path('link.gif'), :alt => '', :style => 'width:18px;height:12px;')
         text get_name
       }
     end

@@ -75,12 +75,15 @@ module CacheCleaner
         begin
 	  node = TreeNode.find(node_id)
           url, clean_url = get_url_by_tree_node(node)
-          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{clean_url}/feed.rss, .atom"
+	  now = 'rss'
+          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{clean_url}/feed.rss"
           url = CGI.escapeHTML(url)
           open(url + "/feed.rss")
+	  now = 'atom'
+          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% Refresh feed #{clean_url}/feed.atom"
           open(url + "/feed.atom")
         rescue Exception => e
-          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{e} for feed #{clean_url}/feed.rss, .atom"
+          Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{e} for feed #{clean_url}/feed.#{now}"
           # exit(1)
         end
       }

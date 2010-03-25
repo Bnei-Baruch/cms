@@ -19,7 +19,7 @@ class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
         unless url.empty?
           a({:href => url, :title => 'link'}.merge!(gg_analytics_tracking(get_url_text))) {
             rawtext get_url_text
-            img(:src => img_path('arrow-left.gif'), :alt => '')
+            img(:src => img_path('arrow-left.gif'), :alt => '', :style => 'width:7px;height:12px;')
           }
         end
       }

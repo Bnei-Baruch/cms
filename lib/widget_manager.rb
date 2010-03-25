@@ -94,7 +94,7 @@ module WidgetManager
                 "  dimensions = my_args[:with_dimensions];" <<
                 "  path = get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''\n" <<
                 "  return path unless dimensions\n" <<
-                "  dims = Attachment.get_dims_attachment(rp.id)\n" <<
+                "  dims = Attachment.get_dims_attachment(rp.id, image_name)\n" <<
                 "  return path, dims\n" <<
                 "end",
               __FILE__,
@@ -105,7 +105,7 @@ module WidgetManager
             dimensions = my_args[:with_dimensions]
             path = get_file_html_url(:attachment =>  Attachment.get_short_attachment(rp.id), :image_name => image_name) rescue ''
             return path unless dimensions
-            dims = Attachment.get_dims_attachment(rp.id)
+            dims = Attachment.get_dims_attachment(rp.id, image_name)
             return path, dims
           when 'RpBoolean'
             self.class.class_eval(

@@ -27,7 +27,7 @@ class Hebmain::Widgets::SectionPreview < WidgetManager::Base
           text get_title.empty? ? section[0].resource.name : get_title
           a(:class => 'cont', :href => get_page_url(section_main_node)) {
             text get_read_more_link.empty? ? 'לכל הכתבות' : get_read_more_link
-            img(:src => img_path('arrow-left.gif'), :alt => '')
+            img(:src => img_path('arrow-left.gif'), :alt => '', :style => 'width:7px;height:12px;')
           }
           div(:class =>'h1-right')
           div(:class =>'h1-left')

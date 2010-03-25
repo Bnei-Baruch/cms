@@ -23,8 +23,8 @@ h3.box_header {
 a.more img{
     float:none;
     padding:0 7px 0 0;
-    width:16px;
-    height:16px;
+    width:16px !important;
+    height:16px !important;
     position:relative;
     top:5px;
     right:5px;

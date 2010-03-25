@@ -193,7 +193,7 @@ class Mainsites::Widgets::ContentPreview < WidgetManager::Base
         text get_title.empty? ? '' : get_title
         a(:class => 'cont', :href => get_url) {
           text get_url_string.empty? ? _(:to_all_articles) : get_url_string
-          img(:src => img_path('arrow-left.gif'), :alt => '')
+          img(:src => img_path('arrow-left.gif'), :alt => '', :style => 'width:7px;height:12px;')
         }
         div(:class =>'h1-right')
         div(:class =>'h1-left')

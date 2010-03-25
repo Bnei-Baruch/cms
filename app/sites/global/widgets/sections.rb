@@ -4,7 +4,7 @@ class Global::Widgets::Sections < WidgetManager::Base
     ul(:class => 'sf-menu'){
       li{
         a({:href => presenter.home}.merge!(gg_analytics_tracking('homepage'))){
-          img(:src => img_path('home.gif'), :alt => 'Homepage')
+          img(:src => img_path('home.gif'), :alt => 'Homepage', :style => 'width:14px;height:12px;')
         }
       }
       tree = {}

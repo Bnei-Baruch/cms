@@ -432,7 +432,7 @@ tr.badmod td{
   padding: 0 0 10px;
 }
 .main_preview2 img.img{
-  width:204px;
+  width:204px !important;
   position:absolute;
   right:0px;
   top:15px;
@@ -468,7 +468,7 @@ tr.badmod td{
 }
 .main_preview3 img{
   margin:5px 10px 17px;
-  width:114px;
+  width:114px !important;
 }
 .main_preview3 .element ul.links{
   padding:0;

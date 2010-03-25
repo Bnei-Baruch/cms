@@ -46,6 +46,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         '../highslide/highslide-full.packed.js',
         'jquery.livequery.min.js', 'jq-helpers-hb',
         :cache => "cache_content_page-#{@presenter.website_hrid}"
+        javascript_include_tag 'wpaudioplayer/audio-player.js'
 
         javascript_include_tag 'wpaudioplayer/audio-player.js'
 

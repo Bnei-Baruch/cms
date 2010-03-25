@@ -14,7 +14,7 @@ class Mainsites::Widgets::Title < WidgetManager::Base
         unless url.empty?
           a(:class => 'cont', :href => url) {
             text url_string unless url_string.empty?
-            img(:src => img_path('arrow-left.gif'), :alt => '')
+            img(:src => img_path('arrow-left.gif'), :alt => '', :style => 'width:7px;height:12px;')
           }
         end
         div(:class =>'h1-right')

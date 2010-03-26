@@ -1,5 +1,6 @@
 require 'digest/md5'
 require 'mini_magick'
+require 'uri'
 
 class Attachment < ActiveRecord::Base
 
@@ -21,17 +22,16 @@ class Attachment < ActiveRecord::Base
     find(:first, {:select=>'id, filename', :conditions => ["resource_property_id = ?", resource_property_id]})
   end
 
-  require 'uri'
   def Attachment.get_dims_attachment(resource_property_id, name, path)
+    if path
+      thumb = "public/#{URI.parse(path).path}"
+      img = MiniMagick::Image.from_file(thumb) rescue {:width => 0, :height =>0}
+			return [ img[:width], img[:height] ]
+    end
+    
     image = find(:first, {:conditions => ["resource_property_id = ?", resource_property_id]})
-		if image
-			thumb = image.thumbnails.detect{|th| th.filename.eql?(name)}
-			if thumb == nil
-				thumb = "public/#{URI.parse(path).path}"
-				img = MiniMagick::Image.from_file(thumb) rescue {:width => 0, :height =>0}
-			else
-				img = MiniMagick::Image.from_blob(thumb.file) rescue {:width => 0, :height =>0}
-			end
+		if image && thumb = image.thumbnails.detect{|th| th.filename.eql?(name)}
+      img = MiniMagick::Image.from_blob(thumb.file) rescue {:width => 0, :height =>0}
 			[ img[:width], img[:height] ]
 		else
 			[ 0, 0 ]

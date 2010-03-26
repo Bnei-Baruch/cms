@@ -21,11 +21,21 @@ class Attachment < ActiveRecord::Base
     find(:first, {:select=>'id, filename', :conditions => ["resource_property_id = ?", resource_property_id]})
   end
 
-  def Attachment.get_dims_attachment(resource_property_id, name)
+  require 'uri'
+  def Attachment.get_dims_attachment(resource_property_id, name, path)
     image = find(:first, {:conditions => ["resource_property_id = ?", resource_property_id]})
-    thumb = image.thumbnails.detect{|th| th.filename.eql?(name)} if image
-    img = MiniMagick::Image.from_blob(thumb.file) rescue {:width => 0, :height =>0}
-    [ img[:width], img[:height] ]
+		if image
+			thumb = image.thumbnails.detect{|th| th.filename.eql?(name)}
+			if thumb == nil
+				thumb = "public/#{URI.parse(path).path}"
+				img = MiniMagick::Image.from_file(thumb) rescue {:width => 0, :height =>0}
+			else
+				img = MiniMagick::Image.from_blob(thumb.file) rescue {:width => 0, :height =>0}
+			end
+			[ img[:width], img[:height] ]
+		else
+			[ 0, 0 ]
+    end
   end
 
   def Attachment.get_image(image_id, image_name, format)

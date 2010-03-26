@@ -466,9 +466,10 @@ tr.badmod td{
   font-size: 12px;
   padding: 0 0 35px;
 }
-.main_preview3 img{
+.main_preview3 img.img{
   margin:5px 10px 17px;
   width:114px !important;
+  height:78px !important;
 }
 .main_preview3 .element ul.links{
   padding:0;

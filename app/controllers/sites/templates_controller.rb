@@ -155,6 +155,7 @@ class Sites::TemplatesController < ApplicationController
         :view_mode => params[:view_mode], :options => options, :layout => false)
     rescue Exception => ex
       render :json => ex, :status => 500
+      return
     end
 
      render :json => result

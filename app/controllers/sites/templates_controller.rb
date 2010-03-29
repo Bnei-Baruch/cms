@@ -75,8 +75,8 @@ class Sites::TemplatesController < ApplicationController
             render :widget => klass, :layout_class => layout_class
           else
             key = @presenter.node.this_cache_key
-            if result = Rails.cache.fetch(key)
-              render :text => result if stale?(:etag => result)
+            if Rails.cache.exist?(key)
+              render :file => "tmp/cache/#{key}.cache" #if stale?(:etag => result)
             else
               Rails.cache.write(key,
                 render(:widget => klass, :layout_class => layout_class))

@@ -158,7 +158,7 @@ class Sites::TemplatesController < ApplicationController
       return
     end
 
-     render :json => result
+    render :json => result
     #    Thread.current[:skip_page_map] = false
   end
 
@@ -262,6 +262,27 @@ class Sites::TemplatesController < ApplicationController
         status_410
       else
         status_404
+      end
+    end
+  end
+end
+
+module ActiveSupport
+  module Cache
+    # A cache store implementation which stores everything on the filesystem.
+    class FileStore < Store
+      def read(name, options = nil)
+        super
+        File.open(real_file_path(name), 'rb') { |f| f.read } rescue nil
+      end
+
+      def write(name, value, options = nil)
+        super
+        ensure_cache_path(File.dirname(real_file_path(name)))
+        File.atomic_write(real_file_path(name), cache_path) { |f| f.write(value) }
+        value
+      rescue => e
+        logger.error "Couldn't create cache directory: #{name} (#{e.message})" if logger
       end
     end
   end

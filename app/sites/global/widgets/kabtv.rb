@@ -592,7 +592,8 @@ $(function() {
 										all: false,
 										volume: true,
 										fullscreen: true,
-										mute: true
+										stop: true,
+										mute: false
 									},
 									cdn: {
 										host: varPostURL,
@@ -735,6 +736,7 @@ $(function() {
 										all: false,
 										volume: true,
 										fullscreen: true,
+										stop: true,
 										mute: true
 									},
 									cdn: {

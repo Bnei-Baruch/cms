@@ -592,9 +592,7 @@ $(function() {
 										all: false,
 										volume: true,
 										fullscreen: true,
-										stop: true,
-										mute: false
-									},
+										stop: true									},
 									cdn: {
 										host: varPostURL,
 										playerId: varPlayerID,

@@ -583,7 +583,7 @@ $(function() {
 									autoBuffering: 'true',
 									autoPlay: 'true',
 									provider: 'cdn',
-									onLoad: function() { 
+									onStart: function() { 
 											this.unmute(); 
 									}
 								},

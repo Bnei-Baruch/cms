@@ -582,8 +582,11 @@ $(function() {
 								clip:{
 									autoBuffering: 'true',
 									autoPlay: 'true',
-									provider: 'cdn'
-									},
+									provider: 'cdn',
+									onLoad: function() { 
+											this.unmute(); 
+									}
+								},
 								onBeforePause: function() { 
 										return false; 
 								},

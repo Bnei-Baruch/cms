@@ -64,6 +64,19 @@ class AuthenticationModel
     result #999 no child
   end
   
+  #return max permission to child nodes by current user (NON-recursive)
+  def self.get_max_permission_to_child_tree_nodes_by_user_one_level(tree_node_id)
+    return 0 if current_user.nil? #"Forbidden"
+    return 4 if current_user_is_admin? #"Administrating"
+    children = TreeNode.old_find_by_sql("Select * from tree_nodes where parent_id =#{tree_node_id}")
+    result = 0
+    children.each { |tn|
+      #get current node permission
+      result = tn.ac_type if tn.ac_type > result
+    }
+    result
+  end
+
   def self.copy_parent_tree_node_permission(tree_node)
     parent_rights = TreeNodeAcRight.find(:all, 
       :conditions => ["tree_node_id = ?", tree_node.parent_id])
@@ -148,13 +161,13 @@ class AuthenticationModel
   
   #return max permission for current user to tree_node
   def self.get_ac_type_to_tree_node(tree_node_id)
-    sql = ActiveRecord::Base.connection()
     if current_user.nil?
       return 0 #"Forbidden"
     end
     if current_user_is_admin?
       return 4 #"Administrating"
     end
+    sql = ActiveRecord::Base.connection()
     res = sql.execute("select get_max_user_permission(#{current_user},#{tree_node_id}) as value")
     answ = res.getvalue( 0, 0 )
     answ ||= 0

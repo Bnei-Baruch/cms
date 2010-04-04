@@ -63,7 +63,9 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         :media => 'all'
         stylesheet_link_tag 'hebmain/print', :media => 'print'
 
-        if presenter.node.can_edit?
+        #        if presenter.node.can_edit?
+        perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
+        if perm >= 2 # STUPID, but there are no constatns yet...!!!
           stylesheet_link_tag 'hebmain/page_admin', '../ext/resources/css/ext-all'
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',
@@ -105,11 +107,11 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
-					rawtext <<-GCA
+            rawtext <<-GCA
 						<script type="text/javascript">
 							GA_googleFillSlot("kab-co-il_top-banner_950x65");
 						</script> 
-					GCA
+            GCA
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
@@ -132,7 +134,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                   div(:class => 'yui-u first') {
                     div(:class => 'content') {
                       make_sortable(:selector => ".content", :axis => 'y') {
-                          self.ext_content.render_to(self)
+                        self.ext_content.render_to(self)
                       }
                       @subscription.render_to(self)
                       div(:class => 'clear')

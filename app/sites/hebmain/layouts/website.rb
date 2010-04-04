@@ -40,7 +40,9 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         'hebmain/widgets',
         :cache => "cache_website-#{@presenter.website_hrid}"
 
-        if presenter.node.can_edit?
+        #        if presenter.node.can_edit?
+        perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
+        if perm >= 2 # STUPID, but there are no constatns yet...!!!
           stylesheet_link_tag '../ext/resources/css/ext-all', 'hebmain/page_admin'
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',

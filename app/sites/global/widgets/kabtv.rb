@@ -579,6 +579,9 @@ $(function() {
                 {src:'/flowplayer/3dcdn/3Dcdn.player.swf', version: [10, 0], cachebusting: $.browser.msie},
                 {
 								key:'#\@932a7f91ab5747d7f90',
+								canvas: { 
+									backgroundImage: 'url(/flowplayer/logo-10sec.swf)',
+								},
 								clip:{
 									autoBuffering: 'true',
 									autoPlay: 'true',
@@ -603,7 +606,9 @@ $(function() {
 										playerId: varPlayerID,
 										ownerId: varAnalyzerID,
 										smilUrl: cdn_ClipURL,
-										eventTarget: varIvivoPostURL
+										eventTarget: varIvivoPostURL,
+                    bwDetect: true,
+                    bwUseSO: false
 									}
 								}
 						 });
@@ -747,7 +752,9 @@ $(function() {
 										playerId: varPlayerID,
 										ownerId: varAnalyzerID,
 										smilUrl: cdn_ClipURL,
-										eventTarget: varIvivoPostURL
+										eventTarget: varIvivoPostURL,
+                    bwDetect: false,
+                    bwUseSO: false 
 									}
 								}
 						 });

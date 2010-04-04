@@ -729,7 +729,7 @@ $(function() {
                 {
 								key:'#\@932a7f91ab5747d7f90',
 								canvas: { 
-									backgroundImage: 'url(/flowplayer/logo-10sec.swf)'
+									backgroundImage: 'url(/flowplayer/logo-10sec-homepage.swf)'
 								},
 								clip:{
 									autoBuffering: 'true',

@@ -1,5 +1,7 @@
 JOBS=`echo 'select count(*) from delayed_jobs;' | psql -d cms_prod4 -h postgres3.local -q -U cms_prod -t|head -1`; export JOBS
 if [ $JOBS -gt 1000 ];
 then
-	echo "$JOBS jobs; must restart delayed_jobs server"
+	echo 'delete from delayed_jobs;' | psql -d cms_prod4 -h postgres3.local -q -U cms_prod -t
+	god restart delayed_job
+	rake clean:cache
 fi

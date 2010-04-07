@@ -91,17 +91,17 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         rawtext "\n<![endif]-->\n"
 
 				rawtext <<-GCA
-								<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
-								<script type="text/javascript">
-												GS_googleAddAdSenseService("ca-pub-9068547212525872");
-												GS_googleEnableAllServices();
-								</script> 
-								<script type="text/javascript">
-												GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
-								</script> 
-								<script type="text/javascript">
-												GA_googleFetchAds();
-								</script> 
+          <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+          <script type="text/javascript">
+                  GS_googleAddAdSenseService("ca-pub-9068547212525872");
+                  GS_googleEnableAllServices();
+          </script>
+          <script type="text/javascript">
+                  GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
+          </script>
+          <script type="text/javascript">
+                  GA_googleFetchAds();
+          </script>
 				GCA
       }
       body {

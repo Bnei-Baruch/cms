@@ -812,24 +812,3 @@ function gofs(){
     alert(nofs_str);
   }
 }
-
-$(function() {
-	// Ads serving...
-	$('div.banner').each(function() {
-		var id = $(this).attr('id').replace(/_hidden/, '');
-		var pos = $("#" + id).position();
-
-		if (pos) {
-			if (jQuery.browser.ie && jQuery.browser.version < 8) {
-				pos.left = pos.left - 1000;
-			}
-			// Show the banner directly over the placeholder
-			$(this).css({
-				"left": pos.left +"px",
-				"top":  pos.top  +"px"
-			});
-			$("#" + id).height($(this).height() + 5);
-			$("#" + id).width($(this).width());
-		}
-	});
-});

@@ -224,6 +224,7 @@ $(function() {
 
 });
     KABTV
+    force_wmv = @presenter.controller.params['force_wmv'].to_i
     div(:id => 'kabtv', :style => "background-image:url(#{get_background});") {
       cms_action
       javascript {
@@ -259,10 +260,13 @@ $(function() {
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_sketches]
       }
-      if get_prefer_flash == true
+      if get_prefer_flash == true && force_wmv != 1
         div(:id => 'cdn_logo_3dcdn'){
           a(:href => 'http://3dcdn.com/', :alt => '', :target => '_blank', :rel => 'nofollow')
         }
+        div(:id => 'link_to_wmv') {
+					a(:href => '?force_wmv=1', :alt => '', :onclick => "google_tracker('/homepage/widget/kabtv/force_wmv');") { rawtext 'לצפייה בנגן מדיה במקרה של הפרעות בשידור' }
+				}
       else
         div(:id => 'cdn_logo_castup')
 			end
@@ -272,7 +276,7 @@ $(function() {
 				url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
         return if url.empty?
 
-        if get_prefer_flash == true
+        if get_prefer_flash == true && force_wmv != 1
           render_full_flash
         else
           render_full_wmv(url, width, height)
@@ -287,7 +291,7 @@ $(function() {
             }
           end
 
-					if get_prefer_flash != true
+					if get_prefer_flash != true || force_wmv == 1
 						div(:id => 'bitrates'){
 							#            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
 							rawtext _(:broadcast_quality) + ': '

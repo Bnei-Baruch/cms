@@ -1,10 +1,13 @@
 require 'digest/md5'
 require 'mini_magick'
 require 'uri'
+require 'image_spec/image_spec'
 
 class Attachment < ActiveRecord::Base
 
-  validates_length_of :file, :as => :attachment, :maximum => 5.megabytes
+  attr_accessor :file_content
+
+  validates_length_of :file_content, :as => :attachment, :maximum => 5.megabytes
 
   belongs_to  :resource_property
 
@@ -23,22 +26,24 @@ class Attachment < ActiveRecord::Base
   end
 
   def Attachment.get_dims_attachment(resource_property_id, name, path)
-    if path
+    image = find(:first, {:conditions => ["resource_property_id = ?", resource_property_id]})
+    if image && thumb = image.thumbnails.detect{|th| th.filename.eql?(name)}
+      unless thumb.width == 0 || thumb.height == 0
+        return [thumb.width, thumb.height]
+      else
+        img = MiniMagick::Image.from_blob(thumb.file) rescue {:width => 0, :height =>0}
+        return [ img[:width], img[:height] ]
+      end
+    elsif path
       thumb = "public/#{URI.parse(path).path}"
       img = MiniMagick::Image.from_file(thumb) rescue {:width => 0, :height =>0}
-			return [ img[:width], img[:height] ]
+      return [ img[:width], img[:height] ]
     end
-    
-    image = find(:first, {:conditions => ["resource_property_id = ?", resource_property_id]})
-		if image && thumb = image.thumbnails.detect{|th| th.filename.eql?(name)}
-      img = MiniMagick::Image.from_blob(thumb.file) rescue {:width => 0, :height =>0}
-			[ img[:width], img[:height] ]
-		else
-			[ 0, 0 ]
-    end
+
+    [ 0, 0 ]
   end
 
-  def Attachment.get_image(image_id, image_name, format)
+  def Attachment.get_image(image_name, format)
     split = image_name.split("_", 2)
     _image_id   = split[0]
     _image_name = split[1]
@@ -49,25 +54,39 @@ class Attachment < ActiveRecord::Base
     when 'original'
       attachment = attachment.resource_property.original
     when 'myself'
-      attachment = attachment.myself || attachment.resource_property.original
+      if attachment.filename != 'myself'
+        attachment = attachment.myself || attachment.resource_property.original
+      end
     else
       if thumbnail = attachment.thumbnails.detect{|th| th.filename.eql?(_image_name)}
         attachment = thumbnail
       end
     end
 
-    # We're here because of normal caching didn't work
-    Attachment.save_as_file(attachment, _image_id, "#{_image_name}.#{format}")
-    attachment
+    # We're here because of normal caching didn't work, but now we cannot take it from DB :(
+    #    Attachment.save_as_file(attachment, _image_id, "#{_image_name}.#{format}")
+    Attachment.read_as_file(attachment, _image_id, "#{_image_name}.#{format}")
   end
   
+  def Attachment.read_as_file(attachment, image_id, name)
+    path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (image_id.to_i % 100).to_s)
+    fname = "#{path}/#{image_id}_#{name}"
+    File.open(fname, "r") {|file|
+      file.binmode
+      attachment.file_content = file.read
+    }
+    attachment
+  end
+
   def Attachment.save_as_file(attachment, original_image_id, name)
     path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (original_image_id.to_i % 100).to_s)
-    FileUtils.mkdir_p path 
-    File.open("#{path}/#{original_image_id}_#{name}", "w") {|file|
+    fname = "#{path}/#{original_image_id}_#{name}"
+    FileUtils.mkdir_p path
+    File.open(fname, "w") {|file|
       file.binmode
-      file.write attachment.file
+      file.write attachment.file_content
     }
+    attachment
   end
 
   def Attachment.store_new_file(resource_property, file)
@@ -75,10 +94,13 @@ class Attachment < ActiveRecord::Base
     attachment = Attachment.new
     attachment.size = file.length
     attachment.filename = sanitize_filename(file.original_filename)
-    attachment.file = file.read
+    attachment.file_content = file.read
     attachment.mime_type = file.content_type.chomp
-    attachment.md5 = Digest::MD5.hexdigest(attachment.file)
+    attachment.md5 = Digest::MD5.hexdigest(attachment.file_content)
     attachment.save!
+
+    ext = File.extname(attachment.filename)
+    Attachment.save_as_file(attachment, attachment.id, "original#{ext}")
 
     # Is it valid?
     resource_property.attachment = attachment if attachment.valid?
@@ -112,7 +134,7 @@ class Attachment < ActiveRecord::Base
     attachment = (resource_property && resource_property.attachment) || Attachment.new
     attachment.size = att.length
     attachment.filename = sanitize_filename(att.original_filename)
-    attachment.file = att.read
+    attachment.file_content = att.read
     attachment.mime_type = att.content_type.chomp
     attachment.md5 = Digest::MD5.hexdigest(attachment.file)
     
@@ -143,7 +165,6 @@ class Attachment < ActiveRecord::Base
     end
     
     attachment = resource_property.attachment
-    Attachment.save_as_file(attachment, attachment.id, attachment.filename)
     ext = File.extname(attachment.filename)
     geometry.each { |name, geom|
       th = attachment.resize(geom, name)
@@ -183,14 +204,14 @@ class Attachment < ActiveRecord::Base
   end
 
   def resize(geometry, name)
-    image = MiniMagick::Image.from_blob(self.file, self.mime_type.split('/').last)
+    image = MiniMagick::Image.from_blob(self.file_content, self.mime_type.split('/').last)
     image.resize geometry
     image.strip
     new_image = image.to_blob
     thumb = Attachment.new(:filename => name)
-    thumb.file = new_image
+    thumb.file_content = new_image
     thumb.size = new_image.size
-    thumb.md5 = Digest::MD5.hexdigest(thumb.file)
+    thumb.md5 = Digest::MD5.hexdigest(thumb.file_content)
     thumb.mime_type = self.mime_type
     thumb
   end

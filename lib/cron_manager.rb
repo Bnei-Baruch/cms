@@ -45,7 +45,6 @@ class CronManager
     counter = 0
     Resource.find_in_batches(:include => 'resource_properties') {|resources|
       counter += resources.size
-      prev_value = ''
       $stderr.puts counter
       resources.each {|resource|
         # Multiple fields
@@ -244,7 +243,7 @@ class CronManager
     
     cid = (tree_node.resource.properties('cid')).get_value
     cid = 25 if !cid
-    
+
     url =  'http://kabbalahmedia.info/wsxml.php?CID=' + cid.to_s +
       '&DLANG=' + lang +
       '&DF=' + (Date.today).to_s +
@@ -279,15 +278,16 @@ class CronManager
       puts 'Failed to parse xml from ' + url
       return
     end
-    lessons['lessons']['lesson'].each do |lesson|
-      begin
+    begin
+      puts cid
+      lessons['lessons']['lesson'].each do |lesson|
         lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y')
-      rescue Exception  => e
-        RAILS_DEFAULT_LOGGER.error("error in cron_manager.rb(#{Time.now}):")
-        RAILS_DEFAULT_LOGGER.error(e)
       end
-
+    rescue Exception  => e
+      RAILS_DEFAULT_LOGGER.error("error in cron_manager.rb(#{Time.now}):")
+      RAILS_DEFAULT_LOGGER.error(e)
     end
+
     
     data = YAML.dump(lessons)
     property = tree_node.resource.properties('items')
@@ -299,8 +299,7 @@ class CronManager
   end
   
   private
-  
-  
+
   def self.get_language(website)
     site_settings = $config_manager.site_settings(website.hrid)
     lang = site_settings[:language] rescue 'english'

@@ -72,10 +72,17 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
       30.times { |j|
         curr_date = (Date.today - j).strftime('%d.%m.%Y')
 	      
-        selected_lessons = lessons['lessons']['lesson'].select { |lesson|
-          lesson['date'] && (lesson['date'] == curr_date) && 
-            lesson['files'] && lesson['files']['file']
-        } 
+        if lessons['lessons']['lesson'].kind_of?(Array)
+					selected_lessons = lessons['lessons']['lesson'].select { |lesson|
+						lesson['date'] && (lesson['date'] == curr_date) && 
+							lesson['files'] && lesson['files']['file']
+					} 
+				else
+					lesson = lessons['lessons']['lesson']
+          date = Date.parse(lesson['date']).strftime('%d.%m.%Y')
+					selected_lessons = [lesson] if date && (date == curr_date) &&
+              lesson['files'] && lesson['files']['file']
+				end
 	
         unless selected_lessons.empty?
           curr_date_to_show = (Date.today - j).strftime('%d.%m.%y')

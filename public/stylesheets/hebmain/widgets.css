@@ -1301,6 +1301,15 @@ a.highslide-full-expand {
 	position:absolute;
 	width:49px;
 }
+#kabtv #link_to_wmv{
+	position:absolute;
+	bottom:37px;
+	right: 325px;
+}
+#kabtv #link_to_wmv a{
+color:#FDE500;
+font-weight:bold;
+}
 
 .kabtv-news-blueborder{
   border:1px solid #90AEDE;

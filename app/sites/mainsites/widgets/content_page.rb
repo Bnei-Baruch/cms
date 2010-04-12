@@ -27,19 +27,10 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
     main_tree_node = tree_node.resource.tree_nodes.main
     url = get_page_url(main_tree_node)
     url_name = url.split('/').reverse[0]
-    if @image_dims[0] == 0
-			style = ""
-			src = @image_src
-		else
-			width = [@image_dims[0], 138].min
-			height = [@image_dims[1], 94].min
-			style = "width:#{width}px;height:#{height}px;background:0 0 url(#{@image_src}) no-repeat;"
-			src = img_path('empty.gif')
-		end
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)
     if @image_src
       a({:href => url}.merge!(gg_analytics_tracking(url_name))){
-        img(:class => 'img', :src => src, :style => style, :alt => get_preview_image_alt, :title => get_preview_image_alt)
+        img(:class => 'img', :src => @image_src, :alt => get_preview_image_alt, :title => get_preview_image_alt)
       }
     end
     preview_title = get_preview_title rescue ''

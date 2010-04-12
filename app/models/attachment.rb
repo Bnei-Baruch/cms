@@ -86,7 +86,7 @@ class Attachment < ActiveRecord::Base
       file.binmode
       file.write attachment.file_content
     }
-    path
+    fname
   end
 
   def Attachment.store_new_file(resource_property, file)

@@ -38,7 +38,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         title @meta_title
         text  ext_abc_up
 
-        #javascript_include_tag 'flowplayer-3.1.4.min.js', 'flashembed.min.js'
+        javascript_include_tag 'flowplayer-3.1.4.min.js', 'flashembed.min.js'
         javascript_include_tag 'embed', 'jquery',
         'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',

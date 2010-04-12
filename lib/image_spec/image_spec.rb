@@ -14,7 +14,7 @@ module ImageSpec
       case File.extname(file)
       when '.swf'
         @width, @height = SWF.dimensions(file)
-      when '.jpg', '.jpeg', '.pjpeg'
+      when '.jpg', '.jpeg', '.pjpeg', '.octet-stream'
         begin
           @width, @height = JPEG.dimensions(file)
         rescue Exception => ex

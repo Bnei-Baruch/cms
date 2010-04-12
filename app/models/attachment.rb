@@ -86,7 +86,7 @@ class Attachment < ActiveRecord::Base
       file.binmode
       file.write attachment.file_content
     }
-    attachment
+    path
   end
 
   def Attachment.store_new_file(resource_property, file)
@@ -100,7 +100,10 @@ class Attachment < ActiveRecord::Base
     attachment.save!
 
     ext = File.extname(attachment.filename)
-    Attachment.save_as_file(attachment, attachment.id, "original#{ext}")
+    is = ImageSpec::Dimensions.new Attachment.save_as_file(attachment, attachment.id, "original#{ext}")
+    attachment.width = is.width
+    attachment.height = is.height
+    attachment.save!
 
     # Is it valid?
     resource_property.attachment = attachment if attachment.valid?
@@ -169,7 +172,10 @@ class Attachment < ActiveRecord::Base
     geometry.each { |name, geom|
       th = attachment.resize(geom, name)
       attachment.thumbnails << th
-      Attachment.save_as_file(th, attachment.id, th.filename + ext)
+      is = ImageSpec::Dimensions.new Attachment.save_as_file(th, attachment.id, th.filename + ext)
+      th.width = is.width
+      th.height = is.height
+      th.save!
     }
     #    attachment.save!
   end

@@ -31,7 +31,9 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
 			style = ""
 			src = @image_src
 		else
-			style = "width:#{@image_dims[0]}px;height:#{@image_dims[1]}px;background:0 0 url(#{@image_src}) no-repeat;"
+			width = [@image_dims[0], 138].min
+			height = [@image_dims[1], 94].min
+			style = "width:#{width}px;height:#{height}px;background:0 0 url(#{@image_src}) no-repeat;"
 			src = img_path('empty.gif')
 		end
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button }, :position => 'bottom'}).render_to(self)

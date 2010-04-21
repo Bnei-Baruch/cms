@@ -79,9 +79,11 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
 					} 
 				else
 					lesson = lessons['lessons']['lesson']
-          date = Date.parse(lesson['date']).strftime('%d.%m.%Y')
-					selected_lessons = [lesson] if date && (date == curr_date) &&
-              lesson['files'] && lesson['files']['file']
+					if lesson
+						date = Date.parse(lesson['date']).strftime('%d.%m.%Y')
+						selected_lessons = [lesson] if date && (date == curr_date) &&
+								lesson['files'] && lesson['files']['file']
+					end
 				end
 	
         unless selected_lessons.empty?

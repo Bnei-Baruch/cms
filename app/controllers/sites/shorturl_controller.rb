@@ -33,10 +33,12 @@ class Sites::ShorturlController < ApplicationController
     my_port = request.server_port.to_s
     portinurl = my_port == '80' ? '' : ':' + my_port
     
-    namedurl = host + portinurl + '/' + prefix + '/' + @node.permalink
+    namedurl = host + portinurl + '/' + prefix + '/' + @node.permalink rescue ''
     
     if @node.has_url && @node.can_read?
       redirect_301(URI.escape(namedurl + query_string))
+    else
+      redirect_301(URI.escape(host + portinurl + '/' + prefix + '/' + query_string))
     end
     
 

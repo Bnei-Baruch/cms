@@ -45,6 +45,7 @@ class Global::Widgets::Video < WidgetManager::Base
 
       autoplay = get_autoplay
       autoplay = autoplay.kind_of?(String) ? true : autoplay
+      autoplay = false if autoplay.to_s == ''
       image = get_image
       if image && !image.empty? and !autoplay
         image = "{url:'#{image}',autoPlay:true},"
@@ -71,7 +72,7 @@ class Global::Widgets::Video < WidgetManager::Base
         #                  },
         rawtext <<-Embedjs
           $(document).ready(function() {
-               flowplayer('flashplayer-#{id}',{src: '/flowplayer/flowplayer.commercial-3.1.4.swf', wmode: 'transparent'},{
+               flowplayer('flashplayer-#{id}',{src: '/flowplayer/flowplayer.commercial-3.1.5.swf', wmode: 'transparent'},{
                   key:'#\@932a7f91ab5747d7f90',
 								    onLoad: function() { 
 								        this.unmute(); 

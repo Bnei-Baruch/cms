@@ -319,6 +319,9 @@ class Admin::TreeNodesController < ApplicationController
     rp = @resource.properties(hrid)
     rp = rp[0] if rp.is_a?(Array)
     if rp
+      if rp.is_a?(Array)
+        rp = rp[0]
+      end
       if reset
         value = false
       else

@@ -44,8 +44,8 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
         '../highslide/highslide-full.packed.js',
-        'jquery.livequery.min.js', 'jq-helpers-hb',
-        :cache => "cache_content_page-#{@presenter.website_hrid}"
+        'jquery.livequery.min.js', 'jq-helpers-hb'#,
+        #:cache => "cache_content_page-#{@presenter.website_hrid}"
         javascript_include_tag 'wpaudioplayer/audio-player.js'
 
         javascript_include_tag 'wpaudioplayer/audio-player.js'
@@ -65,7 +65,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
 
         #        if presenter.node.can_edit?
         perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
-        if perm >= 2 # STUPID, but there are no constatns yet...!!!
+        if  presenter.node.can_edit? || perm >= 2 # STUPID, but there are no constatns yet...!!!
           stylesheet_link_tag 'hebmain/page_admin', '../ext/resources/css/ext-all'
           javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
           'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',

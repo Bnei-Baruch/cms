@@ -432,14 +432,12 @@ tr.badmod td{
   padding: 0 0 10px;
 }
 .main_preview2 img.img{
-  width:204px !important;
   position:absolute;
   right:0px;
   top:15px;
 }
 /*----------  Main Preview 3 ---------------*/
 .main_preview3{
-  border:1px solid #e5e5e5;
   margin:10px 0;
   padding:0;
   text-align:right;

@@ -18,10 +18,10 @@ class TreeNodeObserver < ActiveRecord::Observer
       end
       tree_node.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(tree_node.id)
     end
-    if tree_node.resource_status.nil?
-      tstatus = tree_node.resource.status
+    if tree_node.resource.nil? || tree_node.resource.status.nil?
+      tstatus = 'DELETED'
     else
-      tstatus = tree_node.resource_status
+      tstatus = tree_node.resource.status
     end
 
     case tstatus

@@ -13,6 +13,8 @@ class TreeNode < ActiveRecord::Base
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache
 
+  validates_uniqueness_of :permalink
+
   #attribute_method_suffix '_changed?'     
 
   # DO NOT REMOVE !!!

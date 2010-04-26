@@ -28,7 +28,12 @@ module WidgetManager
         if self.respond_to?(render_method)
           skip = self.respond_to?(:skip_page_map) && @skip_page_map
           Thread.current[:skip_page_map] = true if skip
-          result = self.send(render_method, &block)
+          begin
+            result = self.send(render_method, &block)
+          rescue Exception => ex
+             raise ex unless Rails.env == 'production'
+          end
+
           Thread.current[:skip_page_map] = false if skip
           result
         end
@@ -70,7 +75,7 @@ module WidgetManager
             self.class.class_eval(
               "def #{method_name.to_s}(*args, &block)\n" <<
                 "  rp = resource.properties('#{name}')\n" <<
-		"  rp = rp[0] if rp.kind_of?(Array)\n" <<
+                "  rp = rp[0] if rp.kind_of?(Array)\n" <<
                 "  if (rp && rp.get_value.is_a?(Date))\n" <<
                 "    return rp.get_value.strftime('%d.%m.%Y')\n" <<
                 "  else\n" <<

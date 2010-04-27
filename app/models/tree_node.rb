@@ -13,7 +13,17 @@ class TreeNode < ActiveRecord::Base
   attr_accessor :ac_type
   attr_accessor :min_permission_to_child_tree_nodes_cache
 
-  validates_uniqueness_of :permalink
+  validate_on_create :must_be_unique
+
+  def must_be_unique
+    if has_url
+      good_permalink = !permalink.blank?
+      if good_permalink
+        # uniqueness
+        errors.add('permalink', 'Permalink must be unique!') unless TreeNode.find_by_permalink(permalink) == nil
+      end
+    end
+  end
 
   #attribute_method_suffix '_changed?'     
 
@@ -379,8 +389,10 @@ class TreeNode < ActiveRecord::Base
 
     alias :old_find_by_sql :find_by_sql
     def find_by_sql(arg)
-      unless arg.include? "cms_treenode_subtree" or arg.include? "cms_treenode_ancestors"
-        arg = arg.sub(/SELECT \* FROM "*tree_nodes"* +WHERE/, "SELECT *, get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2 FROM tree_nodes   WHERE")
+      unless arg.include? 'cms_treenode_subtree' or arg.include? 'cms_treenode_ancestors'
+        unless arg.include? 'get_max_user_permission'
+          arg = arg.sub(/SELECT \* FROM "*tree_nodes"* +WHERE/, "SELECT *, get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2 FROM tree_nodes   WHERE")
+        end
       end
       
       output = super(arg)

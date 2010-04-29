@@ -23,7 +23,7 @@ class Sites::ShorturlController < ApplicationController
     query_string = request.query_string
     query_string = '?' + query_string unless query_string.empty?
         
-    @node = TreeNode.find(:first, :conditions => ['id = ?', node])
+    @node = TreeNode.find(:first, :conditions => ['tree_nodes.id = ?', node])
     
     unless @node
       status_404

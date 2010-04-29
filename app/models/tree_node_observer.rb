@@ -18,17 +18,23 @@ class TreeNodeObserver < ActiveRecord::Observer
       end
       tree_node.ac_type ||= AuthenticationModel.get_ac_type_to_tree_node(tree_node.id)
     end
-    if tree_node.resource.nil? || tree_node.resource.status.nil?
-      tstatus = 'DELETED'
-    else
-      tstatus = tree_node.resource.status
-    end
 
-    case tstatus
-    when 'DRAFT'
-      tree_node.ac_type = 0 if tree_node.ac_type <= 1
-    when 'DELETED'
-      tree_node.ac_type = 0 if tree_node.ac_type <= 2
+    if tree_node.ac_type != 0
+      tstatus = get_tstatus(tree_node)
+      tree_node.ac_type = 0 if tree_node.ac_type <= 1 && tstatus == 'DRAFT'
+      tree_node.ac_type = 0 if tree_node.ac_type <= 2 && tstatus == 'DELETED'
+    end
+  end
+
+  def get_tstatus(tree_node)
+    # Is it result of join?
+    return tree_node.status if tree_node.respond_to?(:status)
+
+    resource = tree_node.resource
+    if resource.nil? || resource.status.nil?
+      'DELETED'
+    else
+      resource.status
     end
   end
 

@@ -68,7 +68,7 @@ class AuthenticationModel
   def self.get_max_permission_to_child_tree_nodes_by_user_one_level(tree_node_id)
     return 0 if current_user.nil? #"Forbidden"
     return 4 if current_user_is_admin? #"Administrating"
-    children = TreeNode.old_find_by_sql("Select * from tree_nodes where parent_id =#{tree_node_id}")
+    children = TreeNode.old_find_by_sql("SELECT tree_nodes.*, resources.status FROM tree_nodes INNER JOIN resources ON resources.id = tree_nodes.resource_id WHERE parent_id =#{tree_node_id}")
     result = 0
     children.each { |tn|
       #get current node permission

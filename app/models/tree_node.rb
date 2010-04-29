@@ -247,7 +247,10 @@ class TreeNode < ActiveRecord::Base
       end
       # find_by_sql("select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission, * from cms_treenode_subtree(#{request}) tree_nodes LEFT OUTER JOIN resources ON resources.id = tree_nodes.resource_id") rescue []
 
-      sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource] }
+      sql_params = {
+        :from => "cms_treenode_subtree(#{request}) tree_nodes",
+        :select => "tree_nodes.*, resources.status",
+        :joins => :resource }
       # sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes"}
       additional_params = {}
       if args.has_key?(:limit) && args[:limit].to_i > 0
@@ -358,7 +361,10 @@ class TreeNode < ActiveRecord::Base
         return "select * from cms_treenode_subtree(#{request})"
       end
 
-      sql_params = {:from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource] }
+      sql_params = {
+        :from => "cms_treenode_subtree(#{request}) tree_nodes",
+        :select => "tree_nodes.*, resources.status",
+        :joins => :resource }
       find(:all, sql_params) rescue []
     end
     
@@ -407,20 +413,24 @@ class TreeNode < ActiveRecord::Base
         if args.last[:from].nil? or (args.last[:from] and not (args.last[:from].include? "cms_treenode_subtree" or args.last[:from].include? "cms_treenode_ancestors"))
           #adding permission field
           if args.last[:select]
-            args.last[:select] =  args.last[:select] + ", get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2 " 
+            args.last[:select] =  args.last[:select] + ", get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", tree_nodes.id) as max_user_permission_2 "
           else
-            args.last[:select] = "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"
+            args.last[:select] = "tree_nodes.*, resources.status, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", tree_nodes.id) as max_user_permission_2"
+            args.last[:joins] = :resource
           end
         end
       else
-        args[args.length] = Hash[:select => "*, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", id) as max_user_permission_2"]
+        args[args.length] = Hash[
+          :select => "tree_nodes.*, resources.status, get_max_user_permission(" + AuthenticationModel.current_user.to_s + ", tree_nodes.id) as max_user_permission_2",
+          :joins => :resource
+        ]
       end
 
       super(*args)
     end
 
     def find_as_admin(tree_node_id)
-      res = old_find_by_sql "select get_max_user_permission(#{AuthenticationModel.current_user}, id) as max_user_permission_2, * from tree_nodes where id=#{tree_node_id}"
+      res = old_find_by_sql "select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2, * from tree_nodes where tree_nodes.id=#{tree_node_id}"
       if res.length == 1
         return res[0]
       end
@@ -440,9 +450,9 @@ class TreeNode < ActiveRecord::Base
       return result 
     end
 
-    chields =  TreeNode.old_find_by_sql("Select get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2, * 
+    children =  TreeNode.old_find_by_sql("SELECT get_max_user_permission(#{AuthenticationModel.current_user}, tree_nodes.id) as max_user_permission_2, *
       from tree_nodes where parent_id =#{id}")
-    chields.each{ |tn|
+    children.each{ |tn|
       #get current node permission
       if tn.ac_type < result
         result = tn.ac_type

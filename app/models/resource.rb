@@ -4,7 +4,7 @@ class Resource < ActiveRecord::Base
   belongs_to :resource_type
   accepts_nested_attributes_for :resource_type
 
-  has_many :resource_properties, :order => 'position ASC', :dependent => :destroy # **RAMI**, :include => :property
+  has_many :resource_properties, :order => 'position ASC', :dependent => :destroy, :include => :property
   has_many :rp_number_properties, :class_name => 'RpNumber', :dependent => :destroy
   has_many :rp_string_properties, :class_name => 'RpString', :dependent => :destroy
   has_many :rp_text_properties, :class_name => 'RpText', :dependent => :destroy

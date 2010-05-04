@@ -11,7 +11,7 @@ module ImageSpec
     
     def initialize(file)
       # Depending on the type of our file, parse accordingly
-      case File.extname(file)
+      case File.extname(file.downcase)
       when '.swf'
         @width, @height = SWF.dimensions(file)
       when '.jpg', '.jpeg', '.pjpeg', '.octet-stream'

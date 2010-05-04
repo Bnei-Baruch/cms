@@ -48,7 +48,8 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
 				  br
 				  br
           span :class => 'prebutton', :style => 'display:block'
-					input :name => "subscribe", :class => "button", :value => box_text_button, :type => "submit", :title => box_text_button, :alt => box_text_button
+					input :name => "subscribe", :class => "button", :value => box_text_button, :type => "submit",
+          :title => box_text_button, :alt => box_text_button, :onclick => 'return validateNewsletterEmail();'
           span :class => 'postbutton', :style => 'display:block'
           span :class => 'clear', :style => 'display:block'
 				}
@@ -100,7 +101,8 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
           br
           br
           span :class => 'prebutton', :style => 'display:block'
-          input :name => "subscribe", :class => "button", :value => box_text_button, :type => "submit", :title => box_text_button, :alt => box_text_button
+          input :name => "subscribe", :class => "button", :value => box_text_button, :type => "submit",
+          :title => box_text_button, :alt => box_text_button, :onclick => 'return validateNewsletterEmail();'
           span :class => 'postbutton', :style => 'display:block'
           span :class => 'clear', :style => 'display:block'
         }

@@ -1,4 +1,3 @@
-require 'pp'
 # This module is used by Cron 
 # Usage: ruby script/runner 'CronManager.read_and_save_rss' -e development
 #        ruby script/runner 'CronManager.read_and_save_media_rss' -e development
@@ -131,7 +130,7 @@ class CronManager
   def self.read_and_save_rss
    
     AuthenticationModel.cron_manager_user_login
-    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0])
+    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
     
     websites.each do |website|
       website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
@@ -162,7 +161,7 @@ class CronManager
   def self.read_and_save_media_rss
    
     AuthenticationModel.cron_manager_user_login
-    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0])
+    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
     
     websites.each do |website|
       website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
@@ -280,7 +279,8 @@ class CronManager
     end
     begin
       puts cid
-      lessons['lessons']['lesson'].each do |lesson|
+      lesson_arr = lessons['lessons']['lesson'] || []
+      lesson_arr.each do |lesson|
         lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y')
       end
     rescue Exception  => e

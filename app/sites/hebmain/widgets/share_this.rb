@@ -3,10 +3,10 @@ class Hebmain::Widgets::ShareThis < WidgetManager::Base
     url_domain = @presenter.domain
     url_node = @presenter.node.id.to_s
     url_prefix = @presenter.website.prefix
+    permalink = @presenter.permalink
 
-    full_url = [url_domain,url_prefix, 'short', url_node].join('/')
-    like_url = full_url.gsub(/:/, '%253A')
-    like_url.gsub!(/\//, '%252F')
+    full_url = [url_domain, url_prefix, 'short', url_node].join('/')
+    like_url = [url_domain, url_prefix, permalink].join('/')
     div(:class => 'like_it'){
       rawtext <<-LIKE_BUTTON
         <iframe src="http://www.facebook.com/plugins/like.php?href=#{like_url}&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;font&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:1px solid white; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>

@@ -46,22 +46,25 @@ class Global::Widgets::Kabtv < WidgetManager::Base
       cms_action_for_site_updates
       div(:id => 'kabtv-news'){
         # display
-        w_class('cms_actions').new(:tree_node => tree_node,
-          :options => {:buttons => %W{ new_button },
-            :resource_types => %W{ site_updates },
-            :new_text => 'new news',
-            :has_url => false,
-            :placeholder => 'left'}).render_to(self)
-        if show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true).empty?
-          javascript{
-            rawtext <<-SCHED
-                $(window).load(function () {
-                  // run code
-                    $("#home-kabtv .box1_headersection_tv").next().toggle().prev().children().addClass('futurprogram-minus').removeClass('futurprogram-plus');
-                });
-            SCHED
-          }
-        end
+# ZZZ HEB-422 - To add Facebook's Like button and Like Box
+#
+#        w_class('cms_actions').new(:tree_node => tree_node,
+#          :options => {:buttons => %W{ new_button },
+#            :resource_types => %W{ site_updates },
+#            :new_text => 'new news',
+#            :has_url => false,
+#            :placeholder => 'left'}).render_to(self)
+#
+#          if show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true).empty?
+#          javascript{
+#            rawtext <<-SCHED
+#                $(window).load(function () {
+#                  // run code
+#                    $("#home-kabtv .box1_headersection_tv").next().toggle().prev().children().addClass('futurprogram-minus').removeClass('futurprogram-plus');
+#                });
+#            SCHED
+#          }
+#        end
       }
     }
   end

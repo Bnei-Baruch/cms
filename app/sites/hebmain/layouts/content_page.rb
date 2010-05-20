@@ -26,71 +26,81 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
     @languages = w_class('language_menu').new
   end
 
+  def is_langing_page?
+    false
+  end
+
   def render
-    rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
-    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en") {
-      head {
-        meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
-        meta "http-equiv" => "Content-language", "content" => "utf8"
-        meta(:name => 'node_id', :content => @tree_node.id)
-        meta(:name => 'description', :content => ext_description)
-        meta(:name => 'keywords', :content => ext_keywords)
-        title @meta_title
-        text  ext_abc_up
+    if is_langing_page?
+      render_langing_page
+    else
+      render_regular
+    end
+  end
 
-        javascript_include_tag 'flowplayer-3.1.4.min.js', 'flashembed.min.js'
-        javascript_include_tag 'embed', 'jquery',
-        'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
-        'jquery.curvycorners.packed.js', 'jquery.browser.js',
-        'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-        '../highslide/highslide-full.packed.js',
-        'jquery.livequery.min.js', 'jq-helpers-hb'#,
-        #:cache => "cache_content_page-#{@presenter.website_hrid}"
-        javascript_include_tag 'wpaudioplayer/audio-player.js'
+  def render_head
+    head {
+      meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
+      meta "http-equiv" => "Content-language", "content" => "utf8"
+      meta(:name => 'node_id', :content => @tree_node.id)
+      meta(:name => 'description', :content => ext_description)
+      meta(:name => 'keywords', :content => ext_keywords)
+      title @meta_title
+      text  ext_abc_up
 
-        javascript_include_tag 'wpaudioplayer/audio-player.js'
+      javascript_include_tag 'flowplayer-3.1.4.min.js', 'flashembed.min.js'
+      javascript_include_tag 'embed', 'jquery',
+      'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
+      'jquery.curvycorners.packed.js', 'jquery.browser.js',
+      'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
+      '../highslide/highslide-full.packed.js',
+      'jquery.livequery.min.js', 'jq-helpers-hb'#,
+      #:cache => "cache_content_page-#{@presenter.website_hrid}"
+      javascript_include_tag 'wpaudioplayer/audio-player.js'
 
-        stylesheet_link_tag 'reset-fonts-grids',
-        'base-min',
-        'hebmain/common',
-        'hebmain/header',
-        'hebmain/inner_page',
-        'hebmain/jquery.tabs.css',
-        'hebmain/widgets',
-        '../highslide/highslide',
-        'lightbox',
-        :cache => "cache_content_page-#{@presenter.website_hrid}",
-        :media => 'all'
-        stylesheet_link_tag 'hebmain/print', :media => 'print'
+      javascript_include_tag 'wpaudioplayer/audio-player.js'
 
-        #        if presenter.node.can_edit?
-        perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
-        if  presenter.node.can_edit? || perm >= 2 # STUPID, but there are no constatns yet...!!!
-          stylesheet_link_tag 'hebmain/page_admin', '../ext/resources/css/ext-all'
-          javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
-          'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',
-          :cache => "cache_content_page_admin-#{@presenter.website_hrid}"
-          javascript {
-            rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
-            rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
-          }
-        end
-        
-        rawtext "\n<!--[if IE 6]>\n"
-        stylesheet_link_tag 'hebmain/ie6', :media => 'all'
-        stylesheet_link_tag 'hebmain/ie6_print', :media => 'print'
-        rawtext "\n<![endif]-->\n"
+      stylesheet_link_tag 'reset-fonts-grids',
+      'base-min',
+      'hebmain/common',
+      'hebmain/header',
+      'hebmain/inner_page',
+      'hebmain/jquery.tabs.css',
+      'hebmain/widgets',
+      '../highslide/highslide',
+      'lightbox',
+      :cache => "cache_content_page-#{@presenter.website_hrid}",
+      :media => 'all'
+      stylesheet_link_tag 'hebmain/print', :media => 'print'
 
-        rawtext "\n<!--[if IE 7]>\n"
-        stylesheet_link_tag 'hebmain/ie6', :media => 'all'
-        stylesheet_link_tag 'hebmain/ie7', :media => 'all'
-        rawtext "\n<![endif]-->\n"
+      #        if presenter.node.can_edit?
+      perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
+      if  presenter.node.can_edit? || perm >= 2 # STUPID, but there are no constatns yet...!!!
+        stylesheet_link_tag 'hebmain/page_admin', '../ext/resources/css/ext-all'
+        javascript_include_tag '../ext/adapter/ext/ext-base', '../ext/ext-all', 'ext-helpers',
+        'ui/ui.sortable.min.js', 'ui/ui.draggable.min.js', 'ui/ui.droppable.min.js',
+        :cache => "cache_content_page_admin-#{@presenter.website_hrid}"
+        javascript {
+          rawtext 'Ext.BLANK_IMAGE_URL="/ext/resources/images/default/s.gif";'
+          rawtext 'Ext.onReady(function(){Ext.QuickTips.init()});'
+        }
+      end
 
-        rawtext "\n<!--[if IE 8]>\n"
-        stylesheet_link_tag 'hebmain/ie8', :media => 'all'
-        rawtext "\n<![endif]-->\n"
+      rawtext "\n<!--[if IE 6]>\n"
+      stylesheet_link_tag 'hebmain/ie6', :media => 'all'
+      stylesheet_link_tag 'hebmain/ie6_print', :media => 'print'
+      rawtext "\n<![endif]-->\n"
 
-				rawtext <<-GCA
+      rawtext "\n<!--[if IE 7]>\n"
+      stylesheet_link_tag 'hebmain/ie6', :media => 'all'
+      stylesheet_link_tag 'hebmain/ie7', :media => 'all'
+      rawtext "\n<![endif]-->\n"
+
+      rawtext "\n<!--[if IE 8]>\n"
+      stylesheet_link_tag 'hebmain/ie8', :media => 'all'
+      rawtext "\n<![endif]-->\n"
+
+      rawtext <<-GCA
           <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
           <script type="text/javascript">
                   GS_googleAddAdSenseService("ca-pub-9068547212525872");
@@ -102,8 +112,44 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
           <script type="text/javascript">
                   GA_googleFetchAds();
           </script>
-				GCA
+      GCA
+
+    }
+    rawtext @styles if @styles
+  end
+
+  def render_langing_page
+    @styles = "
+      <style>
+        #bd {background:0 none;}
+      </style>
+    ";
+    rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
+    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en") {
+      render_head
+      div(:id => 'doc', :class => 'yui-t7') {
+        div(:id => 'bd') {
+          rawtext <<-GCA
+						<script type="text/javascript">
+							GA_googleFillSlot("kab-co-il_top-banner_950x65");
+						</script>
+          GCA
+          div(:class => 'yui-g') {
+            div(:class => 'content') {
+              make_sortable(:selector => ".content", :axis => 'y') {
+                self.ext_content.render_to(self)
+              }
+            }
+          }
+        }
       }
+    }
+  end
+
+  def render_regular
+    rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
+    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en") {
+      render_head
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
@@ -139,10 +185,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       @subscription.render_to(self)
                       div(:class => 'clear')
                       
+                      @share.render_to(self)
                       @comments.render_to(self)
                       @send_to_friend.render_to(self)
-                      @share.render_to(self)
-                      @direct_link.render_to(self) 
+                      @direct_link.render_to(self)
                       @archive.render_to(self) if archived_resources.size > 0 && !@presenter.page_params.has_key?('archive')
                       @previous_comments.render_to(self)
                       if ext_kabtv_exist
@@ -183,7 +229,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               
               global_site_updates.each{|e|
                 render_content_resource(e)
-              } 
+              }
             }
           }
         
@@ -199,23 +245,23 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         @google_analytics.render_to(self)
       }
     }
-  end  
+  end
   
-  private 
+  private
   
   def right_column_resources
     @tree_nodes ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['site_updates'], 
+      :parent => tree_node.id,
+      :resource_type_hrids => ['site_updates'],
       :depth => 1,
       :placeholders => ['right']
-    ) 
+    )
   end
   
   def global_site_updates
     @site_updates ||= TreeNode.get_subtree(
-      :parent => presenter.website_node.id, 
-      :resource_type_hrids => ['site_updates', 'banner'], 
+      :parent => presenter.website_node.id,
+      :resource_type_hrids => ['site_updates', 'banner'],
       :depth => 1,
       :placeholders => ['right']
     )
@@ -224,10 +270,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
   def archived_resources
     @archived_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids =>  ['content_page'], 
+      :resource_type_hrids =>  ['content_page'],
       :depth => 1,
       :has_url => true,
       :status => ['ARCHIVED']
-    )  
+    )
   end
 end 

@@ -108,6 +108,14 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               
                       w_class('cms_actions').new(:tree_node => tree_node,
                         :options => {:buttons => %W{ new_button },
+                          :resource_types => %W{ iframe },
+                          :button_text => 'הוספת יחידות iframe - עמודה שמאלית',
+                          :new_text => 'הוסף iframe נוסף',
+                          :has_url => false,
+                          :placeholder => 'left'}).render_to(self)
+
+                      w_class('cms_actions').new(:tree_node => tree_node,
+                        :options => {:buttons => %W{ new_button },
                           :resource_types => %W{ kabtv },
                           :button_text => 'ניהול יחידת טלוויזיה',
                           :new_text => 'הוספת יחידת טלוויזיה',
@@ -217,7 +225,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   def left_column_resources
     @tree_nodes_left ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['rss'], 
+      :resource_type_hrids => ['rss', 'iframe'],
       :depth => 1,
       :placeholders => ['left'],
       :status => ['PUBLISHED', 'DRAFT']

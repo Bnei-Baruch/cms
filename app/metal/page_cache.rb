@@ -21,8 +21,12 @@ class PageCache
       node = HEBREW_HOMEPAGE
     else
       permalink = env['PATH_INFO'].split(/\//).last
-      node  = TreeNode.find_by_permalink permalink
-      node &&= node.id
+      begin
+        node  = TreeNode.find_by_permalink permalink
+        node &&= node.id
+      rescue
+        node = nil
+      end
     end
 
     # Unable to find node ID

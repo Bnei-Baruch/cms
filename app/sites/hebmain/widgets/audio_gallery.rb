@@ -48,6 +48,7 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
                   script{
                     rawtext <<-player
               AudioPlayer.embed("audioplayer_#{audio_item.object_id}", {
+								width: 255,
                 soundFile: "#{url}",
                 titles: " ",
                 artists: " "

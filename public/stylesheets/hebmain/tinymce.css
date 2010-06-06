@@ -47,6 +47,13 @@ html{
     color:#192862;
     margin-bottom:3px;
 }
+.mceContentBody h6{
+color:#696969;
+font-size:16px;
+margin:0;
+padding:0;
+font-weight:normal;
+}
 .mceContentBody p{
     margin-bottom:15px;
 }

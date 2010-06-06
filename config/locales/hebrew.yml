@@ -185,7 +185,7 @@ hebrew:
     tothetvchannel: לערוץ הטלוויזיה
     clicktogolive:  לחץ לצפיה בשידור חי
     schedule: לוח שידורים
-    questions: שאלות
+    questions: שאלה/תגובה
     sketches: שרטוטים
     students_questions: שאלות התלמידים
     to_exit_full_screen_mode_press_ESC: ESC ליציאה ממצב "מסך מלא" לחץ על
@@ -219,7 +219,7 @@ hebrew:
     thu: חמישי
     fri: שישי
     sat: שבת
-    ask_question: שאל שאלה
+    ask_question: כתבו שאלה או תגובה
     your_name: שמך
     your_location: מקומך
     question: שאלה
@@ -398,6 +398,7 @@ hebrew:
     large_title: כותרת ראשית
     permalink: לינק של הדף (לא לשנות)
     small_title: תת כותרת
+    secondary_title: תת כותרת
     sub_title: כותרת משנה
     side_image: תמונה צדית
     main_image_alt: כותרת לתמונה צדית

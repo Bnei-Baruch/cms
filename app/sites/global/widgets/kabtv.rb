@@ -294,7 +294,7 @@ $(function() {
             }
           end
 
-					if get_prefer_flash != true || force_wmv == 1
+					if (get_prefer_flash != true || force_wmv == 1) && !get_hide_bitrates
 						div(:id => 'bitrates'){
 							#            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
 							rawtext _(:broadcast_quality) + ': '

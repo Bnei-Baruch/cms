@@ -191,11 +191,11 @@ tr.badmod td{
 }
 .newsletter .h1{
   background-color: #F0F5FD;
-  font-size: 103%;
+  font-size: 133.9%;
   font-weight: normal;
   color:black;
-  margin: 2px 2px 22px;
-  padding: 2px 10px 2px 0pt;
+  margin: 2px 2px 12px;
+  padding: 0 10px 0 0;
   position: relative;
 }
 .right-part .newsletter h1{

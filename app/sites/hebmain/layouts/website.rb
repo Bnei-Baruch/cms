@@ -265,7 +265,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   def downloads
     div(:class => 'downloads container'){
       h3(:class => 'box_header') {
-        text 'שיעורים להורדה'
+        text 'שיעור הקבלה היומי להורדה'
         w_class('cms_actions').new(:tree_node => tree_node,
           :options => {:buttons => %W{ new_button },
             :resource_types => %W{ media_rss },

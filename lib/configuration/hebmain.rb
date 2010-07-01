@@ -58,7 +58,7 @@ module	Configuration::Hebmain
       # input_box_text - text inside input box
 
       :icon => 'newsletter_default.gif',
-      :box_title => 'הרשמו לניוזלטר השבועי',
+      :box_title => 'הירשמו לניוזלטר השבועי',
       :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgeh',
       :method => 'post',
       :tracker => '/homepage/widget/newsletter/hebrew',

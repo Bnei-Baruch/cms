@@ -46,7 +46,8 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
     end
     h2 get_small_title if display_h2 && !get_small_title.empty?
     div(:class => 'descr') { text get_description } unless get_description.empty?
-    
+
+    link_title = get_link_title
     klass = @image_src ? 'more' : 'more_no_img'
     unless presenter.site_settings[:use_advanced_read_more]
       a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { text _(:read_more) }
@@ -54,7 +55,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
       is_video, is_audio, is_article = is_video_audio_article
       if is_article
         a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { 
-          text _(:tofullpage)
+          text link_title ? link_title : _(:tofullpage)
           img(:src => img_path('video.png'), :alt => '') if is_video
           img(:src => img_path('audio.png'), :alt => '') if is_audio
           img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif') if !is_video && !is_audio
@@ -64,10 +65,10 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
         if is_video || is_audio
           a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { 
             if is_video
-              text = _(:to_watch)
+              text = link_title ? link_title : _(:to_watch)
               image = 'video.png'
             else
-              text = _(:to_listen)
+              text = link_title ? link_title : _(:to_listen)
               image = 'audio.png'
             end
             span{text text}
@@ -75,7 +76,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
         }
         else
           a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) {
-            text _(:read_more)
+            text link_title ? link_title : _(:read_more)
             img(:src => img_path('empty.gif'), :alt => '', :class => 'empty-gif')
           }
         end

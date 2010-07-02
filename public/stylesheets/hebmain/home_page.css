@@ -132,9 +132,12 @@
     clear: both;
 }
 /*----------  right-part  ---------------*/
+.right-part .right-part {
+    margin:0;
+}
 .right-part {
     text-align: center;
-    margin:0;
+    margin:56px 0 0;
     padding:0;
     position:relative;
     width:100%;

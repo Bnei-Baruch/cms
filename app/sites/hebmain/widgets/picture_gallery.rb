@@ -15,7 +15,7 @@ class Hebmain::Widgets::PictureGallery< WidgetManager::Base
         #  text e.resource.properties('path').get_value
 
 
-          a(:href => get_file_html_url(:attachment => e.resource.properties('picture').attachment, :image_name => ''),
+          a(:href => get_file_html_url(:attachment => e.resource.properties('picture').attachment, :image_name => 'myself'),
                                 :class => 'gallery', 
                                 :onclick => 'return hs.expand(this)'){
                         img(:src => get_file_html_url(:attachment => e.resource.properties('picture').attachment, :image_name => 'thumb'),

@@ -863,3 +863,51 @@ function gofs(){
     alert(nofs_str);
   }
 }
+
+if (typeof hs != "undefined") {
+		hs.graphicsDir = '../highslide/graphics/';
+		hs.wrapperClassName = 'highslide-white';
+		hs.outlineType = 'rounded-white';
+		hs.showCredits = 0;
+		hs.useControls = true;
+		hs.fixedControls = true;
+		hs.fadeInOut = true;
+		hs.transitions = ['expand', 'crossfade'];
+		hs.targetX = 'kabtv';
+		hs.targetY = 'kabtv';
+		hs.lang = {
+				loadingText : 'טוען...',
+				loadingTitle : 'לחץ לביטול',
+				focusTitle : 'Click to bring to front',
+				fullExpandText : 'גודל מקסימלי',
+				fullExpandTitle : 'הגדל לגודל המקסימלי (f)',
+				creditsText : 'Powered by <i>Highslide JS</i>',
+				creditsTitle : 'Go to the Highslide JS homepage',
+				previousText : 'תמונה קודמת',
+				previousTitle : 'תמונה הקודמת (חץ שמאלה)',
+				nextText : 'תמונה הבאה',
+				nextTitle : 'תמונה הבאה (חץ ימינה)',
+				moveText : 'הזז',
+				moveTitle : 'לחץ ומשוך להזזה',
+				closeText : 'סגור',
+				closeTitle : 'סגור (esc)',
+				resizeTitle : 'שנה גודל',
+				playText : 'Play',
+				playTitle : 'Play slideshow (spacebar)',
+				pauseText : 'Pause',
+				pauseTitle : 'Pause slideshow (spacebar)',
+				number: 'תמונה %1 / %2',
+				restoreTitle : 'לחץ לסגירה. לחץ ומשוך להזזה. תשתמש בחצים לתמונה הבאה/קודמת.'
+		};
+		if (hs.registerOverlay) {
+				// The white controlbar overlay
+				hs.registerOverlay({
+						thumbnailId: null,
+						overlayId: 'controlbar',
+						position: 'top right',
+						hideOnMouseOut: false,
+						useControls: true
+				});
+		}
+}
+

@@ -22,6 +22,9 @@ class Global::Widgets::CmsActions < WidgetManager::Base
       javascript{
         rawtext <<-CMS1
         Ext.onReady(function(){
+            if (jQuery.inArray('#{element}', buttons_list) != -1)
+              return;
+            buttons_list.push('#{element}');
             var menu = new Ext.menu.Menu({
                       items:[
         CMS1

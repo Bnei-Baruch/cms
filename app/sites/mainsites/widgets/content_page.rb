@@ -48,6 +48,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
     div(:class => 'descr') { text get_description } unless get_description.empty?
 
     link_title = get_link_title
+    link_title = nil if link_title.nil? || link_title.empty?
     klass = @image_src ? 'more' : 'more_no_img'
     unless presenter.site_settings[:use_advanced_read_more]
       a({:class => klass, :href => url}.merge!(gg_analytics_tracking(url_name))) { text _(:read_more) }

@@ -44,6 +44,8 @@ class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
               try{
                 pageTracker = _gat._getTracker("UA-548326-62");
                 pageTracker._trackPageview();
+                setTimeout('pageTracker._trackEvent(\'NoBounce\', \'NoBounce\', \'Over 7 seconds\')', 10000);
+
               } catch(err) {};
             });
           });

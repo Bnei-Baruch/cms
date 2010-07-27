@@ -857,9 +857,9 @@ $(function() {
         format_item(item)
         amount -= 1
       elsif (start_program <= looking_for_time) && (looking_for_time < end_program)
-        div(:class => 'hdr'){ rawtext _(:broadcasting_now)}
+        #HEB-17 div(:class => 'hdr'){ rawtext _(:broadcasting_now)}
         format_item(item)
-        div(:class => 'hdr'){ rawtext _(:future_programs)}
+        #HEB-17 div(:class => 'hdr'){ rawtext _(:future_programs)}
         found = true
       end
     }

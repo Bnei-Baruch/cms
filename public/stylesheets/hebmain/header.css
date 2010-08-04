@@ -209,10 +209,7 @@ strong{
 #bd .menu ul li.divider{
     color:#838383;
     margin: 0;
-    padding: 0;
-	width:9px;
-	width:11px\9;
-	*width:11px;
+    padding: 0 5px;
 }
 #bd .menu ul li.selected{
     background-color:#EAF0FC;

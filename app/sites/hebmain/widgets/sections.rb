@@ -6,8 +6,7 @@ class Hebmain::Widgets::Sections < WidgetManager::Base
       ul {
         li{
           a({:title => _(:kabbalah_la_am), :href => presenter.home}.merge!(gg_analytics_tracking(_(:home)))){
-            img(:src => img_path('home.gif'), :alt => _(:home), :style => 'width:14px;height:12px;' )
-            rawtext "&nbsp;"
+            rawtext ' '
             text  _(:home)     #' ראשי'
           }
         }

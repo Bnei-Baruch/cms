@@ -93,7 +93,9 @@ strong{
 }
 #hd .search .text{
     height:17px;
-    width:160px;
+    /* Under Dudy's reponsibility: field was shortened and logo disappeared */
+    width:99px;
+    background-position: 67% 0 !important;
     border:1px solid #b7b7b7 !important ;
     border-left:0 none !important;
     padding:0 2px !important;
@@ -111,16 +113,17 @@ strong{
 
 /*----------  Links  ---------------*/
 #hd ul.links {
+    font-size:12px;
     position: absolute;
     top:15px;
     right:0;
     height:15px;
-    margin: 0;
+    margin: 0 -9px 0 0;
     padding: 0;
 }
 #hd ul.links li {
     float: left;
-    margin-left: 14px;
+    margin-left: 10px;
     list-style:none;
     list-style-position: inside;
     position: relative;
@@ -200,8 +203,8 @@ strong{
     padding: 2px 3px\9;
 /*For ie6-7*/
     *padding: 2px 3px;
-    margin:0;
-	text-align:center;
+    margin:0 -2px;
+    text-align:center;
 }
 #bd .menu ul li.divider{
     color:#838383;

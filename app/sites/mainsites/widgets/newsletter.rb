@@ -33,7 +33,6 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
       #      image = get_image
       icon = "/images/#{@presenter.website.hrid}/#{icon}"
       div(:class => 'h1_div'){
-        img(:src => icon, :style => style, :alt => '')
         div(:class => 'h1'){text box_title }
         div(:class => 'subtitle'){ text subtitle }if subtitle
       }

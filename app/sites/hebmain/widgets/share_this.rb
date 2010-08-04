@@ -7,12 +7,12 @@ class Hebmain::Widgets::ShareThis < WidgetManager::Base
 
     full_url = [url_domain, url_prefix, 'short', url_node].join('/')
     like_url = [url_domain, url_prefix, permalink].join('/')
-    div(:class => 'like_it'){
-      rawtext <<-LIKE_BUTTON
-        <iframe src="http://www.facebook.com/plugins/like.php?href=#{like_url}&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=recommend&amp;font&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:1px solid white; overflow:hidden; width:100px; height:35px;" allowTransparency="true"></iframe>
-      LIKE_BUTTON
-    }
     div(:class => 'share_this'){
+			div(:class => 'like_it'){
+				rawtext <<-LIKE_BUTTON
+					<iframe src="http://www.facebook.com/plugins/like.php?locale=he_IL&amp;href=#{like_url}&amp;layout=button_count&amp;show_faces=false&amp;width=90&amp;action=recommend&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="overflow:hidden;width:90px;height:20px;float:right;" allowTransparency="true"></iframe>
+				LIKE_BUTTON
+			}
       javascript(:src => "http://s7.addthis.com/js/200/addthis_widget.js")
       javascript{
         rawtext <<-code

@@ -1,8 +1,8 @@
 /*
 
 jQuery Browser Plugin
-	* Version 2.0 Beta
-	* 2008-06-25 15:35:52
+	* Version 2.3
+	* 2008-09-17 19:27:05
 	* URL: http://jquery.thewikies.com/browser
 	* Description: jQuery Browser Plugin extends browser detection capabilities and can assign browser selectors to CSS classes.
 	* Author: Nate Cavanaugh, Minhchau Dang, & Jonathan Neal
@@ -12,7 +12,7 @@ jQuery Browser Plugin
 		bitwise: true,
 		browser: true,
 		eqeqeq: true,
-		glovar: true,
+		forin: true,
 		nomen: true,
 		plusplus: true,
 		undef: true,
@@ -21,50 +21,62 @@ jQuery Browser Plugin
 		jQuery
 */
 
-(function ($, a, b, i, t, u) {
-	// Define 'u' as the browser properties string
-	u = navigator.userAgent;
+(function ($) {
+	$.browserTest = function (a, z) {
+		var u = 'unknown', x = 'X', m = function (r, h) {
+			for (var i = 0; i < h.length; i = i + 1) {
+				r = r.replace(h[i][0], h[i][1]);
+			}
 
-	// Define 't' as true
-	t = true;
+			return r;
+		}, c = function (i, a, b, c) {
+			var r = {
+				name: m((a.exec(i) || [u, u])[1], b)
+			};
 
-	// Define 'p' as the processing of every name, version, versionNumber, and versionX
-	a = function (i) {
-		i = { name: i };
-		i[i.name] = t;
-		return i;
+			r[r.name] = true;
+
+			r.version = (c.exec(i) || [x, x, x, x])[3];
+
+			if (r.name.match(/safari/) && r.version > 400) {
+				r.version = '2.0';
+			}
+
+			if (r.name === 'presto') {
+				r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
+			}
+			r.versionNumber = parseFloat(r.version, 10) || 0;
+			r.versionX = (r.version !== x) ? (r.version + '').substr(0, 1) : x;
+			r.className = r.name + r.versionX;
+
+			return r;
+		};
+
+		a = (a.match(/Opera|Navigator|Minefield|KHTML|Chrome/) ? m(a, [
+			[/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/, ''],
+			['Chrome Safari', 'Chrome'],
+			['KHTML', 'Konqueror'],
+			['Minefield', 'Firefox'],
+			['Navigator', 'Netscape']
+		]) : a).toLowerCase();
+
+		$.browser = $.extend((!z) ? $.browser : {}, c(a, /(camino|chrome|firefox|netscape|konqueror|lynx|msie|opera|safari)/, [], /(camino|chrome|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
+
+		$.layout = c(a, /(gecko|konqueror|msie|opera|webkit)/, [
+			['konqueror', 'khtml'],
+			['msie', 'trident'],
+			['opera', 'presto']
+		], /(applewebkit|rv|konqueror|msie)(\:|\/|\s)([a-z0-9\.]*?)(\;|\)|\s)/);
+
+		$.os = {
+			name: (/(win|mac|linux|sunos|solaris|iphone)/.exec(navigator.platform.toLowerCase()) || [u])[0].replace('sunos', 'solaris')
+		};
+
+		if (!z) {
+			$('html').addClass([$.os.name, $.browser.name, $.browser.className, $.layout.name, $.layout.className].join(' '));
+		}
 	};
-	b = function (n, v) {
-		n.version = v;
-		n.versionNumber = parseFloat(v, 10);
-		n.versionX = v.substr(0, 1);
-		n.className = n.name + v.replace(/\s|\.|0+$/g, '');
-		n[n.className] = t;
-		return n;
-	};
 
-	// Define the browser name
-	i = a((/(Firefox|Safari|Opera|Camino|Netscape|Flock|iCab|KDE|iCab|Flock|IE)/.exec(u) || ['unknown'])[0].toLowerCase().replace('kde', 'konqueror'));
-	// Define '$.browser' with the browser name and the browser version
-	$.browser = b(i, ((i.ie === t) ? /MSIE\s([^;]+)/.exec(u) : (i.firefox === t) ? /Firefox\/([A-Za-z0-9\.]+)/.exec(u) : (i.safari === t) ? /Version\/([^\s]+)/.exec(u) : (i.opera === t) ? /Opera\/([^\s]+)/.exec(u) : [0, 0])[1].toString());
-
-	// Define the layout name
-	i = a((/(WebKit|Gecko|Opera|IE)/.exec(u) || ['unknown'])[0].toLowerCase().replace('ie', 'trident').replace('opera', ($.browser.versionNumber >= 7) ? 'presto' : 'elektra'));
-	// Define '$.layout' with the layout name and the layout version
-	$.layout = b(i, ((i.gecko === t) ? /\srv:([^)]+)/.exec(u)[1] : (i.presto === t) ? ($.browser.versionNumber >= 9.5) ? 'futhark' : 'linear_b' : (i.trident === t) ? $.browser.versionNumber : (i.webkit === t) ? /AppleWebKit\/([^\s]+)/.exec(u)[1] : 1).toString());
-
-	// Define the OS name
-	$.os = {
-		name: (/(Win|Mac|Linux|SunOS|Solaris|iPhone)/.exec(navigator.platform) || ['unknown'])[0].toLowerCase().replace('sunos', 'solaris')
-	};
-
-	// Attach the browser selectors to the html element
-	$('html').addClass([$.os.name, $.browser.name, $.browser.className, $.layout.name, $.layout.className, 'js'].join(' '));
+	$.browserTest(navigator.userAgent);
 })(jQuery);
-if (jQuery.browser.safari == undefined){
-	jQuery.browser.safari = false;
-}
-if (jQuery.browser.mozilla == undefined){
-	jQuery.browser.mozilla = false;
-}
 

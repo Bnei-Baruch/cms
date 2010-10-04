@@ -1526,6 +1526,10 @@ text-decoration: none;
   top:87px;
 }
 /***********************/
+a:hover img.hover{
+    background-position: left bottom !important;
+}
+/***********************/
 .share_this{
   text-align: right;
   display: inline;

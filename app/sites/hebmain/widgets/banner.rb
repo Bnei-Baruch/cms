@@ -6,17 +6,23 @@ class Hebmain::Widgets::Banner < WidgetManager::Base
     a_options = { :href => get_link, :onclick => tracker }
     a_options[:class] = 'target_blank' unless get_internal_link
     image, dims = get_picture(:image_name => image_name, :with_dimensions => true)
+    klass = ''
+    
     if dims[0] == 0
 			style = ""
 			src = image
 		else
+      if get_hover == true
+        dims[1] /= 2
+        klass = 'hover'
+      end
+
 			style = "width:#{dims[0]}px;height:#{dims[1]}px;background:0 0 url(#{image}) no-repeat;"
 			src = img_path('empty.gif')
 		end
 
-    a(a_options){img :src => src, :alt => get_description, :style => style}
+    a(a_options){img :src => src, :alt => get_description, :style => style, :class => klass}
   end
-  
   
   private
   

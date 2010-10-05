@@ -53,10 +53,9 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
       'jquery.curvycorners.packed.js', 'jquery.browser.js',
       'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-      '../highslide/highslide-full.packed.js',
+      '../highslide/highslide-full.packed.js', 'countdown',
       'jquery.livequery.min.js', 'jq-helpers-hb'#,
       #:cache => "cache_content_page-#{@presenter.website_hrid}"
-      javascript_include_tag 'wpaudioplayer/audio-player.js'
 
       javascript_include_tag 'wpaudioplayer/audio-player.js'
 

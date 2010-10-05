@@ -245,6 +245,17 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           br
           text get_main_image_alt
         }
+      elsif get_countdown && !get_countdown.empty?
+        servertime = Time.new.strftime('%B %d, %Y %H:%M:%S')
+        targettime = Time.parse(get_countdown).strftime('%B %d, %Y 09:%M:%S')
+        div(:id => 'countdown')
+        javascript {
+          rawtext '$(function() {'
+          rawtext "  var launchdate = new cdLocalTime('countdown', '#{servertime}', 0, '#{targettime}');"
+          rawtext "  launchdate.displaycountdown('countdown', formatresults2);"
+          rawtext '});'
+
+        }
       end
     end
   end

@@ -1,930 +1,930 @@
 /*----------  Index  ---------------*/
 .index{
-  padding:0;
-  margin:0;
-  position:relative;
+    padding:0;
+    margin:0;
+    position:relative;
 }
 .index .descr{
-  font-size:12px;
-  color:black;
-  border:0 none;
-  padding:0;
+    font-size:12px;
+    color:black;
+    border:0 none;
+    padding:0;
 }
 .index .author{
-  height:12px;
-  margin: 15px 0;
-  font-size:12px;
-  color:#696969;
+    height:12px;
+    margin: 15px 0;
+    font-size:12px;
+    color:#696969;
 }
 .index .element{
-  padding: 15px 0 0;
-  position:relative;
-  border-bottom:1px dashed #e8e8e8;
+    padding: 15px 0 0;
+    position:relative;
+    border-bottom:1px dashed #e8e8e8;
 }
 .index .preview-even{
-  background-color:#f7f8fc;
+    background-color:#f7f8fc;
 }
 .index .element h1, .index .element h1 a{
-  font-weight:normal;
-  font-size: 16px;
-  padding:2px 0pt 3px;
+    font-weight:normal;
+    font-size: 16px;
+    padding:2px 0pt 3px;
 }
 .index .img{
-  position:relative;
-  top:0;
-  right:0;
-  float:right;
-  margin:0 0 0 10px;
+    position:relative;
+    top:0;
+    right:0;
+    float:right;
+    margin:0 0 0 10px;
 }
 .index a.more{
-  display:block;
-  clear:both;
-  top:-1.4em;
-  right:150px;
-  padding:0;
-  margin:0;
-  position:relative;
-  width:130px;
+    display:block;
+    clear:both;
+    top:-1.4em;
+    right:150px;
+    padding:0;
+    margin:0;
+    position:relative;
+    width:130px;
 }
 .index a.more_no_img{
-  float:right;
-  clear:both;
-  padding:0;
-  margin:10px 0 0;
+    float:right;
+    clear:both;
+    padding:0;
+    margin:10px 0 0;
 }
 .index a.more_no_img .img{
-  float:left;
-  padding:0 5px 0 10px;
-  vertical-align:text-bottom;
+    float:left;
+    padding:0 5px 0 10px;
+    vertical-align:text-bottom;
 }
 .index a.more img{
-  float:none;
-  padding:0 7px 0 0;
-  width:16px;
-  height:16px;
-  vertical-align:baseline;
+    float:none;
+    padding:0 7px 0 0;
+    width:16px;
+    height:16px;
+    vertical-align:baseline;
 }
 /*----------  Content Preview  ---------------*/
 .content_preview{
-  position:relative;
+    position:relative;
 }
 .content_preview strong{
-  font-weight:bold;
+    font-weight:bold;
 }
 .content_preview em{
-  font-style:italic;
+    font-style:italic;
 }
 .content_preview .h1{
-  color:black;
-  text-align:right;
-  margin:0;
-  background-color: #e1ecfc;
-  background-image: none;
-  height:32px;
-  line-height:32px;
-  position:relative;
-  padding: 0 10px 0 0;
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #e1ecfc;
+    background-image: none;
+    height:32px;
+    line-height:32px;
+    position:relative;
+    padding: 0 10px 0 0;
 }
 .content_preview .h1_gray{
-  color:black;
-  text-align:right;
-  margin:0;
-  background-color: #f0f0f0;
-  background-image: none;
-  border-top: thin solid #cbcbcd;
-  height:22px;
-  line-height:22px;
-  position:relative;
-  padding: 0 10px 0 0;
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #f0f0f0;
+    background-image: none;
+    border-top: thin solid #cbcbcd;
+    height:22px;
+    line-height:22px;
+    position:relative;
+    padding: 0 10px 0 0;
 }
 .content_preview .h1 .cont{
-  font-size:12px;
-  padding:0 0 0 20px;
-  position:absolute;
-  top:0;
-  left:0;
+    font-size:12px;
+    padding:0 0 0 20px;
+    position:absolute;
+    top:0;
+    left:0;
 }
 .content_preview .h1 .cont img{
-  width:7px;
-  left:9px;
-  position:absolute;
-  top:10px;
+    width:7px;
+    left:9px;
+    position:absolute;
+    top:10px;
 }
 
 /************** Comment Admin **************************/
 
 tr.notmod td{
-  background-color: Lavender;
+    background-color: Lavender;
 }
 tr.badmod td{
-  background-color: Bisque;
+    background-color: Bisque;
 }
 
 .admin_comment_main th{
-  padding:2px 3px;
-  text-align:center;
+    padding:2px 3px;
+    text-align:center;
 }
 
 .admin_comment_main .funct{
-  padding: 3px;
-  text-align: center;
+    padding: 3px;
+    text-align: center;
 }
 
 .admin_comment_main .right{
-  float: right;
-  margin: 10px;
-  margin-bottom: 30px;
+    float: right;
+    margin: 10px;
+    margin-bottom: 30px;
 }
 
 .admin_comment_main input[type="text"]{
-  width: 40em;
+    width: 40em;
 }
 
 .admin_comment_main textarea{
-  width: 40em;
+    width: 40em;
 }
 
 .admin_comment_main .title,  .admin_comment_main .spam, .admin_comment_main .valid{
-  padding: 3px;
-  text-align: center;
-  vertical-align: top;
+    padding: 3px;
+    text-align: center;
+    vertical-align: top;
 }
 .admin_comment_main .body{
-  padding: 3px;
-  text-align: justify;
-  vertical-align: top;
+    padding: 3px;
+    text-align: justify;
+    vertical-align: top;
 }
 .admin_comment_main .red{
-  padding: 3px;
-  text-align: center;
-  background-color: red;
+    padding: 3px;
+    text-align: center;
+    background-color: red;
 }
 .admin_comment_main .green{
-  padding: 3px;
-  text-align: center;
-  background-color: green;
+    padding: 3px;
+    text-align: center;
+    background-color: green;
 }
 
 
 /*----------- Newsletter ----------------*/
 
 .newsletter{
-  border: 1px solid #E5E5E5;
-  margin: 10px 0pt;
-  position: relative;
-  text-align: right;
+    border: 1px solid #E5E5E5;
+    margin: 10px 0pt;
+    position: relative;
+    text-align: right;
 }
 .newsletter .newsletter_icon{
-  left:10px;
-  position:absolute;
-  top:1px;
-  z-index:2;
+    left:10px;
+    position:absolute;
+    top:1px;
+    z-index:2;
 }
 .newsletter .h1_div{
-  position:relative;
+    position:relative;
 }
 .newsletter .subtitle{
-  color:#3864B5;
-  font-size:16px;
-  font-weight:bold;
-  margin:-12px 1em 12px 0;
+    color:#3864B5;
+    font-size:16px;
+    font-weight:bold;
+    margin:-12px 1em 12px 0;
 }
 .newsletter .h1{
-  background-color: #F0F5FD;
-  font-size: 103%;
-  font-weight: normal;
-  color:black;
-  margin: 2px 2px 12px;
-  padding: 0 10px 0 0;
-  position: relative;
+    background-color: #F0F5FD;
+    font-size: 103%;
+    font-weight: normal;
+    color:black;
+    margin: 2px 2px 12px;
+    padding: 0 10px 0 0;
+    position: relative;
 }
 .right-part .newsletter .h1{
-  background-color: #F0F5FD;
-  font-size: 133.9%;
-  font-weight: normal;
-  color:black;
-  margin: 2px 2px 12px;
-  padding: 0 10px 0 0;
-  position: relative;
+    background-color: #F0F5FD;
+    font-size: 133.9%;
+    font-weight: normal;
+    color:black;
+    margin: 2px 2px 12px;
+    padding: 0 10px 0 0;
+    position: relative;
 }
 .newsletter .inner {
-  padding: 2px 2px 2px 2px;
-  margin-right:5px;
+    padding: 2px 2px 2px 2px;
+    margin-right:5px;
 }
 .newsletter .inner p {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 .newsletter input[type="text"]{
-  width:90%;
-  height:15pt;
-  background-color: #ffffff;
-  border:1px solid #b1c4e2;
+    width:90%;
+    height:15pt;
+    background-color: #ffffff;
+    border:1px solid #b1c4e2;
 }
 
 .newsletter .check{
-  margin-bottom: 1px;
-  float: right;
-  display: block;
-  margin-top: 8px;
+    margin-bottom: 1px;
+    float: right;
+    display: block;
+    margin-top: 8px;
 }
 .newsletter .label{
-  margin-right: 24px;
-  margin-top: 3px;
-  margin-bottom: 1px;
-  width: 140px;
-  display: block;
+    margin-right: 24px;
+    margin-top: 3px;
+    margin-bottom: 1px;
+    width: 140px;
+    display: block;
 }
 
 .newsletter .button{
-  border: none;
-  width:54pt;
-  height:17pt;
-  color: black;
-  background: transparent url(/images/hebmain/submit.png) no-repeat;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
+    border: none;
+    width:54pt;
+    height:17pt;
+    color: black;
+    background: transparent url(/images/hebmain/submit.png) no-repeat;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .content .newsletter{
-  width: 16.25em;
+    width: 16.25em;
 }
 .content .newsletter h1{
-  margin: 2px;
+    margin: 2px;
 }
 
 /********* Site map ***************/
 
 .sitehead{
-  font-weight: bold;
-  margin-bottom: 10px;
-  margin-right: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 .sitemap{
-  background-color: #f4f9fd;
-  border: 1px solid #e8e8e8;
-  padding:8px;
-  font-size:9px;
+    background-color: #f4f9fd;
+    border: 1px solid #e8e8e8;
+    padding:8px;
+    font-size:9px;
 }
 .sitemap .title{
-  font-weight: bold;
-  padding-bottom: 10px;
+    font-weight: bold;
+    padding-bottom: 10px;
 }
 .sitemap .title a{
-  color: #4b4b4b;
+    color: #4b4b4b;
 }
 .sitemap .list{
-  color: #626264;
+    color: #626264;
 }
 .sitemap .list a{
-  color: #626264;
+    color: #626264;
 }
 .sitemap .box{
-  float: right;
-  text-align: right;
-  margin-top: 20px;
-  margin-right: 20px;
-  margin-left: 10px;
+    float: right;
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 10px;
 }
 .sitemap .box li{
-  list-style-position:inside;
-  list-style-type:none;
-  white-space:nowrap;
+    list-style-position:inside;
+    list-style-type:none;
+    white-space:nowrap;
 }
 .sitemap .clear{
-  clear: both;
-  height:20px;
+    clear: both;
+    height:20px;
 }
 /*Pagemap*/
 .pagemap table{
-  direction:rtl;
-  border-style:hidden;
-  border-width:0;
-  margin-right:30px;
-  margin:0;
-  *border-collapse: collapse;
-  text-align:right;
+    direction:rtl;
+    border-style:hidden;
+    border-width:0;
+    margin-right:30px;
+    margin:0;
+    *border-collapse: collapse;
+    text-align:right;
 }
 .pagemap tr{
-  border-style:hidden;
-  vertical-align:top;
-  margin:0;
+    border-style:hidden;
+    vertical-align:top;
+    margin:0;
 }
 .pagemap td{
-  border-style:hidden;
-  margin:0;
-  *border-style:none;
+    border-style:hidden;
+    margin:0;
+    *border-style:none;
 }
 
 .pagemap{
-  margin-top:19px;
+    margin-top:19px;
 }
 .pagemap h3{
-  font-size:16px;
-  font-weight:normal;
-  text-align:right;
-  margin:0px;
+    font-size:16px;
+    font-weight:normal;
+    text-align:right;
+    margin:0px;
 }
 .pagemap div.clear{
-  height:10px;
+    height:10px;
 }
 .pagemap div{
-  height:30px;
-  margin:0;
-  padding:0;
-  position:relative;
+    height:30px;
+    margin:0;
+    padding:0;
+    position:relative;
 }
 .pagemap div a{
-  color:white;
-  font-weight:bold;
-  font-size:15px;
-  position:absolute;
-  top: 5px;
-  right:13px;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+    position:absolute;
+    top: 5px;
+    right:13px;
 }
 .pagemap li{
-  list-style-type:none;
-  padding-bottom:1px;
+    list-style-type:none;
+    padding-bottom:1px;
 }             
 .pagemap li a{
-  color:#626162;
+    color:#626162;
 }
 .pagemap td{
-  padding:1px 1px 0 0;
-  width:1%;
+    padding:1px 1px 0 0;
+    width:1%;
 }             
 .pagemap tr.odd td.even, .pagemap tr.even td.odd{
-  background-color:#E0E8F8;
+    background-color:#E0E8F8;
 }
 .pagemap tr.odd td.odd, .pagemap tr.even td.even{
-  background-color:#F0F3FD;
+    background-color:#F0F3FD;
 }
 .pagemap tr.odd td.even div, .pagemap tr.even td.odd div{
-  background-color:#3C60B8;
+    background-color:#3C60B8;
 }
 .pagemap tr.odd td.odd div, .pagemap tr.even td.even div{
-  background-color:#92ADE0;
+    background-color:#92ADE0;
 }
 /*----------  Main Preview1  ---------------*/
 .main_preview1{
-  margin:0;
-  position:relative;
+    margin:0;
+    position:relative;
 }
 .main_preview1 .descr{
-  font-size:14px;
-  color:black;
-  border:0 none;
-  padding:0 0 20px 0;
-  border:0 none;
+    font-size:14px;
+    color:black;
+    border:0 none;
+    padding:0 0 20px 0;
+    border:0 none;
 }
 .main_preview1 h1{
-  font-size: 18px;
-  padding: 10px 0 0;
+    font-size: 18px;
+    padding: 10px 0 0;
 }
 .main_preview1 h2{
-  margin: 0 0 10px;
+    margin: 0 0 10px;
 }
 .main_preview1 img{
-  float:left;
-  margin:10px 10px 0 0;
+    float:left;
+    margin:10px 10px 0 0;
 }
 .main_preview1 .element{
-  padding:0 3px 0 0;
+    padding:0 3px 0 0;
 }
 .main_preview1 a.more{
-  display:block;
-  clear:both;
-  top:-1.1em;
-  position:relative;
+    display:block;
+    clear:both;
+    top:-1.1em;
+    position:relative;
 }
 .main_preview1 a.more img{
-  top:-5px;
-  right:-5px;
+    top:-5px;
+    right:-5px;
 }
 /*----------  Main Preview 2 ---------------*/
 .main_preview2{
-  background:transparent url(/images/hebmain/main_preview2-bg.gif) repeat-y 50% top;
+    background:transparent url(/images/hebmain/main_preview2-bg.gif) repeat-y 50% top;
 }
 .main_preview2 .element{
-  float:left;
-  position:relative;
-  width:45%;
-  padding:176px 0 0;
-  margin:0 44px 10px 0;
+    float:left;
+    position:relative;
+    width:45%;
+    padding:176px 0 0;
+    margin:0 44px 10px 0;
 }
 .main_preview2 .last{
-  margin:0;
+    margin:0;
 }
 .main_preview2 .descr{
-  font-size:12px;
-  color:black;
-  border:0 none;
-  padding:0 0 20px 0;
-  border:0 none;
+    font-size:12px;
+    color:black;
+    border:0 none;
+    padding:0 0 20px 0;
+    border:0 none;
 }
 .main_preview2 .author{
-  height:12px;
-  margin: 15px 0;
-  font-size:12px;
-  color:#696969;
+    height:12px;
+    margin: 15px 0;
+    font-size:12px;
+    color:#696969;
 }
 .main_preview2 h1{
-  font-size: 18px;
-  padding: 0 0 10px;
+    font-size: 18px;
+    padding: 0 0 10px;
 }
 .main_preview2 img.img{
-  position:absolute;
-  right:0px;
-  top:15px;
+    position:absolute;
+    right:0px;
+    top:15px;
 }
 /*----------  Main Preview 3 ---------------*/
 .main_preview3{
-  margin:10px 0;
-  padding:0;
-  text-align:right;
+    margin:10px 0;
+    padding:0;
+    text-align:right;
 }
 .main_preview3 .element{
-  float:left;
-  position:relative;
-  width:30%;
-  padding:5px 5px 20px;
-  margin:0;
-  border-right:1px dashed #e5e5e5;
+    float:left;
+    position:relative;
+    width:30%;
+    padding:5px 5px 20px;
+    margin:0;
+    border-right:1px dashed #e5e5e5;
 }
 .main_preview3 .last{
-  border:0 none;
+    border:0 none;
 }
 .main_preview3 .descr{
-  font-size:12px;
-  color:black;
-  border:0 none;
-  padding:0 0 20px 0;
-  border:0 none;
+    font-size:12px;
+    color:black;
+    border:0 none;
+    padding:0 0 20px 0;
+    border:0 none;
 }
 .main_preview3 h4{
-  font-size: 12px;
-  padding: 0 0 35px;
+    font-size: 12px;
+    padding: 0 0 35px;
 }
 .main_preview3 img.img{
-  margin:5px 0 17px 10px;
+    margin:5px 0 17px 10px;
 }
 .main_preview3 .element ul.links{
-  padding:0;
-  margin:0;
+    padding:0;
+    margin:0;
 }
 .main_preview3 .element ul.links li{
-  font-size:12px;
-  text-align: right;
-  list-style-position: inside;
-  list-style-type:none;
-  padding:0 13px 0 0;
-  margin:3px 0 0;
+    font-size:12px;
+    text-align: right;
+    list-style-position: inside;
+    list-style-type:none;
+    padding:0 13px 0 0;
+    margin:3px 0 0;
 }
 /*----------  RSS ---------------*/
 .item .rss .h1{
-  background-color:#E1ECFC;
-  color:black;
-  overflow:hidden;
+    background-color:#E1ECFC;
+    color:black;
+    overflow:hidden;
 }
 .item .rss .entry{
-  padding:10px 0;
-  border-bottom:1px dashed #E8E8E8;
+    padding:10px 0;
+    border-bottom:1px dashed #E8E8E8;
 }
 .item .rss .more{
-  display:block;
+    display:block;
 }
 .item .rss .date{
-  margin:10px 0;
-  color:#767676;
+    margin:10px 0;
+    color:#767676;
 }
 .item .rss .header{
-  padding:20px 0;
-  border-bottom:1px solid #E8E8E8;
+    padding:20px 0;
+    border-bottom:1px solid #E8E8E8;
 }
 .item .rss .header img{
-  height:94px;
-  width:138px;
-  margin:0 0 5px 5px;
-  float:right;
+    height:94px;
+    width:138px;
+    margin:0 0 5px 5px;
+    float:right;
 
 }
 .item .rss .description .preview{
-  float:right;
-margin:0 0 10px 10px;
+    float:right;
+    margin:0 0 10px 10px;
 }
 
 /********** Campus form *******/
 #position_center{
-  padding-right: 130px;
+    padding-right: 130px;
 }
 .campus .text {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .campus .label {
-  width: 4em;
-  float: right;
-  text-align: right;
-  margin-right: 0.5em;
-  display: block
+    width: 4em;
+    float: right;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block
 }
 .campus .label_captcha {
-  text-align: right;
-  margin-right: 0.5em;
-  margin-bottom: 5px;
+    text-align: right;
+    margin-right: 0.5em;
+    margin-bottom: 5px;
 }
 .campus .img_captcha {
-  width: 150px;
+    width: 150px;
 }
 .campus .error {
-  color: red;
-  font-weight: bold;
+    color: red;
+    font-weight: bold;
 }
 .campus .success {
-  color: green;
-  font-weight: bold;
+    color: green;
+    font-weight: bold;
 }
 .campus table{
-  border: thin solid gray;
+    border: thin solid gray;
 }
 .campus td {
-  padding: 3px;
-  border: thin dashed #6495ed;
-  text-align: right;
+    padding: 3px;
+    border: thin dashed #6495ed;
+    text-align: right;
 }
 .campus .title {
-  font-weight: bold;
+    font-weight: bold;
 }
 .campus .submit{
-  border: none;
-  width: 54pt;
-  height: 17pt;
-  color: black;
-  background: transparent url(/images/hebmain/submit.png) no-repeat;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
+    border: none;
+    width: 54pt;
+    height: 17pt;
+    color: black;
+    background: transparent url(/images/hebmain/submit.png) no-repeat;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 /*--- Media RSS ----*/
 table.media_rss{
-  border: 0 none;
-  width: 100%;
+    border: 0 none;
+    width: 100%;
 }
 table.media_rss th{
-  background-color: #90AEDE;
-  color: white;
-  height: 31px;
-  line-height: 31px;
-  margin: 0pt;
-  padding: 0pt 0px 0pt 5pt;
-  position: relative;
-  text-align: center;
-  border-width: 0px;
-  font-weight: bold;
+    background-color: #90AEDE;
+    color: white;
+    height: 31px;
+    line-height: 31px;
+    margin: 0pt;
+    padding: 0pt 0px 0pt 5pt;
+    position: relative;
+    text-align: center;
+    border-width: 0px;
+    font-weight: bold;
 }
 .date-rss{
-  color: #3764b9;
+    color: #3764b9;
 }
 .icon-rss{
-  text-align:center;
+    text-align:center;
 }
 .top-right-corner{
-  background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat right -32px;
-  width: 65px;
+    background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat right -32px;
+    width: 65px;
 }
 .top-left-corner{
-  background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat 0px 0px;
+    background: #90AEDE url(/images/hebmain/h1-ears.png) no-repeat 0px 0px;
 }
 .right-cell, .icon-cell, .name-cell, .left-cell{
-  height: 20px;
-  line-height: 20px;
-  border-bottom: 1px solid #E5E5E5;
-  border-right: 1px none #E5E5E5;
-  border-left: 1px solid #E5E5E5;
-  padding: 5px 5px 3px 20px;
+    height: 20px;
+    line-height: 20px;
+    border-bottom: 1px solid #E5E5E5;
+    border-right: 1px none #E5E5E5;
+    border-left: 1px solid #E5E5E5;
+    padding: 5px 5px 3px 20px;
 }
 .icon-cell, .left-cell{
-  padding:5px 10px 3px 10px;
+    padding:5px 10px 3px 10px;
 }
 .name-cell{
-  padding: 5px 20px 3px 5px;
+    padding: 5px 20px 3px 5px;
 }
 .grey-over{
-  background-color: #F0F4FD;
+    background-color: #F0F4FD;
 }
 
 /***********Comments****************/
 
 .comment_empty{
-  background-color:#F5F5F4;
-  padding-right:10px;
-  padding-top:5px;
+    background-color:#F5F5F4;
+    padding-right:10px;
+    padding-top:5px;
 }
 
 #closed_comment{
-  color: #186BE5;
-  float:right;
-  background-position:100% -17px;
-  background-repeat:no-repeat;
-  padding:0 20px 0 0;
+    color: #186BE5;
+    float:right;
+    background-position:100% -17px;
+    background-repeat:no-repeat;
+    padding:0 20px 0 0;
 }
 #closed_comment img{
-  margin-left: 5px;
-  height:10px;
-  width:10px;
+    margin-left: 5px;
+    height:10px;
+    width:10px;
 }
 .pretty-hover{
-  cursor: pointer;
-  text-decoration: underline;
+    cursor: pointer;
+    text-decoration: underline;
 }
 #create_comment td{
-  padding-top: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom:0 none;
-  border-left:0 none;
-  border-right:0 none;
-  border-width:0;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom:0 none;
+    border-left:0 none;
+    border-right:0 none;
+    border-width:0;
 }
 
 #create_comment td#content{
-  vertical-align:top;
+    vertical-align:top;
 }
 
 #create_comment textarea{
-  width:22em;
+    width:22em;
 }
 
 #reactions {
-  border:1px solid #E5E5E5;
-  margin:10px 0;
-  position:relative;
-  text-align:right;
+    border:1px solid #E5E5E5;
+    margin:10px 0;
+    position:relative;
+    text-align:right;
 }
 
 #reactions h1{
-  background-color:#F0F5FD;
-  font-size:110%;
-  font-weight:normal;
-  margin:2px 2px 22px;
-  padding:2px 10px 2px 0;
-  position:relative;
+    background-color:#F0F5FD;
+    font-size:110%;
+    font-weight:normal;
+    margin:2px 2px 22px;
+    padding:2px 10px 2px 0;
+    position:relative;
 }
 
 #yellow_effect{ 
-  background-color: yellow;
+    background-color: yellow;
 }
 #create_comment {
-  display:none;
+    display:none;
 }
 #create_comment .submit{
-  background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
-  border: medium none;
-  color: black;
-  height: 17pt;
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-  width: 54pt;
-  text-align:center;
-  display:block;
-  float:right;
-  line-height:22px;
+    background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
+    border: medium none;
+    color: black;
+    height: 17pt;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    width: 54pt;
+    text-align:center;
+    display:block;
+    float:right;
+    line-height:22px;
 }
 
 #create_comment label{
-  margin-left: 10px;
-  vertical-align: top;
+    margin-left: 10px;
+    vertical-align: top;
 }
 #create_comment input{
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 #create_comment textarea{
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 .comment_title {
-  font-weight: bold;
-  display: inline;
+    font-weight: bold;
+    display: inline;
 }
 .comment_item{
-  background-color: #f5f5f4;
-  padding-right: 10px;
-  padding-top: 5px;
+    background-color: #f5f5f4;
+    padding-right: 10px;
+    padding-top: 5px;
 }
 
 .comment_header{
-  font-weight: bold;
-  margin-top: 10px;
-  background-color: #e5e5e4;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+    background-color: #e5e5e4;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
 }
 .comment_body{
-  display: none;
+    display: none;
 }
 /******* Permalink **************/
 
 .permalink{
-  background-position:100% 1px;
-  background-repeat:no-repeat;
-  height:17px;
-  padding:0 20px 0 0;
-  clear:both;
-  margin:25px 0 0;
+    background-position:100% 1px;
+    background-repeat:no-repeat;
+    height:17px;
+    padding:0 20px 0 0;
+    clear:both;
+    margin:25px 0 0;
 }
 .permalink-box{
-  display:none;
+    display:none;
 }
 .permalink-box input{
-  width: 290px;
+    width: 290px;
 }
 
 .permalink img{
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .permalink input{
-  margin-right:4px;
-  width:300px;
-  text-align:left;
+    margin-right:4px;
+    width:300px;
+    text-align:left;
 }
 /***** Send to friend *****/
 #closed_friend{
-  padding: 0 20px 0 0;
-  background-repeat: no-repeat;
-  background-position:100% -34px;
-  margin:0 20px 0 15px;
-  color: #186BE5;
-  float:right;
+    padding: 0 20px 0 0;
+    background-repeat: no-repeat;
+    background-position:100% -34px;
+    margin:0 20px 0 15px;
+    color: #186BE5;
+    float:right;
 }
 #send_to_friend{
-  display: none;
-  /*display: inline;*/
-  margin-left: 5px;
-  margin-right: 5px;
+    display: none;
+    /*display: inline;*/
+    margin-left: 5px;
+    margin-right: 5px;
 }
 #send_to_friend img{
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .link_to_friend{
-  color: #186BE5;
+    color: #186BE5;
 }
 
 .link_to_friend:hover {
-  color: #186BE5;
-  cursor: pointer;
-  text-decoration: underline;
+    color: #186BE5;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 #friend {
-  border: 1px solid #E5E5E5;
-  margin: 10px 0pt;
-  position: relative;
-  text-align: right;
+    border: 1px solid #E5E5E5;
+    margin: 10px 0pt;
+    position: relative;
+    text-align: right;
 }
 
 .tshuptshik{
-  height: 15px;
-  width: 15px;
+    height: 15px;
+    width: 15px;
 }
 
 #friend td{
-  padding: 5px;
-  border: 0px;
+    padding: 5px;
+    border: 0px;
 }
 
 #friend h1{
-  background-color:#F0F5FD;
-  font-size:110%;
-  font-weight:normal;
-  margin:2px 2px 22px;
-  padding:2px 10px 2px 0;
-  position:relative;
+    background-color:#F0F5FD;
+    font-size:110%;
+    font-weight:normal;
+    margin:2px 2px 22px;
+    padding:2px 10px 2px 0;
+    position:relative;
 }
 
 
 #friend input{
-  background-color:#FFFFFF;
-  border:1px solid #B1C4E2;
-  height:15pt;
-  width: 150px;
+    background-color:#FFFFFF;
+    border:1px solid #B1C4E2;
+    height:15pt;
+    width: 150px;
 
 }
 
 #friend .button{
-  background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
-  border: medium none;
-  color: black;
-  height: 17pt;
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-  width: 54pt;
-  text-align:center;
-  display:block;
-  float:right;
-  line-height:22px;
+    background: transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
+    border: medium none;
+    color: black;
+    height: 17pt;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    width: 54pt;
+    text-align:center;
+    display:block;
+    float:right;
+    line-height:22px;
 }
 
 /******* Manpower ******/
 
 
 .manpower {
-  border:1px solid #E5E5E5;
-  margin:10px 0;
-  position:relative;
-  text-align:right;
-  margin-right:0px;
+    border:1px solid #E5E5E5;
+    margin:10px 0;
+    position:relative;
+    text-align:right;
+    margin-right:0px;
 }
 .manpower table,  .manpower td, .manpower  tr{
-  border: 0px solid white;
+    border: 0px solid white;
 }
 
 .manpower td{
-  padding: 4px;
+    padding: 4px;
 }
 
 .manpower #manpower_form{
-  padding-right:35px;
-  padding-top:20px;
+    padding-right:35px;
+    padding-top:20px;
 }
 .manpower .section{
-  margin-top: 20px;
-  margin-bottom: 10px;
-  background-color:#F0F5FD;
-  font-weight: bold;
-  padding-right: 6px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color:#F0F5FD;
+    font-weight: bold;
+    padding-right: 6px;
 }
 
 .manpower input{
-  width: 100px;
+    width: 100px;
 }
 
 .manpower .first{
-  width: 80px;
+    width: 80px;
 }
 .manpower .emptyfield{
-  color: red;
+    color: red;
 }
 .manpower .second{
-  padding-right: 10px;
-  width: 80px;
+    padding-right: 10px;
+    width: 80px;
 }
 .manpower .button{
-  width: 80px;
+    width: 80px;
 }
 .manpower .checkbox {
-  width: 170px;
-  margin-left: 5px;
-  margin-right: 5px;
+    width: 170px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 .manpower .checkbox input {
-  width: 15px;
-  margin-left: 3px;
-  margin-right: 3px;
+    width: 15px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .manpower h3{
-  background-color:#F0F5FD;
-  color:black;
-  font-size:133.9%;
-  font-weight:normal;
-  margin:2px 2px 0;
-  padding:2px 10px 2px 0;
-  position:relative;
+    background-color:#F0F5FD;
+    color:black;
+    font-size:133.9%;
+    font-weight:normal;
+    margin:2px 2px 0;
+    padding:2px 10px 2px 0;
+    position:relative;
 }
 .manpower .msg{
-  width: 290px;
+    width: 290px;
 }
 .manpower #success{
-  width: 210px;
-  padding:5px 85px 5px 30px;
-  margin-top: 5px;
-  background-color: #FFFED0;
-  color: green;
-  font-weight: bold;
+    width: 210px;
+    padding:5px 85px 5px 30px;
+    margin-top: 5px;
+    background-color: #FFFED0;
+    color: green;
+    font-weight: bold;
 }
 
 /*******  Picture gallery  ********/
 
 .picture_gallery{
-  display: block;
+    display: block;
 }
 
 .picture_gallery h3{ 
-  margin:1em 0 0;
-  padding:7px 10px 5px 0;
-  color:#192862;
-  font-size:16px;
-  margin-bottom:3px;
+    margin:1em 0 0;
+    padding:7px 10px 5px 0;
+    color:#192862;
+    font-size:16px;
+    margin-bottom:3px;
 }
 
 .picture_gallery .pictures a{
-  cursor:url(/images/zoomin.cur), pointer;
+    cursor:url(/images/zoomin.cur), pointer;
 }
 
 img.thumbnails{
-  width: 90px;
-  height: 90px;
-  margin: 3px;
+    width: 90px;
+    height: 90px;
+    margin: 3px;
 }
 
 
@@ -933,443 +933,443 @@ img.thumbnails{
 
 
 .mediacasting{
-  padding-right: 25px;
+    padding-right: 25px;
 }
 .mediacasting a.hide-player{
-  display: none;
+    display: none;
 }
 .mediacasting a.show-player{
-  display: none;
+    display: none;
 }
 .mediacasting a.media-download{
-  display: none;
+    display: none;
 }
 .media-download{
-  margin-right: 10px;
+    margin-right: 10px;
 }
 .audio{
-  background-image: url('/images/hebmain/audio.png');
-  background-repeat: no-repeat;
-  background-attachment:scroll;
-  background-position: 100% 0%;
+    background-image: url('/images/hebmain/audio.png');
+    background-repeat: no-repeat;
+    background-attachment:scroll;
+    background-position: 100% 0%;
 }
 .video{
-  background-image: url('/images/hebmain/video.png');
-  background-repeat: no-repeat;
-  background-attachment:scroll;
-  background-position: 100% 0%;
+    background-image: url('/images/hebmain/video.png');
+    background-repeat: no-repeat;
+    background-attachment:scroll;
+    background-position: 100% 0%;
 }
 .media{
-  color:#186BE5;
-  cursor:pointer;
-  text-decoration:underline;
+    color:#186BE5;
+    cursor:pointer;
+    text-decoration:underline;
 }
 
 /*----------  Section Preview  ---------------*/
 .section_preview{
-  position:relative;
+    position:relative;
 }
 .section_preview .h1{
-  color:black;
-  text-align:right;
-  margin:0;
-  background-color: #e1ecfc;
-  background-image: none;
-  height:32px;
-  line-height:32px;
-  position:relative;
-  padding: 0 10px 0 0;
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #e1ecfc;
+    background-image: none;
+    height:32px;
+    line-height:32px;
+    position:relative;
+    padding: 0 10px 0 0;
 }
 .section_preview .h1_gray{
-  color:black;
-  text-align:right;
-  margin:0;
-  background-color: #f0f0f0;
-  background-image: none;
-  border-top: thin solid #cbcbcd;
-  height:22px;
-  line-height:22px;
-  position:relative;
-  padding: 0 10px 0 0;
+    color:black;
+    text-align:right;
+    margin:0;
+    background-color: #f0f0f0;
+    background-image: none;
+    border-top: thin solid #cbcbcd;
+    height:22px;
+    line-height:22px;
+    position:relative;
+    padding: 0 10px 0 0;
 }
 .section_preview .h1 .h1-right{
-  background-position:0 -160px;
-  position:absolute;
-  top:0;
-  right:0;
-  height:32px;
+    background-position:0 -160px;
+    position:absolute;
+    top:0;
+    right:0;
+    height:32px;
 }
 .section_preview .h1 .h1-left{
-  background-position:0 -128px;
-  position:absolute;
-  height:32px;
-  top:0;
-  left:0;
+    background-position:0 -128px;
+    position:absolute;
+    height:32px;
+    top:0;
+    left:0;
 }
 .section_preview .cont {
-  left:5px;
-  position:absolute;
+    left:5px;
+    position:absolute;
 }
 
 /*----------  kab.tv ---------------*/
 #kabtv {
-  background-repeat:no-repeat;
-  width:714px;
-  height:456px;
-  margin: 0 0 0 22px;
-  padding:0;
-  position:relative;
+    background-repeat:no-repeat;
+    width:714px;
+    height:456px;
+    margin: 0 0 0 22px;
+    padding:0;
+    position:relative;
 }
 #kabtv #player-side{
-  width:378px;
-  padding:0;
-  margin:64px 11px 36px 12px;
-  float:left;
+    width:378px;
+    padding:0;
+    margin:64px 11px 36px 12px;
+    float:left;
 }
 #kabtv #player_options{
-  height:28px;
-  width:700px;
-  position:absolute;
-  bottom:-2px;
-  right:9px;
-  font-weight:bold;
+    height:28px;
+    width:700px;
+    position:absolute;
+    bottom:-2px;
+    right:9px;
+    font-weight:bold;
 }
 #kabtv #player_options #bitrates{
-  float:right;
-  margin-right:35px;
-  color:white;
+    float:right;
+    margin-right:35px;
+    color:white;
 }
 #kabtv #player_options #bitrates label{
-  margin-right:6px;
+    margin-right:6px;
 }
 #kabtv #player_options #bitrates .selected{
-  color:#fde500;
-  font-weight:bold;
+    color:#fde500;
+    font-weight:bold;
 }
 #kabtv #player_options #separate-msg{
-  color:white;
-  float:left;
-  margin-right:13px;
+    color:white;
+    float:left;
+    margin-right:13px;
 }
 #kabtv #player_options #separate-win{
-  display:none;
-  background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat 100% 0;
-  color:white;
-  margin-right:10px;
-  padding-right:20px;
-  float:left;
+    display:none;
+    background:transparent url(/images/hebmain/kabtv/separate.gif) no-repeat 100% 0;
+    color:white;
+    margin-right:10px;
+    padding-right:20px;
+    float:left;
 }
 #kabtv #player_options #full-win{
-  display:none;
-  background:transparent url(/images/hebmain/kabtv/full.gif) no-repeat 100% 0;
-  color:white;
-  padding-right:20px;
-  float:left;
+    display:none;
+    background:transparent url(/images/hebmain/kabtv/full.gif) no-repeat 100% 0;
+    color:white;
+    padding-right:20px;
+    float:left;
 }
 #kabtv #player_options #troubleshooting_str{
-  color:white;
-  height:10px;
-  float:right;
+    color:white;
+    height:10px;
+    float:right;
 }
 #kabtv #player_options #troubleshooting_url{
-  color:#fde500;
-  margin-right:5px;
+    color:#fde500;
+    margin-right:5px;
 }
 #kabtv #tabs{
-  float:right;
-  margin:8px 8px 22px 0;
-  width:304px;
+    float:right;
+    margin:8px 8px 22px 0;
+    width:304px;
 }
 #kabtv .ui-tabs-nav {
-  padding:0;
-  margin:0 -1px 0 0;
+    padding:0;
+    margin:0 -1px 0 0;
 }
 #kabtv .ui-tabs-nav li{
-  list-style-image:none;
-  list-style-position:outside;
-  list-style-type:none;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
 }
 #kabtv .ui-tabs-panel{
-  background:#f0f5fd url(/images/hebmain/jquery/tab-tv-bg.png) no-repeat scroll 0 0;
-  border:0 none;
+    background:#f0f5fd url(/images/hebmain/jquery/tab-tv-bg.png) no-repeat scroll 0 0;
+    border:0 none;
 }
 #kabtv .clear, #home-kabtv .clear{
-  clear:both;
+    clear:both;
 }
 #kabtv #schedule, #kabtv #questions, #kabtv #sketch{
-  height:354px;
-  text-align:right;
-  background:#F0F5FD none;
+    height:354px;
+    text-align:right;
+    background:#F0F5FD none;
 }
 #kabtv #schedule .time{
-  color:#227abe;
-  font-size:14px;
-  font-weight:bold;
+    color:#227abe;
+    font-size:14px;
+    font-weight:bold;
 }
 #kabtv #schedule .item0,#kabtv #schedule .item1{
-  padding:5px;
+    padding:5px;
 }
 #kabtv #schedule .item0{
-  background-color:white;
+    background-color:white;
 }
 #kabtv #schedule .item2{
-  height:0;
-  font-size:0;
-  line-height:0;
+    height:0;
+    font-size:0;
+    line-height:0;
 }
 #kabtv #schedule a{
-  display:inline;
-  background:0 none;
-  padding:0 5px;
+    display:inline;
+    background:0 none;
+    padding:0 5px;
 }
 #kabtv .schedule_day{
-  height:320px;
-  margin: 10px 0 0;
-  overflow-y:scroll;
-  padding:0 5px 0;
-  width:280px;
+    height:320px;
+    margin: 10px 0 0;
+    overflow-y:scroll;
+    padding:0 5px 0;
+    width:280px;
 }
 #kabtv .schedule_selected{
-  color: red;
+    color: red;
 }
 #kabtv #schedule_list{
-  position:relative;
-  display:inline-block;
+    position:relative;
+    display:inline-block;
 }
 #kabtv #schedule_list .title{
-  font-weight:bold;
-  padding-right:15px;
+    font-weight:bold;
+    padding-right:15px;
 }
 .icon-plus{
-  background: transparent url(/images/closed.gif) no-repeat 100% 70%;
+    background: transparent url(/images/closed.gif) no-repeat 100% 70%;
 }
 .icon-minus{
-  background: transparent url(/images/open.gif) no-repeat 100% 70%;
+    background: transparent url(/images/open.gif) no-repeat 100% 70%;
 }
 #kabtv #schedule_list .title:hover{
-  text-decoration: underline;
-  font-weight: bold;
-  cursor: pointer;
-  padding-right:15px;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    padding-right:15px;
 }
 #kabtv h3{
-  text-align:center;
-	margin:0;
+    text-align:center;
+    margin:0;
 }
 #kabtv #sketch a{
-  display:inline;
-  padding:0 0 0 5px;
+    display:inline;
+    padding:0 0 0 5px;
 }
 #kabtv #sketch a#last-sketch img{
-  height: 213px;
-  width:281px;
-  float:right;
-  display:block;
-  margin:0px 0 5px;
+    height: 213px;
+    width:281px;
+    float:right;
+    display:block;
+    margin:0px 0 5px;
 }
 #kabtv #sketch #thumbnails a {
-  background:0 none;
+    background:0 none;
 }
 #kabtv #sketch #thumbnails{
-  overflow-x:scroll;
-  overflow-y:hidden;
-  width:285px;
-  height:125px;
+    overflow-x:scroll;
+    overflow-y:hidden;
+    width:285px;
+    height:125px;
 }
 #kabtv a.highslide{
-  background:0 none !important;
+    background:0 none !important;
 }
 a.highslide-full-expand {
-  background: url(/highslide/graphics/fullexpand.gif) no-repeat;
-  display: block;
-  margin: 0 10px 10px 0;
-  width: 44px;
-  height: 44px;
+    background: url(/highslide/graphics/fullexpand.gif) no-repeat;
+    display: block;
+    margin: 0 10px 10px 0;
+    width: 44px;
+    height: 44px;
 }
 #kabtv div.question0,#kabtv div.question1{
-  margin: 3px 0px;
-  padding: 0 5px;
+    margin: 3px 0px;
+    padding: 0 5px;
 }
 #kabtv div.question0{
-  background-color:white;
+    background-color:white;
 }
 #kabtv div.question2{
-  height:0;
-  font-size:0;
-  line-height:0;
+    height:0;
+    font-size:0;
+    line-height:0;
 }
 #kabtv div.who{
-  color: #3864b5;
+    color: #3864b5;
 }
 #kabtv #ask .text{
-  border: 1px solid #b1c4e2;
-  width:230px;
-  float:left;
-  margin:10px 0;
+    border: 1px solid #b1c4e2;
+    width:230px;
+    float:left;
+    margin:10px 0;
 }
 #kabtv #ask .q{
-  width:280px;
+    width:280px;
 }
 #kabtv #ask .textarea{
-  width:280px;
-  border: 1px solid #b1c4e2;
-  margin:0 0 15px;
+    width:280px;
+    border: 1px solid #b1c4e2;
+    margin:0 0 15px;
 }
 #kabtv #ask label{
-  color:#3864b5;
-  font-weight:bold;
-  float:right;
-  margin:10px 0;
+    color:#3864b5;
+    font-weight:bold;
+    float:right;
+    margin:10px 0;
 }
 #kabtv .ta-label{
-  margin:10px 0 0;
+    margin:10px 0 0;
 }
 #kabtv .button_l {
-	text-align:left;
+    text-align:left;
 }
 #kabtv .button_c {
-	text-align:center;
+    text-align:center;
 }
 #kabtv .button {
-  background:transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
-  border:medium none;
-  color:black;
-  height:17pt;
-  margin-bottom:5px;
-  padding-bottom:5px;
-  width:54pt;
+    background:transparent url(/images/hebmain/submit.png) no-repeat scroll 0 0;
+    border:medium none;
+    color:black;
+    height:17pt;
+    margin-bottom:5px;
+    padding-bottom:5px;
+    width:54pt;
 }
 #kabtv #ask_submit,
 #kabtv #ask_cancel{
-	float:right;
+    float:right;
 }
 #kabtv #ask_btn1,
 #kabtv #ask_btn2 {
-  background:transparent url(/images/hebmain/ask_btn.png) no-repeat scroll 0 0;
-  width:128px;
+    background:transparent url(/images/hebmain/ask_btn.png) no-repeat scroll 0 0;
+    width:128px;
 }
 #kabtv .ui-tabs-nav .ui-tabs-selected a span, #kabtv .ui-tabs-nav a:hover span, #kabtv .ui-tabs-nav a:focus span, #kabtv .ui-tabs-nav a:active span,
 #kabtv .ui-tabs-nav .ui-tabs-selected a, #kabtv .ui-tabs-nav a:hover, #kabtv .ui-tabs-nav a:focus, #kabtv .ui-tabs-nav a:active {
-  background-image:url(/images/hebmain/jquery/tab-sel.gif);
+    background-image:url(/images/hebmain/jquery/tab-sel.gif);
 }
 #kabtv .ui-tabs-nav a, #kabtv .ui-tabs-nav a span {
-  background-image:url(/images/hebmain/jquery/tab.gif);
+    background-image:url(/images/hebmain/jquery/tab.gif);
 }
 #kabtv #questions #q{
-  display:block;
-  height:280px;
-  margin:10px 0;
-  overflow-x:hidden;
-  overflow-y:scroll;
-	border:1px solid #ddd;
+    display:block;
+    height:280px;
+    margin:10px 0;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    border:1px solid #ddd;
 }
 #kabtv #ask_question{
-  position:relative;
+    position:relative;
 }
 #kabtv #ask_question-ie{
-  background-color:#F0F5FD;
-  /*margin-top:-40px;*/
+    background-color:#F0F5FD;
+    /*margin-top:-40px;*/
 }
 #kabtv #kabtv-loading{
-  position:absolute;
-  left:0;
-  top:0;
+    position:absolute;
+    left:0;
+    top:0;
 }
 #kabtv #cdn_logo_castup{
-	bottom:37px;
-	left:0;
-	height:23px;
-	position:absolute;
-	width:73px;
-	background-image:url(/images/hebmain/castup.jpg);
+    bottom:37px;
+    left:0;
+    height:23px;
+    position:absolute;
+    width:73px;
+    background-image:url(/images/hebmain/castup.jpg);
 }
 #kabtv #cdn_logo_3dcdn{
-	bottom:37px;
-	left:0;
-	height:23px;
-	position:absolute;
-	width:73px;
-	background-image:url(/images/hebmain/3dCDN.jpg);
+    bottom:37px;
+    left:0;
+    height:23px;
+    position:absolute;
+    width:73px;
+    background-image:url(/images/hebmain/3dCDN.jpg);
 }
 #kabtv #cdn_logo_3dcdn a{
-	bottom:0;
-	display:block;
-	height:24px;
-	left:4px;
-	position:absolute;
-	width:49px;
+    bottom:0;
+    display:block;
+    height:24px;
+    left:4px;
+    position:absolute;
+    width:49px;
 }
 #kabtv #link_to_wmv{
-	position:absolute;
-	bottom:37px;
-	right: 325px;
+    position:absolute;
+    bottom:37px;
+    right: 325px;
 }
 #kabtv #link_to_wmv a{
-color:#FDE500;
-font-weight:bold;
+    color:#FDE500;
+    font-weight:bold;
 }
 
 .kabtv-news-blueborder{
-  border:1px solid #90AEDE;
+    border:1px solid #90AEDE;
 }
 
 #kabtv-news{
-  position: relative;
-  text-align: right;
-  padding-top:1px;
+    position: relative;
+    text-align: right;
+    padding-top:1px;
 }
 #kabtv-live{
-  background-color:#1c4fb8;
-  text-align:right;
-  height:30px;
-  padding-right:12px;
-  padding-bottom:30px;
+    background-color:#1c4fb8;
+    text-align:right;
+    height:30px;
+    padding-right:12px;
+    padding-bottom:30px;
 }
 #kabtv-live a{
-  background:transparent url(/images/hebmain/kabtv/golive.gif) repeat-x 0 0;
-  color: white;
-  font-weight:bold;
-  text-decoration:none;
-  padding: 3px 9px 7px 0px;
+    background:transparent url(/images/hebmain/kabtv/golive.gif) repeat-x 0 0;
+    color: white;
+    font-weight:bold;
+    text-decoration:none;
+    padding: 3px 9px 7px 0px;
 }
 #kabtv-live .text-live{
-  background:transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 48%;
-  padding-left:30px;
+    background:transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 48%;
+    padding-left:30px;
 }
 #kabtv-live .live-event{
-  color: white;
-  font-weight:bold;
-  padding-bottom:5px;
+    color: white;
+    font-weight:bold;
+    padding-bottom:5px;
 }
 .futurprogram-plus{
-  background:transparent url(/images/hebmain/kabtv/futurprogram-plus.gif) no-repeat scroll 100% 0%;
-  padding: 5px 20px 6px 0px;
-  line-height:23px;
+    background:transparent url(/images/hebmain/kabtv/futurprogram-plus.gif) no-repeat scroll 100% 0%;
+    padding: 5px 20px 6px 0px;
+    line-height:23px;
 }
 .futurprogram-minus{
-  background:transparent url(/images/hebmain/kabtv/futurprogram-minus.gif) no-repeat scroll 100% 0%;
-  padding: 5px 20px 6px 0px;
-  line-height:23px;
+    background:transparent url(/images/hebmain/kabtv/futurprogram-minus.gif) no-repeat scroll 100% 0%;
+    padding: 5px 20px 6px 0px;
+    line-height:23px;
 }
 #kabtv-news .tv_news_container h3{
-  padding: 0 5pt;
+    padding: 0 5pt;
 }
 
 #kabtv-news .tv_news_container .newstitle .tvnewsiteminus{
-  background:transparent url(/images/hebmain/kabtv/tvnewsiteminus.gif) no-repeat scroll 104% -22%;
+    background:transparent url(/images/hebmain/kabtv/tvnewsiteminus.gif) no-repeat scroll 104% -22%;
 }
 #kabtv-news .tv_news_container .newstitle .tvnewsiteplus{
-  background:transparent url(/images/hebmain/kabtv/tvnewsiteplus.gif) no-repeat scroll 104% -22%;
+    background:transparent url(/images/hebmain/kabtv/tvnewsiteplus.gif) no-repeat scroll 104% -22%;
 }
 
 #kabtv-news .tv_news_container .newstitle{
-  background:silver url(/images/hebmain/kabtv/tvnewsiteclose.gif) repeat-x 0 0;
-  margin: 0px;
-  height:26px;
-  width:206px;
-  padding: 0 5pt;
-  font-weight:bold;
-  cursor:pointer;
+    background:silver url(/images/hebmain/kabtv/tvnewsiteclose.gif) repeat-x 0 0;
+    margin: 0px;
+    height:26px;
+    width:206px;
+    padding: 0 5pt;
+    font-weight:bold;
+    cursor:pointer;
 }
 /*#kabtv-news a{
 color: black;
@@ -1377,153 +1377,153 @@ text-decoration: none;
 }
 */
 #kabtv-news .link{
-  background: transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 89%;
-  text-align: left;
-  padding-left:15px;
-  margin: 3px;
-  color: #186BE5;
+    background: transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 89%;
+    text-align: left;
+    padding-left:15px;
+    margin: 3px;
+    color: #186BE5;
 }
 #kabtv-news .itemopen h3{
-  padding: 0pt 19px;
-  font-weight:normal;
-  color:#0D47B2;
-  margin: 0pt;
+    padding: 0pt 19px;
+    font-weight:normal;
+    color:#0D47B2;
+    margin: 0pt;
 }
 #kabtv-news .itemopen a.black_color{
-  color:black;
+    color:black;
 }
 #kabtv-news .item .newstitle h3{
-  padding: 2pt 12pt 0pt 0pt;
-  font-weight:normal;
-  color:black;
-  height:25px;
-  margin: 0pt;
+    padding: 2pt 12pt 0pt 0pt;
+    font-weight:normal;
+    color:black;
+    height:25px;
+    margin: 0pt;
 
 }
 #kabtv-news .itemopen .newsdescription{
-  margin: 4px 13px 5px 5px;
+    margin: 4px 13px 5px 5px;
 }
 #kabtv-news .item .newsdescription{
-  display: none;
-  margin: 4px 13px 5px 5px;
+    display: none;
+    margin: 4px 13px 5px 5px;
 }
 #kabtv-news .newsimg{
-  float: right;
-  margin: 3px 0px 3px 8px;
+    float: right;
+    margin: 3px 0px 3px 8px;
 }
 .box1_headersection_tv{
-  background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
-  /*    padding-top:1px;*/
-  height:26px;
-  font-weight:bold;
-  color:white;
-  text-align:right;
-  cursor:pointer;
+    background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
+    /*    padding-top:1px;*/
+    height:26px;
+    font-weight:bold;
+    color:white;
+    text-align:right;
+    cursor:pointer;
 }
 .box_headersection_tv{
-  background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
-  padding:3px 67px 0 0;
-  height:26px;
-  font-weight:bold;
-  color:white;
-  text-align:right;
+    background:transparent url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
+    padding:3px 67px 0 0;
+    height:26px;
+    font-weight:bold;
+    color:white;
+    text-align:right;
 
 }
 /* Controlbar for sketches */
 .controlbar {
-  background: url(/highslide/graphics/controlbar4.gif);
-  width: 167px;
-  height: 34px;
+    background: url(/highslide/graphics/controlbar4.gif);
+    width: 167px;
+    height: 34px;
 }
 .controlbar a {
-  display: block;
-  float: left;
-  height: 27px;
+    display: block;
+    float: left;
+    height: 27px;
 }
 .controlbar a:hover {
-  background-image: url(/highslide/graphics/controlbar4-hover.gif);
+    background-image: url(/highslide/graphics/controlbar4-hover.gif);
 }
 .controlbar .previous {
-  width: 50px;
+    width: 50px;
 }
 .controlbar .next {
-  width: 40px;
-  background-position: -50px 0;
+    width: 40px;
+    background-position: -50px 0;
 }
 .controlbar .highslide-move {
-  width: 40px;
-  background-position: -90px 0;
+    width: 40px;
+    background-position: -90px 0;
 }
 .controlbar .close {
-  width: 36px;
-  background-position: -130px 0;
+    width: 36px;
+    background-position: -130px 0;
 }
 
 /*----------  kab.tv on homepage  ---------------*/
 #home-kabtv{
-  width:222px;
+    width:222px;
 }
 #home-kabtv #kabtv-top{
-  height:309px;
-  background:#1c4fb8 url(/images/hebmain/kabtv/home-top.gif) no-repeat 0 0;
-  position:relative;
+    height:309px;
+    background:#1c4fb8 url(/images/hebmain/kabtv/home-top.gif) no-repeat 0 0;
+    position:relative;
 }
 #home-kabtv #kabtv-mid{
-  background:#1c4fb8 url(/images/hebmain/kabtv/home-mid.jpg) no-repeat 0 0;
-  padding-bottom:10px;
-  display: none;
+    background:#1c4fb8 url(/images/hebmain/kabtv/home-mid.jpg) no-repeat 0 0;
+    padding-bottom:10px;
+    display: none;
 }
 #home-kabtv #kabtv-bot{
-  background-color:#1c4fb8;
-  height:30px;
-  padding-bottom:20px;
-  padding-right:5px;
-  padding-top: 5px;
-  text-align:right;
+    background-color:#1c4fb8;
+    height:30px;
+    padding-bottom:20px;
+    padding-right:5px;
+    padding-top: 5px;
+    text-align:right;
 }
 #home-kabtv #kabtv-bot a{
-  background:transparent url(/images/hebmain/kabtv/tvbutton.gif) repeat-x 0 0;
-  color: black;
-  font-weight:bold;
-  text-decoration:none;
-  padding: 0px 9px 9px 0px;
+    background:transparent url(/images/hebmain/kabtv/tvbutton.gif) repeat-x 0 0;
+    color: black;
+    font-weight:bold;
+    text-decoration:none;
+    padding: 0px 9px 9px 0px;
 }
 #home-kabtv #kabtv-bot  .text-tv{
-  background:transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 5%;
-  padding-left:105px;
-  position:relative;
-  top:3px;
+    background:transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 5%;
+    padding-left:105px;
+    position:relative;
+    top:3px;
 }
 #home-kabtv .hdr{
-  color:white;
-  font-weight:bold;
-  text-align:right;
-  padding:6px 50px 0 0;
+    color:white;
+    font-weight:bold;
+    text-align:right;
+    padding:6px 50px 0 0;
 }
 #home-kabtv #kabtv-mid .item{
-  clear:both;
-  line-height:19px;
-  padding:6px 0;
+    clear:both;
+    line-height:19px;
+    padding:6px 0;
 }
 #home-kabtv .item .time {
-  color:white;
-  text-align:center;
-  background:black url(/images/hebmain/kabtv/home-time.gif) repeat-x 0 0;
-  width:48px;
-  float:right;
+    color:white;
+    text-align:center;
+    background:black url(/images/hebmain/kabtv/home-time.gif) repeat-x 0 0;
+    width:48px;
+    float:right;
 }
 #home-kabtv .item .title {
-  text-align:right;
-  padding:0 5px;
-  background:#479bdc url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
-  width:154px;
-  float:right;
-  font-weight:bold;
+    text-align:right;
+    padding:0 5px;
+    background:#479bdc url(/images/hebmain/kabtv/home-title.gif) repeat-x 0 0;
+    width:154px;
+    float:right;
+    font-weight:bold;
 }
 #home-kabtv #tvobj{
-  left:12px;
-  position:absolute;
-  top:87px;
+    left:12px;
+    position:absolute;
+    top:87px;
 }
 /***********************/
 a:hover img.hover{
@@ -1531,81 +1531,126 @@ a:hover img.hover{
 }
 /***********************/
 .share_this{
-  text-align: right;
-  display: inline;
+    text-align: right;
+    display: inline;
 }
 #sharepic{
-  margin:0 0px 0 2px;
+    margin:0 0px 0 2px;
 }
 .hadashot{
-  text-align: right;
-  display: inline;
+    text-align: right;
+    display: inline;
 }
 #hadashotpic{
-  margin:0 0px 0 2px;
+    margin:0 0px 0 2px;
 }
 .shavekria{
-  text-align: right;
-  display: inline;
+    text-align: right;
+    display: inline;
 }
 #shavekriapic{
-  margin:0 0px 0 2px;
+    margin:0 0px 0 2px;
 }
 /*************************/
 #languagebar{
-  background-color:#F5F5F7;
-  border-color:#C9C9CE;
-  border-style:ridge;
-  padding:0;
-  font-size:12px;
-  color:gray;
-  position:absolute;
-  right:0px;
-  top:103px;
+    background-color:#F5F5F7;
+    border-color:#C9C9CE;
+    border-style:ridge;
+    padding:0;
+    font-size:12px;
+    color:gray;
+    position:absolute;
+    right:0px;
+    top:103px;
+}
+/********* countdown ************/
+#countdown {
+    background: transparent url(/images/hebmain/countdown-calendar.png) no-repeat;
+    width: 156px;
+    height: 200px;
+    margin: 0 auto;
+    color: #f25555;
+}
+.only {
+    font-size: 16px;
+    position:relative;
+    right:-3px;
+    text-align:center;
+    top:30px;
+}
+.only span{
+    font-size: 30px;
+    display: block;
+    line-height:25px;
+}
+.time{
+    position:relative;
+    text-align:center;
+    top:59px;
+    right: -10px;
+    width: 171px;
+    height: 35px;
+    font-size: 28px;
+    font-weight: bold;
+}
+.dg{
+    background: transparent url(/images/hebmain/countdown-digits.png) no-repeat;
+    display:block;
+    float:left;
+    height:35px;
+    padding:0 3px 0 0;
+    width:21px;
+}
+.dots{
+    display:block;
+    float:left;
+    height:35px;
+    padding:0 3px 0 0;
+    width:10px;
 }
 /*********************/
 .errormsg{
-  background-color:#3864B5;
-  position: relative;
-  width: 735px;
-  height: 110px;
+    background-color:#3864B5;
+    position: relative;
+    width: 735px;
+    height: 110px;
 }
 .errormsg .corner1{
-  position: absolute;
-  top: 0px;
-  left:0px;
+    position: absolute;
+    top: 0px;
+    left:0px;
 }
 .errormsg .cross{
-  position: absolute;
-  top: 5px;
-  left:635px;
+    position: absolute;
+    top: 5px;
+    left:635px;
 }
 .errormsg .corner2{
-  position: absolute;
-  top: 0px;
-  left:730px;
+    position: absolute;
+    top: 0px;
+    left:730px;
 }
 .errormsg .corner3{
-  position: absolute;
-  top: 105px;
-  left:730px;
+    position: absolute;
+    top: 105px;
+    left:730px;
 }
 .errormsg .corner4{
-  position: absolute;
-  top: 105px;
-  left:0;
+    position: absolute;
+    top: 105px;
+    left:0;
 }
 .errormsg .title{
-  color:white;
-  font-size:26px;
-  right:110px;
-  position:absolute;
-  top:39px;
+    color:white;
+    font-size:26px;
+    right:110px;
+    position:absolute;
+    top:39px;
 }
 .errormsg .errnum{
-  color:white;
-  font-size:12px;
-  left:568px;
-  position:absolute;
-  top:30px;
+    color:white;
+    font-size:12px;
+    left:568px;
+    position:absolute;
+    top:30px;
 }

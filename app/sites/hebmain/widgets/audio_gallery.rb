@@ -33,7 +33,7 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
                 td(:class => 'title') {
                   rawtext title
                   br
-                  div(:class => 'audioplayer_container', :id => "audioplayer_#{audio_item.object_id}"){
+                  div(:class => 'audioplayer_container', :id => "audioplayer_#{audio_item.object_id.abs}"){
                     rawtext <<-message
                 Audio clip: Adobe Flash Player (version 9 or above) is required to play this audio clip.
                 Download the latest version <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash&amp;promoid=BIOW" title="Download Adobe Flash Player">here</a>.
@@ -47,7 +47,7 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
                   end
                   script{
                     rawtext <<-player
-              AudioPlayer.embed("audioplayer_#{audio_item.object_id}", {
+              AudioPlayer.embed("audioplayer_#{audio_item.object_id.abs}", {
 								width: 255,
                 soundFile: "#{url}",
                 titles: " ",
@@ -110,13 +110,7 @@ class Hebmain::Widgets::AudioGallery < WidgetManager::Base
     )
   end
 
-  @@waudio_inited = false
-  
   def player_ini
-    return if @@waudio_inited
-
-    @@waudio_inited = true
-      
     script(:type => "text/javascript"){
       rawtext <<-ini_script
         AudioPlayer.setup("#{@presenter.domain}/javascripts/wpaudioplayer/player.swf", {

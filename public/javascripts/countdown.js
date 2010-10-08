@@ -112,21 +112,14 @@ function formatresults2(){
   } else{ //else if target date/time met
 	return 	"<div class='only'>נותרו רק:</div>" +
 		"<div class='time'>" +
-			"<span class='d0'>0</span>" +
-			"<span class='d1'>0</span>" +
-			"<span class='days'>ימים</span>" +
-			"<span class='line'>&nbsp;</span>" +
-			"<span class='d2'>0</span>" +
-			"<span class='d3'>0</span>" +
-			"<span class='hours'>שעות</span>" +
-			"<span class='dots dot1'>&nbsp;</span>" +
-			"<span class='d4'>0</span>" +
-			"<span class='d5'>0</span>" +
-			"<span class='mins'>דקות</span>" +
-			"<span class='dots dot2'>&nbsp;</span>" +
-			"<span class='d6'>0</span>" +
-			"<span class='d7'>0</span>" +
-			"<span class='secs'>שניות</span>" +
+			"<span class='dg'>0</span>" +
+			"<span class='dg'>0</span>" +
+			"<span class='dots'>:</span>" +
+			"<span class='dg'>0</span>" +
+			"<span class='dg'>0</span>" +
+			"<span class='dots'>:</span>" +
+			"<span class='dg'>0</span>" +
+			"<span class='dg'>0</span>" +
 		"</div>";
   }
   return '';

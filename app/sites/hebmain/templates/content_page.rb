@@ -247,7 +247,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         }
       elsif get_countdown && !get_countdown.empty?
         servertime = Time.new.strftime('%B %d, %Y %H:%M:%S')
-        targettime = Time.parse(get_countdown).strftime('%B %d, %Y 09:%M:%S')
+        targettime = Time.parse(Date.strptime(get_countdown, '%d.%m.%Y').to_s).strftime('%B %d, %Y 09:%M:%S')
         div(:id => 'countdown')
         javascript {
           rawtext '$(function() {'

@@ -239,22 +239,25 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def ext_main_image
     WidgetManager::Base.new do
-      if get_main_image && !get_main_image.empty?
+      date = get_countdown_date
+      if date && !date.empty?
+        servertime = Time.new.strftime('%B %d, %Y %H:%M:%S')
+        targettime = Time.parse(Date.strptime(date, '%d.%m.%Y').to_s).strftime('%B %d, %Y 09:%M:%S')
+        prefix = get_countdown_prefix
+        suffix = get_countdown_suffix
+        div(:id => 'countdown')
+        javascript {
+          rawtext '$(function() {'
+          rawtext "  var launchdate = new cdLocalTime('countdown', '#{servertime}', 0, '#{targettime}', '#{prefix}', '#{suffix}');"
+          rawtext "  launchdate.displaycountdown('countdown', formatresults2);"
+          rawtext '});'
+
+        }
+      elsif get_main_image && !get_main_image.empty?
         div(:class => 'image'){
           img(:src => get_main_image, :alt => get_main_image_alt, :title => get_main_image_alt)
           br
           text get_main_image_alt
-        }
-      elsif get_countdown && !get_countdown.empty?
-        servertime = Time.new.strftime('%B %d, %Y %H:%M:%S')
-        targettime = Time.parse(Date.strptime(get_countdown, '%d.%m.%Y').to_s).strftime('%B %d, %Y 09:%M:%S')
-        div(:id => 'countdown')
-        javascript {
-          rawtext '$(function() {'
-          rawtext "  var launchdate = new cdLocalTime('countdown', '#{servertime}', 0, '#{targettime}');"
-          rawtext "  launchdate.displaycountdown('countdown', formatresults2);"
-          rawtext '});'
-
         }
       end
     end

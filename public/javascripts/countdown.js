@@ -5,11 +5,13 @@
 * Visit http://www.dynamicdrive.com/ for this script and 100s more.
 ***********************************************/
 
-function cdLocalTime(container, servertime, offsetMinutes, targetdate, debugmode){
+function cdLocalTime(container, servertime, offsetMinutes, targetdate, prefix, suffix, debugmode){
   if (!document.getElementById || !document.getElementById(container)) return;
   this.container = document.getElementById(container);
   this.localtime = this.serverdate = new Date(servertime);
   this.targetdate = new Date(targetdate);
+  this.prefix = prefix;
+  this.suffix = suffix;
   this.debugmode = (typeof debugmode != "undefined") ? 1 : 0;
   this.timesup = false;
   this.localtime.setTime(this.serverdate.getTime() + offsetMinutes * 60 * 1000); //add user offset to server time
@@ -98,7 +100,7 @@ function formatresults2(){
 	digits[6] = Math.floor(arguments[3]/10);
 	digits[7] = arguments[3]%10;
 
-	return 	"<div class='only'>נותרו עוד <span>" + digits[0]+digits[1] + "</span> יום לכנס</div>" +
+	return 	"<div class='only'>" + this.prefix + "<span>" + digits[0]+digits[1] + "</span> " + this.suffix + "</div>" +
 		"<div class='time'>" +
 			"<span class='dg'>"+digits[2]+"</span>" +
 			"<span class='dg'>"+digits[3]+"</span>" +

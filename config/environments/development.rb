@@ -19,6 +19,9 @@ config.action_controller.perform_caching             = false
 ## and also in action_controller.rb
 #ZZZ TURN-THE-FOLLOWING-LINES-ON config.action_controller.perform_caching             = true
 #ZZZ TURN-THE-FOLLOWING-LINES-ON config.cache_store = :file_store, "tmp/cache/"
+#ZZZ TURN-THE-FOLLOWING-LINES-ON config.action_controller.perform_caching             = true
+#ZZZ TURN-THE-FOLLOWING-LINES-ON config.cache_store = :file_store, "tmp/cache/"
+
 
 
 

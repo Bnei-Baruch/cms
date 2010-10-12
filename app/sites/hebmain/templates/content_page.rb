@@ -240,6 +240,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_main_image
     WidgetManager::Base.new do
       date = get_countdown_date
+      
       if date && !date.empty?
         servertime = Time.new.strftime('%B %d, %Y %H:%M:%S')
         targettime = Time.parse(Date.strptime(date, '%d.%m.%Y').to_s).strftime('%B %d, %Y 09:%M:%S')

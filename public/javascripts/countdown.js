@@ -99,7 +99,7 @@ function formatresults2(){
 	// seconds
 	digits[6] = Math.floor(arguments[3]/10);
 	digits[7] = arguments[3]%10;
-
+ 
 	return 	"<div class='only'>" + this.prefix + "<span>" + digits[0]+digits[1] + "</span> " + this.suffix + "</div>" +
 		"<div class='time'>" +
 			"<span class='dg'>"+digits[2]+"</span>" +

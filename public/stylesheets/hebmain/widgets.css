@@ -1574,6 +1574,9 @@ a:hover img.hover{
     margin: 0 auto;
     color: #f25555;
 }
+#countdown a{
+    color: #f25555;
+}
 #countdown .only {
     font-size: 16px;
     position:relative;

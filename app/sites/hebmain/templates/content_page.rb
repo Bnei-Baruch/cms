@@ -246,10 +246,11 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         targettime = Time.parse(Date.strptime(date, '%d.%m.%Y').to_s).strftime('%B %d, %Y 09:%M:%S')
         prefix = get_countdown_prefix
         suffix = get_countdown_suffix
+        href = get_countdown_href
         div(:id => 'countdown')
         javascript {
           rawtext '$(function() {'
-          rawtext "  var launchdate = new cdLocalTime('countdown', '#{servertime}', 0, '#{targettime}', '#{prefix}', '#{suffix}');"
+          rawtext "  var launchdate = new cdLocalTime('countdown', '#{servertime}', 0, '#{targettime}', '#{prefix}', '#{suffix}', '#{href}');"
           rawtext "  launchdate.displaycountdown('countdown', formatresults2);"
           rawtext '});'
 

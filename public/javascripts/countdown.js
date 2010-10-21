@@ -5,13 +5,14 @@
 * Visit http://www.dynamicdrive.com/ for this script and 100s more.
 ***********************************************/
 
-function cdLocalTime(container, servertime, offsetMinutes, targetdate, prefix, suffix, debugmode){
+function cdLocalTime(container, servertime, offsetMinutes, targetdate, prefix, suffix, href, debugmode){
   if (!document.getElementById || !document.getElementById(container)) return;
   this.container = document.getElementById(container);
   this.localtime = this.serverdate = new Date(servertime);
   this.targetdate = new Date(targetdate);
   this.prefix = prefix;
   this.suffix = suffix;
+  this.href = href;
   this.debugmode = (typeof debugmode != "undefined") ? 1 : 0;
   this.timesup = false;
   this.localtime.setTime(this.serverdate.getTime() + offsetMinutes * 60 * 1000); //add user offset to server time
@@ -85,6 +86,8 @@ function formatresults(){
 
 //2) Display countdown with a stylish LCD look, and display an alert on target date/time
 function formatresults2(){
+  var result = '';
+  
   if (this.timesup==false){ //if target date/time not yet met
 	  var digits = new Array(0);
   	// days
@@ -99,8 +102,11 @@ function formatresults2(){
 	// seconds
 	digits[6] = Math.floor(arguments[3]/10);
 	digits[7] = arguments[3]%10;
- 
-	return 	"<div class='only'>" + this.prefix + "<span>" + digits[0]+digits[1] + "</span> " + this.suffix + "</div>" +
+
+        if (this.href != '') {
+            result += "<a href='" + this.href + "'>";
+        }
+	result += "<div class='only'>" + this.prefix + "<span>" + digits[0]+digits[1] + "</span> " + this.suffix + "</div>" +
 		"<div class='time'>" +
 			"<span class='dg'>"+digits[2]+"</span>" +
 			"<span class='dg'>"+digits[3]+"</span>" +
@@ -111,8 +117,11 @@ function formatresults2(){
 			"<span class='dg'>"+digits[6]+"</span>" +
 			"<span class='dg'>"+digits[7]+"</span>" +
 		"</div>";
+        if (this.href != '') {
+            result += "</a>";
+        }
   } else{ //else if target date/time met
-	return 	"<div class='only'>נותרו רק:</div>" +
+	result = "<div class='only'>נותרו רק:</div>" +
 		"<div class='time'>" +
 			"<span class='dg'>0</span>" +
 			"<span class='dg'>0</span>" +
@@ -124,5 +133,5 @@ function formatresults2(){
 			"<span class='dg'>0</span>" +
 		"</div>";
   }
-  return '';
+  return result;
 }

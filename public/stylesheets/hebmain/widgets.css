@@ -1504,12 +1504,16 @@ text-decoration: none;
     line-height:19px;
     padding:6px 0;
 }
-#home-kabtv .item .time {
-    color:white;
-    text-align:center;
+#kabtv-mid .item .time{
+    position: static;
     background:black url(/images/hebmain/kabtv/home-time.gif) repeat-x 0 0;
-    width:48px;
+    color:white;
     float:right;
+    height:19px;
+    text-align:center;
+    width:48px;
+    font-size: 12px;
+    font-weight: bold;
 }
 #home-kabtv .item .title {
     text-align:right;
@@ -1570,25 +1574,29 @@ a:hover img.hover{
     margin: 0 auto;
     color: #f25555;
 }
-.only {
+#countdown .only {
     font-size: 16px;
     position:relative;
     right:-3px;
     text-align:center;
     top:30px;
 }
-.only span{
+#countdown .only span{
     font-size: 30px;
     display: block;
     line-height:25px;
 }
-.time{
+#countdown .time{
+    position:relative;
     text-align:center;
+    top:59px;
+    right: -10px;
     width: 171px;
-    font-size: 12px;
+    height: 35px;
+    font-size: 28px;
     font-weight: bold;
 }
-.dg{
+#countdown .dg{
     background: transparent url(/images/hebmain/countdown-digits.png) no-repeat;
     display:block;
     float:left;
@@ -1596,7 +1604,7 @@ a:hover img.hover{
     padding:0 3px 0 0;
     width:21px;
 }
-.dots{
+#countdown .dots{
     display:block;
     float:left;
     height:35px;

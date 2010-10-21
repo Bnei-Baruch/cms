@@ -79,4 +79,3 @@ jQuery Browser Plugin
 
 	$.browserTest(navigator.userAgent);
 })(jQuery);
-

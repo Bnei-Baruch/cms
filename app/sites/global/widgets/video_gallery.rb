@@ -26,7 +26,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
         rawtext <<-Embedjs
           $(document).ready(function() {
                flowplayer('flashplayer-#{id}',{src: '/flowplayer/flowplayer.commercial-3.2.5.swf', wmode: 'transparent'},{
-                  key:'#\@932a7f91ab5747d7f90',
+                  key:'#\@f0b2be6a10fb2019139',
                   clip:{
                     scaling: 'scale',
                     autoPlay: false,

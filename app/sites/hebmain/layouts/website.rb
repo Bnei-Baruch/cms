@@ -25,11 +25,12 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         title ext_meta_title
         meta(:name => 'description', :content => ext_meta_description)
 
+        javascript_include_tag 'flowplayer-3.2.4.min.js', 'flashembed.min.js'
         javascript_include_tag 'jquery', 
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers-hb',
-        'flowplayer-3.2.4.min.js', 'flashembed.min.js', 'jquery.livequery.min.js',
+        'jquery.livequery.min.js',
         :cache => "cache_website-#{@presenter.website_hrid}"
 
         stylesheet_link_tag 'reset-fonts-grids',

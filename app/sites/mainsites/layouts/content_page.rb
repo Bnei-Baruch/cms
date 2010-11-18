@@ -37,7 +37,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title @meta_title
         meta(:name => 'description', :content => ext_description)
-        javascript_include_tag 'flowplayer-3.1.4.min.js', 'flashembed.min.js', 'embed', 'jquery',
+        javascript_include_tag 'flowplayer-3.2.4.min.js', 'flashembed.min.js', 'embed', 'jquery',
         'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.media.js', 'jquery.metadata.js','jquery.form.js',

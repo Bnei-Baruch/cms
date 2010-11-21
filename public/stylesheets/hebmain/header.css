@@ -77,6 +77,9 @@ strong{
     position: absolute;
     top:0;
     right:0;
+    height: 168px;
+    background: white;
+    width: 200px;
 }
 #hd-r .logo h1{
     position: absolute;

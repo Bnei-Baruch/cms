@@ -29,7 +29,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         javascript_include_tag 'jquery', 
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
-        'jquery.curvycorners.packed.js', 'jquery.browser.js', 'jq-helpers-hb',
+        'jquery.curvycorners.min.js', 'jquery.browser.js', 'jq-helpers-hb',
         'jquery.livequery.min.js',
         :cache => "cache_website-#{@presenter.website_hrid}"
 

@@ -21,7 +21,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
         w_class('video').new(:tree_node => video_item, :view_mode => 'homepage_one_video').render_to(self)
       }.join(',')
 
-      div(:id => "flashplayer-#{id}", :style => 'height:195px;width:226px;'){}
+      div(:id => "flashplayer-#{id}", :style => 'height:175px;width:226px;'){}
       javascript {
         rawtext <<-Embedjs
           $(document).ready(function() {

@@ -693,22 +693,20 @@ $(function() {
 		javascript {
 			rawtext <<-TV
 				var firstclick = true;
-				if (typeof $.livequery == "function") {
-					$("#kabtv-news .newstitle").livequery('click',function () {
-					var $this = $(this);
-					$this.next().children().toggle();
-					$this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
-				});
-				 $("#home-kabtv .box1_headersection_tv").livequery('click',function () {
-					if (firstclick) {
-							google_tracker('/homepage/widget/kabtv/open_schedule');
-							firstclick = false;
-					}
-					var $this = $(this);
-					$this.next().toggle();
-					$this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
-				 });
-				}
+				$("#kabtv-news .newstitle").live('click',function () {
+				  var $this = $(this);
+				  $this.next().children().toggle();
+				  $this.children().toggleClass('tvnewsiteminus').toggleClass('tvnewsiteplus');
+			  });
+			  $("#home-kabtv .box1_headersection_tv").live('click',function () {
+				  if (firstclick) {
+						google_tracker('/homepage/widget/kabtv/open_schedule');
+						firstclick = false;
+				  }
+				  var $this = $(this);
+				  $this.next().toggle();
+				  $this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
+			  });
 			TV
 		}
 	end

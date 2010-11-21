@@ -112,6 +112,7 @@ class Global::Widgets::Video < WidgetManager::Base
                   // show stop button so we can see stop events too
                   plugins: {
                       controls: {
+                          autoHide: 'never',
                           stop: true
                       }
                   }

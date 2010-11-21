@@ -64,6 +64,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
                   plugins: {
                       controls: {
                           url: '/flowplayer/flowplayer.controls-3.2.3.swf',
+                          autoHide: 'never',
                           time: false
                       }
                   }

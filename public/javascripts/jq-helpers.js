@@ -825,15 +825,13 @@ $(function() {
         currentProgram();
         setInterval(currentProgram, 300000);
     }
-    if (typeof $.livequery == "function") {
-        $("a.schedule_menu_item").livequery('click',function () {
-            $("div.schedule_day").hide();
-            $("#schedule_list div#D_" + this.id).show();
-            $("a.schedule_menu_item").removeClass('schedule_selected');
-            $(this).toggleClass('schedule_selected');
-            return false;
-        });
-    }
+    $("a.schedule_menu_item").live('click',function () {
+        $("div.schedule_day").hide();
+        $("#schedule_list div#D_" + this.id).show();
+        $("a.schedule_menu_item").removeClass('schedule_selected');
+        $(this).toggleClass('schedule_selected');
+        return false;
+    });
     if (typeof hs != "undefined") {
         hs.graphicsDir = '../highslide/graphics/';
         hs.wrapperClassName = 'highslide-white';

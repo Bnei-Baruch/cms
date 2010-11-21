@@ -30,7 +30,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.min.js', 'jquery.browser.js', 'jq-helpers-hb',
-        'jquery.livequery.min.js',
         :cache => "cache_website-#{@presenter.website_hrid}"
 
         stylesheet_link_tag 'reset-fonts-grids',

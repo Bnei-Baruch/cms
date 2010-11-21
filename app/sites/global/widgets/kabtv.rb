@@ -131,25 +131,23 @@ $(function() {
     if (typeof reloadSchedule == "function") {
         reloadSchedule();
     }
-    if (typeof $.livequery == "function") {
-        $("a.schedule_menu_item").livequery('click',function () {
-            $("div.schedule_day").hide();
-            $("#schedule_list div#D_" + this.id).show();
-            $("a.schedule_menu_item").removeClass('schedule_selected');
-            $(this).toggleClass('schedule_selected');
-            return false;
-        });
-        $("#kabtv  #schedule_list .title").livequery('click',function () {
-            var $this = $(this);
-            $this.next().toggle();
-            $(this).toggleClass('icon-plus');
-            $(this).toggleClass('icon-minus');
-        });
-       $("#kabtv-news .newstitle").livequery('click',function () {
-            var $this = $(this);
-            $this.next().toggle();
-        });
-    }
+    $("a.schedule_menu_item").live('click',function () {
+        $("div.schedule_day").hide();
+        $("#schedule_list div#D_" + this.id).show();
+        $("a.schedule_menu_item").removeClass('schedule_selected');
+        $(this).toggleClass('schedule_selected');
+        return false;
+    });
+    $("#kabtv  #schedule_list .title").live('click',function () {
+        var $this = $(this);
+        $this.next().toggle();
+        $(this).toggleClass('icon-plus');
+        $(this).toggleClass('icon-minus');
+    });
+   $("#kabtv-news .newstitle").live('click',function () {
+        var $this = $(this);
+        $this.next().toggle();
+    });
     if (typeof hs != "undefined") {
         hs.graphicsDir = '../highslide/graphics/';
         hs.wrapperClassName = 'highslide-white';

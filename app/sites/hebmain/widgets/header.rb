@@ -66,7 +66,7 @@ $(document).ready(function(){
   def render_logo
     div(:class => 'logo') do
       h1 _(:kabbalah_la_am)
-      a(:href => presenter.home){img(:src => img_path('logo1.png'), :alt => _(:kabbalah_la_am), :title => _(:kabbalah_la_am), :style => 'width:200px;height:100px;')}
+      a(:href => presenter.home){img(:src => img_path('logo1.png'), :alt => _(:kabbalah_la_am), :title => _(:kabbalah_la_am), :style => 'width:180px;height:72px;float:right;')}
     end
   end
   

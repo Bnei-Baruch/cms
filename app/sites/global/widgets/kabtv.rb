@@ -375,23 +375,27 @@ $(function() {
     content =
       begin
       Timeout::timeout(25){
-        open('http://www.kab.tv/classboard/classboard-yml.php') { |f|
+        open('http://www.kab.tv/classboard/thumbnails.yml') { |f|
           YAML::load(f)
         }
       }
     rescue Timeout::Error
       ''
     end
-    thumbnails_url = content['urls'][0]['thumbnails']
-    sketches_url = content['urls'][1]['sketches']
-    h3{rawtext _(:current_sketch)}
-    if content['last-sketch'].blank?
+    thumbnails_url = content[:urls][:thumbnails]
+    sketches_url = content[:urls][:sketches]
+    sketches = content[:thumbnails]
+    last_sketch = sketches.pop
+    
+    if last_sketch.nil?
       h3{rawtext _(:no_sketches_yet)}
       return
     end
-    a(:id => 'last-sketch', :href => "#{sketches_url}/#{content['last-sketch']}", :title => "",
+    
+    h3{rawtext _(:current_sketch)}
+    a(:id => 'last-sketch', :href => "#{sketches_url}/#{last_sketch}", :title => "",
       :class => 'highslide', :onclick => 'return hs.expand(this)') {
-      img(:id => 'last-sketch-img', :src => "#{sketches_url}/#{content['last-sketch']}", :alt => "")
+      img(:id => 'last-sketch-img', :src => "#{sketches_url}/#{last_sketch}", :alt => "")
     }
     div(:id=>"controlbar", :class=>'highslide-overlay controlbar') {
       a(:href=>'#', :class=>'previous', :onclick=>'return hs.previous(this)', :title=>_(:prev_picture))
@@ -401,13 +405,13 @@ $(function() {
     }
 
     div(:id => 'thumbnails'){
-      content['thumbnails'].each{ |thumbnail|
+      sketches.each{ |thumbnail|
         a(:href => "#{sketches_url}/#{thumbnail}", :title => "",
           :class => 'highslide', :onclick => 'return hs.expand(this)') {
           img(:src => "#{thumbnails_url}/#{thumbnail}", :alt => "")
         }
       }
-    } unless content['thumbnails'].blank?
+    } unless sketches.nil?
   end
 
   def render_new_question

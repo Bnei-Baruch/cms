@@ -37,13 +37,13 @@
     margin:0 0 0 10px;
 }
 .index a.more{
-  display:block;
-  clear:both;
-  top:-1.4em;
-  right:150px;
-  padding:0;
-  margin:0;
-  position:relative;
+    display:block;
+    clear:both;
+    top:-1.4em;
+    right:150px;
+    padding:0;
+    margin:0;
+    position:relative;
 }
 .index a.more_no_img{
     float:right;
@@ -544,9 +544,8 @@ tr.badmod td{
 .campus table{
     border: thin solid gray;
 }
-.campus td {
-    padding: 3px;
-    border: thin dashed #6495ed;
+.campus td, .campus th {
+    padding: 8px;
     text-align: right;
 }
 .campus .title {
@@ -560,6 +559,23 @@ tr.badmod td{
     background: transparent url(/images/hebmain/submit.png) no-repeat;
     padding-bottom: 5px;
     margin-bottom: 5px;
+}
+#campus_buttons{
+    padding: 0 0 10px;
+    text-align: center;
+}
+#campus_buttons input{
+    background: url("/images/hebmain/big-blue-button.png") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    height: 44px;
+    margin: 0 20px;
+    width: 207px;
+}
+#campus_buttons #output2{
+    margin: 20px 0 50px;
 }
 
 /*--- Media RSS ----*/
@@ -1170,10 +1186,11 @@ img.thumbnails{
     background:0 none;
 }
 #kabtv #sketch #thumbnails{
-    overflow-x:scroll;
-    overflow-y:hidden;
-    width:285px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    width:300px;
     height:125px;
+    margin: 0 -7px 0 0;
 }
 #kabtv a.highslide{
     background:0 none !important;

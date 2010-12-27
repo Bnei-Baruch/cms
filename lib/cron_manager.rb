@@ -133,8 +133,8 @@ class CronManager
 
   def self.read_and_save_rss
 
-    @cache = {}
-    
+    @@cache = {}
+
     AuthenticationModel.cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
     
@@ -199,12 +199,12 @@ class CronManager
           raise
         end
       end
-      @@cache[url] = content
+      @@cache[url] = content = RSS::Parser.parse(content, false)
     end
-    #    puts "RSS #{content}"
+
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
     begin
-      data = YAML.dump(RSS::Parser.parse(content, false).items[range])
+      data = YAML.dump(content.items[range])
     rescue
       puts 'Failed to parse rss from ' + url
       return
@@ -217,7 +217,6 @@ class CronManager
       print "No changes\n"
     end
     puts 'OK'
-    data
   end
   
   # This method is responsible to update all media_rss resources

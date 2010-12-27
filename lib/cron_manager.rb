@@ -12,6 +12,9 @@ require 'benchmark'
 
 class CronManager
 
+  # Cache for same feeds (by URL)
+  @@cache = {}
+
   module Array
     def self.dups
       inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
@@ -127,8 +130,11 @@ class CronManager
 
   # This methos is responsible to update all rss resources
   # which aggregate content from external rss feeds.
+
   def self.read_and_save_rss
-   
+
+    @cache = {}
+    
     AuthenticationModel.cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
     
@@ -156,29 +162,6 @@ class CronManager
     end
   end
 
-  # This method is responsible to update all media_rss resources
-  # which aggregate content from our kabbalahmedia website according to category ID
-  def self.read_and_save_media_rss
-   
-    AuthenticationModel.cron_manager_user_login
-    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
-    
-    websites.each do |website|
-      website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
-
-      if (website_tree_node)
-        tree_nodes = TreeNode.get_subtree(
-          :parent => website_tree_node.id,
-          :resource_type_hrids => ['media_rss']
-        )
-
-        tree_nodes.each do |tree_node|
-          read_and_save_node_media_rss(tree_node, get_language(website))
-        end
-      end
-    end
-  end
-  
   def self.read_and_save_node_rss(tree_node)
     content = ''
     
@@ -189,28 +172,34 @@ class CronManager
     url_encoded.gsub!('%3F', '?')
     url_encoded.gsub!('%26', '&')
     url_encoded.gsub!('%3D', '=')
-    print "Read Tree Node #{tree_node.id} #{url_encoded} "
+    puts "Read Tree Node #{tree_node.id} #{url_encoded} "
 
-    retries = 2
-    begin
-      Timeout::timeout(25){
-        begin
-          open(url_encoded) { |f|
-            content = f.read
-          }
-        rescue
-          puts 'Failed to open url ' + url_encoded
-          return
-        end
-      }
+    if @@cache[url]
+      content = @@cache[url]
+      puts "Found in cache!!!"
+    else
+      retries = 2
+      begin
+        Timeout::timeout(25){
+          begin
+            open(url_encoded) { |f|
+              content = f.read
+            }
+          rescue
+            puts 'Failed to open url ' + url_encoded
+            return
+          end
+        }
     
-    rescue Timeout::Error
-      retries -= 1
-      if retries > 0
-        sleep 0.42 and retries
-      else
-        raise
+      rescue Timeout::Error
+        retries -= 1
+        if retries > 0
+          sleep 0.42 and retries
+        else
+          raise
+        end
       end
+      @@cache[url] = content
     end
     #    puts "RSS #{content}"
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
@@ -231,6 +220,29 @@ class CronManager
     data
   end
   
+  # This method is responsible to update all media_rss resources
+  # which aggregate content from our kabbalahmedia website according to category ID
+  def self.read_and_save_media_rss
+
+    AuthenticationModel.cron_manager_user_login
+    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
+
+    websites.each do |website|
+      website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
+
+      if (website_tree_node)
+        tree_nodes = TreeNode.get_subtree(
+          :parent => website_tree_node.id,
+          :resource_type_hrids => ['media_rss']
+        )
+
+        tree_nodes.each do |tree_node|
+          read_and_save_node_media_rss(tree_node, get_language(website))
+        end
+      end
+    end
+  end
+
   def self.read_and_save_node_media_rss(tree_node, lang)
     
     content = ''

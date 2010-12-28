@@ -12,9 +12,6 @@ require 'benchmark'
 
 class CronManager
 
-  # Cache for same feeds (by URL)
-  @@cache = {}
-
   module Array
     def self.dups
       inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
@@ -128,12 +125,41 @@ class CronManager
     }
   end
 
+  def self.get_page(url)
+    content = ''
+    retries = 2
+    begin
+      Timeout::timeout(25){
+        begin
+          open(url) { |f|
+            content = f.read
+          }
+        rescue
+          puts 'Failed to open url ' + url
+          return
+        end
+      }
+
+    rescue Timeout::Error
+      retries -= 1
+      if retries > 0
+        sleep 0.42 and retries
+      else
+        raise
+      end
+    end
+
+    content
+  end
+  
   # This methos is responsible to update all rss resources
   # which aggregate content from external rss feeds.
 
   def self.read_and_save_rss
 
-    @@cache = {}
+    # Described in http://endofline.wordpress.com/2010/12/24/hash-tricks/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+railsquicktips+%28Rails+Quick+Tips%29
+    http = Hash.new{|h,k| h[k] = CronManager.get_page(k) }
+    cache = {}
 
     AuthenticationModel.cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
@@ -153,7 +179,7 @@ class CronManager
 
         tree_nodes.each do |tree_node|
           begin
-            read_and_save_node_rss(tree_node)
+            read_and_save_node_rss(tree_node, http, cache)
           rescue
             puts 'FAILURE!!!'
           end
@@ -162,9 +188,7 @@ class CronManager
     end
   end
 
-  def self.read_and_save_node_rss(tree_node)
-    content = ''
-    
+  def self.read_and_save_node_rss(tree_node, http, cache)
     url = (tree_node.resource.properties('url')).get_value
     url_encoded = CGI.escape(url)
     url_encoded.gsub!('%3A', ':')
@@ -172,36 +196,11 @@ class CronManager
     url_encoded.gsub!('%3F', '?')
     url_encoded.gsub!('%26', '&')
     url_encoded.gsub!('%3D', '=')
-    puts "Read Tree Node #{tree_node.id} #{url_encoded} "
+    url = url_encoded
+    puts "Read Tree Node #{tree_node.id} #{url} "
 
-    if @@cache[url]
-      content = @@cache[url]
-      puts "Found in cache!!!"
-    else
-      retries = 2
-      begin
-        Timeout::timeout(25){
-          begin
-            open(url_encoded) { |f|
-              content = f.read
-            }
-          rescue
-            puts 'Failed to open url ' + url_encoded
-            return
-          end
-        }
-    
-      rescue Timeout::Error
-        retries -= 1
-        if retries > 0
-          sleep 0.42 and retries
-        else
-          raise
-        end
-      end
-      @@cache[url] = content = RSS::Parser.parse(content, false)
-    end
-
+    content = cache[url] ? (puts 'From cache' ; cache[url]) :
+      cache[url] = RSS::Parser.parse(http[url], false)
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
     begin
       data = YAML.dump(content.items[range])

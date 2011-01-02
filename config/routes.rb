@@ -7,7 +7,9 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     #admin.connect '', :controller => 'resources'
     admin.resources :resources
-    admin.resources :tree_nodes, :has_many => :tree_node_permissions, :member => {:tree_node_delete => :post, :update_state => :post } , :collection => { :ext => :get, :ext_old => :get }
+    admin.resources :tree_nodes, :has_many => :tree_node_permissions,
+      :member => {:tree_node_delete => :post, :update_state => :post },
+      :collection => { :ext => :get, :ext_old => :get, :reset_order => :post }
     admin.resources :lists #, :collection => { :update_resource_type_properties => :get }
     admin.resources :websites, :collection => { :set_website => :get }
     admin.resources :properties
@@ -19,6 +21,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tree_node_ac_rights
     admin.resources :login, :collection => {:login => :get, :logout => :get}
     admin.resources :url_migrations, :collection => {:import => :get, :export => :get, :merge => :get, :cleanup => :get}
+    admin.resources :courses
   end	
 
   # REST API for fetching cms data

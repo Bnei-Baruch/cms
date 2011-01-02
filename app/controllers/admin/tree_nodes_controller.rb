@@ -3,7 +3,7 @@ class Admin::TreeNodesController < ApplicationController
 
   before_filter :save_referrer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights, :tree_node_delete ]
   before_filter {|controller| 
-    unless ['destroy', 'tree_node_delete'].include?(controller.action_name)
+    unless ['destroy', 'tree_node_delete', 'reset_order'].include?(controller.action_name)
       controller.admin_authorize(['System manager'])
     end
   }
@@ -187,6 +187,42 @@ class Admin::TreeNodesController < ApplicationController
       return
     end
     
+    respond_to do |format|
+      format.html {
+        if request.xhr?
+          head(:ok).to_json
+          return
+        end
+        redirect_to session[:referer]
+        return
+      }
+      format.xml  { head :ok }
+      format.json { head(:ok).to_json}
+    end
+  end
+
+  # POST /tree_nodes/reset_order
+  def reset_order
+    tree_node = TreeNode.find(params[:id])
+
+    if tree_node.nil?
+      flash[:notice] = "Tree node does not exist " + params[:id]
+      logger.error("Tree node does not exist " + params[:id])
+      return
+    end
+
+    #   ******************
+    #   Check permissions!
+    if not (tree_node.can_edit?)
+      flash[:notice] = "Access denied. User can't edit tree node"
+      logger.error("User #{AuthenticationModel.current_user} has no permission " +
+          "to edit tree_node: #{tree_node.id} resource: #{tree_node.resource_id}")
+      return
+    end
+    #   ******************
+
+    TreeNode.reset_positions(JSON.parse(params[:nodes]))
+
     respond_to do |format|
       format.html {
         if request.xhr?

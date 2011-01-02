@@ -194,40 +194,72 @@ function create_tree(options)
                 disabled: node.attributes.cannot_edit,
                 handler: function(item){
                     handler_func(node, 'publish', 'PUBLISHED')
-                    }
+                }
             }),
             new Ext.menu.Item({
                 text: 'העבר לטיוטה',
                 disabled: node.attributes.cannot_edit,
                 handler: function(item){
                     handler_func(node, 'draft', 'DRAFT')
-                    }
+                }
             }),
             new Ext.menu.Item({
                 text: 'העבר לארכיון',
                 disabled: node.attributes.cannot_edit,
                 handler: function(item){
                     handler_func(node, 'archive', 'ARCHIVED')
-                    }
+                }
             }),
             new Ext.menu.Item({
                 text: 'turn mobile on/off',
                 disabled: node.attributes.cannot_edit,
                 handler: function(item){
                     mobile_handler_func(node)
-                    }
+                }
             }),
             new Ext.menu.Item({
                 text: 'Toggle as first mobile page',
                 disabled: node.attributes.cannot_edit || !node.attributes.may_be_mobile_first_page,
                 handler: function(item){
                     mobile_first_page_handler_func(node)
-                    }
+                }
+            }),
+            new Ext.menu.Item({
+                text: '---------------------',
+                disabled: true
+            }),
+            new Ext.menu.Item({
+                text: 'Reset nodes\' order',
+                disabled: node.attributes.cannot_edit,
+                handler: function(item){
+                    reset_order_of_nodes(node)
+                }
             }),
             ]
         });
         menu.showAt(e.getXY());
     });
+
+    function reset_order_of_nodes(node) {
+        var nodes = node.childNodes;
+        var nodeList = new Array();
+
+        for(var i = 0; i < nodes.length; i++)
+            nodeList.push(nodes[i].id);
+    
+        Ext.Ajax.request({
+            url: '/admin/tree_nodes/reset_order',
+            method: 'post',
+            callback: function (options, success, responce){
+                Ext.Msg.alert('Reset Order of Nodes', success ?
+                    'Order of children of item <' + node.text + '> was successfully resetted': 'FAILURE!!!');
+            },
+            params: {
+                'id': node.id,
+                'nodes': Ext.encode(nodeList)
+            }
+        });
+    }
 
     function mobile_first_page_handler_func(node) {
         var is_first_page;

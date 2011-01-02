@@ -76,6 +76,7 @@ class Mainsites::Widgets::Rss < WidgetManager::Base
   def get_all_items
     content = get_items
     if content.empty?
+      CronManager.init_caches
       content = CronManager.read_and_save_node_rss(tree_node)
     end
 

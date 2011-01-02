@@ -532,4 +532,14 @@ class TreeNode < ActiveRecord::Base
     }
     true
   end
+
+  # Set positions of nodes according to their order in array
+  def TreeNode.reset_positions(nodes)
+    command = ''
+    nodes.each_with_index { |id, idx|
+      command += "UPDATE tree_nodes SET position=#{idx + 1} WHERE id = #{id};"
+    }
+    TreeNode.find_by_sql(command)
+    true
+  end
 end

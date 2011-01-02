@@ -155,12 +155,19 @@ class CronManager
   # This methos is responsible to update all rss resources
   # which aggregate content from external rss feeds.
 
+  # Described in http://endofline.wordpress.com/2010/12/24/hash-tricks/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+railsquicktips+%28Rails+Quick+Tips%29
+  @@http = Hash.new{|h,k| h[k] = CronManager.get_page(k) }
+  @@cache = {}
+
+  def self.init_caches
+    @@http = Hash.new{|h,k| h[k] = CronManager.get_page(k) }
+    @@cache = {}
+  end
+  
   def self.read_and_save_rss
 
-    # Described in http://endofline.wordpress.com/2010/12/24/hash-tricks/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+railsquicktips+%28Rails+Quick+Tips%29
-    http = Hash.new{|h,k| h[k] = CronManager.get_page(k) }
-    cache = {}
-
+    CronManager.init_caches
+    
     AuthenticationModel.cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
     
@@ -179,7 +186,7 @@ class CronManager
 
         tree_nodes.each do |tree_node|
           begin
-            read_and_save_node_rss(tree_node, http, cache)
+            read_and_save_node_rss(tree_node)
           rescue
             puts 'FAILURE!!!'
           end
@@ -188,7 +195,7 @@ class CronManager
     end
   end
 
-  def self.read_and_save_node_rss(tree_node, http, cache)
+  def self.read_and_save_node_rss(tree_node)
     url = (tree_node.resource.properties('url')).get_value
     url_encoded = CGI.escape(url)
     url_encoded.gsub!('%3A', ':')
@@ -199,8 +206,8 @@ class CronManager
     url = url_encoded
     puts "Read Tree Node #{tree_node.id} #{url} "
 
-    content = cache[url] ? (puts 'From cache' ; cache[url]) :
-      cache[url] = RSS::Parser.parse(http[url], false)
+    content = @@cache[url] ? (puts 'From cache' ; @@cache[url]) :
+      @@cache[url] = RSS::Parser.parse(@@http[url], false)
     range = Range.new(0, tree_node.resource.properties('number_of_items').get_value.to_i, true)
     begin
       data = YAML.dump(content.items[range])
@@ -216,6 +223,7 @@ class CronManager
       print "No changes\n"
     end
     puts 'OK'
+    data
   end
   
   # This method is responsible to update all media_rss resources

@@ -1,0 +1,31 @@
+<% @title = "Listing Courses" %>
+
+<p><%= link_to 'New course', new_admin_course_path %></p>
+<br/>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Location</th>
+      <th>Course Name</th>
+      <th>Dates</th>
+      <th>Warning</th>
+      <th colspan="4">Actions</th>
+    </tr>
+  </thead>  
+  <% @courses.each {|course| %>
+    <tr>
+      <td><%=h course.id %></td>
+      <td><%=h course.location %></td>
+      <td><%=h course.name %></td>
+      <td><%=h course.start_date %> - <%=h course.end_date %></td>
+      <td><%=h course.warning %></td>
+      <td><%= link_to 'Edit', edit_admin_course_path(:id => course) %></td>
+      <td><%= link_to 'X', admin_course_path(course), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% } %>
+</table>
+
+<br />
+<p><%= link_to 'New course', new_admin_course_path %></p>

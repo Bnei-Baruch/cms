@@ -1,0 +1,47 @@
+<%= error_messages_for :course %>
+
+<% form_for(:course, @course, :url => { :action => 'create' }) do |f| %>
+  <p>
+    <b>Location</b><br />
+    <%= f.text_field :location %>
+  </p>
+
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Start date</b><br/>Format of Date: dd-mm-yyyy<br/>
+    <%= f.text_field :start_date, :class => 'datepicker' %>
+  </p>
+
+  <p>
+    <b>End date</b><br/>Format of Date: dd-mm-yyyy<br/>
+    <%= f.text_field :end_date, :class => 'datepicker' %>
+  </p>
+
+  <p>
+    <b>Warning</b><br />
+    <%= f.text_field :warning %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', admin_courses_path %>
+
+<script type="text/javascript">
+  $(function() {
+    $('.datepicker').datepicker({
+      gotoCurrent: true,
+      yearRange: '1900:2500',
+      showOn: 'button',
+      dateFormat: 'yy-mm-dd',
+      buttonText: '<% _(:Choose)%>',
+      buttonImage: '/images/calendar.gif'
+    });
+  })
+</script>

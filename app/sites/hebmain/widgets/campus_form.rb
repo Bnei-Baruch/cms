@@ -25,9 +25,7 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
 		if validate_captcha(@options[:captcha_value], @options[:captcha_index])
       create_student
 		else
-      div(:class => 'error'){text _(:'error_mesg')}
-      br
-      campus_user_mode(@options[:name], @options[:email], @options[:tel])
+      campus_user_mode(@options[:name], @options[:email], @options[:tel], true)
 		end
 	end
   
@@ -89,7 +87,6 @@ Tel: #{tel}
 EOF
     msg
     begin
-      #Net::SMTP.start("smtp.kabbalah.info", 25, 'kbb1.com','yaakov','einodmilvado', :plain ) { |smtp|
       Net::SMTP.start("localhost", 25) { |smtp|
         smtp.sendmail msg, mailfrom, [mailto]
       }
@@ -100,6 +97,10 @@ EOF
   
  
 	def campus_admin_mode
+    div(:class => 'courses'){
+      link_to 'Listing of Courses', admin_courses_path
+    }
+    br
 		div(:class => 'campus') {
       #  text 'אדמין'
       text _(:'admin')
@@ -133,8 +134,8 @@ EOF
     }
 	end
 	
-	def campus_user_mode(def_name = '', def_email='', def_tel='')
-    
+	def campus_user_mode(def_name = '', def_email='', def_tel='', with_error = false)
+
     field_1_label = get_campus_label_1
     field_1_must = get_campus_label_1_is_mandatory
     field_1_hide = get_campus_hide_label_1
@@ -148,7 +149,7 @@ EOF
     field_3_hide = get_campus_hide_label_3
     
 
-    #if user was clever enought to hide all the field - just leave - stupid!
+    #if user was clever enough to hide all the field - just leave - stupid!
     if field_1_hide && field_2_hide && field_3_hide
       return
     end
@@ -197,13 +198,34 @@ EOF
       def_adwords = ''
     end
     
-    
     if get_centered
       id_centered = 'position_center'
     end
+
+    (@locations, @courses) = Course.prepare_locations
+    with_buttons = @locations.size > 0
+    
+    unless with_error
+      javascript{
+        rawtext 'function loadCaptcha(){'
+        rawtext "$('.campus_captcha').load('#{get_page_url(@presenter.node)}', {view_mode:'captcha', 'options[widget]':'campus_form','options[widget_node_id]':#{tree_node.id}})"
+        rawtext '}'
+      }
+    end
+
 		div(:class => 'campus', :id => id_centered){
+      if with_buttons
+        div(:id => 'campus_buttons'){
+          input :type => 'button', :value => 'מעוניין לקבל פרטים נוספים', :id => 'callmeback'
+          input :type => 'button', :value => 'מעוניין להרשם דרך האתר', :id => 'payment'
+        }
+      end
       div(:id => 'output2'){
-        form(:id => 'myForm2'){
+        form(:id => 'myForm2', :style => (with_buttons && !with_error) ? 'display: none;' : ''){
+          if with_error
+            div(:class => 'error'){text _(:'error_mesg')}
+            br
+          end
           #user fields
           p{
             unless field_1_hide
@@ -225,14 +247,6 @@ EOF
                                             
             div(:class => 'label_captcha'){text _(:'label_captcha')+':'}
                 
-            javascript{
-              rawtext 'function loadCaptcha(){'
-              rawtext "$('.campus_captcha').load('#{get_page_url(@presenter.node)}', {view_mode:'captcha', 'options[widget]':'campus_form','options[widget_node_id]':#{tree_node.id}})"
-              rawtext '}'
-              
-            }
-            
-            
             div(:class => 'campus_captcha')
             div(:class => 'label_captcha') {text _(:'label_captcha2')+':'}
             input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
@@ -254,74 +268,113 @@ EOF
                 
           }
 				}
-		  }
-	  }
-	end
+        if with_buttons
+          form(:id => 'myForm3', :style => 'display: none;', :action => 'http://events.kabbalah.info/campus/register.php', :method => 'POST'){
+            p
+            input :type => 'hidden', :id => 'location', :name => 'location', :value => ''
+            input :type => 'hidden', :id => 'dates', :name => 'dates', :value => ''
+            input :type => 'hidden', :id => 'name', :name => 'name', :value => ''
+            text 'בחר את הסניף הרצוי: '
+            # select city
+            select(:name => 'location', :id => 'location'){
+              option '----------'
+              @locations.each{ |l|
+                option l
+              }
+            }
+            br
+            br
+            @locations.each{|location|
+              table(:id => "#{location.gsub(/\s|"|'/, '-')}", :class => 'courses', :style => 'display: none;') {
+                tr {
+                  th { rawtext 'סניף' }
+                  th { rawtext 'תאריכים' }
+                  th { rawtext 'בחר קורס' }
+                }
+                @courses[location].each{ |c|
+                  tr {
+                    td { rawtext location }
+                    td { rawtext "#{c.start_date} - #{c.end_date}" }
+                    td do
+                      dates = "#{c.start_date} - #{c.end_date}"
+                      link_to "#{c.name}", "#",
+                      :onclick => "submit_course('#{c.location}', '#{dates}', '#{c.name}', '#{c.warning.empty? ? nil : c.warning}', this); return false;"
+                    end
+                  }
+                }
+              }
+            }
+            p
+          }
+        end
+      }
+    }
+  end
 	
 
-	def generate_captcha(index = 0)
-		captcha_array = get_captcha_array
-		return captcha_array[index]
-	end
+  def generate_captcha(index = 0)
+    captcha_array = get_captcha_array
+    return captcha_array[index]
+  end
 	
-	def validate_captcha(textvalue, index)		
-		captcha_array = get_captcha_array
-		if(textvalue == captcha_array[index.to_i][1])
-			return true
-		end			
-	end
+  def validate_captcha(textvalue, index)
+    captcha_array = get_captcha_array
+    if(textvalue == captcha_array[index.to_i][1])
+      return true
+    end
+  end
 	
-	def get_captcha_array
-		captcha_array = Array.new
-		captcha_array[0] = Array.new
-		captcha_array[0][0] = '../../jcap/cimg/1.jpg'
-		captcha_array[0][1] = 'polish'
+  def get_captcha_array
+    captcha_array = Array.new
+    captcha_array[0] = Array.new
+    captcha_array[0][0] = '../../jcap/cimg/1.jpg'
+    captcha_array[0][1] = 'polish'
 		
-		captcha_array[1] = Array.new
-		captcha_array[1][0] = '../../jcap/cimg/2.jpg'
-		captcha_array[1][1] = 'past'
+    captcha_array[1] = Array.new
+    captcha_array[1][0] = '../../jcap/cimg/2.jpg'
+    captcha_array[1][1] = 'past'
 		
-		captcha_array[2] = Array.new
-		captcha_array[2][0] = '../../jcap/cimg/3.jpg'
-		captcha_array[2][1] = 'again'
+    captcha_array[2] = Array.new
+    captcha_array[2][0] = '../../jcap/cimg/3.jpg'
+    captcha_array[2][1] = 'again'
 
-		captcha_array[3] = Array.new
-		captcha_array[3][0] = '../../jcap/cimg/4.jpg'
-		captcha_array[3][1] = 'when'
+    captcha_array[3] = Array.new
+    captcha_array[3][0] = '../../jcap/cimg/4.jpg'
+    captcha_array[3][1] = 'when'
 		
-		captcha_array[4] = Array.new
-		captcha_array[4][0] = '../../jcap/cimg/5.jpg'
-		captcha_array[4][1] = 'birth'
+    captcha_array[4] = Array.new
+    captcha_array[4][0] = '../../jcap/cimg/5.jpg'
+    captcha_array[4][1] = 'birth'
 		
-		captcha_array[5] = Array.new
-		captcha_array[5][0] = '../../jcap/cimg/6.jpg'
-		captcha_array[5][1] = 'crime'		
+    captcha_array[5] = Array.new
+    captcha_array[5][0] = '../../jcap/cimg/6.jpg'
+    captcha_array[5][1] = 'crime'
 		
-		captcha_array[6] = Array.new
-		captcha_array[6][0] = '../../jcap/cimg/7.jpg'
-		captcha_array[6][1] = 'square'
+    captcha_array[6] = Array.new
+    captcha_array[6][0] = '../../jcap/cimg/7.jpg'
+    captcha_array[6][1] = 'square'
 		
-		captcha_array[7] = Array.new
-		captcha_array[7][0] = '../../jcap/cimg/8.jpg'
-		captcha_array[7][1] = 'expert'
+    captcha_array[7] = Array.new
+    captcha_array[7][0] = '../../jcap/cimg/8.jpg'
+    captcha_array[7][1] = 'expert'
 	
-		captcha_array[8] = Array.new
-		captcha_array[8][0] = '../../jcap/cimg/9.jpg'
-		captcha_array[8][1] = 'rule'
+    captcha_array[8] = Array.new
+    captcha_array[8][0] = '../../jcap/cimg/9.jpg'
+    captcha_array[8][1] = 'rule'
 		
-		captcha_array[9] = Array.new
-		captcha_array[9][0] = '../../jcap/cimg/10.jpg'
-		captcha_array[9][1] = 'degree'
+    captcha_array[9] = Array.new
+    captcha_array[9][0] = '../../jcap/cimg/10.jpg'
+    captcha_array[9][1] = 'degree'
 		
-		captcha_array[10] = Array.new
-		captcha_array[10][0] = '../../jcap/cimg/11.jpg'
-		captcha_array[10][1] = 'linen'
+    captcha_array[10] = Array.new
+    captcha_array[10][0] = '../../jcap/cimg/11.jpg'
+    captcha_array[10][1] = 'linen'
 		
-		captcha_array[11] = Array.new
-		captcha_array[11][0] = '../../jcap/cimg/12.jpg'
-		captcha_array[11][1] = 'pocket'
+    captcha_array[11] = Array.new
+    captcha_array[11][0] = '../../jcap/cimg/12.jpg'
+    captcha_array[11][1] = 'pocket'
 		
-		return captcha_array
-	end
+    return captcha_array
+  end
 	
 end

@@ -1,0 +1,28 @@
+<p>
+  <b>Parent:</b>
+  <%=h @tree_node.parent_id %>
+</p>
+
+<p>
+  <b>Resource:</b>
+  <%=h @tree_node.resource_id %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%=h @tree_node.position %>
+</p>
+
+<p>
+  <b>Node type:</b>
+  <%=h @tree_node.node_type %>
+</p>
+
+<p>
+  <b>Permalink:</b>
+  <%=h @tree_node.permalink %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_tree_node_path(@tree_node) %> |
+<%= link_to 'Back', admin_tree_nodes_path %>

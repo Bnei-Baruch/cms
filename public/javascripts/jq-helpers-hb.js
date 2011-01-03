@@ -306,6 +306,20 @@ $(document).ready(function(){
 //This bit of code is
 //actually managing the campus submit form
 //******************************************
+function submit_course(location, dates, name, warning, self){
+    var $self = $(self);
+    if (warning != ""){
+        if (!confirm(warning)) {
+            return;
+        }
+    }
+    $self.parents('form').find('input#location').val(location);
+    $self.parents('form').find('input#dates').val(dates);
+    $self.parents('form').find('input#name').val(name);
+    alert("כעת הנך מועבר לדף התשלום");
+    $self.parents('form').submit();
+}
+
 $(document).ready(function() { 
   
     if (typeof loadCaptcha == "function"){
@@ -406,10 +420,9 @@ $(document).ready(function() {
     // Campus Form
     // ************************************
     // pre-submit callback
-    function showRequest(formData, jqForm, options) {
-        var queryString = $.param(formData);
+    function checkRequest2() {
         var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        if (formData[1].value.search(emailRegEx) == -1) {
+        if ($('#myForm2')[0]['options[email]'].value.search(emailRegEx) == -1) {
             alert("כתובת הדואר האלקטרוני לא תקינה");
             return false;
         }
@@ -418,39 +431,39 @@ $(document).ready(function() {
       
         return true;
     }
-    
-    // post-submit callback
-    function showResponse(responseText, statusText)  {
-        var options = {
-            target:        '#output2',
-            beforeSubmit:  showRequest,
-            success:       showResponse,
-            resetForm: true    ,
-            clearForm: true        // clear all form fields after successful submit
-        };
-      
-        $('#myForm2').submit(function() {
-            $(this).ajaxSubmit(options);
+
+    $('#callmeback').live('click', function(){
+        $('#myForm3').hide('slow');
+        $('#myForm2').show('slow');
+    });
+    $('#payment').live('click', function(){
+        $('#myForm2').hide('slow');
+        $('#myForm3').show('slow');
+    });
+    $('#myForm2').live('submit', function(e) {
+        e.preventDefault();
+        if (checkRequest2() == false) {
             return false;
+        }
+        var str = $(this).serialize();
+        $.ajax({
+            type: 'POST',
+            url: window.location.href,
+            data: str,
+            complete: function(data)  {
+                $('.campus:first').html(data.responseText);
+                loadCaptcha();
+            }
         });
-      
-    }
-    
-    var options = {
-        target:        '#output2',   // target element(s) to be updated with server response
-        beforeSubmit:  showRequest,  // pre-submit callback
-        success:       showResponse,  // post-submit callback
-        resetForm: true    ,
-        clearForm: true        // clear all form fields after successful submit
-      
-    };
-    
-    $('#myForm2').submit(function() {
-        $(this).ajaxSubmit(options);
       
         // !!! Important !!!
         // always return false to prevent standard browser submit and page navigation
         return false;
+    });
+    $('#location').live('change', function(){
+        $('.courses').hide();
+        var name = $(this).val().replace(/ |"|'/, '-');
+        $('#' + name).show();
     });
     
     //************************************

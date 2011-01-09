@@ -203,7 +203,7 @@ EOF
     end
 
     (@locations, @courses) = Course.prepare_locations
-    with_buttons = @locations.size > 0
+    with_buttons = get_enable_payment && @locations.size > 0
     
     unless with_error
       javascript{

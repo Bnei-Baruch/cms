@@ -298,7 +298,7 @@ EOF
                     td do
                       dates = "#{c.start_date} - #{c.end_date}"
                       link_to "#{c.name}", "#",
-                      :onclick => "submit_course('#{c.location}', '#{dates}', '#{c.name}', '#{c.warning.empty? ? nil : c.warning}', this); return false;"
+                      :onclick => "submit_course('#{c.location.gsub(/"/, '\"').gsub(/'/, '\'')}', '#{dates}', '#{c.name.gsub(/"/, '\"').gsub(/'/, '\'')}', '#{c.warning.empty? ? nil : c.warning.gsub(/"/, '\"').gsub(/'/, '\'')}', this); return false;"
                     end
                   }
                 }

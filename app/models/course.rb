@@ -12,7 +12,7 @@ class Course < ActiveRecord::Base
     }.uniq.sort
 
     locations.each {|loc|
-      courses[loc] = all_courses.select{|ac| ac.location == loc}.sort_by{|course| course.start_date}
+      courses[loc] = all_courses.select{|ac| ac.location == loc}.sort_by{|course| course.name}.sort_by{|course| course.start_date}
     }
     
     [locations, courses]

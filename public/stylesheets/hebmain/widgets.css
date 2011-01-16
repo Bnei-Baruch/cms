@@ -547,6 +547,7 @@ tr.badmod td{
 .campus td, .campus th {
     padding: 8px;
     text-align: right;
+    font-size: 12px;
 }
 .campus .title {
     font-weight: bold;

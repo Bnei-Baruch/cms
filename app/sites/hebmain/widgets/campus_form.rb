@@ -292,9 +292,11 @@ EOF
                   th { rawtext 'בחר קורס' }
                 }
                 @courses[location].each{ |c|
+                  start_date = DateTime.strptime(c.start_date, '%Y-%M-%d').strftime('%d/%M/%Y')
+                  end_date = DateTime.strptime(c.end_date, '%Y-%M-%d').strftime('%d/%M/%Y')
                   tr {
                     td { rawtext location }
-                    td { rawtext "#{c.start_date} - #{c.end_date}" }
+                    td { rawtext "מ-#{start_date} עד #{end_date}" }
                     td do
                       dates = "#{c.start_date} - #{c.end_date}"
                       link_to "#{c.name}", "#",

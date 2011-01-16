@@ -75,7 +75,9 @@ module	Configuration::Hebmain
       },
     },
     # define widgets that should not have bottom border
-    :disable_bottom_border => ['title']
+    :disable_bottom_border => ['title'],
+    # define list of groups that have permission to edit list of courses
+    :editors_of_list_of_courses => ['אתר בעברית - קמפוס - טופס הרשמה']
   }
 
 end

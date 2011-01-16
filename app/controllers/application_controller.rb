@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   def group_name
     site_settings[:group_name]
   end
-  
+
   def admin_authorize(groups=[])
     m_user = User.find_by_id(session[:user_id])
     unless m_user

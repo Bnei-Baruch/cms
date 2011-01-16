@@ -1,5 +1,6 @@
 class Admin::CoursesController < ApplicationController
   layout 'admin'
+  append_before_filter {|c| c.admin_authorize(c.site_settings[:editors_of_list_of_courses])}
 
   # GET /courses
   # GET /courses.xml

@@ -291,16 +291,20 @@ EOF
                   th { rawtext 'תאריכים' }
                   th { rawtext 'בחר קורס' }
                 }
+                
                 @courses[location].each{ |c|
                   start_date = DateTime.strptime(c.start_date, '%Y-%M-%d').strftime('%d/%M/%Y')
                   end_date = DateTime.strptime(c.end_date, '%Y-%M-%d').strftime('%d/%M/%Y')
+                  location = c.location.escape_javascript
+                  name = c.name.escape_javascript
+                  warning = c.warning.empty? ? nil : c.warning.escape_javascript
                   tr {
                     td { rawtext location }
                     td { rawtext "מ-#{start_date} עד #{end_date}" }
                     td do
                       dates = "#{c.start_date} - #{c.end_date}"
                       link_to "#{c.name}", "#",
-                      :onclick => "submit_course('#{c.location.gsub(/'/, '\\\'')}', '#{dates}', '#{c.name.gsub(/'/, '\\\'')}', '#{c.warning.empty? ? nil : c.warning.gsub(/'/, '\\\'')}', this); return false;"
+                      :onclick => "submit_course('#{location}', '#{dates}', '#{name}', '#{warning}', this); return false;"
                     end
                   }
                 }

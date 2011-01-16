@@ -12,9 +12,12 @@ class Course < ActiveRecord::Base
     }.uniq.sort
 
     locations.each {|loc|
-      courses[loc] = all_courses.select{|ac| ac.location == loc}.sort_by{|course| course.name}.sort_by{|course| course.start_date}
+      courses[loc] = all_courses.select{|ac| ac.location == loc}.sort{|c1, c2|
+        c1.name == c2.name ? c1.start_date <=> c1.start_date : c1.name <=> c2.name
+      }
     }
     
     [locations, courses]
   end
+  
 end

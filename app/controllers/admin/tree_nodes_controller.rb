@@ -3,7 +3,7 @@ class Admin::TreeNodesController < ApplicationController
 
   before_filter :save_referrer_to_session, :only => [ :new, :edit, :destroy, :tree_node_ac_rights, :tree_node_delete ]
   before_filter {|controller| 
-    unless ['destroy', 'tree_node_delete', 'reset_order'].include?(controller.action_name)
+    unless ['destroy', 'tree_node_delete', 'reset_order', 'update_state'].include?(controller.action_name)
       controller.admin_authorize(['System manager'])
     end
   }

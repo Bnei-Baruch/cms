@@ -214,62 +214,13 @@ EOF
     end
 
 		div(:class => 'campus', :id => id_centered){
-      if with_buttons
-        div(:id => 'campus_buttons'){
-          input :type => 'button', :value => 'מעוניין לקבל פרטים נוספים', :id => 'callmeback'
-          input :type => 'button', :value => 'מעוניין להרשם דרך האתר', :id => 'payment'
-        }
-      end
       div(:id => 'output2'){
-        form(:id => 'myForm2', :style => (with_buttons && !with_error) ? 'display: none;' : ''){
-          if with_error
-            div(:class => 'error'){text _(:'error_mesg')}
-            br
-          end
-          #user fields
-          p{
-            unless field_1_hide
-              span(:class => 'label') {rawtext field_1_label+ " : "}
-              input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
-              br
-            end
-
-            unless field_2_hide
-              span(:class => 'label') {rawtext field_2_label+" : "}
-              input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
-              br
-            end
-                
-            unless field_3_hide
-              span(:class => 'label') {text field_3_label+" : "}
-              input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
-            end
-                                            
-            div(:class => 'label_captcha'){text _(:'label_captcha')+':'}
-                
-            div(:class => 'campus_captcha')
-            div(:class => 'label_captcha') {text _(:'label_captcha2')+':'}
-            input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
-                
-
-            input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
-            input :type => 'hidden', :name => 'node', :value => tree_node.id
-            input :type => 'hidden', :name => 'options[tree_node_id]', :value => tree_node.id
-            input :type => 'hidden', :name => 'options[new_student]', :value => 'true'
-            input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
-            input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
-            input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
-            input :type => 'hidden', :name => 'options[listname]', :value => get_list_name
-
-            #submit
-            br
-            input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
-            br
-                
-          }
-				}
+        if with_error
+          div(:class => 'error'){text _(:'error_mesg')}
+          br
+        end
         if with_buttons
-          form(:id => 'myForm3', :style => 'display: none;', :action => 'http://events.kabbalah.info/campus/register.php', :method => 'POST'){
+          form(:id => 'myForm3', :action => 'http://events.kabbalah.info/campus/register.php', :method => 'POST'){
             p
             input :type => 'hidden', :id => 'location', :name => 'location', :value => ''
             input :type => 'hidden', :id => 'dates', :name => 'dates', :value => ''
@@ -291,7 +242,7 @@ EOF
                   th { rawtext 'תאריכים' }
                   th { rawtext 'בחר קורס' }
                 }
-                
+
                 @courses[location].each{ |c|
                   start_date = DateTime.strptime(c.start_date, '%Y-%M-%d').strftime('%d/%M/%Y')
                   end_date = DateTime.strptime(c.end_date, '%Y-%M-%d').strftime('%d/%M/%Y')
@@ -311,6 +262,54 @@ EOF
               }
             }
             p
+          }
+        else
+          form(:id => 'myForm2'){
+            #user fields
+            p{
+              unless field_1_hide
+                span(:class => 'label') {rawtext field_1_label+ " : "}
+                input :type => 'text', :name => 'options[name]', :value => def_name, :size => '31', :class => 'text'
+                br
+              end
+
+              unless field_2_hide
+                span(:class => 'label') {rawtext field_2_label+" : "}
+                input :type => 'text', :name => 'options[email]', :value => def_email, :size => '31', :class => 'text'
+                br
+              end
+
+              unless field_3_hide
+                span(:class => 'label') {text field_3_label+" : "}
+                input :type => 'text', :name => 'options[tel]', :value => def_tel, :size => '31', :class => 'text'
+              end
+
+              p(:style => 'font-size:11px;'){
+                rawtext 'אני רוצה לקבל מכם דיוור מעת לעת. לעולם לא נשתמש בפרטיך ולא נמכור או אשכיר אותם לכל גוף אחר. הם יישארו חסויים אצלנו, ובכל שלב תוכל לצאת מרשימת התפוצה שלנו.'
+              }
+              
+              div(:class => 'label_captcha'){text _(:'label_captcha')+':'}
+
+              div(:class => 'campus_captcha')
+              div(:class => 'label_captcha') {text _(:'label_captcha2')+':'}
+              input :type => 'text', :name => 'options[captcha_value]', :size => '31', :class => 'text'
+
+
+              input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
+              input :type => 'hidden', :name => 'node', :value => tree_node.id
+              input :type => 'hidden', :name => 'options[tree_node_id]', :value => tree_node.id
+              input :type => 'hidden', :name => 'options[new_student]', :value => 'true'
+              input :type => 'hidden', :name => 'options[widget]', :value => 'campus_form'
+              input :type => 'hidden', :name => 'view_mode', :value => 'new_student'
+              input :type => 'hidden', :name => 'options[adwords]', :value => def_adwords
+              input :type => 'hidden', :name => 'options[listname]', :value => get_list_name
+
+              #submit
+              br
+              input :type => 'submit', :name => 'Submit', :class => 'submit', :value => 'שלח'
+              br
+
+            }
           }
         end
       }

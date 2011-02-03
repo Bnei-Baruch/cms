@@ -10,7 +10,7 @@ class Hebmain::Widgets::ShareThis < WidgetManager::Base
     div(:class => 'share_this'){
 			div(:class => 'like_it'){
 				rawtext <<-LIKE_BUTTON
-					<iframe src="http://www.facebook.com/plugins/like.php?locale=he_IL&amp;href=#{like_url}&amp;layout=button_count&amp;show_faces=false&amp;width=90&amp;action=recommend&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="overflow:hidden;width:90px;height:20px;float:right;" allowTransparency="true"></iframe>
+					<iframe src="http://www.facebook.com/plugins/like.php?locale=he_IL&amp;href=#{like_url}&amp;layout=button_count&amp;show_faces=false&amp;width=90&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="overflow:hidden;width:90px;height:20px;float:right;" allowTransparency="true"></iframe>
 				LIKE_BUTTON
 			}
       javascript(:src => "http://s7.addthis.com/js/200/addthis_widget.js")

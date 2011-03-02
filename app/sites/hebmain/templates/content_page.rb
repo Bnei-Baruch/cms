@@ -266,9 +266,10 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   end
 
   def ext_related_items
-    resources = related_items
+    resource_types = %W{ box rss newsletter iframe }
+    resources = related_items resource_types
     WidgetManager::Base.new(helpers) do
-      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => %W{ box rss newsletter},:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
+      w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => resource_types,:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)
       show_content_resources(:parent => :content_page, :placeholder => :related_items, :resources => resources, :sortable => true)
       resources
     end
@@ -313,10 +314,10 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     )
   end
 
-  def related_items
+  def related_items(resource_types)
     @related_items ||= TreeNode.get_subtree(
       :parent => tree_node.id, 
-      :resource_type_hrids => ['box', 'rss', 'newsletter'], 
+      :resource_type_hrids => resource_types,
       :depth => 1,
       :has_url => false,
       :placeholders => ['related_items'],

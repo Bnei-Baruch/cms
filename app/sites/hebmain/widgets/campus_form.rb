@@ -47,9 +47,9 @@ class Hebmain::Widgets::CampusForm < WidgetManager::Base
     mail_list_name = get_list_name
 		new_student = Student.new(:name => @options[:name], :telephone => @options[:tel], :email => @options[:email], :tree_node_id => @options[:tree_node_id], :adwords => @options[:adwords], :listname => @options[:listname])
 		new_student.save
-    mail = Notifier.create_contact(mail_conf, mail_from, mail_subject, mail_body)
-    mail.set_content_type("text/html")
-    Notifier.deliver(mail) unless mail_do_not_send
+#    mail = Notifier.create_contact(mail_conf, mail_from, mail_subject, mail_body)
+#    mail.set_content_type("text", "html", {"charset" => 'utf-8'})
+    Notifier.deliver_student(mail_conf, mail_from, mail_subject, mail_body) unless mail_do_not_send
     send_student_by_mail(@options[:name],@options[:email],@options[:tel], mail_from, mail_to, mail_list_name)
 		div(:class => 'success'){
 		  text "הפרטים נתקבלו בהצלחה.‬"	
@@ -85,7 +85,6 @@ Tel: #{tel}
 
 
 EOF
-    msg
     begin
       Net::SMTP.start("localhost", 25) { |smtp|
         smtp.sendmail msg, mailfrom, [mailto]

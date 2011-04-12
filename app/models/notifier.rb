@@ -22,7 +22,7 @@ class Notifier < ActionMailer::Base
 
     content_type 'multipart/alternative'
     part :content_type => 'text/html' do |p|
-      p.body = body
+      p.body = message
       p.transfer_encoding = 'quoted-printable'
     end
   end

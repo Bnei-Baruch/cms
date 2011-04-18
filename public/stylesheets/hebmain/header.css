@@ -131,6 +131,9 @@ strong{
     list-style-position: inside;
     position: relative;
 }
+.firefox #hd ul.links li {
+    margin-left: 0;
+}
 /*----------  Footer  ---------------*/
 #ft{
     text-align:center;

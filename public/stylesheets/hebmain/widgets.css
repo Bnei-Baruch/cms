@@ -1504,10 +1504,11 @@ text-decoration: none;
     font-weight:bold;
     text-decoration:none;
     padding: 0px 9px 9px 0px;
+    margin-right: 7px;
 }
 #home-kabtv #kabtv-bot  .text-tv{
     background:transparent url(/images/hebmain/kabtv/home-arrows.gif) no-repeat scroll 0% 5%;
-    padding-left:105px;
+    padding-left:103px;
     position:relative;
     top:3px;
 }

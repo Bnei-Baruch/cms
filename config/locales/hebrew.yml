@@ -264,7 +264,7 @@ hebrew:
     speak: דיבור
     language_name:  שם השפה 
     more_details: פרטים נוספים 
-    profession:  מקצוע 
+    profession:   מקצוע\השכלה  אנא פרט
     free_time: זמן שתקדישו לעניין 
     less_than_1h: פחות משעה בשבוע
     between_2h_up_to_4h: משעתים עד 4 שעות בשבוע
@@ -273,7 +273,7 @@ hebrew:
     submit: שלח
     choose_language: בחר שפה
     response_text: תהליך הרישום עבר בהצלחה
-    where_do_you_want_to_help: במה היית רוצה לעזור 
+    where_do_you_want_to_help: במה היית רוצה לעזור  הנך מוזמן לפרט את התפקיד\ים בהם אתה מעוניין
     everything_went_fine: תהליך הרישום עבר בהצלחה.
     arabic: العربية
     german: Deutsch

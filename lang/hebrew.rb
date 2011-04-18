@@ -46,7 +46,7 @@ Localization.define('hebrew') do |l|
   l.store 'Language Name', ' שם השפה'
   l.store 'First Language', 'שפת אם'
   l.store 'More details', 'פרטים נוספים'
-  l.store 'Profession', ' מקצוע'
+  l.store 'Profession', ' מקצוע\השכלה *אנא פרט'
   l.store 'Free Time', 'זמן שתקדישו לעניין'
   l.store 'Where do you want to help?', 'במה היית רוצה לעזור'
   

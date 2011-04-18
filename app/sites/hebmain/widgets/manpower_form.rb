@@ -16,14 +16,14 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             td(:colspan => '4'){text _(:'personnal_details')}
           }
           tr{
-            td(:class => 'first, must'){
+            td(:class => 'first must'){
               text _(:'first_name')
               text ' *:'
             }
             td{
               input :type => 'text', :name => 'firstname'
             } 
-            td(:class => 'second, must'){
+            td(:class => 'second must'){
               text _(:'email')
               text ' *:'
             }
@@ -32,7 +32,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             }
           }
           tr{  
-            td(:class => 'first, must'){
+            td(:class => 'first must'){
               text _(:'last_name')
               text ' *:'
             }
@@ -61,7 +61,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               }
             }
             
-            td(:class => 'second, must'){
+            td(:class => 'second must'){
               text _(:'main_phone')
               text ' *:'
             }
@@ -70,7 +70,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
             }
           }
           tr{
-            td(:class => 'first, must'){
+            td(:class => 'first must'){
               text _(:'hometown')
               text ' *:'
             }
@@ -78,7 +78,7 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
               input :type => 'text', :name => 'hometown'
             }
             
-            td(:class => 'second, must'){
+            td(:class => 'second must'){
               text _(:'first_language')
               text ' *:'
             }
@@ -160,15 +160,15 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
           tr{
             td(:class => 'first'){
               text _(:'profession')
-              text ' :'
+              text ' *:'
             }
-            td{
-              input :type => 'text', :name => 'profession'
+            td(:colspan => '4'){
+               textarea :rows => '7', :cols => '75', :name => 'profession',  :class => 'msg'
             }
           }
 
           tr{
-            td(:class => 'first, must'){
+            td(:class => 'first must'){
               text _(:'free_time')
               text ' *:'
             }
@@ -184,12 +184,12 @@ class Hebmain::Widgets::ManpowerForm < WidgetManager::Base
           }
           
           tr{
-            td(:class => 'first, must'){
+            td(:class => 'first must'){
               text _(:'where_do_you_want_to_help')
               text ' *:'
             }
             td(:colspan => '4'){
-              textarea :rows => '6', :cols => '75', :name => 'whelp',  :class => 'msg'
+              textarea :rows => '7', :cols => '75', :name => 'whelp',  :class => 'msg'
             }
           }
           tr{

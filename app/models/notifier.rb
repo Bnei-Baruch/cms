@@ -1,7 +1,7 @@
 class Notifier < ActionMailer::Base
   
   def encode(value)
-    [value].pack("m60").gsub(/\n$/, '').split("\n").map{|e| "=?UTF-8?B?#{e}?=" }.join("\n\s")
+    value.scan(/.{1,45}/).map{|c| [c].pack('m').sub(/\n/, '')}.map{|e| "=?UTF-8?B?#{e}?=" }.join("\n\s")
   end
 
 

@@ -93,17 +93,15 @@ EOF
       #the email have not been send, but student is in database
     end
   end
-  
- 
-	def campus_admin_mode
+
+  def campus_admin_mode
     div(:class => 'courses'){
       link_to 'Listing of Courses', admin_courses_path
+      br
+      link_to 'Export to Excel', excel_admin_courses_path
     }
     br
 		div(:class => 'campus') {
-      #  text 'אדמין'
-      text _(:'admin')
-      br
       table{
         tr(:class => 'title'){
           td{text _(:'date')}

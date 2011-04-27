@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tree_node_ac_rights
     admin.resources :login, :collection => {:login => :get, :logout => :get}
     admin.resources :url_migrations, :collection => {:import => :get, :export => :get, :merge => :get, :cleanup => :get}
-    admin.resources :courses
+    admin.resources :courses, :collection => {:excel => :get}
   end	
 
   # REST API for fetching cms data

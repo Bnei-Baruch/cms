@@ -86,4 +86,36 @@ class Admin::CoursesController < ApplicationController
     end
   end
 
+  def excel
+    content = Student.list_all_students.to_excel(
+        :title => "BB-Students #{Time.now.strftime("%Y-%m-%d")}",
+        :author => 'BB',
+        :company => 'BB',
+        :only => [:name, :telephone, :email, :adwords, :listname],
+        :methods => [:excel_date],
+        :headers => {:excel_date => _(:'date'), :name => _(:'name'), :telephone => _(:'tel'), :email => _(:'email'), :adwords => _(:'campaign'), :listname => _(:'list_name')}
+    )
+    send_zip_file 'BB-Students', content
+  end
+
+  private
+
+  require 'zip/zip'
+  
+  def send_zip_file(file_name, content)
+    time_now = Time.now
+
+    file_path = "#{Rails.root}/tmp/#{file_name}_#{time_now.strftime("%d-%m-%Y")}_#{Process.pid}.xml"
+    zip_file_path = "#{Rails.root}/tmp/#{file_name}_#{time_now.strftime("%d-%m-%Y")}_#{Process.pid}.zip"
+    File.unlink file_path rescue nil
+    File.unlink zip_file_path rescue nil
+    my_file = File.new(file_path, 'w+')
+    my_file.syswrite(content)
+    my_file.close
+    Zip::ZipFile.open(zip_file_path, 'w') do |zipfile|
+      zipfile.add(File.basename(file_path), my_file.path)
+    end
+    send_file(zip_file_path, :type => 'application/zip')
+  end
+  
 end

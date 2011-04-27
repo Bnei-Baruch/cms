@@ -87,7 +87,10 @@ class Admin::CoursesController < ApplicationController
   end
 
   def excel
-    content = Student.list_all_students.to_excel(
+    list_name = params[:list_name]
+    students_list = list_name ? Student.list_all_students_for_list(list_name) : Student.list_all_students
+
+    content = students_list.to_excel(
         :title => "BB-Students #{Time.now.strftime("%Y-%m-%d")}",
         :author => 'BB',
         :company => 'BB',

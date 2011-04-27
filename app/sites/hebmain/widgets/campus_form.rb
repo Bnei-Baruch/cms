@@ -95,10 +95,11 @@ EOF
   end
 
   def campus_admin_mode
+    list_name = get_list_name
     div(:class => 'courses'){
       link_to 'Listing of Courses', admin_courses_path
       br
-      link_to 'Export to Excel', excel_admin_courses_path
+      link_to 'Export to Excel', excel_admin_courses_path(:list_name => list_name)
     }
     br
 		div(:class => 'campus') {
@@ -111,10 +112,10 @@ EOF
           td{text _(:'campaign')}
           td{text _(:'list_name')}
         }
-        if get_list_name == ""
+        if list_name == ""
           students_list = Student.list_all_students
         else
-          students_list = Student.list_all_students_for_list(get_list_name)
+          students_list = Student.list_all_students_for_list(list_name)
         end
         students_list.each { |sl|
           stcreated = parsedate sl.created_at.to_s

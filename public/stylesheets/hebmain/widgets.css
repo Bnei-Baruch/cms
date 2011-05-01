@@ -19,7 +19,6 @@
 .index .element{
     padding: 15px 0 0;
     position:relative;
-    border-bottom:1px dashed #e8e8e8;
 }
 .index .preview-even{
     background-color:#f7f8fc;

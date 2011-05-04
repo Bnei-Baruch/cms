@@ -190,12 +190,12 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       @direct_link.render_to(self)
                       @archive.render_to(self) if archived_resources.size > 0 && !@presenter.page_params.has_key?('archive')
                       @previous_comments.render_to(self)
-                      if ext_kabtv_exist
-                        div(:id => 'ft'){
-                          @header_bottom_links.render_to(self)
-                          @header_copyright.render_to(self)
-                        }
-                      end
+#                      if ext_kabtv_exist ZZZ Does somebody knows why is it here?
+#                        div(:id => 'ft'){
+#                          @header_bottom_links.render_to(self)
+#                          @header_copyright.render_to(self)
+#                        }
+#                      end
 
                     }
                   }

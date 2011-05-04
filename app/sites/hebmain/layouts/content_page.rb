@@ -152,11 +152,13 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
-            rawtext <<-GCA
-						<script type="text/javascript">
-							GA_googleFillSlot("kab-co-il_top-banner_950x65");
-						</script> 
-            GCA
+            div(:id => 'google_ads') {
+              rawtext <<-GCA
+              <script type="text/javascript">
+                GA_googleFillSlot("kab-co-il_top-banner_950x65");
+              </script>
+              GCA
+            }
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {

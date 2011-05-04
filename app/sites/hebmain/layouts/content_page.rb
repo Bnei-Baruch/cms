@@ -238,7 +238,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               @header_bottom_links.render_to(self)
             }
             @header_copyright.render_to(self)
-          } unless ext_kabtv_exist
+          } # unless ext_kabtv_exist
         }
         text ext_abc_down
         @google_analytics.render_to(self)

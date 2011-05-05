@@ -12,7 +12,7 @@ javascripts:
   - jquery.media
   - jquery.metadata
   - jquery.form
-  - ../highslide/highslide-full.packed
+  - ../highslide/highslide-full
 stylesheets: 
 - base: 
   - admin

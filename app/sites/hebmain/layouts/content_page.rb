@@ -53,7 +53,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
       'jquery.curvycorners.packed.js', 'jquery.browser.js',
       'jquery.media.js', 'jquery.metadata.js','jquery.form.js',
-      '../highslide/highslide-full.packed.js', 'countdown',
+      '../highslide/highslide-full.js', 'countdown',
       'jq-helpers-hb', 'jquery.confirm-1.3.js'#,
       #:cache => "cache_content_page-#{@presenter.website_hrid}"
 

@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :resources
     admin.resources :tree_nodes, :has_many => :tree_node_permissions,
       :member => {:tree_node_delete => :post, :update_state => :post },
-      :collection => { :ext => :get, :ext_old => :get, :reset_order => :post }
+      :collection => { :ext => :get, :ext_old => :get, :reset_order => :post, :clear_cache => :post }
     admin.resources :lists #, :collection => { :update_resource_type_properties => :get }
     admin.resources :websites, :collection => { :set_website => :get }
     admin.resources :properties

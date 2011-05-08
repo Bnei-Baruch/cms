@@ -235,11 +235,30 @@ function create_tree(options)
                     reset_order_of_nodes(node)
                 }
             }),
+            new Ext.menu.Item({
+                text: 'Refresh the node!',
+                disabled: node.attributes.cannot_edit,
+                handler: function(item){
+                    clear_cache(node)
+                }
+            }),
             ]
         });
         menu.showAt(e.getXY());
     });
 
+    function clear_cache(node) {
+        Ext.Ajax.request({
+            url: '/admin/tree_nodes/clear_cache',
+            method: 'post',
+            callback: function (options, success, responce){
+                Ext.Msg.alert('Cache of the node', success ? 'was successfully cleared': 'FAILURE!!!');
+            },
+            params: {
+                'id': node.id
+            }
+        });
+    }
     function reset_order_of_nodes(node) {
         var nodes = node.childNodes;
         var nodeList = new Array();

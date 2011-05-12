@@ -16,7 +16,7 @@ module	Configuration::Global
       :profile_key => nil,
       :new_version => false
     },
-    :page404_permalink => 404, #permalink of 404 page
+    :page404_permalink => '404', #permalink of 404 page
     :rss_items_limit => 10,  # Number of items to show in RSS
     :chain_meta_title => false  # This configuration determines whether to chain the whole path to root in meta title or not. 
   }

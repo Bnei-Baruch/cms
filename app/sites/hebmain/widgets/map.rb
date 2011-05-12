@@ -23,7 +23,7 @@ class Hebmain::Widgets::Map < Mainsites::Widgets::Sitemap
             rawtext "<tr class='#{@row}'>"
           end
           sub_sections = get_sub_section(section) || []
-          td (:class => @column){
+          td(:class => @column){
             div{
               a section.resource.name, :href => get_page_url(section), :class => 'title'
             }

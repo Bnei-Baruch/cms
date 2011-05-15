@@ -4,9 +4,18 @@ class PageMap < ActiveRecord::Base
     @logger ||= Logger.new("#{RAILS_ROOT}/log/cache_clean.log", 10, 5242880)
   end
 
-  def self.remove_cache(tree_node)
-    key = tree_node.this_cache_key
-    Rails.cache.delete(key) if Rails.cache.exist?(key)
+  def self.remove_cache(tree_node, is_homepage = false)
+     if is_homepage
+      # Special case - clear everything
+      path = "#{Rails.root}/tmp/cache/#{tree_node.class.model_name.cache_key}/*"
+      Dir[path].each do |file|
+        FileUtils.rm_rf file, :verbose => true
+      end
+
+    else
+      key = tree_node.this_cache_key
+      Rails.cache.delete(key) if Rails.cache.exist?(key)
+    end
   end
 
   # Remove dependent caches

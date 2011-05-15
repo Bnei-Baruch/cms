@@ -89,6 +89,7 @@ function create_tree(options)
         root:new Ext.tree.AsyncTreeNode({
             text:options.root_title,
             id:options.root_id,
+            is_root: true,
             loaded:true,
             leaf:false,
             addTarget:options.admin_url,
@@ -237,7 +238,7 @@ function create_tree(options)
             }),
             new Ext.menu.Item({
                 text: 'Refresh the node!',
-                disabled: node.attributes.cannot_edit,
+                disabled: node.attributes.cannot_edit && node.attributes.cannot_create_child,
                 handler: function(item){
                     clear_cache(node)
                 }
@@ -255,7 +256,8 @@ function create_tree(options)
                 Ext.Msg.alert('Cache of the node', success ? 'was successfully cleared': 'FAILURE!!!');
             },
             params: {
-                'id': node.id
+                'id': node.id,
+                'is_root': node.isRoot
             }
         });
     }

@@ -221,7 +221,7 @@ class Admin::TreeNodesController < ApplicationController
     end
     #   ******************
 
-    PageMap.remove_cache(tree_node)
+    PageMap.remove_cache(tree_node, params[:is_root])
 
     respond_to do |format|
       format.html {

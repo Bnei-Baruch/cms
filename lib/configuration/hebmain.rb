@@ -75,7 +75,7 @@ module	Configuration::Hebmain
       },
     },
     # Ligdol-bekeif section node name
-    :ligdolbekeif => 'ligdoltv',
+    :ligdoltv => 'ligdoltv',
     # define widgets that should not have bottom border
     :disable_bottom_border => ['title'],
     # define list of groups that have permission to edit list of courses

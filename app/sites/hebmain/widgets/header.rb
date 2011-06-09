@@ -3,7 +3,7 @@ class Hebmain::Widgets::Header < WidgetManager::Base
   def render_top_links
     placeholder = @args_hash[:placeholder]
 
-    if placeholder =~ /ligdolbekeif/
+    if placeholder =~ /ligdoltv/
     else
       search_page = domain + '/' + presenter.controller.website.prefix + '/' + 'search'
 

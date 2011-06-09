@@ -7,12 +7,12 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
   def initialize(*args, &block)
     super
 
-    @in_ligdolbekeif = @presenter.main_section && (@presenter.main_section.permalink == $config_manager.site_settings(@presenter.website.hrid)[:ligdolbekeif])
+    @in_ligdoltv = @presenter.main_section && (@presenter.main_section.permalink == $config_manager.site_settings(@presenter.website.hrid)[:ligdoltv])
 
-    @header_top_links = w_class('header').new(:view_mode => 'top_links', :placeholder => @in_ligdolbekeif ? 'top_links_ligdolbekeif' : 'top_links')
-    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links', :placeholder => @in_ligdolbekeif ? 'bottom_links_ligdolbekeif' : 'bottom_links')
+    @header_top_links = w_class('header').new(:view_mode => 'top_links', :placeholder => @in_ligdoltv ? 'top_links_ligdoltv' : 'top_links')
+    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links', :placeholder => @in_ligdoltv ? 'bottom_links_ligdoltv' : 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
-    @header_copyright = w_class('header').new(:view_mode => 'copyright', :placeholder => @in_ligdolbekeif ? 'copyright_ligdolbekeif' : nil)
+    @header_copyright = w_class('header').new(:view_mode => 'copyright', :placeholder => @in_ligdoltv ? 'copyright_ligdoltv' : nil)
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
@@ -155,7 +155,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       body {
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
-            if @in_ligdolbekeif
+            if @in_ligdoltv
             else
               div(:id => 'google_ads') {
                 rawtext <<-GCA
@@ -169,7 +169,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
                   @dynamic_tree.render_to(self)
-                  unless @in_ligdolbekeif
+                  unless @in_ligdoltv
                     div(:id => 'hd') {
                       make_sortable(:selector => '#hd .links', :axis => 'x') {
                         @header_top_links.render_to(self)
@@ -214,7 +214,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              unless @in_ligdolbekeif
+              unless @in_ligdoltv
                 div(:id => 'hd-r') {
                   @header_logo.render_to(self)
                   @languages.render_to(self)

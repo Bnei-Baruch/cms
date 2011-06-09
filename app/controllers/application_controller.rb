@@ -90,6 +90,8 @@ class ApplicationController < ActionController::Base
     if @prefix || @permalink
       @website = Website.find(:first, :conditions => ['domain = ? and prefix = ?', @host, @prefix])
       @website = nil if @website && @website.use_homepage_without_prefix && !(@prefix && @permalink)
+    elsif @path && !@path.empty?
+      @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ? and prefix = ?', @host, false, @path[0]])
     elsif !@path || (@path && @path.empty?)
       @website = Website.find(:first, :conditions => ['domain = ? and use_homepage_without_prefix = ?', @host, true])
     end

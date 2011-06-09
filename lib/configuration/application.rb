@@ -12,7 +12,7 @@ module	Configuration::Application
     # :default_site => {:domain => 'http://www.kab.co.il', :prefix => 'epaper_heb'},
 # List of all modules that will be registered on application init. 
 # if you want your site config to be used you should load it
-    :registered_config_modules => ['hebmain', 'mainsites', 'rusmain', 'sok_en'],
+    :registered_config_modules => ['hebmain', 'mainsites', 'ligdoltv', 'sok_en'],
 
 # Url Migration definitions 
         :url_migration_states => {:state_active => 'active', :state_inactive => 'inactive', :state_delete => 'deleted'},

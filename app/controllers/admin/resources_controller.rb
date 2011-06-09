@@ -119,7 +119,7 @@ class Admin::ResourcesController < ApplicationController
 
     @tree_node = @resource.tree_nodes[0]
     @tree_node.is_main = true
-    @tree_node.ac_type = parent_tree_node.ac_type
+    @tree_node.ac_type = parent_tree_node ? parent_tree_node.ac_type : 4
     @resource.tree_nodes[0] = @tree_node
     Website.associate_website(@resource, session[:website]) # TODO OLD CODE - Check to remove (Rami only)
 

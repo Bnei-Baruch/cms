@@ -3,7 +3,8 @@ class Mainsites::Widgets::Sitemap < WidgetManager::Base
   skip_page_map
   
   def render_full
-
+    return if @presenter.main_section && (@presenter.main_section.permalink == $config_manager.site_settings(@presenter.website.hrid)[:ligdolbekeif])
+    
     div(:class => 'sitemap'){
       div(:class => 'sitemap-inner'){
   			

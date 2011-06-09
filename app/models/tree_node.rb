@@ -200,11 +200,8 @@ class TreeNode < ActiveRecord::Base
       req_current_page = args[:current_page] || 'null'
       req_items_per_page = args[:items_per_page] || '200'
       req_return_parent = args.has_key?(:return_parent) ? args[:return_parent] : 'null'
-      if args.has_key?(:placeholders)
-        req_placeholders = 'ARRAY[' + args[:placeholders].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
-      else
-        req_placeholders = 'null'
-      end
+      placeholders = args[:placeholders]
+      req_placeholders = placeholders ? 'ARRAY[' + placeholders.map{|e| "'" + e.to_s + "'"}.join(',') + ']' : 'null'
       if args.has_key?(:status)
         req_status = 'ARRAY[' + args[:status].map{|e| "'" + e.to_s + "'"}.join(',') + ']'
       else

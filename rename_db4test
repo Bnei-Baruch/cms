@@ -1,0 +1,1 @@
+ruby script/runner CronManager.rename_db4test -e development

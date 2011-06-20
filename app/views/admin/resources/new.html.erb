@@ -1,5 +1,5 @@
 <% name = @resource.resource_type.name %>
-<% @title = _(:Creating) + ' ' + _(name) %>
+<% @title = _(:Creating) + ' ' + (_(name) || name) %>
 <%= render :partial => "admin/share/tiny_mce_full" %>
 
 <% form_for @resource, :url => admin_resources_path, :html => {:multipart => true} do |f| %>

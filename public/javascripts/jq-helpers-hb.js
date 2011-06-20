@@ -658,7 +658,7 @@ $(function() {
     var id = $player.attr("id").replace('id-', '');
     if (id == 0) return;
   
-    var $links = $player.find("a").not(".more").click(function(event){
+    var $links = $player.find("a").not(".more,.download").click(function(event){
         var $this = $(this);
         event.preventDefault();
         playerConfig_innerpage.videoFile = $this.attr("href");

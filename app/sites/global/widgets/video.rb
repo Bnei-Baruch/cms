@@ -1,8 +1,8 @@
 class Global::Widgets::Video < WidgetManager::Base
 
-  def video_admin  
-    w_class('cms_actions').new( :tree_node => tree_node, 
-      :options => {:buttons => %W{ edit_button delete_button }, 
+  def video_admin
+    w_class('cms_actions').new( :tree_node => tree_node,
+      :options => {:buttons => %W{ edit_button delete_button },
         :resource_types => %W{ site_updates_entry },
         :new_text => _(:create_new_content_item),
         :has_url => false
@@ -30,7 +30,7 @@ class Global::Widgets::Video < WidgetManager::Base
     if show_title.nil?
       show_title = false
     end
-    
+
     if (show_title)
       h3(:class => 'video'){
         text get_title
@@ -120,7 +120,7 @@ class Global::Widgets::Video < WidgetManager::Base
         Embedjs
       }
     }
-    
+
     div(:class => 'embed'){
       wmvpath = get_download_link
       unless wmvpath.empty?
@@ -133,7 +133,7 @@ class Global::Widgets::Video < WidgetManager::Base
       end
     }
   end
-  
+
   def render_video_list
     video_admin
     href = get_flash_url
@@ -144,6 +144,17 @@ class Global::Widgets::Video < WidgetManager::Base
       text get_title
     }
     div(:class => 'descr-play') {text get_description}
+
+    wmvpath = get_download_link
+    unless wmvpath.empty?
+      span(:class => 'services', :style => 'float: left; margin-left: 10px;'){
+        a(:href => wmvpath, :class => 'download', :title => 'download', :target => "_blank") {
+          img(:src => '/images/download.gif', :alt => 'download', :style => 'width: 16px; height:16px; float: none; margin: 0 10px 0 5px;')
+          text _(:download)
+        }
+      }
+    end
+
     div(:class => 'clear')
   end
 

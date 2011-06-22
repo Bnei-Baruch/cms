@@ -628,7 +628,7 @@ var playerConfig_innerpage = {
     showStopButton:false,
     autoRewind:true,
     showVolumeSlider: true,
-    showFullScreenButton:false,
+    showFullScreenButton:true,
     controlsOverVideo: 'ease',
     controlBarBackgroundColor:0xe9e9e9,
     controlBarGloss: 'low',

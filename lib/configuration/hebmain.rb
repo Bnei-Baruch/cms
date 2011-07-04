@@ -6,6 +6,9 @@ module	Configuration::Hebmain
     # define the group view directory under app/views/sites/ -
     # this is an override after the content is not found in 'site_dir'
     :group_name => 'mainsites',
+    :cache => {
+      :disable_cache => false,
+    },
     # define the interface language (for the frontend). This is powered by a multilingual plugin
     :language => 'hebrew',
     :short_language => 'he',
@@ -69,7 +72,7 @@ module	Configuration::Hebmain
         :tracker => '/homepage/widget/newsletter/hebrew_homepage',
       },
       3040 => {
-        :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgee',
+        # :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgee',
         :tracker => '/homepage/widget/newsletter/hebrew_tv',
         :icon => 'newsletter_tv.png',
       },

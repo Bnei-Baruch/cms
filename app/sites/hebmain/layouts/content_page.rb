@@ -71,12 +71,12 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                           'hebmain/widgets',
                           '../highslide/highslide',
                           'lightbox',
-                          if @in_ligdoltv
-                            'hebmain/ligdoltv'
-                          end,
                           :cache => "cache_content_page-#{@presenter.website_hrid}",
                           :media => 'all'
       stylesheet_link_tag 'hebmain/print', :media => 'print'
+      if @in_ligdoltv
+            stylesheet_link_tag 'hebmain/ligdoltv'
+      end
 
       #        if presenter.node.can_edit?
       perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)

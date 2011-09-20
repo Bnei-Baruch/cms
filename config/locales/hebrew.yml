@@ -322,6 +322,7 @@ hebrew:
   Hebmain::Widgets::Sections:
     home: ראשי
     kabbalah_la_am: קבלה לעם
+    ligdoltv: לגדול בכייף
 
   Mainsites::Widgets::SendToFriend:
     send_to_friend: שלח לחבר

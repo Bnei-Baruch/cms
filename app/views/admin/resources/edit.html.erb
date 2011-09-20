@@ -1,9 +1,9 @@
 <% name = @resource.resource_type.name %>
-<% @title = _(:editing) + ' ' + _(name.downcase.tr(' ','_').to_sym) + ' &mdash; ' + _(@resource.status.to_sym)%>
+<% @title = _(:editing) + ' ' + name.downcase.tr(' ','_') + ' &mdash; ' + _(@resource.status.to_sym)%>
 <%= render :partial => "admin/share/tiny_mce_full" %>
 
 <% form_for @resource, :url => admin_resource_path(@resource), :html => {:method => 'put', :multipart => true} do |f| %>
-  <% update_name =  _(:update) + ' ' + _(name.downcase.tr(' ','_').to_sym) %>
+  <% update_name =  _(:update) + ' ' + name.downcase.tr(' ','_') %>
   <br />
   <%= link_to _(:cancel), session[:referer], {:class => 'button'} %>
   <br />

@@ -14,7 +14,11 @@
   <%= f.hidden_field(:id) %>
   <%= f.hidden_field(:position) %>
 
-  <%= content_tag(:label, _(resource_property.name.downcase.tr(' ','_').to_sym), label_options) %>
+  <%
+    label_name = resource_property.name.downcase.tr(' ','_')
+    label = _(label_name.to_sym) || label_name
+  %>
+  <%= content_tag(:label, label, label_options) %>
   <%= error_messages %>
 
   <% case data_type

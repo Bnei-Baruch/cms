@@ -1,9 +1,15 @@
 class Hebmain::Widgets::Header < WidgetManager::Base
   
   def render_top_links
-    placeholder = @args_hash[:placeholder]
+     placeholder = @args_hash[:placeholder]
 
     if placeholder =~ /ligdoltv/
+      a(:href => get_page_url(@presenter.main_section)){img(:id => 'logo', :src => img_path('ligdol/logo.png'), :alt => _(:ligdoltv), :title => _(:ligdoltv))}
+
+      image_src = get_header_image
+      alt = get_header_image_alt || _(:kabbalah_la_am)
+
+      img(:id => 'logo-image', :src => image_src, :alt => alt, :title => alt) if image_src
     else
       search_page = domain + '/' + presenter.controller.website.prefix + '/' + 'search'
 
@@ -19,15 +25,15 @@ class Hebmain::Widgets::Header < WidgetManager::Base
         # <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=he"></script>
         javascript {
           rawtext <<-google
-  $(document).ready(function(){
-    $.ajax({
-       type: "GET",
-       url: "http://www.google.com/coop/cse/brand",
-       data: {form:'cse-search-box', lang:'he'},
-       dataType: "script",
-       cache: true
-    });
-  });
+            $(document).ready(function(){
+              $.ajax({
+                 type: "GET",
+                 url: "http://www.google.com/coop/cse/brand",
+                 data: {form:'cse-search-box', lang:'he'},
+                 dataType: "script",
+                 cache: true
+              });
+            });
           google
         }
       }
@@ -83,7 +89,8 @@ class Hebmain::Widgets::Header < WidgetManager::Base
   end
   
   def render_copyright
-     e = copyright(@args_hash[:placeholder])
+    placeholder = @args_hash[:placeholder]
+    e = copyright(placeholder)
     # Set the updatable div  - THIS DIV MUST BE AROUND THE CONTENT TO BE UPDATED.
     updatable = 'up-' + presenter.website_node.id.to_s
     div(:id => updatable){
@@ -95,11 +102,11 @@ class Hebmain::Widgets::Header < WidgetManager::Base
             :new_text =>   _(:new_copyright),
             :button_text => _(:add_copyright),
             :has_url => false,
-            :placeholder => @args_hash[:placeholder]
+            :placeholder => placeholder
           }).render_to(self)
 
       else
-        w_class('copyright').new(:tree_node => e, :options => {:placeholder => @args_hash[:placeholder]}).render_to(self)
+        w_class('copyright').new(:tree_node => e, :options => {:placeholder => placeholder}).render_to(self)
       end
     }
   end

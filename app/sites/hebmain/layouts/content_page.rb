@@ -71,6 +71,9 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                           'hebmain/widgets',
                           '../highslide/highslide',
                           'lightbox',
+                          if @in_ligdoltv
+                            'hebmain/ligdoltv'
+                          end,
                           :cache => "cache_content_page-#{@presenter.website_hrid}",
                           :media => 'all'
       stylesheet_link_tag 'hebmain/print', :media => 'print'
@@ -102,20 +105,22 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       stylesheet_link_tag 'hebmain/ie8', :media => 'all'
       rawtext "\n<![endif]-->\n"
 
-      rawtext <<-GCA
-          <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
-          <script type="text/javascript">
-                  GS_googleAddAdSenseService("ca-pub-9068547212525872");
-                  GS_googleEnableAllServices();
-          </script>
-          <script type="text/javascript">
-                  GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
-          </script>
-          <script type="text/javascript">
-                  GA_googleFetchAds();
-          </script>
-      GCA
-
+      if @in_ligdoltv
+      else
+        rawtext <<-GCA
+            <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+            <script type="text/javascript">
+                    GS_googleAddAdSenseService("ca-pub-9068547212525872");
+                    GS_googleEnableAllServices();
+            </script>
+            <script type="text/javascript">
+                    GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
+            </script>
+            <script type="text/javascript">
+                    GA_googleFetchAds();
+            </script>
+        GCA
+      end
     }
     rawtext @styles if @styles
   end
@@ -131,11 +136,14 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       render_head
       div(:id => 'doc', :class => 'yui-t7') {
         div(:id => 'bd') {
-          rawtext <<-GCA
-						<script type="text/javascript">
-							GA_googleFillSlot("kab-co-il_top-banner_950x65");
-						</script>
-          GCA
+          if @in_ligdoltv
+          else
+            rawtext <<-GCA
+              <script type="text/javascript">
+                GA_googleFillSlot("kab-co-il_top-banner_950x65");
+              </script>
+            GCA
+          end
           div(:class => 'yui-g') {
             div(:class => 'content') {
               make_sortable(:selector => ".content", :axis => 'y') {
@@ -150,12 +158,25 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
 
   def render_regular
     rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
-    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en") {
+    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en", :id => @in_ligdoltv ? 'ligdoltv' : '') {
       render_head
       body {
+        if @in_ligdoltv
+          div(:id => 'bg_wrap') {
+          }
+        end
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
             if @in_ligdoltv
+              div(:id => 'header') {
+                div(:class => 'ltv-menu') {
+                  w_class('sections').new(:view_mode => 'ligdoltv').render_to(self)
+                }
+                make_sortable(:selector => '#hd .links', :axis => 'x') {
+                  @header_top_links.render_to(self)
+                }
+              }
+              div(:class => 'margin-25') { text ' ' }
             else
               div(:id => 'google_ads') {
                 rawtext <<-GCA
@@ -179,8 +200,8 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                       w_class('sections').new.render_to(self)
                     }
                     div(:class => 'margin-25') { text ' ' }
+                    self.ext_breadcrumbs.render_to(self)
                   end
-                  self.ext_breadcrumbs.render_to(self)
                   div(:class => 'content-header') {
                     make_sortable(:selector => ".content-header", :axis => 'y') {
                       self.ext_content_header.render_to(self)

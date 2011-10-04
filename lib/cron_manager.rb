@@ -298,12 +298,17 @@ class CronManager
     begin
       puts cid
       lesson_arr = lessons['lessons']['lesson'] || []
+      if lesson_arr.is_a?(Hash)
+        # There is only one lesson... better we'll skip it...
+	lesson_arr = []
+      end
       lesson_arr.each do |lesson|
         lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y')
       end
     rescue Exception  => e
       RAILS_DEFAULT_LOGGER.error("error in cron_manager.rb(#{Time.now}):")
       RAILS_DEFAULT_LOGGER.error(e)
+      RAILS_DEFAULT_LOGGER.error(content)
     end
 
     

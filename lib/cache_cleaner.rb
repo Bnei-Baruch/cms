@@ -3,14 +3,14 @@ module CacheCleaner
   class RSSCacheCleanJob < Struct.new(:nodes)
     def perform
       AuthenticationModel.cron_manager_user_login
-      Base.clean_feed_cache(nodes)
+      Base.clean_feed_cache(nodes.to_a)
     end
   end
 
   class RSSCacheCreateJob < Struct.new(:nodes)
     def perform
       AuthenticationModel.cron_manager_user_login
-      Base.create_feed_cache(nodes)
+      Base.create_feed_cache(nodes.to_a)
     end
   end
 

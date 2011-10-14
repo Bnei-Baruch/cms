@@ -65,6 +65,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
           th _(:name)
           th _(:video)
           th _(:audio)
+          th _(:text)
           th(:class => 'top-left-corner'){ text _(:picture)}
         }
       }
@@ -82,7 +83,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
 					if lesson
 						date = Date.parse(lesson['date']).strftime('%d.%m.%Y')
 						selected_lessons = [lesson] if date && (date == curr_date) &&
-								lesson['files'] && lesson['files']['file']
+              lesson['files'] && lesson['files']['file']
 					end
 				end
 	
@@ -154,7 +155,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
     ul(:id => 'lesson-' + tree_node.id.to_s + index.to_s, :style => 'display:none;'){
       selected_lessons.each { |lesson|
         # Find video, audio, sirtut
-        video_href, audio_href, sirtut_href = lesson_links(lesson)
+        video_href, audio_href, text_href, sirtut_href = lesson_links(lesson)
         
         if !video_href.empty? || !audio_href.empty? || !sirtut_href.empty?
           li(:class => 'item'){
@@ -163,6 +164,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
             div(:class => 'services'){
               a(:class => 'video', :href => video_href){span {text _(:video)} } unless video_href.empty?
               a(:class => 'audio', :href => audio_href){span {text _(:audio)} } unless audio_href.empty?
+              a(:class => 'text', :href => text_href){span {text _(:text)} } unless text_href.empty?
               a(:class => 'sketch', :href => sirtut_href){span {text _(:picture)} } unless sirtut_href.empty?
             }
           }
@@ -173,7 +175,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
   
   def lessons_show_in_table(selected_lessons, curr_date)
     selected_lessons.each_with_index { |lesson, i|
-      video_href, audio_href, sirtut_href = lesson_links(lesson)
+      video_href, audio_href, text_href, sirtut_href = lesson_links(lesson)
                
       tr(:class => 'mouse-grey-over') {
         td(:class => 'right-cell date-rss'){text curr_date.to_s}
@@ -187,6 +189,11 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
         td(:class => 'icon-cell icon-rss'){
           a(:href => audio_href) { 
             img(:class => 'img', :src => img_path('audio.png'), :alt => '') unless audio_href.empty?
+          }
+        }
+        td(:class => 'icon-cell icon-rss'){
+          a(:href => text_href) {
+            img(:class => 'img', :src => img_path('text.png'), :alt => 'doc') unless text_href.empty?
           }
         }
         td(:class => 'left-cell icon-rss') {
@@ -218,6 +225,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
   def lesson_links(lesson)
     video_href = ''
     audio_href = ''    
+    text_href = ''
     sirtut_href = ''
           
     audio_found = false
@@ -229,15 +237,19 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
           if is_media_file(path, 'zip')
             sirtut_href = path
           else 
-            if is_media_file(path, 'wmv')
-              video_href = path
+            if is_media_file(path, 'doc')
+              text_href = path
             else
-              if is_media_file(path, 'mp3') && !is_media_file(path, '96k.mp3')
-                audio_href = path
-                audio_found = true
+              if is_media_file(path, 'wmv')
+                video_href = path
               else
-                if !audio_found && is_media_file(path, '96k.mp3')
+                if is_media_file(path, 'mp3') && !is_media_file(path, '96k.mp3')
                   audio_href = path
+                  audio_found = true
+                else
+                  if !audio_found && is_media_file(path, '96k.mp3')
+                    audio_href = path
+                  end
                 end
               end
             end
@@ -245,7 +257,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
         end
       end
     end
-    return video_href, audio_href, sirtut_href
+    return video_href, audio_href, text_href, sirtut_href
   end
   
 end

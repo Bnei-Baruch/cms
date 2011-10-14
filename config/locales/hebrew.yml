@@ -312,6 +312,7 @@ hebrew:
     name:  תאור
     video:  וידאו
     audio: אודיו
+    text: טקסט
 
   Mainsites::Widgets::Newsletter:
     subscribe: הרשם

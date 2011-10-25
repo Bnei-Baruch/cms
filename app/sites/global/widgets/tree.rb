@@ -149,14 +149,15 @@ ORDER BY position
       # If node has no direct children, but is section - it is not leaf
       resource = node.resource
       acts_as_section = resource.properties('acts_as_section').get_value rescue false
-      node.direct_child_count = TreeNode.find_by_sql(<<-SQL
-SELECT count(tree_nodes.*) AS count FROM tree_nodes
+      direct_child_count = TreeNode.find_by_sql(<<-SQL
+SELECT tree_nodes.* FROM tree_nodes
 INNER JOIN resources ON (tree_nodes.resource_id = resources.id AND #{status})
 INNER JOIN resource_types ON (resources.resource_type_id = resource_types.id AND resource_types.hrid  = 'content_page')
 INNER JOIN cms_cache_resource_properties ON (cms_cache_resource_properties.resource_id = resources.id#{properties})
 WHERE parent_id = #{node.id}
       SQL
-      ).first.count
+						    )
+      node.direct_child_count = direct_child_count.length
       is_leaf = node.direct_child_count == 0 && !acts_as_section
       id = node.id
       klass = resource.status == 'PUBLISHED' ? '' : resource.status.downcase

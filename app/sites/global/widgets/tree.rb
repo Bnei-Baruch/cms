@@ -117,25 +117,46 @@ class Global::Widgets::Tree < WidgetManager::Base
   # used in dynamic tree
   def level_nodes(node_id, regular_user = true)
     if regular_user
-      properties =  'b_hide_on_navigation = false'
-      status = ['PUBLISHED']
+      #properties =  'b_hide_on_navigation = false'
+      #status = ['PUBLISHED']
+      properties =  ' AND cms_cache_resource_properties.b_hide_on_navigation = TRUE'
+      status = "resources.status = 'PUBLISHED'"
     else
-      properties = nil
-      status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
+      #properties = nil
+      #status = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
+      properties = ''
+      status = "resources.status in ('PUBLISHED', 'DRAFT', 'ARCHIVED')"
     end
-    nodes = TreeNode.get_subtree(
-      :parent => node_id,
-      :resource_type_hrids => ['content_page'],
-      :properties => properties,
-      :status => status,
-      :depth => 1,
-      :items_per_page => 1_000,
-      :count_children => true
+    #nodes = TreeNode.get_subtree(
+      #:parent => node_id,
+      #:resource_type_hrids => ['content_page'],
+      #:properties => properties,
+      #:status => status,
+      #:depth => 1,
+      #:items_per_page => 1_000,
+      #:count_children => true
+    #)
+    nodes = TreeNode.find_by_sql(<<-SQL
+SELECT tree_nodes.* FROM tree_nodes
+INNER JOIN resources ON (tree_nodes.resource_id = resources.id AND #{status})
+INNER JOIN resource_types ON (resources.resource_type_id = resource_types.id AND resource_types.hrid  = 'content_page')
+INNER JOIN cms_cache_resource_properties ON (cms_cache_resource_properties.resource_id = resources.id#{properties})
+WHERE parent_id = #{node_id}
+ORDER BY position
+    SQL
     )
     json = nodes.collect { |node|
       # If node has no direct children, but is section - it is not leaf
       resource = node.resource
       acts_as_section = resource.properties('acts_as_section').get_value rescue false
+      node.direct_child_count = TreeNode.find_by_sql(<<-SQL
+SELECT count(tree_nodes.*) AS count FROM tree_nodes
+INNER JOIN resources ON (tree_nodes.resource_id = resources.id AND #{status})
+INNER JOIN resource_types ON (resources.resource_type_id = resource_types.id AND resource_types.hrid  = 'content_page')
+INNER JOIN cms_cache_resource_properties ON (cms_cache_resource_properties.resource_id = resources.id#{properties})
+WHERE parent_id = #{node.id}
+      SQL
+      ).first.count
       is_leaf = node.direct_child_count == 0 && !acts_as_section
       id = node.id
       klass = resource.status == 'PUBLISHED' ? '' : resource.status.downcase

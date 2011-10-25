@@ -19,7 +19,7 @@ class Sites::ShorturlController < ApplicationController
   def shorturl                          
     host = 'http://' + request.host
     prefix = params[:prefix]
-    node = params[:id]
+    node = params[:id].to_i
     query_string = request.query_string
     query_string = '?' + query_string unless query_string.empty?
         

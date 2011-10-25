@@ -257,6 +257,8 @@ class Admin::TreeNodesController < ApplicationController
     end
     #   ******************
 
+    require 'json'
+
     TreeNode.reset_positions(JSON.parse(params[:nodes]))
 
     respond_to do |format|

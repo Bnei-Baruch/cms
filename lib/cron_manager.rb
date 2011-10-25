@@ -171,28 +171,22 @@ class CronManager
     AuthenticationModel.cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
     
-    websites.each do |website|
-      website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
+    tree_nodes = TreeNode.find_by_sql(<<-SQL
+        select tree_nodes.* from tree_nodes
+        inner join resources on (tree_nodes.resource_id = resources.id)
+        inner join resource_types on (resources.resource_type_id = resource_types.id)
+        where resource_types.hrid  = 'rss'
+      SQL
+    )
 
-      if (website_tree_node)
-        # Workaround:
-        # TreeNode.get_subtree doesn't work properly recursively
-        # so let's add content_pages and then filter them out
-        tree_nodes = TreeNode.get_subtree(
-          :parent => website_tree_node.id,
-          :resource_type_hrids => ['rss', 'content_page']
-        ).select{|node|
-          node.resource.resource_type.hrid=='rss'}
-
-        tree_nodes.each do |tree_node|
-          begin
-            read_and_save_node_rss(tree_node)
-          rescue
-            puts 'FAILURE!!!'
-          end
-        end
+    tree_nodes.each do |tree_node|
+      begin
+        read_and_save_node_rss(tree_node)
+      rescue
+        puts 'FAILURE!!!'
       end
     end
+
   end
 
   def self.read_and_save_node_rss(tree_node)
@@ -231,19 +225,35 @@ class CronManager
   def self.read_and_save_media_rss
 
     AuthenticationModel.cron_manager_user_login
-    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
+    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || return
 
-    websites.each do |website|
-      website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
+    if websites.length == 1
+      puts "#{Time.now} Single website case"
+      tree_nodes = TreeNode.find_by_sql(<<-SQL
+          select tree_nodes.* from tree_nodes
+          inner join resources on (tree_nodes.resource_id = resources.id)
+          inner join resource_types on (resources.resource_type_id = resource_types.id)
+          where resource_types.hrid  = 'media_rss'
+        SQL
+      )
+      language = get_language(websites[0])
+      tree_nodes.each do |tree_node|
+        read_and_save_node_media_rss(tree_node, language)
+      end
+    else
+      puts "#{Time.now} Multy website case"
+      websites.each do |website|
+        website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
 
-      if (website_tree_node)
-        tree_nodes = TreeNode.get_subtree(
-          :parent => website_tree_node.id,
-          :resource_type_hrids => ['media_rss']
-        )
+        if (website_tree_node)
+          tree_nodes = TreeNode.get_subtree(
+            :parent => website_tree_node.id,
+            :resource_type_hrids => ['media_rss']
+          )
 
-        tree_nodes.each do |tree_node|
-          read_and_save_node_media_rss(tree_node, get_language(website))
+          tree_nodes.each do |tree_node|
+            read_and_save_node_media_rss(tree_node, get_language(website))
+          end
         end
       end
     end
@@ -265,6 +275,7 @@ class CronManager
       '&DLANG=' + lang +
       '&DF=' + (Date.today).to_s +
       '&DT=' + tdate.to_s
+    puts "#{Time.now} Read Tree Node #{tree_node.id} #{url} "
     
     retries = 2
     begin
@@ -274,7 +285,7 @@ class CronManager
             content = f.read
           }
         rescue
-          puts 'Failed to open url ' + url
+          puts '#{Time.now} Failed to open url ' + url
           return
         end
         
@@ -292,11 +303,12 @@ class CronManager
     begin
       lessons = Hash.from_xml(content)
     rescue
-      puts 'Failed to parse xml from ' + url
+      puts '#{Time.now} Failed to parse xml from ' + url
       return
     end
     begin
-      puts cid
+      puts "#{Time.now} Parsing #{cid}"
+
       lesson_arr = lessons['lessons']['lesson'] || []
       if lesson_arr.is_a?(Hash)
         # There is only one lesson... better we'll skip it...
@@ -305,19 +317,23 @@ class CronManager
       lesson_arr.each do |lesson|
         lesson['date'] = (Time.parse(lesson['date'])).strftime('%d.%m.%Y')
       end
+      puts "#{Time.now} Done parsing."
     rescue Exception  => e
+      puts "#{Time.now} Error #{e}."
       RAILS_DEFAULT_LOGGER.error("error in cron_manager.rb(#{Time.now}):")
       RAILS_DEFAULT_LOGGER.error(e)
       RAILS_DEFAULT_LOGGER.error(content)
     end
 
     
+    puts "#{Time.now} Storing."
     data = YAML.dump(lessons)
     property = tree_node.resource.properties('items')
     unless property.text_value == data
       property.update_attributes(:text_value => data) unless (data.nil? | data.empty?)
       tree_node.resource.save
     end
+    puts 'OK'
     data
   end
   

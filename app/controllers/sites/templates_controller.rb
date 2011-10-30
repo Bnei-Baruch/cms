@@ -106,24 +106,38 @@ class Sites::TemplatesController < ApplicationController
   end
 
   def render_feed(feed_type)
+
     Thread.current[:skip_page_map] = true
     node_id = @presenter.node.id
     acts_as_section = @presenter.node.resource.properties('acts_as_section').get_value rescue false
     if (@presenter.is_homepage? ||
           (@presenter.node_resource_type.hrid == 'content_page' && acts_as_section))
       feed = Feed.find(:first, :conditions => [ "section_id = ? AND feed_type = ?", node_id, feed_type]) rescue nil
+
       unless feed
         limit = @presenter.site_settings[:rss_items_limit] || 10
-        @pages = TreeNode.get_treenode_subtree(
+        # Get first level
+        @pages = []
+        pages = TreeNode.get_treenode_subtree(
           :tree_node_id => node_id,
           :resource_type_hrids => ['content_page'],
           :has_url => true,
           :is_main => true,
-          :sort_field => "created_at",
-          :sort_order => "DESC",
-          :status => ['PUBLISHED']
+          :status => ['PUBLISHED'],
+          :depth => 1
         )
-	@pages = @pages.sort{|a, b| b.created_at <=> a.created_at } # DESC
+        pages.each {|p|
+          @pages << TreeNode.get_treenode_subtree(
+            :tree_node_id => p.id,
+            :resource_type_hrids => ['content_page'],
+            :has_url => true,
+            :is_main => true,
+            :status => ['PUBLISHED'],
+            :depth => 1
+          )
+        }
+
+	@pages = @pages.flatten.sort{|a, b| b.created_at <=> a.created_at } # DESC
 	@pages = @pages[0, limit]
         feed = Feed.new(:section_id => node_id,
           :feed_type => feed_type,

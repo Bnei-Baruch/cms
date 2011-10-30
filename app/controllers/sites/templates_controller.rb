@@ -133,7 +133,7 @@ class Sites::TemplatesController < ApplicationController
             :has_url => true,
             :is_main => true,
             :status => ['PUBLISHED'],
-            :depth => 1
+            :depth => 10
           )
         }
 

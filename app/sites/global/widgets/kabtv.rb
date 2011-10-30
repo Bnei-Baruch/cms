@@ -524,7 +524,8 @@ $(function() {
 			<![endif]-->
 			<!--[if !IE]>-->
 			<object 
-				type="video/x-ms-wmv"
+				type="application/x-oleobject"
+				classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95"
 				id="player" 
 				name="player" 
 				data="#{url}" 
@@ -547,6 +548,13 @@ $(function() {
 				<param name="DisplayBackColor" value="#000000" />
 				<param name="DisplayForeColor" value="#ffffff" />
 				<param name="balance" value="false" />
+                                <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
+				  src="#{url}" 
+				  width="#{width}" 
+				  height="#{height}"
+                                  showcontrols=1
+				  showstatusbar=1>
+                                </embed>
 			</object>
 			<!--<![endif]-->
 			</div>
@@ -559,7 +567,7 @@ $(function() {
 			function switchChannel(url) {
 					var player = document.getElementById("tvobj");
 					if (player){
-							tv = "<!--[If IE]> <object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' type='application/x-oleobject' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='url' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' / > <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <![endif]--> <!--[if !IE]>--> <object type='video/x-ms-wmv' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='src' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' /> <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <!--<![endif]-->";
+							tv = "<!--[If IE]> <object classid='clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6' type='application/x-oleobject' id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='url' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' / > <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> </object> <![endif]--> <!--[if !IE]>--> <object type="application/x-oleobject" classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95" id='player' name='player' data='"+url+"' width='#{width}' height='#{height}'> <param name='src' value='"+url+"' /> <param name='autostart' value='true' /> <param name='controller' value='true' /> <param name='volume' value='50' /> <param name='uiMode' value='mini' /> <param name='animationAtStart' value='true' /> <param name='showDisplay' value='false' />   <param name='ShowAudioControls' value='true' /> <param name='ShowPositionControls' value='false' /> <param name='transparentAtStart' value='false' /> <param name='ShowControls' value='true' /> <param name='ShowStatusBar' value='true' /> <param name='ShowTracker' value='false' /> <param name='ClickToPlay' value='false' /> <param name='DisplayBackColor' value='#000000' /> <param name='DisplayForeColor' value='#ffffff' /> <param name='balance' value='false' /> <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/" src="#{url}" width="#{width}" height="#{height}" showcontrols=1 showstatusbar=1> </embed> </object> <!--<![endif]-->";
 						player.innerHTML = tv;
 						}
 					}
@@ -664,7 +672,8 @@ $(function() {
 			<![endif]-->
 			<!--[if !IE]>-->
 			<object 
-				type="video/x-ms-wmv"
+				type="application/x-oleobject"
+				classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95"
 				id="player" 
 				name="player" 
 				data="#{url}" 
@@ -688,6 +697,14 @@ $(function() {
 				<param name="DisplayBackColor" value="#000000" />
 				<param name="DisplayForeColor" value="#ffffff" />
 				<param name="balance" value="false" />
+                                <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
+				  src="#{url}" 
+				  width="#{width}" 
+				  height="#{height}"
+                                  showcontrols=1
+				  showstatusbar=1>
+                                </embed>
+
 			</object>
 			<!--<![endif]-->
 			</div>

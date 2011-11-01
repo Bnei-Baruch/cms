@@ -1,4 +1,4 @@
-class Hebmain::Layouts::Website < WidgetManager::Layout
+class Ligdoltv::Layouts::Website < WidgetManager::Layout
 
   attr_accessor :ext_meta_title, :ext_meta_description
 

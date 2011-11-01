@@ -1,4 +1,4 @@
-class Hebmain::Widgets::GoogleAnalytics < WidgetManager::Base
+class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
   
   def render_full
     new_version = @presenter.site_settings[:google_analytics][:new_version] rescue false

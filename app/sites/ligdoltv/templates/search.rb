@@ -1,4 +1,4 @@
-class Hebmain::Templates::Search < WidgetManager::Template
+class Ligdoltv::Templates::Search < WidgetManager::Template
 
   def set_layout
     layout.ext_content = ext_content

@@ -1,4 +1,4 @@
-class Hebmain::Widgets::SiteUpdatesEntry < WidgetManager::Base
+class Mainsites::Widgets::SiteUpdatesEntry < WidgetManager::Base
   
   def render_full
     div(:class => 'update'){

@@ -1,4 +1,4 @@
-class Hebmain::Widgets::PictureGallery< WidgetManager::Base
+class Mainsites::Widgets::PictureGallery< WidgetManager::Base
     
   def render_full
    w_class('cms_actions').new( :tree_node => tree_node, 

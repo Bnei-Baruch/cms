@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Map < Mainsites::Widgets::Sitemap
+class Mainsites::Widgets::Map < Mainsites::Widgets::Sitemap
 
   def render_full
     modulu = 4

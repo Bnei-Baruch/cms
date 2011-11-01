@@ -13,11 +13,6 @@ class EmailController < ApplicationController
     sendmode = params[:sendmode]
     sendsubject = params[:subject]
 
-    if sendmode == "manpower"
-      send_manpower(adresse_to, params)
-      return
-    end
-
     sendsubject = sendsubject.gsub('sender_name', sender_name)
     sendsubject = sendsubject.gsub('receiver_name', receiver_name)
     
@@ -29,9 +24,6 @@ class EmailController < ApplicationController
      enc_test = enc_test + ' =?UTF-8?B?' + Base64.b64encode(str).chop + '?='
     }
 
-
-   
-    
     host = 'http://' + request.host
     prefix = params[:prefix]
     
@@ -67,112 +59,4 @@ EOF
 
  end
  
-  def send_manpower(adress_to ,params)
-  firstname = params[:firstname]
-  lastname  = params[:lastname]
-  email = params[:email]
-  mobilephone = params[:mobilephone]
-  birthdate = params[:birthdate]
-  mainphone = params[:mainphone]
-  hometown = params[:hometown]
-  firstlanguage = params[:firstlanguage]
-  language1 = params[:language1]
-  read1 = params[:read1]
-  write1 = params[:write1]
-  speak1 = params[:speak1]
-  language2 = params[:language2]
-  read2 = params[:read2]
-  write2 = params[:write2]
-  speak2 = params[:speak2]
-  language3 = params[:language3]
-  read3  = params[:read3]
-  write3 = params[:write3]
-  speak3 = params[:speak3]
-  profession = params[:profession]
-  time = params[:time]
-  whelp = params[:whelp]
-  
-  firstname_label = _(:first_name)
-  lastname_label = _(:last_name)
-  email_label = _(:email)
-  birthdate_label = _(:year_of_birth)
-  mainphone_label = _(:main_phone)
-  mobilephone_label = _(:mobile_phone)
-  hometown_label = _(:hometown)
-  firstlanguage_label = _(:first_language)
-  languages_label = _(:knowledge_of_languages)
-  profession_label = _(:profession)
-  time_label = _(:free_time)
-  whelp_label = _(:where_do_you_want_to_help)
-    
-     msg = <<EOF
-From: manpowerform@kab.co.il
-Content-Type: text/plain; charset=utf-8
-Subject:Manpower
-
-#{firstname_label} :
-#{firstname}
-
-#{lastname_label}:
-#{lastname}
-
-#{email_label}:
-#{email}
-
-#{birthdate_label}:
-#{birthdate}
-
-
-#{mainphone_label}:
-#{mainphone}
-
-#{mobilephone_label}:
-#{mobilephone}
-
-#{hometown_label}:
-#{hometown}
-
-#{firstlanguage_label}:
-#{firstlanguage}
-
-#{languages_label}:
-1. #{language1}  - #{read1} - #{write1} - #{speak1}
-2. #{language2}  - #{read2} - #{write2} - #{speak2}
-3. #{language3}  - #{read3} - #{write3} - #{speak3}
-
-#{profession_label}:
-#{profession}
- 
-#{time_label}:
-#{time}
- 
-#{whelp_label}:
-#{whelp}
-
-
-
-EOF
-    msg # end of rawtext 
-    # Net::SMTP.start("smtp.kabbalah.info", 25, 'helodomain.com','user','pass', :plain ) { |smtp|
-    Net::SMTP.start("localhost", 25) { |smtp|
-      smtp.sendmail msg, 'manpowerform@kab.co.il', [adress_to]
-    }
-    
-    
-   response_text = params[:response_text]
-   
-   respond_to do |format|
-      format.html {
-       render :text => response_text
-       return
-        
-      }
-      format.json {
-        render :text => response_text 
-        return
-      }
-    end 
-    
-  end
-  
 end

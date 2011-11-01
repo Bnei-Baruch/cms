@@ -1,4 +1,4 @@
-class Hebmain::Widgets::CustomPreview < WidgetManager::Base
+class Mainsites::Widgets::CustomPreview < WidgetManager::Base
  
   def render_large
     @image_src = get_preview_image(:image_name => 'large')

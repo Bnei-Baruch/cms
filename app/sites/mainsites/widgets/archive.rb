@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Archive < WidgetManager::Base
+class Mainsites::Widgets::Archive < WidgetManager::Base
     
   
   # provide a link using its short expression

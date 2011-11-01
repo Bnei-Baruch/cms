@@ -1,4 +1,4 @@
-class Hebmain::Widgets::AudioGallery < WidgetManager::Base
+class Mainsites::Widgets::AudioGallery < WidgetManager::Base
 
   def render_full
     header_initialized = false

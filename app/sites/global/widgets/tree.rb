@@ -56,7 +56,7 @@ class Global::Widgets::Tree < WidgetManager::Base
 
   def render_static
     unless presenter.main_section.nil? or (nodes = all_nodes).blank?
-      ul(:class => 'static') {
+        ul(:class => 'static') {
         # We're going to draw only those nodes that are on path
         build_tree(true, nodes).each {|element| draw_tree element}
       }

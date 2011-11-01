@@ -1,4 +1,4 @@
-class Hebmain::Templates::ContentPage < WidgetManager::Template
+class Ligdoltv::Templates::ContentPage < WidgetManager::Template
 
   def set_layout
     layout.ext_content = ext_content

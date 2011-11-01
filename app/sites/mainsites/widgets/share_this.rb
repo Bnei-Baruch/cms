@@ -1,4 +1,4 @@
-class Hebmain::Widgets::ShareThis < WidgetManager::Base
+class Mainsites::Widgets::ShareThis < WidgetManager::Base
   def render_hebrew
     url_domain = @presenter.domain
     url_node = @presenter.node.id.to_s

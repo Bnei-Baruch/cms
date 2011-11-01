@@ -136,9 +136,8 @@ class TreeNode < ActiveRecord::Base
   # if true than on the resource edit/create of this tree_node will show permalink text field
   # Embedded resources won't have permalink
   def ancestors
-    TreeNode.find(:all, 
+    TreeNode.find(:all,
       :from => "cms_treenode_ancestors(#{self.id}, #{AuthenticationModel.current_user}) tree_nodes") rescue []
-    # select * from cms_treenode_ancestors(35, 1)
   end
 
   class << self
@@ -260,9 +259,6 @@ class TreeNode < ActiveRecord::Base
       #end
       sql_params.merge!(additional_params)
       find(:all, sql_params) rescue []
-
-      # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes") rescue []
-      # find(:all, :from => "cms_treenode_subtree(#{request}) tree_nodes", :include => [:resource]) rescue [] ###### Eager loading
     end
     
     # Get ALL CHILDREN tree nodes of a given one according to the parameters

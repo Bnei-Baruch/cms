@@ -7,12 +7,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
   def initialize(*args, &block)
     super
 
-    @in_ligdoltv = @presenter.main_section && (@presenter.main_section.permalink == $config_manager.site_settings(@presenter.website.hrid)[:ligdoltv])
-
-    @header_top_links = w_class('header').new(:view_mode => 'top_links', :placeholder => @in_ligdoltv ? 'top_links_ligdoltv' : 'top_links')
-    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links', :placeholder => @in_ligdoltv ? 'bottom_links_ligdoltv' : 'bottom_links')
+    @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
-    @header_copyright = w_class('header').new(:view_mode => 'copyright', :placeholder => @in_ligdoltv ? 'copyright_ligdoltv' : nil)
+    @header_copyright = w_class('header').new(:view_mode => 'copyright')
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')
@@ -74,9 +72,9 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                           :cache => "cache_content_page-#{@presenter.website_hrid}",
                           :media => 'all'
       stylesheet_link_tag 'hebmain/print', :media => 'print'
-      if @in_ligdoltv
-            stylesheet_link_tag 'hebmain/ligdoltv'
-      end
+      site_config = $config_manager.site_settings(@presenter.website.hrid)
+      site_name = site_config[:site_name]
+      stylesheet_link_tag "#{site_name}/#{site_name}"
 
       #        if presenter.node.can_edit?
       perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
@@ -105,16 +103,15 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       stylesheet_link_tag 'hebmain/ie8', :media => 'all'
       rawtext "\n<![endif]-->\n"
 
-      if @in_ligdoltv
-      else
+      if site_config[:googleAdd][:use]
         rawtext <<-GCA
             <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
             <script type="text/javascript">
-                    GS_googleAddAdSenseService("ca-pub-9068547212525872");
+                    GS_googleAddAdSenseService(#{site_config[:googleAdd][:googleAddAdSenseService]});
                     GS_googleEnableAllServices();
             </script>
             <script type="text/javascript">
-                    GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
+                    GA_googleAddSlot("#{site_config[:googleAdd][:googleAddAdSenseService]}", "#{site_config[:googleAdd][:slot]}");
             </script>
             <script type="text/javascript">
                     GA_googleFetchAds();
@@ -126,6 +123,8 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
   end
 
   def render_langing_page
+    site_config = $config_manager.site_settings(@presenter.website.hrid)
+
     @styles = "
       <style>
         #bd {background:0 none;}
@@ -136,11 +135,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       render_head
       div(:id => 'doc', :class => 'yui-t7') {
         div(:id => 'bd') {
-          if @in_ligdoltv
-          else
+          if site_config[:googleAdd][:use]
             rawtext <<-GCA
               <script type="text/javascript">
-                GA_googleFillSlot("kab-co-il_top-banner_950x65");
+                GA_googleFillSlot("#{site_config[:googleAdd][:slot]}");
               </script>
             GCA
           end
@@ -157,27 +155,16 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
   end
 
   def render_regular
+    site_config = $config_manager.site_settings(@presenter.website.hrid)
     rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
-    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en", :id => @in_ligdoltv ? 'ligdoltv' : '') {
+    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en", :id => "#{site_config[:site_name]}") {
       render_head
       body {
-        if @in_ligdoltv
-          div(:id => 'bg_wrap') {
-          }
-        end
+        div(:id => 'bg_wrap') {
+        }
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
-            if @in_ligdoltv
-              div(:id => 'header') {
-                div(:class => 'ltv-menu') {
-                  w_class('sections').new(:view_mode => 'ligdoltv').render_to(self)
-                }
-                make_sortable(:selector => '#hd .links', :axis => 'x') {
-                  @header_top_links.render_to(self)
-                }
-              }
-              div(:class => 'margin-25') { text ' ' }
-            else
+            if site_config[:googleAdd][:use]
               div(:id => 'google_ads') {
                 rawtext <<-GCA
               <script type="text/javascript">
@@ -190,18 +177,16 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               div(:class => 'yui-b') {
                 div(:class => 'yui-ge') {
                   @dynamic_tree.render_to(self)
-                  unless @in_ligdoltv
-                    div(:id => 'hd') {
-                      make_sortable(:selector => '#hd .links', :axis => 'x') {
-                        @header_top_links.render_to(self)
-                      }
+                  div(:id => 'hd') {
+                    make_sortable(:selector => '#hd .links', :axis => 'x') {
+                      @header_top_links.render_to(self)
                     }
-                    div(:class => 'menu') {
-                      w_class('sections').new.render_to(self)
-                    }
-                    div(:class => 'margin-25') { text ' ' }
-                    self.ext_breadcrumbs.render_to(self)
-                  end
+                  }
+                  div(:class => 'menu') {
+                    w_class('sections').new.render_to(self)
+                  }
+                  div(:class => 'margin-25') { text ' ' }
+                  self.ext_breadcrumbs.render_to(self)
                   div(:class => 'content-header') {
                     make_sortable(:selector => ".content-header", :axis => 'y') {
                       self.ext_content_header.render_to(self)
@@ -235,27 +220,18 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              unless @in_ligdoltv
-                div(:id => 'hd-r') {
-                  @header_logo.render_to(self)
-                  @languages.render_to(self)
-                } #Logo goes here
-                div(:class => 'nav') {
-                  div(:class => 'h1') {
-                    text presenter.main_section.resource.name if presenter.main_section
-                    div(:class =>'h1-right')
-                    div(:class =>'h1-left')
-                  }
-                  @static_tree.render_to(self)
-                }
-              else
+              div(:id => 'hd-r') {
+                @header_logo.render_to(self)
+                @languages.render_to(self)
+              } #Logo goes here
+              div(:class => 'nav') {
                 div(:class => 'h1') {
                   text presenter.main_section.resource.name if presenter.main_section
                   div(:class =>'h1-right')
                   div(:class =>'h1-left')
                 }
                 @static_tree.render_to(self)
-              end
+              }
 
               @newsletter.render_to(self)
 

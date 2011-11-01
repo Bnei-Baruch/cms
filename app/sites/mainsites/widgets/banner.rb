@@ -1,9 +1,6 @@
-class Hebmain::Widgets::Banner < WidgetManager::Base
-
+class Mainsites::Widgets::Banner < WidgetManager::Base
 
   def render_full
-    return if @presenter.main_section && (@presenter.main_section.permalink == $config_manager.site_settings(@presenter.website.hrid)[:ligdoltv])
-     
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
     a_options = { :href => get_link, :onclick => tracker }
     a_options[:class] = 'target_blank' unless get_internal_link

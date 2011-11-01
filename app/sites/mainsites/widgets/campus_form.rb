@@ -1,4 +1,4 @@
-class Hebmain::Widgets::CampusForm < WidgetManager::Base
+class Mainsites::Widgets::CampusForm < WidgetManager::Base
   require 'parsedate'
   require 'net/smtp'
 

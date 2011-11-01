@@ -1,4 +1,4 @@
-class Hebmain::Widgets::Image < WidgetManager::Base
+class Mainsites::Widgets::Image < WidgetManager::Base
   
   def render_full
     text 'image'

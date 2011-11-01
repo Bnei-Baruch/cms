@@ -1,4 +1,4 @@
-class Hebmain::Layouts::ContentPage < WidgetManager::Layout
+class Ligdoltv::Layouts::ContentPage < WidgetManager::Layout
 
   attr_accessor :ext_content, :ext_breadcrumbs, :ext_content_header, :ext_title, :ext_description,
                 :ext_main_image, :ext_related_items, :ext_kabtv_exist,
@@ -7,10 +7,10 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
   def initialize(*args, &block)
     super
 
-    @header_top_links = w_class('header').new(:view_mode => 'top_links', :placeholder => 'top_links')
-    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links', :placeholder => 'bottom_links')
+    @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
-    @header_copyright = w_class('header').new(:view_mode => 'copyright', :placeholder => : nil)
+    @header_copyright = w_class('header').new(:view_mode => 'copyright')
     @static_tree = w_class('tree').new(:view_mode => 'static')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @meta_title = w_class('breadcrumbs').new(:view_mode => 'meta_title')

@@ -1,7 +1,7 @@
 require 'rss/1.0'
 require 'rss/2.0'
 
-class Hebmain::Widgets::MediaRss < WidgetManager::Base
+class Mainsites::Widgets::MediaRss < WidgetManager::Base
 
   def initialize(*args, &block)
     super

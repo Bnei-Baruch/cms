@@ -77,12 +77,21 @@ module	Configuration::Hebmain
         :icon => 'newsletter_tv.png',
       },
     },
-    # Ligdoltv section node name
-    :ligdoltv => 'ligdoltv-parent',
     # define widgets that should not have bottom border
     :disable_bottom_border => ['title'],
     # define list of groups that have permission to edit list of courses
-    :editors_of_list_of_courses => ['אתר בעברית - קמפוס - טופס הרשמה']
+    :editors_of_list_of_courses => ['אתר בעברית - קמפוס - טופס הרשמה'],
+    :googleAdd => {
+      :use => true,
+      :googleAddAdSenseService => 'ca-pub-9068547212525872',
+      :slot => 'kab-co-il_top-banner_950x65',
+    },
+    :search_form => true,
+    :single_logo => {
+      :use => false,
+      :image => 'ligdol/logo.png',
+      :alt => _(:ligdoltv)
+    },
   }
 
 end

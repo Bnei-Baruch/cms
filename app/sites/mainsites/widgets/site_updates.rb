@@ -1,4 +1,4 @@
-class Hebmain::Widgets::SiteUpdates < WidgetManager::Base
+class Mainsites::Widgets::SiteUpdates < WidgetManager::Base
   
   def render_right
     div(:class => 'updates container'){

@@ -1,4 +1,4 @@
-class Hebmain::Widgets::LanguageMenu < WidgetManager::Base
+class Mainsites::Widgets::LanguageMenu < WidgetManager::Base
 
   def render_full
     select(:name => 'languages', :id=>"languagebar"){

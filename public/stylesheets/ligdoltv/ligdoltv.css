@@ -1,0 +1,79 @@
+/* ligdoltv */
+#ligdoltv #bd .margin-25{
+    height: 5px;
+}
+#ligdoltv #bg_wrap {
+    height: 276px;
+    width: 100%;
+    position: absolute;
+    background: #73aaea; /* Old browsers */
+    background: -moz-linear-gradient(top, #73aaea 0%, #ffffff 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#73aaea), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #73aaea 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #73aaea 0%,#ffffff 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #73aaea 0%,#ffffff 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#73aaea', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #73aaea 0%,#ffffff 100%); /* W3C */
+}
+#ligdoltv #header {
+    height: 276px;
+    position: relative;
+}
+#ligdoltv #header #logo{
+    position: absolute;
+    right: 0;
+    width: 300px;
+    top: 10%;
+}
+#ligdoltv #header #logo-image{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+#ligdoltv #ligdoltv .margin-25{
+    height: 5px;
+}
+/*----------  Menu  ---------------*/
+#ligdoltv .ltv-menu {
+    position:absolute;
+    width:100%;
+    margin: 0;
+    bottom: 0;
+}
+#ligdoltv .upper_menu{
+    font-size: 16px;
+}
+#ligdoltv .bottom_menu{
+    font-size: 14px;
+    height: 32px;
+}
+#ligdoltv .ltv-menu a {
+    color:black;
+}
+
+#ligdoltv .ltv-menu ul {
+    display: block;
+    width:100%;
+    height:23px;
+    padding: 0 3px;
+    margin: 0;
+}
+#ligdoltv .ltv-menu ul li {
+    float: right;
+    list-style-type: none;
+    list-style-position: inside;
+    background-color: #cccccc;
+    padding: 2px 0;
+/*For ie8*/
+    padding: 2px 3px\9;
+/*For ie6-7*/
+    *padding: 2px 3px;
+    margin:0 -2px;
+    text-align:center;
+}
+#ligdoltv .ltv-menu ul li.divider{
+    color:#838383;
+    margin: 0;
+    padding: 0 5px;
+    width:3px;
+}

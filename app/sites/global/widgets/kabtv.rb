@@ -701,7 +701,7 @@ $(function() {
 				  src="#{url}" 
 				  width="#{width}" 
 				  height="#{height}"
-                                  showcontrols=1
+                                  showcontrols=1 mute=1
 				  showstatusbar=1>
                                 </embed>
 

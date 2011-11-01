@@ -198,7 +198,7 @@ class Hebmain::Widgets::MediaRss < WidgetManager::Base
         }
         td(:class => 'left-cell icon-rss') {
           a(:href => sirtut_href) { 
-            img(:class => 'img', :src => img_path('skric.gif'), :alt => '') unless sirtut_href.empty?
+            img(:class => 'img', :src => img_path('skric.png'), :alt => '') unless sirtut_href.empty?
           }
         }
       }

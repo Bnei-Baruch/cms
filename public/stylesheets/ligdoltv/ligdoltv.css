@@ -41,6 +41,9 @@
 #ligdoltv #bd .margin-25{
     background-color: transparent;
 }
+#ligdoltv .breadcrumbs {
+    background-color: transparent;
+}
 #ligdoltv #bg_wrap {
     height: 476px;
     width: 100%;

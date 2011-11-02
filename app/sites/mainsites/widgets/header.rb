@@ -4,7 +4,7 @@ class Mainsites::Widgets::Header < WidgetManager::Base
     site_config = $config_manager.site_settings(@presenter.website.hrid)
     if site_config[:single_logo][:use]
       a(:href => get_page_url(@presenter.main_section)){
-        img(:id => 'logo', :src => img_path(site_config[:single_logo][:image]), :alt => site_config[:single_logo][:alt], :title => site_config[:single_logo][:alt])}
+        img(:id => 'logo', :src => img_path("#{site_config[:site_name]}_logo.png"), :alt => site_config[:single_logo][:alt], :title => site_config[:single_logo][:alt])}
 
       image_src = get_header_image
       alt = get_header_image_alt || _(:kabbalah_la_am)

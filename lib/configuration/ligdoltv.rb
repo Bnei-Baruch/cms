@@ -17,7 +17,7 @@ module	Configuration::Ligdoltv
     },
     # define view modes per parent widget and placeholder.
     :google_analytics => {
-      :profile_key => "UA-548326-62",
+      :profile_key => nil,
       :new_version => false
     },
     :view_modes => {
@@ -57,6 +57,7 @@ module	Configuration::Ligdoltv
       # box_text_button - text on "Send" button
       # input_box_text - text inside input box
 
+      :use => false,
       :icon => 'newsletter_default.gif',
       :box_title => 'הירשמו לניוזלטר השבועי',
       :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgeh',
@@ -85,11 +86,16 @@ module	Configuration::Ligdoltv
       :googleAddAdSenseService => 'ca-pub-9068547212525872',
       :slot => 'kab-co-il_top-banner_950x65',
     },
-    :search_form => true,
+    :search_form => false,
     :single_logo => {
-      :use => false,
-      :image => 'ligdol/logo.png',
+      :use => true,
       :alt => _(:ligdoltv)
+    },
+    :sitemap => {
+      :use => false,
+    },
+    :downloads => {
+      :use => false,
     },
   }
 

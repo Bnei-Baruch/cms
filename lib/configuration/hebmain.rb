@@ -59,7 +59,7 @@ module	Configuration::Hebmain
       # tracker - usl to use for Google Analytics
       # box_text_button - text on "Send" button
       # input_box_text - text inside input box
-
+      :use => true,
       :icon => 'newsletter_default.gif',
       :box_title => 'הירשמו לניוזלטר השבועי',
       :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgeh',
@@ -91,6 +91,12 @@ module	Configuration::Hebmain
       :use => false,
       :image => 'ligdol/logo.png',
       :alt => _(:ligdoltv)
+    },
+    :sitemap => {
+      :use => true,
+    },
+    :downloads => {
+      :use => true,
     },
   }
 

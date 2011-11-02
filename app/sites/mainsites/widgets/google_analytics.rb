@@ -17,7 +17,7 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
         var google_analytics_new_version = false
         $(document).ready(function(){
           $.getScript('http://www.google-analytics.com/urchin.js', function(){
-           _uacct = "UA-548326-62";
+           _uacct = "#{profile_key}";
            urchinTracker();
           });
         });
@@ -42,7 +42,7 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             $.getScript(gaJsHost + 'google-analytics.com/ga.js', function(){
               try{
-                pageTracker = _gat._getTracker("UA-548326-62");
+                pageTracker = _gat._getTracker("#{profile_key}");
                 pageTracker._trackPageview();
                 setTimeout('pageTracker._trackEvent(\'NoBounce\', \'NoBounce\', \'Over 7 seconds\')', 10000);
 

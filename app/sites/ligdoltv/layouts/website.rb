@@ -4,21 +4,26 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
 
   def initialize(*args, &block)
     super
-    @header_top_links = w_class('header').new(:view_mode => 'top_links', :placeholder => 'top_links')
-    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links', :placeholder => 'bottom_links')
+
+    site_config = $config_manager.site_settings(@presenter.website.hrid)
+
+    @header_top_links = w_class('header').new(:view_mode => 'top_links')
+    @header_bottom_links = w_class('header').new(:view_mode => 'bottom_links')
     @header_logo = w_class('header').new(:view_mode => 'logo')
-    @header_copyright = w_class('header').new(:view_mode => 'copyright', :placeholder => 'bottom_links')
+    @header_copyright = w_class('header').new(:view_mode => 'copyright')
     @breadcrumbs = w_class('breadcrumbs').new()
     @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @google_analytics = w_class('google_analytics').new
-    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
+    @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')  if site_config[:newsletters][:use]
     @languages = w_class('language_menu').new
   end
 
   def render
+    site_config = $config_manager.site_settings(@presenter.website.hrid)
+    
     rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
-    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en") {
+    html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en", :id => "#{site_config[:site_name]}") {
       head {
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
@@ -39,6 +44,10 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
         'hebmain/home_page',
         'hebmain/widgets',
         :cache => "cache_website-#{@presenter.website_hrid}"
+
+        site_config = $config_manager.site_settings(@presenter.website.hrid)
+        site_name = site_config[:site_name]
+        stylesheet_link_tag "#{site_name}/#{site_name}"
 
         #        if presenter.node.can_edit?
         perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
@@ -62,39 +71,52 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
         stylesheet_link_tag 'hebmain/ie7', :media => 'all'
         rawtext "\n<![endif]-->\n"
 
-				rawtext <<-GCA
-					<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
-					<script type="text/javascript">
-            GS_googleAddAdSenseService("ca-pub-9068547212525872");
-            GS_googleEnableAllServices();
-          </script>
-					<script type="text/javascript">
-            GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
-          </script>
-					<script type="text/javascript">
-            GA_googleFetchAds();
-          </script>
-        GCA
+        if site_config[:googleAdd][:use]
+          rawtext <<-GCA
+            <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+            <script type="text/javascript">
+              GS_googleAddAdSenseService("ca-pub-9068547212525872");
+              GS_googleEnableAllServices();
+            </script>
+            <script type="text/javascript">
+              GA_googleAddSlot("ca-pub-9068547212525872", "kab-co-il_top-banner_950x65");
+            </script>
+            <script type="text/javascript">
+              GA_googleFetchAds();
+            </script>
+          GCA
+        end
       }
       body {
         div(:id => 'doc2', :class => 'yui-t5') {
           div(:id => 'bd') {
             div(:id => 'google_ads') {
-              rawtext <<-GCA
-              <script type="text/javascript">
-                GA_googleFillSlot("kab-co-il_top-banner_950x65");
-              </script>
-              GCA
+              if site_config[:googleAdd][:use]
+                rawtext <<-GCA
+                <script type="text/javascript">
+                  GA_googleFillSlot("kab-co-il_top-banner_950x65");
+                </script>
+                GCA
+              end
             }
+            if site_config[:single_logo][:use]
+              div(:id => 'header') {
+                make_sortable(:selector => '#hd .links', :axis => 'x') {
+                  @header_top_links.render_to(self)
+                }
+              }
+            end
             div(:id => 'yui-main') {
               div(:class => 'yui-b') {
                 div(:class => 'yui-gd') {
                   @dynamic_tree.render_to(self)
-                  div(:id => 'hd') {
-                    make_sortable(:selector => '#hd .links', :axis => 'x') {
-                      @header_top_links.render_to(self)
+                  unless site_config[:single_logo][:use]
+                    div(:id => 'hd') {
+                      make_sortable(:selector => '#hd .links', :axis => 'x') {
+                        @header_top_links.render_to(self)
+                      }
                     }
-                  }
+                  end
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
                   }    
@@ -170,23 +192,27 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
               }
             }
             div(:class => 'yui-b') {
-              div(:id => 'hd-r') {
-                @header_logo.render_to(self)
-                @languages.render_to(self)
-                
-              } #Logo goes here
+              unless site_config[:single_logo][:use]
+                div(:id => 'hd-r') {
+                  @header_logo.render_to(self)
+                  @languages.render_to(self)
+
+                } #Logo goes here
+              end
               div(:class => 'right-part') {
-                div(:class => 'h1') {
-                  text 'שיעור הקבלה היומי'
-                  div(:class =>'h1-right')
-                  div(:class =>'h1-left')
-                }
+                if site_config[:downloads][:use]
+                  div(:class => 'h1') {
+                    text 'שיעור הקבלה היומי'
+                    div(:class =>'h1-right')
+                    div(:class =>'h1-left')
+                  }
 
-                video_gallery
+                  video_gallery
 
-                downloads
+                  downloads
 
-                right_column
+                  right_column
+                end
               }
             }
           }

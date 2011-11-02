@@ -43,6 +43,10 @@
 }
 #ligdoltv .breadcrumbs {
     background-color: transparent;
+    border-bottom: 1px solid #a4a4a4;
+}
+#ligdoltv .breadcrumbs .gt{
+    color: #a4a4a4;
 }
 #ligdoltv #bg_wrap {
     height: 476px;

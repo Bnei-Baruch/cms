@@ -3,7 +3,7 @@ class Mainsites::Widgets::Header < WidgetManager::Base
   def render_top_links
     site_config = $config_manager.site_settings(@presenter.website.hrid)
     if site_config[:single_logo][:use]
-      a(:href => get_page_url(@presenter.main_section)){
+      a(:href => @presenter.home){
         img(:id => 'logo', :src => img_path("#{site_config[:site_name]}_logo.png"), :alt => site_config[:single_logo][:alt], :title => site_config[:single_logo][:alt])}
 
       image_src = get_header_image

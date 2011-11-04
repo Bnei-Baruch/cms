@@ -5,7 +5,7 @@ class PageMap < ActiveRecord::Base
   end
 
   def self.remove_cache(tree_node, is_homepage = false)
-     if is_homepage
+    if is_homepage
       # Special case - clear everything
       path = "#{Rails.root}/tmp/cache/#{tree_node.class.model_name.cache_key}/*"
       Dir[path].each do |file|
@@ -20,50 +20,51 @@ class PageMap < ActiveRecord::Base
 
   # Remove dependent caches
   def self.remove_dependent_caches(tree_node)
-#    time = Time.new
-#    logger.debug "#{time} START remove_dependent_caches"
+    #    time = Time.new
+    #    logger.debug "#{time} START remove_dependent_caches"
     PageMap.find_by_sql "START TRANSACTION"
     PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1;' rescue ''
     tid = tree_node.id
-#    logger.debug "#{time} ACT TreeNode.id = #{tid}"
+    #    logger.debug "#{time} ACT TreeNode.id = #{tid}"
     [
-        # This node is child of or parent of...
-    PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', tid, tid]) +
+      # This node is child of or parent of...
+      PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', tid, tid]) +
         # This is a new node and it was attached to...
-    if (tree_node.parent) then
-      pid = tree_node.parent.id
-      PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', pid, pid])
-    else
-      []
-    end
+      if (tree_node.parent) then
+        pid = tree_node.parent.id
+        PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', pid, pid])
+      else
+        []
+      end
     ].compact.flatten.uniq.map { |map|
       TreeNode.find(map.parent_id)
     }.each { |node|
       key = node.this_cache_key
-#      logger.debug "#{time} ACT KEY = #{key}, #{Rails.cache.exist?(key) ? 'EXISTS' : 'NOT EXISTS'}"
+      #      logger.debug "#{time} ACT KEY = #{key}, #{Rails.cache.exist?(key) ? 'EXISTS' : 'NOT EXISTS'}"
       Rails.cache.delete(key) if Rails.cache.exist?(key)
       PageMap.find_by_sql "EXECUTE delete_PM (#{node.id});"
     }
     PageMap.find_by_sql 'DEALLOCATE delete_PM;' rescue ''
-#ZZZ This disables Rails to ROLLBACK...    PageMap.find_by_sql "COMMIT"
+    #ZZZ This disables Rails to ROLLBACK...    PageMap.find_by_sql "COMMIT"
 
     #Will clean the rss cache of the tree node in delayed job - add it to the queue
-begin
-    Delayed::Job.enqueue CacheCleaner::RSSCacheCleanJob.new(tree_node)
-    #ZZZ Delayed::Job.enqueue CacheCleaner::RSSCacheCreateJob.new(tree_node)
-rescue
-end
+    begin
+      Feed.find_by_sql('DELETE FROM feeds;')
+      #ZZZ Delayed::Job.enqueue CacheCleaner::RSSCacheCleanJob.new(tree_node)
+      #ZZZ Delayed::Job.enqueue CacheCleaner::RSSCacheCreateJob.new(tree_node)
+    rescue
+    end
     # CacheCleaner::Base.clean_feed_cache(tree_node)
-#    logger.debug "#{time} FINISH remove_dependent_caches"
+    #    logger.debug "#{time} FINISH remove_dependent_caches"
   end
 
   def self.remove_dependent_caches_by_resource(resource)
-#    time = Time.new
-#    logger.debug "#{time} START remove_dependent_caches_by_resource"
+    #    time = Time.new
+    #    logger.debug "#{time} START remove_dependent_caches_by_resource"
     TreeNode.find_all_by_resource_id(resource.id).each { |node|
       remove_dependent_caches(node)
     }
-#    logger.debug "#{time} FINISH remove_dependent_caches_by_resource"
+    #    logger.debug "#{time} FINISH remove_dependent_caches_by_resource"
   end
 
   def self.reset_tree_nodes_list

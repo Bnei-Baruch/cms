@@ -1,7 +1,10 @@
 /* ligdoltv */
+html#ligdoltv {
+    background: transparent url(/images/ligdoltv/body-bg.png) repeat-x 0 0;
+}
 #ligdoltv body {
     margin: -13px 0 0 !important;
-    background: transparent url(/images/ligdoltv/body-bg.png) repeat-x 0 0;
+    background: transparent;
     min-height: 500px;
 }
 .h1, .nav {
@@ -62,15 +65,24 @@
     background: linear-gradient(top, #73aaea 0%,#ffffff 100%); /* W3C */
 }
 #ligdoltv #header {
-    height: 230px;
+    height: 210px;
     position: relative;
     margin:0 0 0 7px;
 }
 #ligdoltv #header #logo{
     position: absolute;
     right: 0;
-    width: 300px;
-    top: 10%;
+    width: 208px;
+    height: 139px;
+    top: 25px;
+    z-index: 100;
+}
+#ligdoltv #star{
+    position: absolute;
+    right: -170px;
+    z-index: 0;
+    width: 716px;
+    height: 330px;
 }
 #ligdoltv #header #logo-image{
     position: absolute;

@@ -4,7 +4,9 @@ class Mainsites::Widgets::Header < WidgetManager::Base
     site_config = $config_manager.site_settings(@presenter.website.hrid)
     if site_config[:single_logo][:use]
       a(:href => @presenter.home){
-        img(:id => 'logo', :src => img_path("#{site_config[:site_name]}_logo.png"), :alt => site_config[:single_logo][:alt], :title => site_config[:single_logo][:alt])}
+        img(:id => 'logo', :src => img_path("#{site_config[:site_name]}_logo.png"), :alt => site_config[:single_logo][:alt], :title => site_config[:single_logo][:alt])
+        img(:id => 'star', :src => img_path("#{site_config[:site_name]}_star.png"), :alt => site_config[:single_logo][:alt], :title => site_config[:single_logo][:alt])
+      }
 
       image_src = get_header_image
       alt = get_header_image_alt || _(:kabbalah_la_am)
@@ -41,11 +43,11 @@ class Mainsites::Widgets::Header < WidgetManager::Base
     end
 
     w_class('cms_actions').new(:tree_node => presenter.website_node,
-    :options => {:buttons => %W{ new_button },
-    :resource_types => %W{ link }, :new_text => 'לינק חדש',
-    :has_url => false,
-    :placeholder => 'top_links'
-    }).render_to(self)
+      :options => {:buttons => %W{ new_button },
+        :resource_types => %W{ link }, :new_text => 'לינק חדש',
+        :has_url => false,
+        :placeholder => 'top_links'
+      }).render_to(self)
     ul(:class => 'links') {
       top_links.each { |e|
         li(:id => sort_id(e)) {

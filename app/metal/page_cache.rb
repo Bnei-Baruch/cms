@@ -4,8 +4,15 @@ require(File.dirname(__FILE__) + '/../../config/environment') unless defined?(Ra
 class PageCache
 
   USER_ANONYMOUS = 2
-  HEBREW_HOMEPAGE = 17
 
+  class << self;
+    attr_accessor :homepage
+    @@homepages = {}
+    Website.find(:all).each {|site|
+      @@homepages[site.domain] = site.entry_point_id
+    }
+  end
+  
   def self.logged_in?(env)
     session = env['rack.session']
     Thread.current[:session] = session
@@ -18,7 +25,7 @@ class PageCache
 
     # Find out a slug and try to fetch its ID
     if env['PATH_INFO'] == '/' # Homepage
-      node = HEBREW_HOMEPAGE
+      node = @@homepages["http://#{env['SERVER_NAME']}"]
     else
       permalink = env['PATH_INFO'].split(/\//).last
       begin
@@ -45,4 +52,5 @@ class PageCache
       [404, {'Content-Type' => 'text/html', 'X-Cascade' => 'pass'}, ['Cache not Found']]
     end
   end
+
 end

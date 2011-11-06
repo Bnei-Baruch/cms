@@ -33,7 +33,7 @@ class Global::Widgets::Tree < WidgetManager::Base
     when 'above'
       source_node.remove_from_list
       source_node.parent = target_node.parent
-      source_node.insert_at(target_node.position)
+      source_node.insert_at(target_node.position || 0)
 
     when 'below'
       source_node.remove_from_list

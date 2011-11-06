@@ -23,7 +23,7 @@ class PageMap < ActiveRecord::Base
         #time = Time.new
         #logger.debug "#{time} START remove_dependent_caches"
     # PageMap.find_by_sql "START TRANSACTION"
-    PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1' rescue ''
+    #PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1' rescue ''
         #logger.debug "#{time} after PREPARE"
     tid = tree_node.id
     #    logger.debug "#{time} ACT TreeNode.id = #{tid}"
@@ -43,7 +43,8 @@ class PageMap < ActiveRecord::Base
       key = node.this_cache_key
       #logger.debug "#{time} ACT KEY = #{key}, #{Rails.cache.exist?(key) ? 'EXISTS' : 'NOT EXISTS'}; node.id = #{node.id}"
       Rails.cache.delete(key) if Rails.cache.exist?(key)
-      PageMap.find_by_sql "EXECUTE delete_PM (#{node.id})"
+      PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id = #{node.id}"
+      #PageMap.find_by_sql "EXECUTE delete_PM (#{node.id})"
     }
         #logger.debug "#{time} after DEALLOCATE"
     #PageMap.find_by_sql 'DEALLOCATE delete_PM'

@@ -109,7 +109,7 @@ class Ligdoltv::Layouts::ContentPage < WidgetManager::Layout
         rawtext <<-GCA
             <script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
             <script type="text/javascript">
-                    GS_googleAddAdSenseService(#{site_config[:googleAdd][:googleAddAdSenseService]});
+                    GS_googleAddAdSenseService("#{site_config[:googleAdd][:googleAddAdSenseService]}");
                     GS_googleEnableAllServices();
             </script>
             <script type="text/javascript">

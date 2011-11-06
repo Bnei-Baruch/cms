@@ -17,6 +17,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   end
 
   def render
+    site_config = $config_manager.site_settings(@presenter.website.hrid)
     rawtext '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
     html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en") {
       head {
@@ -65,7 +66,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 				rawtext <<-GCA
 					<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
 					<script type="text/javascript">
-            GS_googleAddAdSenseService("ca-pub-9068547212525872");
+            GS_googleAddAdSenseService("#{site_config[:googleAdd][:googleAddAdSenseService]}");
             GS_googleEnableAllServices();
           </script>
 					<script type="text/javascript">

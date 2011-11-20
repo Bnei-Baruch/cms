@@ -24,6 +24,10 @@ class AttachmentsController < ApplicationController
         return
       end
     end
+    if attachment.nil?
+      head :status => 404
+      return
+    end
 
     # send file
     #    response.headers['Last-Modified'] = attachment.updated_at.httpdate

@@ -22,6 +22,8 @@ class Global::Widgets::Video < WidgetManager::Base
   end
 
   def render_full
+    @site_config = $config_manager.site_settings(@presenter.website.hrid)
+    
     video_admin
     # flowplayer
     # default flash, second wmv url 
@@ -73,7 +75,7 @@ class Global::Widgets::Video < WidgetManager::Base
         rawtext <<-Embedjs
           $(document).ready(function() {
                flowplayer('flashplayer-#{id}',{src: '/flowplayer/flowplayer.commercial-3.2.5.swf', wmode: 'transparent'},{
-                  key:'#\@f0b2be6a10fb2019139',
+                  key:'#{@site_config[:flowplayer][:code]}',
 								    onLoad: function() { 
 								        this.unmute(); 
 												},

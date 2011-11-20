@@ -51,7 +51,7 @@ module ActiveRecord
 
       # rid = resource_type.id
       def generate_position(rid)
-        Property.maximum('position', :conditions => ['resource_type_id = ?', rid]) + 1
+        Property.maximum('position', :conditions => ['resource_type_id = ?', rid]).to_i + 1
       end
 
       # update all empty columns for new properties of resource of a specific resource_type

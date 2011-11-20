@@ -98,6 +98,9 @@ module	Configuration::Hebmain
     :downloads => {
       :use => true,
     },
+    :flowplayer => {
+      :key => '#\@f0b2be6a10fb2019139'
+    },
   }
 
 end

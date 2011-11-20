@@ -97,6 +97,9 @@ module	Configuration::Ligdoltv
     :downloads => {
       :use => false,
     },
+    :flowplayer => {
+      :key => '#@0a62a7d96dc004725bf'
+    },
   }
 
 end

@@ -1,6 +1,8 @@
 class Global::Widgets::VideoGallery < WidgetManager::Base
   
   def render_homepage
+    @site_config = $config_manager.site_settings(@presenter.website.hrid)
+    
     video_admin
     id = tree_node.object_id
 
@@ -26,7 +28,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
         rawtext <<-Embedjs
           $(document).ready(function() {
                flowplayer('flashplayer-#{id}',{src: '/flowplayer/flowplayer.commercial-3.2.5.swf', wmode: 'transparent'},{
-                  key:'#\@f0b2be6a10fb2019139',
+                  key:'#{@site_config[:flowplayer][:code]}',
                   clip:{
                     scaling: 'scale',
                     autoPlay: false,

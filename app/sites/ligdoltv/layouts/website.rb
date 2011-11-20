@@ -121,6 +121,12 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                   div(:class => 'yui-u first') {
                     div(:class => 'left-part') {
                       # streamer (hardcoded)
+                      div(:class => 'h1') {
+                        text 'ערוץ לגדול TV'
+                        div(:class =>'h1-right')
+                        div(:class =>'h1-left')
+                      }
+
                       render_hardcoded_streamer('http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788', 199, 214)
                       
                       w_class('cms_actions').new(:tree_node => tree_node,
@@ -210,7 +216,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
               end
               div(:class => 'right-part') {
                 div(:class => 'h1') {
-                  text 'שיעור הקבלה היומי'
+                  text 'הקליפ היומי'
                   div(:class =>'h1-right')
                   div(:class =>'h1-left')
                 }
@@ -298,6 +304,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
   end
 
   def downloads
+    return
     div(:class => 'downloads container'){
       h3(:class => 'box_header') {
         text 'שיעור הקבלה היומי להורדה'
@@ -362,7 +369,8 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
 
 	def render_hardcoded_streamer(url, width, height)
 		rawtext <<-STREAM
-			<div id="stream" style="text-align: center; margin-bottom: 10px; ">
+			<div id="stream" style="text-align: center; margin-bottom: 10px; background: #F0F4FD; padding: 5px;">
+			<div id="tvobj">
 			<!--[If IE]>
 			<object
 				classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
@@ -377,6 +385,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
 				<param name="controller" value="true" />
 				<param name="volume" value="50" />
 				<param name="uiMode" value="mini" />
+				<param name="mute" value="true" />
 				<param name="animationAtStart" value="true" />
 				<param name="showDisplay" value="false" />
 				<param name="ShowAudioControls" value="true" />
@@ -405,6 +414,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
 				<param name="controller" value="true" />
 				<param name="volume" value="50" />
 				<param name="uiMode" value="mini" />
+				<param name="mute" value="true" />
 				<param name="animationAtStart" value="true" />
 				<param name="showDisplay" value="false" />
 				<param name="ShowAudioControls" value="true" />
@@ -418,14 +428,16 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
 				<param name="DisplayForeColor" value="#ffffff" />
 				<param name="balance" value="false" />
         <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
-				  src="#{url}"
-				  width="#{width}"
-				  height="#{height}"
-          showcontrols=1
-				  showstatusbar=1>
+          src="#{url}"
+          width="#{width}"
+          height="#{height}"
+          showcontrols=1 mute=1
+          showstatusbar=1>
         </embed>
+
 			</object>
 			<!--<![endif]-->
+			</div>
 			</div>
 
 		STREAM

@@ -75,7 +75,7 @@ class Global::Widgets::Video < WidgetManager::Base
         rawtext <<-Embedjs
           $(document).ready(function() {
                flowplayer('flashplayer-#{id}',{src: '/flowplayer/flowplayer.commercial-3.2.5.swf', wmode: 'transparent'},{
-                  key:'#{@site_config[:flowplayer][:code]}',
+                  key:'#{@site_config[:flowplayer][:key]}',
 								    onLoad: function() { 
 								        this.unmute(); 
 												},

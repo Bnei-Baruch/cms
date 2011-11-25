@@ -27,7 +27,8 @@ class PageCache
     if env['PATH_INFO'] == '/' # Homepage
       node = @@homepages["http://#{env['SERVER_NAME']}"]
     else
-      permalink = env['PATH_INFO'].split(/\//).last
+      permalink = CGI.unescape(env['PATH_INFO'].split(/\//).last)
+
       begin
         node  = TreeNode.find_by_permalink permalink
         node &&= node.id
@@ -39,13 +40,8 @@ class PageCache
     # Unable to find node ID
     return [404, {'Content-Type' => 'text/html', 'X-Cascade' => 'pass'}, ['Not Found']] unless node
     
-    content = false
+    content = Rails.cache.read(node.to_s)
     # If cache exists - read it
-    Dir.glob("tmp/cache/tree_nodes/#{node}-*.cache"){|fname|
-      File.open(fname, "r") { |file|
-        content = file.read
-      }
-    }
     if content
       [200, {'Content-Type' => 'text/html'}, [content]]
     else

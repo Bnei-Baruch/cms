@@ -24,7 +24,7 @@ module CacheCleaner
         url, clean_url = get_url_by_tree_node(node)
         Logger.new(STDOUT).debug "#{"%02d" % index} Refresh URL #{clean_url}"
         begin
-          FileUtils.rm_f(Dir["tmp/cache/tree_nodes/#{node.id}-*"])
+          Rails.cache.delete(node.id.to_s)
           open(CGI.escapeHTML(url))
         rescue Exception => ex
           Logger.new(STDOUT).debug "%%%%%%%%%%%%%%%%%%%%%%%%%% FAILURE #{ex}"

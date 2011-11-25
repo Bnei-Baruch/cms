@@ -38,7 +38,7 @@ class Global::Widgets::AdminComment < WidgetManager::Base
       Comment.delete(action_hash['delete'])
       Comment.update(action_hash['validate'].keys, action_hash['validate'].values )
       action_hash['cache'].each{|c|
-        FileUtils.rm(Dir['tmp/cache/tree_nodes/'+c+'-*']) rescue Errno::ENOENT
+        Rails.cache.delete(c.to_s) rescue nil
       }
     end
     write_inside_of_form  

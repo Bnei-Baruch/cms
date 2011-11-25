@@ -14,8 +14,8 @@ namespace :clean do
   desc "Clean CMS caches"
   task(:cache => :environment) do
     
-    # 1. remove files from tmp/cache/tree_nodes
-    res = FileUtils.rm_r(Dir['tmp/cache/tree_nodes/'])
+    # 1.  Clean the whole cache
+    Rails.cache.clear
     log res, 'TreeNodes'
 
     # 2. clear tables - page_maps and cms_cache_outdated_pages

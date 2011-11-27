@@ -1,0 +1,13 @@
+log/
+*~
+*.swp
+*.swo
+tmp
+.DS_Store
+.bundle/
+.idea/
+db/schema.rb
+.sass-cache/
+public/images/attachments
+public/images/attachments.tar.gz
+public/stylesheets/cache_*

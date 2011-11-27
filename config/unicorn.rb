@@ -1,7 +1,7 @@
 # unicorn_rails -c config/unicorn.rb -E production -D
-
-RAILS_ROOT = ENV['RAILS_ROOT'] || '/sites/rails/prod/cms'
 rails_env = ENV['RAILS_ENV'] || 'production'
+path = rails_env == 'production' ? '/sites/rails/prod/cms' : '/Users/ramigg/Projects/cms'
+RAILS_ROOT = ENV['RAILS_ROOT'] || path
 
 # 16 workers and 1 master
 worker_processes (rails_env == 'production' ? 16 : 4)

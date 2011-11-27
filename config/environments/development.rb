@@ -14,6 +14,8 @@ config.whiny_nils = true
 # Show full error reports and disable caching
 config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false
+config.cache_store = :mem_cache_store, 'localhost:3011'
+
 
 #ZZZ TURN-THE-FOLLOWING-LINES-ON to enable cacheing in development mode
 ## and also in action_controller.rb

@@ -7,14 +7,10 @@ class PageMap < ActiveRecord::Base
   def self.remove_cache(tree_node, is_homepage = false)
     if is_homepage
       # Special case - clear everything
-      path = "#{Rails.root}/tmp/cache/#{tree_node.class.model_name.cache_key}/*"
-      Dir[path].each do |file|
-        FileUtils.rm_rf file, :verbose => true
-      end
-
+      Rails.cache.clear
     else
-      key = tree_node.this_cache_key
-      Rails.cache.delete(key) if Rails.cache.exist?(key)
+      key = tree_node.id.to_s
+      Rails.cache.delete(key)
     end
   end
 
@@ -40,9 +36,9 @@ class PageMap < ActiveRecord::Base
     ].compact.flatten.uniq.map { |map|
       TreeNode.find(map.parent_id)
     }.each { |node|
-      key = node.this_cache_key
+      key = node.id.to_s
       #logger.debug "#{time} ACT KEY = #{key}, #{Rails.cache.exist?(key) ? 'EXISTS' : 'NOT EXISTS'}; node.id = #{node.id}"
-      Rails.cache.delete(key) if Rails.cache.exist?(key)
+      Rails.cache.delete(key)
       PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id = #{node.id}"
       #PageMap.find_by_sql "EXECUTE delete_PM (#{node.id})"
     }

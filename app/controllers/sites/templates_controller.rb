@@ -71,12 +71,13 @@ class Sites::TemplatesController < ApplicationController
           #       false
           # Do not forget to uncomment correspondent lines in development.rb
           nocache = params[:nocache]
-          if Rails.env == 'development' || nocache || @presenter.site_settings[:cache][:disable_cache]
+          if Rails.env.development? || nocache || @presenter.site_settings[:cache][:disable_cache]
             render :widget => klass, :layout_class => layout_class
           else
-            key = @presenter.node.this_cache_key
-            if Rails.cache.exist?(key)
-              render :file => "tmp/cache/#{key}.cache" #if stale?(:etag => result)
+            key = @presenter.node.id.to_s
+            result = Rails.cache.read(key)
+            if result
+              render :text => result #if stale?(:etag => result)
             else
               Rails.cache.write(key,
                 render(:widget => klass, :layout_class => layout_class))

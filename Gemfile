@@ -3,6 +3,7 @@ gem "rails", "~> 2.3.14"
 gem "pg"
 gem "unicorn"
 gem "mini_magick"
+gem "rubyzip"
 #gem "memcache-client"
 group :development do
   # bundler requires these gems in development

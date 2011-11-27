@@ -153,3 +153,7 @@ html#ligdoltv {
     padding: 0 5px;
     width:3px;
 }
+
+#bd .menu a.section_0 {
+    color:black;
+}

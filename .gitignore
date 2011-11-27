@@ -8,3 +8,6 @@ tmp
 .idea/
 db/schema.rb
 .sass-cache/
+public/images/attachments
+public/images/attachments.tar.gz
+public/stylesheets/cache_*

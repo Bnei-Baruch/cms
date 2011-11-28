@@ -12,14 +12,7 @@
     <input type="submit" value="<%= _"Publish on site" %>" name="publish_button"/>
     <input type="submit" value="<%= _"Save draft" %>" name="draft_button"/>
   </div>
-  <%  f.fields_for :resource_type, @resource_type do |rt| %>
-    <%= rt.hidden_field(:name) %>
-    <%= rt.hidden_field(:id) %>
-    <%= rt.hidden_field(:name_code) %>
-    <%= rt.hidden_field(:hrid) %>
-    <%= rt.hidden_field(:created_at) %>
-    <%= rt.hidden_field(:updated_at) %>
-  <% end %>
+  <%= f.hidden_field :resource_type_id %>
 
   <% if @tree_node
     f.fields_for :tree_nodes, @tree_node do |tf|

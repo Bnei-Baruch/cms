@@ -171,18 +171,20 @@ class Admin::ResourcesController < ApplicationController
     logger.error "I am on 3"
 
     params[:resource].merge!(:updated_at => Time.now)
+    logger.error "I am on 4"
+    logger.error params[:resource].inspect
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
-        logger.error "I am on 4"
+        logger.error "I am on 5"
         flash[:notice] = 'Resource was successfully updated.'
         format.html { redirect_to session[:referer] || :back}
         format.xml  { head :ok }
       else
-        logger.error "I am on 5"
+        logger.error "I am on 6"
         format.html { render :action => "edit" } #:text => params.inspect } #  }
         format.xml  { render :xml => @resource.errors.to_xml }
       end
-      logger.error "I am on 6"
+      logger.error "I am on 7"
     end
   end
 

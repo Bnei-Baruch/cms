@@ -4,6 +4,7 @@ gem "pg"
 gem "unicorn"
 gem "mini_magick"
 gem "rubyzip"
+gem "daemons"
 #gem "memcache-client"
 group :development do
   # bundler requires these gems in development

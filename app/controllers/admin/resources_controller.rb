@@ -138,6 +138,7 @@ class Admin::ResourcesController < ApplicationController
   # PUT /resources/1 PUT /resources/1.xml
   def update
     # Draft or Publish buttons support
+    logger.error "I am on 1"
     params[:resource][:status] = 'PUBLISHED' if params[:publish_button]
     params[:resource][:status] = 'DRAFT' if params[:draft_button]
     params[:resource][:status] = 'ARCHIVED' if params[:archive_button]
@@ -149,6 +150,7 @@ class Admin::ResourcesController < ApplicationController
     if tree_node
       @tree_node = TreeNode.find_by_id_and_resource_id(tree_node[:id],params[:id])
     end
+    logger.error "I am on 2"
 
     #    #   ******************
     #    #   Check permissions!
@@ -166,17 +168,21 @@ class Admin::ResourcesController < ApplicationController
         redirect_to session[:referer]
       end
     end
-    
+    logger.error "I am on 3"
+
     params[:resource].merge!(:updated_at => Time.now)
     respond_to do |format|
       if @resource.update_attributes(params[:resource])
+        logger.error "I am on 4"
         flash[:notice] = 'Resource was successfully updated.'
         format.html { redirect_to session[:referer] || :back}
         format.xml  { head :ok }
       else
+        logger.error "I am on 5"
         format.html { render :action => "edit" } #:text => params.inspect } #  }
         format.xml  { render :xml => @resource.errors.to_xml }
       end
+      logger.error "I am on 6"
     end
   end
 

@@ -11,3 +11,5 @@ db/schema.rb
 public/images/attachments
 public/images/attachments.tar.gz
 public/stylesheets/cache_*
+config/database.yml
+Gemfile.lock

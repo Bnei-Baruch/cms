@@ -46,6 +46,7 @@ class Admin::ResourcesController < ApplicationController
 
   # GET /resources/new
   def new
+    @resource_type = ResourceType.find(params[:resource][:resource_type_id])
     @resource = Resource.new(params[:resource])
     #   ******************
     #   Check permissions!
@@ -94,6 +95,8 @@ class Admin::ResourcesController < ApplicationController
     params[:resource][:status] = 'ARCHIVED' if params[:archive_button]
 
     @resource = Resource.new(params[:resource])
+    @resource_type = ResourceType.find(params[:resource][:resource_type_attributes][:id])
+    @resource.resource_type = @resource_type
 
     #   ******************
     #   Check permissions!

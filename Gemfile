@@ -1,5 +1,5 @@
 source :gemcutter
-gem "rails", "~> 2.3.14"
+gem "rails", "2.3.5"
 gem "pg"
 gem "unicorn"
 gem "mini_magick"
@@ -9,6 +9,7 @@ gem "daemons"
 group :development do
   # bundler requires these gems in development
   # gem "rails-footnotes"
+  gem "mongrel"
 end
 
 group :test do

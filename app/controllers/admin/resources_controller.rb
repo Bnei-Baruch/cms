@@ -171,6 +171,7 @@ class Admin::ResourcesController < ApplicationController
     logger.error "I am on 3"
 
     params[:resource].merge!(:updated_at => Time.now)
+    logger.error "I am on 4"
     logger.error params[:resource].inspect
     respond_to do |format|
       if @resource.update_attributes(params[:resource])

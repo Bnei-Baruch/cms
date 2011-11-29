@@ -18,28 +18,21 @@ class PageMap < ActiveRecord::Base
   def self.remove_dependent_caches(tree_node)
 
     tid = tree_node.id
-    keys = []
-    [
-      # This node is child of or parent of...
-      PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', tid, tid]) +
-        # This is a new node and it was attached to...
-      if (tree_node.parent) then
-        pid = tree_node.parent.id
-        PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', pid, pid])
-      else
-        []
-      end
-    ].compact.flatten.uniq.map { |map|
-      TreeNode.find(map.parent_id)
-    }.each { |node|
-      key = node.id.to_s
-      Rails.cache.delete(key)
-      keys << key
-      #PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id = #{node.id}"
+    pid = tree_node.parent.try(:id)
+    if pid
+      #this is done to clean 2 levels deep cache (used in right menu)
+      nodes = PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ? OR child_id = ? OR parent_id = ?', tid, tid, pid, pid])
+    else
+      nodes = PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', tid, tid])
+    end
+
+    keys = nodes.map(&:parent_id).uniq
+    keys.each { |key|
+      logger.debug Rails.cache.delete(key.to_s)
     }
     logger.debug keys.join(',')
-    res = PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id in(#{keys.join(',')})" unless keys.blank?
-    logger.debug res if res
+    logger.debug PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id in(#{keys.join(',')})" unless keys.blank?
+
     #Will clean the rss cache of the tree node in delayed job - add it to the queue
     begin
       #Feed.find_by_sql('DELETE FROM feeds')

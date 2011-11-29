@@ -16,13 +16,9 @@ class PageMap < ActiveRecord::Base
 
   # Remove dependent caches
   def self.remove_dependent_caches(tree_node)
-        #time = Time.new
-        #logger.debug "#{time} START remove_dependent_caches"
-    # PageMap.find_by_sql "START TRANSACTION"
-    #PageMap.find_by_sql 'PREPARE delete_PM (int) AS DELETE FROM page_maps WHERE parent_id = $1' rescue ''
-        #logger.debug "#{time} after PREPARE"
+
     tid = tree_node.id
-    #    logger.debug "#{time} ACT TreeNode.id = #{tid}"
+    keys = []
     [
       # This node is child of or parent of...
       PageMap.find(:all, :conditions => ['child_id = ? OR parent_id = ?', tid, tid]) +
@@ -37,15 +33,13 @@ class PageMap < ActiveRecord::Base
       TreeNode.find(map.parent_id)
     }.each { |node|
       key = node.id.to_s
-      #logger.debug "#{time} ACT KEY = #{key}, #{Rails.cache.exist?(key) ? 'EXISTS' : 'NOT EXISTS'}; node.id = #{node.id}"
       Rails.cache.delete(key)
-      PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id = #{node.id}"
-      #PageMap.find_by_sql "EXECUTE delete_PM (#{node.id})"
+      keys << key
+      #PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id = #{node.id}"
     }
-        #logger.debug "#{time} after DEALLOCATE"
-    #PageMap.find_by_sql 'DEALLOCATE delete_PM'
-    #ZZZ This disables Rails to ROLLBACK...    PageMap.find_by_sql "COMMIT"
-
+    logger.debug keys.join(',')
+    res = PageMap.find_by_sql "DELETE FROM page_maps WHERE parent_id in(#{keys.join(',')})" unless keys.blank?
+    logger.debug res if res
     #Will clean the rss cache of the tree node in delayed job - add it to the queue
     begin
       #Feed.find_by_sql('DELETE FROM feeds')

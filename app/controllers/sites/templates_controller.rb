@@ -71,7 +71,7 @@ class Sites::TemplatesController < ApplicationController
           #       false
           # Do not forget to uncomment correspondent lines in development.rb
           nocache = params[:nocache]
-          if Rails.env.development? || nocache || @presenter.site_settings[:cache][:disable_cache]
+          if !self.perform_caching || nocache || @presenter.site_settings[:cache][:disable_cache]
             render :widget => klass, :layout_class => layout_class
           else
             key = @presenter.node.id.to_s

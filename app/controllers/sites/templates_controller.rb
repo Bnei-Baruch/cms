@@ -55,6 +55,13 @@ class Sites::TemplatesController < ApplicationController
       return
     end
 
+    # in case the page's domain is not of correct
+    unless @presenter.node.root.resource.id == @website.entry_point_id
+      status_404
+      return
+    end
+
+
     respond_to do |format|
       format.html do
         if request.xhr?

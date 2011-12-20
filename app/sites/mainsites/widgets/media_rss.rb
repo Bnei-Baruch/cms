@@ -155,14 +155,15 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
     ul(:id => 'lesson-' + tree_node.id.to_s + index.to_s, :style => 'display:none;'){
       selected_lessons.each { |lesson|
         # Find video, audio, sirtut
-        video_href, audio_href, text_href, sirtut_href = lesson_links(lesson)
+        wmv_href, mp4_href, audio_href, text_href, sirtut_href = lesson_links(lesson)
         
-        if !video_href.empty? || !audio_href.empty? || !sirtut_href.empty?
+        if !wmv_href.empty? || !mp4_href.empty? || !audio_href.empty? || !sirtut_href.empty?
           li(:class => 'item'){
             img(:class => 'x-', :src => '/images/hebmain/jquery/s.gif',:alt => '')
             text lesson['title']
             div(:class => 'services'){
-              a(:class => 'video', :href => video_href){span {text _(:video)} } unless video_href.empty?
+              a(:class => 'video', :href => mp4_href){span {rawtext '<b>MP4</b>'} } unless wmv_href.empty?
+              a(:class => 'video', :href => wmv_href){span {text _(:video)} } unless wmv_href.empty?
               a(:class => 'audio', :href => audio_href){span {text _(:audio)} } unless audio_href.empty?
               a(:class => 'text', :href => text_href){span {text _(:text)} } unless text_href.empty?
               a(:class => 'sketch', :href => sirtut_href){span {text _(:picture)} } unless sirtut_href.empty?

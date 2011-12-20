@@ -175,16 +175,16 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
   
   def lessons_show_in_table(selected_lessons, curr_date)
     selected_lessons.each_with_index { |lesson, i|
-      video_href, audio_href, text_href, sirtut_href = lesson_links(lesson)
+      wmv_href, mp4_href, audio_href, text_href, sirtut_href = lesson_links(lesson)
                
       tr(:class => 'mouse-grey-over') {
         td(:class => 'right-cell date-rss'){text curr_date.to_s}
         td(:class => 'name-cell'){text lesson['title'] || ''}
         
         td(:class => 'icon-cell icon-rss'){
-          a(:href => video_href) { 
-            img(:class => 'img', :src => img_path('video.png'), :alt => '') unless video_href.empty? 
-          }
+          a(:href => wmv_href) { 'wmv' } unless wmv_href.empty?
+          br
+          a(:href => mp4_href) { 'mp4' } unless mp4_href.empty?
         }
         td(:class => 'icon-cell icon-rss'){
           a(:href => audio_href) { 
@@ -223,8 +223,9 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
   end
   
   def lesson_links(lesson)
-    video_href = ''
-    audio_href = ''    
+    wmv_href = ''
+    mp4_href = ''
+    audio_href = ''
     text_href = ''
     sirtut_href = ''
           
@@ -241,7 +242,9 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
               text_href = path
             else
               if is_media_file(path, 'wmv')
-                video_href = path
+                wmv_href = path
+              elsif is_media_file(path, 'mp4')
+                mp4_href = path
               else
                 if is_media_file(path, 'mp3') && !is_media_file(path, '96k.mp3')
                   audio_href = path
@@ -257,7 +260,7 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
         end
       end
     end
-    return video_href, audio_href, text_href, sirtut_href
+    return wmv_href, mp4_href, audio_href, text_href, sirtut_href
   end
   
 end

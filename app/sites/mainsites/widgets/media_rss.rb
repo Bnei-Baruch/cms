@@ -162,9 +162,9 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
             img(:class => 'x-', :src => '/images/hebmain/jquery/s.gif',:alt => '')
             text lesson['title']
             div(:class => 'services'){
-              a(:class => 'video', :href => mp4_href){span {rawtext '<b>MP4</b>'} } unless wmv_href.empty?
-              a(:class => 'video', :href => wmv_href){span {text _(:video)} } unless wmv_href.empty?
-              a(:class => 'audio', :href => audio_href){span {text _(:audio)} } unless audio_href.empty?
+              a(:class => 'mp4', :href => mp4_href){span {text 'mp4'} } unless wmv_href.empty?
+              a(:class => 'video', :href => wmv_href){span {text 'wmv'} } unless wmv_href.empty?
+              a(:class => 'audio', :href => audio_href){span {text 'mp3'} } unless audio_href.empty?
               a(:class => 'text', :href => text_href){span {text _(:text)} } unless text_href.empty?
               a(:class => 'sketch', :href => sirtut_href){span {text _(:picture)} } unless sirtut_href.empty?
             }

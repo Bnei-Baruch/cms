@@ -182,9 +182,9 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
         td(:class => 'name-cell'){text lesson['title'] || ''}
         
         td(:class => 'icon-cell icon-rss'){
-          a(:href => wmv_href) { 'wmv' } unless wmv_href.empty?
+          a(:href => wmv_href) { text 'wmv' } unless wmv_href.empty?
           br
-          a(:href => mp4_href) { 'mp4' } unless mp4_href.empty?
+          a(:href => mp4_href) { text 'mp4' } unless mp4_href.empty?
         }
         td(:class => 'icon-cell icon-rss'){
           a(:href => audio_href) { 

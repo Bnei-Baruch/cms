@@ -30,6 +30,13 @@ strong{
     width:942px;
     z-index:1000;
 }
+#TREE_0{
+    right: 0;
+}
+#TREE_1{
+    right: 405px;
+    width: 535px;
+}
 .under-command-panel{
     margin-top:30px !important;
 }

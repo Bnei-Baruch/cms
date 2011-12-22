@@ -128,7 +128,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                       }
 
                       #render_hardcoded_streamer('http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788', 199, 214)
-                      render_hardcoded_streamer('rtsp://vod.kab.tv/ligdoltv', 199, 214)
+                      render_hardcoded_streamer('mms://vod.kab.tv/ligdoltv', 199, 214)
 
                       w_class('cms_actions').new(:tree_node => tree_node,
                         :options => {:buttons => %W{ new_button },

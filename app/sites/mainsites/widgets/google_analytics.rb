@@ -44,7 +44,7 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
               try{
                 pageTracker = _gat._getTracker("#{profile_key}");
                 pageTracker._trackPageview();
-                setTimeout('pageTracker._trackEvent(\'NoBounce\', \'NoBounce\', \'Over 7 seconds\')', 10000);
+                setTimeout("pageTracker._trackEvent('NoBounce', 'NoBounce', 'Over 7 seconds')", 10000);
 
               } catch(err) {};
             });

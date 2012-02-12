@@ -17,8 +17,8 @@ module	Configuration::Ligdoltv
     },
     # define view modes per parent widget and placeholder.
     :google_analytics => {
-      :profile_key => nil,
-      :new_version => false
+      :profile_key => 'UA-11335066-7',
+      :new_version => true
     },
     :view_modes => {
       # parent widget

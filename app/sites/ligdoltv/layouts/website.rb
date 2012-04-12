@@ -123,13 +123,13 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                     div(:class => 'left-part') {
                       # streamer (hardcoded)
                       div(:class => 'h1') {
-                        text 'ערוץ לגדול TV'
+                        text ''
                         div(:class =>'h1-right')
                         div(:class =>'h1-left')
                       }
 
                       #render_hardcoded_streamer('http://switch3.castup.net/cunet/gm.asp?ClipMediaID=160788', 199, 214)
-                      render_hardcoded_streamer('mms://vod.kab.tv/ligdoltv', 199, 214)
+                      #render_hardcoded_streamer('mms://vod.kab.tv/ligdoltv', 199, 214)
 
                       w_class('cms_actions').new(:tree_node => tree_node,
                         :options => {:buttons => %W{ new_button },

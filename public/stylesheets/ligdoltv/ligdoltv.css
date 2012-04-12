@@ -94,7 +94,7 @@ html#ligdoltv {
 #ligdoltv #star{
     position: absolute;
     right: -170px;
-    z-index: 0;
+    z-index: -1000;
     width: 716px;
     height: 330px;
 }

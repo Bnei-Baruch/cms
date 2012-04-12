@@ -433,6 +433,7 @@ tr.badmod td{
     position:absolute;
     right:0px;
     top:15px;
+    max-width: 207px;
 }
 /*----------  Main Preview 3 ---------------*/
 .main_preview3{

@@ -48,6 +48,7 @@ class Ligdoltv::Layouts::ContentPage < WidgetManager::Layout
       meta(:name => 'node_id', :content => @tree_node.id)
       meta(:name => 'description', :content => ext_description)
       meta(:name => 'keywords', :content => ext_keywords)
+      link(:rel => 'shortcut icon', :href => 'http://www.ligdoltv.co.il/favicon-ligdoltv.ico')
       title @meta_title
       text ext_abc_up
 

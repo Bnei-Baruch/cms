@@ -26,6 +26,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
       head {
         meta "http-equiv" => "content-type", "content" => "text/html;charset=utf-8"
         meta "http-equiv" => "Content-language", "content" => "utf8"
+        link(:rel => 'shortcut icon', :href => 'http://www.ligdoltv.co.il/favicon-ligdoltv.ico')
         title ext_meta_title
         meta(:name => 'description', :content => ext_meta_description)
 
@@ -221,12 +222,16 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                   div(:class =>'h1-right')
                   div(:class =>'h1-left')
                 }
+                begin
+                  video_gallery
 
-                video_gallery
+                  downloads
 
-                downloads
-
-                right_column
+                  right_column
+                rescue Exception => e
+                  logger.error e.message
+                  logger.error e.backtrace.join('\n')
+                end
               }
             }
           }

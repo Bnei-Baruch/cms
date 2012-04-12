@@ -3,7 +3,7 @@ html#ligdoltv {
     background: transparent url(/images/ligdoltv/body-bg.png) repeat-x 0 0;
 }
 #ligdoltv body {
-    margin: -13px 0 0 !important;
+    margin: 0 !important;
     background: transparent;
     min-height: 500px;
 }

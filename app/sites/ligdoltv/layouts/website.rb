@@ -163,11 +163,11 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                       #                          :has_url => false,
                       #                          :placeholder => 'left'}).render_to(self)
 
-                      show_content_resources(:resources => kabtv_resources,
-                        :parent => :website,
-                        :placeholder => :home_kabtv,
-                        :sortable => false
-                      )
+                      #show_content_resources(:resources => kabtv_resources,
+                        #:parent => :website,
+                        #:placeholder => :home_kabtv,
+                        #:sortable => false
+                      #)
                       
                       div(:class => 'left-column'){
                         show_content_resources(:resources => left_column_resources,

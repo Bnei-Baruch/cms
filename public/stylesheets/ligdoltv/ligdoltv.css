@@ -79,24 +79,17 @@ html#ligdoltv {
     background: linear-gradient(top, #73aaea 0%,#ffffff 100%); /* W3C */
 }
 #ligdoltv #header {
-    height: 210px;
+    height: 100px;
     position: relative;
     margin:0 0 0 7px;
 }
 #ligdoltv #header #logo{
     position: absolute;
     right: 0;
-    width: 208px;
-    height: 139px;
+    width: 190px;
+    height: 124px;
     top: 25px;
     z-index: 100;
-}
-#ligdoltv #star{
-    position: absolute;
-    right: -170px;
-    z-index: -1000;
-    width: 716px;
-    height: 330px;
 }
 #ligdoltv #header #logo-image{
     position: absolute;

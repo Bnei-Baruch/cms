@@ -78,6 +78,7 @@ class Ligdoltv::Layouts::ContentPage < WidgetManager::Layout
       site_config = $config_manager.site_settings(@presenter.website.hrid)
       site_name = site_config[:site_name]
       stylesheet_link_tag "#{site_name}/#{site_name}"
+      stylesheet_link_tag "#{site_name}/#{site_name}_inner.css"
 
       #        if presenter.node.can_edit?
       perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)

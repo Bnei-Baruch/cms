@@ -46,7 +46,7 @@ html, body {
     font-size: 15px;
 }
 #bd .menu ul li.divider {
-    margin: 0 5px;
+    margin: 0 4px;
 }
 #ligdoltv #bd .margin-25{
     background-color: transparent;
@@ -142,9 +142,9 @@ html, body {
     width:3px;
 }
 
-/*#bd .menu a.section_0 {*/
-    /*color:black;*/
-/*}*/
+#bd .menu a.section_0 {
+    color: #225197;
+}
 .section_preview .h1 {
     color: #225197;
 }

@@ -55,7 +55,7 @@ class Ligdoltv::Layouts::ContentPage < WidgetManager::Layout
       javascript_include_tag 'flowplayer-3.2.4.min.js', 'flashembed.min.js'
       javascript_include_tag 'embed', 'jquery',
       'ui/ui.core.min.js', 'ui/jquery.color.js', 'ui/ui.tabs.min.js',
-      'jquery.curvycorners.packed.js', 'jquery.browser.js',
+      'jquery.browser.js',
       'jquery.media.js', 'jquery.metadata.js', 'jquery.form.js',
       '../highslide/highslide-full.js', 'countdown',
       'jq-helpers-hb' #,

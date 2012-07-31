@@ -225,7 +225,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                 begin
                   video_gallery
 
-                  downloads
+                  #downloads
 
                   right_column
                 rescue Exception => e
@@ -348,7 +348,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                            :parent => :website,
                            :placeholder => :right,
                            :sortable => true) { |idx|
-      @newsletter.render_to(self) if (idx == 1)
+      @newsletter.render_to(self) if (idx == 1 && @newsletter)
     }
   end
 

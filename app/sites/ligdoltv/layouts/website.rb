@@ -225,7 +225,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                 begin
                   video_gallery
 
-                  #downloads
+                  downloads
 
                   right_column
                 rescue Exception => e

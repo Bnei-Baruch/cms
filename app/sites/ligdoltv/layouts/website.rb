@@ -134,7 +134,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                       w_class('cms_actions').new(:tree_node => tree_node,
                                                  :options => {:buttons => %W{ new_button },
                                                               :resource_types => %W{ rss },
-                                                              :button_text => 'הוספת יחידות תוכן - עמודה שמ�?לית',
+                                                              :button_text => 'הוספת יחידות תוכן - עמודה שמ�?לית',
                                                               :new_text => 'הוסף RSS נוסף',
                                                               :has_url => false,
                                                               :placeholder => 'left'}).render_to(self)
@@ -142,7 +142,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                       w_class('cms_actions').new(:tree_node => tree_node,
                                                  :options => {:buttons => %W{ new_button },
                                                               :resource_types => %W{ iframe },
-                                                              :button_text => 'הוספת יחידות iframe - עמודה שמ�?לית',
+                                                              :button_text => 'הוספת יחידות iframe - עמודה שמ�?לית',
                                                               :new_text => 'הוסף iframe נוסף',
                                                               :has_url => false,
                                                               :placeholder => 'left'}).render_to(self)
@@ -184,7 +184,7 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
                   div(:class => 'yui-u') {
                     div(:class => 'content') {
                       div(:class => 'h1') {
-                        text 'המומלצי�?'
+                        text 'המומלצי�?'
                         div(:class => 'h1-right')
                         div(:class => 'h1-left')
                       }
@@ -229,8 +229,8 @@ class Ligdoltv::Layouts::Website < WidgetManager::Layout
 
                   right_column
                 rescue Exception => e
-                  puts e.message
-                  puts e.backtrace.join('\n')
+                  Logger.new(STDOUT).error e.message
+                  Logger.new(STDOUT).error e.backtrace.join('\n')
                 end
               }
             }

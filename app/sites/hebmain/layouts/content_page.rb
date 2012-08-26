@@ -118,7 +118,9 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
             <script type="text/javascript">
                     GA_googleFetchAds();
             </script>
-
+        GCA
+      end
+        rawtext <<-GCAC
             <!-- Google Code for Cmapus-AUGSEP--2012 -->
             <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
             <script type="text/javascript">
@@ -135,7 +137,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                 <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1061981111/?value=0&amp;label=DQGzCNXRigMQt5ey-gM&amp;guid=ON&amp;script=0"/>
               </div>
             </noscript>
-        GCA
+        GCAC
       end
     }
     rawtext @styles if @styles

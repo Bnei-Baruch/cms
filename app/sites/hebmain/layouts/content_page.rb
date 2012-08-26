@@ -138,7 +138,6 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
               </div>
             </noscript>
         GCAC
-      end
     }
     rawtext @styles if @styles
   end

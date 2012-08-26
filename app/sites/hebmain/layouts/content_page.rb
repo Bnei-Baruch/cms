@@ -59,8 +59,9 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       #:cache => "cache_content_page-#{@presenter.website_hrid}"
 
       javascript_include_tag 'wpaudioplayer/audio-player.js'
+      #javascript_include_tag '/lightbox/js/lightbox'
 
-      stylesheet_link_tag 'reset-fonts-grids',
+          stylesheet_link_tag 'reset-fonts-grids',
                           'base-min',
                           'hebmain/common',
                           'hebmain/header',
@@ -71,6 +72,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                           'lightbox',
                           :cache => "cache_content_page-#{@presenter.website_hrid}",
                           :media => 'all'
+      stylesheet_link_tag '/lightbox/css/lightbox'
       stylesheet_link_tag 'hebmain/print', :media => 'print'
       site_config = $config_manager.site_settings(@presenter.website.hrid)
       site_name = site_config[:site_name]
@@ -116,6 +118,23 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
             <script type="text/javascript">
                     GA_googleFetchAds();
             </script>
+
+            <!-- Google Code for Cmapus-AUGSEP--2012 -->
+            <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
+            <script type="text/javascript">
+            /* <![CDATA[ */
+              var google_conversion_id = 1061981111;
+              var google_conversion_label = "DQGzCNXRigMQt5ey-gM";
+              var google_custom_params = window.google_tag_params;
+              var google_remarketing_only = true;
+            /* ]]> */
+            </script>
+            <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+            <noscript>
+              <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1061981111/?value=0&amp;label=DQGzCNXRigMQt5ey-gM&amp;guid=ON&amp;script=0"/>
+              </div>
+            </noscript>
         GCA
       end
     }

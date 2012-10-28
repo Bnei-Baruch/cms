@@ -222,7 +222,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
 		      div(:id => 'engageya') {
 			rawtext <<-ENGAGEYA
               <script type="text/javascript">
-var dbnwid=2130; var dbnpid=8715; var dbnwebid=5460; var dbnlayout=17; var dbncolor="#0A4E80"; var dbntitlefontsize="14"; var dbndirection="rtl"; var dbnbgcolortype=1; var dbnheader="&#1499;&#1514;&#1489;&#1493;&#1514; &#1504;&#1493;&#1505;&#1508;&#1493;&#1514; &#1513;&#1506;&#1513;&#1493;&#1497;&#1493;&#1514; &#1500;&#1506;&#1504;&#1497;&#1497;&#1503; &#1488;&#1493;&#1514;&#1498;"; var dbnremindercolor=2; var dbn_protocol = (("https:" == document.location.protocol) ? "https://" : "http://"); document.write(unescape("%3Cscript src='" + dbn_protocol + "widget.grazeit.com/sprk.js' id='grazit_script' type='text/javascript'%3E%3C/script%3E"));
+var dbnwid=2176; var dbnpid=8715; var dbnwebid=5505; var dbnlayout=17; var dbncolor="#186BE5"; var dbntitlefontsize="14"; var dbndirection="rtl"; var dbnbgcolortype=1; var dbnheader="&#1499;&#1514;&#1489;&#1493;&#1514; &#1504;&#1493;&#1505;&#1508;&#1493;&#1514; &#1513;&#1506;&#1513;&#1493;&#1497;&#1493;&#1514; &#1500;&#1506;&#1504;&#1497;&#1497;&#1503; &#1488;&#1493;&#1514;&#1498;"; var dbnremindercolor=2; var dbn_protocol = (("https:" == document.location.protocol) ? "https://" : "http://"); document.write(unescape("%3Cscript src='" + dbn_protocol + "widget.grazeit.com/sprk.js' id='grazit_script' type='text/javascript'%3E%3C/script%3E"));
 	      </script>
                 ENGAGEYA
 		        }

@@ -38,7 +38,7 @@ class Mainsites::Widgets::ContentPage < WidgetManager::Base
     
     final_title = !preview_title.empty? ? preview_title : (!large_title.empty? ? large_title : '')
     unless final_title.empty?
-      h1{
+      h2{
         a({:href => url}.merge!(gg_analytics_tracking(url_name))) {
     	  text final_title
         } 

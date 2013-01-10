@@ -19,7 +19,7 @@ class Mainsites::Widgets::Box < WidgetManager::Base
       div(:class => 'box-top' + no_border + background){rawtext('&nbsp;')} 
       div(:class => 'box-mid' + no_border + background){
         
-        h4 get_title unless get_title.empty?
+        h3 get_title unless get_title.empty?
         if (background != '')
           div(:class => 'separator') { rawtext('&nbsp;') }
         end

@@ -74,6 +74,13 @@
   color:#192862;
   margin-bottom:3px;
 }
+.content .content_preview h2, .content .content_preview h2 a{
+    font-size:18px;
+    font-weight:normal;
+    color:#0D47B2;
+    margin:0;
+    padding:0;
+}
 
 
 .content .author{
@@ -518,7 +525,8 @@ background-color:#f5e2b0;
   padding:0;
   color:black;
 }
-.related .box h4{
+.related .box h3{
+  margin: 0;
   color:black;
 }
 .related .box p{

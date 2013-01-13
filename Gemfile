@@ -7,8 +7,11 @@ gem "rubyzip"
 gem "daemons"
 #gem "memcache-client"
 group :development do
-  # bundler requires these gems in development
-  # gem "rails-footnotes"
+  gem 'puma'
+end
+# bundler requires these gems in development
+# gem "rails-footnotes"
+group :production do
   gem "mongrel"
 end
 

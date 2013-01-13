@@ -34,6 +34,8 @@
     right:0;
     float:right;
     margin:0 0 0 10px;
+    height: 94px;
+    width: 138px;
 }
 .index a.more{
     display:block;

@@ -14,3 +14,5 @@ end
 group :production do
   gem "mongrel"
 end
+
+gem 'rake', '0.9.2'

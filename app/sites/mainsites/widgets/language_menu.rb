@@ -24,7 +24,7 @@ class Mainsites::Widgets::LanguageMenu < WidgetManager::Base
      12 => ["Latvian", "http://www.kabbalah.info/latvikab/index_lat.htm"],
      13 => ["Macedonian", "http://www.kabbalah.info/macedonian"],
      14 => ["Nederlands", "http://www.kabbalah.info/dutchkab/index.html"],
-     15 => ["Polish", "http://www.kabbala.info/pl"],
+     15 => ["Polish", "http://www.kabbalah.info/pl"],
      16 => ["Portugese", "http://www.kabbalah.info/brazilkab/index_braz.htm"],
      17 => ["Romanian", "http://www.kabbalah.info/romkab/index.htm"],
      18 => ["Korean", "http://www.kabbalah.info/korean"],

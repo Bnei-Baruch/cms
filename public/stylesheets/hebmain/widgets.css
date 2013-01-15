@@ -1585,7 +1585,9 @@ a:hover img.hover{
     color:gray;
     position:absolute;
     right:0px;
-    top:103px;
+    top:110px;
+    width: 240px;
+    height: 20px;
 }
 /********* countdown ************/
 #countdown {

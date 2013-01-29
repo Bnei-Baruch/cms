@@ -1589,6 +1589,9 @@ a:hover img.hover{
     width: 240px;
     height: 20px;
 }
+#hebmain #languagebar{
+    width:180px;
+}
 /********* countdown ************/
 #countdown {
     background: transparent url(/images/hebmain/countdown-calendar.png) no-repeat;

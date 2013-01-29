@@ -44,7 +44,7 @@ strong{
     position: relative;
     height:80px;
     font-size: 108%;
-    margin:0 0 0 7px;
+    margin:0;
     background-color:white;
 }
 #hd-r {
@@ -117,7 +117,7 @@ strong{
     float:left;
 }
 #hd .search .submit{
-    width:65px;
+    width:60px;
     height:19px;
 }
 

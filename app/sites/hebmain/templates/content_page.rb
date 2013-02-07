@@ -126,7 +126,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
       elsif get_acts_as_section
         w_class('cms_actions').new(:tree_node => @tree_node,
           :options => {:buttons => %W{ new_button },
-            :resource_types => %W{ article },
+            :resource_types => %W{ article iframe },
             :button_text => _(:admin_upper_part),
             :new_text => _(:create_new_wide_unit),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)

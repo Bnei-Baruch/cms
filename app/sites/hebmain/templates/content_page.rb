@@ -306,7 +306,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def content_header_resources
     @content_header_resources ||= TreeNode.get_subtree(
       :parent => tree_node.id,
-      :resource_type_hrids => ['kabtv', 'admin_comment', 'map', 'errormsg', 'article'],
+      :resource_type_hrids => ['kabtv', 'admin_comment', 'map', 'errormsg', 'article', 'iframe'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['main_content_header'],

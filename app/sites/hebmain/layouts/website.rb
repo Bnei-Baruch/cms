@@ -75,7 +75,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 					<script type="text/javascript">
             GA_googleFetchAds();
           </script>
-          <!-- Google Code for Cmapus-AUGSEP--2012 -->
+          <!-- Google Code for Cmapus-AUGSEP-2012 -->
           <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
           <script type="text/javascript">
           /* <![CDATA[ */

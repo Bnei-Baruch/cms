@@ -121,7 +121,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         GCA
       end
         rawtext <<-GCAC
-            <!-- Google Code for Cmapus-AUGSEP--2012 -->
+            <!-- Google Code for Cmapus-AUGSEP-2012 -->
             <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
             <script type="text/javascript">
             /* <![CDATA[ */

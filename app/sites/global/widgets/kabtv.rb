@@ -477,6 +477,11 @@ $(function() {
         }
       }
     }
+    javascript {
+      rawtext "$(function() {"
+      rawtext " $('a.target_blank').attr('target', '_blank');"
+      rawtext "});"
+    }
   end
 
   def render_news

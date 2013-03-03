@@ -184,6 +184,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         }
         div(:id => 'doc2', :class => 'yui-t4') {
           div(:id => 'bd') {
+            p(:class => 'notice') { rawtext flash[:notice] } if flash[:notice]
             if site_config[:googleAdd][:use]
               div(:id => 'google_ads') {
                 rawtext <<-GCA

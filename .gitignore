@@ -14,3 +14,4 @@ public/stylesheets/cache_*
 public/javascripts/cache_*
 config/database.yml
 Gemfile.lock
+.rvmrc

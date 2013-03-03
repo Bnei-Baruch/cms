@@ -41,8 +41,9 @@ ActionController::Routing::Routes.draw do |map|
   # Email controller : initially build for 'send to your friend' function
   # with a though about the future - 
   # :id is the tree node id
-  map.tm ':prefix/mail/:id/' , :controller => 'email' , :action => 'send_node'
- 
+  map.tm ':prefix/mail/:id/', :controller => 'email' , :action => 'send_node'
+  map.new_home_mail '/new_home_mail', :controller => 'email' , :action => 'new_home_mail'
+
   # Template controller - it is the main content controller for 90% of the site
   # :id is the permalink stuff (right, it is not consistent... so what ?!)
   map.connect '/feed.:format', :controller => 'sites/templates', :action => 'template'

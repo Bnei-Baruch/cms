@@ -235,8 +235,36 @@ a.highslide-credits:hover i {
 .highslide-header a:hover {
 	color: black;
 }
+.highslide-header .highslide-move {
+    cursor: move;
+    display: block;
+    height: 16px;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    width: 90%;
+    z-index: 1;
+    font-weight: bold;
+    border-bottom: 1px solid #dedede;
+}
 .highslide-header .highslide-move a {
-	cursor: move;
+	display: none;
+}
+.highslide-header .highslide-close {
+    padding: 0;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    z-index: 5;
+}
+.highslide-header .highslide-close a {
+    background-image: url("graphics/closeX.png");
+    display: block;
+    height: 16px;
+    width: 16px
+}
+.highslide-header .highslide-close span {
+	display: none;
 }
 .highslide-footer {
 	height: 11px;

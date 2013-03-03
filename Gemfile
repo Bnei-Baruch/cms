@@ -6,9 +6,11 @@ gem "mini_magick"
 gem "rubyzip"
 gem "daemons"
 gem "exceptional"
+gem 'rest-client'
 
 group :development do
   gem 'puma'
+  gem 'thin'
 end
 
 group :production do

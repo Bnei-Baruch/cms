@@ -244,8 +244,6 @@ a.highslide-credits:hover i {
     top: 0;
     width: 90%;
     z-index: 1;
-    font-weight: bold;
-    border-bottom: 1px solid #dedede;
 }
 .highslide-header .highslide-move a {
 	display: none;
@@ -258,7 +256,7 @@ a.highslide-credits:hover i {
     z-index: 5;
 }
 .highslide-header .highslide-close a {
-    background-image: url("graphics/closeX.png");
+    background-image: url("/highslide/graphics/closeX.png");
     display: block;
     height: 16px;
     width: 16px
@@ -273,7 +271,7 @@ a.highslide-credits:hover i {
 	float: right;
 	height: 11px;
 	width: 11px;
-	background: url(graphics/resize.gif);
+	background: url(/highslide/graphics/resize.gif);
 }
 .highslide-body {
 }

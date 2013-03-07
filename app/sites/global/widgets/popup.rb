@@ -50,13 +50,12 @@ function validate_and_submit(id) {
       div(:class => "highslide-header", :style => "height: 12px;") {
         ul {
           li(:class => "highslide-move") {
-            rawtext get_title
-            #a(:onclick => "return false", :title => "Move", :href => "#") {
-            #  span { rawtext 'Move' }
-            #}
+            a(:onclick => "return false", :title => "Move", :href => "#") {
+              span { rawtext 'Move' }
+            }
           }
           li(:class => "highslide-close") {
-            a(:onclick => "return hs.close(this)", :title => "Close (esc)", :href => "#") {
+            a(:onclick => "return hs.close(this)", :title => "סגור (esc)", :href => "#") {
               span { rawtext 'Close' }
             }
           }
@@ -64,6 +63,11 @@ function validate_and_submit(id) {
       }
 
       div(:class => "highslide-body", :style => 'text-align: right;') {
+
+        div(:style => 'font-size: 20px; margin-top: -10px;') {
+          rawtext get_title
+        } unless get_title.empty?
+
         div(:class => 'alert') {
           rawtext '&nbsp;'
         }
@@ -87,17 +91,17 @@ function validate_and_submit(id) {
             }
           }
 
-          div {
-            rawtext get_confirm_text
-            input :type => 'checkbox', :id => "agree", :name => 'agree', :value => 'subscribe', :checked => 'checked'
-          } unless get_confirm_text.empty?
-
           div(:class => 'textarea') {
             rawtext get_free_text
             textarea :id => "free_text", :name => 'free_text', :value => ''
           } if get_free_text_required
 
-          div(:class => 'text') {
+          div(:style => 'clear: both; padding-top: 10px;') {
+            rawtext get_confirm_text
+            input :type => 'checkbox', :id => "agree", :name => 'agree', :value => 'subscribe', :checked => 'checked'
+          } unless get_confirm_text.empty?
+
+          div(:class => 'text', :style => 'float: right; margin-top: 5px;') {
             a(:href => get_direct_link_url, :target => '_blank') {
               rawtext get_direct_link_text
             }

@@ -45,6 +45,7 @@
     padding:0;
     margin:0;
     position:relative;
+    width: 300px;
 }
 .index a.more_no_img{
     float:right;

@@ -241,7 +241,8 @@
   border-top:1px solid white;
   height:300px;
   width:503px;
-  overflow:auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .item .inner-player .play-title{
   color:#4b4b4b;
@@ -285,6 +286,7 @@
   color:#b1b1b1;
 }
 .item .playlist ul li .descr-play{
+  margin-right: 100px;
   margin-top:1ex;
 }
 /*----------  New audio gallery  ---------------*/
@@ -440,6 +442,7 @@ background-color:#f5e2b0;
   color:#b1b1b1;
 }
 .item .playlist ul li .descr-play{
+  margin-right: 100px;
   margin-top:1ex;
 }
 

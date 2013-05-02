@@ -121,6 +121,7 @@ class Sites::TemplatesController < ApplicationController
     if (@presenter.is_homepage? ||
           (@presenter.node_resource_type.hrid == 'content_page' && acts_as_section))
       feed = Feed.find(:first, :conditions => [ "section_id = ? AND feed_type = ?", node_id, feed_type]) rescue nil
+      feed = nil
 
       unless feed
         limit = @presenter.site_settings[:rss_items_limit] || 10

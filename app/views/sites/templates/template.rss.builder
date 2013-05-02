@@ -18,11 +18,11 @@ xml.rss :version => "2.0" do
       xml.title title
       xml.link  home
     end
-    for page in @pages
+    @pages.each do |page|
       rp = page.resource.properties('preview_image')
       image_url = get_preview_image_url_by_resource_property(rp, 'medium')
       description = page.resource.properties('description').get_value
-      description = description + '<p><img src="' + image_url + '" /></p>' if image_url
+      description = description + '<p><img src=\'' + image_url + '\' /></p>' if image_url
       title = page.resource.properties('title').get_value
       
       xml.item do

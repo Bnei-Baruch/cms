@@ -22,7 +22,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :login, :collection => {:login => :get, :logout => :get}
     admin.resources :url_migrations, :collection => {:import => :get, :export => :get, :merge => :get, :cleanup => :get}
     admin.resources :courses, :collection => {:excel => :get}
-  end	
+    admin.resources :blocks
+  end
 
   # REST API for fetching cms data
   map.connect '/api/first_page_article.:format', :controller => 'sites/api' , :action => 'get_first_page_article', :conditions => { :method => :get }

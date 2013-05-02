@@ -1,10 +1,10 @@
-log/
+log/*
 *~
 *.swp
 *.swo
 tmp
 .DS_Store
-.bundle/
+.bundle/*
 .idea/
 db/schema.rb
 .sass-cache/
@@ -15,3 +15,5 @@ public/javascripts/cache_*
 config/database.yml
 Gemfile.lock
 .rvmrc
+config/exceptional.yml
+*.backup

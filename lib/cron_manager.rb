@@ -1,6 +1,7 @@
 # This module is used by Cron 
 # Usage: ruby script/runner 'CronManager.read_and_save_rss' -e development
 #        ruby script/runner 'CronManager.read_and_save_media_rss' -e development
+#        ruby script/runner 'CronManager.media_rss_counter' -e development
 #        ruby script/runner 'CronManager.sweep_cache' -e development
 
 require 'rss/1.0'
@@ -220,6 +221,45 @@ class CronManager
     data
   end
   
+  def self.media_rss_counter
+
+    AuthenticationModel.cron_manager_user_login
+    websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || return
+
+    if websites.length == 1
+      puts "#{Time.now} Single website case"
+      tree_nodes = TreeNode.find_by_sql(<<-SQL
+          select tree_nodes.* from tree_nodes
+          inner join resources on (tree_nodes.resource_id = resources.id)
+          inner join resource_types on (resources.resource_type_id = resource_types.id)
+          where resource_types.hrid  = 'media_rss'
+        SQL
+      )
+      tree_nodes.each do |tree_node|
+        cid = (tree_node.resource.properties('cid')).get_value
+        cid = 25 if !cid
+	puts "Tree node: #{tree_node.id}, CID: #{cid}"
+      end
+    else
+      puts "#{Time.now} Multy website case"
+      websites.each do |website|
+        website_tree_node = TreeNode.find(:first, :conditions => ["resource_id = ?", website.entry_point_id])
+
+        if (website_tree_node)
+          tree_nodes = TreeNode.get_subtree(
+            :parent => website_tree_node.id,
+            :resource_type_hrids => ['media_rss']
+          )
+
+          tree_nodes.each do |tree_node|
+            cid = (tree_node.resource.properties('cid')).get_value
+            cid = 25 if !cid
+	    puts "Tree node: #{tree_node.id}, Parent: #{tree_node.parent_id}, CID: #{cid}"
+          end
+        end
+      end
+    end
+  end
   # This method is responsible to update all media_rss resources
   # which aggregate content from our kabbalahmedia website according to category ID
   def self.read_and_save_media_rss

@@ -431,7 +431,7 @@ $(function() {
         :isquestion => 1,
         :lang => @language.humanize,
         :is_hidden => 0,
-        :ip => '#{request.ip}',
+        :ip => "",
         :country_name => '',
         :country_code => '',
         :region => '',

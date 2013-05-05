@@ -1,0 +1,27 @@
+<% @title = "Listing of Blocks" %>
+
+<p><%= link_to 'New block', new_admin_block_path %></p>
+<br/>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Content</th>
+      <th colspan="4">Actions</th>
+    </tr>
+  </thead>  
+  <% @blocks.each {|block| %>
+    <tr>
+      <td><%=h block.id %></td>
+      <td><%=h block.name %></td>
+      <td><%=h block.content %></td>
+      <td><%= link_to 'Edit', edit_admin_block_path(:id => block) %></td>
+      <td><%= link_to 'X', admin_block_path(block), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% } %>
+</table>
+
+<br />
+<p><%= link_to 'New block', new_admin_block_path %></p>

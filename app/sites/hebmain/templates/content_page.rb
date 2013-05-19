@@ -266,7 +266,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   end
 
   def ext_related_items
-    resource_types = %W{ box rss newsletter iframe block_holder }
+    resource_types = %W{ box rss newsletter iframe block_holder popup }
     resources = related_items resource_types
     WidgetManager::Base.new(helpers) do
       w_class('cms_actions').new(:tree_node => @tree_node, :options => {:buttons => %W{ new_button }, :resource_types => resource_types,:new_text => 'צור קופסא חדשה', :has_url => false, :placeholder => 'related_items', :position => 'bottom'}).render_to(self)

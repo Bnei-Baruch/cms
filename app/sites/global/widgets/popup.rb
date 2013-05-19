@@ -6,8 +6,12 @@ class Global::Widgets::Popup < WidgetManager::Base
                                             :mode => 'inline',
                                             :resource_types => %W{ popup }}).render_to(self)
 
-    div (:class => 'highslide-center') {
-      button(:class => "highslide-button", :onclick => "hs.minHeight = 400; return hs.htmlExpand(this, { contentId: 'my-content-#{id}' } )") {
+    image = get_picture(:image_name => 'original')
+    style = image ? "background: url('#{image}') no-repeat 0 0; width: 165px; height: 40px; border: 0 none; color: transparent; cursor: pointer;" : ''
+    center = @tree_node.placeholder == 'main_content' ? 'highslide-center' : ''
+
+    div (:class => center) {
+      button(:class => "highslide-button", :style => style, :onclick => "hs.minHeight = 400; return hs.htmlExpand(this, { contentId: 'my-content-#{id}' } )") {
         rawtext get_button_text
       }
     }

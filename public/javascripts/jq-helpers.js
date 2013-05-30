@@ -440,6 +440,17 @@ $(document).ready(function() {
             $(this).toggleClass("x-over");
         }
         );
+
+    $(".x-plus").click(function(event){
+        event.preventDefault();
+        $this = $(this);
+        if ($this.hasClass('x-minus')) {
+            $this.html('&plus;');
+        } else {
+            $this.html('&minus;');
+        }
+        $this.toggleClass('x-minus').parent().siblings('.x-data').toggle();
+    });
 });
 
 

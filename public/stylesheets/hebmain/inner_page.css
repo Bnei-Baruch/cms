@@ -74,6 +74,26 @@
   color:#192862;
   margin-bottom:3px;
 }
+.content h3.hide_content{
+    font-weight: normal;
+    font-size: 17px;
+}
+.content h3.hide_content a {
+    text-decoration: underline;
+}
+.content h3.hide_content .x-plus{
+    color: red;
+    font-weight: bold;
+    padding: 0 0 0 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.content h3.hide_content .x-minus{
+    color: rgb(37, 211, 37);
+}
+.content .item .hidden {
+    display: none;
+}
 .content .content_preview h2, .content .content_preview h2 a{
     font-size:18px;
     font-weight:normal;
@@ -81,8 +101,6 @@
     margin:0;
     padding:0;
 }
-
-
 .content .author{
   height:18px;
   margin: 5px 0;

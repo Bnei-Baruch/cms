@@ -311,7 +311,7 @@ class CronManager
     cid = (tree_node.resource.properties('cid')).get_value
     cid = 25 if !cid
 
-    url =  'http://kabbalahmedia.info/wsxml.php?CID=' + cid.to_s +
+    url =  'http://kmedia.kbb1.com/wsxml.xml?CID=' + cid.to_s +
       '&DLANG=' + lang +
       '&DF=' + (Date.today).to_s +
       '&DT=' + tdate.to_s

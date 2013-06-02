@@ -151,8 +151,18 @@ class Global::Widgets::Video < WidgetManager::Base
     unless wmvpath.empty?
       span(:class => 'services', :style => 'float: left; margin-left: 10px;'){
         a(:href => wmvpath, :class => 'download', :title => 'download', :target => "_blank") {
-          img(:src => '/images/download.gif', :alt => 'download', :style => 'width: 16px; height:16px; float: none; margin: 0 10px 0 5px;')
+          img(:src => '/images/download.gif', :alt => 'download', :style => 'width: 16px; height:16px; float: none; margin: 0 10px 0 5px; vertical-align: bottom;')
           text _(:download)
+        }
+      }
+    end
+
+    source = get_source_url
+    source_text = get_source_text
+    unless source.empty?
+      span(:class => 'services', :style => 'float: left;'){
+        a(:href => source, :class => 'download', :title => source_text, :target => get_source_ext ? "_blank" : '_self') {
+          text source_text
         }
       }
     end

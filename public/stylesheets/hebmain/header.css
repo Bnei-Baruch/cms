@@ -88,11 +88,6 @@ strong{
     background: white;
     width: 200px;
 }
-#hd-r .logo h1{
-    position: absolute;
-    top:-1000px;
-    right:0;
-}
 /*----------  Search  ---------------*/
 #hd .search {
     position: absolute;

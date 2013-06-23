@@ -679,7 +679,7 @@ table.media_rss th{
     text-align:right;
 }
 
-#reactions h1{
+#reactions .h-h1{
     background-color:#F0F5FD;
     font-size:110%;
     font-weight:normal;
@@ -811,7 +811,7 @@ table.media_rss th{
     border: 0px;
 }
 
-#friend h1{
+#friend .h-h1{
     background-color:#F0F5FD;
     font-size:110%;
     font-weight:normal;

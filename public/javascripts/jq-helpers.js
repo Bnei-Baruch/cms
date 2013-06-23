@@ -152,7 +152,7 @@ $(document).ready(function() {
             }
         });
         if (!is_ok) return false;
-        $("#friend h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></span>");
+        $("#friend .h1").append("<span id='loader'>&nbsp;&nbsp;<img class='tshuptshik' alt='Loading' src='/images/ajax-loader.gif'></span>");
         jQuery.ajax({
             data: inputs.join('&'),
             url: this.action,

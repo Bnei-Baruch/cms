@@ -226,7 +226,7 @@
     text-align:right;
     padding:0 10px 10px 0;
 }
-#mid-content #send_to_friend table#friend h1{
+#mid-content #send_to_friend table#friend .h1{
     background-color:#979797;
     color:white;
     font-weight:bold;
@@ -276,7 +276,7 @@
     padding:0 10px 10px 0;
     vertical-align:top;
 }
-#mid-content #comment_form table#reactions h1{
+#mid-content #comment_form table#reactions .h-h1{
     background-color:#979797;
     color:white;
     font-weight:bold;

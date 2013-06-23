@@ -11,7 +11,7 @@ class Mainsites::Widgets::SendToFriend < WidgetManager::Base
       form(:id => 'friend_form', :method => 'post', :action => '/'+@presenter.website.prefix+'/mail/'+@tree_node.id.to_s){
         table(:id => 'friend'){
           tr{
-            td(:colspan => '2'){h1{text _(:send_to_friend)}}
+            td(:colspan => '2'){div(:class => 'h-h1'){text _(:send_to_friend)}}
           }
           tr{
             td(:class => 'text'){span _(:name_of_sender)}

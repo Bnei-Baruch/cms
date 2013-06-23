@@ -51,7 +51,8 @@
   background-color:white;
 }
 
-.content h1, .content h1 a{
+.content h1, .content h1 a,
+.content .h-h1, .content .h-h1 a{
   font-size:18px;
   font-weight:normal;
   color:#0D47B2;

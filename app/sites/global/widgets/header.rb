@@ -138,14 +138,7 @@ $(document).ready(function(){
   
   def render_logo
     alt = _(@options[:alt]) rescue ''
-    h1 = _(@options[:alt]) rescue false
-    if h1
-      h1(:id => 'logo') {
-        a(:href => presenter.home){rawtext alt}
-      }
-    else
-      a(:href => presenter.home){img(:id => 'logo', :src => img_path('logo.gif'), :alt => alt)}
-    end
+    a(:href => presenter.home){img(:id => 'logo', :src => img_path('logo.gif'), :alt => alt)}
   end
   
   def render_copyright

@@ -71,7 +71,7 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
       table(:id => 'reactions'){
         tr{
           td(:colspan => '2'){
-            h1{text _(:comments)}
+            div(:class => 'h-h1') {text _(:comments)}
           }
         }
         tr{

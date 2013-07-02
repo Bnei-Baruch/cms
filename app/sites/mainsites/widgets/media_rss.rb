@@ -146,7 +146,7 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
   end
   
   def lesson_show(selected_lessons, curr_date, index = 0)
-    div(:class => 'toggle', :tree_node => tree_node.id.to_s + index.to_s){
+    div(:class => 'toggle', :tree_node => tree_node.id.to_s + index.to_s, :onclick => "_gaq.push(['_trackEvent', 'daily lesson window', 'open']);"){
       img(:class => 'x-plus', :src => '/images/hebmain/jquery/s.gif',:alt => '')
       text get_title if get_title
       span(:class => 'date') {text ' ' + curr_date.to_s}
@@ -162,11 +162,11 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
             img(:class => 'x-', :src => '/images/hebmain/jquery/s.gif',:alt => '')
             text lesson['title']
             div(:class => 'services'){
-              a(:class => 'mp4', :href => mp4_href){span {text 'mp4'} } unless wmv_href.empty?
-              a(:class => 'video', :href => wmv_href){span {text 'wmv'} } unless wmv_href.empty?
-              a(:class => 'audio', :href => audio_href){span {text 'mp3'} } unless audio_href.empty?
-              a(:class => 'text', :href => text_href){span {text _(:text)} } unless text_href.empty?
-              a(:class => 'sketch', :href => sirtut_href){span {text _(:picture)} } unless sirtut_href.empty?
+              a(:class => 'mp4', :href => mp4_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson sidebar', 'play', 'mp4']);"){span {text 'mp4'} } unless wmv_href.empty?
+              a(:class => 'video', :href => wmv_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson sidebar', 'play', 'wmv']);"){span {text 'wmv'} } unless wmv_href.empty?
+              a(:class => 'audio', :href => audio_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson sidebar', 'play', 'mp3']);"){span {text 'mp3'} } unless audio_href.empty?
+              a(:class => 'text', :href => text_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson sidebar', 'play', 'txt']);"){span {text _(:text)} } unless text_href.empty?
+              a(:class => 'sketch', :href => sirtut_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson sidebar', 'play', 'zip']);"){span {text _(:picture)} } unless sirtut_href.empty?
             }
           }
         end
@@ -183,12 +183,12 @@ class Mainsites::Widgets::MediaRss < WidgetManager::Base
         td(:class => 'name-cell'){text lesson['title'] || ''}
         
         td(:class => 'icon-cell icon-rss'){
-          a(:href => wmv_href) { text 'wmv' } unless wmv_href.empty?
+          a(:href => wmv_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson category_video', 'play']);") { text 'wmv' } unless wmv_href.empty?
           br
-          a(:href => mp4_href) { text 'mp4' } unless mp4_href.empty?
+          a(:href => mp4_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson category_video', 'play']);") { text 'mp4' } unless mp4_href.empty?
         }
         td(:class => 'icon-cell icon-rss'){
-          a(:href => audio_href) { 
+          a(:href => audio_href, :onclick => "_gaq.push(['_trackEvent', 'daily lesson category_audio', 'play']);") {
             img(:class => 'img', :src => img_path('audio.png'), :alt => '') unless audio_href.empty?
           }
         }

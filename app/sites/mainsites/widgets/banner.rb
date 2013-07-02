@@ -2,7 +2,8 @@ class Mainsites::Widgets::Banner < WidgetManager::Base
 
   def render_full
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
-    a_options = { :href => get_link, :onclick => tracker }
+    link = get_link
+    a_options = { :href => link, :onclick => "_gaq.push(['_trackEvent', 'banner click', '#{link}']);" }
     a_options[:class] = 'target_blank' unless get_internal_link
     image, dims = get_picture(:image_name => image_name, :with_dimensions => true)
     klass = ''
@@ -34,9 +35,5 @@ class Mainsites::Widgets::Banner < WidgetManager::Base
 
   def name
     @name ||= get_name
-  end
-  
-  def tracker
-    @presenter.is_homepage? ? "javascript:google_tracker('/homepage/banner/#{name}');" : "javascript:google_tracker('/inner_page/banner/#{name}/#{@presenter.node.permalink}');"
   end
 end

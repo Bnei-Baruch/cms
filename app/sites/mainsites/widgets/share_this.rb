@@ -21,6 +21,7 @@ class Mainsites::Widgets::ShareThis < WidgetManager::Base
     strurl = "#{full_url}";
     strtitle = "";
     addthis_options = 'facebook, favorites, digg, google,linkedin, live, myspace, stumbleupon, twitter, more';
+    addthis_config = {data_ga_property: 'UA-548326-62'};
         code
       }
       a(:href=>"http://www.addthis.com/bookmark.php",

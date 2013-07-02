@@ -5,13 +5,13 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
     profile_key = @presenter.site_settings[:google_analytics][:profile_key] rescue nil
 
     if !new_version
-      # ZZZ RETURN !!!!!!!!!!!!!!!!!!!!!!!!!
-      #if ENV['RAILS_ENV'] != 'production' || @presenter.node.can_edit? || profile_key == nil
-      #  javascript {
-      #    var _gaq = _gaq || [];
-      #  }
-      #  return
-      #end
+      if ENV['RAILS_ENV'] != 'production' || @presenter.node.can_edit? || profile_key == nil
+        javascript {
+          var _gaq = _gaq || [];
+        }
+        return
+      end
+
       javascript {
         section_id = @presenter.main_section.id rescue '/unknown'
         special = ''

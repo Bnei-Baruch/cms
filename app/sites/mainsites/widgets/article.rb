@@ -12,7 +12,7 @@ class Mainsites::Widgets::Article < WidgetManager::Base
       if get_hide_content
         h3(:class => 'hide_content') do
           a(:class => 'x-plus') {
-            rawtext '&plus;'
+            rawtext '+'
           }
           a title
         end

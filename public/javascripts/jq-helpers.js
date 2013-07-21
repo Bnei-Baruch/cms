@@ -445,9 +445,9 @@ $(document).ready(function() {
         event.preventDefault();
         $this = $(this);
         if ($this.hasClass('x-minus')) {
-            $this.html('&plus;');
+            $this.html('+');
         } else {
-            $this.html('&minus;');
+            $this.html('-');
         }
         $this.toggleClass('x-minus').parent().siblings('.x-data').toggle();
     });

@@ -138,6 +138,7 @@ class Global::Widgets::VideoGallery < WidgetManager::Base
   
   def video_items
     @video_items ||= TreeNode.get_subtree(
+      :items_per_page => 400,
       :parent => tree_node.id, 
       :resource_type_hrids => ['video'], 
       :depth => 1,

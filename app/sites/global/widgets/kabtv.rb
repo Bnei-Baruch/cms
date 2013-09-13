@@ -12,27 +12,27 @@ class Global::Widgets::Kabtv < WidgetManager::Base
     div(:id => 'home-kabtv') {
       cms_action
       #      We don't want to use different backgrounds here
-      div(:id => 'kabtv-top'){
+      div(:id => 'kabtv-top') {
         if get_prefer_bbplayer == true
           rawtext get_bbplayer
         elsif get_prefer_flash == true
           render_homepage_flash
         else
           render_homepage_wmv
-				end
+        end
       }
-      div(:id => 'kabtv-bot'){
-        a(:href => get_target, :onclick => "google_tracker('/homepage/widget/kabtv/go_to_tv');") {span(:class => 'text-tv'){ text _(:tothetvchannel)} }
+      div(:id => 'kabtv-bot') {
+        a(:href => get_target, :onclick => "google_tracker('/homepage/widget/kabtv/go_to_tv');") { span(:class => 'text-tv') { text _(:tothetvchannel) } }
       }
       div(:class => "clear")
       if get_golive
-        div(:id => 'kabtv-live'){
-          div(:class => "live-event"){text get_golive_text}
-          a(:href => get_golive_link) {span(:class => 'text-live'){ text _(:clicktogolive)} }
+        div(:id => 'kabtv-live') {
+          div(:class => "live-event") { text get_golive_text }
+          a(:href => get_golive_link) { span(:class => 'text-live') { text _(:clicktogolive) } }
         }
       end
-      div(:class => 'box1_headersection_tv'){span(:class => 'futurprogram-plus'){text _(:future_programs)}}
-      div(:id => 'kabtv-mid'){
+      div(:class => 'box1_headersection_tv') { span(:class => 'futurprogram-plus') { text _(:future_programs) } }
+      div(:id => 'kabtv-mid') {
       }
       div(:class => "clear")
       # display_current_program
@@ -46,31 +46,31 @@ class Global::Widgets::Kabtv < WidgetManager::Base
         rawtext "})"
       }
       cms_action_for_site_updates
-      div(:id => 'kabtv-news'){
+      div(:id => 'kabtv-news') {
         # display
-# ZZZ HEB-422 - To add Facebook's Like button and Like Box
-#
-#        w_class('cms_actions').new(:tree_node => tree_node,
-#          :options => {:buttons => %W{ new_button },
-#            :resource_types => %W{ site_updates },
-#            :new_text => 'new news',
-#            :has_url => false,
-#            :placeholder => 'left'}).render_to(self)
-#
-#          if show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true).empty?
-#          javascript{
-#            rawtext <<-SCHED
-#                $(window).load(function () {
-#                  // run code
-#                    $("#home-kabtv .box1_headersection_tv").next().toggle().prev().children().addClass('futurprogram-minus').removeClass('futurprogram-plus');
-#                });
-#            SCHED
-#          }
-#        end
+        # ZZZ HEB-422 - To add Facebook's Like button and Like Box
+        #
+        #        w_class('cms_actions').new(:tree_node => tree_node,
+        #          :options => {:buttons => %W{ new_button },
+        #            :resource_types => %W{ site_updates },
+        #            :new_text => 'new news',
+        #            :has_url => false,
+        #            :placeholder => 'left'}).render_to(self)
+        #
+        #          if show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true).empty?
+        #          javascript{
+        #            rawtext <<-SCHED
+        #                $(window).load(function () {
+        #                  // run code
+        #                    $("#home-kabtv .box1_headersection_tv").next().toggle().prev().children().addClass('futurprogram-minus').removeClass('futurprogram-plus');
+        #                });
+        #            SCHED
+        #          }
+        #        end
       }
     }
   end
-  
+
   def render_full
     javascript <<-KABTV
 //***************************************
@@ -243,41 +243,41 @@ $(function() {
       }
 
       div(:id => 'tabs') {
-        ul(:class => 'ui-tabs-nav'){
-          li{a(:href => '#schedule'){span _(:schedule)}} unless @options[:no_schedule]
-          li{a(:href => '#questions'){span _(:questions)}} unless @options[:no_questions]
-          li{a(:href => '#sketch'){span _(:sketches)}} unless @options[:no_sketches]
+        ul(:class => 'ui-tabs-nav') {
+          li { a(:href => '#schedule') { span _(:schedule) } } unless @options[:no_schedule]
+          li { a(:href => '#questions') { span _(:questions) } } unless @options[:no_questions]
+          li { a(:href => '#sketch') { span _(:sketches) } } unless @options[:no_sketches]
         }
-        div(:id => 'schedule'){
+        div(:id => 'schedule') {
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_schedule]
-        div(:id => 'questions'){
+        div(:id => 'questions') {
           #h3 {rawtext _(:students_questions)}
           ask_button_and_form
           div(:id => 'q') {
             img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
           }
-					ask_button_only
+          ask_button_only
         } unless @options[:no_questions]
-        div(:id => 'sketch'){
+        div(:id => 'sketch') {
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_sketches]
       }
       if get_prefer_bbplayer == true
       elsif get_prefer_flash == true && force_wmv != 1
-        div(:id => 'cdn_logo_3dcdn'){
+        div(:id => 'cdn_logo_3dcdn') {
           a(:href => 'http://3dcdn.com/', :alt => '', :target => '_blank', :rel => 'nofollow')
         }
         div(:id => 'link_to_wmv') {
-					a(:href => '?force_wmv=1', :alt => '', :onclick => "google_tracker('/homepage/widget/kabtv/force_wmv');") { rawtext 'לצפייה בנגן מדיה במקרה של הפרעות בשידור' }
-				}
+          a(:href => '?force_wmv=1', :alt => '', :onclick => "google_tracker('/homepage/widget/kabtv/force_wmv');") { rawtext 'לצפייה בנגן מדיה במקרה של הפרעות בשידור' }
+        }
       else
         div(:id => 'cdn_logo_castup')
-			end
+      end
       div(:id => 'player-side') {
-				height = @options[:height] || 336
-				width = @options[:width] || 378
-				url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
+        height = @options[:height] || 336
+        width = @options[:width] || 378
+        url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
         return if url.empty?
 
         if get_prefer_bbplayer == true
@@ -286,52 +286,54 @@ $(function() {
           render_full_flash
         else
           render_full_wmv(url, width, height)
-				end
-				div(:id => 'player_options'){
-          url = get_troubleshooting_url
-          if !url.empty?
-            div(:id => 'troubleshooting_str'){
-              a(:id => 'troubleshooting_url', :target => 'blank', :title => "", :href => url) {
-                rawtext _(:click_here)
+        end
+        if get_prefer_bbplayer == false
+          div(:id => 'player_options') {
+            url = get_troubleshooting_url
+            if !url.empty?
+              div(:id => 'troubleshooting_str') {
+                a(:id => 'troubleshooting_url', :target => 'blank', :title => "", :href => url) {
+                  rawtext _(:click_here)
+                }
               }
+            end
+
+            if (get_prefer_flash != true || force_wmv == 1) && !get_hide_bitrates
+              div(:id => 'bitrates') {
+                #            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
+                rawtext _(:broadcast_quality) + ': '
+                title = _(:high)
+                klass = idx == 0 ? 'selected' : ''
+                label(:for => 'name0') {
+                  input(:id => 'name0', :type => 'radio', :checked => idx == 0, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{high_url}')")
+                  rawtext title
+                } if high_url
+                title = _(:medium)
+                klass = idx == 1 ? 'selected' : ''
+                label(:for => 'name1') {
+                  input(:id => 'name1', :type => 'radio', :checked => idx == 1, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{med_url}')")
+                  rawtext title
+                } if med_url
+                title = _(:low)
+                klass = idx == 2 ? 'selected' : ''
+                label(:for => 'name2') {
+                  input(:id => 'name2', :type => 'radio', :checked => idx == 2, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{low_url}')")
+                  rawtext title
+                } if low_url
+              } if high_url || med_url || low_url
+            end
+
+            div(:id => 'separate-msg') {
+              rawtext _(:for_full_screen_mode_double_click_on_player)
             }
-          end
-
-					if (get_prefer_bbplayer == false && get_prefer_flash != true || force_wmv == 1) && !get_hide_bitrates
-						div(:id => 'bitrates'){
-							#            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
-							rawtext _(:broadcast_quality) + ': '
-							title = _(:high)
-							klass = idx == 0 ? 'selected' : ''
-							label(:for => 'name0') {
-								input(:id => 'name0', :type => 'radio', :checked => idx == 0, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{high_url}')")
-								rawtext title
-							} if high_url
-							title = _(:medium)
-							klass = idx == 1 ? 'selected' : ''
-							label(:for => 'name1') {
-								input(:id => 'name1', :type => 'radio', :checked => idx == 1, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{med_url}')")
-								rawtext title
-							} if med_url
-							title = _(:low)
-							klass = idx == 2 ? 'selected' : ''
-							label(:for => 'name2') {
-								input(:id => 'name2', :type => 'radio', :checked => idx == 2, :name => 'quality', :class => klass, :title => title, :onclick => "switchChannel('#{low_url}')")
-								rawtext title
-							} if low_url
-						} if high_url || med_url || low_url
-					end
-
-          div(:id => 'separate-msg'){
-            rawtext _(:for_full_screen_mode_double_click_on_player)
+            a(:id => 'separate-win', :href => "", :title => "", :onclick => 'detach();return false') {
+              rawtext _(:in_separate_player)
+            }
+            a(:id => 'full-win', :href => "", :title => "", :onclick => 'gofs();return false') {
+              rawtext _(:full_screen)
+            }
           }
-          a(:id => 'separate-win', :href => "", :title => "", :onclick => 'detach();return false') {
-            rawtext _(:in_separate_player)
-          }
-          a(:id => 'full-win', :href => "", :title => "", :onclick => 'gofs();return false') {
-            rawtext _(:full_screen)
-          }
-        }
+        end
       }
       div(:class => 'clear')
     }
@@ -370,7 +372,7 @@ $(function() {
           end
 
         }
-        div(:class => 'what') {rawtext h(q.qquestion)}
+        div(:class => 'what') { rawtext h(q.qquestion) }
       }
       div(:class => 'question2') { rawtext '&nbsp;' }
     }
@@ -378,39 +380,39 @@ $(function() {
 
   def render_sketches
     content =
-      begin
-      Timeout::timeout(25){
-        open('http://www.kab.tv/classboard/thumbnails.yml') { |f|
-          YAML::load(f)
-        }
-      }
-    rescue Timeout::Error
-      ''
-    end
+        begin
+          Timeout::timeout(25) {
+            open('http://www.kab.tv/classboard/thumbnails.yml') { |f|
+              YAML::load(f)
+            }
+          }
+        rescue Timeout::Error
+          ''
+        end
     thumbnails_url = content[:urls][:thumbnails]
     sketches_url = content[:urls][:sketches]
     sketches = content[:thumbnails]
     last_sketch = sketches.pop
-    
+
     if last_sketch.nil?
-      h3{rawtext _(:no_sketches_yet)}
+      h3 { rawtext _(:no_sketches_yet) }
       return
     end
-    
-    h3{rawtext _(:current_sketch)}
+
+    h3 { rawtext _(:current_sketch) }
     a(:id => 'last-sketch', :href => "#{sketches_url}/#{last_sketch}", :title => "",
       :class => 'highslide', :onclick => 'return hs.expand(this)') {
       img(:id => 'last-sketch-img', :src => "#{sketches_url}/#{last_sketch}", :alt => "")
     }
-    div(:id=>"controlbar", :class=>'highslide-overlay controlbar') {
-      a(:href=>'#', :class=>'previous', :onclick=>'return hs.previous(this)', :title=>_(:prev_picture))
-      a(:href=>'#', :class=>'next', :onclick=>'return hs.next(this)', :title=>_(:next_picture))
-      a(:href=>'#', :class=>'highslide-move', :onclick=>'return false', :title=>_(:click_and_drag))
-      a(:href=>'#', :class=>'close', :onclick=>'return hs.close(this)', :title=>_(:close))
+    div(:id => "controlbar", :class => 'highslide-overlay controlbar') {
+      a(:href => '#', :class => 'previous', :onclick => 'return hs.previous(this)', :title => _(:prev_picture))
+      a(:href => '#', :class => 'next', :onclick => 'return hs.next(this)', :title => _(:next_picture))
+      a(:href => '#', :class => 'highslide-move', :onclick => 'return false', :title => _(:click_and_drag))
+      a(:href => '#', :class => 'close', :onclick => 'return hs.close(this)', :title => _(:close))
     }
 
-    div(:id => 'thumbnails'){
-      sketches.each{ |thumbnail|
+    div(:id => 'thumbnails') {
+      sketches.each { |thumbnail|
         a(:href => "#{sketches_url}/#{thumbnail}", :title => "",
           :class => 'highslide', :onclick => 'return hs.expand(this)') {
           img(:src => "#{thumbnails_url}/#{thumbnail}", :alt => "")
@@ -431,17 +433,17 @@ $(function() {
 
     begin
       Question.create :qname => options['qname'],
-        :qfrom => options['qfrom'],
-        :qquestion => options['qquestion'],
-        :isquestion => 1,
-        :lang => @language.humanize,
-        :is_hidden => 0,
-        :ip => "",
-        :country_name => '',
-        :country_code => '',
-        :region => '',
-        :city => '',
-        :timestamp => Time.now.to_s(:db)
+                      :qfrom => options['qfrom'],
+                      :qquestion => options['qquestion'],
+                      :isquestion => 1,
+                      :lang => @language.humanize,
+                      :is_hidden => 0,
+                      :ip => "",
+                      :country_name => '',
+                      :country_code => '',
+                      :region => '',
+                      :city => '',
+                      :timestamp => Time.now.to_s(:db)
 
     rescue Exception => ex
       rawtext "Exception: " + ex
@@ -450,13 +452,13 @@ $(function() {
 
     rawtext 'Thank you for your question'
   end
-  
+
   def render_current_program
     d = Date.today
     today = d.strftime('%A') # day number 0..6
     d = DateTime.now
-    hour  = d.hour
-    min   = d.min
+    hour = d.hour
+    min = d.min
     get_list_for_time(today, hour, min, 2)
     div(:class => 'clear')
   end
@@ -466,9 +468,9 @@ $(function() {
 
     d = Date.today
     today = d.strftime('%A') # day number 0..6
-    hour  = d.strftime("%H") # hour in 24-hour format
+    hour = d.strftime("%H") # hour in 24-hour format
 
-    div(:id => 'schedule_menu'){
+    div(:id => 'schedule_menu') {
       %w( Sunday Monday Tuesday Wednesday Thursday Friday Saturday ).each_with_index { |day, index|
         selected = (day == today) ? 'schedule_selected' : ''
         a day_names[index], :id => "#{day}_#{index}", :href => '#', :class => 'schedule_menu_item ' + selected
@@ -477,7 +479,7 @@ $(function() {
     div(:id => 'schedule_list') {
       %w( Sunday Monday Tuesday Wednesday Thursday Friday Saturday ).each_with_index { |day, index|
         display = (day == today) ? '' : 'display:none'
-        div(:id => "D_#{day}_#{index}", :class => 'schedule_day', :style => display){
+        div(:id => "D_#{day}_#{index}", :class => 'schedule_day', :style => display) {
           rawtext get_list_for(day, hour, day_names[index], day == today)
         }
       }
@@ -491,18 +493,18 @@ $(function() {
 
   def render_news
     w_class('cms_actions').new(:tree_node => tree_node,
-      :options => {:buttons => %W{ new_button },
-        :resource_types => %W{ site_updates },
-        :new_text => 'new news',
-        :has_url => false,
-        :placeholder => 'left'}).render_to(self)
+                               :options => {:buttons => %W{ new_button },
+                                            :resource_types => %W{ site_updates },
+                                            :new_text => 'new news',
+                                            :has_url => false,
+                                            :placeholder => 'left'}).render_to(self)
     show_content_resources(:resources => news_resources, :force_mode => 'kabtv', :sortable => true)
   end
-  
+
   private
-  
-	def render_full_wmv(url, width, height)
-		rawtext <<-TV
+
+  def render_full_wmv(url, width, height)
+    rawtext <<-TV
 			<div id="tvobj">
 			<!--[If IE]>
 			<object 
@@ -569,9 +571,9 @@ $(function() {
 			<!--<![endif]-->
 			</div>
 			
-		TV
-		javascript {
-			rawtext <<-TV1
+    TV
+    javascript {
+      rawtext <<-TV1
 			fs_str='#{_(:to_exit_full_screen_mode_press_ESC)}';
 			nofs_str='#{_(:to_watch_in_full_screen_mode_please_start_player_beforehand)}';
 			function switchChannel(url) {
@@ -581,23 +583,23 @@ $(function() {
 						player.innerHTML = tv;
 						}
 					}
-			TV1
-		}
-	end
+      TV1
+    }
+  end
 
-	def render_full_flash
-		height = 304
-		width = 378
-		div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:relative;top:15px;"){}
-		rawtext <<-cdn
+  def render_full_flash
+    height = 304
+    width = 378
+    div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:relative;top:15px;") {}
+    rawtext <<-cdn
 <!-- load script for creating Flowplayer -->
 <script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.loader.js"></script>
 
 <!-- load script for Analyzer -->
 <script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.analyzer.kabala.js"></script>
-		cdn
-		javascript {
-			rawtext <<-Embedjs
+    cdn
+    javascript {
+      rawtext <<-Embedjs
 				$(document).ready(function() {
 						var varAnalyzerID = "#{get_analyzer_id}";
 						var cdn_ClipURL =  "#{get_smil_url}";
@@ -641,15 +643,15 @@ $(function() {
 						 });
 			});
 			addOnBeforeunloadEvent(sendLogoffEvent);
-			Embedjs
-		}
-	end
+      Embedjs
+    }
+  end
 
-	def render_homepage_wmv
-		height = 214
-		width = 199
-		url = Language.get_url(@language, @presenter.get_cookies)[0]
-		rawtext <<-TV1
+  def render_homepage_wmv
+    height = 214
+    width = 199
+    url = Language.get_url(@language, @presenter.get_cookies)[0]
+    rawtext <<-TV1
 			<div id="tvobj">
 			<!--[If IE]>
 			<object 
@@ -718,9 +720,9 @@ $(function() {
 			</object>
 			<!--<![endif]-->
 			</div>
-		TV1
-		javascript {
-			rawtext <<-TV
+    TV1
+    javascript {
+      rawtext <<-TV
 				var firstclick = true;
 				$("#kabtv-news .newstitle").live('click',function () {
 				  var $this = $(this);
@@ -736,23 +738,23 @@ $(function() {
 				  $this.next().toggle();
 				  $this.children().toggleClass('futurprogram-plus').toggleClass('futurprogram-minus');
 			  });
-			TV
-		}
-	end
+      TV
+    }
+  end
 
-	def render_homepage_flash
-		height = 166
-		width = 197
-		div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:absolute;top:90px;left:12px;"){}
-		rawtext <<-cdn
+  def render_homepage_flash
+    height = 166
+    width = 197
+    div(:id => "flashplayer-#{object_id}", :style => "height:#{height}px;width:#{width}px;position:absolute;top:90px;left:12px;") {}
+    rawtext <<-cdn
 <!-- load script for creating Flowplayer -->
 <script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.loader.js"></script>
 
 <!-- load script for Analyzer -->
 <script type="text/javascript" src="/flowplayer/3dcdn/3dcdn.analyzer.kabala.js"></script>
-	cdn
-		javascript {
-			rawtext <<-Embedjs
+    cdn
+    javascript {
+      rawtext <<-Embedjs
 				$(document).ready(function() {
 						$('#home-kabtv #kabtv-top').height(270);
 						var varAnalyzerID = "#{get_analyzer_id}";
@@ -797,71 +799,71 @@ $(function() {
 						 });
 			});
 			addOnBeforeunloadEvent(sendLogoffEvent);
-			Embedjs
-		}
-	end
+      Embedjs
+    }
+  end
 
   def site_update_entries
     TreeNode.get_subtree(
-      :parent => tree_node.id,
-      :resource_type_hrids => ['video'],
-      :depth => 1,
-      :status => ['PUBLISHED', 'DRAFT']
+        :parent => tree_node.id,
+        :resource_type_hrids => ['video'],
+        :depth => 1,
+        :status => ['PUBLISHED', 'DRAFT']
     )
   end
 
   def news_resources
     @news ||= TreeNode.get_subtree(
-      :parent => tree_node.id,
-      :resource_type_hrids => ['site_updates'],
-      :depth => 1,
-      :status => ['PUBLISHED', 'DRAFT']
+        :parent => tree_node.id,
+        :resource_type_hrids => ['site_updates'],
+        :depth => 1,
+        :status => ['PUBLISHED', 'DRAFT']
     )
   end
 
   def ask_button_only
     div(:class => 'button_l') {
-			input(:id => 'ask_btn2', :type => "button", :value => _(:ask_question),
-						:title => _(:ask_question), :name => "subscribe", :class => "button",
-						:alt => _(:ask_question))
-		}
-	end
+      input(:id => 'ask_btn2', :type => "button", :value => _(:ask_question),
+            :title => _(:ask_question), :name => "subscribe", :class => "button",
+            :alt => _(:ask_question))
+    }
+  end
 
   def ask_button_and_form
     div(:class => 'button_c') {
-			input(:id => 'ask_btn1', :type => "button", :value => _(:ask_question),
-						:title => _(:ask_question), :name => "subscribe", :class => "button",
-						:alt => _(:ask_question))
-		}
+      input(:id => 'ask_btn1', :type => "button", :value => _(:ask_question),
+            :title => _(:ask_question), :name => "subscribe", :class => "button",
+            :alt => _(:ask_question))
+    }
     div :class => 'clear'
     div(:id => 'ask_question', :style => 'display:none') {
       div(:id => 'ask_question-ie') {
         img(:id => 'kabtv-loading', :src => "/images/ajax-loader.gif", :alt => "", :style => 'display:none')
-        h3 {rawtext _(:ask_question)}
-        form(:id => 'ask', :action => "#{@web_node_url}", :method => 'post'){
-          div{
+        h3 { rawtext _(:ask_question) }
+        form(:id => 'ask', :action => "#{@web_node_url}", :method => 'post') {
+          div {
             div(:class => 'q') {
-              label(:for => 'options_qname') {rawtext _(:your_name)}
+              label(:for => 'options_qname') { rawtext _(:your_name) }
               input :type => 'text', :id => 'options_qname', :name => 'options[qname]', :value => '', :size => '31', :class => 'text'
             }
             div(:class => 'q') {
-              label(:for => 'options_qfrom') {rawtext _(:your_location)}
+              label(:for => 'options_qfrom') { rawtext _(:your_location) }
               input :id => 'options_qfrom', :type => 'text', :name => 'options[qfrom]', :value => '', :size => '31', :class => 'text'
             }
             div(:class => 'q') {
               label(:class => 'ta-label', :for => 'options_qquestion') {
-								rawtext _(:questions)
-								rawtext ':'
-							}
+                rawtext _(:questions)
+                rawtext ':'
+              }
               textarea :id => 'options_qquestion', :name => 'options[qquestion]', :class => 'textarea', :cols => 30, :rows => 10
             }
             div :class => 'prebutton'
             input(:id => 'ask_submit', :type => "submit", :value => _(:send), :title => _(:send),
-              :name => "ask", :class => "button", :alt => _(:send))
+                  :name => "ask", :class => "button", :alt => _(:send))
             div :class => 'postbutton'
             div :class => 'prebutton'
             input(:id => 'ask_cancel', :type => "button", :value => _(:cancel), :title => _(:cancel),
-              :name => "cancel", :class => "button", :alt => _(:cancel))
+                  :name => "cancel", :class => "button", :alt => _(:cancel))
             div :class => 'postbutton'
             div :class => 'clear'
             input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
@@ -894,12 +896,12 @@ $(function() {
 
   def format_item(item)
     time = sprintf("%02d:%02d",
-      item.start_time / 100,
-      item.start_time % 100)
+                   item.start_time / 100,
+                   item.start_time % 100)
     title = item.title.gsub '[\r\n]', ''
-    div(:class => 'item'){
-      div(:class => 'time'){ rawtext time }
-      div(:class => 'title'){ rawtext title }
+    div(:class => 'item') {
+      div(:class => 'time') { rawtext time }
+      div(:class => 'title') { rawtext title }
       div(:class => 'clear')
     }
   end
@@ -907,10 +909,10 @@ $(function() {
   # For 'today' select 'hour'
   def get_list_for(day, hour, dayname, today)
     months = [_(:january), _(:february), _(:march), _(:april), _(:may), _(:june),
-      _(:july), _(:august), _(:september), _(:october), _(:november), _(:december)]
+              _(:july), _(:august), _(:september), _(:october), _(:november), _(:december)]
     nobroad = " #{_(:no_broadcast_on)}"
     broad = "#{_(:broadcast_on)}"
-    
+
     aday = DatesSchedule.get_day(@language, day)
     if aday.kind_of?(Array) and !aday.blank?
       d = aday[0].d
@@ -926,9 +928,9 @@ $(function() {
     list = "<h3>#{broad} #{dayname}, #{dm}</h3>"
     alist.each_with_index { |item, index|
       time = sprintf("<div class='time'>%02d:%02d - %s</div>",
-        item.start_time / 100,
-        item.start_time % 100,
-        calc_end_time(item.start_time, item.duration))
+                     item.start_time / 100,
+                     item.start_time % 100,
+                     calc_end_time(item.start_time, item.duration))
       title = item.title.gsub '[\r\n]', ''
       title.gsub! '<div>', ''
       title.gsub! '</div>', ''
@@ -943,7 +945,7 @@ $(function() {
       descr.gsub!('</font>', '</span>')
       list += "<div class='item#{index % 2}'>#{time}<div class='title icon-plus'>#{title}</div><div style='display:none;' class='descr'>#{descr}</div></div>"
     }
-    
+
     list + '<div class="item2">&nbsp;</div>'
   end
 
@@ -961,20 +963,20 @@ $(function() {
 
   def cms_action
     w_class('cms_actions').new(
-      :tree_node => tree_node,
-      :options => {
-        :button_text => _(:edit_kabtv_widget),
-        :buttons => %W{ delete_button  edit_button }
-      }).render_to(self)
+        :tree_node => tree_node,
+        :options => {
+            :button_text => _(:edit_kabtv_widget),
+            :buttons => %W{ delete_button  edit_button }
+        }).render_to(self)
   end
 
   def cms_action_for_site_updates
     w_class('cms_actions').new(:tree_node => tree_node,
-      :options => {:buttons => %W{ new_button },
-        :resource_types => %W{ site_updates },
-        :button_text => _(:news_for_tv),
-        :new_text => _(:add_newsbox_for_tv),
-        :has_url => false,
-        :placeholder => 'home_kabtv'}).render_to(self)
+                               :options => {:buttons => %W{ new_button },
+                                            :resource_types => %W{ site_updates },
+                                            :button_text => _(:news_for_tv),
+                                            :new_text => _(:add_newsbox_for_tv),
+                                            :has_url => false,
+                                            :placeholder => 'home_kabtv'}).render_to(self)
   end
 end

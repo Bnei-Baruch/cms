@@ -13,7 +13,9 @@ class Global::Widgets::Kabtv < WidgetManager::Base
       cms_action
       #      We don't want to use different backgrounds here
       div(:id => 'kabtv-top'){
-        if get_prefer_flash == true
+        if get_prefer_bbplayer == true
+          rawtext get_bbplayer
+        elsif get_prefer_flash == true
           render_homepage_flash
         else
           render_homepage_wmv
@@ -261,7 +263,8 @@ $(function() {
           img(:class => 'kabtv-loader', :src => "/images/ajax-loader.gif", :alt => "")
         } unless @options[:no_sketches]
       }
-      if get_prefer_flash == true && force_wmv != 1
+      if get_prefer_bbplayer == true
+      elsif get_prefer_flash == true && force_wmv != 1
         div(:id => 'cdn_logo_3dcdn'){
           a(:href => 'http://3dcdn.com/', :alt => '', :target => '_blank', :rel => 'nofollow')
         }
@@ -277,7 +280,9 @@ $(function() {
 				url, high_url, med_url, low_url, idx = Language.get_url(@language, @presenter.get_cookies)
         return if url.empty?
 
-        if get_prefer_flash == true && force_wmv != 1
+        if get_prefer_bbplayer == true
+          rawtext get_bbplayer
+        elsif get_prefer_flash == true && force_wmv != 1
           render_full_flash
         else
           render_full_wmv(url, width, height)
@@ -292,7 +297,7 @@ $(function() {
             }
           end
 
-					if (get_prefer_flash != true || force_wmv == 1) && !get_hide_bitrates
+					if (get_prefer_bbplayer == false && get_prefer_flash != true || force_wmv == 1) && !get_hide_bitrates
 						div(:id => 'bitrates'){
 							#            rawtext 'איכות שידור: גבוהה | בינונית | נמוכה'
 							rawtext _(:broadcast_quality) + ': '

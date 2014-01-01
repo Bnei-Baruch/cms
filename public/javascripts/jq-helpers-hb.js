@@ -644,7 +644,7 @@ var playerConfig_innerpage = {
     showMenu: false
 };
 $(function () {
-    var $player = $('.inner-player')
+    var $player = $('.inner-player');
     if ($player.size() == 0) return;
     $player.corner({
         tl: {

@@ -643,9 +643,6 @@ var playerConfig_innerpage = {
     controlBarGloss: 'low',
     showMenu: false
 };
-var flowplayer_innerpage = null;
-var now_playing = null;
-
 $(function () {
     var $player = $('.inner-player')
     if ($player.size() == 0) return;
@@ -664,8 +661,17 @@ $(function () {
         },
         antiAlias: true
     });
+    $player.each(function () {
+        var $this = $(this);
+        setPlayer($this);
+    });
+});
+function setPlayer($player) {
     var id = $player.attr("id").replace('id-', '');
     if (id == 0) return;
+
+    var flowplayer_innerpage = null;
+    var now_playing = null;
 
     var $links = $player.find("a").not(".more,.download").click(function (event) {
         var $this = $(this);
@@ -701,23 +707,23 @@ $(function () {
         // Find out and replace title
         var hdr = $($this.parent().children('.h1-play')[0]).text();
         $this.parents('.inner-player').find('.play-title').text(hdr);
-        $(".play-list-button").hide();
+        $("#flashplayer-" + id).parent().siblings(".play-list-button").hide();
         return false;
     });
     $("#flashplayer-" + id + " img").click(function () {
-        $(".play-list-button").hide();
+        $(this).parent().siblings(".play-list-button").hide();
         $($links[0]).trigger('click');
     });
-    $(".play-list-button").click(function () {
-        $(".play-list-button").hide();
+    $("#flashplayer-" + id).parent().siblings(".play-list-button").click(function () {
+        $(this).hide();
         $($links[0]).trigger('click');
     });
     $(".inner-player ul li:nth-child(odd)").addClass("odd");
-});
+}
 
 
 //***************************************
-// Audio Player with a playlist 
+// Audio Player with a playlist
 //***************************************
 var playerConfig_playlist = {
     autoPlay: true,

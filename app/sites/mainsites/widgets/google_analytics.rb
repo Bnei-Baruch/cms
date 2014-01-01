@@ -7,7 +7,7 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
     if !new_version
       if ENV['RAILS_ENV'] != 'production' || @presenter.node.can_edit? || profile_key == nil
         javascript {
-          var _gaq = _gaq || [];
+          rawtext 'var _gaq = _gaq || [];'
         }
         return
       end

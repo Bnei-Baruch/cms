@@ -9,7 +9,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
     @header_logo = w_class('header').new(:view_mode => 'logo')
     @header_copyright = w_class('header').new(:view_mode => 'copyright')
     @breadcrumbs = w_class('breadcrumbs').new()
-    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')  
+    @titles = w_class('breadcrumbs').new(:view_mode => 'titles')
     @dynamic_tree = w_class('tree').new(:view_mode => 'dynamic', :display_hidden => true)
     @google_analytics = w_class('google_analytics').new
     @newsletter = w_class('newsletter').new(:view_mode => 'sidebar')
@@ -27,7 +27,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta(:name => 'description', :content => ext_meta_description)
 
         javascript_include_tag 'flowplayer-3.2.4.min.js', 'flashembed.min.js'
-        javascript_include_tag 'jquery', 
+        javascript_include_tag 'jquery',
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.min.js', 'jquery.browser.js', 'jq-helpers-hb',
@@ -115,7 +115,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                   }
                   div(:class => 'menu') {
                     w_class('sections').new.render_to(self)
-                  }    
+                  }
                   div(:class => 'yui-u first') {
                     div(:class => 'left-part') {
                       w_class('cms_actions').new(:tree_node => tree_node,
@@ -125,7 +125,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                           :new_text => 'הוסף RSS נוסף',
                           :has_url => false,
                           :placeholder => 'left'}).render_to(self)
-              
+
                       w_class('cms_actions').new(:tree_node => tree_node,
                         :options => {:buttons => %W{ new_button },
                           :resource_types => %W{ iframe },
@@ -147,7 +147,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                         :placeholder => :home_kabtv,
                         :sortable => false
                       )
-                      
+
                       div(:class => 'left-column'){
                         show_content_resources(:resources => left_column_resources,
                           :parent => :website,
@@ -191,7 +191,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               div(:id => 'hd-r') {
                 @header_logo.render_to(self)
                 @languages.render_to(self)
-                
+
               } #Logo goes here
               div(:class => 'right-part') {
                 div(:class => 'h1') {
@@ -216,22 +216,23 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
           }
         }
         @google_analytics.render_to(self)
+        rawtext '<script type="text/javascript"> setTimeout(function(){var a=document.createElement("script"); var b=document.getElementsByTagName("script")[0]; a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/4152.js?"+Math.floor(new Date().getTime()/3600000); a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1); </script>'
       }
     }
-  end     
-  
-  private 
-  
+  end
+
+  private
+
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
+      :parent => tree_node.id,
       :resource_type_hrids => ['site_updates', 'newsletter', 'banner'],
       :depth => 1,
       :placeholders => ['right'],
       :status => ['PUBLISHED', 'DRAFT']
-    ) 
+    )
   end
-  
+
   def right_column_video_gallery_resources
     @tree_nodes_right_video_gallery ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -244,32 +245,32 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 
   def left_column_resources
     @tree_nodes_left ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
+      :parent => tree_node.id,
       :resource_type_hrids => ['rss', 'iframe'],
       :depth => 1,
       :placeholders => ['left'],
       :status => ['PUBLISHED', 'DRAFT']
-    ) 
+    )
   end
-  
+
   def middle_column_resources
     @tree_nodes_middle ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['content_preview', 'title'], 
+      :parent => tree_node.id,
+      :resource_type_hrids => ['content_preview', 'title'],
       :depth => 1,
       :placeholders => ['middle'],
       :status => ['PUBLISHED', 'DRAFT']
-    ) 
+    )
   end
-  
+
   def kabbalah_media_resources
     @kabbalah_media_nodes ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['media_rss'], 
+      :parent => tree_node.id,
+      :resource_type_hrids => ['media_rss'],
       :depth => 1,
       :placeholders => ['lesson'],
       :status => ['PUBLISHED', 'DRAFT']
-    ) 
+    )
   end
 
   def kabtv_resources
@@ -344,4 +345,4 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
       right_column_resources
     }
   end
-end 
+end

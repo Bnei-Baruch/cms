@@ -188,12 +188,15 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
         }
         display @header_copyright
       } unless ext_kabtv_exist
+
+      rawtext '<script type="text/javascript"> setTimeout(function(){var a=document.createElement("script"); var b=document.getElementsByTagName("script")[0]; a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/4152.js?"+Math.floor(new Date().getTime()/3600000); a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1); </script>'
+
       #        display @google_analytics
     }
   end
-  
+
   private
-  
+
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -203,7 +206,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       :status => ['PUBLISHED', 'DRAFT']
     )
   end
-  
+
   def left_column_resources
     @tree_nodes_left ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -213,7 +216,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       :status => ['PUBLISHED', 'DRAFT']
     )
   end
-  
+
   def middle_column_resources
     @tree_nodes_middle ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -223,7 +226,7 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
       :status => ['PUBLISHED', 'DRAFT']
     )
   end
-  
+
   def kabbalah_media_resources
     @kabbalah_media_nodes ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -243,4 +246,4 @@ class Mainsites::Layouts::ContentPage < WidgetManager::Layout
     )
   end
 
-end 
+end

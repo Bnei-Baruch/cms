@@ -24,7 +24,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_meta_title
         meta(:name => 'description', :content => ext_meta_description)
-        javascript_include_tag 'jquery', 
+        javascript_include_tag 'jquery',
         'ui/ui.core.min.js', 'ui/ui.tabs.min.js', 'ui/jquery.color.js',
         'jquery.curvycorners.packed.js', 'jquery.browser.js',
         'jquery.hoverIntent.min.js', 'superfish',
@@ -220,13 +220,16 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
         div(:id => 'footer'){
           rawtext 'Footer'
         }
+
+        rawtext '<script type="text/javascript"> setTimeout(function(){var a=document.createElement("script"); var b=document.getElementsByTagName("script")[0]; a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/4152.js?"+Math.floor(new Date().getTime()/3600000); a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1); </script>'
+
         #        display @google_analytics
       }
     }
   end
-  
+
   private
-  
+
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -236,7 +239,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
       :status => ['PUBLISHED', 'DRAFT']
     )
   end
-  
+
   def left_column_resources
     @tree_nodes_left ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -246,7 +249,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
       :status => ['PUBLISHED', 'DRAFT']
     )
   end
-  
+
   def middle_column_resources
     @tree_nodes_middle ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -256,7 +259,7 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
       :status => ['PUBLISHED', 'DRAFT']
     )
   end
-  
+
   def kabbalah_media_resources
     @kabbalah_media_nodes ||= TreeNode.get_subtree(
       :parent => tree_node.id,
@@ -277,4 +280,4 @@ class Mainsites::Layouts::Website < WidgetManager::Layout
     )
   end
 
-end 
+end

@@ -1,4 +1,4 @@
-# This module is used by Cron 
+# This module is used by Cron
 # Usage: ruby script/runner 'CronManager.read_and_save_rss' -e development
 #        ruby script/runner 'CronManager.read_and_save_media_rss' -e development
 #        ruby script/runner 'CronManager.media_rss_counter' -e development
@@ -100,7 +100,7 @@ class CronManager
             puts ""
             prev_prop = d[0]
           }
-        
+
           # Look for duplicated attachments
           resource.properties.select {|r| r.property_type == 'RpFile'}.each{|f|
             dups = f.thumbnails.inject({}) {|h, v| h[v.filename] = h[v.filename].to_i + 1; h }.reject{|k,v| v==1}.keys
@@ -113,7 +113,7 @@ class CronManager
               print "Unknown page for the resource\n"
             end
             print "Resource #{f.resource.id}\n"
-          
+
             last_fname = ''
             f.thumbnails.select {|t1| dups.include?(t1.filename)}. sort_by {|a| a.filename }.each {|t|
               print "#{t.id} #{t.filename} #{t.mime_type} #{t.md5}\n"
@@ -152,7 +152,7 @@ class CronManager
 
     content
   end
-  
+
   # This methos is responsible to update all rss resources
   # which aggregate content from external rss feeds.
 
@@ -164,19 +164,19 @@ class CronManager
     @@http = Hash.new{|h,k| h[k] = CronManager.get_page(k) }
     @@cache = {}
   end
-  
+
   def self.read_and_save_rss
 
     CronManager.init_caches
-    
+
     AuthenticationModel.cron_manager_user_login
     websites = Website.find(:all, :conditions => ["entry_point_id<>?", 0]) || []
-    
+
     tree_nodes = TreeNode.find_by_sql(<<-SQL
         select tree_nodes.* from tree_nodes
         inner join resources on (tree_nodes.resource_id = resources.id)
         inner join resource_types on (resources.resource_type_id = resource_types.id)
-        where resource_types.hrid  = 'rss'
+        where resources.status = 'PUBLISHED' AND resource_types.hrid  = 'rss'
       SQL
     )
 
@@ -220,7 +220,7 @@ class CronManager
     puts 'OK'
     data
   end
-  
+
   def self.media_rss_counter
 
     AuthenticationModel.cron_manager_user_login
@@ -273,7 +273,7 @@ class CronManager
           select tree_nodes.* from tree_nodes
           inner join resources on (tree_nodes.resource_id = resources.id)
           inner join resource_types on (resources.resource_type_id = resource_types.id)
-          where resource_types.hrid  = 'media_rss'
+          where resources.status = 'PUBLISHED' AND resource_types.hrid  = 'media_rss'
         SQL
       )
       language = get_language(websites[0])
@@ -300,14 +300,14 @@ class CronManager
   end
 
   def self.read_and_save_node_media_rss(tree_node, lang)
-    
+
     content = ''
-    
+
     #days_num = (tree_node.resource.properties('days_num')).get_value
     #days_num = 3 if !days_num # default is 3 days
     days_num = 30
     tdate = (Date.today - days_num)
-    
+
     cid = (tree_node.resource.properties('cid')).get_value
     cid = 25 if !cid
 
@@ -316,7 +316,7 @@ class CronManager
       '&DF=' + (Date.today).to_s +
       '&DT=' + tdate.to_s
     puts "#{Time.now} Read Tree Node #{tree_node.id} #{url} "
-    
+
     retries = 2
     begin
       Timeout::timeout(25){
@@ -328,9 +328,9 @@ class CronManager
           puts '#{Time.now} Failed to open url ' + url
           return
         end
-        
+
       }
-    
+
     rescue Timeout::Error
       retries -= 1
       if retries > 0
@@ -365,7 +365,7 @@ class CronManager
       RAILS_DEFAULT_LOGGER.error(content)
     end
 
-    
+
     puts "#{Time.now} Storing."
     data = YAML.dump(lessons)
     property = tree_node.resource.properties('items')
@@ -376,7 +376,7 @@ class CronManager
     puts 'OK'
     data
   end
-  
+
   private
 
   def self.get_language(website)
@@ -384,7 +384,7 @@ class CronManager
     lang = site_settings[:language] rescue 'english'
     return (lang[0..2]).upcase
   end
-  
+
 end
 
 

@@ -3,10 +3,11 @@ gem "rails", "2.3.5"
 gem "pg", '0.11.0'
 gem "unicorn"
 gem "mini_magick"
-gem "rubyzip"
+gem "rubyzip", '0.9.9'
 gem "daemons"
 gem "exceptional"
-gem 'rest-client'
+gem 'mime-types', '1.21'
+gem 'rest-client', '1.6.7'
 
 group :development do
   gem 'puma'

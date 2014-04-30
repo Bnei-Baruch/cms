@@ -3,11 +3,11 @@ class Mainsites::Widgets::Banner < WidgetManager::Base
   def render_full
     w_class('cms_actions').new(:tree_node => tree_node, :options => {:buttons => %W{ delete_button edit_button}, :position => 'bottom'}).render_to(self)
     link = get_link
-    a_options = { :href => link, :onclick => "_gaq.push(['_trackEvent', 'banner click', '#{link}']);" }
+    a_options = { :href => link, :onclick => "_gaq.push(['_trackEvent', 'banner click', '#{get_event_name}']);" }
     a_options[:class] = 'target_blank' unless get_internal_link
     image, dims = get_picture(:image_name => image_name, :with_dimensions => true)
     klass = ''
-    
+
     if dims[0] == 0
 			style = ""
 			src = image
@@ -23,10 +23,10 @@ class Mainsites::Widgets::Banner < WidgetManager::Base
 
     a(a_options){img :src => src, :alt => get_description, :style => style, :class => klass}
   end
-  
+
   private
-  
-  # There is a different column width on the homepage and inner pages,  
+
+  # There is a different column width on the homepage and inner pages,
   # but the same banner should be shown in both places. So we created a dedicated geometry:
   # thumb:240>;thumb_inner:178>;
   def image_name

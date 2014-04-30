@@ -17,3 +17,4 @@ Gemfile.lock
 .rvmrc
 config/exceptional.yml
 *.backup
+.ruby-*

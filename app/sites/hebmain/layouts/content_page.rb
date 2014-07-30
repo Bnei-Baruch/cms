@@ -72,7 +72,7 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
                           'lightbox',
                           :cache => "cache_content_page-#{@presenter.website_hrid}",
                           :media => 'all'
-      stylesheet_link_tag '/lightbox/css/lightbox'
+      #stylesheet_link_tag '/lightbox/css/lightbox'
       stylesheet_link_tag 'hebmain/print', :media => 'print'
       site_config = $config_manager.site_settings(@presenter.website.hrid)
       site_name = site_config[:site_name]

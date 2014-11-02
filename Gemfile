@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem "rails", "2.3.5"
+gem "rails", "2.3.11"
 gem "pg", '0.11.0'
 gem "unicorn"
 gem "mini_magick"

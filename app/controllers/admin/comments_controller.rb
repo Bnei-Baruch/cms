@@ -34,7 +34,7 @@ class Admin::CommentsController < ApplicationController
 
     respond_to do |format|
     if params[:valid] != nil
-      @comment.update_attribute(:is_valid, params[:valid])
+      @comment.update_attribute(:is_valid, params[:valid] ? 1 : 0)
     end
     if params[:spam] != nil
       @comment.update_attribute(:is_spam, params[:spam])

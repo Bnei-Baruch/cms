@@ -104,19 +104,5 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
         google
       }
     end
-
-    javascript {
-      rawtext <<-google_more
-        (function(i, s, o, g, r, a, m) { i['GoogleAnalyticsObject']=r; i[r]=i[r]||function() {
-          (i[r].q=i[r].q||[]).push(arguments) }, i[r].l=1*new Date(); a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0]; a.async                    =1; a.src=g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-54667616-1', 'auto');
-        ga('send', 'pageview');
-        ga('require', 'displayfeatures');
-        setTimeout("ga('send', 'event', 'read', '15_sec')", 15000);
-      google_more
-    }
   end
 end

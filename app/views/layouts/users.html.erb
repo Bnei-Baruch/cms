@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <meta http-equiv="Content-language" content="utf8" /> 
+    <meta http-equiv="Content-language" content="utf8" />
     <title><%= @title %></title>
     <%= javascript_include_tag :defaults %>
     <%= javascript_include_tiny_mce %>
@@ -12,6 +12,19 @@
     <%= tiny_mce %>
     <%= stylesheet_link_tag 'reset-fonts-grids' %>
     <%= stylesheet_link_tag 'admin' %>
+
+  <script>
+      (function(i, s, o, g, r, a, m) { i['GoogleAnalyticsObject']=r; i[r]=i[r]||function() {
+      (i[r].q=i[r].q||[]).push(arguments) }, i[r].l=1*new Date(); a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0]; a.async=1; a.src=g; m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-54667616-1', 'auto');
+      ga('send', 'pageview');
+      ga('require', 'displayfeatures');
+      setTimeout("ga('send', 'event', 'read', '15_sec')", 15000);
+  </script>
+
 </head>
 <body>
  <div id="doc3" class="yui-t2">
@@ -29,10 +42,10 @@
               <div id="content">
                 <%= yield %>
               </div>
-              
+
             </div>
           </div>
-        </div>  
+        </div>
       </div>
       <div id="ft"></div>
     </div>

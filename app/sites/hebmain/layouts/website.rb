@@ -41,6 +41,20 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         'hebmain/widgets',
         :cache => "cache_website-#{@presenter.website_hrid}"
 
+        rawtext <<-GA_new
+        <script type="text/javascript">
+                    (function(i, s, o, g, r, a, m) { i['GoogleAnalyticsObject']=r; i[r]=i[r]||function() {
+                      (i[r].q=i[r].q||[]).push(arguments) }, i[r].l=1*new Date(); a=s.createElement(o),
+                        m=s.getElementsByTagName(o)[0]; a.async=1; a.src=g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-54667616-1', 'auto');
+        ga('send', 'pageview');
+        ga('require', 'displayfeatures');
+        setTimeout("ga('send', 'event', 'read', '15_sec')", 15000);
+        </script>
+        GA_new
+
         #        if presenter.node.can_edit?
         perm = AuthenticationModel.get_max_permission_to_child_tree_nodes_by_user_one_level(presenter.node.id)
         if  presenter.node.can_edit? || perm >= 2 # STUPID, but there are no constatns yet...!!!

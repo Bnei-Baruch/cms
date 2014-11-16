@@ -16,30 +16,30 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
         section_id = @presenter.main_section.id rescue '/unknown'
         special = ''
         section = case section_id
-                    when nil # Homepage
-                    when 3040
-                      '/channel66'
-                    when 477
-                      '/music'
-                    when 42
-                      '/articles'
-                    when 43
-                      '/whatiskabbalah'
-                    when 249
-                      '/kabevents'
-                    when 469
-                      '/kabcolleges'
-                    when 28316
-                      '/kablessons'
-                    when 44, 548
-                      '/aboutus'
+                  when nil # Homepage
+                  when 3040
+                    '/channel66'
+                  when 477
+                    '/music'
+                  when 42
+                    '/articles'
+                  when 43
+                    '/whatiskabbalah'
+                  when 249
+                    '/kabevents'
+                  when 469
+                    '/kabcolleges'
+                  when 28316
+                    '/kablessons'
+                  when 44, 548
+                    '/aboutus'
+                  else
+                    if tree_node.id == 32654 && tree_node.permalink == 'confirm_kab'
+                      special = "/kabbalah/confirm_kab/newsletter/sign-up/completed"
+                      nil
                     else
-                      if tree_node.id == 32654 && tree_node.permalink == 'confirm_kab'
-                        special = "/kabbalah/confirm_kab/newsletter/sign-up/completed"
-                        nil
-                      else
-                        section_id.to_s
-                      end
+                      section_id.to_s
+                    end
                   end
         rawtext <<-google1
           var google_analytics_new_version = false;
@@ -74,13 +74,6 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
 
         google3
 
-        # Delay loading until the last second
-        #$(document).ready(function(){
-        #  $.getScript('http://www.google-analytics.com/urchin.js', function(){
-        #   _uacct = "#{profile_key}";
-        #   urchinTracker();
-        #  });
-        #});
       }
     else
       if ENV['RAILS_ENV'] != 'production' || @presenter.node.can_edit? || profile_key == nil
@@ -111,5 +104,17 @@ class Mainsites::Widgets::GoogleAnalytics < WidgetManager::Base
         google
       }
     end
+
+    javascript {
+      (function(i, s, o, g, r, a, m) { i['GoogleAnalyticsObject']=r; i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments) }, i[r].l=1*new Date(); a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0]; a.async                    =1; a.src=g; m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-54667616-1', 'auto');
+      ga('send', 'pageview');
+      ga('require', 'displayfeatures');
+      setTimeout("ga('send', 'event', 'read', '15_sec')", 15000);
+    }
   end
 end

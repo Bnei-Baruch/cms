@@ -20,7 +20,7 @@ class Attachment < ActiveRecord::Base
       :dependent => :delete,
       :conditions => "filename = 'myself'"
   end
-  
+
   def Attachment.get_short_attachment(resource_property_id)
     find(:first, {:select=>'id, filename', :conditions => ["resource_property_id = ?", resource_property_id]})
   end
@@ -67,7 +67,7 @@ class Attachment < ActiveRecord::Base
     #    Attachment.save_as_file(attachment, _image_id, "#{_image_name}.#{format}")
     Attachment.read_as_file(attachment, _image_id, "#{_image_name}.#{format}")
   end
-  
+
   def Attachment.read_as_file(attachment, image_id, name)
     path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (image_id.to_i % 100).to_s)
     fname = "#{path}/#{image_id}_#{name}"
@@ -115,7 +115,7 @@ class Attachment < ActiveRecord::Base
   # Returns: options
   def Attachment.store_rp_file(resource_property, options)
     #    return options if resource_property.nil? ZZZ What is it good for?
-    
+
     # Should we first remove an old one?
     remove = options.delete(:remove)
     if (!remove.empty? && remove != 'f')
@@ -140,7 +140,7 @@ class Attachment < ActiveRecord::Base
     attachment.file_content = att.read
     attachment.mime_type = att.content_type.chomp
     attachment.md5 = Digest::MD5.hexdigest(attachment.file)
-    
+
     # Is it valid?
     if attachment.valid?
       options[:value] = attachment.filename
@@ -166,7 +166,7 @@ class Attachment < ActiveRecord::Base
       # Save 'self' as an exact copy of an original image
       geometry['myself'] = '100%x100%'
     end
-    
+
     attachment = resource_property.attachment
     ext = File.extname(attachment.filename)
     geometry.each { |name, geom|
@@ -189,7 +189,7 @@ class Attachment < ActiveRecord::Base
       end
     }
   end
-  
+
   def Attachment.delete_file(original_image_id, name, delete_all = false)
     begin
       path = File.join(File.dirname(__FILE__), '/../../public/images/attachments/', (original_image_id.to_i % 100).to_s)
@@ -204,7 +204,7 @@ class Attachment < ActiveRecord::Base
     rescue
     end
   end
-  
+
   def is_image?
     mime_type =~ /^image/
   end
@@ -213,6 +213,7 @@ class Attachment < ActiveRecord::Base
     image = MiniMagick::Image.from_blob(self.file_content, self.mime_type.split('/').last)
     image.resize geometry
     image.strip
+    image.run_queue
     new_image = image.to_blob
     thumb = Attachment.new(:filename => name)
     thumb.file_content = new_image
@@ -232,9 +233,9 @@ class Attachment < ActiveRecord::Base
 
     attachment = resource_property.attachment
     ext = File.extname(attachment.filename)
-    
+
     Attachment.delete_file(attachment.id, attachment.filename)
-    
+
     # Format of geometry string:
     # myself:geom;thumb1:geom;...
     geometry = {}
@@ -243,11 +244,11 @@ class Attachment < ActiveRecord::Base
     geometry_string.scan(/(\w+):([\w%!><]+)/) { |key, value|
       geometry[key] = value
     }
-    
+
     geometry.each { |name, geom|
       Attachment.delete_file(attachment.id, name + ext)
     }
-    
+
     resource_property.attachment.thumbnails.each {|thumb|
       thumb.destroy
     }
@@ -255,23 +256,23 @@ class Attachment < ActiveRecord::Base
       Attachment.delete_file(attachment.id, 'myself' + ext)
       resource_property.attachment.myself.destroy
     end
-    
+
     resource_property.attachment.destroy
     resource_property.save
   end
-  
+
   private
 
   def Attachment.file_provided?(file)
     file.respond_to?(:read) and file.size.nonzero?
   end
-  
+
   def Attachment.sanitize_filename(filename)
     returning filename.strip do |name|
       # NOTE: File.basename doesn't work right with Windows paths on Unix
       # get only the filename, not the whole path
       name.gsub!(/^.*(\\|\/)/, '')
-            
+
       # Finally, replace all non alphanumeric, underscore or periods with underscore
       name.gsub!(/[^\w\.\-]/, '_')
     end

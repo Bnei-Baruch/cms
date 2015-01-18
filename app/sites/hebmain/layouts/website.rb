@@ -209,7 +209,7 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
               } #Logo goes here
               div(:class => 'right-part') {
                 div(:class => 'h1') {
-                  text 'שיעור הקבלה היומי'
+                  text 'פעם ראשונה באתר?'
                   div(:class =>'h1-right')
                   div(:class =>'h1-left')
                 }

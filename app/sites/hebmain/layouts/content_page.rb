@@ -105,6 +105,25 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
       stylesheet_link_tag 'hebmain/ie8', :media => 'all'
       rawtext "\n<![endif]-->\n"
 
+      rawtext <<-FB
+	<script>(function() {
+	  var _fbq = window._fbq || (window._fbq = []);
+	  if (!_fbq.loaded) {
+	    var fbds = document.createElement('script');
+	    fbds.async = true;
+	    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+	    var s = document.getElementsByTagName('script')[0];
+	    s.parentNode.insertBefore(fbds, s);
+	    _fbq.loaded = true;
+	  }
+	  _fbq.push(['addPixelId', '682077405245448']);
+	})();
+	window._fbq = window._fbq || [];
+	window._fbq.push(['track', 'PixelInitialized', {}]);
+	</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=682077405245448&amp;ev=PixelInitialized" /></noscript>
+      FB
+
       rawtext <<-GA_new
         <script type="text/javascript">
                     (function(i, s, o, g, r, a, m) { i['GoogleAnalyticsObject']=r; i[r]=i[r]||function() {

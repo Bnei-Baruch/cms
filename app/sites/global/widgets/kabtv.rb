@@ -438,7 +438,7 @@ $(function() {
                       :isquestion => 1,
                       :lang => @language.humanize,
                       :is_hidden => 0,
-                      :ip => "",
+                      :ip => request.remote_ip,
                       :country_name => '',
                       :country_code => '',
                       :region => '',
@@ -507,13 +507,13 @@ $(function() {
     rawtext <<-TV
 			<div id="tvobj">
 			<!--[If IE]>
-			<object 
-				classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
+			<object
+				classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
 				type="application/x-oleobject"
-				id="player" 
-				name="player" 
-				data="#{url}" 
-				width="#{width}" 
+				id="player"
+				name="player"
+				data="#{url}"
+				width="#{width}"
 				height="#{height}">
 				<param name="url" value="#{url}" />
 				<param name="autostart" value="true" />
@@ -521,7 +521,7 @@ $(function() {
 				<param name="volume" value="50" />
 				<param name="uiMode" value="mini" />
 				<param name="animationAtStart" value="true" />
-				<param name="showDisplay" value="false" />   
+				<param name="showDisplay" value="false" />
 				<param name="ShowAudioControls" value="true" />
 				<param name="ShowPositionControls" value="false" />
 				<param name="transparentAtStart" value="false" / >
@@ -535,13 +535,13 @@ $(function() {
 			</object>
 			<![endif]-->
 			<!--[if !IE]>-->
-			<object 
+			<object
 				type="application/x-oleobject"
 				classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95"
-				id="player" 
-				name="player" 
-				data="#{url}" 
-				width="#{width}" 
+				id="player"
+				name="player"
+				data="#{url}"
+				width="#{width}"
 				height="#{height}">
 				<param name="src" value="#{url}" />
 				<param name="autostart" value="true" />
@@ -549,7 +549,7 @@ $(function() {
 				<param name="volume" value="50" />
 				<param name="uiMode" value="mini" />
 				<param name="animationAtStart" value="true" />
-				<param name="showDisplay" value="false" />   
+				<param name="showDisplay" value="false" />
 				<param name="ShowAudioControls" value="true" />
 				<param name="ShowPositionControls" value="false" />
 				<param name="transparentAtStart" value="false" />
@@ -561,8 +561,8 @@ $(function() {
 				<param name="DisplayForeColor" value="#ffffff" />
 				<param name="balance" value="false" />
                                 <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
-				  src="#{url}" 
-				  width="#{width}" 
+				  src="#{url}"
+				  width="#{width}"
 				  height="#{height}"
                                   showcontrols=1
 				  showstatusbar=1>
@@ -570,7 +570,7 @@ $(function() {
 			</object>
 			<!--<![endif]-->
 			</div>
-			
+
     TV
     javascript {
       rawtext <<-TV1
@@ -608,19 +608,19 @@ $(function() {
                 {src:'/flowplayer/3dcdn/3Dcdn.player.swf', version: [10, 0], cachebusting: $.browser.msie},
                 {
 								key:'#\@932a7f91ab5747d7f90',
-								canvas: { 
+								canvas: {
 									backgroundImage: 'url(/flowplayer/logo-10sec.swf)'
 								},
 								clip:{
 									autoBuffering: 'true',
 									autoPlay: 'true',
 									provider: 'cdn',
-									onStart: function() { 
-											this.unmute(); 
+									onStart: function() {
+											this.unmute();
 									}
 								},
-								onBeforePause: function() { 
-										return false; 
+								onBeforePause: function() {
+										return false;
 								},
 								plugins: {
 									controls: {
@@ -654,13 +654,13 @@ $(function() {
     rawtext <<-TV1
 			<div id="tvobj">
 			<!--[If IE]>
-			<object 
-				classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" 
+			<object
+				classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6"
 				type="application/x-oleobject"
-				id="player" 
-				name="player" 
-				data="#{url}" 
-				width="#{width}" 
+				id="player"
+				name="player"
+				data="#{url}"
+				width="#{width}"
 				height="#{height}">
 				<param name="url" value="#{url}" />
 				<param name="autostart" value="true" />
@@ -669,7 +669,7 @@ $(function() {
 				<param name="uiMode" value="mini" />
 				<param name="mute" value="true" />
 				<param name="animationAtStart" value="true" />
-				<param name="showDisplay" value="false" />   
+				<param name="showDisplay" value="false" />
 				<param name="ShowAudioControls" value="true" />
 				<param name="ShowPositionControls" value="false" />
 				<param name="transparentAtStart" value="false" / >
@@ -683,13 +683,13 @@ $(function() {
 			</object>
 			<![endif]-->
 			<!--[if !IE]>-->
-			<object 
+			<object
 				type="application/x-oleobject"
 				classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95"
-				id="player" 
-				name="player" 
-				data="#{url}" 
-				width="#{width}" 
+				id="player"
+				name="player"
+				data="#{url}"
+				width="#{width}"
 				height="#{height}">
 				<param name="src" value="#{url}" />
 				<param name="autostart" value="true" />
@@ -698,7 +698,7 @@ $(function() {
 				<param name="uiMode" value="mini" />
 				<param name="mute" value="true" />
 				<param name="animationAtStart" value="true" />
-				<param name="showDisplay" value="false" />   
+				<param name="showDisplay" value="false" />
 				<param name="ShowAudioControls" value="true" />
 				<param name="ShowPositionControls" value="false" />
 				<param name="transparentAtStart" value="false" />
@@ -710,8 +710,8 @@ $(function() {
 				<param name="DisplayForeColor" value="#ffffff" />
 				<param name="balance" value="false" />
                                 <embed type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
-				  src="#{url}" 
-				  width="#{width}" 
+				  src="#{url}"
+				  width="#{width}"
 				  height="#{height}"
                                   showcontrols=1 mute=1
 				  showstatusbar=1>
@@ -764,19 +764,19 @@ $(function() {
                 {src:'/flowplayer/3dcdn/3Dcdn.player.swf', version: [10, 0], cachebusting: $.browser.msie},
                 {
 								key:'#\@932a7f91ab5747d7f90',
-								canvas: { 
+								canvas: {
 									backgroundImage: 'url(/flowplayer/logo-10sec-homepage.swf)'
 								},
 								clip:{
 									autoBuffering: 'true',
 									autoPlay: 'true',
 									provider: 'cdn',
-									onStart: function() { 
-											this.mute(); 
-									} 
+									onStart: function() {
+											this.mute();
+									}
 								},
-								onBeforePause: function() { 
-										return false; 
+								onBeforePause: function() {
+										return false;
 								},
 								plugins: {
 									controls: {
@@ -793,7 +793,7 @@ $(function() {
 										smilUrl: cdn_ClipURL,
 										eventTarget: varIvivoPostURL,
                     bwDetect: false,
-                    bwUseSO: false 
+                    bwUseSO: false
 									}
 								}
 						 });

@@ -1,14 +1,13 @@
 class Global::Widgets::BlockHolder < WidgetManager::Base
-  
+
   def render_full
-    debugger
     title = get_title
     block = Block.find_by_name get_block
 
     div() {
       div(){rawtext('&nbsp;')}
       div(){
-        
+
         h3 title unless title.empty?
         rawtext block.content unless block.nil?
         br
@@ -17,5 +16,5 @@ class Global::Widgets::BlockHolder < WidgetManager::Base
       div(){rawtext('&nbsp;')}
     }
   end
-  
+
 end

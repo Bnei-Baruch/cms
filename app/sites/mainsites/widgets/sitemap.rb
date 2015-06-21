@@ -1,13 +1,13 @@
 class Mainsites::Widgets::Sitemap < WidgetManager::Base
 
   skip_page_map
-  
+
   def render_full
-    div(:class => 'sitemap'){
+    div(:class => 'sitemap mobile-hidden'){
       div(:class => 'sitemap-inner'){
-  			
+
         presenter.main_sections.each {|section|
-  			
+
           sub_sections = get_sub_section(section) || []
           ul(:class => 'box'){
             li {
@@ -31,12 +31,12 @@ class Mainsites::Widgets::Sitemap < WidgetManager::Base
 
   def get_sub_section (tree_node)
     TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['content_page',], 
+      :parent => tree_node.id,
+      :resource_type_hrids => ['content_page',],
       :depth => 1,
       :has_url => true,
       :properties => 'b_hide_on_navigation = false')
-  	
+
   end
-  
+
 end

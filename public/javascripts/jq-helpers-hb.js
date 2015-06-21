@@ -1,3 +1,38 @@
+$(document).ready(function () {
+    var left_side_menu_content = '', right_side_menu_content = '';
+
+    left_side_menu_content += $('#hd form')[0].outerHTML; // search box & header links
+    left_side_menu_content += '<ul class="menu">' + $('#bd .menu ul').html() + '</ul>'; // main menu
+    left_side_menu_content += '<ul class="links">' + $('#hd .links').html() + '</ul>'; // main menu
+    $('.m-pikabu-left').html(left_side_menu_content);
+
+    if ($('#bd > .yui-b .nav').length > 0) {
+        right_side_menu_content += $('#bd > .yui-b .nav')[0].outerHTML;
+    }
+    //right_side_menu_content += $('#bd > .yui-b #languagebar').html();
+    right_side_menu_content += '<div class="mobile-languagebar"><div class="sidebar-header">שפות נוספות</div><div class="languagebar-container">'+$('#languagebar')[0].outerHTML+'</div></div>';
+    right_side_menu_content += $('.newsletter')[0].outerHTML;
+    //$('#bd > .yui-b > a').each(function(){
+    //    right_side_menu_content += $(this).wrapAll('div').parent().html();
+    //});
+    if ($('#bd > .yui-b > a, .right-part > div > a').length >0){
+        right_side_menu_content += '<div class="mobile-banners">'  ;
+        $('#bd > .yui-b > a, .right-part > div > a').each(function(){
+            if($(this).attr('href')!=''){
+               right_side_menu_content += this.outerHTML;
+
+            }
+        });
+        right_side_menu_content += '</div>';
+    }
+    $('.m-pikabu-right').html(right_side_menu_content);
+
+    var pikabu = new Pikabu({
+    });
+
+    $('iframe[src*="youtube"]').wrap( "<div class='youtube-wrapper'></div>" );
+});
+
 //language bar
 $(document).ready(function () {
     $("#languagebar").change(function () {

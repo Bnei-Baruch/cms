@@ -1,11 +1,11 @@
 class Mainsites::Widgets::Comments < WidgetManager::Base
   require 'parsedate'
   include ParseDate
-   
+
   def initialize(*args, &block)
     super
   end
-  
+
   def render_full
     div(:id => 'closed_comment',
       :style => "background-image:url(/images/#{@presenter.site_settings[:site_name]}/services.gif)"){
@@ -17,14 +17,14 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
       write_create_form
     }
   end
-  
+
   def render_previous
     write_previous_comments
   end
-  
-  
+
+
   def render_new_comment
-    @akismet = Akismet.new('2dac05fca4e3', 'http://kab.co.il/') 
+    @akismet = Akismet.new('2dac05fca4e3', 'http://kab.co.il/')
     is_spam = @akismet.commentCheck(
       @presenter.controller.request.remote_ip,            # remote IP
       @presenter.controller.request.user_agent,           # user agent
@@ -35,27 +35,27 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
       @options[:email],                           # author email
       '',                           # author url
       @options[:body],                         # comment text
-      {})  
-    
-    
+      {})
+
+
     ppt = @tree_node.parent
     pt = @tree_node
     while ppt.id != @presenter.website_node.id
       ppt = ppt.parent
       pt = pt.parent
-    end 
+    end
     categ = pt.id
-    
-    
+
+
     new_comment = Comment.new(:title => @options[:title], :name => @options[:name],:email => @options[:email], :body => @options[:body], :tree_node_id => @options[:widget_node_id], :is_spam => is_spam, :is_valid => false, :category => categ)
     new_comment.save!
-    
+
     write_effect_yellow(@options[:name])
     write_create_form
   end
 
   private
-  
+
   def write_effect_yellow(name)
     div(:id => 'yellow_effect'){
       text _(:thanks) + " #{name}"
@@ -95,8 +95,8 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
             input :type => 'hidden', :name => 'options[widget_node_id]', :value => tree_node.id
           }
         }
-        
-        
+
+
         tr{
           td{}
           td{
@@ -116,17 +116,17 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
       }
     }
   end
-  
+
   def write_previous_comments
     comment_list = Comment.list_all_comments_for_page(tree_node.id)
     counter_for_comments = comment_list.size
-    div(:class => 'comment_header'){text _(:comments)}
+    div(:class => 'comment_header mobile-hidden'){text _(:comments)}
     if counter_for_comments == 0
-      div(:class => 'comment_empty'){text _(:there_are_no_comments_so_far)}
+      div(:class => 'comment_empty mobile-hidden'){text _(:there_are_no_comments_so_far)}
     end
     comment_list.each { |cl|
       cmcreated = parsedate cl.created_at.to_s
-      div(:class => 'comment_item'){
+      div(:class => 'comment_item mobile-hidden'){
         div(:class => 'comment_title'){
           if cl.body.blank?
             rawtext "#{counter_for_comments}. #{cl.title}"
@@ -134,9 +134,9 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
           else
             span(:class => "comment_clickable"){rawtext "#{counter_for_comments}. #{cl.title}"}
           end
-          
+
         }
-        
+
         br
         text cl.name+', '
         text cmcreated[2]
@@ -148,7 +148,7 @@ class Mainsites::Widgets::Comments < WidgetManager::Base
         text cmcreated[3].to_s+':'+cmcreated[4].to_s
         div(:class => 'comment_body'){text cl.body} unless cl.body.blank?
       }
-      counter_for_comments -=  1 
+      counter_for_comments -=  1
     }
   end
 

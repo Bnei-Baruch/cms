@@ -25,9 +25,11 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         meta "http-equiv" => "Content-language", "content" => "utf8"
         title ext_meta_title
         meta(:name => 'description', :content => ext_meta_description)
+        meta :name => 'viewport', :content => 'width=device-width, initial-scale=1'
 
         javascript_include_tag 'flowplayer-3.2.4.min.js', 'flashembed.min.js'
         javascript_include_tag 'jquery',
+                               'pikabu.js',
         'ui/ui.core.min.js',
         'ui/jquery.color.js',
         'jquery.curvycorners.min.js', 'jquery.browser.js', 'jq-helpers-hb',
@@ -59,6 +61,10 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
 	</script>
 <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=682077405245448&amp;ev=PixelInitialized" /></noscript>
       FB
+
+        stylesheet_link_tag 'pikabu', :media => 'all'
+        # stylesheet_link_tag 'pikabu-theme', :media => 'all'
+        stylesheet_link_tag 'hebmain/responsive', :media => 'all'
 
         rawtext <<-GA_new
         <script type="text/javascript">
@@ -128,124 +134,30 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         GCA
       }
       body {
-        div(:id => 'doc2', :class => 'yui-t5') {
-          div(:id => 'bd') {
-            div(:id => 'google_ads') {
-              rawtext <<-GCA
-              <script type="text/javascript">
-                GA_googleFillSlot("kab-co-il_top-banner_950x65");
-              </script>
-              GCA
-            }
-            div(:id => 'yui-main') {
-              div(:class => 'yui-b') {
-                div(:class => 'yui-gd') {
-                  @dynamic_tree.render_to(self)
-                  div(:id => 'hd') {
-                    make_sortable(:selector => '#hd .links', :axis => 'x') {
-                      @header_top_links.render_to(self)
-                    }
-                  }
-                  div(:class => 'menu') {
-                    w_class('sections').new.render_to(self)
-                  }
-                  div(:class => 'yui-u first') {
-                    div(:class => 'left-part') {
-                      w_class('cms_actions').new(:tree_node => tree_node,
-                        :options => {:buttons => %W{ new_button },
-                          :resource_types => %W{ rss },
-                          :button_text => 'הוספת יחידות תוכן - עמודה שמאלית',
-                          :new_text => 'הוסף RSS נוסף',
-                          :has_url => false,
-                          :placeholder => 'left'}).render_to(self)
-
-                      w_class('cms_actions').new(:tree_node => tree_node,
-                        :options => {:buttons => %W{ new_button },
-                          :resource_types => %W{ iframe },
-                          :button_text => 'הוספת יחידות iframe - עמודה שמאלית',
-                          :new_text => 'הוסף iframe נוסף',
-                          :has_url => false,
-                          :placeholder => 'left'}).render_to(self)
-
-                      w_class('cms_actions').new(:tree_node => tree_node,
-                        :options => {:buttons => %W{ new_button },
-                          :resource_types => %W{ kabtv },
-                          :button_text => 'ניהול יחידת טלוויזיה',
-                          :new_text => 'הוספת יחידת טלוויזיה',
-                          :has_url => false,
-                          :placeholder => 'home_kabtv'}).render_to(self)
-
-                      show_content_resources(:resources => kabtv_resources,
-                        :parent => :website,
-                        :placeholder => :home_kabtv,
-                        :sortable => false
-                      )
-
-                      div(:class => 'left-column'){
-                        show_content_resources(:resources => left_column_resources,
-                          :parent => :website,
-                          :placeholder => :left,
-                          :sortable => true
-                        )
-                      }
-                      make_sortable(:selector => ".left-column") {
-                        left_column_resources
-                      }
-                    }
-                  }
-                  div(:class => 'yui-u') {
-                    div(:class => 'content') {
-                      div(:class => 'h1') {
-                        text 'המומלצים'
-                        div(:class =>'h1-right')
-                        div(:class =>'h1-left')
-                      }
-
-                      w_class('cms_actions').new(:tree_node => @tree_node,
-                        :options => {:buttons => %W{ new_button },
-                          :resource_types => %W{content_preview title},
-                          :new_text => 'הוסף תצוגה מקדימה',
-                          :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
-                          :has_url => false, :placeholder => 'middle'}).render_to(self)
-                      show_content_resources(:resources => middle_column_resources,
-                        :parent => :website,
-                        :placeholder => :middle,
-                        :sortable => true)
-
-                      make_sortable(:selector => ".content") {
-                        middle_column_resources
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            div(:class => 'yui-b') {
-              div(:id => 'hd-r') {
-                @header_logo.render_to(self)
-                @languages.render_to(self)
-
-              } #Logo goes here
-              div(:class => 'right-part') {
-                div(:class => 'h1') {
-                  text 'פעם ראשונה באתר?'
-                  div(:class =>'h1-right')
-                  div(:class =>'h1-left')
-                }
-
-                video_gallery
-
-                downloads
-
-                right_column
-              }
+        div(:class => "m-pikabu-viewport") {
+          div(:class => "m-pikabu-sidebar m-pikabu-left") {
+            h2 {
+              rawtext 'Left Sidebar Content'
             }
           }
-          div(:id => 'ft') {
-            make_sortable(:selector => '#ft .links', :axis => 'x') {
-              @header_bottom_links.render_to(self)
+          div(:class => "m-pikabu-container") {
+            div(:class => 'mobile-header mobile-only') {
+              a(:class => "m-pikabu-nav-toggle", :'data-role' => "left", :'href' => "javascript:;") {
+              }
+              a(:href => presenter.home, :class => 'mobile-logo'){img(:src => img_path('m-logo.svg'), :alt => _(:kabbalah_la_am), :title => _(:kabbalah_la_am))}
+
+              a(:class => "m-pikabu-nav-toggle", :'data-role' => "right", :'href' => "javascript:;") {
+              }
             }
-            @header_copyright.render_to(self)
+            div {
+              render_body
+            }
+          }
+
+          div(:class => "m-pikabu-sidebar m-pikabu-right") {
+            h2 {
+              rawtext 'Right Sidebar Content'
+            }
           }
         }
         @google_analytics.render_to(self)
@@ -255,6 +167,129 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
   end
 
   private
+
+  def render_body
+    div(:id => 'doc2', :class => 'yui-t5') {
+      div(:id => 'bd') {
+        div(:id => 'google_ads') {
+          rawtext <<-GCA
+              <script type="text/javascript">
+                GA_googleFillSlot("kab-co-il_top-banner_950x65");
+              </script>
+          GCA
+        }
+        div(:id => 'yui-main') {
+          div(:class => 'yui-b') {
+            div(:class => 'yui-gd') {
+              @dynamic_tree.render_to(self)
+              div(:id => 'hd', :class => 'mobile-hidden') {
+                make_sortable(:selector => '#hd .links', :axis => 'x') {
+                  @header_top_links.render_to(self)
+                }
+              }
+              div(:class => 'menu mobile-hidden') {
+                w_class('sections').new.render_to(self)
+              }
+              div(:class => 'yui-u first') {
+                div(:class => 'left-part') {
+                  w_class('cms_actions').new(:tree_node => tree_node,
+                                             :options => {:buttons => %W{ new_button },
+                                                          :resource_types => %W{ rss },
+                                                          :button_text => 'הוספת יחידות תוכן - עמודה שמאלית',
+                                                          :new_text => 'הוסף RSS נוסף',
+                                                          :has_url => false,
+                                                          :placeholder => 'left'}).render_to(self)
+
+                  w_class('cms_actions').new(:tree_node => tree_node,
+                                             :options => {:buttons => %W{ new_button },
+                                                          :resource_types => %W{ iframe },
+                                                          :button_text => 'הוספת יחידות iframe - עמודה שמאלית',
+                                                          :new_text => 'הוסף iframe נוסף',
+                                                          :has_url => false,
+                                                          :placeholder => 'left'}).render_to(self)
+
+                  w_class('cms_actions').new(:tree_node => tree_node,
+                                             :options => {:buttons => %W{ new_button },
+                                                          :resource_types => %W{ kabtv },
+                                                          :button_text => 'ניהול יחידת טלוויזיה',
+                                                          :new_text => 'הוספת יחידת טלוויזיה',
+                                                          :has_url => false,
+                                                          :placeholder => 'home_kabtv'}).render_to(self)
+
+                  show_content_resources(:resources => kabtv_resources,
+                                         :parent => :website,
+                                         :placeholder => :home_kabtv,
+                                         :sortable => false
+                  )
+
+                  div(:class => 'left-column mobile-hidden'){
+                    show_content_resources(:resources => left_column_resources,
+                                           :parent => :website,
+                                           :placeholder => :left,
+                                           :sortable => true
+                    )
+                  }
+                  make_sortable(:selector => ".left-column") {
+                    left_column_resources
+                  }
+                }
+              }
+              div(:class => 'yui-u') {
+                div(:class => 'content') {
+                  div(:class => 'h1') {
+                    text 'המומלצים'
+                    div(:class =>'h1-right')
+                    div(:class =>'h1-left')
+                  }
+
+                  w_class('cms_actions').new(:tree_node => @tree_node,
+                                             :options => {:buttons => %W{ new_button },
+                                                          :resource_types => %W{content_preview title},
+                                                          :new_text => 'הוסף תצוגה מקדימה',
+                                                          :button_text => 'הוספת יחידות תוכן - עמודה מרכזית',
+                                                          :has_url => false, :placeholder => 'middle'}).render_to(self)
+                  show_content_resources(:resources => middle_column_resources,
+                                         :parent => :website,
+                                         :placeholder => :middle,
+                                         :sortable => true)
+
+                  make_sortable(:selector => ".content") {
+                    middle_column_resources
+                  }
+                }
+              }
+            }
+          }
+        }
+        div(:class => 'yui-b mobile-hidden') {
+          div(:id => 'hd-r') {
+            @header_logo.render_to(self)
+            @languages.render_to(self)
+
+          } #Logo goes here
+          div(:class => 'right-part') {
+            div(:class => 'h1') {
+              text 'פעם ראשונה באתר?'
+              div(:class =>'h1-right')
+              div(:class =>'h1-left')
+            }
+
+            video_gallery
+
+            downloads
+
+            right_column
+          }
+        }
+      }
+      div(:id => 'ft') {
+        make_sortable(:selector => '#ft .links', :axis => 'x') {
+          @header_bottom_links.render_to(self)
+        }
+        @header_copyright.render_to(self)
+      }
+    }
+  end
 
   def right_column_resources
     @tree_nodes_right ||= TreeNode.get_subtree(

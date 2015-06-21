@@ -89,7 +89,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_kabtv_exist
     !content_header_resources.blank?
   end
-  
+
   def ext_breadcrumbs
     WidgetManager::Base.new(helpers) do
       hide_breadcrumbs = get_hide_breadcrumbs
@@ -100,10 +100,10 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
             div(:class =>'h1-right')
             div(:class =>'h1-left')
           }
-          w_class('breadcrumbs').new().render_to(self) 
-          div(:class => 'margin-25') {text ' '}
+          w_class('breadcrumbs').new().render_to(self)
+          div(:class => 'margin-25 mobile-hidden') {text ' '}
         }
-      end     
+      end
     end
   end
   def ext_content_header
@@ -131,7 +131,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
             :new_text => _(:create_new_wide_unit),
             :has_url => false, :placeholder => 'main_content_header'}).render_to(self)
       end
-      
+
       content_header_resources.each{|e|
         div(:id => sort_id(e), :class => "item#{' draft' if e.resource.status == 'DRAFT'}") {
           sort_handle
@@ -154,7 +154,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
             :edit_text => 'ערוך דף תוכן',
             :has_url => false, :placeholder => 'main_content'}).render_to(self)
       end
-      
+
       hide_title = get_hide_title
       if (hide_title.is_a?(String) && hide_title.empty?) || (not hide_title)
         h1 get_title
@@ -188,10 +188,10 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
           rawtext get_body
         }
       end
-      
+
       if @presenter.page_params.has_key?('archive') && get_acts_as_section
         div(:class => 'index sortable') {
-          content_resources.each_with_index { |item, index|  
+          content_resources.each_with_index { |item, index|
             klass = index.odd? ? 'element preview-even' : 'element preview-odd'
             div(:class => klass, :id => sort_id(item)) {
               sort_handle
@@ -208,7 +208,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
             render_content_resource(e)
             div(:class => 'clear')
           }
-        }       
+        }
       end
       content_resources
     end
@@ -240,7 +240,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
   def ext_main_image
     WidgetManager::Base.new do
       date = get_countdown_date
-      
+
       if date && !date.empty?
         servertime = Time.new.strftime('%B %d, %Y %H:%M:%S')
         targettime = Time.parse(Date.strptime(date, '%d.%m.%Y').to_s).strftime('%B %d, %Y 09:%M:%S')
@@ -281,12 +281,12 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
     klass = tree_node.resource.resource_type.hrid
     return w_class(klass).new(:tree_node => tree_node, :view_mode => view_mode).render_to(self)
   end
-  
+
   def content_resources
     if @presenter.page_params.has_key?('archive') && get_acts_as_section
       @content_resources ||= TreeNode.get_subtree(
         :parent => tree_node.id,
-        :resource_type_hrids =>  ['content_page'], 
+        :resource_type_hrids =>  ['content_page'],
         :depth => 1,
         :has_url => true,
         :status => ['ARCHIVED']
@@ -299,7 +299,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
         :has_url => false,
         :placeholders => ['main_content'],
         :status => ['PUBLISHED', 'DRAFT']
-      )     
+      )
     end
   end
 
@@ -316,7 +316,7 @@ class Hebmain::Templates::ContentPage < WidgetManager::Template
 
   def related_items(resource_types)
     @related_items ||= TreeNode.get_subtree(
-      :parent => tree_node.id, 
+      :parent => tree_node.id,
       :resource_type_hrids => resource_types,
       :depth => 1,
       :has_url => false,

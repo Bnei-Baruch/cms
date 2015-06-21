@@ -21,7 +21,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
           render_homepage_wmv
         end
       }
-      div(:id => 'kabtv-bot') {
+      div(:id => 'kabtv-bot', :class => 'mobile-hidden') {
         a(:href => get_target, :onclick => "google_tracker('/homepage/widget/kabtv/go_to_tv');") { span(:class => 'text-tv') { text _(:tothetvchannel) } }
       }
       div(:class => "clear")
@@ -31,7 +31,7 @@ class Global::Widgets::Kabtv < WidgetManager::Base
           a(:href => get_golive_link) { span(:class => 'text-live') { text _(:clicktogolive) } }
         }
       end
-      div(:class => 'box1_headersection_tv') { span(:class => 'futurprogram-plus') { text _(:future_programs) } }
+      # div(:class => 'box1_headersection_tv') { span(:class => 'futurprogram-plus') { text _(:future_programs) } }
       div(:id => 'kabtv-mid') {
       }
       div(:class => "clear")
@@ -759,7 +759,6 @@ $(function() {
 						$('#home-kabtv #kabtv-top').height(270);
 						var varAnalyzerID = "#{get_analyzer_id}";
 						var cdn_ClipURL =  "#{get_smil_url}";
-						$('#home-kabtv #kabtv-top').height(270);
 						 objPlayer = $f('flashplayer-#{object_id}',
                 {src:'/flowplayer/3dcdn/3Dcdn.player.swf', version: [10, 0], cachebusting: $.browser.msie},
                 {
@@ -980,3 +979,4 @@ $(function() {
                                             :placeholder => 'home_kabtv'}).render_to(self)
   end
 end
+

@@ -9,7 +9,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
     layout.ext_main_image = ext_main_image
     layout.ext_related_items = ext_related_items
   end
-  
+
   def ext_content_header
     WidgetManager::Base.new(helpers) do
     end
@@ -24,19 +24,19 @@ class Hebmain::Templates::Search < WidgetManager::Template
             div(:class =>'h1-right')
             div(:class =>'h1-left')
           }
-          w_class('breadcrumbs').new().render_to(self) 
+          w_class('breadcrumbs').new().render_to(self)
           div(:class => 'margin-25') {text ' '}
         }
-      end     
+      end
     end
   end
   def ext_content
     WidgetManager::Base.new(helpers) do
 
       h1 get_title if get_title
-            
+
       div(:id => "cse-search-results")
-      
+
       javascript {
         rawtext <<-SCRIPT_CODE
           var googleSearchIframeName = "cse-search-results";
@@ -68,7 +68,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
   def ext_meta_title
     WidgetManager::Base.new do
       #  text get_name# unless get_hide_name
-      w_class('breadcrumbs').new(:view_mode => 'meta_title') 
+      w_class('breadcrumbs').new(:view_mode => 'meta_title')
     end
   end
 
@@ -79,7 +79,7 @@ class Hebmain::Templates::Search < WidgetManager::Template
           img(:src => get_main_image, :alt => get_main_image_alt, :title => get_main_image_alt)
           text get_main_image_alt
         }
-      end                
+      end
     end
   end
 
@@ -99,13 +99,13 @@ class Hebmain::Templates::Search < WidgetManager::Template
 
   def related_items
     TreeNode.get_subtree(
-      :parent => tree_node.id, 
-      :resource_type_hrids => ['box'], 
+      :parent => tree_node.id,
+      :resource_type_hrids => ['box'],
       :depth => 1,
       :has_url => false,
       :placeholders => ['related_items'],
       :status => ['PUBLISHED', 'DRAFT']
-    )               
+    )
   end
 
 end

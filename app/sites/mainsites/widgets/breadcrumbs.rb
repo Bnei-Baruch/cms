@@ -1,6 +1,6 @@
 class Mainsites::Widgets::Breadcrumbs < WidgetManager::Base
   def render_full
-    div(:class => 'breadcrumbs') { 
+    div(:class => 'breadcrumbs mobile-hidden') {
       a(:href => presenter.home ) {text _(:'home_breadcrumb')}
       span(:class => 'gt') {text ' > '}
       unless parents.empty?
@@ -14,29 +14,29 @@ class Mainsites::Widgets::Breadcrumbs < WidgetManager::Base
     }
 
   end
-  
-  def render_meta_title  
-    
+
+  def render_meta_title
+
     meta_title = @tree_node.resource.properties("meta_title").get_value rescue nil
     if !meta_title || meta_title.empty?
       meta_title = @tree_node.resource.name
     end
-    title = meta_title || '' 
-    if @presenter.site_settings[:chain_meta_title]    
+    title = meta_title || ''
+    if @presenter.site_settings[:chain_meta_title]
       unless parents.empty?
         parents.each{ |e|
           meta_title = e.resource.properties("meta_title").get_value rescue nil
           if !meta_title || meta_title.empty?
           	meta_title = e.resource.name
           end
-	  	
+
           title = title + ' | ' + meta_title
         }
-      end  
-    end    
+      end
+    end
     text title
   end
-  
+
   def render_titles
     unless calculated_titles.empty?
       calculated_titles.reverse.each_with_index{ |e, i|
@@ -58,6 +58,6 @@ class Mainsites::Widgets::Breadcrumbs < WidgetManager::Base
   def parents
     presenter.parents(@tree_node) || []
   end
-  
+
 
 end

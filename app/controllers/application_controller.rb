@@ -67,6 +67,8 @@ class ApplicationController < ActionController::Base
     # Pick a unique cookie name to distinguish our session data from others'
     request.session_options[:session_key] = '_cms_session_id'
 
+    $my_ip = request.env['HTTP_X_FORWARDED_FOR']
+
     if session[:user_id].nil?
       anonymous = AuthenticationModel.get_anonymous_user
       user = User.authenticate(anonymous[:username], anonymous[:password])

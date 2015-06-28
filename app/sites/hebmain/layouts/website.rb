@@ -44,7 +44,13 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         :cache => "cache_website-#{@presenter.website_hrid}"
 
       rawtext <<-FB
-	<script>(function() {
+	<script>
+  $(document).ready(function(){
+    if ($(window).width() > 969){
+      jwplayer().setMute(true);
+    }
+  });
+  (function() {
 	  var _fbq = window._fbq || (window._fbq = []);
 	  if (!_fbq.loaded) {
 	    var fbds = document.createElement('script');

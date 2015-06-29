@@ -222,6 +222,8 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
     html("xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en", :id => "#{site_config[:site_name]}") {
       render_head
       body {
+        @dynamic_tree.render_to(self)
+
         div(:class => "m-pikabu-viewport") {
           div(:class => "m-pikabu-sidebar m-pikabu-left") {
             h2 {
@@ -269,7 +271,6 @@ class Hebmain::Layouts::ContentPage < WidgetManager::Layout
         div(:id => 'yui-main') {
           div(:class => 'yui-b') {
             div(:class => 'yui-ge') {
-              @dynamic_tree.render_to(self)
               div(:id => 'hd', :class => 'mobile-hidden') {
                 make_sortable(:selector => '#hd .links', :axis => 'x') {
                   @header_top_links.render_to(self)

@@ -134,6 +134,8 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         GCA
       }
       body {
+        @dynamic_tree.render_to(self)
+
         div(:class => "m-pikabu-viewport") {
           div(:class => "m-pikabu-sidebar m-pikabu-left") {
             h2 {
@@ -181,7 +183,6 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         div(:id => 'yui-main') {
           div(:class => 'yui-b') {
             div(:class => 'yui-gd') {
-              @dynamic_tree.render_to(self)
               div(:id => 'hd', :class => 'mobile-hidden') {
                 make_sortable(:selector => '#hd .links', :axis => 'x') {
                   @header_top_links.render_to(self)

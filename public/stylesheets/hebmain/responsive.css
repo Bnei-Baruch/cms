@@ -516,11 +516,11 @@ iframe[name='google_conversion_frame'] {
     #kabtv #player-side {
         display : table-header-group;
         float   : none;
-
     }
 
     #kabtv #player-side #player_wrapper {
         margin-bottom : 10px;
+        position: relative !important;
     }
 
     #kabtv .ui-tabs-nav {

@@ -170,6 +170,16 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
         }
         @google_analytics.render_to(self)
         rawtext '<script type="text/javascript"> setTimeout(function(){var a=document.createElement("script"); var b=document.getElementsByTagName("script")[0]; a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/4152.js?"+Math.floor(new Date().getTime()/3600000); a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1); </script>'
+        rawtext <<-FB
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v2.3&appId=115572635148905";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+        FB
       }
     }
   end
@@ -228,6 +238,9 @@ class Hebmain::Layouts::Website < WidgetManager::Layout
                                          :placeholder => :home_kabtv,
                                          :sortable => false
                   )
+                  rawtext <<-FB
+<div class="fb-page" data-href="https://www.facebook.com/kabcoil" data-height="202" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/kabcoil"><a href="https://www.facebook.com/kabcoil">‎קבלה לעם‎</a></blockquote></div></div>
+                  FB
 
                   div(:class => 'left-column mobile-hidden'){
                     show_content_resources(:resources => left_column_resources,

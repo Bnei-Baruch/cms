@@ -239,3 +239,6 @@ a.more img{
     border-bottom:none !important;
 }
 
+#atstbx {
+    display: inline-block !important;
+}

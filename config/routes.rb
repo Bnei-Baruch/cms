@@ -48,8 +48,8 @@ ActionController::Routing::Routes.draw do |map|
   # Template controller - it is the main content controller for 90% of the site
   # :id is the permalink stuff (right, it is not consistent... so what ?!)
   map.connect '/feed.:format', :controller => 'sites/templates', :action => 'template'
-  map.connect ':prefix/feed.:format' , :controller => 'sites/templates' , :action => 'template'
-  map.connect ':prefix/:permalink/feed.:format' , :controller => 'sites/templates' , :action => 'template'
+  #ZZZ map.connect ':prefix/feed.:format' , :controller => 'sites/templates' , :action => 'template'
+  #ZZZ map.connect ':prefix/:permalink/feed.:format' , :controller => 'sites/templates' , :action => 'template'
   map.tm ':prefix/:permalink' , :controller => 'sites/templates' , :action => 'template'
 
   

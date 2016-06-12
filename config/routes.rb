@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   # REST API for fetching cms data
   map.connect '/api/first_page_article.:format', :controller => 'sites/api' , :action => 'get_first_page_article', :conditions => { :method => :get }
   map.connect '/api/categories.:format', :controller => 'sites/api' , :action => 'get_categories', :conditions => { :method => :get }
+  map.connect '/api/all_articles.:format', :controller => 'sites/api' , :action => 'get_all_articles', :conditions => { :method => :get }
   map.connect '/api/article.:format', :controller => 'sites/api' , :action => 'get_article', :conditions => { :method => :get }
   map.connect '/api/articles.:format', :controller => 'sites/api' , :action => 'get_category_articles', :conditions => { :method => :get }
   map.connect '/api/article_comment.:format', :controller => 'sites/api' , :action => 'add_comment_to_article', :conditions => { :method => :post }

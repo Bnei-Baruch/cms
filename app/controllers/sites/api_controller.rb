@@ -1,8 +1,18 @@
 class Sites::ApiController < ApplicationController
+  include TemplateExtensions
 
   def documentation
     respond_to do |format|
       format.html
+    end
+  end
+
+  def get_all_articles
+    @articles = []
+    categories(3).each do |cat|
+      articles(cat.id).each do |article|
+        @articles << get_article_data(article)
+      end
     end
   end
 
@@ -44,34 +54,12 @@ class Sites::ApiController < ApplicationController
 
   # GET http://mydomain.com/api/article.format
   def get_article
-    article_id = params[:article_id]
-    @tree_node = TreeNode.find(article_id)
+    @article = get_article_data(params[:article_id])
+
     respond_to do |format|
       format.xml
-      format.js {
-        resource   = @tree_node.resource
-        rp         = resource.properties('preview_image')
-        image_name = 'medium'
-        image_object = Attachment.get_short_attachment(rp.id) rescue nil
-        image = get_file_url(image_object, image_name) if image_object
-        description = resource.get_resource_property_by_property_hrid('description') rescue ''
-        author = resource.get_resource_property_by_property_hrid('writer') rescue ''
-        body          = resource.get_resource_property_by_property_hrid('body')
-        comments      = @tree_node.comments
-        comments_size = comments ? comments.size : 0
-        article       = {
-            'category_id'     => @tree_node.parent_id,
-            'article_id'      => @tree_node.id,
-            'updated_at'      => resource.updated_at,
-            'author'          => author,
-            'title'           => resource.name,
-            'short'           => description,
-            'body'            => body,
-            'num_of_comments' => comments_size.to_s,
-            'image'           => image
-        }
-
-        render :json => article, :callback => params[:callback]
+      format.json {
+        render :json => @article, :callback => params[:callback]
       }
       format.html { render :text => 'html content is not supported. Please try the same url with .xml extension' }
     end
@@ -219,4 +207,39 @@ class Sites::ApiController < ApplicationController
     params[:filter_by] && params[:filter_by] == 'mobile'
   end
 
+  def get_article_data(article_id)
+    tree_node = article_id.kind_of?(TreeNode) ? article_id : TreeNode.find(article_id)
+    children = TreeNode.get_subtree(
+        :parent => tree_node.id,
+        :resource_type_hrids => ['article', 'content_preview', 'section_preview', 'rss', 'video', 'media_rss', 'video_gallery', 'media_casting', 'campus_form', 'iframe', 'title', 'manpower_form', 'picture_gallery', 'audio_gallery', 'newsletter', 'popup'],
+        :depth => 1,
+        :has_url => false,
+        :placeholders => ['main_content'],
+        :status => ['PUBLISHED']
+    ).map{|tn|
+      class_name = tn.resource.resource_type.hrid
+      render_to_string(:widget => w_class(class_name), :tree_node => tn,
+                       :view_mode => 'full', :options => {}, :layout => false)
+    }.join
+
+    resource = tree_node.resource
+    rp = resource.properties('preview_image')
+    image_object = Attachment.get_short_attachment(rp.id) rescue nil
+    body = resource.get_resource_property_by_property_hrid('body')
+    comments = tree_node.comments
+
+    {
+        :category_id     => tree_node.parent_id,
+        :article_id      => tree_node.id,
+        :slug            => tree_node.permalink,
+        :updated_at      => resource.updated_at,
+        :author          => (resource.get_resource_property_by_property_hrid('writer') rescue ''),
+        :title           => resource.name,
+        :description           => (resource.get_resource_property_by_property_hrid('description') rescue ''),
+        :body            => CGI.unescapeHTML(body + children),
+        :num_of_comments => comments ? comments.size : 0,
+        :image           => image_object && get_file_url(image_object, 'medium')
+    }
+
+  end
 end

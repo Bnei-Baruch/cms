@@ -29,6 +29,7 @@ class Sites::ApiController < ApplicationController
     end
     respond_to do |format|
       format.xml
+      format.xls
       format.csv { render :text => to_csv(@articles) }
       format.html { render :text => 'html content is not supported. Please try the same url with .xml extension' }
     end

@@ -1,0 +1,15 @@
+sheet1 = xls.create_worksheet
+sheet1.row(1).concat [:post_id, :post_date, :post_content, :post_title, :post_excerpt, :post_name, :post_thumbnail]
+bold = Spreadsheet::Format.new(:weight => :bold)
+sheet1.row(1).default_format = bold
+
+@articles.each_with_index do |article, idx|
+    sheet1.uppdate_row idx + 2,
+        article[:article_id],
+        article[:updated_at],
+        article[:body].gsub(/ & /, ' &amp;'),
+        article[:title],
+        article[:description],
+        article[:slug],
+        article[:image]
+}

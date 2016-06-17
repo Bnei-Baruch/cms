@@ -19,3 +19,4 @@ group :production do
 end
 
 gem 'rake', '0.9.2'
+gem 'spreadsheet'

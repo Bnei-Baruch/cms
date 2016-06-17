@@ -16,15 +16,23 @@ class Sites::ApiController < ApplicationController
     end
   end
 
+  require 'ekuseru'
   def get_all_articles
     @articles = []
     categories(3).each do |cat|
       articles(cat.id).each do |article|
-        begin
+        # begin
           @articles << get_article_data(article)
-        rescue
-          puts "@@@@@"
-        end
+          respond_to do |format|
+            format.xml
+            format.xls
+            format.csv { render :text => to_csv(@articles) }
+            format.html { render :text => 'html content is not supported. Please try the same url with .xml extension' }
+          end
+          return
+        # rescue
+        #   puts "@@@@@"
+        # end
       end
     end
     respond_to do |format|

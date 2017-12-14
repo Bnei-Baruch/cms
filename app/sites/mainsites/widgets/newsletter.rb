@@ -40,11 +40,14 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
 			form(:class => 'inner', :action => action, :method => method,
         :onsubmit => "javacript:google_tracker('#{tracker}');"){
 				p{
-					input :type => 'text', :id => 'ml_user_email', :name => 'YMP2',
+					input :type => 'text', :id => 'ml_user_email', :name => 'inf_field_Email',
           :onfocus => "if(document.getElementById('ml_user_email').value == '#{input_box_text}') { document.getElementById('ml_user_email').value = ''; }",
           :title => _(:email_address), :value => input_box_text
-				  input :name => 'YMP0', :type => 'hidden', :value => ''
-				  br
+          input :type => 'hidden', :name => 'inf_form_xid', :value => '543ae8a2cc4332eed42c21173ff93abc'
+          input :type => 'hidden', :name => 'inf_form_name', :value => 'Web Form submitted'
+          input :type => 'hidden', :name => 'infusionsoft_version', :value => '1.68.0.179'
+
+          br
 				  br
           span :class => 'prebutton', :style => 'display:block'
 					input :name => "subscribe", :class => "button", :value => box_text_button, :type => "submit",
@@ -75,7 +78,7 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
     
     box_title = get_title || _(:newsletter_subscription)
     box_name = get_name
-    action = get_id || 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgeh' # to move to configuration
+    action = get_id || 'https://ay351.infusionsoft.com/app/form/process/543ae8a2cc4332eed42c21173ff93abc' # to move to configuration
     box_text_button = get_text_button || 'שלח'
     input_box_text = get_input_box_text || nl[:enter_email]
     
@@ -86,6 +89,24 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
     #        'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgeh'
     #    end
 
+
+=begin
+         form(:class => 'inner','accept-charset' => "UTF-8", :action => 'https://ay351.infusionsoft.com/app/form/process/543ae8a2cc4332eed42c21173ff93abc', :method => "POST"){
+        p{
+          text input_box_text +" : "
+          input :type => 'text', :id => 'email', :name => 'inf_field_Email' #, :onfocus =>  "if(document.getElementById('email').value == 'הזן כתובת e-mail') { document.getElementById('email').value = ''; }", :title => 'כתובת e-mail', :value => 'הזן כתובת e-mail'
+          input :type => 'hidden', :name => 'inf_form_xid', :value => '543ae8a2cc4332eed42c21173ff93abc'
+          input :type => 'hidden', :name => 'inf_form_name', :value => 'Web Form submitted'
+          input :type => 'hidden', :name => 'infusionsoft_version', :value => '1.68.0.179'
+          br
+          br
+          input :name => "subscribe", :class => "button", :value => box_text_button , :type => "submit", :title => box_text_button, :alt => box_text_button
+        }
+
+=end
+
+
+
     div(:class => 'newsletter', :id => 'newsletter_width'){
       h1 box_title
       form(:class => 'inner', :action => action, :method => "post",
@@ -93,8 +114,10 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
         :onsubmit => "javacript:google_tracker('/homepage/widget/newsletter/hebrew');"){
         p{
           text box_name + ' : ' unless box_name.empty?
-          input :type => 'hidden', :name => 'YMP0', :value => ''
-          input :type => 'text', :id => 'ml_user_email', :name => 'YMP2',
+          input :type => 'hidden', :name => 'inf_form_xid', :value => '543ae8a2cc4332eed42c21173ff93abc'
+          input :type => 'hidden', :name => 'inf_form_name', :value => 'Web Form submitted'
+          input :type => 'hidden', :name => 'infusionsoft_version', :value => '1.68.0.179'
+          input :type => 'text', :id => 'ml_user_email', :name => 'inf_field_Email',
           :onfocus => "if(document.getElementById('ml_user_email').value == '#{input_box_text}') { document.getElementById('ml_user_email').value = ''; }",
           :title => input_box_text, :value => input_box_text
           br
@@ -119,7 +142,35 @@ class Mainsites::Widgets::Newsletter < WidgetManager::Base
     if box_text_button == ""
       box_text_button = 'שלח'
     end
-    
+
+
+#     <form accept-charset="UTF-8" action="https://ay351.infusionsoft.com/app/form/process/543ae8a2cc4332eed42c21173ff93abc" class="infusion-form" id="inf_form_543ae8a2cc4332eed42c21173ff93abc" method="POST">
+#     <input name="inf_form_xid" type="hidden" value="543ae8a2cc4332eed42c21173ff93abc" />
+#     <input name="inf_form_name" type="hidden" value="Web Form submitted" />
+#     <input name="infusionsoft_version" type="hidden" value="1.68.0.179" />
+#     <div class="infusion-field">
+#     <label for="inf_field_Email"> :הזינו דואר אלקטרוני *</label>
+#         <input class="infusion-field-input-container" id="inf_field_Email" name="inf_field_Email" placeholder=" :הזינו דואר אלקטרוני *" type="text" />
+#                                               </div>
+#     <input name="inf_custom_GaContent" type="hidden" value="null" />
+#                                               <input name="inf_custom_GaSource" type="hidden" value="null" />
+#     <input name="inf_custom_GaMedium" type="hidden" value="null" />
+#     <input name="inf_custom_GaTerm" type="hidden" value="null" />
+#     <input name="inf_custom_GaCampaign" type="hidden" value="null" />
+#     <input name="inf_custom_GaReferurl" type="hidden" value="null" />
+#     <input name="inf_custom_IPAddress" type="hidden" value="null" />
+#     <div>
+#     <div>&nbsp;</div>
+#     </div>
+#     <div class="infusion-submit">
+#     <button type="submit">שלח</button>
+#     </div>
+#     </form>
+# <script type="text/javascript" src="https://ay351.infusionsoft.com/app/webTracking/getTrackingCode"></script>
+# <script type="text/javascript" src="https://ay351.infusionsoft.com/app/timezone/timezoneInputJs?xid=543ae8a2cc4332eed42c21173ff93abc"></script>
+
+
+
     div(:class => 'newsletter', :id => 'newsletter_width'){
       h1 box_title
       form(:class => 'inner', :action => 'http://mlist.kbb1.com/subscribe/subscribe', :method => "get"){

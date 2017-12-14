@@ -1,8 +1,9 @@
+# encoding: utf-8
 # General configuration - if no other configuration module found this is the last override file
 module	Configuration::Hebmain
   SETTINGS = {
     # define the site view directory under app/views/sites/
-    :site_name => 'hebmain', 
+    :site_name => 'hebmain',
     # define the group view directory under app/views/sites/ -
     # this is an override after the content is not found in 'site_dir'
     :group_name => 'mainsites',
@@ -38,7 +39,7 @@ module	Configuration::Hebmain
           :video_gallery => 'homepage',
           :render_right => 'right'
         }
-      },  
+      },
       # parent widget
       :content_page => {
         # placeholder
@@ -62,7 +63,7 @@ module	Configuration::Hebmain
       :use => true,
       :icon => 'newsletter_default.gif',
       :box_title => 'הירשמו לניוזלטר השבועי',
-      :action => 'http://ymlp.com/subscribe.php?YMLPID=gbbwwygmgeh',
+      :action => 'https://ay351.infusionsoft.com/app/form/process/543ae8a2cc4332eed42c21173ff93abc',
       :method => 'post',
       :tracker => '/homepage/widget/newsletter/hebrew',
       :box_text_button => 'שלח',
